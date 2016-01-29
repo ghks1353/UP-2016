@@ -146,10 +146,8 @@ class ViewController: UIViewController {
         UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings);
         
         //Startup language initial
-        //let cLanguage:String = ;
-       // print("currentlanguage",);
         Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
-        print("Language loaded. translated title(test):", Languages.$("localTitle"));
+        //print("Language loaded. translated title(test):", Languages.$("localTitle"));
         
        updateTimeAnimation(); //first call
        setInterval(0.5, block: updateTimeAnimation);

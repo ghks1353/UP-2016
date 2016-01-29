@@ -10,7 +10,7 @@ import Foundation
 
 class Languages {
     
-    static let supportedLanguages:Array<String> = ["ko"];
+    //static let supportedLanguages:Array<String> = ["ko"];
     static var languageJsonFile:NSDictionary?;
     
     static func initLanugages( localeCode:String ) -> Void {
@@ -29,7 +29,9 @@ class Languages {
             }
             
         } else {
-            print("File not found error");
+            print("File not found error. using english file");
+            
+            initLanugages ("ko"); //영어파일이 준비되는대로 대치.
         }
         
     } //end init

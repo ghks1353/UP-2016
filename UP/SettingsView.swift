@@ -49,9 +49,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         //let navUIButton:UIButton = UIButton();
         //navUIButton.
         
-        naviItems.rightBarButtonItem = UIBarButtonItem(title: "닫기", style: .Plain, target: self, action: "viewCloseAction");
+        naviItems.rightBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
         naviItems.rightBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
-        naviItems.title = "환경설정";
+        naviItems.title = Languages.$("settingsMenu");
         navigation.items = [naviItems];
         navigation.frame = CGRectMake(0, 0, modalView.frame.width, CGFloat(42));
         modalView.addSubview(navigation);
@@ -67,16 +67,14 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         //add table cells (options)
         tablesArray = [
             [ /* SECTION 1 */
-            /*createSettingsToggle("테스트", defaultState: false, settingsID: "test")
-            , createSettingsToggle("대표 안 깨우기", defaultState: false, settingsID: "test2")*/
-             createSettingsToggle("아이콘 배지 표시", defaultState: false, settingsID: "showIconBadge")
-            , createSettingsToggle("iCloud 동기화 사용", defaultState: false, settingsID: "syncToiCloud")
+             createSettingsToggle( Languages.$("settingsIconBadgeSetting") , defaultState: false, settingsID: "showIconBadge")
+            , createSettingsToggle( Languages.$("settingsiCloud") , defaultState: false, settingsID: "syncToiCloud")
             ],
             [ /* SECTION 2*/
-                createSettingsOnlyLabel("시작 가이드", menuID: "startGuide")
-                , createSettingsOnlyLabel("앱 평가하기", menuID: "ratingApplication")
-                , createSettingsOnlyLabel("새로운 게임!", menuID: "newGame")
-                , createSettingsOnlyLabel("AVNGraphic 바로가기", menuID: "gotoAVNGraphic")
+                createSettingsOnlyLabel( Languages.$("settingsStartingGuide") , menuID: "startGuide")
+                , createSettingsOnlyLabel( Languages.$("settingsRatingApp") , menuID: "ratingApplication")
+                , createSettingsOnlyLabel( Languages.$("settingsShowNewgame") , menuID: "newGame")
+                , createSettingsOnlyLabel( Languages.$("settingsGotoAVN") , menuID: "gotoAVNGraphic")
             ]
             
         ];
@@ -116,9 +114,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
             case 0:
-                return "일반 설정";
+                return Languages.$("generalSettings");
             case 1:
-                return "도움말";
+                return Languages.$("generalGuide");
             default:
                 return "-";
         }
