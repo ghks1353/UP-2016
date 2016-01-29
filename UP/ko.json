@@ -1,0 +1,19 @@
+{
+    "title": "UP",
+    "localTitle": "업",
+    
+    "generalClose": "닫기",
+    
+    "settingsMenu": "환경설정",
+    
+    "generalSettings": "일반 설정",
+		"settingsIconBadgeSetting": "아이콘 배지 표시",
+		"settingsiCloud": "iCloud 동기화 사용",
+	"generalGuide": "도움말",
+		"settingsStartingGuide": "시작 가이드",
+		"settingsRatingApp": "앱 평가하기",
+		"settingsShowNewgame": "새로운 게임!",
+		"settingsGotoAVN": "AVNGraphic 바로가기"
+	
+	
+}
