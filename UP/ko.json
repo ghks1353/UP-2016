@@ -1,11 +1,17 @@
 {
     "title": "UP",
     "localTitle": "업",
-    
+	
+	"generalOK": "확인",
     "generalClose": "닫기",
-    
+	
+	"generalGame": "게임",
+	"generalAM": "오전",
+	"generalPM": "오후",
+	
     "settingsMenu": "환경설정",
-    
+	"alarmList": "알람 목록",
+	
     "generalSettings": "일반 설정",
 		"settingsIconBadgeSetting": "아이콘 배지 표시",
 		"settingsiCloud": "iCloud 동기화 사용",
@@ -13,7 +19,22 @@
 		"settingsStartingGuide": "시작 가이드",
 		"settingsRatingApp": "앱 평가하기",
 		"settingsShowNewgame": "새로운 게임!",
-		"settingsGotoAVN": "AVNGraphic 바로가기"
+		"settingsGotoAVN": "AVNGraphic 바로가기",
+	
+	"alarmSettings": "알람 설정",
+		"alarmTitle": "알람 이름",
+		"alarmRepeat": "알람 반복 설정",
+			"alarmRepeatFreqOnce": "없음",
+			"alarmRepeatFreqEveryday": "매일",
+			"alarmRepeatFreqWeekday": "주중",
+			"alarmRepeatFreqWeekend": "주말",
+			"alarmRepeatMon": "월",
+			"alarmRepeatTue": "화",
+			"alarmRepeatWed": "수",
+			"alarmRepeatThu": "목",
+			"alarmRepeatFri": "금",
+			"alarmRepeatSat": "토",
+			"alarmRepeatSun": "일"
 	
 	
 }

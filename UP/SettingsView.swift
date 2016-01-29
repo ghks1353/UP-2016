@@ -60,8 +60,6 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         tableView.frame = CGRectMake(0, CGFloat(42), modalView.frame.width, modalView.frame.height - CGFloat(42));
         //stableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLineEtched; //구분선 제거.
         tableView.rowHeight = UITableViewAutomaticDimension;
-        //tableView.in
-        //tableView.indexPath
         modalView.addSubview(tableView);
         
         //add table cells (options)
@@ -81,6 +79,18 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         tableView.delegate = self; tableView.dataSource = self;
         tableView.backgroundColor = modalView.backgroundColor;
         
+        //get data from local
+		DataManager.initDefaults();
+		var tmpOption:Bool = DataManager.nsDefaults.boolForKey(DataManager.settingsKeys.showBadge);
+		if (tmpOption == true) { /* badge option is true? */
+			setSwitchData("showIconBadge", value: true);
+		}
+		//icloud chk
+		tmpOption = DataManager.nsDefaults.boolForKey(DataManager.settingsKeys.syncToiCloud);
+		if (tmpOption == true) { /* icloud option is true? */
+			setSwitchData("syncToiCloud", value: true);
+		}
+			
         //add touch listener each ele
         /*for (var i:Int = 0; i < settingsArray.count; ++i) {
             
@@ -99,13 +109,19 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         //navigation.setTitleVerticalPositionAdjustment(CGFloat(6 * maxScrRatio), forBarMetrics: .Default);
         
     }
-    
-    //table touchevt
-    func optionsTouchEventHandler(sender:UITapGestureRecognizer) {
-        print("Touched");
-        //print((sender.view as! CustomTableCell).cellID);
-    }
-    
+	
+	func setSwitchData(settingsID:String, value:Bool) {
+		for (var i:Int = 0; i < settingsArray.count; ++i) {
+			if (settingsArray[i].settingsID == settingsID) {
+				(settingsArray[i].settingsElement as! UISwitch).on = true;
+				print("Saved data is on:", settingsArray[i].settingsID);
+				break;
+			}
+		} //end for
+	}
+	
+	
+	
     /// table setup
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -158,6 +174,23 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     }
     
     func viewCloseAction() {
+		//Save changes
+		//DataManager.initDefaults();
+		for (var i:Int = 0; i < settingsArray.count; ++i) {
+			switch(settingsArray[i].settingsID) {
+				case "showIconBadge":
+					DataManager.nsDefaults.setBool((settingsArray[i].settingsElement as! UISwitch).on, forKey: DataManager.settingsKeys.showBadge);
+					break;
+				case "syncToiCloud":
+					DataManager.nsDefaults.setBool((settingsArray[i].settingsElement as! UISwitch).on, forKey: DataManager.settingsKeys.syncToiCloud);
+					break;
+				default: //잉어킹: 잉어.. 잉어!! 그러나 아무 일도 일어나지 않았다
+					break;
+			}
+		}
+		
+		DataManager.nsDefaults.synchronize();
+		
         //Close this view
         self.dismissViewControllerAnimated(true, completion: nil);
     }
@@ -216,6 +249,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         tCell.addSubview(tLabel);
         tLabel.text = name;
         tCell.selectionStyle = UITableViewCellSelectionStyle.None;
+        tCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator;
         tLabel.font = UIFont.systemFontOfSize(16);
         
         settingsArray += [settingsObj];
