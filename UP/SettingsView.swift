@@ -21,10 +21,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     
     var settingsArray:Array<SettingsElement> = [];
     var tablesArray:Array<AnyObject> = [];
-    
-    //기준에 대한 비율
-    var scrRatio:Double = 1; var maxScrRatio:Double = 1; //최대가 1인 비율 크기
-    
+	
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = .clearColor()
@@ -106,7 +103,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         }*/
         
         
-        //navigation.setTitleVerticalPositionAdjustment(CGFloat(6 * maxScrRatio), forBarMetrics: .Default);
+        //navigation.setTitleVerticalPositionAdjustment(CGFloat(6 * maxDeviceGeneral.scrRatio), forBarMetrics: .Default);
         
     }
 	
@@ -164,9 +161,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     func setupModalView(frame:CGRect) {
         modalView.frame = frame;
     }
-    func setupRatio( scR:Double, mScr:Double) {
-        scrRatio = scR; maxScrRatio = mScr;
-    }
+	
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -208,12 +203,12 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         
         //해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
         tLabel.frame = CGRectMake(16, 0, self.modalView.frame.width * 0.75, CGFloat(45));
-        tCell.frame = CGRectMake(0, 0, self.modalView.frame.width, 45 /*CGFloat(45 * maxScrRatio)*/ );
+        tCell.frame = CGRectMake(0, 0, self.modalView.frame.width, 45 /*CGFloat(45 * maxDeviceGeneral.scrRatio)*/ );
         tCell.backgroundColor = colorWithHexString("#FFFFFF");
         
         
-        //tSwitch.frame = CGRectMake(, , CGFloat(36 * maxScrRatio), CGFloat(24 * maxScrRatio));
-        //tSwitch.transform = CGAffineTransformMakeScale(CGFloat(maxScrRatio), CGFloat(maxScrRatio));
+        //tSwitch.frame = CGRectMake(, , CGFloat(36 * maxDeviceGeneral.scrRatio), CGFloat(24 * maxDeviceGeneral.scrRatio));
+        //tSwitch.transform = CGAffineTransformMakeScale(CGFloat(maxDeviceGeneral.scrRatio), CGFloat(maxDeviceGeneral.scrRatio));
         
         tSwitch.frame.origin.x = self.modalView.frame.width - tSwitch.frame.width - CGFloat(8);
         tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2;
@@ -222,7 +217,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         tCell.addSubview(tLabel); tCell.addSubview(tSwitch);
         //tCell.d
         
-        tLabel.text = name; //tLabel.font = UIFont(name: "", size: CGFloat(18 * maxScrRatio));
+        tLabel.text = name; //tLabel.font = UIFont(name: "", size: CGFloat(18 * maxDeviceGeneral.scrRatio));
         tLabel.font = UIFont.systemFontOfSize(16);
         
         tCell.selectionStyle = UITableViewCellSelectionStyle.None;

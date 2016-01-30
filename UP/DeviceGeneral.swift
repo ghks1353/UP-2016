@@ -1,0 +1,32 @@
+//
+//  DeviceGeneral.swift
+//  	
+//
+//  Created by ExFl on 2016. 1. 30..
+//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//
+
+import Foundation
+import UIKit;
+
+class DeviceGeneral {
+    
+    //기기 해상도 bounds
+    static var scrSize:CGRect?;
+    //기준 해상도 (iPhone 6s plus)
+    static let workSize:CGRect = CGRect(x: 0, y: 0, width: 414, height: 736);
+    //기준에 대한 비율
+    static var scrRatio:Double = 1; static var maxScrRatio:Double = 1; //최대가 1인 비율 크기
+    
+    static func initialDeviceSize() {
+        //화면 사이즈를 얻어옴.
+        scrSize = UIScreen.mainScreen().bounds;
+        scrRatio = Double((scrSize?.width)! / workSize.width);
+        print("Width", scrSize?.width, "Height", scrSize?.height, "Ratio", scrRatio);
+        
+        //패드에서 거하게 커지는 현상방지
+        maxScrRatio = min(1, scrRatio);
+        
+    }
+    
+}
