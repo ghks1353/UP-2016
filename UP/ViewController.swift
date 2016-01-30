@@ -131,8 +131,13 @@ class ViewController: UIViewController {
         
         
         //Startup permission request
-        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil);
-        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings);
+        if #available(iOS 8.0, *) {
+            let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+			UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings);
+        } else {
+            // Fallback on earlier versions
+        };
+		
         
         //Startup language initial
         Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
@@ -145,12 +150,20 @@ class ViewController: UIViewController {
     
     func openSettingsView (gestureRecognizer: UITapGestureRecognizer) {
         //환경설정 열기
-        modalSettingsView?.modalPresentationStyle = .OverFullScreen;
+        if #available(iOS 8.0, *) {
+            modalSettingsView?.modalPresentationStyle = .OverFullScreen
+        } else {
+            // Fallback on earlier versions
+        };
         self.presentViewController(modalSettingsView!, animated: true, completion: nil);
     }
     func openAlarmlistView (gestureRecognizer: UITapGestureRecognizer) {
         //Alarmlist view 열기
-        modalAlarmListView?.modalPresentationStyle = .OverFullScreen;
+        if #available(iOS 8.0, *) {
+            modalAlarmListView?.modalPresentationStyle = .OverFullScreen
+        } else {
+            // Fallback on earlier versions
+        };
         self.presentViewController(modalAlarmListView!, animated: true, completion: nil);
     }
     

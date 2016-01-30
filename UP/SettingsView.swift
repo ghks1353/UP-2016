@@ -27,11 +27,16 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         self.view.backgroundColor = .clearColor()
         
         //Background blur
-        let visuaEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        visuaEffectView.frame = self.view.bounds
-        visuaEffectView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
-        visuaEffectView.translatesAutoresizingMaskIntoConstraints = true;
-        self.view.addSubview(visuaEffectView);
+        if #available(iOS 8.0, *) {
+			let visuaEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
+			visuaEffectView.frame = self.view.bounds
+			visuaEffectView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
+			visuaEffectView.translatesAutoresizingMaskIntoConstraints = true;
+			self.view.addSubview(visuaEffectView);
+        } else {
+            // Fallback on earlier versions
+        }
+		
         
         //ModalView
         modalView.backgroundColor = colorWithHexString("#FAFAFA");
@@ -54,7 +59,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         modalView.addSubview(navigation);
         
         //add table to modal
-        tableView.frame = CGRectMake(0, CGFloat(42), modalView.frame.width, modalView.frame.height - CGFloat(42));
+        tableView.frame = CGRectMake(0, 42, modalView.frame.width, modalView.frame.height - CGFloat(42));
         //stableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLineEtched; //구분선 제거.
         tableView.rowHeight = UITableViewAutomaticDimension;
         modalView.addSubview(tableView);
@@ -140,7 +145,11 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension;
+		if #available(iOS 8.0, *) {
+			return UITableViewAutomaticDimension;
+		} else {
+			return 45;
+		}
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
@@ -149,6 +158,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 38;
     }
+	
     
     ////////////////
     
