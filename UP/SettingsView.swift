@@ -138,12 +138,6 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (tablesArray[section] as! Array<AnyObject>).count;
         
-        /*if (section == 0) {
-            return 1;
-        } else {
-            return 0;
-        }*/
-        //return tablesArray.count;
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return UITableViewAutomaticDimension;

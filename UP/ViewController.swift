@@ -136,8 +136,9 @@ class ViewController: UIViewController {
         
         //Startup language initial
         Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
-        //print("Language loaded. translated title(test):", Languages.$("localTitle"));
-        
+		
+		
+		
        updateTimeAnimation(); //first call
        setInterval(0.5, block: updateTimeAnimation);
     }
@@ -200,8 +201,7 @@ class ViewController: UIViewController {
                 //오른쪽으로 당김
                 movesRightOffset += 6;
             }
-            /*DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat((20 - movesRightOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);*/
-            
+			
             if hourString[1] == "1" {
                 //가능한 경우 최대 두번 당김
                 DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat((8 - movesRightOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
@@ -262,17 +262,10 @@ class ViewController: UIViewController {
             let secondmov:Double = Double(components.minute) / 60 / 12;
             AnalogHours.transform = CGAffineTransformMakeRotation(CGFloat(((Double(components.hour) / 12) + secondmov) * 360) * CGFloat(M_PI) / 180 );
             AnalogMinutes.transform = CGAffineTransformMakeRotation(CGFloat((Double(components.minute) / 60) * 360) * CGFloat(M_PI) / 180 );
-            
-            //print(CGFloat((Double(components.second) / 60) * 360));
-            
-            /*UIView.animateWithDuration(1.0, animations: {
-                self.AnalogMinutes.transform = CGAffineTransformMakeRotation(CGFloat((components.minute / 60) * 360) * 180 / CGFloat(M_PI))
-            })*/
-            
+			
         }
         
-        DigitalCol.hidden = !DigitalCol.hidden; //timeColVisible;
-        //timeColVisible = !timeColVisible;
+        DigitalCol.hidden = !DigitalCol.hidden;
     }
 
     override func didReceiveMemoryWarning() {
@@ -289,9 +282,7 @@ class ViewController: UIViewController {
     }
     
     ///////////
-    
-    
-    
+	
     //Changes image size
     
     func scaleUIImageToSize(let image: UIImage, let size: CGSize) -> UIImage {

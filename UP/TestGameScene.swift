@@ -233,15 +233,11 @@ class TestGameScene:SKScene {
         default: break;
         }
        
-        
-        
-       
-        
     }
     
     //Swift 2용
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if let touch = touches.first {
+        if let _ = touches.first {
             //print("Touch!");
             if (gameOver == true){
                 //restart again
