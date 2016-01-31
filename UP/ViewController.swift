@@ -40,6 +40,9 @@ class ViewController: UIViewController {
     //Modal views
     var modalSettingsView:SettingsView?;
     var modalAlarmListView:AlarmListView?;
+	var modalAlarmAddView:AddAlarmView?;
+	
+	static var viewSelf:ViewController?;
     
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
@@ -112,8 +115,9 @@ class ViewController: UIViewController {
         modalSettingsView = SettingsView(); modalSettingsView!.setupModalView( generalModalRect );
         modalAlarmListView = AlarmListView();
 		modalAlarmListView!.setupModalView( generalModalRect );
-        
-        
+		modalAlarmAddView = AddAlarmView();
+		modalAlarmAddView!.setupModalView( generalModalRect );
+		
         //(테스트) 시계 이미지 터치시
         var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped:"))
         AnalogMinutes.userInteractionEnabled = true;
@@ -138,20 +142,33 @@ class ViewController: UIViewController {
             // Fallback on earlier versions
         };
 		
-        
-        //Startup language initial
+		//Startup language initial
         Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
 		
+		
+		//클래스 외부접근을 위함
+		ViewController.viewSelf = self;
 		
 		
        updateTimeAnimation(); //first call
        setInterval(0.5, block: updateTimeAnimation);
     }
-    
+	
+	func openAlarmaddView() {
+		//알람추가뷰 열기
+		if #available(iOS 8.0, *) {
+			modalAlarmAddView?.modalPresentationStyle = .OverFullScreen;
+		} else {
+			// Fallback on earlier versions
+		};
+		self.presentViewController(modalAlarmAddView!, animated: true, completion: nil);
+		
+	}
+	
     func openSettingsView (gestureRecognizer: UITapGestureRecognizer) {
         //환경설정 열기
         if #available(iOS 8.0, *) {
-            modalSettingsView?.modalPresentationStyle = .OverFullScreen
+			modalSettingsView?.modalPresentationStyle = .OverFullScreen;
         } else {
             // Fallback on earlier versions
         };
@@ -160,7 +177,7 @@ class ViewController: UIViewController {
     func openAlarmlistView (gestureRecognizer: UITapGestureRecognizer) {
         //Alarmlist view 열기
         if #available(iOS 8.0, *) {
-            modalAlarmListView?.modalPresentationStyle = .OverFullScreen
+			modalAlarmListView?.modalPresentationStyle = .OverFullScreen;
         } else {
             // Fallback on earlier versions
         };

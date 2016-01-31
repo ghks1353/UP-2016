@@ -55,11 +55,11 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         naviItems.rightBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
         naviItems.title = Languages.$("settingsMenu");
         navigation.items = [naviItems];
-        navigation.frame = CGRectMake(0, 0, modalView.frame.width, CGFloat(42));
+        navigation.frame = CGRectMake(0, 0, modalView.frame.width, 42);
         modalView.addSubview(navigation);
         
         //add table to modal
-        tableView.frame = CGRectMake(0, 42, modalView.frame.width, modalView.frame.height - CGFloat(42));
+        tableView.frame = CGRectMake(0, 42, modalView.frame.width, modalView.frame.height - 42);
         //stableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLineEtched; //구분선 제거.
         tableView.rowHeight = UITableViewAutomaticDimension;
         modalView.addSubview(tableView);
@@ -206,7 +206,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         settingsObj.settingsElement = tSwitch; //Anyobject
         
         //해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
-        tLabel.frame = CGRectMake(16, 0, self.modalView.frame.width * 0.75, CGFloat(45));
+        tLabel.frame = CGRectMake(16, 0, self.modalView.frame.width * 0.75, 45);
         tCell.frame = CGRectMake(0, 0, self.modalView.frame.width, 45 /*CGFloat(45 * maxDeviceGeneral.scrRatio)*/ );
         tCell.backgroundColor = colorWithHexString("#FFFFFF");
         
@@ -214,7 +214,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         //tSwitch.frame = CGRectMake(, , CGFloat(36 * maxDeviceGeneral.scrRatio), CGFloat(24 * maxDeviceGeneral.scrRatio));
         //tSwitch.transform = CGAffineTransformMakeScale(CGFloat(maxDeviceGeneral.scrRatio), CGFloat(maxDeviceGeneral.scrRatio));
         
-        tSwitch.frame.origin.x = self.modalView.frame.width - tSwitch.frame.width - CGFloat(8);
+        tSwitch.frame.origin.x = self.modalView.frame.width - tSwitch.frame.width - 8;
         tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2;
         tSwitch.selected = defaultState;
         

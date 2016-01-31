@@ -11,6 +11,7 @@
 	
     "settingsMenu": "환경설정",
 	"alarmList": "알람 목록",
+	"addAlarm": "알람 추가",
 	
     "generalSettings": "일반 설정",
 		"settingsIconBadgeSetting": "아이콘 배지 표시",
