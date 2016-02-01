@@ -74,6 +74,7 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 		
 		modalAlarmAddView = AddAlarmView();
 		modalAlarmAddView!.setupModalView( getGeneralModalRect() );
+		modalAlarmAddView!.showBlur = false;
 		
     }
 	
