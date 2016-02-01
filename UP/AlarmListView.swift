@@ -72,11 +72,14 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
         /*tableView.delegate = self; tableView.dataSource = self;*/
         tableView.backgroundColor = modalView.backgroundColor;
 		
-		let generalModalRect:CGRect = CGRectMake(CGFloat(50 * DeviceGeneral.scrRatio) , ((DeviceGeneral.scrSize?.height)! - CGFloat(480 * DeviceGeneral.scrRatio)) / 2 , (DeviceGeneral.scrSize?.width)! - CGFloat(100 * DeviceGeneral.scrRatio), CGFloat(480 * DeviceGeneral.scrRatio));
 		modalAlarmAddView = AddAlarmView();
-		modalAlarmAddView!.setupModalView( generalModalRect );
+		modalAlarmAddView!.setupModalView( getGeneralModalRect() );
 		
     }
+	
+	func getGeneralModalRect() -> CGRect {
+		return CGRectMake(CGFloat(50 * DeviceGeneral.scrRatio) , ((DeviceGeneral.scrSize?.height)! - CGFloat(480 * DeviceGeneral.scrRatio)) / 2 , (DeviceGeneral.scrSize?.width)! - CGFloat(100 * DeviceGeneral.scrRatio), CGFloat(480 * DeviceGeneral.scrRatio));
+	}
 	
     /// table setup
     /*
@@ -126,6 +129,7 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 			// Fallback on earlier versions
 		};
 		self.presentViewController(modalAlarmAddView!, animated: true, completion: nil);
+		(modalAlarmAddView?.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
     }
     
     func viewCloseAction() {

@@ -10,13 +10,24 @@ import Foundation
 
 class Languages {
     
-    //static let supportedLanguages:Array<String> = ["ko"];
+    static let supportedLanguages:Array<String> = ["ko"];
     static var languageJsonFile:NSDictionary?;
     
     static func initLanugages( localeCode:String ) -> Void {
-        
+		
+		var found:Bool = false;
+		for (var i:Int = 0; i < supportedLanguages.count; ++i) {
+			if (supportedLanguages[i] == localeCode) {
+				found = true; break;
+			}
+		}
+		if (found == false) {
+			print("Not supporting language.. using english file");
+			initLanugages ("ko"); //영어파일이 준비되는대로 대치.
+			return;
+		}
+		
         print("Initing with language", localeCode);
-        
         if let path = NSBundle.mainBundle().pathForResource("" + localeCode, ofType: "json") {
             
             do {

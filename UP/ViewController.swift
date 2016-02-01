@@ -52,39 +52,39 @@ class ViewController: UIViewController {
         DeviceGeneral.initialDeviceSize();
         
         var scrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (DigitalCol.bounds.width / 2));
-        scrX += CGFloat(4 * DeviceGeneral.scrRatio);
+        scrX += CGFloat(4 * DeviceGeneral.maxScrRatio);
         
         //디지털시계 이미지 스케일 조정
-        DigitalCol.frame = CGRectMake(scrX, CGFloat(Double(80) * DeviceGeneral.scrRatio), CGFloat(Double(DigitalCol.bounds.width) * DeviceGeneral.scrRatio), CGFloat(Double(DigitalCol.bounds.height) * DeviceGeneral.scrRatio));
+        DigitalCol.frame = CGRectMake(scrX, CGFloat(Double(80) * DeviceGeneral.maxScrRatio), CGFloat(Double(DigitalCol.bounds.width) * DeviceGeneral.maxScrRatio), CGFloat(Double(DigitalCol.bounds.height) * DeviceGeneral.maxScrRatio));
         //x위치를 제외한 나머지 통일
-        DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat(20 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-        DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - CGFloat(12 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-        DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat(20 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-        DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + CGFloat(12 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+        DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat(20 * DeviceGeneral.maxScrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+        DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - CGFloat(12 * DeviceGeneral.maxScrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+        DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat(20 * DeviceGeneral.maxScrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+        DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + CGFloat(12 * DeviceGeneral.maxScrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
         
         //Ground 크기 조절. iPad의 경우 이미지를 넓은 것으로 교체할 필요가 있음
-        GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - CGFloat(GroundObj.frame.height * CGFloat(DeviceGeneral.scrRatio)), (DeviceGeneral.scrSize?.width)!, CGFloat(71.05 * DeviceGeneral.scrRatio) );
+        GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - CGFloat(GroundObj.frame.height * CGFloat(DeviceGeneral.maxScrRatio)), (DeviceGeneral.scrSize?.width)!, CGFloat(71.05 * DeviceGeneral.maxScrRatio) );
         
         //시계 바디 및 시침 분침 위치/크기조절
-        let clockScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (CGFloat(245 * DeviceGeneral.scrRatio) / 2));
-        let clockRightScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 + (CGFloat(245 * DeviceGeneral.scrRatio) / 2));
+        let clockScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
+        let clockRightScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 + (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
 
-        //clockScrX += CGFloat(4 * DeviceGeneral.scrRatio);
-        var clockScrY:CGFloat = CGFloat((DeviceGeneral.scrSize?.height)! / 2 - (CGFloat(245 * DeviceGeneral.scrRatio) / 2));
-        clockScrY += CGFloat(20 * DeviceGeneral.scrRatio);
+        //clockScrX += CGFloat(4 * DeviceGeneral.maxScrRatio);
+        var clockScrY:CGFloat = CGFloat((DeviceGeneral.scrSize?.height)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
+        clockScrY += CGFloat(20 * DeviceGeneral.maxScrRatio);
         
-        AnalogBody.frame = CGRectMake( clockScrX, clockScrY, CGFloat(245 * DeviceGeneral.scrRatio), CGFloat(245 * DeviceGeneral.scrRatio) );
-        AnalogHours.frame = CGRectMake( clockScrX, clockScrY, CGFloat(245 * DeviceGeneral.scrRatio), CGFloat(245 * DeviceGeneral.scrRatio) );
-        AnalogMinutes.frame = CGRectMake( clockScrX, clockScrY, CGFloat(245 * DeviceGeneral.scrRatio), CGFloat(245 * DeviceGeneral.scrRatio) );
+        AnalogBody.frame = CGRectMake( clockScrX, clockScrY, CGFloat(245 * DeviceGeneral.maxScrRatio), CGFloat(245 * DeviceGeneral.maxScrRatio) );
+        AnalogHours.frame = CGRectMake( clockScrX, clockScrY, CGFloat(245 * DeviceGeneral.maxScrRatio), CGFloat(245 * DeviceGeneral.maxScrRatio) );
+        AnalogMinutes.frame = CGRectMake( clockScrX, clockScrY, CGFloat(245 * DeviceGeneral.maxScrRatio), CGFloat(245 * DeviceGeneral.maxScrRatio) );
         
-        AnalogBodyBack.frame = CGRectMake( clockScrX - CGFloat(24 * DeviceGeneral.scrRatio), clockScrY - CGFloat(10 * DeviceGeneral.scrRatio), CGFloat(273 * DeviceGeneral.scrRatio), CGFloat(255 * DeviceGeneral.scrRatio) );
-        SettingsImg.frame = CGRectMake( clockScrX - (CGFloat(135 * DeviceGeneral.scrRatio) / 2), clockScrY + CGFloat(125 * DeviceGeneral.scrRatio) , CGFloat(157 * DeviceGeneral.scrRatio), CGFloat(157 * DeviceGeneral.scrRatio) );
-        AlarmListImg.frame = CGRectMake( clockRightScrX - (CGFloat(90 * DeviceGeneral.scrRatio) / 2), clockScrY - CGFloat(10 * DeviceGeneral.scrRatio), CGFloat(105 * DeviceGeneral.scrRatio), CGFloat(150 * DeviceGeneral.scrRatio) );
+        AnalogBodyBack.frame = CGRectMake( clockScrX - CGFloat(24 * DeviceGeneral.maxScrRatio), clockScrY - CGFloat(10 * DeviceGeneral.maxScrRatio), CGFloat(273 * DeviceGeneral.maxScrRatio), CGFloat(255 * DeviceGeneral.maxScrRatio) );
+        SettingsImg.frame = CGRectMake( clockScrX - (CGFloat(135 * DeviceGeneral.maxScrRatio) / 2), clockScrY + CGFloat(125 * DeviceGeneral.maxScrRatio) , CGFloat(157 * DeviceGeneral.maxScrRatio), CGFloat(157 * DeviceGeneral.maxScrRatio) );
+        AlarmListImg.frame = CGRectMake( clockRightScrX - (CGFloat(90 * DeviceGeneral.maxScrRatio) / 2), clockScrY - CGFloat(10 * DeviceGeneral.maxScrRatio), CGFloat(105 * DeviceGeneral.maxScrRatio), CGFloat(150 * DeviceGeneral.maxScrRatio) );
         
-        MainBackDecoration.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - CGFloat(192 * DeviceGeneral.scrRatio), CGFloat(414 * DeviceGeneral.scrRatio), CGFloat(192 * DeviceGeneral.scrRatio) );
+        MainBackDecoration.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - CGFloat(192 * DeviceGeneral.maxScrRatio), CGFloat(414 * DeviceGeneral.maxScrRatio), CGFloat(192 * DeviceGeneral.maxScrRatio) );
         
         //Astro 크기조정
-        AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - CGFloat(126 * DeviceGeneral.scrRatio), GroundObj.frame.origin.y - CGFloat(151 * DeviceGeneral.scrRatio) + CGFloat(9 * DeviceGeneral.scrRatio), CGFloat(63 * DeviceGeneral.scrRatio), CGFloat(151 * DeviceGeneral.scrRatio) );
+        AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - CGFloat(126 * DeviceGeneral.maxScrRatio), GroundObj.frame.origin.y - CGFloat(151 * DeviceGeneral.maxScrRatio) + CGFloat(9 * DeviceGeneral.maxScrRatio), CGFloat(63 * DeviceGeneral.maxScrRatio), CGFloat(151 * DeviceGeneral.maxScrRatio) );
         //Astro animations
         for i in 1...40 { //부동
             let numberStr:String = String(i).characters.count == 1 ? "0" + String(i) : String(i);
@@ -111,15 +111,15 @@ class ViewController: UIViewController {
         AstroCharacter.startAnimating();
         
         //Modal view 크기 및 위치
-        let generalModalRect:CGRect = CGRectMake(CGFloat(50 * DeviceGeneral.scrRatio) , ((DeviceGeneral.scrSize?.height)! - CGFloat(480 * DeviceGeneral.scrRatio)) / 2 , (DeviceGeneral.scrSize?.width)! - CGFloat(100 * DeviceGeneral.scrRatio), CGFloat(480 * DeviceGeneral.scrRatio));
-        modalSettingsView = SettingsView(); modalSettingsView!.setupModalView( generalModalRect );
+        /*let generalModalRect:CGRect = CGRectMake(CGFloat(50 * DeviceGeneral.scrRatio) , ((DeviceGeneral.scrSize?.height)! - CGFloat(480 * DeviceGeneral.scrRatio)) / 2 , (DeviceGeneral.scrSize?.width)! - CGFloat(100 * DeviceGeneral.scrRatio), CGFloat(480 * DeviceGeneral.scrRatio));*/
+        modalSettingsView = SettingsView(); modalSettingsView!.setupModalView( getGeneralModalRect() );
         modalAlarmListView = AlarmListView();
-		modalAlarmListView!.setupModalView( generalModalRect );
+		modalAlarmListView!.setupModalView( getGeneralModalRect() );
 		modalAlarmAddView = AddAlarmView();
-		modalAlarmAddView!.setupModalView( generalModalRect );
+		modalAlarmAddView!.setupModalView( getGeneralModalRect() );
 		
-        //(테스트) 시계 이미지 터치시
-        var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped:"))
+        //시계 이미지 터치시
+        var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("openAlarmaddView:"))
         AnalogMinutes.userInteractionEnabled = true;
         AnalogMinutes.addGestureRecognizer(tapGestureRecognizer);
         
@@ -154,7 +154,12 @@ class ViewController: UIViewController {
        setInterval(0.5, block: updateTimeAnimation);
     }
 	
-	func openAlarmaddView() {
+	//modal cgrect
+	func getGeneralModalRect() -> CGRect {
+		return CGRectMake(CGFloat(50 * DeviceGeneral.scrRatio) , ((DeviceGeneral.scrSize?.height)! - CGFloat(480 * DeviceGeneral.scrRatio)) / 2 , (DeviceGeneral.scrSize?.width)! - CGFloat(100 * DeviceGeneral.scrRatio), CGFloat(480 * DeviceGeneral.scrRatio));
+	}
+	
+	func openAlarmaddView (gestureRecognizer: UITapGestureRecognizer) {
 		//알람추가뷰 열기
 		if #available(iOS 8.0, *) {
 			modalAlarmAddView?.modalPresentationStyle = .OverFullScreen;
@@ -162,6 +167,7 @@ class ViewController: UIViewController {
 			// Fallback on earlier versions
 		};
 		self.presentViewController(modalAlarmAddView!, animated: true, completion: nil);
+		(modalAlarmAddView?.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
 		
 	}
 	
@@ -171,6 +177,7 @@ class ViewController: UIViewController {
 			modalSettingsView?.modalPresentationStyle = .OverFullScreen;
         } else {
             // Fallback on earlier versions
+			//modalSettingsView?.modalPresentationStyle = .
         };
         self.presentViewController(modalSettingsView!, animated: true, completion: nil);
     }

@@ -9,6 +9,8 @@
 	"generalAM": "오전",
 	"generalPM": "오후",
 	
+	"generalDefault": "기본",
+	
     "settingsMenu": "환경설정",
 	"alarmList": "알람 목록",
 	"addAlarm": "알람 추가",
@@ -24,6 +26,8 @@
 	
 	"alarmSettings": "알람 설정",
 		"alarmTitle": "알람 이름",
+		"alarmGame": "게임",
+		"alarmSound": "알람음",
 		"alarmRepeat": "알람 반복 설정",
 			"alarmRepeatFreqOnce": "없음",
 			"alarmRepeatFreqEveryday": "매일",
