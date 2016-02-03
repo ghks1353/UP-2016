@@ -198,6 +198,7 @@ class ViewController: UIViewController {
 		showHideBlurview(true);
 		self.presentViewController(modalAlarmAddView!, animated: true, completion: nil);
 		(modalAlarmAddView?.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
+		modalAlarmAddView?.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
 		
 	}
 	
@@ -211,6 +212,7 @@ class ViewController: UIViewController {
         };
 		showHideBlurview(true);
         self.presentViewController(modalSettingsView!, animated: true, completion: nil);
+		modalSettingsView?.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
     func openAlarmlistView (gestureRecognizer: UITapGestureRecognizer) {
         //Alarmlist view 열기
@@ -221,6 +223,7 @@ class ViewController: UIViewController {
         };
 		showHideBlurview(true);
         self.presentViewController(modalAlarmListView!, animated: true, completion: nil);
+		modalAlarmListView?.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
     
     func imageTapped(gestureRecognizer: UITapGestureRecognizer) {

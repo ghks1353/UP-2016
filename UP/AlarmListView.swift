@@ -11,14 +11,14 @@ import Foundation
 import UIKit
 
 class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDelegate*/ {
-    
-    //Inner-modal view
-    var modalView:UIView = UIView();
-    
-    //Navigationbar view
-    var navigation:UINavigationBar = UINavigationBar();
+	
+	//Inner-modal view
+	var modalView:UIViewController = UIViewController();
+	//Navigationbar view
+	var navigationCtrl:UINavigationController = UINavigationController();
+	
     //Table for menu
-    var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
+    internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
     var tablesArray:Array<AnyObject> = [];
 	
 	//Alarm-add view
@@ -27,32 +27,28 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = .clearColor()
-        
 		
         //ModalView
-        modalView.backgroundColor = colorWithHexString("#FAFAFA");
-        self.view.addSubview(modalView);
-        
-        //Modal components in...
-        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
-        let naviItems:UINavigationItem = UINavigationItem();
-        navigation.barTintColor = colorWithHexString("#4D9429");
-        navigation.titleTextAttributes = titleDict as? [String : AnyObject];
-        naviItems.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "alarmAddAction");
-		//naviItems.leftBarButtonItem?.
+        modalView.view.backgroundColor = colorWithHexString("#FFFFFF");
 		
-        naviItems.rightBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
-        naviItems.rightBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
-        naviItems.leftBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
-        naviItems.title = Languages.$("alarmList");
-        navigation.items = [naviItems];
-        navigation.frame = CGRectMake(0, 0, modalView.frame.width, 42);
-        modalView.addSubview(navigation);
+		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
+		navigationCtrl = UINavigationController.init(rootViewController: modalView);
+		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
+		navigationCtrl.navigationBar.barTintColor = colorWithHexString("#4D9429");
+		navigationCtrl.view.frame = modalView.view.frame;
+		modalView.title = Languages.$("alarmList");
+		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
+		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "alarmAddAction");
+		modalView.navigationItem.leftBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
+		modalView.navigationItem.rightBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
+		self.view.addSubview(navigationCtrl.view);
+		
+		
         
         //add table to modal
-        tableView.frame = CGRectMake(0, 42, modalView.frame.width, modalView.frame.height - 42);
+        tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
         tableView.rowHeight = UITableViewAutomaticDimension;
-        modalView.addSubview(tableView);
+        modalView.view.addSubview(tableView);
         
         //add table cells (options)
         tablesArray = [
@@ -60,7 +56,7 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
             
         ];
         /*tableView.delegate = self; tableView.dataSource = self;*/
-        tableView.backgroundColor = modalView.backgroundColor;
+        tableView.backgroundColor = colorWithHexString("#FAFAFA");
 		
 		modalAlarmAddView = AddAlarmView();
 		modalAlarmAddView!.setupModalView( getGeneralModalRect() );
@@ -103,7 +99,7 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
     ////////////////
     
     func setupModalView(frame:CGRect) {
-        modalView.frame = frame;
+        modalView.view.frame = frame;
     }
     
     override func didReceiveMemoryWarning() {
@@ -121,6 +117,7 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 		};
 		self.presentViewController(modalAlarmAddView!, animated: true, completion: nil);
 		(modalAlarmAddView?.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
+		modalAlarmAddView?.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
     
     func viewCloseAction() {
@@ -140,15 +137,15 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 		
 		
 		//해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
-		tLabel.frame = CGRectMake(16, 0, self.modalView.frame.width * 0.75, CGFloat(45));
-		tCell.frame = CGRectMake(0, 0, self.modalView.frame.width, 45 /*CGFloat(45 * maxDeviceGeneral.scrRatio)*/ );
+		tLabel.frame = CGRectMake(16, 0, self.modalView.view.frame.width * 0.75, 45);
+		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 45 /*CGFloat(45 * maxDeviceGeneral.scrRatio)*/ );
 		tCell.backgroundColor = colorWithHexString("#FFFFFF");
 		
 		
 		//tSwitch.frame = CGRectMake(, , CGFloat(36 * maxDeviceGeneral.scrRatio), CGFloat(24 * maxDeviceGeneral.scrRatio));
 		//tSwitch.transform = CGAffineTransformMakeScale(CGFloat(maxDeviceGeneral.scrRatio), CGFloat(maxDeviceGeneral.scrRatio));
 		
-		tSwitch.frame.origin.x = self.modalView.frame.width - tSwitch.frame.width - CGFloat(8);
+		tSwitch.frame.origin.x = self.modalView.view.frame.width - tSwitch.frame.width - CGFloat(8);
 		tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2;
 		tSwitch.selected = defaultState;
 		

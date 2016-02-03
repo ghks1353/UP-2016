@@ -18,13 +18,15 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	//Inner-modal view
 	var modalView:UIViewController = UIViewController();
 	//Navigationbar view
-	//var navigationCtrl:UINavigationController = UINavigationController();
-	var navigation:UINavigationBar = UINavigationBar();
+	var navigationCtrl:UINavigationController = UINavigationController();
 	
 	//Table for view
-	var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
+	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
 	var tablesArray:Array<AnyObject> = [];
 	var tableCells:Array<AlarmSettingsCell> = [];
+	
+	//Subview for select
+	var alarmSoundListView:AlarmSoundListView = AlarmSoundListView();
 	
 	internal var showBlur:Bool = true;
 	
@@ -35,28 +37,23 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		AddAlarmView.selfView = self;
 		
 		//ModalView
-		modalView.view.backgroundColor = colorWithHexString("#FAFAFA");
-		self.view.addSubview(modalView.view);
+		modalView.view.backgroundColor = UIColor.whiteColor();
 		
-		
-		//Modal components in...
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
-		let naviItems:UINavigationItem = UINavigationItem();
-		navigation.barTintColor = colorWithHexString("#1C6A94");
-		navigation.titleTextAttributes = titleDict as? [String : AnyObject];
-		naviItems.rightBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
-		naviItems.rightBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
-		naviItems.leftBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
-		naviItems.title = Languages.$("addAlarm");
-		navigation.items = [naviItems];
-		navigation.frame = CGRectMake(0, 0, modalView.view.frame.width, 42);
-		//navigation.delegate = modalView;
-		//modalView.present
-		modalView.view.addSubview(navigation);
+		navigationCtrl = UINavigationController.init(rootViewController: modalView);
+		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
+		navigationCtrl.navigationBar.barTintColor = colorWithHexString("#1C6A94");
+		navigationCtrl.navigationBar.tintColor = UIColor.whiteColor();
+		navigationCtrl.view.frame = modalView.view.frame;
+		modalView.title = Languages.$("addAlarm");
+		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
+		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Languages.$("generalAdd"), style: .Plain, target: self, action: "addAlarmToDevice");
+		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
+		modalView.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor();
+		self.view.addSubview(navigationCtrl.view);
 		
-
 		//add table to modals
-		tableView.frame = CGRectMake(0, 42, modalView.view.frame.width, modalView.view.frame.height - 42);
+		tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
 		tableView.rowHeight = UITableViewAutomaticDimension;
 		modalView.view.addSubview(tableView);
 		
@@ -75,7 +72,15 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		];
 		
 		tableView.delegate = self; tableView.dataSource = self;
-		tableView.backgroundColor = modalView.view.backgroundColor;
+		tableView.backgroundColor = colorWithHexString("#FAFAFA"); //modalView.view.backgroundColor;
+		
+		//set subview size
+		alarmSoundListView.view.frame = modalView.view.frame;
+		
+	}
+	
+	//add alarm evt
+	func addAlarmToDevice() {
 		
 	}
 	
@@ -84,7 +89,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		switch(cellID) {
 			case "alarmSound":
 				//TODO for Segue (Navigationbar segue)
-				
+				navigationCtrl.pushViewController(alarmSoundListView, animated: true);
 				break
 			default: break;
 		}
