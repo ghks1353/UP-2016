@@ -42,6 +42,9 @@ class ViewController: UIViewController {
     var modalAlarmListView:AlarmListView?;
 	var modalAlarmAddView:AddAlarmView?;
 	
+	//screen blur view
+	var scrBlurView:AnyObject?;
+	
 	static var viewSelf:ViewController?;
     
     //viewdidload - inital 함수. 뷰 로드시 자동실행
@@ -84,7 +87,7 @@ class ViewController: UIViewController {
         MainBackDecoration.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - CGFloat(192 * DeviceGeneral.maxScrRatio), CGFloat(414 * DeviceGeneral.maxScrRatio), CGFloat(192 * DeviceGeneral.maxScrRatio) );
         
         //Astro 크기조정
-        AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - CGFloat(126 * DeviceGeneral.maxScrRatio), GroundObj.frame.origin.y - CGFloat(151 * DeviceGeneral.maxScrRatio) + CGFloat(9 * DeviceGeneral.maxScrRatio), CGFloat(63 * DeviceGeneral.maxScrRatio), CGFloat(151 * DeviceGeneral.maxScrRatio) );
+        AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - CGFloat(126 * DeviceGeneral.maxScrRatio), GroundObj.frame.origin.y - CGFloat(151 * DeviceGeneral.maxScrRatio) + CGFloat(9 * DeviceGeneral.maxScrRatio), CGFloat(60 * DeviceGeneral.maxScrRatio), CGFloat(151 * DeviceGeneral.maxScrRatio) );
         //Astro animations
         for i in 1...40 { //부동
             let numberStr:String = String(i).characters.count == 1 ? "0" + String(i) : String(i);
@@ -119,7 +122,7 @@ class ViewController: UIViewController {
 		modalAlarmAddView!.setupModalView( getGeneralModalRect() );
 		
         //시계 이미지 터치시
-        var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("openAlarmaddView:"))
+        var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("openAlarmaddView:")); //openAlarmaddView
         AnalogMinutes.userInteractionEnabled = true;
         AnalogMinutes.addGestureRecognizer(tapGestureRecognizer);
         
@@ -132,12 +135,23 @@ class ViewController: UIViewController {
         tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("openAlarmlistView:"))
         AlarmListImg.userInteractionEnabled = true;
         AlarmListImg.addGestureRecognizer(tapGestureRecognizer);
-        
+		
+		//클래스 외부접근을 위함
+		ViewController.viewSelf = self;
         
         //Startup permission request
         if #available(iOS 8.0, *) {
             let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
 			UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings);
+			
+			//iOS8 blur effect
+//			self.view.bounds
+			let scBlurEffect:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
+			scBlurEffect.frame = self.view.bounds;
+			scBlurEffect.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
+			scBlurEffect.translatesAutoresizingMaskIntoConstraints = true;
+			scrBlurView = scBlurEffect;
+			
         } else {
             // Fallback on earlier versions
         };
@@ -146,13 +160,28 @@ class ViewController: UIViewController {
         Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
 		
 		
-		//클래스 외부접근을 위함
-		ViewController.viewSelf = self;
-		
-		
        updateTimeAnimation(); //first call
        setInterval(0.5, block: updateTimeAnimation);
     }
+	
+	func showHideBlurview( show:Bool ) {
+		if #available(iOS 8.0, *) {
+			if (show) {
+				self.view.addSubview(scrBlurView as! UIVisualEffectView);
+				(scrBlurView as! UIVisualEffectView).alpha = 0;
+				UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+					(self.scrBlurView as! UIVisualEffectView).alpha = 1;
+				}, completion: nil);
+			} else {
+				(scrBlurView as! UIVisualEffectView).alpha = 1;
+				UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+				(self.scrBlurView as! UIVisualEffectView).alpha = 0;
+					}, completion: {_ in
+						self.scrBlurView?.removeFromSuperview();
+				});
+			}
+		}
+	}
 	
 	//modal cgrect
 	func getGeneralModalRect() -> CGRect {
@@ -166,6 +195,7 @@ class ViewController: UIViewController {
 		} else {
 			// Fallback on earlier versions
 		};
+		showHideBlurview(true);
 		self.presentViewController(modalAlarmAddView!, animated: true, completion: nil);
 		(modalAlarmAddView?.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
 		
@@ -179,6 +209,7 @@ class ViewController: UIViewController {
             // Fallback on earlier versions
 			//modalSettingsView?.modalPresentationStyle = .
         };
+		showHideBlurview(true);
         self.presentViewController(modalSettingsView!, animated: true, completion: nil);
     }
     func openAlarmlistView (gestureRecognizer: UITapGestureRecognizer) {
@@ -188,6 +219,7 @@ class ViewController: UIViewController {
         } else {
             // Fallback on earlier versions
         };
+		showHideBlurview(true);
         self.presentViewController(modalAlarmListView!, animated: true, completion: nil);
     }
     

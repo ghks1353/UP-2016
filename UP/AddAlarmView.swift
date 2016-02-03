@@ -10,11 +10,15 @@
 import Foundation
 import UIKit
 
-class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate  {
+	
+	//클래스 외부접근을 위함
+	static var selfView:AddAlarmView?;
 	
 	//Inner-modal view
-	var modalView:UIView = UIView();
+	var modalView:UIViewController = UIViewController();
 	//Navigationbar view
+	//var navigationCtrl:UINavigationController = UINavigationController();
 	var navigation:UINavigationBar = UINavigationBar();
 	
 	//Table for view
@@ -28,22 +32,12 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		super.viewDidLoad();
 		self.view.backgroundColor = .clearColor();
 		
-		//Background blur
-		if #available(iOS 8.0, *) {
-			if (showBlur) {
-				let visuaEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
-				visuaEffectView.frame = self.view.bounds
-				visuaEffectView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
-				visuaEffectView.translatesAutoresizingMaskIntoConstraints = true;
-				self.view.addSubview(visuaEffectView);
-			}
-		} else {
-			// Fallback on earlier versions
-		}
+		AddAlarmView.selfView = self;
 		
 		//ModalView
-		modalView.backgroundColor = colorWithHexString("#FAFAFA");
-		self.view.addSubview(modalView);
+		modalView.view.backgroundColor = colorWithHexString("#FAFAFA");
+		self.view.addSubview(modalView.view);
+		
 		
 		//Modal components in...
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
@@ -55,13 +49,16 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		naviItems.leftBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
 		naviItems.title = Languages.$("addAlarm");
 		navigation.items = [naviItems];
-		navigation.frame = CGRectMake(0, 0, modalView.frame.width, 42);
-		modalView.addSubview(navigation);
+		navigation.frame = CGRectMake(0, 0, modalView.view.frame.width, 42);
+		//navigation.delegate = modalView;
+		//modalView.present
+		modalView.view.addSubview(navigation);
 		
-		//add table to modal
-		tableView.frame = CGRectMake(0, 42, modalView.frame.width, modalView.frame.height - 42);
+
+		//add table to modals
+		tableView.frame = CGRectMake(0, 42, modalView.view.frame.width, modalView.view.frame.height - 42);
 		tableView.rowHeight = UITableViewAutomaticDimension;
-		modalView.addSubview(tableView);
+		modalView.view.addSubview(tableView);
 		
 		//add table cells (options)
 		tablesArray = [
@@ -78,8 +75,20 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		];
 		
 		tableView.delegate = self; tableView.dataSource = self;
-		tableView.backgroundColor = modalView.backgroundColor;
+		tableView.backgroundColor = modalView.view.backgroundColor;
 		
+	}
+	
+	//cell touchevent
+	internal func cellFunc(cellID:String) {
+		switch(cellID) {
+			case "alarmSound":
+				//TODO for Segue (Navigationbar segue)
+				
+				break
+			default: break;
+		}
+		print("cell", cellID);
 	}
 	
 	//for default setting at view opening
@@ -94,7 +103,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	}
 	
 	func setupModalView(frame:CGRect) {
-		modalView.frame = frame;
+		modalView.view.frame = frame;
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -104,11 +113,13 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	
 	func viewCloseAction() {
 		//Close this view
+		if (showBlur) {
+			ViewController.viewSelf?.showHideBlurview(false);
+		}
 		self.dismissViewControllerAnimated(true, completion: nil);
 	}
 	
 	///// for table func
-	
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		return 3;
 	}
@@ -154,7 +165,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		let tCell:AlarmSettingsCell = AlarmSettingsCell();
 		tCell.cellID = cellID;
 		tCell.backgroundColor = colorWithHexString("#FFFFFF");
-		tCell.frame = CGRectMake(0, 0, self.modalView.frame.width, 45); //default cell size
+		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 45); //default cell size
 		
 		switch( cellType ) {
 			case 0: //Inputtext cell
@@ -164,15 +175,16 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				alarmNameInput.autocorrectionType = UITextAutocorrectionType.No;
 				alarmNameInput.keyboardType = UIKeyboardType.Default;
 				alarmNameInput.returnKeyType = UIReturnKeyType.Done;
-				alarmNameInput.clearButtonMode = UITextFieldViewMode.WhileEditing;
+				alarmNameInput.clearButtonMode = UITextFieldViewMode.Never;
 				alarmNameInput.contentVerticalAlignment = UIControlContentVerticalAlignment.Center;
 				alarmNameInput.textAlignment = .Center;
+				alarmNameInput.delegate = self;
 				
 				tCell.cellElement = alarmNameInput;
 				tCell.addSubview(alarmNameInput);
 				break;
 			case 1: //DatePicker cell
-				tCell.frame = CGRectMake(0, 0, self.modalView.frame.width, 200); //cell size to datepicker size fit
+				tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 200); //cell size to datepicker size fit
 				let alarmTimePicker:UIDatePicker = UIDatePicker(frame: tCell.frame);
 				alarmTimePicker.datePickerMode = UIDatePickerMode.Time;
 				alarmTimePicker.date = NSDate(); //default => current
@@ -183,8 +195,8 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			
 			case 2: //Option sel label cell
 				let tLabel:UILabel = UILabel(); let tSettingLabel:UILabel = UILabel();
-				tLabel.frame = CGRectMake(16, 0, self.modalView.frame.width * 0.4, 45);
-				tSettingLabel.frame = CGRectMake(self.modalView.frame.width - self.modalView.frame.width * 0.5 - 32, 0, self.modalView.frame.width * 0.5, 45);
+				tLabel.frame = CGRectMake(16, 0, self.modalView.view.frame.width * 0.4, 45);
+				tSettingLabel.frame = CGRectMake(self.modalView.view.frame.width - self.modalView.view.frame.width * 0.5 - 32, 0, self.modalView.view.frame.width * 0.5, 45);
 				tSettingLabel.textAlignment = .Right;
 				tLabel.font = UIFont.systemFontOfSize(16); tSettingLabel.font = tLabel.font;
 				tSettingLabel.textColor = colorWithHexString("#CCCCCC");
@@ -222,6 +234,12 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		tCell.selectionStyle = UITableViewCellSelectionStyle.None;
 		tableCells += [tCell];
 		return tCell;
+	}
+	
+	//UITextfield del
+	func textFieldShouldReturn(textField: UITextField) -> Bool { //Returnkey to hide
+		self.view.endEditing(true);
+		return false;
 	}
 	
 	

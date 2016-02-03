@@ -13,16 +13,16 @@ class AlarmSettingsCell:UITableViewCell {
 	
 	internal var cellID:String = "";
 	internal var cellElement:AnyObject?;
-	/*override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		switch(self.cellID) {
-		case "gotoAVNGraphic":
-			UIApplication.sharedApplication().openURL(NSURL(string: "http://avngraphic.kr/")!);
-			break;
-		default:
-			break;
+	
+	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		AddAlarmView.selfView!.cellFunc(self.cellID);
+		/*switch(self.cellID) {
+			
+			default:
+				break;
 		}
 		
-		print(self.cellID);
-	}*/
+		print(self.cellID);*/
+	}
 	
 }

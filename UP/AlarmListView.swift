@@ -28,16 +28,6 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
         super.viewDidLoad();
         self.view.backgroundColor = .clearColor()
         
-        //Background blur
-        if #available(iOS 8.0, *) {
-			let visuaEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
-			visuaEffectView.frame = self.view.bounds
-			visuaEffectView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
-			visuaEffectView.translatesAutoresizingMaskIntoConstraints = true;
-			self.view.addSubview(visuaEffectView);
-        } else {
-            // Fallback on earlier versions
-        }
 		
         //ModalView
         modalView.backgroundColor = colorWithHexString("#FAFAFA");
@@ -135,6 +125,7 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
     
     func viewCloseAction() {
         //Close this view
+		ViewController.viewSelf?.showHideBlurview(false);
         self.dismissViewControllerAnimated(true, completion: nil);
     }
 	
