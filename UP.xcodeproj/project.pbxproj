@@ -173,6 +173,8 @@
 		77E5B9B21C624BD30075431A /* AlarmSoundListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */; };
 		77EF9EBC1C53EAA300F479B2 /* time_mh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EF9EBB1C53EAA300F479B2 /* time_mh.png */; };
 		77EF9EBE1C53EAB000F479B2 /* time_hh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EF9EBD1C53EAB000F479B2 /* time_hh.png */; };
+		77FD0DEE1C6625FD00B5B5E9 /* GlobalSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */; };
+		77FD0DF01C66312400B5B5E9 /* UPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FD0DEF1C66312400B5B5E9 /* UPUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -345,6 +347,8 @@
 		77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundListView.swift; sourceTree = "<group>"; };
 		77EF9EBB1C53EAA300F479B2 /* time_mh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_mh.png; sourceTree = "<group>"; };
 		77EF9EBD1C53EAB000F479B2 /* time_hh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_hh.png; sourceTree = "<group>"; };
+		77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSubView.swift; sourceTree = "<group>"; };
+		77FD0DEF1C66312400B5B5E9 /* UPUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -409,6 +413,8 @@
 				7741412F1C5BC09500E5A723 /* DataManager.swift */,
 				774D0DB11C5CA85A00E41385 /* DeviceGeneral.swift */,
 				7759757C1C5F05A60057CDD6 /* AlarmSettingsCell.swift */,
+				77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */,
+				77FD0DEF1C66312400B5B5E9 /* UPUtils.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -448,6 +454,7 @@
 		7740E2291C507C8E00B11A24 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				77C3CFC61C6325BE009A183A /* Alarms */,
 				773D2E561C56801400177CF3 /* Musics */,
 				7740E22E1C507D0000B11A24 /* Effects */,
 			);
@@ -670,6 +677,13 @@
 			path = UP;
 			sourceTree = "<group>";
 			usesTabs = 1;
+		};
+		77C3CFC61C6325BE009A183A /* Alarms */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Alarms;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -906,6 +920,7 @@
 				774B30F31C5E56CF0058CFB2 /* AddAlarmView.swift in Sources */,
 				7759757D1C5F05A60057CDD6 /* AlarmSettingsCell.swift in Sources */,
 				773D2E501C562FE300177CF3 /* TestGameScene.swift in Sources */,
+				77FD0DEE1C6625FD00B5B5E9 /* GlobalSubView.swift in Sources */,
 				774D0DB21C5CA85A00E41385 /* DeviceGeneral.swift in Sources */,
 				774141301C5BC09500E5A723 /* DataManager.swift in Sources */,
 				773E910C1C5A36480084EB07 /* CustomTableCell.swift in Sources */,
@@ -913,6 +928,7 @@
 				774D0DB01C5CA7AC00E41385 /* AlarmListView.swift in Sources */,
 				773D2E4E1C56105700177CF3 /* TestGameView.swift in Sources */,
 				773E91091C59FBBF0084EB07 /* SettingsElement.swift in Sources */,
+				77FD0DF01C66312400B5B5E9 /* UPUtils.swift in Sources */,
 				773D2F6B1C5B7CCF0093CD2D /* Languages.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

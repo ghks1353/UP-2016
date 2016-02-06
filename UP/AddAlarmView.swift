@@ -26,7 +26,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	var tableCells:Array<AlarmSettingsCell> = [];
 	
 	//Subview for select
-	var alarmSoundListView:AlarmSoundListView = AlarmSoundListView();
+	var alarmSoundListView:AlarmSoundListView = GlobalSubView.alarmSoundListView; // = AlarmSoundListView();
 	
 	internal var showBlur:Bool = true;
 	
@@ -42,7 +42,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = colorWithHexString("#1C6A94");
+		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#1C6A94");
 		navigationCtrl.navigationBar.tintColor = UIColor.whiteColor();
 		navigationCtrl.view.frame = modalView.view.frame;
 		modalView.title = Languages.$("addAlarm");
@@ -54,7 +54,6 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		
 		//add table to modals
 		tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
-		tableView.rowHeight = UITableViewAutomaticDimension;
 		modalView.view.addSubview(tableView);
 		
 		//add table cells (options)
@@ -72,10 +71,11 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		];
 		
 		tableView.delegate = self; tableView.dataSource = self;
-		tableView.backgroundColor = colorWithHexString("#FAFAFA"); //modalView.view.backgroundColor;
+		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA"); //modalView.view.backgroundColor;
 		
 		//set subview size
-		alarmSoundListView.view.frame = modalView.view.frame;
+		alarmSoundListView.view.frame = CGRectMake(
+			0, 0, modalView.view.frame.width, modalView.view.frame.height );
 		
 	}
 	
@@ -88,8 +88,20 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	internal func cellFunc(cellID:String) {
 		switch(cellID) {
 			case "alarmSound":
-				//TODO for Segue (Navigationbar segue)
-				navigationCtrl.pushViewController(alarmSoundListView, animated: true);
+				//TODO error pushviewcontroller
+				
+				/*if(navigationCtrl.viewControllers.count == 2) {
+					print("finishing existing stack"); //<- 이거 안됨
+					//navigationCtrl.popToRootViewControllerAnimated(true);
+					navigationCtrl.popViewControllerAnimated(true);
+					alarmSoundListView.dismissViewControllerAnimated(false, completion: nil);
+					alarmSoundListView = AlarmSoundListView();
+					//navigationCtrl.
+				} else {
+					
+				}*/
+				navigationCtrl.pushViewController(self.alarmSoundListView, animated: true);
+					
 				break
 			default: break;
 		}
@@ -109,6 +121,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	func setupModalView(frame:CGRect) {
 		modalView.view.frame = frame;
+		//alarmSoundListView.view.frame = frame;
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -163,13 +176,15 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return 0;
 	}
-
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+	}
 	
 	//Tableview cell view create
 	func createCell( cellType:Int, cellID:String ) -> AlarmSettingsCell {
 		let tCell:AlarmSettingsCell = AlarmSettingsCell();
 		tCell.cellID = cellID;
-		tCell.backgroundColor = colorWithHexString("#FFFFFF");
+		tCell.backgroundColor = UIColor.whiteColor();
 		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 45); //default cell size
 		
 		switch( cellType ) {
@@ -204,7 +219,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				tSettingLabel.frame = CGRectMake(self.modalView.view.frame.width - self.modalView.view.frame.width * 0.5 - 32, 0, self.modalView.view.frame.width * 0.5, 45);
 				tSettingLabel.textAlignment = .Right;
 				tLabel.font = UIFont.systemFontOfSize(16); tSettingLabel.font = tLabel.font;
-				tSettingLabel.textColor = colorWithHexString("#CCCCCC");
+				tSettingLabel.textColor = UPUtils.colorWithHexString("#CCCCCC");
 				
 				switch(cellID) {
 					case "alarmGame":
@@ -236,7 +251,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		tLabel.font = UIFont.systemFontOfSize(16);
 		*/
 		
-		tCell.selectionStyle = UITableViewCellSelectionStyle.None;
+		//tCell.selectionStyle = UITableViewCellSelectionStyle.None;
 		tableCells += [tCell];
 		return tCell;
 	}
@@ -248,29 +263,4 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	}
 	
 	
-	//////////////////comment
-	
-	func colorWithHexString (hex:String) -> UIColor {
-		var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).uppercaseString
-		
-		if (cString.hasPrefix("#")) {
-			cString = (cString as NSString).substringFromIndex(1)
-		}
-		
-		if (cString.characters.count != 6) {
-			return UIColor.grayColor()
-		}
-		
-		let rString = (cString as NSString).substringToIndex(2)
-		let gString = ((cString as NSString).substringFromIndex(2) as NSString).substringToIndex(2)
-		let bString = ((cString as NSString).substringFromIndex(4) as NSString).substringToIndex(2)
-		
-		var r:CUnsignedInt = 0, g:CUnsignedInt = 0, b:CUnsignedInt = 0;
-		NSScanner(string: rString).scanHexInt(&r)
-		NSScanner(string: gString).scanHexInt(&g)
-		NSScanner(string: bString).scanHexInt(&b)
-		
-		
-		return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
-	}
 }

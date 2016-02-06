@@ -27,16 +27,15 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		
 		//add table to modals
 		tableView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
-		tableView.rowHeight = UITableViewAutomaticDimension;
 		self.view.addSubview(tableView);
 		
 		//add table cells (options)
 		tablesArray = [
-			[ createCell("default_0") ]
+			[ createCell("0") ]
 		];
 		
 		tableView.delegate = self; tableView.dataSource = self;
-		tableView.backgroundColor = colorWithHexString("#FAFAFA");
+		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 	}
 	
 	//for default setting at view opening
@@ -55,6 +54,21 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	}
 	
 	///// for table func
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let cellObj = tableView.cellForRowAtIndexPath(indexPath); //! as UITableViewCell;
+		print("cell touched");
+		
+		//unselect all
+		for (var i:Int = 0; i < tablesArray.count; ++i) {
+			for (var j:Int = 0; j < (tablesArray[i] as! Array<AnyObject>).count; ++j) {
+				((tablesArray[i] as! Array<AnyObject>)[j] as! UITableViewCell).accessoryType = UITableViewCellAccessoryType.None;
+			}
+		}
+		
+		cellObj!.accessoryType = .Checkmark;
+		
+		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+	}
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		return 1;
 	}
@@ -70,8 +84,8 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	}
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		switch(indexPath.section){
-		default:
-			break;
+			default:
+				break;
 		}
 		
 		if #available(iOS 8.0, *) {
@@ -95,11 +109,11 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	//Tableview cell view create
 	func createCell( cellID:String ) -> UITableViewCell {
 		let tCell:UITableViewCell = UITableViewCell();
-		tCell.backgroundColor = colorWithHexString("#FFFFFF");
-		tCell.frame = CGRectMake(0, 0, self.view.frame.width, 45); //default cell size
+		tCell.backgroundColor = UIColor.whiteColor();
+		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 45); //default cell size
 		
 		let tLabel:UILabel = UILabel();
-		tLabel.frame = CGRectMake(16, 0, self.view.frame.width * 0.9, 45);
+		tLabel.frame = CGRectMake(16, 0, tableView.frame.width * 0.9, 45);
 		tLabel.font = UIFont.systemFontOfSize(16);
 		
 		switch(cellID) {
@@ -110,13 +124,9 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		}
 		
 		tCell.accessoryType = UITableViewCellAccessoryType.None;
+		//tCell.selectionStyle = .None;
 		
-		//tCell.cellElement =
 		tCell.addSubview(tLabel);
-	
-		
-		
-		tCell.selectionStyle = UITableViewCellSelectionStyle.None;
 		tableCells += [tCell];
 		return tCell;
 	}
@@ -128,29 +138,4 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	}
 	
 	
-	//////////////////comment
-	
-	func colorWithHexString (hex:String) -> UIColor {
-		var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).uppercaseString
-		
-		if (cString.hasPrefix("#")) {
-			cString = (cString as NSString).substringFromIndex(1)
-		}
-		
-		if (cString.characters.count != 6) {
-			return UIColor.grayColor()
-		}
-		
-		let rString = (cString as NSString).substringToIndex(2)
-		let gString = ((cString as NSString).substringFromIndex(2) as NSString).substringToIndex(2)
-		let bString = ((cString as NSString).substringFromIndex(4) as NSString).substringToIndex(2)
-		
-		var r:CUnsignedInt = 0, g:CUnsignedInt = 0, b:CUnsignedInt = 0;
-		NSScanner(string: rString).scanHexInt(&r)
-		NSScanner(string: gString).scanHexInt(&g)
-		NSScanner(string: bString).scanHexInt(&b)
-		
-		
-		return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
-	}
 }

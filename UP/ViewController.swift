@@ -40,7 +40,7 @@ class ViewController: UIViewController {
     //Modal views
     var modalSettingsView:SettingsView?;
     var modalAlarmListView:AlarmListView?;
-	var modalAlarmAddView:AddAlarmView?;
+	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
 	
 	//screen blur view
 	var scrBlurView:AnyObject?;
@@ -118,8 +118,8 @@ class ViewController: UIViewController {
         modalSettingsView = SettingsView(); modalSettingsView!.setupModalView( getGeneralModalRect() );
         modalAlarmListView = AlarmListView();
 		modalAlarmListView!.setupModalView( getGeneralModalRect() );
-		modalAlarmAddView = AddAlarmView();
-		modalAlarmAddView!.setupModalView( getGeneralModalRect() );
+		//modalAlarmAddView = AddAlarmView();
+		modalAlarmAddView.setupModalView( getGeneralModalRect() );
 		
         //시계 이미지 터치시
         var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("openAlarmaddView:")); //openAlarmaddView
@@ -190,15 +190,17 @@ class ViewController: UIViewController {
 	
 	func openAlarmaddView (gestureRecognizer: UITapGestureRecognizer) {
 		//알람추가뷰 열기
+		modalAlarmAddView.showBlur = true;
+		
 		if #available(iOS 8.0, *) {
-			modalAlarmAddView?.modalPresentationStyle = .OverFullScreen;
+			modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
 		} else {
 			// Fallback on earlier versions
 		};
 		showHideBlurview(true);
-		self.presentViewController(modalAlarmAddView!, animated: true, completion: nil);
-		(modalAlarmAddView?.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
-		modalAlarmAddView?.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
+		(modalAlarmAddView.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
+		modalAlarmAddView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
 		
 	}
 	

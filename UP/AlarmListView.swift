@@ -22,32 +22,31 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
     var tablesArray:Array<AnyObject> = [];
 	
 	//Alarm-add view
-	var modalAlarmAddView:AddAlarmView?;
+	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
 	
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = .clearColor()
 		
         //ModalView
-        modalView.view.backgroundColor = colorWithHexString("#FFFFFF");
+        modalView.view.backgroundColor = UIColor.whiteColor();
 		
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = colorWithHexString("#4D9429");
+		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#4D9429");
 		navigationCtrl.view.frame = modalView.view.frame;
 		modalView.title = Languages.$("alarmList");
 		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
 		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "alarmAddAction");
-		modalView.navigationItem.leftBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
-		modalView.navigationItem.rightBarButtonItem?.tintColor = colorWithHexString("#FFFFFF");
+		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
+		modalView.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor();
 		self.view.addSubview(navigationCtrl.view);
 		
 		
         
         //add table to modal
         tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
-        tableView.rowHeight = UITableViewAutomaticDimension;
         modalView.view.addSubview(tableView);
         
         //add table cells (options)
@@ -56,11 +55,8 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
             
         ];
         /*tableView.delegate = self; tableView.dataSource = self;*/
-        tableView.backgroundColor = colorWithHexString("#FAFAFA");
+        tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 		
-		modalAlarmAddView = AddAlarmView();
-		modalAlarmAddView!.setupModalView( getGeneralModalRect() );
-		modalAlarmAddView!.showBlur = false;
 		
     }
 	
@@ -110,14 +106,16 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
     func alarmAddAction() {
         //Show alarm-add view
 		//뷰는 단 하나의 추가 뷰만 present가 가능한 관계로..
+		modalAlarmAddView.showBlur = false;
+		
 		if #available(iOS 8.0, *) {
-			modalAlarmAddView?.modalPresentationStyle = .OverFullScreen;
+			modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
 		} else {
 			// Fallback on earlier versions
 		};
-		self.presentViewController(modalAlarmAddView!, animated: true, completion: nil);
-		(modalAlarmAddView?.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
-		modalAlarmAddView?.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
+		(modalAlarmAddView.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
+		modalAlarmAddView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
     
     func viewCloseAction() {
@@ -139,7 +137,7 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 		//해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
 		tLabel.frame = CGRectMake(16, 0, self.modalView.view.frame.width * 0.75, 45);
 		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 45 /*CGFloat(45 * maxDeviceGeneral.scrRatio)*/ );
-		tCell.backgroundColor = colorWithHexString("#FFFFFF");
+		tCell.backgroundColor = UIColor.whiteColor();
 		
 		
 		//tSwitch.frame = CGRectMake(, , CGFloat(36 * maxDeviceGeneral.scrRatio), CGFloat(24 * maxDeviceGeneral.scrRatio));
@@ -155,36 +153,10 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 		tLabel.text = name; //tLabel.font = UIFont(name: "", size: CGFloat(18 * maxDeviceGeneral.scrRatio));
 		tLabel.font = UIFont.systemFontOfSize(16);
 		
-		tCell.selectionStyle = UITableViewCellSelectionStyle.None;
+		//tCell.selectionStyle = UITableViewCellSelectionStyle.None;
 		//tCell.clipsToBounds = true;
 		
 		return tCell;
 	}
 
-	
-    //////////////////comment
-	
-    func colorWithHexString (hex:String) -> UIColor {
-        var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).uppercaseString
-        
-        if (cString.hasPrefix("#")) {
-            cString = (cString as NSString).substringFromIndex(1)
-        }
-        
-        if (cString.characters.count != 6) {
-            return UIColor.grayColor()
-        }
-        
-        let rString = (cString as NSString).substringToIndex(2)
-        let gString = ((cString as NSString).substringFromIndex(2) as NSString).substringToIndex(2)
-        let bString = ((cString as NSString).substringFromIndex(4) as NSString).substringToIndex(2)
-        
-        var r:CUnsignedInt = 0, g:CUnsignedInt = 0, b:CUnsignedInt = 0;
-        NSScanner(string: rString).scanHexInt(&r)
-        NSScanner(string: gString).scanHexInt(&g)
-        NSScanner(string: bString).scanHexInt(&b)
-        
-        
-        return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
-    }
 }
