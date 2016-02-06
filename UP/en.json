@@ -1,19 +1,41 @@
 {
-    "title": "UP",
-    "localTitle": "UP",
-    
+    	
+	"generalOK": "OK",
     "generalClose": "Close",
-    
+	"generalAdd": "add",
+	"generalGame": "Game",
+	"generalAM": "AM",
+	"generalPM": "PM",
+	
     "settingsMenu": "Settings",
-    
+	"alarmList": "Alarm List",
+	
     "generalSettings": "General",
-    "settingsIconBadgeSetting": "Show badges",
-    "settingsiCloud": "Use iCloud sync",
-    "generalGuide": "Guide",
-    "settingsStartingGuide": "Guide for beginners",
-    "settingsRatingApp": "Rating app",
-    "settingsShowNewgame": "New game!",
-    "settingsGotoAVN": "AVN Graphic website"
+		"settingsIconBadgeSetting": "Show badges",
+		"settingsiCloud": "Use iCloud sync",
+	"generalGuide": "Guide",
+		"settingsStartingGuide": "Guide for beginners",
+		"settingsRatingApp": "Rating app",
+		"settingsShowNewgame": "New game!",
+		"settingsGotoAVN": "AVN graphic website"
+
+	"alarmSettings": "Alarm setting",
+		"alarmTitle": "Name",
+		"alarmRepeat": "Repeat Weekly",
+			"alarmRepeatFreqOnce": "No Repeat",
+			"alarmRepeatFreqEveryday": "Daily",
+			"alarmRepeatFreqWeekday": "weekdays",
+			"alarmRepeatFreqWeekend": "Weekends",
+			"alarmRepeatMon": "M",
+			"alarmRepeatTue": "T",
+			"alarmRepeatWed": "W",
+			"alarmRepeatThu": "T",
+			"alarmRepeatFri": "F",
+			"alarmRepeatSat": "S",
+			"alarmRepeatSun": "S"
+	
+	
+}
     
     
 }
