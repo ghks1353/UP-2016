@@ -13,6 +13,7 @@ class AlarmSettingsCell:UITableViewCell {
 	
 	internal var cellID:String = "";
 	internal var cellElement:AnyObject?;
+	internal var cellSubElement:AnyObject?;
 	
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		AddAlarmView.selfView!.cellFunc(self.cellID);

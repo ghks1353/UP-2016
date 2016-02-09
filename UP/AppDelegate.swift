@@ -15,7 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        //로컬알림 (등)으로인해 앱실행된경우.
+		if let options = launchOptions {
+			if let notification = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
+				//queue with launchopt
+				AlarmManager.mergeAlarm();
+				
+			}
+		}
+
+		
         return true
     }
 

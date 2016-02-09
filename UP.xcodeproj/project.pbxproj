@@ -170,6 +170,14 @@
 		776900FB1C53BFFD00CAD968 /* col.png in Resources */ = {isa = PBXBuildFile; fileRef = 776900F01C53BFFD00CAD968 /* col.png */; };
 		776900FD1C53C24F00CAD968 /* ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 776900FC1C53C24F00CAD968 /* ground.png */; };
 		7769011B1C53E8EC00CAD968 /* time_body.png in Resources */ = {isa = PBXBuildFile; fileRef = 7769011A1C53E8EC00CAD968 /* time_body.png */; };
+		77958C9A1C68D05C00E99864 /* SoundInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77958C991C68D05C00E99864 /* SoundInfoObj.swift */; };
+		77958C9C1C68DB2900E99864 /* alarm-test.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77958C9B1C68DB2900E99864 /* alarm-test.aiff */; };
+		77958C9E1C68E0D900E99864 /* AlarmSoundListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */; };
+		77E23BFF1C699723005F0B03 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23BFE1C699723005F0B03 /* AlarmManager.swift */; };
+		77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C001C69A7F5005F0B03 /* AlarmElements.swift */; };
+		77E23C051C6A20F1005F0B03 /* UISingleSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */; };
+		77E23C071C6A334D005F0B03 /* UPAlarmSoundLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C061C6A334D005F0B03 /* UPAlarmSoundLists.swift */; };
+		77E23C091C6A46F5005F0B03 /* UITouchableSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C081C6A46F5005F0B03 /* UITouchableSegmentControl.swift */; };
 		77E5B9B21C624BD30075431A /* AlarmSoundListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */; };
 		77EF9EBC1C53EAA300F479B2 /* time_mh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EF9EBB1C53EAA300F479B2 /* time_mh.png */; };
 		77EF9EBE1C53EAB000F479B2 /* time_hh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EF9EBD1C53EAB000F479B2 /* time_hh.png */; };
@@ -344,6 +352,14 @@
 		776900F01C53BFFD00CAD968 /* col.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = col.png; sourceTree = "<group>"; };
 		776900FC1C53C24F00CAD968 /* ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ground.png; sourceTree = "<group>"; };
 		7769011A1C53E8EC00CAD968 /* time_body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_body.png; sourceTree = "<group>"; };
+		77958C991C68D05C00E99864 /* SoundInfoObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundInfoObj.swift; sourceTree = "<group>"; };
+		77958C9B1C68DB2900E99864 /* alarm-test.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "alarm-test.aiff"; path = "SoundAssets/AlarmSounds/alarm-test.aiff"; sourceTree = "<group>"; };
+		77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundListCell.swift; sourceTree = "<group>"; };
+		77E23BFE1C699723005F0B03 /* AlarmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
+		77E23C001C69A7F5005F0B03 /* AlarmElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmElements.swift; sourceTree = "<group>"; };
+		77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISingleSegmentControl.swift; sourceTree = "<group>"; };
+		77E23C061C6A334D005F0B03 /* UPAlarmSoundLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPAlarmSoundLists.swift; sourceTree = "<group>"; };
+		77E23C081C6A46F5005F0B03 /* UITouchableSegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITouchableSegmentControl.swift; sourceTree = "<group>"; };
 		77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundListView.swift; sourceTree = "<group>"; };
 		77EF9EBB1C53EAA300F479B2 /* time_mh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_mh.png; sourceTree = "<group>"; };
 		77EF9EBD1C53EAB000F479B2 /* time_hh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_hh.png; sourceTree = "<group>"; };
@@ -408,13 +424,10 @@
 			isa = PBXGroup;
 			children = (
 				773E91081C59FBBF0084EB07 /* SettingsElement.swift */,
-				773D2F6A1C5B7CCF0093CD2D /* Languages.swift */,
-				773E910B1C5A36480084EB07 /* CustomTableCell.swift */,
-				7741412F1C5BC09500E5A723 /* DataManager.swift */,
-				774D0DB11C5CA85A00E41385 /* DeviceGeneral.swift */,
-				7759757C1C5F05A60057CDD6 /* AlarmSettingsCell.swift */,
 				77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */,
-				77FD0DEF1C66312400B5B5E9 /* UPUtils.swift */,
+				77958C991C68D05C00E99864 /* SoundInfoObj.swift */,
+				77E23C001C69A7F5005F0B03 /* AlarmElements.swift */,
+				77E23C061C6A334D005F0B03 /* UPAlarmSoundLists.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -661,7 +674,10 @@
 		775ADBE61C4FC4C700B52552 /* UP */ = {
 			isa = PBXGroup;
 			children = (
+				77E23C031C6A082F005F0B03 /* Cells */,
+				77E23C021C6A0804005F0B03 /* Utils */,
 				773E91071C59FB9E0084EB07 /* Classes */,
+				77E23BFD1C6996EE005F0B03 /* Managers */,
 				774C56251C59246A00421F06 /* SubViews */,
 				7740E2271C507AC800B11A24 /* Resources */,
 				775ADBF91C4FC78100B52552 /* UP.entitlements */,
@@ -681,8 +697,40 @@
 		77C3CFC61C6325BE009A183A /* Alarms */ = {
 			isa = PBXGroup;
 			children = (
+				77958C9B1C68DB2900E99864 /* alarm-test.aiff */,
 			);
 			name = Alarms;
+			sourceTree = "<group>";
+		};
+		77E23BFD1C6996EE005F0B03 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				7741412F1C5BC09500E5A723 /* DataManager.swift */,
+				77E23BFE1C699723005F0B03 /* AlarmManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		77E23C021C6A0804005F0B03 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				773D2F6A1C5B7CCF0093CD2D /* Languages.swift */,
+				77FD0DEF1C66312400B5B5E9 /* UPUtils.swift */,
+				774D0DB11C5CA85A00E41385 /* DeviceGeneral.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		77E23C031C6A082F005F0B03 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7759757C1C5F05A60057CDD6 /* AlarmSettingsCell.swift */,
+				77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */,
+				773E910B1C5A36480084EB07 /* CustomTableCell.swift */,
+				77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */,
+				77E23C081C6A46F5005F0B03 /* UITouchableSegmentControl.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -755,6 +803,7 @@
 				776900F91C53BFFD00CAD968 /* 8.png in Resources */,
 				774C55E11C58E84500421F06 /* astro0167.png in Resources */,
 				774C55DB1C58E84500421F06 /* astro0161.png in Resources */,
+				77958C9C1C68DB2900E99864 /* alarm-test.aiff in Resources */,
 				774C55C41C58E84500421F06 /* astro0018.png in Resources */,
 				774C55C11C58E84500421F06 /* astro0015.png in Resources */,
 				774C56191C58E84500421F06 /* astro0253.png in Resources */,
@@ -922,13 +971,20 @@
 				773D2E501C562FE300177CF3 /* TestGameScene.swift in Sources */,
 				77FD0DEE1C6625FD00B5B5E9 /* GlobalSubView.swift in Sources */,
 				774D0DB21C5CA85A00E41385 /* DeviceGeneral.swift in Sources */,
+				77958C9A1C68D05C00E99864 /* SoundInfoObj.swift in Sources */,
+				77E23BFF1C699723005F0B03 /* AlarmManager.swift in Sources */,
 				774141301C5BC09500E5A723 /* DataManager.swift in Sources */,
 				773E910C1C5A36480084EB07 /* CustomTableCell.swift in Sources */,
+				77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */,
 				774C56271C59247900421F06 /* SettingsView.swift in Sources */,
 				774D0DB01C5CA7AC00E41385 /* AlarmListView.swift in Sources */,
 				773D2E4E1C56105700177CF3 /* TestGameView.swift in Sources */,
+				77E23C091C6A46F5005F0B03 /* UITouchableSegmentControl.swift in Sources */,
 				773E91091C59FBBF0084EB07 /* SettingsElement.swift in Sources */,
+				77E23C051C6A20F1005F0B03 /* UISingleSegmentControl.swift in Sources */,
+				77958C9E1C68E0D900E99864 /* AlarmSoundListCell.swift in Sources */,
 				77FD0DF01C66312400B5B5E9 /* UPUtils.swift in Sources */,
+				77E23C071C6A334D005F0B03 /* UPAlarmSoundLists.swift in Sources */,
 				773D2F6B1C5B7CCF0093CD2D /* Languages.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

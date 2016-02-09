@@ -11,28 +11,36 @@ import UIKit
 
 class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
+	//클래스 외부접근을 위함
+	static var selfView:AlarmSoundListView?;
+	
 	//Table for view
 	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
 	var tablesArray:Array<AnyObject> = [];
-	var tableCells:Array<UITableViewCell> = [];
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
+		AlarmSoundListView.selfView = self;
+		
 		self.view.backgroundColor = .clearColor();
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.whiteColor();
-		
 		self.title = Languages.$("alarmSound");
 		
+		//Sound list
+				
 		//add table to modals
 		tableView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
 		self.view.addSubview(tableView);
 		
 		//add table cells (options)
-		tablesArray = [
-			[ createCell("0") ]
-		];
+		var alarmSoundListsTableArr:Array<UITableViewCell> = [];
+		for (var i:Int = 0; i < UPAlarmSoundLists.list.count; ++i) {
+			alarmSoundListsTableArr += [ createCell(UPAlarmSoundLists.list[i]) ];
+		}
+		tablesArray = [ alarmSoundListsTableArr ];
+		
 		
 		tableView.delegate = self; tableView.dataSource = self;
 		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
@@ -54,18 +62,16 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	}
 	
 	///// for table func
+	func cellFunc( cellSoundInfoObj:SoundInfoObj ) {
+		AddAlarmView.selfView!.setSoundElement(cellSoundInfoObj);
+		AddAlarmView.selfView!.navigationCtrl.popToRootViewControllerAnimated(true);
+
+		
+		
+	}
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cellObj = tableView.cellForRowAtIndexPath(indexPath); //! as UITableViewCell;
-		print("cell touched");
+		//let cellObj:AlarmSoundListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmSoundListCell;
 		
-		//unselect all
-		for (var i:Int = 0; i < tablesArray.count; ++i) {
-			for (var j:Int = 0; j < (tablesArray[i] as! Array<AnyObject>).count; ++j) {
-				((tablesArray[i] as! Array<AnyObject>)[j] as! UITableViewCell).accessoryType = UITableViewCellAccessoryType.None;
-			}
-		}
-		
-		cellObj!.accessoryType = .Checkmark;
 		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true);
 	}
@@ -107,27 +113,23 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	
 	
 	//Tableview cell view create
-	func createCell( cellID:String ) -> UITableViewCell {
-		let tCell:UITableViewCell = UITableViewCell();
+	func createCell( soundObj:SoundInfoObj ) -> AlarmSoundListCell {
+		let tCell:AlarmSoundListCell = AlarmSoundListCell();
 		tCell.backgroundColor = UIColor.whiteColor();
 		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 45); //default cell size
+		//print(tableView.frame.width);
 		
 		let tLabel:UILabel = UILabel();
 		tLabel.frame = CGRectMake(16, 0, tableView.frame.width * 0.9, 45);
 		tLabel.font = UIFont.systemFontOfSize(16);
+		tLabel.text = soundObj.soundLangName;
 		
-		switch(cellID) {
-			case "0":
-				tLabel.text = "testsound";
-				break;
-			default: break;
-		}
+		tCell.soundInfoObject = soundObj;
 		
-		tCell.accessoryType = UITableViewCellAccessoryType.None;
+		tCell.accessoryType = UITableViewCellAccessoryType.Checkmark;
 		//tCell.selectionStyle = .None;
 		
 		tCell.addSubview(tLabel);
-		tableCells += [tCell];
 		return tCell;
 	}
 	

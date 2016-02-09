@@ -116,6 +116,10 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
 		(modalAlarmAddView.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
 		modalAlarmAddView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+		(modalAlarmAddView.getElementFromTable("alarmName") as! UITextField).text = ""; //empty alarm name
+		modalAlarmAddView.setSoundElement(UPAlarmSoundLists.list[0]); //default - first element of soundlist
+		modalAlarmAddView.resetAlarmRepeatCell();
+		
     }
     
     func viewCloseAction() {

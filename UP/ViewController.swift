@@ -159,6 +159,12 @@ class ViewController: UIViewController {
 		//Startup language initial
         Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
 		
+		//Startup alarm merge
+		AlarmManager.mergeAlarm();
+		
+		//FOR TEST
+		//UIApplication.sharedApplication().cancelAllLocalNotifications();
+		//AlarmManager.clearAlarm();
 		
        updateTimeAnimation(); //first call
        setInterval(0.5, block: updateTimeAnimation);
@@ -201,6 +207,9 @@ class ViewController: UIViewController {
 		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
 		(modalAlarmAddView.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
 		modalAlarmAddView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+		(modalAlarmAddView.getElementFromTable("alarmName") as! UITextField).text = ""; //empty alarm name
+		modalAlarmAddView.setSoundElement(UPAlarmSoundLists.list[0]); //default - first element of soundlist
+		modalAlarmAddView.resetAlarmRepeatCell();
 		
 	}
 	

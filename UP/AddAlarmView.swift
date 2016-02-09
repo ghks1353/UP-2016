@@ -28,6 +28,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	//Subview for select
 	var alarmSoundListView:AlarmSoundListView = GlobalSubView.alarmSoundListView; // = AlarmSoundListView();
 	
+	//Alarm sound selected
+	var alarmSoundSelectedObj:SoundInfoObj?;
+	
 	internal var showBlur:Bool = true;
 	
 	override func viewDidLoad() {
@@ -67,6 +70,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			[ /* section 3 */
 				createCell(2, cellID: "alarmGame"),
 				createCell(2, cellID: "alarmSound")
+			],
+			[ /* section 4 */
+				createCell(3, cellID: "alarmRepeatSetting")
 			]
 		];
 		
@@ -79,8 +85,30 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		
 	}
 	
+	//set sound element from other view
+	internal func setSoundElement(sInfo:SoundInfoObj) {
+		(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundLangName;
+		alarmSoundSelectedObj = sInfo;
+	}
+	
 	//add alarm evt
 	func addAlarmToDevice() {
+		
+		var repeatArray:Array<Bool> = [];
+		var listArray:Array<UISingleSegmentControl> = (getElementFromTable("alarmRepeatSetting") as! Array<UISingleSegmentControl>);
+		
+		for (var i:Int = 0; i < listArray.count; ++i) { //add repeat arr
+			repeatArray += [ listArray[i].selectedSegmentIndex==0 ? true : false ];
+		}
+		
+		///Add alarm to system
+		AlarmManager.addAlarm((getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
+			alarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
+			soundFile: alarmSoundSelectedObj!,
+			repeatArr: repeatArray);
+		
+		//added successfully. close view
+		viewCloseAction();
 		
 	}
 	
@@ -109,11 +137,11 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	}
 	
 	//for default setting at view opening
-	internal func getElementFromTable(cellID:String)->AnyObject? {
+	internal func getElementFromTable(cellID:String, isSubElement:Bool = false)->AnyObject? {
 		//let anyobjectOfTable:AnyObject?;
 		for (var i:Int = 0; i < tableCells.count; ++i) {
 			if (tableCells[i].cellID == cellID) {
-				return tableCells[i].cellElement!;
+				return isSubElement ? tableCells[i].cellSubElement! : tableCells[i].cellElement!;
 			}
 		}
 		return nil;
@@ -139,7 +167,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	///// for table func
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 3;
+		return 4;
 	}
 	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
@@ -156,6 +184,8 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		switch(indexPath.section){
 			case 1:
 				return 200;
+			case 3:
+				return 102;
 			default:
 				break;
 		}
@@ -233,9 +263,37 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				
 				tCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator;
 				
-				//tCell.cellElement =
+				tCell.cellElement = tSettingLabel;
 				tSettingLabel.text = Languages.$("generalDefault");
 				tCell.addSubview(tLabel); tCell.addSubview(tSettingLabel);
+				break;
+			case 3: //segment sel
+				let tSegSel:UITouchableSegmentControl = UITouchableSegmentControl( /* 매일 주중 주말 */
+					items: [ Languages.$("alarmRepeatFreqEveryday"), Languages.$("alarmRepeatFreqWeekday"), Languages.$("alarmRepeatFreqWeekend") ]);
+				//tSegSel.selectedSegmentIndex = -1;
+				tSegSel.frame = CGRectMake( (self.modalView.view.frame.width / 8), 12, (self.modalView.view.frame.width * 0.75 ), 36 );
+				var tSegSingleArray:Array<UISingleSegmentControl> = []; //월~일
+				tSegSingleArray += [ UISingleSegmentControl(items: [Languages.$("alarmRepeatMon")] ) ];
+				tSegSingleArray += [ UISingleSegmentControl(items: [Languages.$("alarmRepeatTue")] ) ];
+				tSegSingleArray += [ UISingleSegmentControl(items: [Languages.$("alarmRepeatWed")] ) ];
+				tSegSingleArray += [ UISingleSegmentControl(items: [Languages.$("alarmRepeatThu")] ) ];
+				tSegSingleArray += [ UISingleSegmentControl(items: [Languages.$("alarmRepeatFri")] ) ];
+				tSegSingleArray += [ UISingleSegmentControl(items: [Languages.$("alarmRepeatSat")] ) ];
+				tSegSingleArray += [ UISingleSegmentControl(items: [Languages.$("alarmRepeatSun")] ) ];
+				
+				for (var i:Int = 0; i < tSegSingleArray.count; ++i) { //고정크기 32.
+					tSegSingleArray[i].segmentID = i;
+					tSegSingleArray[i].touchFunc = segTouchEventHandler;
+					tSegSingleArray[i].setFrame( ((self.modalView.view.frame.width - (34.6 * CGFloat(7))) / 2) + (34.6 * CGFloat(i)) , y: 58);
+					tCell.addSubview(tSegSingleArray[i]);
+				}
+				
+				tSegSel.touchFunc = dayControllerSegmentTouchHandler;
+				
+				tCell.cellElement = tSegSingleArray;
+				tCell.cellSubElement = tSegSel; //for tab init
+					
+				tCell.addSubview(tSegSel);
 				break;
 			
 			default:
@@ -256,10 +314,84 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		return tCell;
 	}
 	
+	//segment(top) touch
+	func dayControllerSegmentTouchHandler ( segmentElement:UITouchableSegmentControl ) {
+		print("daycontroller touching");
+		
+		var listPointer:Array<UISingleSegmentControl> = (getElementFromTable("alarmRepeatSetting") as! Array<UISingleSegmentControl>);
+		switch(segmentElement.selectedSegmentIndex) {
+			case 0: //every
+				for (var i:Int = 0; i < listPointer.count; ++i) {
+					listPointer[i].selectedSegmentIndex = 0; //all on
+				}
+				break;
+			case 1: //week
+				listPointer[0].selectedSegmentIndex = 0; listPointer[1].selectedSegmentIndex = 0;
+				listPointer[2].selectedSegmentIndex = 0; listPointer[3].selectedSegmentIndex = 0; listPointer[4].selectedSegmentIndex = 0;
+				listPointer[5].selectedSegmentIndex = -1; listPointer[6].selectedSegmentIndex = -1;
+				
+				break;
+			case 2: //weekend
+				listPointer[0].selectedSegmentIndex = -1; listPointer[1].selectedSegmentIndex = -1;
+				listPointer[2].selectedSegmentIndex = -1; listPointer[3].selectedSegmentIndex = -1; listPointer[4].selectedSegmentIndex = -1;
+				listPointer[5].selectedSegmentIndex = 0; listPointer[6].selectedSegmentIndex = 0;
+				break;
+			default: break;
+		}
+		
+	}
+	
+	//segments touch
+	func segTouchEventHandler( segmentElement:UISingleSegmentControl ) {
+		print(segmentElement.segmentID, "state", segmentElement.selectedSegmentIndex);
+		//월~금만 선택된 경우 주중, 모두 선택된 경우 매일, 토,일만 선택된 경우 주말, 그 외에 선택해제
+		var listPointer:Array<UISingleSegmentControl> = (getElementFromTable("alarmRepeatSetting") as! Array<UISingleSegmentControl>);
+		let dayPointer:UITouchableSegmentControl = getElementFromTable("alarmRepeatSetting", isSubElement: true) as! UITouchableSegmentControl;
+		if (listPointer[0].selectedSegmentIndex == 0 &&
+			listPointer[1].selectedSegmentIndex == 0 &&
+			listPointer[2].selectedSegmentIndex == 0 &&
+			listPointer[3].selectedSegmentIndex == 0 &&
+			listPointer[4].selectedSegmentIndex == 0 &&
+			listPointer[5].selectedSegmentIndex == 0 &&
+			listPointer[6].selectedSegmentIndex == 0) { //everyday
+				dayPointer.selectedSegmentIndex = 0;
+		} else if (listPointer[0].selectedSegmentIndex == 0 &&
+			listPointer[1].selectedSegmentIndex == 0 &&
+			listPointer[2].selectedSegmentIndex == 0 &&
+			listPointer[3].selectedSegmentIndex == 0 &&
+			listPointer[4].selectedSegmentIndex == 0 &&
+			listPointer[5].selectedSegmentIndex == -1 &&
+			listPointer[6].selectedSegmentIndex == -1) { //weekday
+				dayPointer.selectedSegmentIndex = 1;
+		} else if (listPointer[0].selectedSegmentIndex == -1 &&
+			listPointer[1].selectedSegmentIndex == -1 &&
+			listPointer[2].selectedSegmentIndex == -1 &&
+			listPointer[3].selectedSegmentIndex == -1 &&
+			listPointer[4].selectedSegmentIndex == -1 &&
+			listPointer[5].selectedSegmentIndex == 0 &&
+			listPointer[6].selectedSegmentIndex == 0) { //weekend
+				dayPointer.selectedSegmentIndex = 2;
+		} else {
+			dayPointer.selectedSegmentIndex = -1; //unselected
+		}
+		
+	}
+	
+	
 	//UITextfield del
 	func textFieldShouldReturn(textField: UITextField) -> Bool { //Returnkey to hide
 		self.view.endEditing(true);
 		return false;
+	}
+	
+	//Alarm element reset func
+	internal func resetAlarmRepeatCell() {
+		var listArray:Array<UISingleSegmentControl> = (getElementFromTable("alarmRepeatSetting") as! Array<UISingleSegmentControl>);
+		for (var i:Int = 0; i < listArray.count; ++i) {
+			listArray[i].selectedSegmentIndex = -1;
+		}
+		(getElementFromTable("alarmRepeatSetting", isSubElement: true) as! UITouchableSegmentControl).selectedSegmentIndex = -1;
+		
 	}
 	
 	
