@@ -97,7 +97,8 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		var repeatArray:Array<Bool> = [];
 		var listArray:Array<UISingleSegmentControl> = (getElementFromTable("alarmRepeatSetting") as! Array<UISingleSegmentControl>);
 		
-		for (var i:Int = 0; i < listArray.count; ++i) { //add repeat arr
+		repeatArray += [ listArray[6].selectedSegmentIndex == 0 ? true : false ]; //Sunday is first at array
+		for (var i:Int = 0; i < listArray.count-1; ++i) { //add repeat arr. starts from mon to sat
 			repeatArray += [ listArray[i].selectedSegmentIndex==0 ? true : false ];
 		}
 		
