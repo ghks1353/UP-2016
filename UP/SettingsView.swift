@@ -71,25 +71,8 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		if (tmpOption == true) { /* icloud option is true? */
 			setSwitchData("syncToiCloud", value: true);
 		}
-			
-        //add touch listener each ele
-        /*for (var i:Int = 0; i < settingsArray.count; ++i) {
-            
-        }*/
-        /*for (var i:Int = 0; i < tablesArray.count; ++i) {
-            for (var j:Int = 0; j < (tablesArray[i] as! Array<AnyObject>).count; ++j ) {
-                let uTableCell:AnyObject = (tablesArray[i] as! Array<AnyObject>)[j]; //(tablesArray[i] as! Array<AnyObject>)[j] as! CustomTableCell; // as! UITableViewCell;
-                let gestureEvtHandler:UITapGestureRecognizer = UITapGestureRecognizer(target: uTableCell, action: "optionsTouchEventHandler:");
-                tableView.addGestureRecognizer(gestureEvtHandler);
-                //(tablesArray[i][j] as! UITableViewCell).touchesBegan;
-                
-            }
-        }*/
-        
-        
-        //navigation.setTitleVerticalPositionAdjustment(CGFloat(6 * maxDeviceGeneral.scrRatio), forBarMetrics: .Default);
-        
-    }
+	
+	}
 	
 	func setSwitchData(settingsID:String, value:Bool) {
 		for (var i:Int = 0; i < settingsArray.count; ++i) {

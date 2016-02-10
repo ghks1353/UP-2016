@@ -378,6 +378,14 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		
 	}
 	
+	//clear all components
+	internal func clearComponents() {
+		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
+		self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+		(self.getElementFromTable("alarmName") as! UITextField).text = ""; //empty alarm name
+		self.setSoundElement(UPAlarmSoundLists.list[0]); //default - first element of soundlist
+		self.resetAlarmRepeatCell();
+	}
 	
 	//UITextfield del
 	func textFieldShouldReturn(textField: UITextField) -> Bool { //Returnkey to hide

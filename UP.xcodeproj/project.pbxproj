@@ -179,6 +179,8 @@
 		77E23C071C6A334D005F0B03 /* UPAlarmSoundLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C061C6A334D005F0B03 /* UPAlarmSoundLists.swift */; };
 		77E23C091C6A46F5005F0B03 /* UITouchableSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C081C6A46F5005F0B03 /* UITouchableSegmentControl.swift */; };
 		77E5B9B21C624BD30075431A /* AlarmSoundListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */; };
+		77EB7B071C6B6356008247DD /* AlarmListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB7B061C6B6356008247DD /* AlarmListCell.swift */; };
+		77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */; };
 		77EF9EBC1C53EAA300F479B2 /* time_mh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EF9EBB1C53EAA300F479B2 /* time_mh.png */; };
 		77EF9EBE1C53EAB000F479B2 /* time_hh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EF9EBD1C53EAB000F479B2 /* time_hh.png */; };
 		77FD0DEE1C6625FD00B5B5E9 /* GlobalSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */; };
@@ -361,6 +363,8 @@
 		77E23C061C6A334D005F0B03 /* UPAlarmSoundLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPAlarmSoundLists.swift; sourceTree = "<group>"; };
 		77E23C081C6A46F5005F0B03 /* UITouchableSegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITouchableSegmentControl.swift; sourceTree = "<group>"; };
 		77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundListView.swift; sourceTree = "<group>"; };
+		77EB7B061C6B6356008247DD /* AlarmListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListCell.swift; sourceTree = "<group>"; };
+		77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-sample.png"; path = "ImageAssets/GameThumbs/game-thumb-sample.png"; sourceTree = "<group>"; };
 		77EF9EBB1C53EAA300F479B2 /* time_mh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_mh.png; sourceTree = "<group>"; };
 		77EF9EBD1C53EAB000F479B2 /* time_hh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_hh.png; sourceTree = "<group>"; };
 		77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSubView.swift; sourceTree = "<group>"; };
@@ -455,6 +459,7 @@
 		7740E2281C507C8700B11A24 /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				77EB7B081C6B9D07008247DD /* Games */,
 				773D2E511C5674B200177CF3 /* TestSprite */,
 				7740E22D1C507CB100B11A24 /* CharacterMotion */,
 				7740E22C1C507CAC00B11A24 /* Main */,
@@ -729,8 +734,17 @@
 				773E910B1C5A36480084EB07 /* CustomTableCell.swift */,
 				77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */,
 				77E23C081C6A46F5005F0B03 /* UITouchableSegmentControl.swift */,
+				77EB7B061C6B6356008247DD /* AlarmListCell.swift */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		77EB7B081C6B9D07008247DD /* Games */ = {
+			isa = PBXGroup;
+			children = (
+				77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */,
+			);
+			name = Games;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -918,6 +932,7 @@
 				774C55F91C58E84500421F06 /* astro0221.png in Resources */,
 				774C55CD1C58E84500421F06 /* astro0027.png in Resources */,
 				774C55B51C58E84500421F06 /* astro0003.png in Resources */,
+				77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */,
 				774C55C31C58E84500421F06 /* astro0017.png in Resources */,
 				774C560C1C58E84500421F06 /* astro0240.png in Resources */,
 				774C55CF1C58E84500421F06 /* astro0029.png in Resources */,
@@ -986,6 +1001,7 @@
 				77FD0DF01C66312400B5B5E9 /* UPUtils.swift in Sources */,
 				77E23C071C6A334D005F0B03 /* UPAlarmSoundLists.swift in Sources */,
 				773D2F6B1C5B7CCF0093CD2D /* Languages.swift in Sources */,
+				77EB7B071C6B6356008247DD /* AlarmListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

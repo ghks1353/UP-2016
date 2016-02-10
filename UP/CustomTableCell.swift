@@ -23,6 +23,7 @@ class CustomTableCell:UITableViewCell {
         }
         
         print(self.cellID);
+		super.touchesBegan(touches, withEvent: event);
     }
     
 }

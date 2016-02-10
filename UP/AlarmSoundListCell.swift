@@ -16,7 +16,7 @@ class AlarmSoundListCell:UITableViewCell {
 	
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		AlarmSoundListView.selfView!.cellFunc(self.soundInfoObject!);
-		
+		//super.touchesBegan(touches, withEvent: event);
 	}
 	
 }

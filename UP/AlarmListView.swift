@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 
-class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDelegate*/ {
+class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
 	//Inner-modal view
 	var modalView:UIViewController = UIViewController();
@@ -18,8 +18,9 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 	var navigationCtrl:UINavigationController = UINavigationController();
 	
     //Table for menu
-    internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
+    internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Plain);
     var tablesArray:Array<AnyObject> = [];
+	var tableCells:Array<AlarmListCell> = [];
 	
 	//Alarm-add view
 	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
@@ -47,14 +48,34 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
         
         //add table to modal
         tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
+		tableView.separatorStyle = .None;
+		
         modalView.view.addSubview(tableView);
         
-        //add table cells (options)
+        //add alarm-list
+		//todo- 이 리스트가 새로고침되어 다시 만들어질 수 있도록 유연하게 만들 필요가 있음
+		
+		var alarmsCell:Array<AlarmListCell> = [];
+		var tmpComponentPointer:NSDateComponents;
+		for (var i:Int = 0; i < AlarmManager.alarmsArray.count; ++i) {
+			tmpComponentPointer = NSCalendar.currentCalendar().components([.Hour, .Minute], fromDate: AlarmManager.alarmsArray[i].alarmFireDate);
+			alarmsCell += [
+				createAlarmList(AlarmManager.alarmsArray[i].alarmName,
+					defaultState: AlarmManager.alarmsArray[i].alarmToggle,
+					timeHour: tmpComponentPointer.hour,
+					timeMin: tmpComponentPointer.minute,
+					selectedGame: AlarmManager.alarmsArray[i].gameSelected,
+					uuid: AlarmManager.alarmsArray[i].alarmID)
+			];
+		}
         tablesArray = [
-           
-            
+			/*section 1*/
+			alarmsCell
         ];
-        /*tableView.delegate = self; tableView.dataSource = self;*/
+		
+		
+		
+        tableView.delegate = self; tableView.dataSource = self;
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 		
 		
@@ -65,16 +86,14 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 	}
 	
     /// table setup
-    /*
+	
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1;
     }
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
-        case 0:
-            return Languages.$("generalSettings");
-        default:
-            return "-";
+			default:
+				return "";
         }
     }
     
@@ -82,15 +101,15 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
         return (tablesArray[section] as! Array<AnyObject>).count;
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension;
+		return 80; //UITableViewAutomaticDimension;
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
         return cell;
     }
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 38;
-    }*/
+        return 0;
+    }
     
     ////////////////
     
@@ -114,11 +133,7 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 			// Fallback on earlier versions
 		};
 		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
-		(modalAlarmAddView.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
-		modalAlarmAddView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
-		(modalAlarmAddView.getElementFromTable("alarmName") as! UITextField).text = ""; //empty alarm name
-		modalAlarmAddView.setSoundElement(UPAlarmSoundLists.list[0]); //default - first element of soundlist
-		modalAlarmAddView.resetAlarmRepeatCell();
+		modalAlarmAddView.clearComponents();
 		
     }
     
@@ -130,34 +145,44 @@ class AlarmListView:UIViewController /*, UITableViewDataSource, UITableViewDeleg
 	
 	
 	//Tableview cell view create
-	func createAlarmListCell(name:String, defaultState:Bool, timeHour:Int, timeMin:Int, selectedGame:String, uuid:String ) -> UITableViewCell {
+	func createAlarmList(name:String, defaultState:Bool, timeHour:Int, timeMin:Int, selectedGame:Int, uuid:Int ) -> AlarmListCell {
 		//TODO-func 16.1.31 PM 11:50
+		let tCell:AlarmListCell = AlarmListCell();
+		let tLabel:UILabel = UILabel(); let tLabelTime:UILabel = UILabel();
+		let tSwitch:UISwitch = UISwitch(); let tGameImage:UIImageView = UIImageView();
 		
-		let tCell:UITableViewCell = UITableViewCell();
-		let tLabel:UILabel = UILabel();
-		let tSwitch:UISwitch = UISwitch();
+		tLabel.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.55, 0, self.modalView.view.frame.width * 0.45, 40); //알람 이름
+		tLabelTime.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.5, 20, self.modalView.view.frame.width * 0.5, 72); //현재 시간
+		tLabel.textAlignment = .Center; tLabelTime.textAlignment = .Center;
 		
-		
-		//해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
-		tLabel.frame = CGRectMake(16, 0, self.modalView.view.frame.width * 0.75, 45);
-		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 45 /*CGFloat(45 * maxDeviceGeneral.scrRatio)*/ );
+		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 80 );
 		tCell.backgroundColor = UIColor.whiteColor();
 		
-		
-		//tSwitch.frame = CGRectMake(, , CGFloat(36 * maxDeviceGeneral.scrRatio), CGFloat(24 * maxDeviceGeneral.scrRatio));
-		//tSwitch.transform = CGAffineTransformMakeScale(CGFloat(maxDeviceGeneral.scrRatio), CGFloat(maxDeviceGeneral.scrRatio));
-		
-		tSwitch.frame.origin.x = self.modalView.view.frame.width - tSwitch.frame.width - CGFloat(8);
+		tSwitch.frame.origin.x = self.modalView.view.frame.width - tSwitch.frame.width - CGFloat(10);
 		tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2;
 		tSwitch.selected = defaultState;
 		
-		tCell.addSubview(tLabel); tCell.addSubview(tSwitch);
-		//tCell.d
+		tCell.addSubview(tLabel); tCell.addSubview(tLabelTime);
+		tCell.addSubview(tSwitch);
 		
-		tLabel.text = name; //tLabel.font = UIFont(name: "", size: CGFloat(18 * maxDeviceGeneral.scrRatio));
-		tLabel.font = UIFont.systemFontOfSize(16);
+		tLabel.text = name; tLabel.font = UIFont.systemFontOfSize(17);
 		
-		//tCell.selectionStyle = UITableViewCellSelectionStyle.None;
+		//이미지는 게임마다 따로분류
+		switch(selectedGame) {
+			default:
+				tGameImage.image = UIImage(named: "game-thumb-sample.png");
+				break;
+		}
+		tGameImage.frame = CGRectMake(-4, 2, 80, 80);
+		
+		tCell.addSubview(tGameImage);
+		
+		//시간은 별도의 글씨체(ios내장)를 사용함
+		let timeStr:String = String(timeHour) + ":" + String(timeMin);
+		tLabelTime.text = timeStr;
+		tLabelTime.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 44); //UIFont.systemFontSize(42);
+		
+		tCell.selectionStyle = UITableViewCellSelectionStyle.None;
 		//tCell.clipsToBounds = true;
 		
 		return tCell;
