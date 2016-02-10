@@ -20,6 +20,10 @@ class AlarmElements:NSObject {
 	//alarm on-off toggle
 	internal var alarmToggle:Bool = false;
 	
+	//Game clear check bool
+	internal var alarmCleared:Bool = false; //false인 경우, merge 대상에서 빠짐.
+	
+	
 	func encodeWithCoder(aCoder: NSCoder!) {
 		aCoder.encodeObject(alarmName, forKey: "alarmName");
 		aCoder.encodeInteger(gameSelected, forKey: "gameSelected");
@@ -32,6 +36,8 @@ class AlarmElements:NSObject {
 		
 		//toggle
 		aCoder.encodeBool(alarmToggle, forKey: "alarmToggle");
+		//game clear toggle
+		aCoder.encodeBool(alarmCleared, forKey: "alarmCleared");
 	}
 	
 	init(coder aDecoder: NSCoder!) {
@@ -46,6 +52,8 @@ class AlarmElements:NSObject {
 		
 		//toggle
 		alarmToggle = aDecoder.decodeBoolForKey("alarmToggle");
+		//game clear toggle
+		alarmCleared = aDecoder.decodeBoolForKey("alarmCleared");
 	}
 	
 	override init() {
@@ -55,7 +63,7 @@ class AlarmElements:NSObject {
 		alarmName = name; gameSelected = game; alarmRepeat = repeats;
 		alarmSound = sound; alarmFireDate = alarmDate;
 		alarmToggle = alarmTool; alarmID = id;
-		
+		alarmCleared = false; //Default game clear toggle is false.
 	}
 	
 }

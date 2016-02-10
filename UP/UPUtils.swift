@@ -11,6 +11,17 @@ import UIKit;
 
 class UPUtils {
 	
+	static func addDays(date: NSDate, additionalDays: Int) -> NSDate {
+		// adding $additionalDays
+		let components = NSDateComponents()
+		components.day = additionalDays
+		
+		// important: NSCalendarOptions(0)
+		let futureDate = NSCalendar.currentCalendar()
+			.dateByAddingComponents(components, toDate: date, options: NSCalendarOptions(rawValue: 0))
+		return futureDate!
+	}
+	
 	static func colorWithHexString (hex:String) -> UIColor {
 		var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).uppercaseString
 		

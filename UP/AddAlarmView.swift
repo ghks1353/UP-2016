@@ -105,6 +105,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		///Add alarm to system
 		AlarmManager.addAlarm((getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
 			alarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
+			gameID: 0, /* dummy data */
 			soundFile: alarmSoundSelectedObj!,
 			repeatArr: repeatArray);
 		
@@ -310,7 +311,6 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		tLabel.font = UIFont.systemFontOfSize(16);
 		*/
 		
-		//tCell.selectionStyle = UITableViewCellSelectionStyle.None;
 		tableCells += [tCell];
 		return tCell;
 	}
