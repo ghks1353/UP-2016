@@ -20,6 +20,7 @@ class AlarmManager {
 			- 다음날이 알람일이 아니지만 반복은 있는경우 그 날이 돌아올때까지 일만 추가함
 	*/
 	static var alarmsArray:Array<AlarmElements> = [];
+	static var isAlarmMergedFirst:Bool = false; //첫회 merge 체크용
 	
 	static func mergeAlarm() {
 		//스케줄된 알람들 가져와서 지난것들 merge함
@@ -99,7 +100,9 @@ class AlarmManager {
 						soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
 					//add 30sec needed
 					var dateForRepeat:NSDate = NSDate(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
-					dateForRepeat = dateForRepeat.dateByAddingTimeInterval(30);
+					let tmpNSComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: dateForRepeat);
+					tmpNSComp.second = 0;
+					dateForRepeat = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
 					addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
 						soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
 					print("Alarm added successfully.");
@@ -116,6 +119,21 @@ class AlarmManager {
 		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
 		DataManager.nsDefaults.synchronize();
 		
+		//Badge 표시용
+		let toBadgeShow:Bool = DataManager.nsDefaults.boolForKey(DataManager.settingsKeys.showBadge);
+		if (toBadgeShow) {
+			var badgeNumber:Int = 0;
+			for (var i:Int = 0; i < alarmsArray.count; ++i) {
+				if (alarmsArray[i].alarmToggle == true) {
+					badgeNumber += 1;
+				}
+			}
+			UIApplication.sharedApplication().applicationIconBadgeNumber = badgeNumber;
+		} else {
+			UIApplication.sharedApplication().applicationIconBadgeNumber = 0;
+		}
+		
+		isAlarmMergedFirst = true;
 	} //merge end
 	
 	//Clear alarm all (for debug?)
@@ -126,7 +144,63 @@ class AlarmManager {
 		DataManager.nsDefaults.synchronize();
 	}
 	
-	static func addAlarm(var date:NSDate, alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>) {
+	//Toggle alarm (on/off)
+	static func toggleAlarm(alarmID:Int, alarmStatus:Bool) {
+		//- 알람이 켜져있는 상태에서 끌 경우, LocalNotification도 같이 종료
+		//- 알람이 꺼져있는 상태에서 킬 경우, 상황에 따라 (반복체크후) LocalNotification 추가
+		if (!isAlarmMergedFirst) {
+			mergeAlarm();
+		} //merge first
+		
+		for (var i:Int = 0; i < alarmsArray.count; ++i) {
+			if (alarmsArray[i].alarmID == alarmID) { //target found
+				if (alarmsArray[i].alarmToggle == alarmStatus) {
+					print("status already same..!!");
+					break; //상태가 같으므로 변경할 필요 없음
+				}
+				var scdNotifications:Array<UILocalNotification> = UIApplication.sharedApplication().scheduledLocalNotifications!;
+				
+				if (alarmStatus == false) { //알람 끄기
+					for (var j:Int = 0; j < scdNotifications.count; ++j) {
+						if (scdNotifications[j].userInfo!["id"] as! Int == alarmsArray[i].alarmID) {
+							UIApplication.sharedApplication().cancelLocalNotification(scdNotifications[j]);
+						}
+					} //for end
+					alarmsArray[i].alarmToggle = false; //alarm toggle to off.
+				} else {
+					//알람 켜기 (addalarm 재탕)
+					let tmpsInfoObj = SoundInfoObj(soundName: "", fileName: alarmsArray[i].alarmSound);
+					let tmpNSDate:NSDate = NSDate();
+					let tmpNSComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day], fromDate: tmpNSDate);
+					let tComp:NSDateComponents = NSCalendar.currentCalendar().components([.Hour, .Minute], fromDate: alarmsArray[i].alarmFireDate);
+					tmpNSComp.hour = tComp.hour;
+					tmpNSComp.minute = tComp.minute;
+					tmpNSComp.second = 0;
+					alarmsArray[i].alarmFireDate = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
+					
+					print("Comp changed date to", alarmsArray[i].alarmFireDate);
+					
+					addAlarm(alarmsArray[i].alarmFireDate, alarmTitle: alarmsArray[i].alarmName,
+						gameID: alarmsArray[i].gameSelected, soundFile: tmpsInfoObj,
+						repeatArr: alarmsArray[i].alarmRepeat, insertAt: i, alarmID: alarmsArray[i].alarmID);
+					alarmsArray.removeAtIndex(i + 1); //해당 번호+1에 있는 element 제거 (기존 i에 추가했으니)
+					
+					//return; //한번더 저장해야됨.
+					break; //save
+				} //end status
+				break; //해당 ID를 처리했으므로 다음부터의 루프는 무의미
+			} //end alarmid target search
+		} //end for
+		
+		//save it
+		print("Status change saving");
+		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
+		DataManager.nsDefaults.synchronize();
+		
+	} //end func
+	
+	//Add alarm to system
+	static func addAlarm(var date:NSDate, alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1) {
 		//repeatarr에 일,월,화,수,목,금,토 순으로 채움
 		
 		//TODO 1 -> 테스트가 필요하지만, 일단 했음.
@@ -175,19 +249,43 @@ class AlarmManager {
 			print("Firedate", date);
 		}
 		
-		AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID:  alarmsArray.count);
+		let alarmUUID:Int = alarmID == -1 ? Int(NSDate().timeIntervalSince1970) : alarmID;
 		
-		AlarmManager.addLocalNotification(alarmTitle, aFireDate: date.dateByAddingTimeInterval(30), gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID:  alarmsArray.count);
+		//초단위 제거
+		let tmpNSComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: date);
+		tmpNSComp.second = 0;
+		date = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
+		
+		AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID);
+		
+		//30초
+		tmpNSComp.second = 30;
+		date = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
+		
+		AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID);
 		
 		//Add alarm to system (array) and save to nsdef
 		let tmpAlarmEle:AlarmElements = AlarmElements();
-		tmpAlarmEle.initObject(alarmTitle, game: gameID, repeats: repeatArr, sound: soundFile.soundFileName, alarmDate: date, alarmTool: true, id: alarmsArray.count);
-		//add to arr and save
-		alarmsArray += [tmpAlarmEle];
+		
+		//reset
+		tmpNSComp.second = 0;
+		date = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
+		
+		tmpAlarmEle.initObject(alarmTitle, game: gameID, repeats: repeatArr, sound: soundFile.soundFileName, alarmDate: date, alarmTool: true, id: alarmUUID);
+		
+		if (insertAt == -1) {
+			//add to arr and save
+			alarmsArray += [tmpAlarmEle];
+		} else {
+			alarmsArray.insert(tmpAlarmEle, atIndex: insertAt);
+		}
 		
 		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
 		DataManager.nsDefaults.synchronize();
 		
+		
+		//refresh another view
+		AlarmListView.selfView?.createTableList();
 	}
 	
 	//내부함수

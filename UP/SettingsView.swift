@@ -181,7 +181,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         
         tSwitch.frame.origin.x = self.modalView.view.frame.width - tSwitch.frame.width - 8;
         tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2;
-        tSwitch.selected = defaultState;
+        //tSwitch.selected = defaultState;
         
         tCell.addSubview(tLabel); tCell.addSubview(tSwitch);
         //tCell.d

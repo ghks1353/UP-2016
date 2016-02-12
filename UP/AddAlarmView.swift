@@ -107,7 +107,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			alarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
 			gameID: 0, /* dummy data */
 			soundFile: alarmSoundSelectedObj!,
-			repeatArr: repeatArray);
+			repeatArr: repeatArray,
+			insertAt: -1,
+			alarmID: -1);
 		
 		//added successfully. close view
 		viewCloseAction();

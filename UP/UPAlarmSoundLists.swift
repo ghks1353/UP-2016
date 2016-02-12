@@ -11,7 +11,8 @@ import Foundation
 class UPAlarmSoundLists {
 	
 	static var list:Array<SoundInfoObj> = [
-		SoundInfoObj(soundName: "alarm-testsound-giza", fileName: "alarm-test.aiff")
+		SoundInfoObj(soundName: "alarm-testsound-giza", fileName: "alarm-test.aiff"),
+		SoundInfoObj(soundName: "Marvel Soda", fileName: "marvelsoda.aiff")
 	];
 	
 }
