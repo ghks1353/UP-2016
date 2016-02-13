@@ -5,6 +5,7 @@
 	"generalOK": "확인",
     "generalClose": "닫기",
 	"generalAdd": "추가",
+	"generalCancel": "취소",
 	
 	"generalGame": "게임",
 	"generalAM": "오전",
@@ -25,6 +26,7 @@
 		"settingsShowNewgame": "새로운 게임!",
 		"settingsGotoAVN": "AVN Graphic 바로가기",
 	
+	"alarmDeleteTitle": "알람 삭제",
 	"alarmSettings": "알람 설정",
 		"alarmTitle": "알람 이름",
 		"alarmGame": "게임",
@@ -40,7 +42,9 @@
 			"alarmRepeatThu": "목",
 			"alarmRepeatFri": "금",
 			"alarmRepeatSat": "토",
-			"alarmRepeatSun": "일"
-	
+			"alarmRepeatSun": "일",
+		"alarmEdit": "편집",
+		"alarmDelete": "삭제",
+		"alarmDeleteSure": "이 알람을 삭제하시겠습니까?"
 	
 }

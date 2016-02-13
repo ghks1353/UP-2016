@@ -28,6 +28,10 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	//Alarm-add view
 	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
 	
+	//List delete confirm alert
+	var listConfirmAction:AnyObject?; //Fallback of iOS7
+	var alarmTargetID:Int = 0; //target del id(tmp)
+	
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = .clearColor()
@@ -50,7 +54,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		self.view.addSubview(navigationCtrl.view);
 		
 		
-        
         //add table to modal
         tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
 		tableView.separatorStyle = .None;
@@ -61,9 +64,25 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//todo- 이 리스트가 새로고침되어 다시 만들어질 수 있도록 유연하게 만들 필요가 있음
 		createTableList();
 		
-		
         tableView.delegate = self; tableView.dataSource = self;
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
+		
+		//alertaction
+		if #available(iOS 8.0, *) {
+			listConfirmAction = UIAlertController(title: Languages.$("alarmDeleteTitle"), message: Languages.$("alarmDeleteSure"), preferredStyle: .ActionSheet);
+			//add menus
+			let cancelAct:UIAlertAction = UIAlertAction(title: Languages.$("generalCancel"), style: .Cancel) { action -> Void in
+				//Cancel just dismiss it
+			};
+			let deleteSureAct:UIAlertAction = UIAlertAction(title: Languages.$("alarmDelete"), style: .Destructive) { action -> Void in
+				//delete it
+				print("del start of", self.alarmTargetID);
+				AlarmManager.removeAlarm(self.alarmTargetID);
+				self.createTableList(); //reload list
+			};
+			listConfirmAction!.addAction(cancelAct);
+			listConfirmAction!.addAction(deleteSureAct);
+		} //ios8 or above only..!!
 		
     }
 	
@@ -128,6 +147,24 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0;
     }
+	
+	@available(iOS 8.0, *)
+	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+		//get row
+		//let cell:AlarmListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmListCell;
+		
+		let deleteRow:UITableViewRowAction = UITableViewRowAction(style: .Default, title: Languages.$("alarmDelete")) {
+			(action:UITableViewRowAction!, childIndexPath:NSIndexPath!) -> Void in
+			
+			let cell:AlarmListCell = tableView.cellForRowAtIndexPath(childIndexPath) as! AlarmListCell;
+			print("cell delete alarm", cell.alarmID);
+			self.alarmTargetID = cell.alarmID;
+			self.presentViewController(self.listConfirmAction as! UIAlertController, animated: true, completion: nil); //show menu
+			
+		}
+		
+		return [deleteRow];
+	}
     
     ////////////////
     
@@ -261,6 +298,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		let timeStr:String = String(timeHour) + ":" + timeMinStr;
 		tLabelTime.text = timeStr;
 		tLabelTime.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 44); //UIFont.systemFontSize(42);
+		//tLabelTime.font = UIFont(name: "AvenirNext-UltraLight", size: 44);
 		
 		tCell.selectionStyle = UITableViewCellSelectionStyle.None;
 		

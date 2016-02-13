@@ -12,7 +12,8 @@ class UPAlarmSoundLists {
 	
 	static var list:Array<SoundInfoObj> = [
 		SoundInfoObj(soundName: "alarm-testsound-giza", fileName: "alarm-test.aiff"),
-		SoundInfoObj(soundName: "Marvel Soda", fileName: "marvelsoda.aiff")
+		SoundInfoObj(soundName: "Marvel Soda", fileName: "marvelsoda.aiff"),
+		SoundInfoObj(soundName: "국뽕★가랭", fileName: "alarm-test-koreagarang.aiff")
 	];
 	
 }

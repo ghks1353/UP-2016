@@ -154,6 +154,7 @@ class AlarmManager {
 		
 		for (var i:Int = 0; i < alarmsArray.count; ++i) {
 			if (alarmsArray[i].alarmID == alarmID) { //target found
+				print("Toggling. target:", alarmID);
 				if (alarmsArray[i].alarmToggle == alarmStatus) {
 					print("status already same..!!");
 					break; //상태가 같으므로 변경할 필요 없음
@@ -180,10 +181,13 @@ class AlarmManager {
 					
 					print("Comp changed date to", alarmsArray[i].alarmFireDate);
 					
-					addAlarm(alarmsArray[i].alarmFireDate, alarmTitle: alarmsArray[i].alarmName,
-						gameID: alarmsArray[i].gameSelected, soundFile: tmpsInfoObj,
-						repeatArr: alarmsArray[i].alarmRepeat, insertAt: i, alarmID: alarmsArray[i].alarmID);
-					alarmsArray.removeAtIndex(i + 1); //해당 번호+1에 있는 element 제거 (기존 i에 추가했으니)
+					let alarmsArrTmpPointer:AlarmElements = alarmsArray[i];
+					alarmsArray.removeAtIndex(i);
+					addAlarm(alarmsArrTmpPointer.alarmFireDate, alarmTitle: alarmsArrTmpPointer.alarmName,
+						gameID: alarmsArrTmpPointer.gameSelected, soundFile: tmpsInfoObj,
+						repeatArr: alarmsArrTmpPointer.alarmRepeat, insertAt: i, alarmID: alarmsArrTmpPointer.alarmID);
+					
+					
 					
 					//return; //한번더 저장해야됨.
 					break; //save
@@ -198,6 +202,33 @@ class AlarmManager {
 		DataManager.nsDefaults.synchronize();
 		
 	} //end func
+	
+	//Remove alarm from system
+	static func removeAlarm(alarmID:Int) {
+		if (!isAlarmMergedFirst) {
+			mergeAlarm();
+		} //merge first
+		
+		var scdNotifications:Array<UILocalNotification> = UIApplication.sharedApplication().scheduledLocalNotifications!;
+		for (var i:Int = 0; i < scdNotifications.count; ++i) {
+			if (scdNotifications[i].userInfo!["id"] as! Int == alarmID) {
+				UIApplication.sharedApplication().cancelLocalNotification(scdNotifications[i]);
+			}
+		} //alarm del from sys
+		
+		for (var i:Int = 0; i < alarmsArray.count; ++i) {
+			if (alarmsArray[i].alarmID == alarmID) {
+				alarmsArray.removeAtIndex(i);
+				break;
+			}
+		} //remove item from array
+		
+		//save it
+		print("Alarm removed from system. saving");
+		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
+		DataManager.nsDefaults.synchronize();
+		
+	}
 	
 	//Add alarm to system
 	static func addAlarm(var date:NSDate, alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1) {
@@ -231,7 +262,14 @@ class AlarmManager {
 		
 		print("Next alarm date is ",fireOnce," (-1: no repeat, 0=sunday)");
 		if (fireOnce == -1 || (fireSearched && fireOnce == todayDate.weekday - 1)) {
-			//Firedate modifiy not needed
+			//Firedate modifiy not needed but check time
+			//시간이 과거면 알람 추가 안해야함 + 다음날로 넘겨야됨
+			if (date.timeIntervalSince1970 <= (NSDate().timeIntervalSince1970)) {
+				//과거의 알람이기 때문에, 다음날로 넘겨야됨!
+				print("Past alarm!! add 1 day");
+				date = UPUtils.addDays(date, additionalDays: 1);
+			}
+			
 		} else {
 			//Firedate modify.
 			var fireAfterDay:Int = 0;
