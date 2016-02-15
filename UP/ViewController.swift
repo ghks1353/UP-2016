@@ -38,15 +38,16 @@ class ViewController: UIViewController {
    
     
     //Modal views
-    var modalSettingsView:SettingsView?;
-    var modalAlarmListView:AlarmListView?;
+    var modalSettingsView:SettingsView = SettingsView();
+    var modalAlarmListView:AlarmListView = AlarmListView();
 	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
 	
 	//screen blur view
 	var scrBlurView:AnyObject?;
 	
 	static var viewSelf:ViewController?;
-    
+	internal var viewImage:UIImage = UIImage();
+	
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -114,11 +115,8 @@ class ViewController: UIViewController {
         AstroCharacter.startAnimating();
         
         //Modal view 크기 및 위치
-        /*let generalModalRect:CGRect = CGRectMake(CGFloat(50 * DeviceGeneral.scrRatio) , ((DeviceGeneral.scrSize?.height)! - CGFloat(480 * DeviceGeneral.scrRatio)) / 2 , (DeviceGeneral.scrSize?.width)! - CGFloat(100 * DeviceGeneral.scrRatio), CGFloat(480 * DeviceGeneral.scrRatio));*/
-        modalSettingsView = SettingsView(); modalSettingsView!.setupModalView( getGeneralModalRect() );
-        modalAlarmListView = AlarmListView();
-		modalAlarmListView!.setupModalView( getGeneralModalRect() );
-		//modalAlarmAddView = AddAlarmView();
+        modalSettingsView.setupModalView( getGeneralModalRect() );
+		modalAlarmListView.setupModalView( getGeneralModalRect() );
 		modalAlarmAddView.setupModalView( getGeneralModalRect() );
 		
         //시계 이미지 터치시
@@ -168,6 +166,7 @@ class ViewController: UIViewController {
 		
        updateTimeAnimation(); //first call
        setInterval(0.5, block: updateTimeAnimation);
+	
     }
 	
 	func showHideBlurview( show:Bool ) {
@@ -186,6 +185,14 @@ class ViewController: UIViewController {
 						self.scrBlurView?.removeFromSuperview();
 				});
 			}
+		} else {
+			//iOS 7 fallback
+			if (show == true) {
+				UIGraphicsBeginImageContext(view.frame.size);
+				view.layer.renderInContext(UIGraphicsGetCurrentContext()!);
+				viewImage = UIGraphicsGetImageFromCurrentImageContext();
+				UIGraphicsEndImageContext();
+			}
 		}
 	}
 	
@@ -201,8 +208,8 @@ class ViewController: UIViewController {
 		if #available(iOS 8.0, *) {
 			modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
 		} else {
-			// Fallback on earlier versions
-		};
+			modalAlarmAddView.removeBackgroundViews();
+		}
 		showHideBlurview(true);
 		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
 		modalAlarmAddView.clearComponents();
@@ -212,25 +219,21 @@ class ViewController: UIViewController {
     func openSettingsView (gestureRecognizer: UITapGestureRecognizer) {
         //환경설정 열기
         if #available(iOS 8.0, *) {
-			modalSettingsView?.modalPresentationStyle = .OverFullScreen;
-        } else {
-            // Fallback on earlier versions
-			//modalSettingsView?.modalPresentationStyle = .
-        };
+			modalSettingsView.modalPresentationStyle = .OverFullScreen;
+		}
 		showHideBlurview(true);
-        self.presentViewController(modalSettingsView!, animated: true, completion: nil);
-		modalSettingsView?.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+        self.presentViewController(modalSettingsView, animated: true, completion: nil);
+		modalSettingsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
     func openAlarmlistView (gestureRecognizer: UITapGestureRecognizer) {
         //Alarmlist view 열기
         if #available(iOS 8.0, *) {
-			modalAlarmListView?.modalPresentationStyle = .OverFullScreen;
-        } else {
-            // Fallback on earlier versions
-        };
+			modalAlarmListView.modalPresentationStyle = .OverFullScreen;
+        }
 		showHideBlurview(true);
-        self.presentViewController(modalAlarmListView!, animated: true, completion: nil);
-		modalAlarmListView?.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+		
+        self.presentViewController(modalAlarmListView, animated: true, completion: nil);
+		modalAlarmListView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
     
     func imageTapped(gestureRecognizer: UITapGestureRecognizer) {

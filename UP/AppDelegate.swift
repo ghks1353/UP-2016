@@ -21,7 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				//queue with launchopt
 				print("Launched with options.");
 				AlarmManager.mergeAlarm();
-				
+				if (AlarmListView.alarmListInited) {
+					AlarmListView.selfView!.createTableList(); //refresh alarm-list
+				}
 			}
 		}
 
@@ -39,7 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 		print("App is now running to background");
 		AlarmManager.mergeAlarm();
-
+		if (AlarmListView.alarmListInited) {
+			AlarmListView.selfView!.createTableList(); //refresh alarm-list
+		}
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -50,7 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 		print("App is active now");
 		AlarmManager.mergeAlarm();
-
+		if (AlarmListView.alarmListInited) {
+			AlarmListView.selfView!.createTableList(); //refresh alarm-list
+		}
     }
 
     func applicationWillTerminate(application: UIApplication) {

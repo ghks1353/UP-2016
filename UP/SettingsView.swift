@@ -22,11 +22,24 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     var settingsArray:Array<SettingsElement> = [];
     var tablesArray:Array<AnyObject> = [];
 	
+	//Background for iOS7 fallback
+	var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
+	
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.backgroundColor = .clearColor()
 		
-        //ModalView
+		//iOS7 fallback
+		if #available(iOS 8.0, *) {
+		} else {
+			modalBackground = UIImageView(); modalBackgroundBlackCover = UIView();
+			modalBackgroundBlackCover!.backgroundColor = UIColor.blackColor();
+			modalBackgroundBlackCover!.alpha = 0.7;
+			modalBackground!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
+			modalBackgroundBlackCover!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
+		} //End of iOS7 fallback
+		
+		//ModalView
         modalView.view.backgroundColor = UIColor.whiteColor();
 		
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
@@ -73,6 +86,21 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		}
 	
 	}
+	
+	// iOS7 Background fallback
+	override func viewDidAppear(animated: Bool) {
+		if #available(iOS 8.0, *) {
+		} else {
+			modalBackground!.image = ViewController.viewSelf!.viewImage;
+			modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
+			self.view.addSubview(modalBackgroundBlackCover!); self.view.addSubview(modalBackground!);
+			self.view.sendSubviewToBack(modalBackgroundBlackCover!); self.view.sendSubviewToBack(modalBackground!);
+			modalBackgroundBlackCover!.alpha = 0;
+			UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+				self.modalBackgroundBlackCover!.alpha = 0.7;
+				}, completion: nil);
+		}
+	} // iOS7 Background fallback end
 	
 	func setSwitchData(settingsID:String, value:Bool) {
 		for (var i:Int = 0; i < settingsArray.count; ++i) {
@@ -155,6 +183,10 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		DataManager.nsDefaults.synchronize();
 		
         //Close this view
+		if (modalBackgroundBlackCover != nil) { //iOS7 Fallback (Should work on iOS7 only)
+			modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
+		}
+		
 		ViewController.viewSelf?.showHideBlurview(false);
         self.dismissViewControllerAnimated(true, completion: nil);
     }

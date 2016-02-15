@@ -25,6 +25,8 @@ class AlarmManager {
 	static func mergeAlarm() {
 		//스케줄된 알람들 가져와서 지난것들 merge함
 		DataManager.initDefaults();
+		UIApplication.sharedApplication().networkActivityIndicatorVisible = true;
+		
 		var savedAlarm:NSData; var scdAlarm:Array<AlarmElements> = [];
 		if (DataManager.nsDefaults.objectForKey("alarmsList") != nil) {
 			savedAlarm = DataManager.nsDefaults.objectForKey("alarmsList") as! NSData;
@@ -134,6 +136,7 @@ class AlarmManager {
 		}
 		
 		isAlarmMergedFirst = true;
+		UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
 	} //merge end
 	
 	//Clear alarm all (for debug?)
@@ -145,12 +148,14 @@ class AlarmManager {
 	}
 	
 	//Toggle alarm (on/off)
-	static func toggleAlarm(alarmID:Int, alarmStatus:Bool) {
+	static func toggleAlarm(alarmID:Int, alarmStatus:Bool, isListOn:Bool = false) {
 		//- 알람이 켜져있는 상태에서 끌 경우, LocalNotification도 같이 종료
 		//- 알람이 꺼져있는 상태에서 킬 경우, 상황에 따라 (반복체크후) LocalNotification 추가
 		if (!isAlarmMergedFirst) {
 			mergeAlarm();
 		} //merge first
+		
+		UIApplication.sharedApplication().networkActivityIndicatorVisible = true;
 		
 		for (var i:Int = 0; i < alarmsArray.count; ++i) {
 			if (alarmsArray[i].alarmID == alarmID) { //target found
@@ -185,7 +190,8 @@ class AlarmManager {
 					alarmsArray.removeAtIndex(i);
 					addAlarm(alarmsArrTmpPointer.alarmFireDate, alarmTitle: alarmsArrTmpPointer.alarmName,
 						gameID: alarmsArrTmpPointer.gameSelected, soundFile: tmpsInfoObj,
-						repeatArr: alarmsArrTmpPointer.alarmRepeat, insertAt: i, alarmID: alarmsArrTmpPointer.alarmID);
+						repeatArr: alarmsArrTmpPointer.alarmRepeat, insertAt: i, alarmID: alarmsArrTmpPointer.alarmID,
+						redrawList: !isListOn);
 					
 					
 					
@@ -201,6 +207,7 @@ class AlarmManager {
 		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
 		DataManager.nsDefaults.synchronize();
 		
+		UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
 	} //end func
 	
 	//Remove alarm from system
@@ -231,8 +238,12 @@ class AlarmManager {
 	}
 	
 	//Add alarm to system
-	static func addAlarm(var date:NSDate, alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1) {
+	static func addAlarm(var date:NSDate, var alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1, redrawList:Bool = true) {
 		//repeatarr에 일,월,화,수,목,금,토 순으로 채움
+		
+		if(alarmTitle == "") { //알람 타이틀이 없으면 소리만 울리는 상황이 발생하므로 기본 이름 설정
+			alarmTitle = Languages.$("alarmDefaultName");
+		}
 		
 		//TODO 1 -> 테스트가 필요하지만, 일단 했음.
 		//repeat이 있는 경우, 현재일이 아닌 다른일에 알람이 추가된경우 현재일에 울리지 않게 함.
@@ -323,7 +334,9 @@ class AlarmManager {
 		
 		
 		//refresh another view
-		AlarmListView.selfView?.createTableList();
+		if (redrawList) {
+			AlarmListView.selfView?.createTableList();
+		}
 	}
 	
 	//내부함수

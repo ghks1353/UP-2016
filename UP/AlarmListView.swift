@@ -10,10 +10,11 @@
 import Foundation
 import UIKit
 
-class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate {
 	
 	//for access
 	static var selfView:AlarmListView?;
+	static var alarmListInited:Bool = false;
 	
 	//Inner-modal view
 	var modalView:UIViewController = UIViewController();
@@ -32,9 +33,24 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	var listConfirmAction:AnyObject?; //Fallback of iOS7
 	var alarmTargetID:Int = 0; //target del id(tmp)
 	
+	//Background for iOS7 fallback
+	var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
+	internal var modalAddViewCalled:Bool = false;
+	
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.view.backgroundColor = .clearColor()
+		self.view.backgroundColor = .clearColor();
+		
+		//iOS7 fallback
+		if #available(iOS 8.0, *) {
+		} else {
+			modalBackground = UIImageView(); modalBackgroundBlackCover = UIView();
+			modalBackgroundBlackCover!.backgroundColor = UIColor.blackColor();
+			modalBackgroundBlackCover!.alpha = 0.7;
+			modalBackground!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
+			modalBackgroundBlackCover!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
+		} //End of iOS7 fallback
+		
 		
 		AlarmListView.selfView = self;
 		
@@ -68,7 +84,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 		
 		//alertaction
-		if #available(iOS 8.0, *) {
+		if #available(iOS 8.0, *) { //ios8 or above only..!!
 			listConfirmAction = UIAlertController(title: Languages.$("alarmDeleteTitle"), message: Languages.$("alarmDeleteSure"), preferredStyle: .ActionSheet);
 			//add menus
 			let cancelAct:UIAlertAction = UIAlertAction(title: Languages.$("generalCancel"), style: .Cancel) { action -> Void in
@@ -82,9 +98,65 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			};
 			listConfirmAction!.addAction(cancelAct);
 			listConfirmAction!.addAction(deleteSureAct);
-		} //ios8 or above only..!!
+		} else { //ios7 or older uses actionsheet
+			listConfirmAction = UIActionSheet(title: Languages.$("alarmDeleteSure"), delegate: self, cancelButtonTitle: Languages.$("generalCancel"), destructiveButtonTitle: Languages.$("alarmDelete"));
+			//list long press action for iOS7
+			let longPressRec:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "tableCellLongPressAction:");
+			longPressRec.allowableMovement = 15; longPressRec.minimumPressDuration = 0.8;
+			self.tableView.addGestureRecognizer(longPressRec);
+		}
+		
+		AlarmListView.alarmListInited = true;
 		
     }
+	
+	//iOS7 actionsheet handler
+	func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+		print("actionidx", buttonIndex);
+		switch(buttonIndex){
+			case 0:
+				//Alarm delete
+				print("del start of", self.alarmTargetID);
+				AlarmManager.removeAlarm(self.alarmTargetID);
+				self.createTableList(); //reload list
+				break;
+			default: break;
+		}
+	}
+	
+	//iOS7 longpress-del handler
+	func tableCellLongPressAction(sender:UILongPressGestureRecognizer) {
+		let point: CGPoint = sender.locationInView(tableView);
+		let indexPath = tableView.indexPathForRowAtPoint(point);
+		
+		if let indexPath = indexPath {
+			if sender.state == UIGestureRecognizerState.Began {
+				let cell:AlarmListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmListCell;
+				print("Cell long pressed:", cell.alarmID);
+				alarmTargetID = cell.alarmID;
+				(listConfirmAction as! UIActionSheet).showInView(self.view);
+			}
+		}
+		
+	}
+	
+	
+	// iOS7 Background fallback
+	override func viewDidAppear(animated: Bool) {
+		if #available(iOS 8.0, *) {
+		} else {
+			if (modalAddViewCalled == false) {
+				modalBackground!.image = ViewController.viewSelf!.viewImage;
+				modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
+				self.view.addSubview(modalBackgroundBlackCover!); self.view.addSubview(modalBackground!);
+				self.view.sendSubviewToBack(modalBackgroundBlackCover!); self.view.sendSubviewToBack(modalBackground!);
+				modalBackgroundBlackCover!.alpha = 0;
+				UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+					self.modalBackgroundBlackCover!.alpha = 0.7;
+					}, completion: nil);
+			}
+		}
+	} // iOS7 Background fallback end
 	
 	//table list create method
 	internal func createTableList() {
@@ -185,7 +257,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		if #available(iOS 8.0, *) {
 			modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
 		} else {
-			// Fallback on earlier versions
+			modalAlarmAddView.removeBackgroundViews();
+			modalAddViewCalled = true;
 		};
 		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
 		modalAlarmAddView.clearComponents();
@@ -194,13 +267,17 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     
     func viewCloseAction() {
         //Close this view
+		modalAddViewCalled = false;
+		if (modalBackgroundBlackCover != nil) { //iOS7 Fallback (Should work on iOS7 only)
+			modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
+		}
 		ViewController.viewSelf?.showHideBlurview(false);
         self.dismissViewControllerAnimated(true, completion: nil);
     }
 	
 	//Switch changed-event
 	func alarmSwitchChangedEventHandler(targetElement:UIAlarmIDSwitch) {
-		AlarmManager.toggleAlarm(targetElement.elementID, alarmStatus: targetElement.on);
+		AlarmManager.toggleAlarm(targetElement.elementID, alarmStatus: targetElement.on, isListOn: true);
 		
 		//리스트 갱신
 		for (var i:Int = 0; i < alarmsCell.count; ++i) {
@@ -248,7 +325,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tTimeBackground.image = UIImage(named: getBackgroundFileNameFromTime(timeHour) + "_time_" + tTimeImgName + ".png");
 		
 		tLabel.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.55, 0, self.modalView.view.frame.width * 0.45, 40); //알람 이름
-		tLabelTime.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.5, 20, self.modalView.view.frame.width * 0.5, 72); //현재 시간
+		tLabelTime.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.45, 20, self.modalView.view.frame.width * 0.55, 72); //현재 시간
 		tLabel.textAlignment = .Center; tLabelTime.textAlignment = .Center;
 		
 		//On일때 흰색 폰트로

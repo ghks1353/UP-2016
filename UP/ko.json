@@ -45,6 +45,7 @@
 			"alarmRepeatSun": "일",
 		"alarmEdit": "편집",
 		"alarmDelete": "삭제",
-		"alarmDeleteSure": "이 알람을 삭제하시겠습니까?"
+		"alarmDeleteSure": "이 알람을 삭제하시겠습니까?",
+		"alarmDefaultName": "알람"
 	
 }

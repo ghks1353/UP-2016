@@ -33,9 +33,22 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	internal var showBlur:Bool = true;
 	
+	//Background for iOS7 fallback
+	var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
+	
 	override func viewDidLoad() {
 		super.viewDidLoad();
 		self.view.backgroundColor = .clearColor();
+		
+		//iOS7 fallback
+		if #available(iOS 8.0, *) {
+		} else {
+			modalBackground = UIImageView(); modalBackgroundBlackCover = UIView();
+			modalBackgroundBlackCover!.backgroundColor = UIColor.blackColor();
+			modalBackgroundBlackCover!.alpha = 0.7;
+			modalBackground!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
+			modalBackgroundBlackCover!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
+		} //End of iOS7 fallback
 		
 		AddAlarmView.selfView = self;
 		
@@ -84,6 +97,31 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			0, 0, modalView.view.frame.width, modalView.view.frame.height );
 		
 	}
+	
+	internal func removeBackgroundViews() {
+		if (modalBackgroundBlackCover != nil) { //iOs7 fallback
+			modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
+		}
+	}
+	
+	// iOS7 Background fallback
+	override func viewDidAppear(animated: Bool) {
+		if #available(iOS 8.0, *) {
+		} else {
+			modalBackground!.image = ViewController.viewSelf!.viewImage;
+			removeBackgroundViews();
+			self.view.addSubview(modalBackgroundBlackCover!); self.view.addSubview(modalBackground!);
+			self.view.sendSubviewToBack(modalBackgroundBlackCover!); self.view.sendSubviewToBack(modalBackground!);
+			if (showBlur == true) { //Animation with singie-view
+				modalBackgroundBlackCover!.alpha = 0;
+				UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+					self.modalBackgroundBlackCover!.alpha = 0.7;
+					}, completion: nil);
+			} else { //No-animation with multiple view
+				modalBackgroundBlackCover!.alpha = 0.7;
+			}
+		}
+	} // iOS7 Background fallback end
 	
 	//set sound element from other view
 	internal func setSoundElement(sInfo:SoundInfoObj) {
@@ -165,6 +203,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		//Close this view
 		if (showBlur) {
 			ViewController.viewSelf?.showHideBlurview(false);
+			removeBackgroundViews(); //iOS7 Fallback
 		}
 		self.dismissViewControllerAnimated(true, completion: nil);
 	}
@@ -240,6 +279,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			case 1: //DatePicker cell
 				tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 200); //cell size to datepicker size fit
 				let alarmTimePicker:UIDatePicker = UIDatePicker(frame: tCell.frame);
+				alarmTimePicker.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 200);
 				alarmTimePicker.datePickerMode = UIDatePickerMode.Time;
 				alarmTimePicker.date = NSDate(); //default => current
 				//alarmTimePicker.fr
