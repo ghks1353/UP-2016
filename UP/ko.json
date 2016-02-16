@@ -5,6 +5,7 @@
 	"generalOK": "확인",
     "generalClose": "닫기",
 	"generalAdd": "추가",
+	"generalEdit": "편집",
 	"generalCancel": "취소",
 	
 	"generalGame": "게임",
@@ -28,6 +29,7 @@
 	
 	"alarmDeleteTitle": "알람 삭제",
 	"alarmSettings": "알람 설정",
+	"alarmEditTitle": "알람 편집",
 		"alarmTitle": "알람 이름",
 		"alarmGame": "게임",
 		"alarmSound": "알람음",

@@ -154,12 +154,6 @@ class ViewController: UIViewController {
             // Fallback on earlier versions
         };
 		
-		//Startup language initial
-        Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
-		
-		//Startup alarm merge
-		AlarmManager.mergeAlarm();
-		
 		//FOR TEST
 		//UIApplication.sharedApplication().cancelAllLocalNotifications();
 		//AlarmManager.clearAlarm();
@@ -286,7 +280,7 @@ class ViewController: UIViewController {
 			
             if hourString[1] == "1" {
                 //가능한 경우 최대 두번 당김
-                DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat((8 - movesRightOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat(((8 - movesRightOffset) - movesRightOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
                 movesRightOffset += 6;
                 DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - CGFloat((14 - movesRightOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
             } else {

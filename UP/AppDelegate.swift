@@ -13,9 +13,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        //로컬알림 (등)으로인해 앱실행된경우.
+		//앱 실행시
+		
+		//Startup language initial
+		Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
+		//Startup alarm merge
+		AlarmManager.mergeAlarm();
+		
+		//로컬알림 (등)으로인해 앱실행된경우.
 		if let options = launchOptions {
 			if let notification = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
 				//queue with launchopt

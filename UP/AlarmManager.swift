@@ -147,6 +147,19 @@ class AlarmManager {
 		DataManager.nsDefaults.synchronize();
 	}
 	
+	//Find alarm from array by ID
+	static func getAlarm(alarmID:Int)->AlarmElements {
+		let targetAlarmElements:AlarmElements = AlarmElements();
+		
+		for (var i:Int = 0; i < alarmsArray.count; ++i) {
+			if (alarmsArray[i].alarmID == alarmID) {
+				return alarmsArray[i];
+			}
+		}
+		
+		return targetAlarmElements;
+	}
+	
 	//Toggle alarm (on/off)
 	static func toggleAlarm(alarmID:Int, alarmStatus:Bool, isListOn:Bool = false) {
 		//- 알람이 켜져있는 상태에서 끌 경우, LocalNotification도 같이 종료
@@ -237,8 +250,43 @@ class AlarmManager {
 		
 	}
 	
+	//Edit alarm from system
+	static func editAlarm(alarmID:Int, var date:NSDate, alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, toggleStatus:Bool) {
+		if (!isAlarmMergedFirst) {
+			mergeAlarm();
+		} //merge first
+		
+		var alarmArrayIndex:Int = 0;
+		
+		var scdNotifications:Array<UILocalNotification> = UIApplication.sharedApplication().scheduledLocalNotifications!;
+		for (var i:Int = 0; i < scdNotifications.count; ++i) {
+			if (scdNotifications[i].userInfo!["id"] as! Int == alarmID) {
+				UIApplication.sharedApplication().cancelLocalNotification(scdNotifications[i]);
+			}
+		} //alarm del from sys
+		
+		for (var i:Int = 0; i < alarmsArray.count; ++i) {
+			if (alarmsArray[i].alarmID == alarmID) {
+				alarmsArray.removeAtIndex(i);
+				alarmArrayIndex = i;
+				break;
+			}
+		} //remove item from array
+		
+		//modify date to today
+		let tmpNSDate:NSDate = NSDate();
+		let tmpNSComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day], fromDate: tmpNSDate);
+		let tComp:NSDateComponents = NSCalendar.currentCalendar().components([.Hour, .Minute], fromDate: date);
+		tmpNSComp.hour = tComp.hour; tmpNSComp.minute = tComp.minute; tmpNSComp.second = 0;
+		date = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
+		
+		//addAlarm
+		addAlarm(date, alarmTitle: alarmTitle, gameID: gameID, soundFile: soundFile, repeatArr: repeatArr, insertAt: alarmArrayIndex, alarmID:  alarmID, isToggled: toggleStatus, redrawList: true);
+		
+	}
+	
 	//Add alarm to system
-	static func addAlarm(var date:NSDate, var alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1, redrawList:Bool = true) {
+	static func addAlarm(var date:NSDate, var alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1, isToggled:Bool = true, redrawList:Bool = true) {
 		//repeatarr에 일,월,화,수,목,금,토 순으로 채움
 		
 		if(alarmTitle == "") { //알람 타이틀이 없으면 소리만 울리는 상황이 발생하므로 기본 이름 설정
@@ -305,14 +353,18 @@ class AlarmManager {
 		tmpNSComp.second = 0;
 		date = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
 		
-		AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID);
-		
+		if (isToggled == true) {
+			AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID);
+		}
+	
 		//30초
 		tmpNSComp.second = 30;
 		date = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
 		
-		AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID);
-		
+		if (isToggled == true) {
+			AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID);
+		}
+			
 		//Add alarm to system (array) and save to nsdef
 		let tmpAlarmEle:AlarmElements = AlarmElements();
 		
@@ -320,7 +372,7 @@ class AlarmManager {
 		tmpNSComp.second = 0;
 		date = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
 		
-		tmpAlarmEle.initObject(alarmTitle, game: gameID, repeats: repeatArr, sound: soundFile.soundFileName, alarmDate: date, alarmTool: true, id: alarmUUID);
+		tmpAlarmEle.initObject(alarmTitle, game: gameID, repeats: repeatArr, sound: soundFile.soundFileName, alarmDate: date, alarmTool: isToggled, id: alarmUUID);
 		
 		if (insertAt == -1) {
 			//add to arr and save

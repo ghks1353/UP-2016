@@ -48,8 +48,11 @@ class Languages {
     } //end init
     
     static func $(subject:String) -> String {
-        let translatedStr:String = (languageJsonFile?.objectForKey( subject ))! as! String;
-        
+		if (languageJsonFile == nil) {
+			initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
+		}
+		let translatedStr:String = (languageJsonFile?.objectForKey( subject ))! as! String;
+		
         return translatedStr;
     }
     

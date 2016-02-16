@@ -23,7 +23,7 @@ class AlarmListCell:UITableViewCell {
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		//AddAlarmView.selfView!.cellFunc(self.cellID);
 		
-		//super.touchesBegan(touches, withEvent: event);
+		super.touchesBegan(touches, withEvent: event);
 	}
 	
 }

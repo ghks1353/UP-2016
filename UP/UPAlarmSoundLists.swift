@@ -13,7 +13,20 @@ class UPAlarmSoundLists {
 	static var list:Array<SoundInfoObj> = [
 		SoundInfoObj(soundName: "alarm-testsound-giza", fileName: "alarm-test.aiff"),
 		SoundInfoObj(soundName: "Marvel Soda", fileName: "marvelsoda.aiff"),
-		SoundInfoObj(soundName: "국뽕★가랭", fileName: "alarm-test-koreagarang.aiff")
+		SoundInfoObj(soundName: "국뽕★가랭", fileName: "alarm-test-koreagarang.aiff"),
+		SoundInfoObj(soundName: "Epic Sax Guy", fileName: "alarm-test-epicsax.aiff")
 	];
+	
+	static func findSoundObjectWithFileName(soundFileName:String)->SoundInfoObj {
+		var targetSoundInfoObj:SoundInfoObj = SoundInfoObj(soundName: "", fileName: ""); //nil
+		for (var i:Int = 0; i < list.count; ++i) {
+			if (list[i].soundFileName == soundFileName) {
+				targetSoundInfoObj = list[i];
+				break;
+			}
+		} //end for
+		
+		return targetSoundInfoObj;
+	}
 	
 }

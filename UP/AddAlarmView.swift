@@ -30,8 +30,14 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	//Alarm sound selected
 	var alarmSoundSelectedObj:SoundInfoObj?;
+	//Game selected ID
+	var gameSelectedID:Int = 0;
+	//Default alarm status (default: true)
+	var alarmDefaultStatus:Bool = true;
+	var editingAlarmID:Int = -1;
 	
 	internal var showBlur:Bool = true;
+	internal var isAlarmEditMode:Bool = false;
 	
 	//Background for iOS7 fallback
 	var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
@@ -58,10 +64,10 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#1C6A94");
+		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#663300");
 		navigationCtrl.navigationBar.tintColor = UIColor.whiteColor();
 		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = Languages.$("addAlarm");
+		modalView.title = Languages.$("alarmSettings");
 		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
 		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Languages.$("generalAdd"), style: .Plain, target: self, action: "addAlarmToDevice");
 		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
@@ -128,6 +134,12 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundLangName;
 		alarmSoundSelectedObj = sInfo;
 	}
+	//set game id from other view
+	internal func setGameID(gameID:Int) {
+		//todo
+		
+		gameSelectedID = gameID;
+	}
 	
 	//add alarm evt
 	func addAlarmToDevice() {
@@ -140,14 +152,25 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			repeatArray += [ listArray[i].selectedSegmentIndex==0 ? true : false ];
 		}
 		
-		///Add alarm to system
-		AlarmManager.addAlarm((getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
-			alarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
-			gameID: 0, /* dummy data */
-			soundFile: alarmSoundSelectedObj!,
-			repeatArr: repeatArray,
-			insertAt: -1,
-			alarmID: -1);
+		if (isAlarmEditMode == false) {
+			///Add alarm to system
+			AlarmManager.addAlarm((getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
+				alarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
+				gameID: gameSelectedID,
+				soundFile: alarmSoundSelectedObj!,
+				repeatArr: repeatArray,
+				insertAt: -1,
+				alarmID: -1);
+		} else {
+			//Edit alarm
+			AlarmManager.editAlarm(editingAlarmID,
+				date: (getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
+				alarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
+				gameID: gameSelectedID,
+				soundFile: alarmSoundSelectedObj!,
+				repeatArr: repeatArray, toggleStatus: alarmDefaultStatus);
+			
+		}
 		
 		//added successfully. close view
 		viewCloseAction();
@@ -158,24 +181,11 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	internal func cellFunc(cellID:String) {
 		switch(cellID) {
 			case "alarmSound":
-				//TODO error pushviewcontroller
-				
-				/*if(navigationCtrl.viewControllers.count == 2) {
-					print("finishing existing stack"); //<- 이거 안됨
-					//navigationCtrl.popToRootViewControllerAnimated(true);
-					navigationCtrl.popViewControllerAnimated(true);
-					alarmSoundListView.dismissViewControllerAnimated(false, completion: nil);
-					alarmSoundListView = AlarmSoundListView();
-					//navigationCtrl.
-				} else {
-					
-				}*/
 				navigationCtrl.pushViewController(self.alarmSoundListView, animated: true);
 					
 				break
 			default: break;
-		}
-		print("cell", cellID);
+		} //end switch
 	}
 	
 	//for default setting at view opening
@@ -344,15 +354,6 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				return tCell; //return empty cell
 		}
 		
-		/*
-		let tLabel:UILabel = UILabel();
-		//해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
-		tLabel.frame = CGRectMake(16, 0, self.modalView.frame.width * 0.75, CGFloat(45));
-		tCell.addSubview(tLabel);
-		tLabel.text = name;
-		tLabel.font = UIFont.systemFontOfSize(16);
-		*/
-		
 		tableCells += [tCell];
 		return tCell;
 	}
@@ -388,6 +389,10 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	func segTouchEventHandler( segmentElement:UISingleSegmentControl ) {
 		print(segmentElement.segmentID, "state", segmentElement.selectedSegmentIndex);
 		//월~금만 선택된 경우 주중, 모두 선택된 경우 매일, 토,일만 선택된 경우 주말, 그 외에 선택해제
+		autoSelectRepeatElement();
+	}
+	
+	func autoSelectRepeatElement() {
 		var listPointer:Array<UISingleSegmentControl> = (getElementFromTable("alarmRepeatSetting") as! Array<UISingleSegmentControl>);
 		let dayPointer:UITouchableSegmentControl = getElementFromTable("alarmRepeatSetting", isSubElement: true) as! UITouchableSegmentControl;
 		if (listPointer[0].selectedSegmentIndex == 0 &&
@@ -417,16 +422,52 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		} else {
 			dayPointer.selectedSegmentIndex = -1; //unselected
 		}
-		
 	}
 	
 	//clear all components
 	internal func clearComponents() {
 		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
-		self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
 		(self.getElementFromTable("alarmName") as! UITextField).text = ""; //empty alarm name
 		self.setSoundElement(UPAlarmSoundLists.list[0]); //default - first element of soundlist
+		gameSelectedID = 0; //clear selected game id
 		self.resetAlarmRepeatCell();
+		
+		modalView.title = Languages.$("alarmSettings"); //Modal title set to alarmsettings
+		modalView.navigationItem.rightBarButtonItem!.title = Languages.$("generalAdd");
+		
+		isAlarmEditMode = false; //AddMode
+		alarmDefaultStatus = true; //default on
+		editingAlarmID = -1;
+		
+		self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+	}
+	
+	//components fill for modify alarm
+	internal func fillComponentsWithEditMode( alarmID:Int, alarmName:String, alarmFireDate:NSDate, selectedGameID:Int, selectedSoundFileName:String, repeatInfo:Array<Bool>, alarmDefaultToggle:Bool) {
+		//set alarm name
+		(self.getElementFromTable("alarmName") as! UITextField).text = alarmName;
+		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = alarmFireDate; //uipicker
+		self.setSoundElement(UPAlarmSoundLists.findSoundObjectWithFileName(selectedSoundFileName)); //set sound
+		self.resetAlarmRepeatCell();
+		
+		//set alarm repeat element
+		var listPointer:Array<UISingleSegmentControl> = (getElementFromTable("alarmRepeatSetting") as! Array<UISingleSegmentControl>);
+		listPointer[6].selectedSegmentIndex = repeatInfo[0] == true ? 0 : -1; //sunday is last at ui
+		for(var i:Int = 1; i < repeatInfo.count; ++i) {
+			//repeat should 6 times (w/o sunday)
+			listPointer[i-1].selectedSegmentIndex = repeatInfo[i] == true ? 0 : -1;
+		}
+		autoSelectRepeatElement();
+		gameSelectedID = selectedGameID;
+		
+		modalView.title = Languages.$("alarmEditTitle"); //Modal title set to alarmedit
+		modalView.navigationItem.rightBarButtonItem!.title = Languages.$("generalEdit");
+		
+		isAlarmEditMode = true; //EditMode
+		alarmDefaultStatus = alarmDefaultToggle; //Default toggle status
+		editingAlarmID = alarmID;
+		
+		self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
 	}
 	
 	//UITextfield del

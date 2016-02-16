@@ -32,6 +32,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	//List delete confirm alert
 	var listConfirmAction:AnyObject?; //Fallback of iOS7
 	var alarmTargetID:Int = 0; //target del id(tmp)
+	var alarmTargetIndexPath:NSIndexPath?; // = NSIndexPath(); //to delete animation/optimization
 	
 	//Background for iOS7 fallback
 	var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
@@ -60,7 +61,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#4D9429");
+		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#6C798C");
 		navigationCtrl.view.frame = modalView.view.frame;
 		modalView.title = Languages.$("alarmList");
 		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
@@ -94,10 +95,18 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 				//delete it
 				print("del start of", self.alarmTargetID);
 				AlarmManager.removeAlarm(self.alarmTargetID);
-				self.createTableList(); //reload list
+				
+				//Update table with animation
+				self.alarmsCell.removeAtIndex(self.alarmTargetIndexPath!.row); self.tablesArray = [self.alarmsCell];
+				self.tableView.deleteRowsAtIndexPaths([self.alarmTargetIndexPath!], withRowAnimation: UITableViewRowAnimation.Top);
+				
+				//self.createTableList(); //reload list
 			};
 			listConfirmAction!.addAction(cancelAct);
 			listConfirmAction!.addAction(deleteSureAct);
+			
+			//let cellSelectRec:
+			
 		} else { //ios7 or older uses actionsheet
 			listConfirmAction = UIActionSheet(title: Languages.$("alarmDeleteSure"), delegate: self, cancelButtonTitle: Languages.$("generalCancel"), destructiveButtonTitle: Languages.$("alarmDelete"));
 			//list long press action for iOS7
@@ -118,7 +127,11 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 				//Alarm delete
 				print("del start of", self.alarmTargetID);
 				AlarmManager.removeAlarm(self.alarmTargetID);
-				self.createTableList(); //reload list
+				
+				//Update table with animation
+				self.alarmsCell.removeAtIndex(self.alarmTargetIndexPath!.row); self.tablesArray = [self.alarmsCell];
+				self.tableView.deleteRowsAtIndexPaths([self.alarmTargetIndexPath!], withRowAnimation: UITableViewRowAnimation.Top);
+				
 				break;
 			default: break;
 		}
@@ -134,6 +147,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 				let cell:AlarmListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmListCell;
 				print("Cell long pressed:", cell.alarmID);
 				alarmTargetID = cell.alarmID;
+				alarmTargetIndexPath = indexPath;
 				(listConfirmAction as! UIActionSheet).showInView(self.view);
 			}
 		}
@@ -205,7 +219,35 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 				return "";
         }
     }
-    
+	
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let cell:AlarmListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmListCell;
+		//Show alarm edit view
+		
+		modalAlarmAddView.showBlur = false;
+		if #available(iOS 8.0, *) {
+			modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
+		} else { //iOS7 Fallback
+			modalAlarmAddView.removeBackgroundViews(); modalAddViewCalled = true;
+		};
+		
+		//find alarm object from array
+		let targetAlarm:AlarmElements = AlarmManager.getAlarm(cell.alarmID);
+		
+		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
+		
+		print("Modifing", targetAlarm.alarmName, targetAlarm.alarmID);
+		modalAlarmAddView.fillComponentsWithEditMode(cell.alarmID,
+			alarmName: targetAlarm.alarmName,
+			alarmFireDate: targetAlarm.alarmFireDate,
+			selectedGameID: targetAlarm.gameSelected,
+			selectedSoundFileName: targetAlarm.alarmSound,
+			repeatInfo: targetAlarm.alarmRepeat,
+			alarmDefaultToggle: targetAlarm.alarmToggle);
+		
+		
+		
+	}
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (tablesArray[section] as! Array<AnyObject>).count;
     }
@@ -231,6 +273,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			let cell:AlarmListCell = tableView.cellForRowAtIndexPath(childIndexPath) as! AlarmListCell;
 			print("cell delete alarm", cell.alarmID);
 			self.alarmTargetID = cell.alarmID;
+			self.alarmTargetIndexPath = childIndexPath;
 			self.presentViewController(self.listConfirmAction as! UIAlertController, animated: true, completion: nil); //show menu
 			
 		}
@@ -284,9 +327,12 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			if (alarmsCell[i].alarmID == targetElement.elementID) {
 				let bgFileName:String = getBackgroundFileNameFromTime(alarmsCell[i].timeHour);
 				let bgFileState:String = targetElement.on == true ? "on" : "off";
-				alarmsCell[i].backgroundImage!.image = UIImage(named: bgFileName + "_time_" + bgFileState + ".png");
-				alarmsCell[i].alarmName!.textColor = targetElement.on ? UIColor.whiteColor() : UIColor.blackColor();
-				alarmsCell[i].timeText!.textColor = targetElement.on ? UIColor.whiteColor() : UIColor.blackColor();
+				let fileUsesSmallPrefix:String = DeviceGeneral.usesLowQualityImage == true ? "_small" : "";
+				alarmsCell[i].backgroundImage!.image = UIImage(named: bgFileName + "_time_" + bgFileState + fileUsesSmallPrefix + ".png");
+				
+				alarmsCell[i].alarmName!.textColor = (bgFileName == "a" || bgFileName == "b") ?
+					(targetElement.on ? UIColor.blackColor() : UIColor.whiteColor()) : (targetElement.on ? UIColor.whiteColor() : UIColor.blackColor());
+				alarmsCell[i].timeText!.textColor = alarmsCell[i].alarmName!.textColor;
 				
 				break;
 			}
@@ -321,19 +367,19 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tSwitch.elementID = uuid;
 		
 		let tTimeImgName:String = defaultState == true ? "on" : "off";
-		
-		tTimeBackground.image = UIImage(named: getBackgroundFileNameFromTime(timeHour) + "_time_" + tTimeImgName + ".png");
+		let bgFileName:String = getBackgroundFileNameFromTime(timeHour);
+		let fileUsesSmallPrefix:String = DeviceGeneral.usesLowQualityImage == true ? "_small" : "";
+		tTimeBackground.image = UIImage(named: bgFileName + "_time_" + tTimeImgName + fileUsesSmallPrefix + ".png");
 		
 		tLabel.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.55, 0, self.modalView.view.frame.width * 0.45, 40); //알람 이름
 		tLabelTime.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.45, 20, self.modalView.view.frame.width * 0.55, 72); //현재 시간
 		tLabel.textAlignment = .Center; tLabelTime.textAlignment = .Center;
 		
 		//On일때 흰색 폰트로
-		if (defaultState) {
-			tLabel.textColor = UIColor.whiteColor(); tLabelTime.textColor = UIColor.whiteColor();
-		} else {
-			tLabel.textColor = UIColor.blackColor(); tLabelTime.textColor = UIColor.blackColor();
-		}
+		tLabel.textColor = (bgFileName == "a" || bgFileName == "b") ?
+			(defaultState ? UIColor.blackColor() : UIColor.whiteColor()) : (defaultState ? UIColor.whiteColor() : UIColor.blackColor());
+		tLabelTime.textColor = tLabel.textColor;
+		
 		
 		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 80 );
 		tCell.backgroundColor = UIColor.whiteColor();
@@ -374,9 +420,13 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		let timeStr:String = String(timeHour) + ":" + timeMinStr;
 		tLabelTime.text = timeStr;
-		tLabelTime.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 44); //UIFont.systemFontSize(42);
-		//tLabelTime.font = UIFont(name: "AvenirNext-UltraLight", size: 44);
 		
+		if #available(iOS 9.0, *) {
+			tLabelTime.font = UIFont.systemFontOfSize(44, weight: UIFontWeightThin); //iOS9 uses San fransisco font
+			tLabelTime.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.45, 20, self.modalView.view.frame.width * 0.55, 66.5);
+		} else {
+			tLabelTime.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 44);
+		}
 		tCell.selectionStyle = UITableViewCellSelectionStyle.None;
 		
 		//스위치 변경 이벤트
