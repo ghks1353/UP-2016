@@ -17,7 +17,7 @@
 		"settingsStartingGuide": "Guide for beginners",
 		"settingsRatingApp": "Rating app",
 		"settingsShowNewgame": "New game!",
-		"settingsGotoAVN": "AVN graphic website"
+		"settingsGotoAVN": "AVN graphic website",
 
 	"alarmSettings": "Alarm setting",
 		"alarmTitle": "Name",
@@ -34,8 +34,4 @@
 			"alarmRepeatSat": "S",
 			"alarmRepeatSun": "S"
 	
-	
-}
-    
-    
-}
+    }

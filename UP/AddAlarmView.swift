@@ -27,9 +27,10 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	//Subview for select
 	var alarmSoundListView:AlarmSoundListView = GlobalSubView.alarmSoundListView; // = AlarmSoundListView();
+	var alarmGameListView:AlarmGameListView = GlobalSubView.alarmGameListView; 
 	
 	//Alarm sound selected
-	var alarmSoundSelectedObj:SoundInfoObj?;
+	var alarmSoundSelectedObj:SoundInfoObj = SoundInfoObj(soundName: "", fileName: "");
 	//Game selected ID
 	var gameSelectedID:Int = 0;
 	//Default alarm status (default: true)
@@ -100,8 +101,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		
 		//set subview size
 		alarmSoundListView.view.frame = CGRectMake(
-			0, 0, modalView.view.frame.width, modalView.view.frame.height );
-		
+			0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height );
+		alarmGameListView.view.frame = CGRectMake(
+			0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height );
 	}
 	
 	internal func removeBackgroundViews() {
@@ -134,6 +136,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundLangName;
 		alarmSoundSelectedObj = sInfo;
 	}
+	
 	//set game id from other view
 	internal func setGameID(gameID:Int) {
 		//todo
@@ -157,7 +160,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			AlarmManager.addAlarm((getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
 				alarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
 				gameID: gameSelectedID,
-				soundFile: alarmSoundSelectedObj!,
+				soundFile: alarmSoundSelectedObj,
 				repeatArr: repeatArray,
 				insertAt: -1,
 				alarmID: -1);
@@ -167,25 +170,17 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				date: (getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
 				alarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
 				gameID: gameSelectedID,
-				soundFile: alarmSoundSelectedObj!,
+				soundFile: alarmSoundSelectedObj,
 				repeatArr: repeatArray, toggleStatus: alarmDefaultStatus);
 			
 		}
 		
+		//if playing sound, stop it
+		//alarmSoundListView.stopSound();
+		
 		//added successfully. close view
 		viewCloseAction();
 		
-	}
-	
-	//cell touchevent
-	internal func cellFunc(cellID:String) {
-		switch(cellID) {
-			case "alarmSound":
-				navigationCtrl.pushViewController(self.alarmSoundListView, animated: true);
-					
-				break
-			default: break;
-		} //end switch
 	}
 	
 	//for default setting at view opening
@@ -211,6 +206,10 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	func viewCloseAction() {
 		//Close this view
+		
+		//if playing sound, stop it
+		alarmSoundListView.stopSound();
+		
 		if (showBlur) {
 			ViewController.viewSelf?.showHideBlurview(false);
 			removeBackgroundViews(); //iOS7 Fallback
@@ -254,12 +253,26 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		return cell;
 	}
 	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 12;
+		return 8;
 	}
 	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 0;
+		return 4;
 	}
+	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let cellID:String = (tableView.cellForRowAtIndexPath(indexPath) as! AlarmSettingsCell).cellID;
+		switch(cellID) {
+			case "alarmGame":
+				navigationCtrl.pushViewController(self.alarmGameListView, animated: true);
+				break;
+			case "alarmSound":
+				self.alarmSoundListView.setSelectedCell( alarmSoundSelectedObj );
+				navigationCtrl.pushViewController(self.alarmSoundListView, animated: true);
+				
+				break
+			default: break;
+		} //end switch
+		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true);
 	}
 	

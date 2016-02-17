@@ -11,7 +11,8 @@ import Foundation
 class SoundInfoObj {
 	
 	init(soundName:String, fileName:String) {
-		soundLangName = soundName; soundFileName = fileName;
+		//Name from Language files
+		soundLangName = Languages.$(soundName); soundFileName = fileName;
 	}
 	
 	internal var soundLangName:String = "";

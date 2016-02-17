@@ -190,6 +190,13 @@
 		77E288091C7334A30020B766 /* d_time_off_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E288011C7334A30020B766 /* d_time_off_small.png */; };
 		77E2880A1C7334A30020B766 /* d_time_on_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E288021C7334A30020B766 /* d_time_on_small.png */; };
 		77E2880C1C7342670020B766 /* alarm-test-epicsax.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77E2880B1C7342670020B766 /* alarm-test-epicsax.aiff */; };
+		77E3F47A1C746C71002BBDA6 /* AlarmGameListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3F4791C746C71002BBDA6 /* AlarmGameListView.swift */; };
+		77E3F47C1C746D3C002BBDA6 /* GameInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3F47B1C746D3C002BBDA6 /* GameInfoObj.swift */; };
+		77E3F47E1C747272002BBDA6 /* UPAlarmGameLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3F47D1C747272002BBDA6 /* UPAlarmGameLists.swift */; };
+		77E3F4801C747479002BBDA6 /* UPGamesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3F47F1C747479002BBDA6 /* UPGamesListCell.swift */; };
+		77E3F4821C74B509002BBDA6 /* game-thumb-sample-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3F4811C74B509002BBDA6 /* game-thumb-sample-2.png */; };
+		77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */; };
+		77E3F4881C74B7B2002BBDA6 /* game-background-sample-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3F4871C74B7B2002BBDA6 /* game-background-sample-2.png */; };
 		77E5B9B21C624BD30075431A /* AlarmSoundListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */; };
 		77EB7B071C6B6356008247DD /* AlarmListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB7B061C6B6356008247DD /* AlarmListCell.swift */; };
 		77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */; };
@@ -395,6 +402,13 @@
 		77E288011C7334A30020B766 /* d_time_off_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_time_off_small.png; path = ImageAssets/TimeListAssets/LQ/d_time_off_small.png; sourceTree = "<group>"; };
 		77E288021C7334A30020B766 /* d_time_on_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_time_on_small.png; path = ImageAssets/TimeListAssets/LQ/d_time_on_small.png; sourceTree = "<group>"; };
 		77E2880B1C7342670020B766 /* alarm-test-epicsax.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "alarm-test-epicsax.aiff"; path = "SoundAssets/AlarmSounds/alarm-test-epicsax.aiff"; sourceTree = "<group>"; };
+		77E3F4791C746C71002BBDA6 /* AlarmGameListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmGameListView.swift; sourceTree = "<group>"; };
+		77E3F47B1C746D3C002BBDA6 /* GameInfoObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInfoObj.swift; sourceTree = "<group>"; };
+		77E3F47D1C747272002BBDA6 /* UPAlarmGameLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPAlarmGameLists.swift; sourceTree = "<group>"; };
+		77E3F47F1C747479002BBDA6 /* UPGamesListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPGamesListCell.swift; sourceTree = "<group>"; };
+		77E3F4811C74B509002BBDA6 /* game-thumb-sample-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-sample-2.png"; path = "ImageAssets/GameThumbs/game-thumb-sample-2.png"; sourceTree = "<group>"; };
+		77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumbs-check.png"; path = "ImageAssets/game-thumbs-check.png"; sourceTree = "<group>"; };
+		77E3F4871C74B7B2002BBDA6 /* game-background-sample-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-background-sample-2.png"; path = "ImageAssets/GameBackgrounds/game-background-sample-2.png"; sourceTree = "<group>"; };
 		77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundListView.swift; sourceTree = "<group>"; };
 		77EB7B061C6B6356008247DD /* AlarmListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListCell.swift; sourceTree = "<group>"; };
 		77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-sample.png"; path = "ImageAssets/GameThumbs/game-thumb-sample.png"; sourceTree = "<group>"; };
@@ -475,6 +489,8 @@
 				77E23C001C69A7F5005F0B03 /* AlarmElements.swift */,
 				77E23C061C6A334D005F0B03 /* UPAlarmSoundLists.swift */,
 				77FBE6851C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift */,
+				77E3F47B1C746D3C002BBDA6 /* GameInfoObj.swift */,
+				77E3F47D1C747272002BBDA6 /* UPAlarmGameLists.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -699,6 +715,7 @@
 				774D0DAF1C5CA7AC00E41385 /* AlarmListView.swift */,
 				774B30F21C5E56CF0058CFB2 /* AddAlarmView.swift */,
 				77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */,
+				77E3F4791C746C71002BBDA6 /* AlarmGameListView.swift */,
 			);
 			name = SubViews;
 			sourceTree = "<group>";
@@ -782,6 +799,7 @@
 				77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */,
 				77E23C081C6A46F5005F0B03 /* UITouchableSegmentControl.swift */,
 				77EB7B061C6B6356008247DD /* AlarmListCell.swift */,
+				77E3F47F1C747479002BBDA6 /* UPGamesListCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -801,11 +819,30 @@
 			name = LQ;
 			sourceTree = "<group>";
 		};
+		77E3F4831C74B79B002BBDA6 /* Thumbnails */ = {
+			isa = PBXGroup;
+			children = (
+				77E3F4811C74B509002BBDA6 /* game-thumb-sample-2.png */,
+				77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */,
+				77FBE6831C6DCBAA00E251A2 /* game-thumb-background.png */,
+			);
+			name = Thumbnails;
+			sourceTree = "<group>";
+		};
+		77E3F4841C74B7A3002BBDA6 /* Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				77E3F4871C74B7B2002BBDA6 /* game-background-sample-2.png */,
+			);
+			name = Backgrounds;
+			sourceTree = "<group>";
+		};
 		77EB7B081C6B9D07008247DD /* Games */ = {
 			isa = PBXGroup;
 			children = (
-				77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */,
-				77FBE6831C6DCBAA00E251A2 /* game-thumb-background.png */,
+				77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */,
+				77E3F4841C74B7A3002BBDA6 /* Backgrounds */,
+				77E3F4831C74B79B002BBDA6 /* Thumbnails */,
 			);
 			name = Games;
 			sourceTree = "<group>";
@@ -938,6 +975,7 @@
 				77E2880A1C7334A30020B766 /* d_time_on_small.png in Resources */,
 				774C56141C58E84500421F06 /* astro0248.png in Resources */,
 				77E287F51C73345D0020B766 /* time_body.png in Resources */,
+				77E3F4821C74B509002BBDA6 /* game-thumb-sample-2.png in Resources */,
 				774C55E01C58E84500421F06 /* astro0166.png in Resources */,
 				773D2E541C5674C000177CF3 /* enemy.jpg in Resources */,
 				77FBE67F1C6DCB9F00E251A2 /* c_time_off.png in Resources */,
@@ -1049,10 +1087,12 @@
 				774C55F11C58E84500421F06 /* astro0183.png in Resources */,
 				774C561B1C58E84500421F06 /* astro0255.png in Resources */,
 				774C56011C58E84500421F06 /* astro0229.png in Resources */,
+				77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */,
 				774C55D51C58E84500421F06 /* astro0035.png in Resources */,
 				774C55D61C58E84500421F06 /* astro0036.png in Resources */,
 				77E287F01C7333FC0020B766 /* 9.png in Resources */,
 				77E287ED1C7333FC0020B766 /* 6.png in Resources */,
+				77E3F4881C74B7B2002BBDA6 /* game-background-sample-2.png in Resources */,
 				7741412D1C5BBF5500E5A723 /* en.json in Resources */,
 				774C560F1C58E84500421F06 /* astro0243.png in Resources */,
 				774C55F61C58E84500421F06 /* astro0188.png in Resources */,
@@ -1083,15 +1123,19 @@
 				774B30F31C5E56CF0058CFB2 /* AddAlarmView.swift in Sources */,
 				7759757D1C5F05A60057CDD6 /* AlarmSettingsCell.swift in Sources */,
 				773D2E501C562FE300177CF3 /* TestGameScene.swift in Sources */,
+				77E3F47A1C746C71002BBDA6 /* AlarmGameListView.swift in Sources */,
 				77FD0DEE1C6625FD00B5B5E9 /* GlobalSubView.swift in Sources */,
 				774D0DB21C5CA85A00E41385 /* DeviceGeneral.swift in Sources */,
 				77958C9A1C68D05C00E99864 /* SoundInfoObj.swift in Sources */,
 				77E23BFF1C699723005F0B03 /* AlarmManager.swift in Sources */,
 				774141301C5BC09500E5A723 /* DataManager.swift in Sources */,
+				77E3F47C1C746D3C002BBDA6 /* GameInfoObj.swift in Sources */,
 				77FBE6861C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift in Sources */,
 				773E910C1C5A36480084EB07 /* CustomTableCell.swift in Sources */,
 				77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */,
+				77E3F47E1C747272002BBDA6 /* UPAlarmGameLists.swift in Sources */,
 				774C56271C59247900421F06 /* SettingsView.swift in Sources */,
+				77E3F4801C747479002BBDA6 /* UPGamesListCell.swift in Sources */,
 				774D0DB01C5CA7AC00E41385 /* AlarmListView.swift in Sources */,
 				773D2E4E1C56105700177CF3 /* TestGameView.swift in Sources */,
 				77E23C091C6A46F5005F0B03 /* UITouchableSegmentControl.swift in Sources */,

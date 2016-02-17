@@ -20,6 +20,9 @@ class DeviceGeneral {
 	
 	//낮은 해상도 사용
 	static var usesLowQualityImage:Bool = false;
+	//평균 Modal size
+	static var defaultModalSizeRect:CGRect = CGRect();
+	
 	
     static func initialDeviceSize() {
         //화면 사이즈를 얻어옴.
@@ -35,6 +38,7 @@ class DeviceGeneral {
 			usesLowQualityImage = true;
 			print("Using low-quality pic");
 		}
+		defaultModalSizeRect = CGRectMake(CGFloat(50 * DeviceGeneral.scrRatio) , ((DeviceGeneral.scrSize?.height)! - CGFloat(480 * DeviceGeneral.scrRatio)) / 2 , (DeviceGeneral.scrSize?.width)! - CGFloat(100 * DeviceGeneral.scrRatio), CGFloat(480 * DeviceGeneral.scrRatio));
 		
     }
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 import UIKit
 
 class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -17,6 +18,10 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	//Table for view
 	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
 	var tablesArray:Array<AnyObject> = [];
+	
+	//사운드 샘플 플레이를 위함
+	internal var sampSoundPlayer:AVAudioPlayer = AVAudioPlayer();
+	internal var soundLoaded:Bool = false;
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -31,11 +36,11 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		//Sound list
 				
 		//add table to modals
-		tableView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
+		tableView.frame = CGRectMake(0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height);
 		self.view.addSubview(tableView);
 		
 		//add table cells (options)
-		var alarmSoundListsTableArr:Array<UITableViewCell> = [];
+		var alarmSoundListsTableArr:Array<AlarmSoundListCell> = [];
 		for (var i:Int = 0; i < UPAlarmSoundLists.list.count; ++i) {
 			alarmSoundListsTableArr += [ createCell(UPAlarmSoundLists.list[i]) ];
 		}
@@ -46,32 +51,36 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 	}
 	
-	//for default setting at view opening
-	/*internal func getElementFromTable(cellID:String)->AnyObject? {
-		for (var i:Int = 0; i < tableCells.count; ++i) {
-			if (tableCells[i].cellID == cellID) {
-				return tableCells[i].cellElement!;
-			}
-		}
-		return nil;
-	}*/
-	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
 	
 	///// for table func
-	func cellFunc( cellSoundInfoObj:SoundInfoObj ) {
-		AddAlarmView.selfView!.setSoundElement(cellSoundInfoObj);
-		AddAlarmView.selfView!.navigationCtrl.popToRootViewControllerAnimated(true);
-
-		
-		
-	}
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		//let cellObj:AlarmSoundListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmSoundListCell;
+		let cellObj:AlarmSoundListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmSoundListCell;
+		AddAlarmView.selfView!.setSoundElement(cellObj.soundInfoObject!);
 		
+		for (var i:Int = 0; i < (tablesArray[0] as! Array<AlarmSoundListCell>).count; ++i) {
+			(tablesArray[0] as! Array<AlarmSoundListCell>)[i].accessoryType = .None;
+		}
+		cellObj.accessoryType = .Checkmark;
+		
+		if (soundLoaded) {
+			sampSoundPlayer.stop();
+		}
+		
+		print("playing", cellObj.soundInfoObject!.soundFileName);
+		
+		let path = NSBundle.mainBundle().pathForResource(cellObj.soundInfoObject!.soundFileName, ofType:nil)!;
+		let url = NSURL(fileURLWithPath: path);
+		do {
+			sampSoundPlayer = try AVAudioPlayer(contentsOfURL: url);
+			sampSoundPlayer.play();
+		} catch { }
+		
+		
+		soundLoaded = true;
 		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true);
 	}
@@ -105,7 +114,7 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		return cell;
 	}
 	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 12;
+		return 0.0001;
 	}
 	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return 0;
@@ -120,18 +129,34 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		//print(tableView.frame.width);
 		
 		let tLabel:UILabel = UILabel();
-		tLabel.frame = CGRectMake(16, 0, tableView.frame.width * 0.9, 45);
+		tLabel.frame = CGRectMake(16, 0, tableView.frame.width * 0.85, 45);
 		tLabel.font = UIFont.systemFontOfSize(16);
 		tLabel.text = soundObj.soundLangName;
 		
+		tCell.accessoryType = UITableViewCellAccessoryType.None;
 		tCell.soundInfoObject = soundObj;
-		
-		tCell.accessoryType = UITableViewCellAccessoryType.Checkmark;
-		//tCell.selectionStyle = .None;
 		
 		tCell.addSubview(tLabel);
 		return tCell;
 	}
+	
+	//Set selected style from other view (accessable)
+	func setSelectedCell( soundObj:SoundInfoObj ) {
+		for (var i:Int = 0; i < (tablesArray[0] as! Array<AlarmSoundListCell>).count; ++i) {
+			if ((tablesArray[0] as! Array<AlarmSoundListCell>)[i].soundInfoObject?.soundFileName == soundObj.soundFileName) {
+				(tablesArray[0] as! Array<AlarmSoundListCell>)[i].accessoryType = .Checkmark;
+			} else {
+				(tablesArray[0] as! Array<AlarmSoundListCell>)[i].accessoryType = .None;
+			}
+		}
+		
+	}
+	internal func stopSound() {
+		if (soundLoaded) {
+			sampSoundPlayer.stop();
+		}
+	}
+	
 	
 	//UITextfield del
 	func textFieldShouldReturn(textField: UITextField) -> Bool { //Returnkey to hide

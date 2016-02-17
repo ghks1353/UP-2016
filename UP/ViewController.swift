@@ -254,11 +254,11 @@ class ViewController: UIViewController {
         let hourString:String = String(components.hour);
         let minString:String = String(components.minute);
         
-        if hourString.utf8.count == 1 {
+        if (hourString.characters.count) == 1 {
             DigitalNum0.image = UIImage( named: "0.png" );
             DigitalNum1.image = UIImage( named:  hourString[0] + ".png" );
             
-            if hourString[0] == "1" {
+            if (hourString[0] == "1") {
                 //숫자1의경우 오른쪽으로 당김.
                 DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat(14 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
                 DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - CGFloat(6 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
@@ -273,12 +273,12 @@ class ViewController: UIViewController {
             DigitalNum1.image = UIImage( named:  hourString[1] + ".png" );
             
             var movesRightOffset:Double = 0;
-             if hourString[0] == "1" {
+             if (hourString[0] == "1") {
                 //오른쪽으로 당김
                 movesRightOffset += 6;
             }
 			
-            if hourString[1] == "1" {
+            if (hourString[1] == "1") {
                 //가능한 경우 최대 두번 당김
                 DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat(((8 - movesRightOffset) - movesRightOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
                 movesRightOffset += 6;
@@ -291,11 +291,11 @@ class ViewController: UIViewController {
             
             
         }
-        if minString.utf8.count == 1 {
+        if (minString.characters.count == 1) {
             DigitalNum2.image = UIImage( named: "0.png" );
             DigitalNum3.image = UIImage( named:  minString[0] + ".png" );
             
-            if minString[0] == "1" {
+            if (minString[0] == "1") {
                 //숫자1의경우 왼쪽으로 당김.
                 DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat(14 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
                 DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + CGFloat(12 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
@@ -312,12 +312,12 @@ class ViewController: UIViewController {
             DigitalNum3.image = UIImage( named:  minString[1] + ".png" );
             
             var movesLeftOffset:Double = 0;
-            if minString[1] == "1" {
+            if (minString[1] == "1") {
                 //가능한 경우 최대 두번 당김
                 movesLeftOffset += 6;
             }
             
-            if minString[0] == "1" {
+            if (minString[0] == "1") {
                 //왼쪽으로 당김
                 DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + CGFloat(6 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
                 movesLeftOffset += 6;
@@ -333,7 +333,7 @@ class ViewController: UIViewController {
             
         }
         
-        if !DigitalCol.hidden {
+        if (!DigitalCol.hidden) {
             //1초주기 실행
             let secondmov:Double = Double(components.minute) / 60 / 12;
             AnalogHours.transform = CGAffineTransformMakeRotation(CGFloat(((Double(components.hour) / 12) + secondmov) * 360) * CGFloat(M_PI) / 180 );
