@@ -11,7 +11,8 @@ import UIKit
 
 class UPGamesListCell:UITableViewCell {
 	
-	internal var cellID:String = "";
+	internal var gameID:Int = -1;
+	internal var gameCheckImageView:UIImageView?;
 	internal var gameInfoObj:GameInfoObj?;
 	
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

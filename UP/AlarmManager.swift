@@ -21,6 +21,18 @@ class AlarmManager {
 	*/
 	static var alarmsArray:Array<AlarmElements> = [];
 	static var isAlarmMergedFirst:Bool = false; //첫회 merge 체크용
+	static let alarmMaxRegisterCount:Int = 30; //알람 최대 등록 가능 개수
+	
+	static func checkRegisterAlarm() -> Bool {
+		if (!isAlarmMergedFirst) {
+			mergeAlarm();
+		} //merge first
+		
+		if (alarmsArray.count < alarmMaxRegisterCount) {
+			return true;
+		}
+		return false;
+	}
 	
 	static func mergeAlarm() {
 		//스케줄된 알람들 가져와서 지난것들 merge함

@@ -31,8 +31,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	//Alarm sound selected
 	var alarmSoundSelectedObj:SoundInfoObj = SoundInfoObj(soundName: "", fileName: "");
-	//Game selected ID
-	var gameSelectedID:Int = 0;
+	//Game selected
+	var gameSelectedID:Int = -1;
+	
 	//Default alarm status (default: true)
 	var alarmDefaultStatus:Bool = true;
 	var editingAlarmID:Int = -1;
@@ -138,9 +139,18 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	}
 	
 	//set game id from other view
-	internal func setGameID(gameID:Int) {
-		//todo
+	internal func setGameElement(gameID:Int) {
+		var gameName:String = "";
+		switch(gameID) {
+			case -1: //RANDOM
+				gameName = Languages.$("alarmGameRandom");
+				break;
+			default:
+				gameName = UPAlarmGameLists.list[gameID].gameLangName;
+				break;
+		}
 		
+		(getElementFromTable("alarmGame") as! UILabel).text = gameName;
 		gameSelectedID = gameID;
 	}
 	
@@ -263,6 +273,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		let cellID:String = (tableView.cellForRowAtIndexPath(indexPath) as! AlarmSettingsCell).cellID;
 		switch(cellID) {
 			case "alarmGame":
+				self.alarmGameListView.selectCell( gameSelectedID );
 				navigationCtrl.pushViewController(self.alarmGameListView, animated: true);
 				break;
 			case "alarmSound":
@@ -442,7 +453,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
 		(self.getElementFromTable("alarmName") as! UITextField).text = ""; //empty alarm name
 		self.setSoundElement(UPAlarmSoundLists.list[0]); //default - first element of soundlist
-		gameSelectedID = 0; //clear selected game id
+		self.setGameElement(-1); //set default to random
+		
+		gameSelectedID = -1; //clear selected game id
 		self.resetAlarmRepeatCell();
 		
 		modalView.title = Languages.$("alarmSettings"); //Modal title set to alarmsettings
@@ -461,6 +474,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		(self.getElementFromTable("alarmName") as! UITextField).text = alarmName;
 		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = alarmFireDate; //uipicker
 		self.setSoundElement(UPAlarmSoundLists.findSoundObjectWithFileName(selectedSoundFileName)); //set sound
+		self.setGameElement(selectedGameID); //set game
 		self.resetAlarmRepeatCell();
 		
 		//set alarm repeat element

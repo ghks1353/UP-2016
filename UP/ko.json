@@ -7,6 +7,7 @@
 	"generalAdd": "추가",
 	"generalEdit": "편집",
 	"generalCancel": "취소",
+	"generalBack": "뒤로",
 	
 	"generalGame": "게임",
 	"generalAM": "오전",
@@ -32,6 +33,7 @@
 	"alarmEditTitle": "알람 편집",
 		"alarmTitle": "알람 이름",
 		"alarmGame": "게임",
+			"alarmGameRandom": "무작위",
 			"alarmGameDifficulty": "난이도",
 		"alarmSound": "알람음",
 		"alarmRepeat": "알람 반복 설정",

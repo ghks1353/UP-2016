@@ -46,6 +46,8 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		}
 		tablesArray = [ alarmSoundListsTableArr ];
 		
+		//custom back button for pause sound
+		navigationController?.setNavigationBarHidden(false, animated: true);
 		
 		tableView.delegate = self; tableView.dataSource = self;
 		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
@@ -54,6 +56,10 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		self.stopSound();
 	}
 	
 	///// for table func

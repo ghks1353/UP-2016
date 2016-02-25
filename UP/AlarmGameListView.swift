@@ -17,6 +17,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 	//Table for view
 	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Plain);
 	var tablesArray:Array<AnyObject> = [];
+	var alarmGameListsTableArray:Array<UPGamesListCell> = [];
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -35,7 +36,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		print("Table wid", DeviceGeneral.defaultModalSizeRect.width)
 		
 		//add game cell
-		var alarmGameListsTableArray:Array<UITableViewCell> = [];
+		alarmGameListsTableArray += [ createRandomCell() ]; //ADD random cell
 		for (var i:Int = 0; i < UPAlarmGameLists.list.count; ++i) {
 			alarmGameListsTableArray += [ createCell(UPAlarmGameLists.list[i]) ];
 		}
@@ -52,15 +53,26 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		// Dispose of any resources that can be recreated.
 	}
 	
-	///// for table func
-	func cellFunc( cellSoundInfoObj:GameInfoObj ) {
-		//AddAlarmView.selfView!.setSoundElement(cellSoundInfoObj);
-		//AddAlarmView.selfView!.navigationCtrl.popToRootViewControllerAnimated(true);
+	internal func selectCell( var gameID:Int ) {
+		//unselect all
+		gameID = gameID + 1;
+		for (var i:Int = 0; i < alarmGameListsTableArray.count; ++i) {
+			alarmGameListsTableArray[i].gameCheckImageView!.alpha = 0;
+		}
 		
-		
+		//Check it
+		alarmGameListsTableArray[gameID].gameCheckImageView!.alpha = 1;
 		
 	}
+	
+	///// for table func
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		//table sel evt
+		let currCell:UPGamesListCell = tableView.cellForRowAtIndexPath(indexPath) as! UPGamesListCell;
+		AddAlarmView.selfView?.setGameElement( currCell.gameID );
+		
+		selectCell( currCell.gameID );
+		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true);
 	}
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -71,7 +83,15 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		return (tablesArray[section] as! Array<AnyObject>).count;
 	}
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 170;
+		/*let currCell:UPGamesListCell = tableView.cellForRowAtIndexPath(indexPath) as! UPGamesListCell;
+		if (currCell.gameID == -1) {
+			return 85;
+		}*/
+		if (indexPath.row == 0) {
+			return 95;
+		}
+		
+		return 140;
 	}
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
@@ -85,14 +105,54 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 	}
 	
 	
+	//Random select cell
+	func createRandomCell() -> UPGamesListCell {
+		let tCell:UPGamesListCell = UPGamesListCell();
+		tCell.backgroundColor = UPUtils.colorWithHexString("#FF6633");
+		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 95);
+		
+		//Random game
+		let gameImgName:String = "game-thumb-sample.png";
+		let tGameThumbnailsPictureBackground:UIImageView = UIImageView(image: UIImage(named: "game-thumb-background.png"));
+		tGameThumbnailsPictureBackground.frame = CGRectMake(14, 14, 66, 66);
+		tCell.addSubview(tGameThumbnailsPictureBackground);
+		
+		let tGameThumbnailsPicture:UIImageView = UIImageView(image: UIImage(named: gameImgName));
+		tGameThumbnailsPicture.frame = tGameThumbnailsPictureBackground.frame; tCell.addSubview(tGameThumbnailsPicture);
+		
+		let tGameCheckPic:UIImageView = UIImageView(image: UIImage(named: "game-thumbs-check.png"));
+		tGameCheckPic.frame = tGameThumbnailsPictureBackground.frame;
+		tCell.addSubview(tGameCheckPic);
+		
+		///////
+		let tGameSubjectLabel:UILabel = UILabel(); //게임 제목
+		tGameSubjectLabel.frame = CGRectMake(92, 22, tableView.frame.width * 0.6, 28);
+		tGameSubjectLabel.font = UIFont.systemFontOfSize(22);
+		tGameSubjectLabel.text = Languages.$("alarmGameRandom"); //Random
+		tGameSubjectLabel.textColor = UIColor.whiteColor();
+		
+		let tGameGenreLabel:UILabel = UILabel(); //게임 장르
+		tGameGenreLabel.frame = CGRectMake(92, 49, tableView.frame.width * 0.6, 20);
+		tGameGenreLabel.font = UIFont.systemFontOfSize(14);
+		tGameGenreLabel.text = "# ?";
+		tGameGenreLabel.textColor = UIColor.whiteColor();
+		
+		
+		tCell.gameID = -1;
+		tCell.gameCheckImageView = tGameCheckPic;
+		tCell.addSubview(tGameSubjectLabel); tCell.addSubview(tGameGenreLabel);
+		
+		return tCell;
+	}
+	
 	//Tableview cell view create
 	func createCell( gameObj:GameInfoObj ) -> UPGamesListCell {
 		let tCell:UPGamesListCell = UPGamesListCell();
 		tCell.backgroundColor = gameObj.gameBackgroundUIColor;
-		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 170); //default cell size
+		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 140); //default cell size
 		
 		let gameID:Int = UPAlarmGameLists.getGameIDWithObject(gameObj);
-		var gameImgName:String = ""; var gameBackgroundImageName:String = "";
+		var gameImgName:String = ""; //var gameBackgroundImageName:String = "";
 		let tGameThumbnailsPictureBackground:UIImageView = UIImageView(image: UIImage(named: "game-thumb-background.png"));
 		tGameThumbnailsPictureBackground.frame = CGRectMake(14, 14, 66, 66);
 		tCell.addSubview(tGameThumbnailsPictureBackground);
@@ -100,7 +160,6 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		switch(gameID) { //gameid thumbnail show
 			case 0:
 				gameImgName = "game-thumb-sample-2.png";
-				gameBackgroundImageName = "game-background-sample-2.png";
 				break;
 			default:
 				gameImgName = "game-thumb-sample.png";
@@ -108,11 +167,16 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		}
 		
 		let tGameThumbnailsPicture:UIImageView = UIImageView(image: UIImage(named: gameImgName));
-		tGameThumbnailsPicture.frame = CGRectMake(14, 14, 66, 66); tCell.addSubview(tGameThumbnailsPicture);
-		if (gameBackgroundImageName != "") {
+		tGameThumbnailsPicture.frame = tGameThumbnailsPictureBackground.frame; tCell.addSubview(tGameThumbnailsPicture);
+		/*if (gameBackgroundImageName != "") {
 			let tGameBackgroundPicture:UIImageView = UIImageView(image: UIImage(named: gameBackgroundImageName));
 			tGameBackgroundPicture.frame = CGRectMake(0, tCell.frame.height - 72.8, tableView.frame.width, 72.8); tCell.addSubview(tGameBackgroundPicture);
-		}
+		}*/
+		
+		let tGameCheckPic:UIImageView = UIImageView(image: UIImage(named: "game-thumbs-check.png"));
+		tGameCheckPic.frame = tGameThumbnailsPictureBackground.frame;
+		tCell.addSubview(tGameCheckPic);
+		
 		
 		///////
 		let tGameSubjectLabel:UILabel = UILabel(); //게임 제목
@@ -145,6 +209,8 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		tGameDescriptionLabel.text = gameObj.gameLangDescription;
 		tGameDescriptionLabel.textColor = gameObj.gameTextUIColor;
 		
+		tCell.gameID = gameID;
+		tCell.gameCheckImageView = tGameCheckPic;
 		tCell.gameInfoObj = gameObj;
 		tCell.addSubview(tGameSubjectLabel); tCell.addSubview(tGameGenreLabel); tCell.addSubview(tGameDifficultyLabel);
 		tCell.addSubview(tGameDescriptionLabel);

@@ -245,7 +245,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			repeatInfo: targetAlarm.alarmRepeat,
 			alarmDefaultToggle: targetAlarm.alarmToggle);
 		
-		
+		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+
 		
 	}
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -399,6 +400,9 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//이미지는 게임마다 따로분류
 		tGameImageBackground.image = UIImage(named: "game-thumb-background.png");
 		switch(selectedGame) {
+			case 0:
+				tGameImage.image = UIImage(named: "game-thumb-sample-2.png");
+				break;
 			default:
 				tGameImage.image = UIImage(named: "game-thumb-sample.png");
 				break;
@@ -427,7 +431,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		} else {
 			tLabelTime.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 44);
 		}
-		tCell.selectionStyle = UITableViewCellSelectionStyle.None;
+		//tCell.selectionStyle = UITableViewCellSelectionStyle.None;
 		
 		//스위치 변경 이벤트
 		tSwitch.addTarget(self, action: Selector("alarmSwitchChangedEventHandler:"), forControlEvents: UIControlEvents.ValueChanged);
