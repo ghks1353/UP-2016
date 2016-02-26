@@ -85,7 +85,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 		
 		//alertaction
-		if #available(iOS 8.0, *) { //ios8 or above only..!!
+		if #available(iOS 8.2, *) { //ios8.2 or above only..!!
 			listConfirmAction = UIAlertController(title: Languages.$("alarmDeleteTitle"), message: Languages.$("alarmDeleteSure"), preferredStyle: .ActionSheet);
 			//add menus
 			let cancelAct:UIAlertAction = UIAlertAction(title: Languages.$("generalCancel"), style: .Cancel) { action -> Void in
@@ -263,6 +263,16 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
         return 0;
     }
 	
+	/*
+	@available(iOS 8.0, *)
+	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+	}
+	
+	@available(iOS 8.0, *)
+	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+		return true
+	}*/
+	
 	@available(iOS 8.0, *)
 	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 		//get row
@@ -400,8 +410,11 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//이미지는 게임마다 따로분류
 		tGameImageBackground.image = UIImage(named: "game-thumb-background.png");
 		switch(selectedGame) {
+			case -1:
+				tGameImage.image = UIImage(named: "game-thumb-random.png");
+				break;
 			case 0:
-				tGameImage.image = UIImage(named: "game-thumb-sample-2.png");
+				tGameImage.image = UIImage(named: "game-thumb-jumpup.png");
 				break;
 			default:
 				tGameImage.image = UIImage(named: "game-thumb-sample.png");
@@ -431,7 +444,10 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		} else {
 			tLabelTime.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 44);
 		}
+		//NanumBarunGothicUltraLight
+		//tLabelTime.font =   UIFont(name: "NanumBarunGothic", size: 44);
 		//tCell.selectionStyle = UITableViewCellSelectionStyle.None;
+		//NSLog("Available fonts: %@", UIFont.familyNames());
 		
 		//스위치 변경 이벤트
 		tSwitch.addTarget(self, action: Selector("alarmSwitchChangedEventHandler:"), forControlEvents: UIControlEvents.ValueChanged);

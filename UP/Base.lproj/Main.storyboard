@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment version="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -57,10 +57,6 @@
                                 <rect key="frame" x="0.0" y="665" width="414" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_back.png" id="5NC-lO-75n">
-                                <rect key="frame" x="0.0" y="544" width="414" height="192"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_hh.png" id="1Wq-5e-oof">
                                 <rect key="frame" x="85" y="263" width="245" height="245"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -87,7 +83,6 @@
                         <outlet property="DigitalNum2" destination="l2R-CS-q3D" id="gKH-DA-4us"/>
                         <outlet property="DigitalNum3" destination="aAk-ln-Gov" id="CMx-v0-ig8"/>
                         <outlet property="GroundObj" destination="j9V-vd-mh0" id="znf-Ml-svN"/>
-                        <outlet property="MainBackDecoration" destination="5NC-lO-75n" id="wXO-jF-8nu"/>
                         <outlet property="SettingsImg" destination="KEm-J4-clm" id="IjX-Lb-s2B"/>
                     </connections>
                 </viewController>
@@ -131,7 +126,6 @@
         <image name="astro0001.png" width="176" height="452"/>
         <image name="col.png" width="202" height="282"/>
         <image name="ground.png" width="1242" height="214"/>
-        <image name="main_back.png" width="1242" height="574"/>
         <image name="object_list.png" width="315" height="449"/>
         <image name="object_st.png" width="472" height="472"/>
         <image name="time_body.png" width="735" height="735"/>

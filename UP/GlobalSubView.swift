@@ -15,4 +15,6 @@ class GlobalSubView {
 	static var alarmSoundListView:AlarmSoundListView = AlarmSoundListView();
 	static var alarmGameListView:AlarmGameListView = AlarmGameListView();
 	
+	static var alarmRingViewcontroller:AlarmRingView = AlarmRingView();
+	
 }

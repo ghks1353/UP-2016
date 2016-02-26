@@ -24,10 +24,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var AnalogBodyBack: UIImageView!
     @IBOutlet weak var SettingsImg: UIImageView!
     @IBOutlet weak var AlarmListImg: UIImageView!
-    @IBOutlet weak var MainBackDecoration: UIImageView!
     
     @IBOutlet weak var AstroCharacter: UIImageView!
-    
+	
+	////////// 위 리소스는 스토리보드에서 작업했음
+	
     //Animation images
         //스탠딩 모션
     var astroMotionsStanding:Array<UIImage> = [];
@@ -35,8 +36,7 @@ class ViewController: UIViewController {
     var astroMotionsRunning:Array<UIImage> = [];
         //점프
     var astroMotionsJumping:Array<UIImage> = [];
-   
-    
+	
     //Modal views
     var modalSettingsView:SettingsView = SettingsView();
     var modalAlarmListView:AlarmListView = AlarmListView();
@@ -48,13 +48,25 @@ class ViewController: UIViewController {
 	static var viewSelf:ViewController?;
 	internal var viewImage:UIImage = UIImage();
 	
+	//////////
+	//뒷 배경 이미지 (시간에 따라 변경되며 변경 시간대마다 한번씩 fade)
+	var backgroundImageView:UIImageView = UIImageView();
+	var backgroundImageFadeView:UIImageView = UIImageView();
+	var currentBackgroundImage:String = "a";
+	
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
         super.viewDidLoad();
         
         //Init device size factor
         DeviceGeneral.initialDeviceSize();
-        
+		
+		//Background image add
+		backgroundImageView.frame = CGRectMake(0, 0, (DeviceGeneral.scrSize?.width)!, (DeviceGeneral.scrSize?.height)!);
+		backgroundImageFadeView.frame = backgroundImageView.frame;
+		self.view.addSubview(backgroundImageView); self.view.addSubview(backgroundImageFadeView);
+		self.view.sendSubviewToBack(backgroundImageFadeView); self.view.sendSubviewToBack(backgroundImageView);
+		
         var scrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (DigitalCol.bounds.width / 2));
         scrX += CGFloat(4 * DeviceGeneral.maxScrRatio);
         
@@ -67,7 +79,7 @@ class ViewController: UIViewController {
         DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + CGFloat(12 * DeviceGeneral.maxScrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
         
         //Ground 크기 조절. iPad의 경우 이미지를 넓은 것으로 교체할 필요가 있음
-        GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - CGFloat(GroundObj.frame.height * CGFloat(DeviceGeneral.maxScrRatio)), (DeviceGeneral.scrSize?.width)!, CGFloat(71.05 * DeviceGeneral.maxScrRatio) );
+        GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - CGFloat(75 * DeviceGeneral.maxScrRatio), CGFloat((DeviceGeneral.scrSize?.width)!) , CGFloat(75 * DeviceGeneral.maxScrRatio) );
         
         //시계 바디 및 시침 분침 위치/크기조절
         let clockScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
@@ -84,9 +96,7 @@ class ViewController: UIViewController {
         AnalogBodyBack.frame = CGRectMake( clockScrX - CGFloat(24 * DeviceGeneral.maxScrRatio), clockScrY - CGFloat(10 * DeviceGeneral.maxScrRatio), CGFloat(273 * DeviceGeneral.maxScrRatio), CGFloat(255 * DeviceGeneral.maxScrRatio) );
         SettingsImg.frame = CGRectMake( clockScrX - (CGFloat(135 * DeviceGeneral.maxScrRatio) / 2), clockScrY + CGFloat(125 * DeviceGeneral.maxScrRatio) , CGFloat(157 * DeviceGeneral.maxScrRatio), CGFloat(157 * DeviceGeneral.maxScrRatio) );
         AlarmListImg.frame = CGRectMake( clockRightScrX - (CGFloat(90 * DeviceGeneral.maxScrRatio) / 2), clockScrY - CGFloat(10 * DeviceGeneral.maxScrRatio), CGFloat(105 * DeviceGeneral.maxScrRatio), CGFloat(150 * DeviceGeneral.maxScrRatio) );
-        
-        MainBackDecoration.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - CGFloat(192 * DeviceGeneral.maxScrRatio), CGFloat(414 * DeviceGeneral.maxScrRatio), CGFloat(192 * DeviceGeneral.maxScrRatio) );
-        
+		
         //Astro 크기조정
         AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - CGFloat(126 * DeviceGeneral.maxScrRatio), GroundObj.frame.origin.y - CGFloat(151 * DeviceGeneral.maxScrRatio) + CGFloat(9 * DeviceGeneral.maxScrRatio), CGFloat(60 * DeviceGeneral.maxScrRatio), CGFloat(151 * DeviceGeneral.maxScrRatio) );
         //Astro animations
@@ -158,10 +168,15 @@ class ViewController: UIViewController {
 		//UIApplication.sharedApplication().cancelAllLocalNotifications();
 		//AlarmManager.clearAlarm();
 		
-       updateTimeAnimation(); //first call
-       setInterval(0.5, block: updateTimeAnimation);
-	
+		updateTimeAnimation(); //first call
+		setInterval(0.5, block: updateTimeAnimation);
+		
     }
+	
+	override func viewDidAppear(animated: Bool) {
+		//Check alarms
+		checkToCallAlarmRingingView();
+	}
 	
 	func showHideBlurview( show:Bool ) {
 		if #available(iOS 8.0, *) {
@@ -229,18 +244,16 @@ class ViewController: UIViewController {
         self.presentViewController(modalAlarmListView, animated: true, completion: nil);
 		modalAlarmListView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
-    
+	
+	
+	//아래는 테스트 func이며 삭제 예정
     func imageTapped(gestureRecognizer: UITapGestureRecognizer) {
-        
         //이동할 뷰 컨트롤러 인스턴스 생성
         let uvc = self.storyboard?.instantiateViewControllerWithIdentifier("testGameViewID")
-        
         //화면 전환 스타일 설정
         uvc?.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-        
         //화면 전환
 		self.presentViewController(uvc!, animated: true, completion: nil);
-		
     }
     
   
@@ -253,7 +266,8 @@ class ViewController: UIViewController {
         
         let hourString:String = String(components.hour);
         let minString:String = String(components.minute);
-        
+		
+		//hour str time
         if (hourString.characters.count) == 1 {
             DigitalNum0.image = UIImage( named: "0.png" );
             DigitalNum1.image = UIImage( named:  hourString[0] + ".png" );
@@ -287,10 +301,9 @@ class ViewController: UIViewController {
                 DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat((20 - movesRightOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
                 DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - CGFloat((12) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
             }
-            
-            
-            
-        }
+        } //end of hour str
+		
+		//min str
         if (minString.characters.count == 1) {
             DigitalNum2.image = UIImage( named: "0.png" );
             DigitalNum3.image = UIImage( named:  minString[0] + ".png" );
@@ -328,11 +341,9 @@ class ViewController: UIViewController {
                 DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat((20 - movesLeftOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
             }
             
-           
-
-            
-        }
-        
+        } //end of min str
+		
+		//col animation
         if (!DigitalCol.hidden) {
             //1초주기 실행
             let secondmov:Double = Double(components.minute) / 60 / 12;
@@ -340,9 +351,60 @@ class ViewController: UIViewController {
             AnalogMinutes.transform = CGAffineTransformMakeRotation(CGFloat((Double(components.minute) / 60) * 360) * CGFloat(M_PI) / 180 );
 			
         }
-        
         DigitalCol.hidden = !DigitalCol.hidden;
-    }
+		
+		/*backgroundImageView backgroundImageFadeView currentBackgroundImage*/
+		
+		if (backgroundImageView.image == nil) {
+			//이미지가 없을 경우 새로 표시.
+			currentBackgroundImage = getBackgroundFileNameFromTime(components.hour);
+			backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+				DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+				) );
+			backgroundImageFadeView.image = UIImage( named: currentBackgroundImage + "_back" + (
+				DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+				) );
+			backgroundImageFadeView.alpha = 0;
+			print("Scrsize",DeviceGeneral.scrSize?.height, (DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""));
+		} else {
+			//이미지가 있을 경우, 시간대가 바뀌는 경우 바꾸고 페이드
+			if (currentBackgroundImage != getBackgroundFileNameFromTime(components.hour)) {
+				//시간대가 바뀌어야 하는 경우
+				currentBackgroundImage = getBackgroundFileNameFromTime(components.hour); //시간대 이미지 변경
+				backgroundImageFadeView.alpha = 1;
+				backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+					DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+					) );
+				
+				UIView.animateWithDuration(1, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+					self.backgroundImageFadeView.alpha = 0;
+					}, completion: {_ in
+						self.backgroundImageFadeView.image = UIImage( named: self.currentBackgroundImage + "_back" + (
+							DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+							) );
+				});
+				
+				
+			} //end if
+		} //end if
+		
+		
+    } //end tick func
+	
+	
+	//get str from time
+	func getBackgroundFileNameFromTime(timeHour:Int)->String {
+		if (timeHour >= 0 && timeHour < 6) {
+			return "d";
+		} else if (timeHour >= 6 && timeHour < 12) {
+			return "a";
+		} else if (timeHour >= 12 && timeHour < 18) {
+			return "b";
+		} else if (timeHour >= 18 && timeHour <= 23) {
+			return "c";
+		}
+		return "a";
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -356,7 +418,52 @@ class ViewController: UIViewController {
     func setInterval(interval:NSTimeInterval, block:()->Void) -> NSTimer {
         return NSTimer.scheduledTimerWithTimeInterval(interval, target: NSBlockOperation(block: block), selector: "main", userInfo: nil, repeats: true)
     }
-    
+	
+	/////////////////////////////////////////
+	
+	internal func checkToCallAlarmRingingView() {
+		//알람 뷰 콜을 체크하고, 불러와야 하면 표시함.
+		//울린 후 안꺼진 알람이 있는지 체크한다.
+		let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm();
+		if (ringingAlarm == nil) {
+			//안꺼진 알람이 없음.
+			
+		} else {
+			//알람이 울리고 있음
+			print("Alarm is ringing");
+			
+			//dismiss current views
+			/*if (self.presentingViewController != nil) {
+				print("Dismissing actived view");
+				if (self.presentingViewController == modalSettingsView) {
+					modalSettingsView.dismissViewControllerAnimated(false, completion: nil);
+				}
+				if (self.presentingViewController == modalAlarmAddView) {
+					modalAlarmAddView.dismissViewControllerAnimated(false, completion: nil);
+				}
+				if (self.presentingViewController == modalAlarmListView) {
+					modalAlarmListView.dismissViewControllerAnimated(false, completion: nil);
+				}
+			}*/
+			
+			if (AlarmManager.alarmRingActivated == true) {
+				print("Alarm ring progress is already running. skipping");
+			} else {
+				modalSettingsView.dismissViewControllerAnimated(false, completion: nil);
+				modalAlarmAddView.dismissViewControllerAnimated(false, completion: nil);
+				modalAlarmListView.dismissViewControllerAnimated(false, completion: nil);
+				//Dismiss하면서 blur같은거 없애야 하는데, 일단 지금은 그게 뜨는지 체크먼저 해보고 구현 예정 ....
+				self.showHideBlurview(false); 
+				
+				self.presentViewController(GlobalSubView.alarmRingViewcontroller, animated: true, completion: nil);
+				AlarmManager.alarmRingActivated = true;
+			} //end check is running
+			
+		} //end check
+		
+	} //end if
+	
+	
     ///////////
 	
     //Changes image size
@@ -393,3 +500,5 @@ extension String {
         return self[Range(start: start, end: end)]
     }
 }
+
+

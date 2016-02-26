@@ -21,7 +21,45 @@ class AlarmManager {
 	*/
 	static var alarmsArray:Array<AlarmElements> = [];
 	static var isAlarmMergedFirst:Bool = false; //첫회 merge 체크용
-	static let alarmMaxRegisterCount:Int = 30; //알람 최대 등록 가능 개수
+	static let alarmMaxRegisterCount:Int = 20; //알람 최대 등록 가능 개수
+	
+	static var alarmRingActivated:Bool = false; //알람 액티비티.. 아니 뷰가 뜨고 있을 때 true. (게임 진행 중일 때.)
+	
+	//울리고 있는 알람을 가져옴. 여러개인 경우, 첫번째 알람만 리턴함
+	static func getRingingAlarm() -> AlarmElements? {
+		//나중에 게임 클리어 후 알람을 끌 때, 울리고 있는 알람 전체를 끌 수 있게 해야됨
+		//(그렇지 않으면 울린 알람만큼 게임을 깨야됨)
+		
+		//또한 게임 진행중일땐 앱 자체에 게임 진행중이라는 체크가 필요하며 그렇지 않을 경우
+		//게임하다가 밖으로 나갔다왔는데 알람 울림화면으로 다시..
+		
+		for(var i:Int = 0; i < alarmsArray.count; ++i) {
+			if (alarmsArray[i].alarmToggle == false) {
+				continue;
+			} //ignores off
+			
+			if (alarmsArray[i].alarmFireDate.timeIntervalSince1970 <= NSDate().timeIntervalSince1970
+				&& alarmsArray[i].alarmCleared == false) {
+				/*  1. fired된 알람일 때.
+					2. 클리어를 못했을 때.
+					3. toggled된 알람일 때. */
+					return alarmsArray[i];
+			}
+		} //end for
+		
+		return nil; //Element 없음
+	}
+	
+	//알람 게임 클리어 토글
+	static func gameClearToggleAlarm( alarmID:Int, cleared:Bool ) {
+		let modAlarmElement:AlarmElements = getAlarm(alarmID);
+		modAlarmElement.alarmCleared = cleared;
+		
+		//save it
+		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
+		DataManager.nsDefaults.synchronize();
+		print("Alarm clear toggle to ..." ,cleared, "to id", alarmID);
+	}
 	
 	static func checkRegisterAlarm() -> Bool {
 		if (!isAlarmMergedFirst) {
@@ -59,7 +97,7 @@ class AlarmManager {
 			print("alarm id", scdAlarm[i].alarmID, " firedate", scdAlarm[i].alarmFireDate.timeIntervalSince1970);
 			print("current firedate", NSDate().timeIntervalSince1970);
 			if (scdAlarm[i].alarmFireDate.timeIntervalSince1970 <= NSDate().timeIntervalSince1970
-				&& scdAlarm[i].alarmCleared == false /* false = test */) { /* 시간이 지났어도, 게임을 클리어 해야됨. 게임 클리어시 true로 설정후 merge 한번더 하면됨 */
+				&& scdAlarm[i].alarmCleared == true /* false = test */) { /* 시간이 지났어도, 게임을 클리어 해야됨. 게임 클리어시 true로 설정후 merge 한번더 하면됨 */
 					print("Merge start:", scdAlarm[i].alarmID);
 				//알람 merge 대상. 우선 일치하는 ID의 알람을 스케줄에서 삭제함
 				for (var j:Int = 0; j < scdNotifications.count; ++j) {

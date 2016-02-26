@@ -112,7 +112,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 95);
 		
 		//Random game
-		let gameImgName:String = "game-thumb-sample.png";
+		let gameImgName:String = "game-thumb-random.png";
 		let tGameThumbnailsPictureBackground:UIImageView = UIImageView(image: UIImage(named: "game-thumb-background.png"));
 		tGameThumbnailsPictureBackground.frame = CGRectMake(14, 14, 66, 66);
 		tCell.addSubview(tGameThumbnailsPictureBackground);
@@ -159,7 +159,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		
 		switch(gameID) { //gameid thumbnail show
 			case 0:
-				gameImgName = "game-thumb-sample-2.png";
+				gameImgName = "game-thumb-jumpup.png";
 				break;
 			default:
 				gameImgName = "game-thumb-sample.png";

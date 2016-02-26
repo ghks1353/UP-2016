@@ -12,11 +12,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+	
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		//앱 실행시
 		
 		//Startup language initial
+		print("Pref lang", NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
 		Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
 		//Startup alarm merge
 		AlarmManager.mergeAlarm();
@@ -30,11 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				if (AlarmListView.alarmListInited) {
 					AlarmListView.selfView!.createTableList(); //refresh alarm-list
 				}
+				
 			}
 		}
-
 		
-        return true
+		return true;
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -62,6 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		AlarmManager.mergeAlarm();
 		if (AlarmListView.alarmListInited) {
 			AlarmListView.selfView!.createTableList(); //refresh alarm-list
+		}
+		
+		if (ViewController.viewSelf != nil) {
+			ViewController.viewSelf!.checkToCallAlarmRingingView();
 		}
     }
 
