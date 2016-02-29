@@ -17,6 +17,7 @@ class DeviceGeneral {
     static let workSize:CGRect = CGRect(x: 0, y: 0, width: 414, height: 736);
     //기준에 대한 비율
     static var scrRatio:Double = 1; static var maxScrRatio:Double = 1; //최대가 1인 비율 크기
+	static var scrRatioC:CGFloat = 1;
 	
 	//낮은 해상도 사용
 	static var usesLowQualityImage:Bool = false;
@@ -28,6 +29,8 @@ class DeviceGeneral {
         //화면 사이즈를 얻어옴.
         scrSize = UIScreen.mainScreen().bounds;
         scrRatio = Double((scrSize?.width)! / workSize.width);
+		scrRatioC = CGFloat(scrRatio);
+		
         print("Width", scrSize?.width, "Height", scrSize?.height, "Ratio", scrRatio);
         
         //패드에서 거하게 커지는 현상방지

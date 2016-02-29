@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77232C921C848CCA006E221A /* game-start-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 77232C911C848CCA006E221A /* game-start-button.png */; };
+		77232C961C84B0F5006E221A /* JumpUPGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77232C951C84B0F5006E221A /* JumpUPGame.swift */; };
 		773D2E4E1C56105700177CF3 /* TestGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773D2E4D1C56105700177CF3 /* TestGameView.swift */; };
 		773D2E501C562FE300177CF3 /* TestGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773D2E4F1C562FE300177CF3 /* TestGameScene.swift */; };
 		773D2E541C5674C000177CF3 /* enemy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 773D2E521C5674C000177CF3 /* enemy.jpg */; };
@@ -172,6 +174,7 @@
 		77958C9C1C68DB2900E99864 /* alarm-test.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77958C9B1C68DB2900E99864 /* alarm-test.aiff */; };
 		77958C9E1C68E0D900E99864 /* AlarmSoundListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */; };
 		7799B4891C6F640900BEA0CF /* alarm-test-koreagarang.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7799B4881C6F640900BEA0CF /* alarm-test-koreagarang.aiff */; };
+		77C35C8B1C81CC2A002EE465 /* GameTitleViewJumpUP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C35C8A1C81CC2A002EE465 /* GameTitleViewJumpUP.swift */; };
 		77C6BDE71C7EF85A00F2887C /* AlarmRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C6BDE61C7EF85A00F2887C /* AlarmRingView.swift */; };
 		77E23BFF1C699723005F0B03 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23BFE1C699723005F0B03 /* AlarmManager.swift */; };
 		77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C001C69A7F5005F0B03 /* AlarmElements.swift */; };
@@ -228,6 +231,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		77232C911C848CCA006E221A /* game-start-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-start-button.png"; path = "GameAssets/JumpUP/StartupView/game-start-button.png"; sourceTree = "<group>"; };
+		77232C951C84B0F5006E221A /* JumpUPGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Jump\U0010UPGame.swift"; sourceTree = "<group>"; };
 		773D2E4D1C56105700177CF3 /* TestGameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGameView.swift; sourceTree = "<group>"; };
 		773D2E4F1C562FE300177CF3 /* TestGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGameScene.swift; sourceTree = "<group>"; };
 		773D2E521C5674C000177CF3 /* enemy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = enemy.jpg; path = GameAssets/enemy.jpg; sourceTree = "<group>"; };
@@ -396,6 +401,7 @@
 		77958C9B1C68DB2900E99864 /* alarm-test.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "alarm-test.aiff"; path = "SoundAssets/AlarmSounds/alarm-test.aiff"; sourceTree = "<group>"; };
 		77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundListCell.swift; sourceTree = "<group>"; };
 		7799B4881C6F640900BEA0CF /* alarm-test-koreagarang.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "alarm-test-koreagarang.aiff"; path = "SoundAssets/AlarmSounds/alarm-test-koreagarang.aiff"; sourceTree = "<group>"; };
+		77C35C8A1C81CC2A002EE465 /* GameTitleViewJumpUP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTitleViewJumpUP.swift; sourceTree = "<group>"; };
 		77C6BDE61C7EF85A00F2887C /* AlarmRingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmRingView.swift; sourceTree = "<group>"; };
 		77E23BFE1C699723005F0B03 /* AlarmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
 		77E23C001C69A7F5005F0B03 /* AlarmElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmElements.swift; sourceTree = "<group>"; };
@@ -462,6 +468,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77232C8F1C848CAB006E221A /* GameAssets */ = {
+			isa = PBXGroup;
+			children = (
+				77232C901C848CBC006E221A /* JumpUP */,
+			);
+			name = GameAssets;
+			sourceTree = "<group>";
+		};
+		77232C901C848CBC006E221A /* JumpUP */ = {
+			isa = PBXGroup;
+			children = (
+				77232C911C848CCA006E221A /* game-start-button.png */,
+			);
+			name = JumpUP;
+			sourceTree = "<group>";
+		};
+		77232C931C84B0AC006E221A /* SKViews */ = {
+			isa = PBXGroup;
+			children = (
+				77232C941C84B0B0006E221A /* JumpUP */,
+			);
+			name = SKViews;
+			sourceTree = "<group>";
+		};
+		77232C941C84B0B0006E221A /* JumpUP */ = {
+			isa = PBXGroup;
+			children = (
+				77232C951C84B0F5006E221A /* JumpUPGame.swift */,
+			);
+			name = JumpUP;
+			sourceTree = "<group>";
+		};
 		773D2E511C5674B200177CF3 /* TestSprite */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,6 +804,7 @@
 		775ADBE61C4FC4C700B52552 /* UP */ = {
 			isa = PBXGroup;
 			children = (
+				77232C931C84B0AC006E221A /* SKViews */,
 				77C6BDE41C7EF84200F2887C /* Views */,
 				77E23C031C6A082F005F0B03 /* Cells */,
 				77E23C021C6A0804005F0B03 /* Utils */,
@@ -810,6 +849,14 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		77C35C891C81CBCA002EE465 /* AlarmGamesView */ = {
+			isa = PBXGroup;
+			children = (
+				77C35C8A1C81CC2A002EE465 /* GameTitleViewJumpUP.swift */,
+			);
+			name = AlarmGamesView;
+			sourceTree = "<group>";
+		};
 		77C3CFC61C6325BE009A183A /* Alarms */ = {
 			isa = PBXGroup;
 			children = (
@@ -824,6 +871,7 @@
 		77C6BDE41C7EF84200F2887C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				77C35C891C81CBCA002EE465 /* AlarmGamesView */,
 				77C6BDE61C7EF85A00F2887C /* AlarmRingView.swift */,
 			);
 			name = Views;
@@ -900,6 +948,7 @@
 		77EB7B081C6B9D07008247DD /* Games */ = {
 			isa = PBXGroup;
 			children = (
+				77232C8F1C848CAB006E221A /* GameAssets */,
 				77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */,
 				77E3F4841C74B7A3002BBDA6 /* Backgrounds */,
 				77E3F4831C74B79B002BBDA6 /* Thumbnails */,
@@ -1146,6 +1195,7 @@
 				77E287E91C7333FC0020B766 /* 2.png in Resources */,
 				774C55F81C58E84500421F06 /* astro0190.png in Resources */,
 				775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */,
+				77232C921C848CCA006E221A /* game-start-button.png in Resources */,
 				773D2E651C568FAC00177CF3 /* testeffect5.mp3 in Resources */,
 				774C55FE1C58E84500421F06 /* astro0226.png in Resources */,
 				774C56131C58E84500421F06 /* astro0247.png in Resources */,
@@ -1201,6 +1251,7 @@
 				77958C9A1C68D05C00E99864 /* SoundInfoObj.swift in Sources */,
 				77E23BFF1C699723005F0B03 /* AlarmManager.swift in Sources */,
 				774141301C5BC09500E5A723 /* DataManager.swift in Sources */,
+				77C35C8B1C81CC2A002EE465 /* GameTitleViewJumpUP.swift in Sources */,
 				77E3F47C1C746D3C002BBDA6 /* GameInfoObj.swift in Sources */,
 				77FBE6861C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift in Sources */,
 				773E910C1C5A36480084EB07 /* CustomTableCell.swift in Sources */,
@@ -1210,6 +1261,7 @@
 				77E3F4801C747479002BBDA6 /* UPGamesListCell.swift in Sources */,
 				774D0DB01C5CA7AC00E41385 /* AlarmListView.swift in Sources */,
 				773D2E4E1C56105700177CF3 /* TestGameView.swift in Sources */,
+				77232C961C84B0F5006E221A /* JumpUPGame.swift in Sources */,
 				77E23C091C6A46F5005F0B03 /* UITouchableSegmentControl.swift in Sources */,
 				773E91091C59FBBF0084EB07 /* SettingsElement.swift in Sources */,
 				77E23C051C6A20F1005F0B03 /* UISingleSegmentControl.swift in Sources */,
