@@ -6,7 +6,8 @@
 //  Copyright © 2016년 AVN Graphic. All rights reserved.
 //
 
-import Foundation
+import Foundation;
+import SpriteKit;
 import UIKit;
 
 class GameTitleViewJumpUP:UIViewController {
@@ -21,6 +22,10 @@ class GameTitleViewJumpUP:UIViewController {
 	
 	//Start button
 	var gameStartButtonImage:UIImageView = UIImageView();
+	
+	//SKView (Game view) and game scene
+	var gameView:SKView = SKView();
+	var jumpUPGameScene:JumpUPGame?;
 	
 	override func viewDidLoad() {
 		// view init func
@@ -60,7 +65,28 @@ class GameTitleViewJumpUP:UIViewController {
 		gameStartButtonImage.image = UIImage( named: "game-start-button.png" );
 		gameStartButtonImage.frame = CGRectMake( self.view.frame.width / 2 - (242.05 * DeviceGeneral.scrRatioC) / 2, self.view.frame.height - (70.75 * DeviceGeneral.scrRatioC) - (86 * DeviceGeneral.scrRatioC), 242.05 * DeviceGeneral.scrRatioC, 70.75 * DeviceGeneral.scrRatioC );
 		
+		let gameStartGesture:UITapGestureRecognizer = UITapGestureRecognizer();
+		gameStartGesture.addTarget(self, action: Selector("gameStartFuncTapHandler:"));
+		gameStartButtonImage.addGestureRecognizer(gameStartGesture);
+		
 		self.view.addSubview(gameStartButtonImage);
+		gameStartButtonImage.userInteractionEnabled = true;
+		
+	}
+	
+	func gameStartFuncTapHandler( recognizer: UITapGestureRecognizer ) {
+		//Game start
+		print("Presenting game view");
+		jumpUPGameScene = JumpUPGame( size: CGSizeMake( DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height ) );
+		jumpUPGameScene!.scaleMode = SKSceneScaleMode.ResizeFill;
+		
+		gameView.showsFPS = true; //fps view
+		gameView.showsDrawCount = true;
+		gameView.showsNodeCount = true;
+		gameView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		
+		self.view.addSubview(gameView);
+		gameView.presentScene(jumpUPGameScene!);
 	}
 	
 	override func viewWillAppear(animated: Bool) {

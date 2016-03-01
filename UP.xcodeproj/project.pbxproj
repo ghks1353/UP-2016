@@ -215,6 +215,15 @@
 		77E5B9B21C624BD30075431A /* AlarmSoundListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */; };
 		77EB7B071C6B6356008247DD /* AlarmListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB7B061C6B6356008247DD /* AlarmListCell.swift */; };
 		77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */; };
+		77F9D23F1C85D93F00E79CE8 /* game_jumpup_assets_time_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D2361C85D93F00E79CE8 /* game_jumpup_assets_time_background.png */; };
+		77F9D2401C85D93F00E79CE8 /* game_jumpup_assets_time_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D2371C85D93F00E79CE8 /* game_jumpup_assets_time_box.png */; };
+		77F9D2411C85D93F00E79CE8 /* game_jumpup_assets_time_box2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D2381C85D93F00E79CE8 /* game_jumpup_assets_time_box2.png */; };
+		77F9D2421C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D2391C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_1.png */; };
+		77F9D2431C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D23A1C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_2.png */; };
+		77F9D2441C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D23B1C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_3.png */; };
+		77F9D2451C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D23C1C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_4.png */; };
+		77F9D2461C85D93F00E79CE8 /* game_jumpup_assets_time_time.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D23D1C85D93F00E79CE8 /* game_jumpup_assets_time_time.png */; };
+		77F9D2471C85D93F00E79CE8 /* game_jumpup_assets_time_trap.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D23E1C85D93F00E79CE8 /* game_jumpup_assets_time_trap.png */; };
 		77FBE67B1C6DCB9F00E251A2 /* a_time_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FBE6731C6DCB9F00E251A2 /* a_time_off.png */; };
 		77FBE67C1C6DCB9F00E251A2 /* a_time_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FBE6741C6DCB9F00E251A2 /* a_time_on.png */; };
 		77FBE67D1C6DCB9F00E251A2 /* b_time_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FBE6751C6DCB9F00E251A2 /* b_time_off.png */; };
@@ -442,6 +451,15 @@
 		77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundListView.swift; sourceTree = "<group>"; };
 		77EB7B061C6B6356008247DD /* AlarmListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListCell.swift; sourceTree = "<group>"; };
 		77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-sample.png"; path = "ImageAssets/GameThumbs/game-thumb-sample.png"; sourceTree = "<group>"; };
+		77F9D2361C85D93F00E79CE8 /* game_jumpup_assets_time_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_background.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_background.png; sourceTree = "<group>"; };
+		77F9D2371C85D93F00E79CE8 /* game_jumpup_assets_time_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_box.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_box.png; sourceTree = "<group>"; };
+		77F9D2381C85D93F00E79CE8 /* game_jumpup_assets_time_box2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_box2.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_box2.png; sourceTree = "<group>"; };
+		77F9D2391C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_cloud_1.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_cloud_1.png; sourceTree = "<group>"; };
+		77F9D23A1C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_cloud_2.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_cloud_2.png; sourceTree = "<group>"; };
+		77F9D23B1C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_cloud_3.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_cloud_3.png; sourceTree = "<group>"; };
+		77F9D23C1C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_cloud_4.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_cloud_4.png; sourceTree = "<group>"; };
+		77F9D23D1C85D93F00E79CE8 /* game_jumpup_assets_time_time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_time.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_time.png; sourceTree = "<group>"; };
+		77F9D23E1C85D93F00E79CE8 /* game_jumpup_assets_time_trap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_trap.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_trap.png; sourceTree = "<group>"; };
 		77FBE6731C6DCB9F00E251A2 /* a_time_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_time_off.png; path = ImageAssets/TimeListAssets/a_time_off.png; sourceTree = "<group>"; };
 		77FBE6741C6DCB9F00E251A2 /* a_time_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_time_on.png; path = ImageAssets/TimeListAssets/a_time_on.png; sourceTree = "<group>"; };
 		77FBE6751C6DCB9F00E251A2 /* b_time_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = b_time_off.png; path = ImageAssets/TimeListAssets/b_time_off.png; sourceTree = "<group>"; };
@@ -479,6 +497,16 @@
 		77232C901C848CBC006E221A /* JumpUP */ = {
 			isa = PBXGroup;
 			children = (
+				77F9D2481C85D94500E79CE8 /* Motions */,
+				77F9D2361C85D93F00E79CE8 /* game_jumpup_assets_time_background.png */,
+				77F9D2371C85D93F00E79CE8 /* game_jumpup_assets_time_box.png */,
+				77F9D2381C85D93F00E79CE8 /* game_jumpup_assets_time_box2.png */,
+				77F9D2391C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_1.png */,
+				77F9D23A1C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_2.png */,
+				77F9D23B1C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_3.png */,
+				77F9D23C1C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_4.png */,
+				77F9D23D1C85D93F00E79CE8 /* game_jumpup_assets_time_time.png */,
+				77F9D23E1C85D93F00E79CE8 /* game_jumpup_assets_time_trap.png */,
 				77232C911C848CCA006E221A /* game-start-button.png */,
 			);
 			name = JumpUP;
@@ -956,6 +984,13 @@
 			name = Games;
 			sourceTree = "<group>";
 		};
+		77F9D2481C85D94500E79CE8 /* Motions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Motions;
+			sourceTree = "<group>";
+		};
 		77FBE6721C6DCB8F00E251A2 /* TimeListAssets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1053,6 +1088,8 @@
 				774C55C71C58E84500421F06 /* astro0021.png in Resources */,
 				774C560D1C58E84500421F06 /* astro0241.png in Resources */,
 				77802D2E1C8060AD00766DB0 /* c_back.png in Resources */,
+				77F9D2461C85D93F00E79CE8 /* game_jumpup_assets_time_time.png in Resources */,
+				77F9D2411C85D93F00E79CE8 /* game_jumpup_assets_time_box2.png in Resources */,
 				774C55BB1C58E84500421F06 /* astro0009.png in Resources */,
 				77E288081C7334A30020B766 /* c_time_on_small.png in Resources */,
 				774C55C51C58E84500421F06 /* astro0019.png in Resources */,
@@ -1119,6 +1156,7 @@
 				77E288071C7334A30020B766 /* c_time_off_small.png in Resources */,
 				774C56221C58E84500421F06 /* astro0262.png in Resources */,
 				77802D2F1C8060AD00766DB0 /* d_back_4s.png in Resources */,
+				77F9D2451C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_4.png in Resources */,
 				774C560A1C58E84500421F06 /* astro0238.png in Resources */,
 				774C55BD1C58E84500421F06 /* astro0011.png in Resources */,
 				774C55F41C58E84500421F06 /* astro0186.png in Resources */,
@@ -1142,10 +1180,13 @@
 				774C553A1C58BF0F00421F06 /* time_body_back.png in Resources */,
 				775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */,
 				77FBE67D1C6DCB9F00E251A2 /* b_time_off.png in Resources */,
+				77F9D2421C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_1.png in Resources */,
 				774C56051C58E84500421F06 /* astro0233.png in Resources */,
 				77E287F61C73345D0020B766 /* time_hh.png in Resources */,
 				774C55BF1C58E84500421F06 /* astro0013.png in Resources */,
 				774D809F1C57413A00850810 /* duhan.jpg in Resources */,
+				77F9D2431C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_2.png in Resources */,
+				77F9D2401C85D93F00E79CE8 /* game_jumpup_assets_time_box.png in Resources */,
 				77FBE6841C6DCBAA00E251A2 /* game-thumb-background.png in Resources */,
 				774C55F51C58E84500421F06 /* astro0187.png in Resources */,
 				774C55C91C58E84500421F06 /* astro0023.png in Resources */,
@@ -1185,6 +1226,7 @@
 				77FBE6881C6E512300E251A2 /* marvelsoda.aiff in Resources */,
 				774C55CD1C58E84500421F06 /* astro0027.png in Resources */,
 				77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */,
+				77F9D2441C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_3.png in Resources */,
 				774C55B51C58E84500421F06 /* astro0003.png in Resources */,
 				77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */,
 				774C55C31C58E84500421F06 /* astro0017.png in Resources */,
@@ -1202,6 +1244,7 @@
 				774C55EB1C58E84500421F06 /* astro0177.png in Resources */,
 				774C55EF1C58E84500421F06 /* astro0181.png in Resources */,
 				773D2F6D1C5B80050093CD2D /* ko.json in Resources */,
+				77F9D2471C85D93F00E79CE8 /* game_jumpup_assets_time_trap.png in Resources */,
 				77802D291C8060AD00766DB0 /* a_back_4s.png in Resources */,
 				77E287EC1C7333FC0020B766 /* 5.png in Resources */,
 				774C55F11C58E84500421F06 /* astro0183.png in Resources */,
@@ -1209,6 +1252,7 @@
 				77802D2B1C8060AD00766DB0 /* b_back_4s.png in Resources */,
 				774C56011C58E84500421F06 /* astro0229.png in Resources */,
 				77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */,
+				77F9D23F1C85D93F00E79CE8 /* game_jumpup_assets_time_background.png in Resources */,
 				774C55D51C58E84500421F06 /* astro0035.png in Resources */,
 				774C55D61C58E84500421F06 /* astro0036.png in Resources */,
 				77E287F01C7333FC0020B766 /* 9.png in Resources */,

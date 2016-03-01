@@ -1,40 +1,62 @@
 {
-    "title": "UP",
-    "localTitle": "アップ",
-    
-    "generalOK": "OK",
-    "generalClose": "閉じる",
-    
-    "generalGame": "ゲーム",
-    "generalAM": "午前",
-    "generalPM": "午後",
-    
-    "settingsMenu": "設定",
-    "alarmList": "アラームリスト",
-    
-    "generalSettings": "一般設定",
-    "settingsIconBadgeSetting": "アイコンバッジ表示",
-    "settingsiCloud": "iCloudと同期",
-    "generalGuide": "ガイド",
-    "settingsStartingGuide": "スタトガイド",
-    "settingsRatingApp": "アップを評価する",
-    "settingsShowNewgame": "新しいゲーム!",
-    "settingsGotoAVN": "AVN Graphic ページへ",
-    
-    "alarmSettings": "アラーム設定",
-    "alarmTitle": "アラームの名前",
-    "alarmRepeat": "アラームリピート設定",
-    "alarmRepeatFreqOnce": "無し",
-    "alarmRepeatFreqEveryday": "毎日",
-    "alarmRepeatFreqWeekday": "平日",
-    "alarmRepeatFreqWeekend": "週末",
-    "alarmRepeatMon": "月",
-    "alarmRepeatTue": "火",
-    "alarmRepeatWed": "水",
-    "alarmRepeatThu": "木",
-    "alarmRepeatFri": "金",
-    "alarmRepeatSat": "土",
-    "alarmRepeatSun": "日"
-    
-    
+	"title": "UP",
+	"localTitle": "アップ",
+	
+	"generalOK": "OK",
+	"generalClose": "閉じる",
+	"generalAdd": "追加",
+	"generalEdit": "エディット",
+	"generalCancel": "キャンセル",
+	"generalBack": "もどる",
+	
+	"generalGame": "ゲーム",
+	"generalAM": "午前",
+	"generalPM": "午後",
+	
+	"generalDefault": "デフォルト",
+	
+	"settingsMenu": "設定",
+	"alarmList": "アラームリスト",
+	"addAlarm": "アラーム追加",
+	
+	"generalSettings": "一般設定",
+	"settingsIconBadgeSetting": "アイコンバッジ表示",
+	"settingsiCloud": "iCloudと同期",
+	"generalGuide": "ガイド",
+	"settingsStartingGuide": "スタトガイド",
+	"settingsRatingApp": "アップを評価する",
+	"settingsShowNewgame": "新しいゲーム!",
+	"settingsGotoAVN": "AVN Graphic ページへ",
+	
+	"alarmDeleteTitle": "アラーム削除",
+	"alarmSettings": "アラーム設定",
+	"alarmEditTitle": "エディット",
+	"alarmTitle": "アラームの名前",
+	"alarmGame": "ゲーム",
+	"alarmGameRandom": "ランダム",
+	"alarmGameDifficulty": "難易度",
+	"alarmSound": "アラーム音",
+	"alarmRepeat": "アラームリピート設定",
+	"alarmRepeatFreqOnce": "無し",
+	"alarmRepeatFreqEveryday": "毎日",
+	"alarmRepeatFreqWeekday": "平日",
+	"alarmRepeatFreqWeekend": "週末",
+	"alarmRepeatMon": "月",
+	"alarmRepeatTue": "火",
+	"alarmRepeatWed": "水",
+	"alarmRepeatThu": "木",
+	"alarmRepeatFri": "金",
+	"alarmRepeatSat": "土",
+	"alarmRepeatSun": "日",
+	"alarmEdit": "エディット",
+	"alarmDelete": "削除",
+	"alarmDeleteSure": "このアラームを削除しますか？",
+	"alarmDefaultName": "アラーム",
+	
+	"gameNameJumpUP": "ジャンプ UP",
+	"gameDescriptionJumpUP": "くのいちでも恋がしたい！ --작업완료 안된거임--",
+	
+	"gameGenreJumpAction": "ジャンプアクション"
+	
+	
 }

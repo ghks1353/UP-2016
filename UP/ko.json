@@ -54,10 +54,9 @@
 		"alarmDefaultName": "알람",
 	
 	"gameNameJumpUP": "점프 UP",
+	"gameDescriptionJumpUP": "노튼아 이거 설명 뭐라고 할까 노튼 뒤짐? 안뒤졌는데? 노튼아 이거 설명 어떻게 할까? 화장실갔나보네",
 	
-	"gameGenreJumpAction": "점프액션",
-	
-	"gameDescriptionJumpUP": "노튼아 이거 설명 뭐라고 할까 노튼 뒤짐? 안뒤졌는데? 노튼아 이거 설명 어떻게 할까? 화장실갔나보네"
+	"gameGenreJumpAction": "점프액션"
 	
 	
 }
