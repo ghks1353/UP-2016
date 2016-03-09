@@ -46,4 +46,12 @@ class UPUtils {
 		return UIColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(1))
 	}
 	
+	static func setTimeout(delay:NSTimeInterval, block:()->Void) -> NSTimer {
+		return NSTimer.scheduledTimerWithTimeInterval(delay, target: NSBlockOperation(block: block), selector: "main", userInfo: nil, repeats: false)
+	}
+	
+	static func setInterval(interval:NSTimeInterval, block:()->Void) -> NSTimer {
+		return NSTimer.scheduledTimerWithTimeInterval(interval, target: NSBlockOperation(block: block), selector: "main", userInfo: nil, repeats: true)
+	}
+	
 }

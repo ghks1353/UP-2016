@@ -24,6 +24,7 @@ class DeviceGeneral {
 	//평균 Modal size
 	static var defaultModalSizeRect:CGRect = CGRect();
 	
+	static var appIsBackground:Bool = false;
 	
     static func initialDeviceSize() {
         //화면 사이즈를 얻어옴.
