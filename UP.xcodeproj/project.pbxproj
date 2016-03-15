@@ -237,6 +237,7 @@
 		77CAE0BF1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE0B81C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump4.png */; };
 		77CAE0C01C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE0B91C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png */; };
 		77CAE0C11C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE0BA1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png */; };
+		77CE3D9B1C98464900A6EA36 /* game_jumpup_assets_time_retire.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CE3D9A1C98464900A6EA36 /* game_jumpup_assets_time_retire.png */; };
 		77E23BFF1C699723005F0B03 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23BFE1C699723005F0B03 /* AlarmManager.swift */; };
 		77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C001C69A7F5005F0B03 /* AlarmElements.swift */; };
 		77E23C051C6A20F1005F0B03 /* UISingleSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */; };
@@ -534,6 +535,7 @@
 		77CAE0B81C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_j_astro_jump4.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_j_astro_jump/game_jumpup_ai_j_astro_jump4.png; sourceTree = "<group>"; };
 		77CAE0B91C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_j_astro_jump5.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_j_astro_jump/game_jumpup_ai_j_astro_jump5.png; sourceTree = "<group>"; };
 		77CAE0BA1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_j_astro_jump6.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_j_astro_jump/game_jumpup_ai_j_astro_jump6.png; sourceTree = "<group>"; };
+		77CE3D9A1C98464900A6EA36 /* game_jumpup_assets_time_retire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_retire.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_retire.png; sourceTree = "<group>"; };
 		77E23BFE1C699723005F0B03 /* AlarmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
 		77E23C001C69A7F5005F0B03 /* AlarmElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmElements.swift; sourceTree = "<group>"; };
 		77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISingleSegmentControl.swift; sourceTree = "<group>"; };
@@ -624,6 +626,7 @@
 				77F9D2371C85D93F00E79CE8 /* game_jumpup_assets_time_box.png */,
 				771181DC1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png */,
 				771181DD1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png */,
+				77CE3D9A1C98464900A6EA36 /* game_jumpup_assets_time_retire.png */,
 				77F9D2381C85D93F00E79CE8 /* game_jumpup_assets_time_box2.png */,
 				77F9D2391C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_1.png */,
 				77F9D23A1C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_2.png */,
@@ -1352,6 +1355,7 @@
 				774C55ED1C58E84500421F06 /* astro0179.png in Resources */,
 				77CAE0AF1C907CB400FBA714 /* game_jumpup_ai_j_astro_move2.png in Resources */,
 				774C561A1C58E84500421F06 /* astro0254.png in Resources */,
+				77CE3D9B1C98464900A6EA36 /* game_jumpup_assets_time_retire.png in Resources */,
 				774C55C21C58E84500421F06 /* astro0016.png in Resources */,
 				774C560B1C58E84500421F06 /* astro0239.png in Resources */,
 				77CAE0A51C9079B900FBA714 /* game_jumpup_ai_astro_move5.png in Resources */,

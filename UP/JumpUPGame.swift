@@ -25,15 +25,24 @@ class JumpUPGame:SKScene {
 	
 	//게임 실행 타입 (0= 알람, 1= 메인화면 실행)
 	var gameStartupType:Int = 0;
+	
+	//아래는 알람으로 게임진행 중일 때 사용하는 값임
 	var gameAlarmFirstGoalTime:Int = 80; // 처음 목표로 하는 시간
 	var gameLevelAverageTime:Int = 40; //난이도가 높아지는 시간
 	var gameTimerMaxTime:Int = 80; //알람으로 게임 진행 중일 때 시간이 추가될 수 있는 최대 수치
+	var gameRetireTime:Int = 180; //포기 버튼이 나타나는 시간
+	var gameRetireTimeCount:Int = 0; //포기 버튼 카운트
 	
 	var gameFinishedBool:Bool = false; // 게임이 완전히 끝나면 타이머 다시 늘어나는 등의 동작 없음
 	
 	//뒤 배경
 	var backgroundCoverImageTexture:SKTexture = SKTexture(imageNamed: "game_jumpup_assets_time_background.png");
 	var backgroundCoverImage:SKSpriteNode?;
+	
+	//게임 끝나거나 포기 버튼
+	var buttonRetireSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_time_retire.png" ) );
+	var buttonAlarmOffSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_time_alram_off.png" ) );
+	var buttonAlarmOnSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_time_alram_reset.png" ) );
 	
 	//time 또는 score 표시 부분
 	var gameScoreTitleImageTexture:SKTexture?;
@@ -44,6 +53,7 @@ class JumpUPGame:SKScene {
 	
 	//score (혹은 time으로 사용.)
 	var gameScore:Int = 0; var gameScoreStr:String = "";
+	var gameUserJumpCount:Int = 0; //점프 횟수
 	
 	//1초 tick (알람용)
 	var gameSecondTickTimer:NSTimer?;
@@ -59,6 +69,7 @@ class JumpUPGame:SKScene {
 	var gameEnemyGenerateDelay:Int = 0; //장애물 생성 딜레이
 	
 	var gameCharacterUnlimitedLife:Int = 0; //캐릭터 무적 시간. (있을 경우)
+	var gameScreenShakeEventDelay:Int = 0; //화면 흔들림 효과를 위한 딜레이.
 	var gameRdmElementNum:Int = 0; //랜덤으로 나오는 장애물 고유 번호. (메모리 절약을 위해 재사용)
 	
 	//Game node arrays
@@ -247,7 +258,25 @@ class JumpUPGame:SKScene {
 		let nCenter = NSNotificationCenter.defaultCenter();
 		nCenter.addObserver(self, selector: "appEnteredToBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil);
 		nCenter.addObserver(self, selector: "appEnteredToForeground", name: UIApplicationDidBecomeActiveNotification, object: nil);
-  
+		
+		
+		//버튼 배치
+		buttonRetireSprite.size = CGSizeMake( 242.05 * DeviceGeneral.scrRatioC, 70.75 * DeviceGeneral.scrRatioC );
+		buttonRetireSprite.position.x = self.view!.frame.width / 2;
+		buttonRetireSprite.position.y = -buttonRetireSprite.size.height / 2; //화면 밖에 배치
+		buttonRetireSprite.alpha = 0; //나옴/안나옴 플래그 대신 사용
+		self.addChild(buttonRetireSprite);
+		buttonRetireSprite.name = "button_retire";
+		
+		//알람끄기 버튼.
+		buttonAlarmOffSprite.size = buttonRetireSprite.size;
+		buttonAlarmOffSprite.position.x = self.view!.frame.width / 2;
+		buttonAlarmOffSprite.position.y = -buttonAlarmOffSprite.size.height / 2; //화면 밖에 배치
+		buttonAlarmOffSprite.alpha = 0;
+		self.addChild(buttonAlarmOffSprite);
+		buttonAlarmOffSprite.name = "button_alarm_off";
+		
+		//buttonAlarmOffSprite
 	}
 	
 	func appEnteredToBackground() {
@@ -269,6 +298,22 @@ class JumpUPGame:SKScene {
 			//알람으로 게임이 켜졌을 때
 			//감히 멀티태스킹을 했겠다. 120초 다시줌
 			gameScore = gameAlarmFirstGoalTime;
+			gameRetireTimeCount = gameRetireTimeCount / 2; //리타이어 수작일수도 있으니 이거도 조절함
+			
+			//리타이어 버튼이 이미 나와있는 경우, 다시 없앰
+			if (buttonRetireSprite.alpha == 1) {
+				let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
+					startPosition: CGPointMake( buttonRetireSprite.position.x, buttonRetireSprite.position.y ),
+					endPosition: CGPointMake( buttonRetireSprite.position.x, -buttonRetireSprite.frame.height/2)
+				);
+				moveEffect.timingFunction = SKTTimingFunctionCircularEaseIn;
+				buttonRetireSprite.runAction(
+					SKAction.group( [
+						SKAction.actionWithEffect(moveEffect), SKAction.fadeOutWithDuration(0.5)
+						])
+				);
+			}
+			
 			addCountdownTimerForAlarm(); //타이머 재시작
 		}
 	} //end func
@@ -300,11 +345,23 @@ class JumpUPGame:SKScene {
 			return;
 		}
 		
+		if (gameScreenShakeEventDelay > 0) {
+			
+			if (gameScreenShakeEventDelay % 3 == 0) {
+				self.view?.frame.origin.x =
+					( self.view?.frame.origin.x < 0 ? (12 * (CGFloat(gameScreenShakeEventDelay) / 60)) : -(12 * (CGFloat(gameScreenShakeEventDelay) / 60)) ) * DeviceGeneral.scrRatioC;
+			}
+			gameScreenShakeEventDelay -= 1;
+		} else {
+			gameScreenShakeEventDelay = 0;
+			self.view?.frame.origin.x = 0;
+		}
+		
 		//Render time(or score)
 		gameScoreStr = String(gameScore);
 		//화면에 배열된 점수 순서: --> 2 1 0
-		gameNumberSpriteNodesArray[2].alpha = gameScoreStr.characters.count < 3 ? 0.5 : 1;
-		gameNumberSpriteNodesArray[1].alpha = gameScoreStr.characters.count < 2 ? 0.5 : 1;
+		gameNumberSpriteNodesArray[2].alpha = gameScoreStr.characters.count < 3 ? (max(0.5, gameNumberSpriteNodesArray[2].alpha - 0.04)) : (min(1.0, gameNumberSpriteNodesArray[2].alpha + 0.04));
+		gameNumberSpriteNodesArray[1].alpha = gameScoreStr.characters.count < 2 ? (max(0.5, gameNumberSpriteNodesArray[1].alpha - 0.04)) : (min(1.0, gameNumberSpriteNodesArray[1].alpha + 0.04));
 		//Render text
 		gameNumberSpriteNodesArray[0].texture = gameNumberTexturesArray[ Int(gameScoreStr[ gameScoreStr.characters.count - 1 ])! ];
 		gameNumberSpriteNodesArray[1].texture =
@@ -492,6 +549,7 @@ class JumpUPGame:SKScene {
 							if (gameCharacterUnlimitedLife == 0) {
 								print("Character collision");
 								gameCharacterUnlimitedLife = 120; //무적시간 부여
+								gameScreenShakeEventDelay = 60; //화면 흔들림 효과
 								
 								if (gameStartupType == 0) {
 									//알람으로 켜진 경우, 최대 120초까지 커지도록 시간 추가
@@ -513,7 +571,7 @@ class JumpUPGame:SKScene {
 			if (gameNodesArray[i]!.elementFlag == 1 && gameNodesArray[i]!.elementTickFlag == 0
 				&& gameNodesArray[i]!.position.x < 160 * DeviceGeneral.scrRatioC ) {
 				gameNodesArray[i]!.ySpeed = 14;
-				gameNodesArray[i]!.elementTickFlag  = 1;
+				gameNodesArray[i]!.elementTickFlag = 1;
 			}
 			
 			
@@ -642,33 +700,97 @@ class JumpUPGame:SKScene {
 			gameSecondTickTimer?.invalidate();
 			gameSecondTickTimer = nil;
 			
-			//게임 끝났으니 알람 끄기(임시)
-			AlarmManager.gameClearToggleAlarm( (AlarmRingView.selfView!.currentAlarmElement?.alarmID)!, cleared: true );
-			AlarmManager.mergeAlarm(); //Merge it
-			AlarmManager.alarmRingActivated = false;
-			//Refresh tables
-			AlarmListView.selfView?.createTableList();
+			//게임 끝. 알람끄기 버튼 표시.
 			
-			AlarmRingView.selfView!.dismissViewControllerAnimated(false, completion: nil);
-			GlobalSubView.alarmRingViewcontroller.dismissViewControllerAnimated(true, completion: nil);
+			//리타이어 버튼이 이미 나와있는 경우, 다시 없앰
+			if (buttonRetireSprite.alpha == 1) {
+				let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
+					startPosition: CGPointMake( buttonRetireSprite.position.x, buttonRetireSprite.position.y ),
+					endPosition: CGPointMake( buttonRetireSprite.position.x, -buttonRetireSprite.frame.height/2)
+				);
+				moveEffect.timingFunction = SKTTimingFunctionCircularEaseIn;
+				buttonRetireSprite.runAction(
+					SKAction.group( [
+						SKAction.actionWithEffect(moveEffect), SKAction.fadeOutWithDuration(0.5)
+						])
+				);
+			}
+			
+			print("Showing off button");
+			buttonAlarmOffSprite.alpha = 1;
+			let moveEffect = SKTMoveEffect(node: buttonAlarmOffSprite, duration: 0.5 ,
+				startPosition: CGPointMake( buttonAlarmOffSprite.position.x, buttonAlarmOffSprite.position.y ),
+				endPosition: CGPointMake( buttonAlarmOffSprite.position.x, gameStageYAxis - gameStageYHeight - (128 * DeviceGeneral.scrRatioC))
+			);
+			moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
+			buttonAlarmOffSprite.runAction(
+				SKAction.actionWithEffect(moveEffect));
+			
+			
+			//게임 끝났으니 알람 끄기(임시)
+			//exitJumpUPGame();
 			
 		} else {
 			gameScore -= 1;
+			gameRetireTimeCount = min(gameRetireTimeCount + 1, gameRetireTime); //포기 버튼을 띄워야 할 때 필요
 		}
+		
+		//포기 버튼을 띄워야하면 띄움. 점프횟수가 60번을 넘어야함
+		if (gameRetireTimeCount >= gameRetireTime && buttonRetireSprite.alpha == 0 && gameUserJumpCount > 60) {
+			print("Showing retire button");
+			buttonRetireSprite.alpha = 1;
+			let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
+				startPosition: CGPointMake( buttonRetireSprite.position.x, buttonRetireSprite.position.y ),
+				endPosition: CGPointMake( buttonRetireSprite.position.x, gameStageYAxis - gameStageYHeight - (128 * DeviceGeneral.scrRatioC))
+				);
+			moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
+			buttonRetireSprite.runAction(
+				SKAction.actionWithEffect(moveEffect));
+		}
+		
 	}
 	
 	//////// touch evt handler
 	//Swift 2용
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		if let _ = touches.first {
-			if (gameFinishedBool == false) { //게임이 진행중일 때만 점프 가능.
-				if (characterElement!.jumpFlaggedCount < 2) { //캐릭터 점프횟수 제한
-					characterElement!.ySpeed = 11;
-					characterElement!.jumpFlaggedCount += 1;
+		for touch in touches {
+			let location = (touch as UITouch).locationInNode(self);
+			if let chkButtonName:SKNode = self.nodeAtPoint(location) {
+				if (chkButtonName.name == "button_retire" || chkButtonName.name == "button_alarm_off") {
+					//포기 버튼일 때 혹은 알람끄기 일 때
+					exitJumpUPGame();
+					
+				} else {
+					//기타 터치
+					if (gameFinishedBool == false) { //게임이 진행중일 때만 점프 가능.
+						if (characterElement!.jumpFlaggedCount < 2) { //캐릭터 점프횟수 제한
+							characterElement!.ySpeed = 11;
+							characterElement!.jumpFlaggedCount += 1;
+							gameUserJumpCount += 1; //점프 횟수 카운트
+						}
+					}
 				}
 			}
-		}
+		} //end for
+		
+		
 		super.touchesBegan(touches, withEvent:event)
+	}
+	
+	//게임 포기 혹은 종료.
+	func exitJumpUPGame() {
+		print("Game finished");
+		gameFinishedBool = true;
+		
+		AlarmManager.gameClearToggleAlarm( (AlarmRingView.selfView!.currentAlarmElement?.alarmID)!, cleared: true );
+		AlarmManager.mergeAlarm(); //Merge it
+		AlarmManager.alarmRingActivated = false;
+		//Refresh tables
+		AlarmListView.selfView?.createTableList();
+		
+		AlarmRingView.selfView!.dismissViewControllerAnimated(false, completion: nil);
+		GlobalSubView.alarmRingViewcontroller.dismissViewControllerAnimated(true, completion: nil);
+		
 	}
 	
 } //end of class
