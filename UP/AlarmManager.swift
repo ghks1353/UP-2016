@@ -6,8 +6,10 @@
 //  Copyright © 2016년 AVN Graphic. All rights reserved.
 //
 
-import Foundation
+import Foundation;
 import UIKit;
+import AVFoundation;
+import MediaPlayer;
 
 class AlarmManager {
 	/*
@@ -24,6 +26,83 @@ class AlarmManager {
 	static let alarmMaxRegisterCount:Int = 20; //알람 최대 등록 가능 개수
 	
 	static var alarmRingActivated:Bool = false; //알람 액티비티.. 아니 뷰가 뜨고 있을 때 true. (게임 진행 중일 때.)
+	static var alarmSoundPlaying:Bool = false;
+	static var alarmAudioPlayer:AVAudioPlayer?;
+	
+	//강제 볼륨조절용
+	static var alarmVolumeView:MPVolumeView = MPVolumeView();
+	static var alarmPreviousVolume:Float = 0.5; //이전 볼륨값. (알람끌때 돌리기 위해서)
+	
+	//미디어 알람 끄기
+	static func stopSoundAlarm() {
+		if (alarmSoundPlaying == false) {
+			return;
+		}
+		
+		if (alarmAudioPlayer != nil) {
+			alarmAudioPlayer!.stop();
+			alarmAudioPlayer = nil;
+		}
+		
+		if let view = alarmVolumeView.subviews.first as? UISlider{
+			view.value = alarmPreviousVolume;
+		} else {
+			print("Volume control error. creating new context");
+			alarmVolumeView = MPVolumeView();
+			if let view = alarmVolumeView.subviews.first as? UISlider{
+				view.value = alarmPreviousVolume;
+			}
+		}
+		
+		alarmSoundPlaying = false;
+	}
+	
+	
+	//알람 울림 (미디어)
+	static func ringSoundAlarm(targetAlarmElement:AlarmElements?) {
+		//alarmSoundPlaying
+		if (alarmSoundPlaying == true) {
+			if (alarmAudioPlayer != nil) {
+				//진짜로 울리는 중이면 강제로 볼륨을 위로 설정
+				alarmAudioPlayer!.volume = 1.0;
+				if let view = alarmVolumeView.subviews.first as? UISlider{
+					view.value = 1.0;
+				} else {
+					print("Volume control error. creating new context");
+					alarmVolumeView = MPVolumeView();
+				}
+			}
+			return; //중복 울림 방지
+		}
+		
+		if (alarmAudioPlayer != nil) {
+			alarmAudioPlayer!.stop();
+			alarmAudioPlayer = nil;
+		}
+		
+		//알람 끌때 볼륨을 돌리기 위해 사용함
+		alarmPreviousVolume = AVAudioSession.sharedInstance().outputVolume;
+		
+		let nsURL:NSURL = NSBundle.mainBundle().URLForResource( targetAlarmElement!.alarmSound.componentsSeparatedByString(".aiff")[0] , withExtension: "aiff")!;
+		do { alarmAudioPlayer = try AVAudioPlayer(
+			contentsOfURL: nsURL,
+			fileTypeHint: nil
+			);
+		} catch let error as NSError {
+			print(error.description);
+		}
+		alarmAudioPlayer!.numberOfLoops = -1; alarmAudioPlayer!.prepareToPlay(); alarmAudioPlayer!.play();
+		alarmAudioPlayer!.volume = 1.0;
+		if let view = alarmVolumeView.subviews.first as? UISlider{
+			view.value = 1.0;
+		} else {
+			print("Volume control error. creating new context");
+			alarmVolumeView = MPVolumeView();
+		}
+
+		alarmSoundPlaying = true;
+	} // end func
+	
 	
 	//울리고 있는 알람을 가져옴. 여러개인 경우, 첫번째 알람만 리턴함
 	static func getRingingAlarm() -> AlarmElements? {
@@ -32,21 +111,23 @@ class AlarmManager {
 		
 		//또한 게임 진행중일땐 앱 자체에 게임 진행중이라는 체크가 필요하며 그렇지 않을 경우
 		//게임하다가 밖으로 나갔다왔는데 알람 울림화면으로 다시..
-		
+		var currentDate:NSDate? = NSDate();
 		for(var i:Int = 0; i < alarmsArray.count; ++i) {
 			if (alarmsArray[i].alarmToggle == false) {
 				continue;
 			} //ignores off
 			
-			if (alarmsArray[i].alarmFireDate.timeIntervalSince1970 <= NSDate().timeIntervalSince1970
+			if (alarmsArray[i].alarmFireDate.timeIntervalSince1970 <= currentDate!.timeIntervalSince1970
 				&& alarmsArray[i].alarmCleared == false) {
 				/*  1. fired된 알람일 때.
 					2. 클리어를 못했을 때.
 					3. toggled된 알람일 때. */
+					currentDate = nil;
 					return alarmsArray[i];
 			}
 		} //end for
 		
+		currentDate = nil;
 		return nil; //Element 없음
 	}
 	
@@ -148,12 +229,17 @@ class AlarmManager {
 					scdAlarm[i].alarmFireDate = UPUtils.addDays(scdAlarm[i].alarmFireDate, additionalDays: fireAfterDay);
 					
 					//add new push for next alarm
-					addLocalNotification(scdAlarm[i].alarmName,	aFireDate: scdAlarm[i].alarmFireDate, gameID: scdAlarm[i].gameSelected,
+					var dateForRepeat:NSDate = NSDate(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
+					var tmpNSComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: dateForRepeat);
+					tmpNSComp.second = 0;
+					dateForRepeat = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
+					
+					addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
 						soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
 					//add 30sec needed
-					var dateForRepeat:NSDate = NSDate(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
-					let tmpNSComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: dateForRepeat);
-					tmpNSComp.second = 0;
+					dateForRepeat = NSDate(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
+					tmpNSComp = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: dateForRepeat);
+					tmpNSComp.second = 30;
 					dateForRepeat = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
 					addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
 						soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);

@@ -19,6 +19,10 @@ class JumpUpElements:SKSpriteNode {
 	/////////
 	internal var elementType:Int = 0; //default is decoration
 	internal var elementSpeed:Double = 1; //default is scroll speed (or 1)
+	internal var elementFlag:Int = 0; //게임 틱 시 특별한 유닛 구분을 위함
+	
+	//element vars flag
+	internal var elementTickFlag:Int = 0; //점프 비헤이비어 등의 flag를 위함
 	
 	//Motions
 	internal var motions_current:Int = 0;

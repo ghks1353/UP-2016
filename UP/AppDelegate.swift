@@ -6,12 +6,17 @@
 //  Copyright © 2016년 AVN Graphic. All rights reserved.
 //
 
-import UIKit
+import UIKit;
+import AVFoundation;
+import MediaPlayer;
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+	var window: UIWindow?;
+	var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?;
+	
+	var alarmBackgroundTaskPlayer:AVAudioPlayer?;
 	
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		//앱 실행시
@@ -52,6 +57,72 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if (AlarmListView.alarmListInited) {
 			AlarmListView.selfView!.createTableList(); //refresh alarm-list
 		}
+		
+		//// Background thread
+		backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+			UIApplication.sharedApplication().endBackgroundTask(self.backgroundTaskIdentifier!);
+		});
+		
+		//DISPATCH_QUEUE_PRIORITY_DEFAULT
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
+			if (self.alarmBackgroundTaskPlayer != nil) {
+				self.alarmBackgroundTaskPlayer!.stop();
+				self.alarmBackgroundTaskPlayer = nil;
+			}
+			
+			let nsURL:NSURL = NSBundle.mainBundle().URLForResource( "up_background_task_alarm" , withExtension: "mp3")!;
+			do { self.alarmBackgroundTaskPlayer = try AVAudioPlayer(
+				contentsOfURL: nsURL,
+				fileTypeHint: nil
+				);
+			} catch let error as NSError {
+				print(error.description);
+			}
+			//self.alarmBackgroundTaskPlayer!.numberOfLoops = -1;
+			self.alarmBackgroundTaskPlayer!.prepareToPlay();
+			//self.alarmBackgroundTaskPlayer!.play();
+
+			while(DeviceGeneral.appIsBackground) {
+				print("background thread remaining:", UIApplication.sharedApplication().backgroundTimeRemaining);
+				
+				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm();
+				
+				//1. 알람이 울리는 중일 경우, 2. 백그라운드에 앱이 있을 경우.
+				if (ringingAlarm != nil && DeviceGeneral.appIsBackground == true) {
+					AlarmManager.ringSoundAlarm( ringingAlarm! );
+					AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate));
+					//print("Alarm ringing");
+				} else {
+					//울리고 있는 알람이 없는데 굳이 울려야 겠음?
+					AlarmManager.stopSoundAlarm();
+				}
+				
+				if (UIApplication.sharedApplication().backgroundTimeRemaining < 60) {
+					self.alarmBackgroundTaskPlayer!.stop();
+					self.alarmBackgroundTaskPlayer!.play();
+					print("background thread - sound play");
+				}
+				
+				if (ringingAlarm != nil && DeviceGeneral.appIsBackground == true) {
+					NSThread.sleepForTimeInterval(1); //1초 주기 실행
+				} else {
+					NSThread.sleepForTimeInterval(10); //10초 주기 실행
+				}
+			}
+			//print("thread finished");
+			
+			if (self.alarmBackgroundTaskPlayer != nil) {
+				self.alarmBackgroundTaskPlayer!.stop();
+				self.alarmBackgroundTaskPlayer = nil;
+			}
+			UIApplication.sharedApplication().endBackgroundTask(self.backgroundTaskIdentifier!);
+			
+		});
+		
+		
+		
+		
+		
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -71,6 +142,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if (ViewController.viewSelf != nil) {
 			ViewController.viewSelf!.checkToCallAlarmRingingView();
 		}
+		
+		//알람이 울리고 있었다면 꺼줌.
+		AlarmManager.stopSoundAlarm();
     }
 
     func applicationWillTerminate(application: UIApplication) {

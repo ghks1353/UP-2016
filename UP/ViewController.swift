@@ -6,7 +6,9 @@
 //  Copyright © 2016년 AVN Graphic. All rights reserved.
 //
 
-import UIKit
+import UIKit;
+import AVFoundation;
+import AudioToolbox;
 
 class ViewController: UIViewController {
    
@@ -68,37 +70,37 @@ class ViewController: UIViewController {
 		self.view.sendSubviewToBack(backgroundImageFadeView); self.view.sendSubviewToBack(backgroundImageView);
 		
         var scrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (DigitalCol.bounds.width / 2));
-        scrX += CGFloat(4 * DeviceGeneral.maxScrRatio);
-        
+        scrX += 4 * DeviceGeneral.maxScrRatioC;
+		
         //디지털시계 이미지 스케일 조정
-        DigitalCol.frame = CGRectMake(scrX, CGFloat(Double(80) * DeviceGeneral.maxScrRatio), CGFloat(Double(DigitalCol.bounds.width) * DeviceGeneral.maxScrRatio), CGFloat(Double(DigitalCol.bounds.height) * DeviceGeneral.maxScrRatio));
+        DigitalCol.frame = CGRectMake(scrX, 80 * DeviceGeneral.maxScrRatioC, DigitalCol.bounds.width * DeviceGeneral.maxScrRatioC, DigitalCol.bounds.height * DeviceGeneral.maxScrRatioC);
         //x위치를 제외한 나머지 통일
-        DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat(20 * DeviceGeneral.maxScrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-        DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - CGFloat(12 * DeviceGeneral.maxScrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-        DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat(20 * DeviceGeneral.maxScrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-        DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + CGFloat(12 * DeviceGeneral.maxScrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+        DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width * 2 - 20 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+        DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - 12 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+        DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + 20 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+        DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + 12 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
         
         //Ground 크기 조절. iPad의 경우 이미지를 넓은 것으로 교체할 필요가 있음
-        GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - CGFloat(75 * DeviceGeneral.maxScrRatio), CGFloat((DeviceGeneral.scrSize?.width)!) , CGFloat(75 * DeviceGeneral.maxScrRatio) );
+        GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 75 * DeviceGeneral.maxScrRatioC, CGFloat((DeviceGeneral.scrSize?.width)!) , 75 * DeviceGeneral.maxScrRatioC );
         
         //시계 바디 및 시침 분침 위치/크기조절
-        let clockScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
-        let clockRightScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 + (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
+        let clockScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
+        let clockRightScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 + (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
 
         //clockScrX += CGFloat(4 * DeviceGeneral.maxScrRatio);
         var clockScrY:CGFloat = CGFloat((DeviceGeneral.scrSize?.height)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
-        clockScrY += CGFloat(20 * DeviceGeneral.maxScrRatio);
+        clockScrY += 20 * DeviceGeneral.maxScrRatioC;
         
-        AnalogBody.frame = CGRectMake( clockScrX, clockScrY, CGFloat(245 * DeviceGeneral.maxScrRatio), CGFloat(245 * DeviceGeneral.maxScrRatio) );
-        AnalogHours.frame = CGRectMake( clockScrX, clockScrY, CGFloat(245 * DeviceGeneral.maxScrRatio), CGFloat(245 * DeviceGeneral.maxScrRatio) );
-        AnalogMinutes.frame = CGRectMake( clockScrX, clockScrY, CGFloat(245 * DeviceGeneral.maxScrRatio), CGFloat(245 * DeviceGeneral.maxScrRatio) );
+        AnalogBody.frame = CGRectMake( clockScrX, clockScrY, 245 * DeviceGeneral.maxScrRatioC, 245 * DeviceGeneral.maxScrRatioC );
+        AnalogHours.frame = CGRectMake( clockScrX, clockScrY, 245 * DeviceGeneral.maxScrRatioC, 245 * DeviceGeneral.maxScrRatioC );
+        AnalogMinutes.frame = CGRectMake( clockScrX, clockScrY, 245 * DeviceGeneral.maxScrRatioC, 245 * DeviceGeneral.maxScrRatioC );
         
-        AnalogBodyBack.frame = CGRectMake( clockScrX - CGFloat(24 * DeviceGeneral.maxScrRatio), clockScrY - CGFloat(10 * DeviceGeneral.maxScrRatio), CGFloat(273 * DeviceGeneral.maxScrRatio), CGFloat(255 * DeviceGeneral.maxScrRatio) );
-        SettingsImg.frame = CGRectMake( clockScrX - (CGFloat(135 * DeviceGeneral.maxScrRatio) / 2), clockScrY + CGFloat(125 * DeviceGeneral.maxScrRatio) , CGFloat(157 * DeviceGeneral.maxScrRatio), CGFloat(157 * DeviceGeneral.maxScrRatio) );
-        AlarmListImg.frame = CGRectMake( clockRightScrX - (CGFloat(90 * DeviceGeneral.maxScrRatio) / 2), clockScrY - CGFloat(10 * DeviceGeneral.maxScrRatio), CGFloat(105 * DeviceGeneral.maxScrRatio), CGFloat(150 * DeviceGeneral.maxScrRatio) );
+        AnalogBodyBack.frame = CGRectMake( clockScrX - (24 * DeviceGeneral.maxScrRatioC), clockScrY - (10 * DeviceGeneral.maxScrRatioC), (273 * DeviceGeneral.maxScrRatioC), (255 * DeviceGeneral.maxScrRatioC) );
+        SettingsImg.frame = CGRectMake( clockScrX - ((135 * DeviceGeneral.maxScrRatioC) / 2), clockScrY + (125 * DeviceGeneral.maxScrRatioC) , (157 * DeviceGeneral.maxScrRatioC), (157 * DeviceGeneral.maxScrRatioC) );
+        AlarmListImg.frame = CGRectMake( clockRightScrX - ((90 * DeviceGeneral.maxScrRatioC) / 2), clockScrY - (10 * DeviceGeneral.maxScrRatioC), (105 * DeviceGeneral.maxScrRatioC), (150 * DeviceGeneral.maxScrRatioC) );
 		
         //Astro 크기조정
-        AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - CGFloat(126 * DeviceGeneral.maxScrRatio), GroundObj.frame.origin.y - CGFloat(151 * DeviceGeneral.maxScrRatio) + CGFloat(9 * DeviceGeneral.maxScrRatio), CGFloat(60 * DeviceGeneral.maxScrRatio), CGFloat(151 * DeviceGeneral.maxScrRatio) );
+        AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - (126 * DeviceGeneral.maxScrRatioC), GroundObj.frame.origin.y - (151 * DeviceGeneral.maxScrRatioC) + (9 * DeviceGeneral.maxScrRatioC), 60 * DeviceGeneral.maxScrRatioC, 151 * DeviceGeneral.maxScrRatioC );
         //Astro animations
         for i in 1...40 { //부동
             let numberStr:String = String(i).characters.count == 1 ? "0" + String(i) : String(i);
@@ -171,6 +173,26 @@ class ViewController: UIViewController {
 		updateTimeAnimation(); //first call
 		setInterval(0.5, block: updateTimeAnimation);
 		
+		
+		//Background thread start
+		//backgroundThreadNSTimer = NSTimer(timeInterval: 2.0, target: self, selector: "upAlarmBackgroundThread:", userInfo: nil, repeats: true);
+		//NSRunLoop.currentRunLoop().addTimer( backgroundThreadNSTimer!, forMode: NSRunLoopCommonModes );
+		
+		//무음모드 사운드 허용
+		do {
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: AVAudioSessionCategoryOptions.MixWithOthers)
+			print("AVAudioSession Category Playback OK")
+			do {
+				try AVAudioSession.sharedInstance().setActive(true)
+				print("AVAudioSession is Active")
+			} catch let error as NSError {
+				print(error.localizedDescription)
+			}
+		} catch let error as NSError {
+			print(error.localizedDescription)
+		}
+		
+		
     }
 	
 	override func viewDidAppear(animated: Bool) {
@@ -207,7 +229,7 @@ class ViewController: UIViewController {
 	
 	//modal cgrect
 	func getGeneralModalRect() -> CGRect {
-		return CGRectMake(CGFloat(50 * DeviceGeneral.scrRatio) , ((DeviceGeneral.scrSize?.height)! - CGFloat(480 * DeviceGeneral.scrRatio)) / 2 , (DeviceGeneral.scrSize?.width)! - CGFloat(100 * DeviceGeneral.scrRatio), CGFloat(480 * DeviceGeneral.scrRatio));
+		return CGRectMake(50 * DeviceGeneral.scrRatioC , ((DeviceGeneral.scrSize?.height)! - (480 * DeviceGeneral.scrRatioC)) / 2 , (DeviceGeneral.scrSize?.width)! - (100 * DeviceGeneral.scrRatioC), (480 * DeviceGeneral.scrRatioC));
 	}
 	
 	func openAlarmaddView (gestureRecognizer: UITapGestureRecognizer) {
@@ -274,12 +296,12 @@ class ViewController: UIViewController {
             
             if (hourString[0] == "1") {
                 //숫자1의경우 오른쪽으로 당김.
-                DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat(14 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-                DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - CGFloat(6 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - (14 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - (6 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
             } else {
                 //원래 위치로
-                DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat(20 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-                DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - CGFloat(12 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - (20 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - (12 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
             }
             
         } else { //첫자리 밑 둘째자리는 각 시간에 맞게
@@ -299,7 +321,7 @@ class ViewController: UIViewController {
                 DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - CGFloat((14 - movesRightOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
             } else {
                 DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width*2 - CGFloat((20 - movesRightOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-                DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - CGFloat((12) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - (12 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
             }
         } //end of hour str
 		
@@ -310,13 +332,13 @@ class ViewController: UIViewController {
             
             if (minString[0] == "1") {
                 //숫자1의경우 왼쪽으로 당김.
-                DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat(14 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-                DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + CGFloat(12 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + (14 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + (12 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
 
             } else {
                 //원래 위치로
-                DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat(20 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-                DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + CGFloat(12 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + (20 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + (12 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
 
             }
             
@@ -332,12 +354,12 @@ class ViewController: UIViewController {
             
             if (minString[0] == "1") {
                 //왼쪽으로 당김
-                DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + CGFloat(6 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + (6 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
                 movesLeftOffset += 6;
                 DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat((14 - movesLeftOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
                 
             } else {
-                DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + CGFloat(12 * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+                DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + (12 * DeviceGeneral.scrRatioC), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
                 DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat((20 - movesLeftOffset) * DeviceGeneral.scrRatio), DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
             }
             
@@ -358,12 +380,25 @@ class ViewController: UIViewController {
 		if (backgroundImageView.image == nil) {
 			//이미지가 없을 경우 새로 표시.
 			currentBackgroundImage = getBackgroundFileNameFromTime(components.hour);
-			backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
-				DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
-				) );
-			backgroundImageFadeView.image = UIImage( named: currentBackgroundImage + "_back" + (
-				DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
-				) );
+			print("current", UIApplication.sharedApplication().statusBarOrientation == .Portrait);
+			if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+				print("showing phone bg");
+				backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+					DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+					) );
+				backgroundImageFadeView.image = UIImage( named: currentBackgroundImage + "_back" + (
+					DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+					) );
+			} else {
+				print("showing pad bg");
+				backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+					(UIApplication.sharedApplication().statusBarOrientation == .Portrait || UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown) ? "_pad43" : ""
+					) );
+				backgroundImageFadeView.image = UIImage( named: currentBackgroundImage + "_back" + (
+					(UIApplication.sharedApplication().statusBarOrientation == .Portrait || UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown) ? "_pad43" : ""
+					) );
+			}
+			
 			backgroundImageFadeView.alpha = 0;
 			print("Scrsize",DeviceGeneral.scrSize?.height, (DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""));
 		} else {
@@ -372,16 +407,35 @@ class ViewController: UIViewController {
 				//시간대가 바뀌어야 하는 경우
 				currentBackgroundImage = getBackgroundFileNameFromTime(components.hour); //시간대 이미지 변경
 				backgroundImageFadeView.alpha = 1;
-				backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
-					DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
-					) );
+				
+				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+					print("changing to phone bg");
+					backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+						DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+						) );
+				} else {
+					print("changing to pad bg");
+					backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+						(UIApplication.sharedApplication().statusBarOrientation == .Portrait || UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown) ? "_pad43" : ""
+						) );
+				}
 				
 				UIView.animateWithDuration(1, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
 					self.backgroundImageFadeView.alpha = 0;
 					}, completion: {_ in
-						self.backgroundImageFadeView.image = UIImage( named: self.currentBackgroundImage + "_back" + (
-							DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
-							) );
+						
+						if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+							print("changed to phone bg");
+							self.backgroundImageFadeView.image = UIImage( named: self.currentBackgroundImage + "_back" + (
+								DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+								) );
+						} else {
+							print("changed to pad bg");
+							self.backgroundImageFadeView.image = UIImage( named: self.currentBackgroundImage + "_back" + (
+								(UIApplication.sharedApplication().statusBarOrientation == .Portrait || UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown) ? "_pad43" : ""
+								) );
+						}
+						
 				});
 				
 				
@@ -454,9 +508,9 @@ class ViewController: UIViewController {
 				modalAlarmListView.dismissViewControllerAnimated(false, completion: nil);
 				//Dismiss하면서 blur같은거 없애야 하는데, 일단 지금은 그게 뜨는지 체크먼저 해보고 구현 예정 ....
 				self.showHideBlurview(false); 
-				
 				self.presentViewController(GlobalSubView.alarmRingViewcontroller, animated: true, completion: nil);
 				AlarmManager.alarmRingActivated = true;
+				
 			} //end check is running
 			
 		} //end check
@@ -480,6 +534,9 @@ class ViewController: UIViewController {
         
         return scaledImage
     }
+	
+	
+	
 
 }
 

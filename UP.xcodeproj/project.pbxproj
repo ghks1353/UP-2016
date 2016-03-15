@@ -161,6 +161,18 @@
 		775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBEB1C4FC4C700B52552 /* Main.storyboard */; };
 		775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBEE1C4FC4C700B52552 /* Assets.xcassets */; };
 		775ADBF21C4FC4C700B52552 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBF01C4FC4C700B52552 /* LaunchScreen.storyboard */; };
+		77782E651C92B0B00016EE1B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E591C92B0B00016EE1B /* CGFloat+Extensions.swift */; };
+		77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5A1C92B0B00016EE1B /* CGPoint+Extensions.swift */; };
+		77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5B1C92B0B00016EE1B /* CGVector+Extensions.swift */; };
+		77782E681C92B0B00016EE1B /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5C1C92B0B00016EE1B /* Int+Extensions.swift */; };
+		77782E691C92B0B00016EE1B /* SKAction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5D1C92B0B00016EE1B /* SKAction+Extensions.swift */; };
+		77782E6A1C92B0B00016EE1B /* SKAction+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5E1C92B0B00016EE1B /* SKAction+SpecialEffects.swift */; };
+		77782E6B1C92B0B00016EE1B /* SKColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5F1C92B0B00016EE1B /* SKColor+Extensions.swift */; };
+		77782E6C1C92B0B00016EE1B /* SKNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E601C92B0B00016EE1B /* SKNode+Extensions.swift */; };
+		77782E6D1C92B0B00016EE1B /* SKTAudio.swift.bak in Sources */ = {isa = PBXBuildFile; fileRef = 77782E611C92B0B00016EE1B /* SKTAudio.swift.bak */; };
+		77782E6E1C92B0B00016EE1B /* SKTEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E621C92B0B00016EE1B /* SKTEffects.swift */; };
+		77782E6F1C92B0B00016EE1B /* SKTTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E631C92B0B00016EE1B /* SKTTimingFunctions.swift */; };
+		77782E701C92B0B00016EE1B /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E641C92B0B00016EE1B /* Vector3.swift */; };
 		777F9C831C90B7770057E823 /* a_back_pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 777F9C7F1C90B7770057E823 /* a_back_pad43.png */; };
 		777F9C841C90B7770057E823 /* b_back_pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 777F9C801C90B7770057E823 /* b_back_pad43.png */; };
 		777F9C851C90B7770057E823 /* c_back_pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 777F9C811C90B7770057E823 /* c_back_pad43.png */; };
@@ -181,6 +193,7 @@
 		77958C9C1C68DB2900E99864 /* alarm-test.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77958C9B1C68DB2900E99864 /* alarm-test.aiff */; };
 		77958C9E1C68E0D900E99864 /* AlarmSoundListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */; };
 		7799B4891C6F640900BEA0CF /* alarm-test-koreagarang.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7799B4881C6F640900BEA0CF /* alarm-test-koreagarang.aiff */; };
+		779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */; };
 		77C35C8B1C81CC2A002EE465 /* GameTitleViewJumpUP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C35C8A1C81CC2A002EE465 /* GameTitleViewJumpUP.swift */; };
 		77C4C0001C86A61700B7BB3B /* JumpUpElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C4BFFF1C86A61700B7BB3B /* JumpUpElements.swift */; };
 		77C4C0081C86B7CF00B7BB3B /* game_jumpup_astro_move0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0021C86B7CF00B7BB3B /* game_jumpup_astro_move0.png */; };
@@ -196,7 +209,6 @@
 		77C4C01B1C86D95800B7BB3B /* game_jumpup_ai_astro_jump4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0131C86D95800B7BB3B /* game_jumpup_ai_astro_jump4.png */; };
 		77C4C01C1C86D95800B7BB3B /* game_jumpup_ai_astro_jump5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0141C86D95800B7BB3B /* game_jumpup_ai_astro_jump5.png */; };
 		77C4C01D1C86D95800B7BB3B /* game_jumpup_ai_astro_jump6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0151C86D95800B7BB3B /* game_jumpup_ai_astro_jump6.png */; };
-		77C4C01E1C86D95800B7BB3B /* game_jumpup_ai_astro_jump7.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0161C86D95800B7BB3B /* game_jumpup_ai_astro_jump7.png */; };
 		77C4C0281C86D98000B7BB3B /* game_jumpup_astro_jump0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0201C86D98000B7BB3B /* game_jumpup_astro_jump0.png */; };
 		77C4C0291C86D98000B7BB3B /* game_jumpup_astro_jump1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0211C86D98000B7BB3B /* game_jumpup_astro_jump1.png */; };
 		77C4C02A1C86D98000B7BB3B /* game_jumpup_astro_jump2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0221C86D98000B7BB3B /* game_jumpup_astro_jump2.png */; };
@@ -446,6 +458,18 @@
 		775ADBF11C4FC4C700B52552 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		775ADBF31C4FC4C700B52552 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		775ADBF91C4FC78100B52552 /* UP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UP.entitlements; sourceTree = "<group>"; };
+		77782E591C92B0B00016EE1B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGFloat+Extensions.swift"; path = "SKTUtils/CGFloat+Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		77782E5A1C92B0B00016EE1B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGPoint+Extensions.swift"; path = "SKTUtils/CGPoint+Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		77782E5B1C92B0B00016EE1B /* CGVector+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGVector+Extensions.swift"; path = "SKTUtils/CGVector+Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		77782E5C1C92B0B00016EE1B /* Int+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Int+Extensions.swift"; path = "SKTUtils/Int+Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		77782E5D1C92B0B00016EE1B /* SKAction+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKAction+Extensions.swift"; path = "SKTUtils/SKAction+Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		77782E5E1C92B0B00016EE1B /* SKAction+SpecialEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKAction+SpecialEffects.swift"; path = "SKTUtils/SKAction+SpecialEffects.swift"; sourceTree = SOURCE_ROOT; };
+		77782E5F1C92B0B00016EE1B /* SKColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKColor+Extensions.swift"; path = "SKTUtils/SKColor+Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		77782E601C92B0B00016EE1B /* SKNode+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKNode+Extensions.swift"; path = "SKTUtils/SKNode+Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		77782E611C92B0B00016EE1B /* SKTAudio.swift.bak */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SKTAudio.swift.bak; path = SKTUtils/SKTAudio.swift.bak; sourceTree = SOURCE_ROOT; };
+		77782E621C92B0B00016EE1B /* SKTEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKTEffects.swift; path = SKTUtils/SKTEffects.swift; sourceTree = SOURCE_ROOT; };
+		77782E631C92B0B00016EE1B /* SKTTimingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKTTimingFunctions.swift; path = SKTUtils/SKTTimingFunctions.swift; sourceTree = SOURCE_ROOT; };
+		77782E641C92B0B00016EE1B /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector3.swift; path = SKTUtils/Vector3.swift; sourceTree = SOURCE_ROOT; };
 		777F9C7F1C90B7770057E823 /* a_back_pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_back_pad43.png; path = ImageAssets/MainBackgrounds/a_back_pad43.png; sourceTree = "<group>"; };
 		777F9C801C90B7770057E823 /* b_back_pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = b_back_pad43.png; path = ImageAssets/MainBackgrounds/b_back_pad43.png; sourceTree = "<group>"; };
 		777F9C811C90B7770057E823 /* c_back_pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = c_back_pad43.png; path = ImageAssets/MainBackgrounds/c_back_pad43.png; sourceTree = "<group>"; };
@@ -466,6 +490,7 @@
 		77958C9B1C68DB2900E99864 /* alarm-test.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "alarm-test.aiff"; path = "SoundAssets/AlarmSounds/alarm-test.aiff"; sourceTree = "<group>"; };
 		77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundListCell.swift; sourceTree = "<group>"; };
 		7799B4881C6F640900BEA0CF /* alarm-test-koreagarang.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "alarm-test-koreagarang.aiff"; path = "SoundAssets/AlarmSounds/alarm-test-koreagarang.aiff"; sourceTree = "<group>"; };
+		779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = up_background_task_alarm.mp3; path = SoundAssets/SystemSounds/up_background_task_alarm.mp3; sourceTree = "<group>"; };
 		77C35C8A1C81CC2A002EE465 /* GameTitleViewJumpUP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTitleViewJumpUP.swift; sourceTree = "<group>"; };
 		77C4BFFF1C86A61700B7BB3B /* JumpUpElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpUpElements.swift; sourceTree = "<group>"; };
 		77C4C0021C86B7CF00B7BB3B /* game_jumpup_astro_move0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_move0.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_move/game_jumpup_astro_move0.png; sourceTree = "<group>"; };
@@ -481,7 +506,6 @@
 		77C4C0131C86D95800B7BB3B /* game_jumpup_ai_astro_jump4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_jump4.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_jump/game_jumpup_ai_astro_jump4.png; sourceTree = "<group>"; };
 		77C4C0141C86D95800B7BB3B /* game_jumpup_ai_astro_jump5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_jump5.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_jump/game_jumpup_ai_astro_jump5.png; sourceTree = "<group>"; };
 		77C4C0151C86D95800B7BB3B /* game_jumpup_ai_astro_jump6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_jump6.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_jump/game_jumpup_ai_astro_jump6.png; sourceTree = "<group>"; };
-		77C4C0161C86D95800B7BB3B /* game_jumpup_ai_astro_jump7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_jump7.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_jump/game_jumpup_ai_astro_jump7.png; sourceTree = "<group>"; };
 		77C4C0201C86D98000B7BB3B /* game_jumpup_astro_jump0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump0.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump0.png; sourceTree = "<group>"; };
 		77C4C0211C86D98000B7BB3B /* game_jumpup_astro_jump1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump1.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump1.png; sourceTree = "<group>"; };
 		77C4C0221C86D98000B7BB3B /* game_jumpup_astro_jump2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump2.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump2.png; sourceTree = "<group>"; };
@@ -724,6 +748,7 @@
 		7740E2291C507C8E00B11A24 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				779E2CBB1C955BD900B70BBA /* System */,
 				77C3CFC61C6325BE009A183A /* Alarms */,
 				773D2E561C56801400177CF3 /* Musics */,
 				7740E22E1C507D0000B11A24 /* Effects */,
@@ -934,6 +959,7 @@
 		775ADBE61C4FC4C700B52552 /* UP */ = {
 			isa = PBXGroup;
 			children = (
+				77782E581C92B0A50016EE1B /* SKTUtils */,
 				77232C931C84B0AC006E221A /* SKViews */,
 				77C6BDE41C7EF84200F2887C /* Views */,
 				77E23C031C6A082F005F0B03 /* Cells */,
@@ -955,6 +981,25 @@
 			path = UP;
 			sourceTree = "<group>";
 			usesTabs = 1;
+		};
+		77782E581C92B0A50016EE1B /* SKTUtils */ = {
+			isa = PBXGroup;
+			children = (
+				77782E591C92B0B00016EE1B /* CGFloat+Extensions.swift */,
+				77782E5A1C92B0B00016EE1B /* CGPoint+Extensions.swift */,
+				77782E5B1C92B0B00016EE1B /* CGVector+Extensions.swift */,
+				77782E5C1C92B0B00016EE1B /* Int+Extensions.swift */,
+				77782E5D1C92B0B00016EE1B /* SKAction+Extensions.swift */,
+				77782E5E1C92B0B00016EE1B /* SKAction+SpecialEffects.swift */,
+				77782E5F1C92B0B00016EE1B /* SKColor+Extensions.swift */,
+				77782E601C92B0B00016EE1B /* SKNode+Extensions.swift */,
+				77782E611C92B0B00016EE1B /* SKTAudio.swift.bak */,
+				77782E621C92B0B00016EE1B /* SKTEffects.swift */,
+				77782E631C92B0B00016EE1B /* SKTTimingFunctions.swift */,
+				77782E641C92B0B00016EE1B /* Vector3.swift */,
+			);
+			name = SKTUtils;
+			sourceTree = "<group>";
 		};
 		77802D201C8060A100766DB0 /* Backgrounds */ = {
 			isa = PBXGroup;
@@ -981,6 +1026,14 @@
 				77802D321C8097E200766DB0 /* NanumBarunGothicUltraLight.ttf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		779E2CBB1C955BD900B70BBA /* System */ = {
+			isa = PBXGroup;
+			children = (
+				779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */,
+			);
+			name = System;
 			sourceTree = "<group>";
 		};
 		77C35C891C81CBCA002EE465 /* AlarmGamesView */ = {
@@ -1025,7 +1078,6 @@
 				77C4C0131C86D95800B7BB3B /* game_jumpup_ai_astro_jump4.png */,
 				77C4C0141C86D95800B7BB3B /* game_jumpup_ai_astro_jump5.png */,
 				77C4C0151C86D95800B7BB3B /* game_jumpup_ai_astro_jump6.png */,
-				77C4C0161C86D95800B7BB3B /* game_jumpup_ai_astro_jump7.png */,
 			);
 			name = AstroAIJump;
 			sourceTree = "<group>";
@@ -1334,6 +1386,7 @@
 				77CAE0BB1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump0.png in Resources */,
 				773D2E601C56835500177CF3 /* testeffect3.mp3 in Resources */,
 				774C56101C58E84500421F06 /* astro0244.png in Resources */,
+				779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */,
 				77E2880A1C7334A30020B766 /* d_time_on_small.png in Resources */,
 				774C56141C58E84500421F06 /* astro0248.png in Resources */,
 				77E287F51C73345D0020B766 /* time_body.png in Resources */,
@@ -1432,7 +1485,6 @@
 				771181DE1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png in Resources */,
 				774C56161C58E84500421F06 /* astro0250.png in Resources */,
 				77CAE0A31C9079B900FBA714 /* game_jumpup_ai_astro_move3.png in Resources */,
-				77C4C01E1C86D95800B7BB3B /* game_jumpup_ai_astro_jump7.png in Resources */,
 				774C55E81C58E84500421F06 /* astro0174.png in Resources */,
 				774C55E71C58E84500421F06 /* astro0173.png in Resources */,
 				77E287F91C7334640020B766 /* ground.png in Resources */,
@@ -1526,11 +1578,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				77E5B9B21C624BD30075431A /* AlarmSoundListView.swift in Sources */,
+				77782E691C92B0B00016EE1B /* SKAction+Extensions.swift in Sources */,
+				77782E6F1C92B0B00016EE1B /* SKTTimingFunctions.swift in Sources */,
 				775ADBEA1C4FC4C700B52552 /* ViewController.swift in Sources */,
 				77C6BDE71C7EF85A00F2887C /* AlarmRingView.swift in Sources */,
 				775ADBE81C4FC4C700B52552 /* AppDelegate.swift in Sources */,
 				77C4C0001C86A61700B7BB3B /* JumpUpElements.swift in Sources */,
 				774B30F31C5E56CF0058CFB2 /* AddAlarmView.swift in Sources */,
+				77782E681C92B0B00016EE1B /* Int+Extensions.swift in Sources */,
 				7759757D1C5F05A60057CDD6 /* AlarmSettingsCell.swift in Sources */,
 				773D2E501C562FE300177CF3 /* TestGameScene.swift in Sources */,
 				77E3F47A1C746C71002BBDA6 /* AlarmGameListView.swift in Sources */,
@@ -1539,12 +1594,17 @@
 				77958C9A1C68D05C00E99864 /* SoundInfoObj.swift in Sources */,
 				77E23BFF1C699723005F0B03 /* AlarmManager.swift in Sources */,
 				774141301C5BC09500E5A723 /* DataManager.swift in Sources */,
+				77782E651C92B0B00016EE1B /* CGFloat+Extensions.swift in Sources */,
+				77782E6C1C92B0B00016EE1B /* SKNode+Extensions.swift in Sources */,
 				77C35C8B1C81CC2A002EE465 /* GameTitleViewJumpUP.swift in Sources */,
 				77E3F47C1C746D3C002BBDA6 /* GameInfoObj.swift in Sources */,
 				77FBE6861C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift in Sources */,
+				77782E6A1C92B0B00016EE1B /* SKAction+SpecialEffects.swift in Sources */,
 				773E910C1C5A36480084EB07 /* CustomTableCell.swift in Sources */,
 				77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */,
+				77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */,
 				77E3F47E1C747272002BBDA6 /* UPAlarmGameLists.swift in Sources */,
+				77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */,
 				774C56271C59247900421F06 /* SettingsView.swift in Sources */,
 				77E3F4801C747479002BBDA6 /* UPGamesListCell.swift in Sources */,
 				774D0DB01C5CA7AC00E41385 /* AlarmListView.swift in Sources */,
@@ -1554,9 +1614,13 @@
 				773E91091C59FBBF0084EB07 /* SettingsElement.swift in Sources */,
 				77E23C051C6A20F1005F0B03 /* UISingleSegmentControl.swift in Sources */,
 				77958C9E1C68E0D900E99864 /* AlarmSoundListCell.swift in Sources */,
+				77782E6E1C92B0B00016EE1B /* SKTEffects.swift in Sources */,
+				77782E6B1C92B0B00016EE1B /* SKColor+Extensions.swift in Sources */,
 				77FD0DF01C66312400B5B5E9 /* UPUtils.swift in Sources */,
 				77E23C071C6A334D005F0B03 /* UPAlarmSoundLists.swift in Sources */,
+				77782E6D1C92B0B00016EE1B /* SKTAudio.swift.bak in Sources */,
 				773D2F6B1C5B7CCF0093CD2D /* Languages.swift in Sources */,
+				77782E701C92B0B00016EE1B /* Vector3.swift in Sources */,
 				77EB7B071C6B6356008247DD /* AlarmListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

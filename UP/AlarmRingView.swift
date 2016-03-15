@@ -17,11 +17,14 @@ class AlarmRingView:UIViewController {
 			- 이 뷰는 각 게임의 시작 부분에 대한 루트 뷰
 	*/
 	
+	static var selfView:AlarmRingView?;
+	
 	//게임 서브 뷰는 예외적으로 이 뷰에 포함.
 	static var jumpUPStartupViewController:GameTitleViewJumpUP?;
 	
 	
-	var currentAlarmElement:AlarmElements?;
+	internal var currentAlarmElement:AlarmElements?;
+	var gameSelectedNumber:Int = 0;
 	
 	//Test elements
 	/*var alarmNameLabel:UILabel = UILabel();
@@ -30,6 +33,7 @@ class AlarmRingView:UIViewController {
 	override func viewDidLoad() {
 		// view init func
 		self.view.backgroundColor = UIColor.blackColor();
+		AlarmRingView.selfView = self;
 		
 		/*alarmNameLabel.frame = CGRectMake(0, 48, self.view.frame.width, 40);
 		alarmNameLabel.font = UIFont.systemFontOfSize(28);
@@ -46,24 +50,35 @@ class AlarmRingView:UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		if (currentAlarmElement != nil) {
 			
+			//알람 사운드 울림중일때 끔
+			AlarmManager.stopSoundAlarm();
+			
+			
 			//게임을 분류하여 각각 맞는 view를 present
-			var gameSel:Int = 0; //랜덤일 경우 여기서 랜덤 선택
 			if (currentAlarmElement?.gameSelected == -1) {
-				gameSel = Int(arc4random_uniform( UInt32(UPAlarmGameLists.list.count) ));
+				gameSelectedNumber = Int(arc4random_uniform( UInt32(UPAlarmGameLists.list.count) ));
 			} //rdm sel end
 			
-			switch( gameSel ) {
-			case 0: //점프업
-				if (AlarmRingView.jumpUPStartupViewController == nil) {
-					AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP();
+			print("view appreared and preparing to present a new view controller");
+			UPUtils.setTimeout(0.5, block: {
+				print("selected ->", self.gameSelectedNumber);
+				switch( self.gameSelectedNumber ) {
+					case 0: //점프업
+						if (AlarmRingView.jumpUPStartupViewController == nil) {
+							AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP();
+						} else {
+							AlarmRingView.jumpUPStartupViewController = nil;
+							AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP(); //게임 초기화가 귀찮다 ㅗ
+						}
+						self.presentViewController(AlarmRingView.jumpUPStartupViewController!, animated: false, completion: nil);
+						break;
+						
+					default:
+						print("game code", self.gameSelectedNumber, "not found err");
+						break;
 				}
-				self.presentViewController(AlarmRingView.jumpUPStartupViewController!, animated: false, completion: nil);
-				break;
-				
-			default:
-				print("game code", gameSel, "not found err");
-				break;
-			}
+			});
+			
 			
 			
 		}

@@ -25,7 +25,10 @@ class JumpUPGame:SKScene {
 	
 	//게임 실행 타입 (0= 알람, 1= 메인화면 실행)
 	var gameStartupType:Int = 0;
-	var gameAlarmFirstGoalTime:Int = 120; // 처음 목표로 하는 시간
+	var gameAlarmFirstGoalTime:Int = 80; // 처음 목표로 하는 시간
+	var gameLevelAverageTime:Int = 40; //난이도가 높아지는 시간
+	var gameTimerMaxTime:Int = 80; //알람으로 게임 진행 중일 때 시간이 추가될 수 있는 최대 수치
+	
 	var gameFinishedBool:Bool = false; // 게임이 완전히 끝나면 타이머 다시 늘어나는 등의 동작 없음
 	
 	//뒤 배경
@@ -49,13 +52,14 @@ class JumpUPGame:SKScene {
 	var gameStageYAxis:CGFloat = 0; var gameStageYHeight:CGFloat = 0;
 	var gameScrollSpeed:Double = 1; //왼쪽으로 흘러가는 게임 스크롤 스피드.
 	
-	let gameCloudAddDelayMAX:Int = 60;
+	let gameCloudAddDelayMAX:Int = 60; // original: 60
 	var gameCloudDecorationAddDelay:Int = 0; //구름 생성 딜레이
 	
-	let gameEnemyGenerateDelayMAX:Int = 120;
+	let gameEnemyGenerateDelayMAX:Int = 120; // original: 120
 	var gameEnemyGenerateDelay:Int = 0; //장애물 생성 딜레이
 	
 	var gameCharacterUnlimitedLife:Int = 0; //캐릭터 무적 시간. (있을 경우)
+	var gameRdmElementNum:Int = 0; //랜덤으로 나오는 장애물 고유 번호. (메모리 절약을 위해 재사용)
 	
 	//Game node arrays
 	var gameNodesArray:Array<JumpUpElements?> = [];
@@ -67,9 +71,10 @@ class JumpUPGame:SKScene {
 	var gameTexturesAIJMoveTexturesArray:Array<SKTexture> = [];
 	var gameTexturesAIJJumpTexturesArray:Array<SKTexture> = [];
 	
-	
 	//Character element
 	var characterElement:JumpUpElements?;// = JumpUpElements();
+	//판정 완화의 정도
+	let characterRatherbox:CGFloat = 18 * DeviceGeneral.scrRatioC;
 	
 	override func didMoveToView(view: SKView) {
 		//View inited
@@ -112,14 +117,20 @@ class JumpUPGame:SKScene {
 			
 		}
 		gameScoreTitleImage!.position.x = DeviceGeneral.scrSize!.width / 2;
-		
+		var movPositionY:CGFloat = 0;
 		if (DeviceGeneral.scrSize?.height <= 480.0) {
 			//4/4s fallback
-			gameScoreTitleImage!.position.y = DeviceGeneral.scrSize!.height - (63 * DeviceGeneral.scrRatioC);
+			movPositionY = DeviceGeneral.scrSize!.height - (63 * DeviceGeneral.scrRatioC);
 		} else {
-			gameScoreTitleImage!.position.y = DeviceGeneral.scrSize!.height - (96 * DeviceGeneral.scrRatioC);
+			movPositionY = DeviceGeneral.scrSize!.height - (96 * DeviceGeneral.scrRatioC);
 		}
 		self.addChild(gameScoreTitleImage!);
+		
+		let moveEffect = SKTMoveEffect(node: gameScoreTitleImage!, duration: 0.5,
+			startPosition: CGPointMake( DeviceGeneral.scrSize!.width / 2, DeviceGeneral.scrSize!.height + gameScoreTitleImage!.frame.height / 2),
+			endPosition: CGPointMake( DeviceGeneral.scrSize!.width / 2, movPositionY));
+		moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
+		gameScoreTitleImage!.runAction(SKAction.actionWithEffect(moveEffect));
 		
 		//time / score에 대한 데이터 처리
 		if (gameNumberTexturesArray.count == 0) {
@@ -133,8 +144,22 @@ class JumpUPGame:SKScene {
 					DeviceGeneral.scrSize!.width / 2 - (CGFloat(i) * (gameNumberSpriteNodesArray[i].size.width + 12 * DeviceGeneral.scrRatioC))
 					/* align to center */
 					+ ((gameNumberSpriteNodesArray[i].size.width + 12 * DeviceGeneral.scrRatioC));
-				gameNumberSpriteNodesArray[i].position.y = gameScoreTitleImage!.position.y - (72 * DeviceGeneral.scrRatioC);
+				gameNumberSpriteNodesArray[i].position.y = movPositionY - (120 * DeviceGeneral.scrRatioC);
 				self.addChild( gameNumberSpriteNodesArray[i] );
+				
+				//숫자 밑에서 위로 올라오는 효과 주기
+				gameNumberSpriteNodesArray[i].alpha = 0;
+				let moveEffect = SKTMoveEffect(node: gameNumberSpriteNodesArray[i], duration: 0.5 ,
+					startPosition: CGPointMake( gameNumberSpriteNodesArray[i].position.x, movPositionY - (120 * DeviceGeneral.scrRatioC)),
+					endPosition: CGPointMake( gameNumberSpriteNodesArray[i].position.x, movPositionY - (72 * DeviceGeneral.scrRatioC)));
+				moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
+				//gameNumberSpriteNodesArray[i].runAction();
+				gameNumberSpriteNodesArray[i].runAction(
+					SKAction.group( [
+						SKAction.afterDelay(Double(2-i) * 0.1, performAction: SKAction.actionWithEffect(moveEffect)),
+						SKAction.fadeInWithDuration(0.5)
+				]));
+				
 			} //숫자 표시용 디지털 숫자 노드 3개
 		} //end of chk
 		
@@ -145,11 +170,17 @@ class JumpUPGame:SKScene {
 					1 - trap
 					2 - box
 					3 - box (high)
+					4 - smile cloud
+					5 - more smile cloud
+					6 - fucking cloud
 				*/
 				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_1.png" ),
 				SKTexture( imageNamed: "game_jumpup_assets_time_trap.png" ),
 				SKTexture( imageNamed: "game_jumpup_assets_time_box.png" ),
-				SKTexture( imageNamed: "game_jumpup_assets_time_box2.png" )
+				SKTexture( imageNamed: "game_jumpup_assets_time_box2.png" ),
+				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_2.png" ),
+				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_3.png" ),
+				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_4.png" )
 				
 			];
 			
@@ -160,7 +191,7 @@ class JumpUPGame:SKScene {
 		
 		//캐릭터 추가
 		characterElement = JumpUpElements();
-		characterElement!.size = CGSizeMake(48 * DeviceGeneral.scrRatioC, 65 * DeviceGeneral.scrRatioC); //Create astro size
+		characterElement!.size = CGSizeMake(60 * DeviceGeneral.scrRatioC, 70 * DeviceGeneral.scrRatioC); //Create astro size
 		characterElement!.position.x = 64 * DeviceGeneral.scrRatioC; //캐릭터의 왼쪽. 초기위치 잡음
 		characterElement!.position.y = gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2); // * DeviceGeneral.scrRatioC;
 		
@@ -299,7 +330,22 @@ class JumpUPGame:SKScene {
 			//장애물 소환
 			//addNodes( 1 + Int(arc4random_uniform( 3 )) );
 			
-			addNodes( 1 + Int(arc4random_uniform( 4 )) );
+			gameRdmElementNum = 1 + Int(arc4random_uniform( 5 )); //0번은 데코용 구름이라 제외함
+			
+			//가시나 트랩이 나올 때, 50초 미만으로 남았을 때, 알람으로 켜졌을 때, 약 40% 미만의 확률로 발동
+			if ((gameRdmElementNum == 1 || gameRdmElementNum == 2) && gameScore < gameLevelAverageTime && gameStartupType == 0) {
+				if (Double(Float(arc4random()) / Float(UINT32_MAX)) <= 0.5) {
+					self.addNodes( 6 ); //구름
+					self.addNodes( 1 + Int(arc4random_uniform( 2 ))); //가시 + 박스
+
+				} else if (Double(Float(arc4random()) / Float(UINT32_MAX)) <= 0.3) {
+					self.addNodes( 3 + Int(arc4random_uniform( 3 )));
+				} else {
+					self.addNodes( gameRdmElementNum );
+				}
+			} else {
+				self.addNodes( gameRdmElementNum );
+			}
 			
 			//if (Double(Float(arc4random()) / Float(UINT32_MAX)) < 0.2) {
 				//낮은 확률로 걸어다니는 로봇 소환
@@ -345,8 +391,9 @@ class JumpUPGame:SKScene {
 		}
 		
 		//Character jump queue
-		characterElement!.position.y += characterElement!.ySpeed / 2;
-		if (characterElement!.position.y <= gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2)) {
+		characterElement!.position.y += (characterElement!.ySpeed / 2) * DeviceGeneral.scrRatioC;
+							/// 1을 더하는 이유는 기종마다 미세한 픽셀 차이로 인해 모션이 안나오는 버그가 있기 때문임
+		if (characterElement!.position.y <= 1 + gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2)) {
 			characterElement!.position.y = gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2);
 			characterElement!.ySpeed = 0;
 			characterElement!.changeMotion(0); //walking motion
@@ -401,7 +448,7 @@ class JumpUPGame:SKScene {
 						}
 						break;
 					case 1: //Jump motion
-						gameNodesArray[i]!.texture = gameNodesArray[i]!.motions_jumping[characterElement!.motions_current_frame];
+						gameNodesArray[i]!.texture = gameNodesArray[i]!.motions_jumping[gameNodesArray[i]!.motions_current_frame];
 						gameNodesArray[i]!.motions_frame_delay_left = 5; //per 5f
 						if (gameNodesArray[i]!.motions_current_frame >= gameNodesArray[i]!.motions_jumping.count - 1) {
 							gameNodesArray[i]!.motions_current_frame = -1; //frame reset to 0 (-1 > next frame < 0)
@@ -419,12 +466,28 @@ class JumpUPGame:SKScene {
 			switch(gameNodesArray[i]!.elementType) {
 				case JumpUpElements.TYPE_STATIC_ENEMY, JumpUpElements.TYPE_DYNAMIC_ENEMY: // 고정형 장애물 및 움직 장애물
 					
-					if ( //캐릭터 - 적간 충돌판정
+					//적 점프 queue
+					if (gameNodesArray[i]!.elementFlag != 2) { //고정형 장애물은 물리 무시
+						gameNodesArray[i]!.position.y += (gameNodesArray[i]!.ySpeed / 2) * DeviceGeneral.scrRatioC;
+						if (gameNodesArray[i]!.position.y <= 1 + gameStageYAxis - gameStageYHeight + (gameNodesArray[i]!.size.height / 2)) {
+							gameNodesArray[i]!.position.y = gameStageYAxis - gameStageYHeight + (gameNodesArray[i]!.size.height / 2);
+							gameNodesArray[i]!.ySpeed = 0;
+							gameNodesArray[i]!.changeMotion(0); //walking motion
+							gameNodesArray[i]!.jumpFlaggedCount = 0; //점프횟수 초기화
+						} else {
+							gameNodesArray[i]!.ySpeed -= 0.5;
+							gameNodesArray[i]!.changeMotion(1); //jumping motion
+						}
+					}
+					
+					
+					
+					if ( //캐릭터 - 적간 충돌판정 (조금 완화 함.)
 						characterElement!.containsPoint( gameNodesArray[i]!.position ) ||
-							characterElement!.containsPoint( CGPoint( x: gameNodesArray[i]!.position.x - gameNodesArray[i]!.frame.width / 2, y: gameNodesArray[i]!.position.y - gameNodesArray[i]!.frame.height / 2) ) ||
-							characterElement!.containsPoint( CGPoint( x: gameNodesArray[i]!.position.x + gameNodesArray[i]!.frame.width / 2, y: gameNodesArray[i]!.position.y - gameNodesArray[i]!.frame.height / 2) ) ||
-							characterElement!.containsPoint( CGPoint( x: gameNodesArray[i]!.position.x - gameNodesArray[i]!.frame.width / 2, y: gameNodesArray[i]!.position.y + gameNodesArray[i]!.frame.height / 2) ) ||
-							characterElement!.containsPoint( CGPoint( x: gameNodesArray[i]!.position.x - gameNodesArray[i]!.frame.width / 2, y: gameNodesArray[i]!.position.y - gameNodesArray[i]!.frame.height / 2) )
+							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.frame.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.frame.height / 2) + characterRatherbox  ) ) ||
+							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x + gameNodesArray[i]!.frame.width / 2) - characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.frame.height / 2) + characterRatherbox ) ) ||
+							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.frame.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y + gameNodesArray[i]!.frame.height / 2) - characterRatherbox ) ) ||
+							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.frame.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.frame.height / 2) + characterRatherbox ) )
 						) {
 							if (gameCharacterUnlimitedLife == 0) {
 								print("Character collision");
@@ -432,13 +495,25 @@ class JumpUPGame:SKScene {
 								
 								if (gameStartupType == 0) {
 									//알람으로 켜진 경우, 최대 120초까지 커지도록 시간 추가
-									gameScore = min( gameScore + 12, 120);
-								}
-							}
+									if (gameScore <= gameLevelAverageTime) {
+										gameScore = min( gameScore + 4, gameTimerMaxTime);
+									} else {
+										gameScore = min( gameScore + 8, gameTimerMaxTime);
+									}
+									
+								} //end if
+							} //end if
 					} //end if
 					
 					break;
 				default: break;
+			} //end switch
+			
+			//특수한 적의 경우 특별한 경우 점프를 하도록 만듬. 아래 적은 점프하느 ㄴ적의 경우.
+			if (gameNodesArray[i]!.elementFlag == 1 && gameNodesArray[i]!.elementTickFlag == 0
+				&& gameNodesArray[i]!.position.x < 160 * DeviceGeneral.scrRatioC ) {
+				gameNodesArray[i]!.ySpeed = 14;
+				gameNodesArray[i]!.elementTickFlag  = 1;
 			}
 			
 			
@@ -497,7 +572,7 @@ class JumpUPGame:SKScene {
 			case 4:
 				//AI Astro (점프 안하고 걸어오는)
 				toAddelement = JumpUpElements(); //텍스쳐는 모션으로 정할 것임.
-				toAddelement!.size = CGSizeMake( 45 * DeviceGeneral.scrRatioC , 65 * DeviceGeneral.scrRatioC ); //사이즈 = 캐릭터 사이즈
+				toAddelement!.size = CGSizeMake( 60 * DeviceGeneral.scrRatioC , 70 * DeviceGeneral.scrRatioC );
 				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
 				toAddelement!.position.x = DeviceGeneral.scrSize!.width + toAddelement!.size.width;
 				/* y fit to bottom of stage */
@@ -506,6 +581,38 @@ class JumpUPGame:SKScene {
 
 				toAddelement!.motions_walking = gameTexturesAIMoveTexturesArray;
 				
+				break;
+			
+			case 5:
+				//AI Astro (점프)
+				toAddelement = JumpUpElements(); //텍스쳐는 모션으로 정할 것임.
+				toAddelement!.size = CGSizeMake( 60 * DeviceGeneral.scrRatioC , 70 * DeviceGeneral.scrRatioC );
+				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
+				toAddelement!.position.x = DeviceGeneral.scrSize!.width + toAddelement!.size.width;
+				/* y fit to bottom of stage */
+				toAddelement!.position.y = gameStageYAxis - gameStageYHeight + (toAddelement!.size.height / 2);
+				toAddelement!.elementSpeed = 2.8; //속도.
+				
+				toAddelement!.motions_walking = gameTexturesAIJMoveTexturesArray;
+				toAddelement!.motions_jumping = gameTexturesAIJJumpTexturesArray;
+				
+				toAddelement!.elementFlag = 1; //점프하는 장애물 (flag)
+				
+				break;
+			
+			case 6:
+				//페이크 구름
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[6] );
+				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
+				toAddelement!.size = CGSizeMake( 94.05 * DeviceGeneral.scrRatioC , 24.4 * DeviceGeneral.scrRatioC );
+				toAddelement!.position.x = DeviceGeneral.scrSize!.width + toAddelement!.size.width;
+				toAddelement!.position.y = /* fit to stage, and random y range */
+					(gameStageYAxis - toAddelement!.size.height) - (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 56) * DeviceGeneral.scrRatioC);
+				//구름 종류 증식 (찌그러짐 ^^)
+				toAddelement!.yScale = 1.0 - CGFloat(Float(arc4random()) / Float(UINT32_MAX)) / 3;
+				
+				toAddelement!.elementSpeed = 1.8; // + Double(Float(arc4random()) / Float(UINT32_MAX)) / 9;
+				toAddelement!.elementFlag = 2; //고정형 (물리 안받음)
 				
 				break;
 			
@@ -535,6 +642,16 @@ class JumpUPGame:SKScene {
 			gameSecondTickTimer?.invalidate();
 			gameSecondTickTimer = nil;
 			
+			//게임 끝났으니 알람 끄기(임시)
+			AlarmManager.gameClearToggleAlarm( (AlarmRingView.selfView!.currentAlarmElement?.alarmID)!, cleared: true );
+			AlarmManager.mergeAlarm(); //Merge it
+			AlarmManager.alarmRingActivated = false;
+			//Refresh tables
+			AlarmListView.selfView?.createTableList();
+			
+			AlarmRingView.selfView!.dismissViewControllerAnimated(false, completion: nil);
+			GlobalSubView.alarmRingViewcontroller.dismissViewControllerAnimated(true, completion: nil);
+			
 		} else {
 			gameScore -= 1;
 		}
@@ -546,7 +663,7 @@ class JumpUPGame:SKScene {
 		if let _ = touches.first {
 			if (gameFinishedBool == false) { //게임이 진행중일 때만 점프 가능.
 				if (characterElement!.jumpFlaggedCount < 2) { //캐릭터 점프횟수 제한
-					characterElement!.ySpeed = 10;
+					characterElement!.ySpeed = 11;
 					characterElement!.jumpFlaggedCount += 1;
 				}
 			}
