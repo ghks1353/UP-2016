@@ -43,8 +43,14 @@ class DeviceGeneral {
 			usesLowQualityImage = true;
 			print("Using low-quality pic");
 		}
-		defaultModalSizeRect = CGRectMake(CGFloat(50 * DeviceGeneral.scrRatio) , ((DeviceGeneral.scrSize?.height)! - CGFloat(480 * DeviceGeneral.scrRatio)) / 2 , (DeviceGeneral.scrSize?.width)! - CGFloat(100 * DeviceGeneral.scrRatio), CGFloat(480 * DeviceGeneral.scrRatio));
 		
+		if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+			//패드의 경우, 크기를 미리 지정해줌
+			defaultModalSizeRect = CGRectMake(((DeviceGeneral.scrSize?.width)! - 320) / 2, ((DeviceGeneral.scrSize?.height)! - 480) / 2 , 320, 480);
+		} else {
+			//기타 (폰)의 경우
+			defaultModalSizeRect = CGRectMake(50 * DeviceGeneral.scrRatioC , ((DeviceGeneral.scrSize?.height)! - (480 * DeviceGeneral.scrRatioC)) / 2 , (DeviceGeneral.scrSize?.width)! - (100 * DeviceGeneral.scrRatioC), (480 * DeviceGeneral.scrRatioC));
+		}
     }
     
 }

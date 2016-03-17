@@ -30,7 +30,7 @@ class JumpUPGame:SKScene {
 	var gameAlarmFirstGoalTime:Int = 80; // 처음 목표로 하는 시간
 	var gameLevelAverageTime:Int = 40; //난이도가 높아지는 시간
 	var gameTimerMaxTime:Int = 80; //알람으로 게임 진행 중일 때 시간이 추가될 수 있는 최대 수치
-	var gameRetireTime:Int = 180; //포기 버튼이 나타나는 시간
+	var gameRetireTime:Int = 240; //포기 버튼이 나타나는 시간
 	var gameRetireTimeCount:Int = 0; //포기 버튼 카운트
 	
 	var gameFinishedBool:Bool = false; // 게임이 완전히 끝나면 타이머 다시 늘어나는 등의 동작 없음
@@ -81,6 +81,8 @@ class JumpUPGame:SKScene {
 	var gameTexturesAIMoveTexturesArray:Array<SKTexture> = [];
 	var gameTexturesAIJMoveTexturesArray:Array<SKTexture> = [];
 	var gameTexturesAIJJumpTexturesArray:Array<SKTexture> = [];
+	//AI Effect sktextures array
+	var gameTexturesAIEffectsArray:Array<Array<SKTexture>> = [];
 	
 	//Character element
 	var characterElement:JumpUpElements?;// = JumpUpElements();
@@ -196,6 +198,17 @@ class JumpUPGame:SKScene {
 			];
 			
 		} //end of creation txt
+		
+		if (gameTexturesAIEffectsArray.count == 0) {
+			//texture effect creation
+			gameTexturesAIEffectsArray += [ Array<SKTexture>() ]; //빈 텍스쳐 배열을 만들고 그 안에 텍스쳐들 넣음.
+			for (var i = 0; i < 22; ++i) {
+				gameTexturesAIEffectsArray[0] += [
+					SKTexture( imageNamed: "game_jumpup_assets_time_ai_j_astro_effect" + String(i) + ".png")
+				];
+			}
+			
+		} //end of effet create
 		
 		//기존 배열에 노드가 있을경우 삭제
 		delAllElementsFromArray();
@@ -473,12 +486,24 @@ class JumpUPGame:SKScene {
 		
 		//Scroll nodes + Motion queue (w/o character)
 		for (var i:Int = 0; i < gameNodesArray.count; ++i) {
+			
+			//위치관련
+			//print("Checking element type - ", gameNodesArray[i]!.elementType, JumpUpElements.TYPE_EFFECT);
 			switch(gameNodesArray[i]!.elementType) {
 				case JumpUpElements.TYPE_DECORATION: // ... cloud?
 					gameNodesArray[i]!.position.x -= CGFloat(gameScrollSpeed * gameNodesArray[i]!.elementSpeed);
 					break;
 				case JumpUpElements.TYPE_STATIC_ENEMY, JumpUpElements.TYPE_DYNAMIC_ENEMY: // 고정형 장애물, 움직
 					gameNodesArray[i]!.position.x -= CGFloat(gameScrollSpeed * gameNodesArray[i]!.elementSpeed);
+					break;
+				case JumpUpElements.TYPE_EFFECT:
+					print("Effect status", gameNodesArray[i]!.elementTargetElement);
+					if (gameNodesArray[i]!.elementTargetElement != nil) {
+						gameNodesArray[i]!.position.x = gameNodesArray[i]!.elementTargetElement!.position.x + gameNodesArray[i]!.elementTargetPosFix!.width;
+						gameNodesArray[i]!.position.y = gameNodesArray[i]!.elementTargetElement!.position.y + gameNodesArray[i]!.elementTargetPosFix!.height;
+						//print("Moving effect to target.");
+					}
+					
 					break;
 				
 				default: break;
@@ -493,25 +518,38 @@ class JumpUPGame:SKScene {
 			} //end of remove
 			
 			//do motion queue
-			if (gameNodesArray[i]!.elementType == JumpUpElements.TYPE_DYNAMIC_ENEMY) {
+			if (
+				gameNodesArray[i]!.elementType == JumpUpElements.TYPE_DYNAMIC_ENEMY ||
+				gameNodesArray[i]!.elementType == JumpUpElements.TYPE_EFFECT
+				) {
 				if (gameNodesArray[i]!.motions_frame_delay_left <= 0) {
 					gameNodesArray[i]!.motions_current_frame += 1;
 					switch( gameNodesArray[i]!.motions_current ) {
-					case 0: //walking motion
-						gameNodesArray[i]!.texture = gameNodesArray[i]!.motions_walking[gameNodesArray[i]!.motions_current_frame];
-						gameNodesArray[i]!.motions_frame_delay_left = 5; //per 5f
-						if (gameNodesArray[i]!.motions_current_frame >= gameNodesArray[i]!.motions_walking.count - 1) {
-							gameNodesArray[i]!.motions_current_frame = -1; //frame reset to 0 (-1 > next frame < 0)
-						}
-						break;
-					case 1: //Jump motion
-						gameNodesArray[i]!.texture = gameNodesArray[i]!.motions_jumping[gameNodesArray[i]!.motions_current_frame];
-						gameNodesArray[i]!.motions_frame_delay_left = 5; //per 5f
-						if (gameNodesArray[i]!.motions_current_frame >= gameNodesArray[i]!.motions_jumping.count - 1) {
-							gameNodesArray[i]!.motions_current_frame = -1; //frame reset to 0 (-1 > next frame < 0)
-						}
-						break;
-					default: break;
+						case 0: //walking motion
+							gameNodesArray[i]!.texture = gameNodesArray[i]!.motions_walking[gameNodesArray[i]!.motions_current_frame];
+							gameNodesArray[i]!.motions_frame_delay_left = 5; //per 5f
+							if (gameNodesArray[i]!.motions_current_frame >= gameNodesArray[i]!.motions_walking.count - 1) {
+								gameNodesArray[i]!.motions_current_frame = -1; //frame reset to 0 (-1 > next frame < 0)
+							}
+							break;
+						case 1: //Jump motion
+							gameNodesArray[i]!.texture = gameNodesArray[i]!.motions_jumping[gameNodesArray[i]!.motions_current_frame];
+							gameNodesArray[i]!.motions_frame_delay_left = 5; //per 5f
+							if (gameNodesArray[i]!.motions_current_frame >= gameNodesArray[i]!.motions_jumping.count - 1) {
+								gameNodesArray[i]!.motions_current_frame = -1; //frame reset to 0 (-1 > next frame < 0)
+							}
+							break;
+						case 2: //effect
+							gameNodesArray[i]!.texture = gameNodesArray[i]!.motions_effect[gameNodesArray[i]!.motions_current_frame];
+							gameNodesArray[i]!.motions_frame_delay_left = 0; //per 0f
+							if (gameNodesArray[i]!.motions_current_frame >= gameNodesArray[i]!.motions_effect.count - 1) {
+								//motion over -> dispose (remove)
+								gameNodesArray[i]!.removeFromParent(); gameNodesArray[i] = nil;
+								gameNodesArray.removeAtIndex(i);
+								continue;
+							} //end if
+							break;
+						default: break;
 					}
 				} else {
 					//delay min
@@ -551,6 +589,9 @@ class JumpUPGame:SKScene {
 								gameCharacterUnlimitedLife = 120; //무적시간 부여
 								gameScreenShakeEventDelay = 60; //화면 흔들림 효과
 								
+								//진동
+								AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate));
+								
 								if (gameStartupType == 0) {
 									//알람으로 켜진 경우, 최대 120초까지 커지도록 시간 추가
 									if (gameScore <= gameLevelAverageTime) {
@@ -568,10 +609,15 @@ class JumpUPGame:SKScene {
 			} //end switch
 			
 			//특수한 적의 경우 특별한 경우 점프를 하도록 만듬. 아래 적은 점프하느 ㄴ적의 경우.
+			//점프할거라는 신호를 먼저 주고 점프해야 함. addNodes( 10000 );
 			if (gameNodesArray[i]!.elementFlag == 1 && gameNodesArray[i]!.elementTickFlag == 0
+				&& gameNodesArray[i]!.position.x < 260 * DeviceGeneral.scrRatioC ) {
+				addNodes( 10000, posX: gameNodesArray[i]!.position.x, posY: gameNodesArray[i]!.position.y, targetElement: gameNodesArray[i] );
+				gameNodesArray[i]!.elementTickFlag = 1;
+			} else if (gameNodesArray[i]!.elementFlag == 1 && gameNodesArray[i]!.elementTickFlag == 1
 				&& gameNodesArray[i]!.position.x < 160 * DeviceGeneral.scrRatioC ) {
 				gameNodesArray[i]!.ySpeed = 14;
-				gameNodesArray[i]!.elementTickFlag = 1;
+				gameNodesArray[i]!.elementTickFlag = 2;
 			}
 			
 			
@@ -581,7 +627,7 @@ class JumpUPGame:SKScene {
 	} //end of tick
 	
 	//node add func
-	func addNodes( elementType:Int ) {
+	func addNodes( elementType:Int, posX:CGFloat = 0, posY:CGFloat = 0, targetElement:SKSpriteNode? = nil ) {
 		var toAddelement:JumpUpElements?; // = JumpUpElements();
 		switch(elementType){
 			case 0: //0 - Cloud for decoration
@@ -637,6 +683,7 @@ class JumpUPGame:SKScene {
 				toAddelement!.position.y = gameStageYAxis - gameStageYHeight + (toAddelement!.size.height / 2);
 				toAddelement!.elementSpeed = 2.8; //속도.
 
+				toAddelement!.motions_current = 0;
 				toAddelement!.motions_walking = gameTexturesAIMoveTexturesArray;
 				
 				break;
@@ -651,6 +698,7 @@ class JumpUPGame:SKScene {
 				toAddelement!.position.y = gameStageYAxis - gameStageYHeight + (toAddelement!.size.height / 2);
 				toAddelement!.elementSpeed = 2.8; //속도.
 				
+				toAddelement!.motions_current = 0;
 				toAddelement!.motions_walking = gameTexturesAIJMoveTexturesArray;
 				toAddelement!.motions_jumping = gameTexturesAIJJumpTexturesArray;
 				
@@ -671,6 +719,27 @@ class JumpUPGame:SKScene {
 				
 				toAddelement!.elementSpeed = 1.8; // + Double(Float(arc4random()) / Float(UINT32_MAX)) / 9;
 				toAddelement!.elementFlag = 2; //고정형 (물리 안받음)
+				
+				break;
+			
+			case 10000:
+				//AI 폭발 효과
+				toAddelement = JumpUpElements();
+				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
+				toAddelement!.size = CGSizeMake( 150 * DeviceGeneral.scrRatioC , 150 * DeviceGeneral.scrRatioC );
+				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
+				
+				//약간의 위치조정.
+				toAddelement!.elementTargetPosFix = CGSizeMake( 0, 10 * DeviceGeneral.scrRatioC );
+				toAddelement!.elementTargetElement = targetElement;
+				
+				if (targetElement == nil) {
+					print("boom effect target is null.");
+				}
+				
+				toAddelement!.elementSpeed = 0; //타겟이 정해져있는경우 타겟에 맞춰서 움직일테니.
+				toAddelement!.motions_current = 2; //폭발효과는 2번
+				toAddelement!.motions_effect = gameTexturesAIEffectsArray[0]; //텍스쳐 배열의 텍스쳐 배열 (이중배열)
 				
 				break;
 			

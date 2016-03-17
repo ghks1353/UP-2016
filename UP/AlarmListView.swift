@@ -10,7 +10,7 @@
 import Foundation
 import UIKit
 
-class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate {
+class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate {
 	
 	//for access
 	static var selfView:AlarmListView?;
@@ -93,14 +93,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			};
 			let deleteSureAct:UIAlertAction = UIAlertAction(title: Languages.$("alarmDelete"), style: .Destructive) { action -> Void in
 				//delete it
-				print("del start of", self.alarmTargetID);
-				AlarmManager.removeAlarm(self.alarmTargetID);
+				self.deleteAlarmConfirm();
 				
-				//Update table with animation
-				self.alarmsCell.removeAtIndex(self.alarmTargetIndexPath!.row); self.tablesArray = [self.alarmsCell];
-				self.tableView.deleteRowsAtIndexPaths([self.alarmTargetIndexPath!], withRowAnimation: UITableViewRowAnimation.Top);
-				
-				//self.createTableList(); //reload list
 			};
 			listConfirmAction!.addAction(cancelAct);
 			listConfirmAction!.addAction(deleteSureAct);
@@ -119,18 +113,58 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
     }
 	
+	func deleteAlarmConfirm() {
+		//알람 삭제 통합 function
+		
+		print("del start of", self.alarmTargetID);
+		AlarmManager.removeAlarm(self.alarmTargetID);
+		//Update table with animation
+		self.alarmsCell.removeAtIndex(self.alarmTargetIndexPath!.row); self.tablesArray = [self.alarmsCell];
+		self.tableView.deleteRowsAtIndexPaths([self.alarmTargetIndexPath!], withRowAnimation: UITableViewRowAnimation.Top);
+	}
+	
+	//iPad Alarm Delete Question
+	func showAlarmDelAlert() {
+		if #available(iOS 8.0, *) {
+			let alarmDelAlertController = UIAlertController(title: Languages.$("alarmDelete"), message: Languages.$("alarmDeleteSure"), preferredStyle: UIAlertControllerStyle.Alert);
+			alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
+				//Alarm delete
+				self.deleteAlarmConfirm();
+			}));
+			
+			alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalCancel"), style: .Default, handler: { (action: UIAlertAction!) in
+				//Cancel
+			}));
+			presentViewController(alarmDelAlertController, animated: true, completion: nil);
+		} else {
+		    // iOS7 Fallback
+			let alarmDelAlertView = UIAlertView(
+				title: Languages.$("alarmDelete"),
+				message: Languages.$("alarmDeleteSure"), delegate: self,
+				cancelButtonTitle: Languages.$("generalCancel"),
+				otherButtonTitles: Languages.$("generalOK"));
+			alarmDelAlertView.show();
+			
+		} //end chk fallback
+		
+	} //end function
+	
+	//iOS7 & iPad Alert fallback
+	func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+		if (buttonIndex == alertView.cancelButtonIndex) { //cancel
+			print("ios7 fallback - alarm del canceled");
+		} else { //ok confirm
+			self.deleteAlarmConfirm();
+		}
+	}
+	
 	//iOS7 actionsheet handler
 	func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
 		print("actionidx", buttonIndex);
 		switch(buttonIndex){
 			case 0:
 				//Alarm delete
-				print("del start of", self.alarmTargetID);
-				AlarmManager.removeAlarm(self.alarmTargetID);
-				
-				//Update table with animation
-				self.alarmsCell.removeAtIndex(self.alarmTargetIndexPath!.row); self.tablesArray = [self.alarmsCell];
-				self.tableView.deleteRowsAtIndexPaths([self.alarmTargetIndexPath!], withRowAnimation: UITableViewRowAnimation.Top);
+				deleteAlarmConfirm();
 				
 				break;
 			default: break;
@@ -148,7 +182,14 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 				print("Cell long pressed:", cell.alarmID);
 				alarmTargetID = cell.alarmID;
 				alarmTargetIndexPath = indexPath;
-				(listConfirmAction as! UIActionSheet).showInView(self.view);
+				
+				if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+					//패드일 땐 그냥 alert로 띄움
+					showAlarmDelAlert();
+				} else {
+					(listConfirmAction as! UIActionSheet).showInView(self.view);
+				}
+				
 			}
 		}
 		
@@ -285,9 +326,16 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			print("cell delete alarm", cell.alarmID);
 			self.alarmTargetID = cell.alarmID;
 			self.alarmTargetIndexPath = childIndexPath;
-			self.presentViewController(self.listConfirmAction as! UIAlertController, animated: true, completion: nil); //show menu
 			
-		}
+			if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+				//패드일 땐 그냥 alert로 띄움
+				self.showAlarmDelAlert();
+			} else {
+				//폰일 때
+				self.presentViewController(self.listConfirmAction as! UIAlertController, animated: true, completion: nil); //show menu
+			} //end chk phone or not
+			
+		} //end if
 		
 		return [deleteRow];
 	}

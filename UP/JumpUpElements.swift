@@ -15,6 +15,7 @@ class JumpUpElements:SKSpriteNode {
 	static let TYPE_DECORATION:Int = 0;
 	static let TYPE_STATIC_ENEMY:Int = 1;
 	static let TYPE_DYNAMIC_ENEMY:Int = 2;
+	static let TYPE_EFFECT:Int = 3;
 	
 	/////////
 	internal var elementType:Int = 0; //default is decoration
@@ -24,11 +25,16 @@ class JumpUpElements:SKSpriteNode {
 	//element vars flag
 	internal var elementTickFlag:Int = 0; //점프 비헤이비어 등의 flag를 위함
 	
+	//target element (optional)
+	internal var elementTargetElement:SKSpriteNode?;
+	internal var elementTargetPosFix:CGSize?;
+	
 	//Motions
-	internal var motions_current:Int = 0;
+	internal var motions_current:Int = -1;
 	internal var motions_current_frame:Int = 0; //현재 모션에 대한 프레임
 	internal var motions_frame_delay_left:Int = 0; //모션 프레임 사이의 간격
-
+	
+	internal var motions_effect:Array<SKTexture> = [];
 	internal var motions_walking:Array<SKTexture> = [];
 	internal var motions_jumping:Array<SKTexture> = [];
 	
