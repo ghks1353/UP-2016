@@ -27,9 +27,9 @@ class JumpUPGame:SKScene {
 	var gameStartupType:Int = 0;
 	
 	//아래는 알람으로 게임진행 중일 때 사용하는 값임
-	var gameAlarmFirstGoalTime:Int = 80; // 처음 목표로 하는 시간
-	var gameLevelAverageTime:Int = 40; //난이도가 높아지는 시간
-	var gameTimerMaxTime:Int = 80; //알람으로 게임 진행 중일 때 시간이 추가될 수 있는 최대 수치
+	var gameAlarmFirstGoalTime:Int = 60; // 처음 목표로 하는 시간
+	var gameLevelAverageTime:Int = 30; //난이도가 높아지는 시간
+	var gameTimerMaxTime:Int = 60; //알람으로 게임 진행 중일 때 시간이 추가될 수 있는 최대 수치
 	var gameRetireTime:Int = 240; //포기 버튼이 나타나는 시간
 	var gameRetireTimeCount:Int = 0; //포기 버튼 카운트
 	
@@ -43,6 +43,9 @@ class JumpUPGame:SKScene {
 	var buttonRetireSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_time_retire.png" ) );
 	var buttonAlarmOffSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_time_alram_off.png" ) );
 	var buttonAlarmOnSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_time_alram_reset.png" ) );
+	
+	//게임 종료 / 포기 버튼이 생기는 Y위치
+	var buttonYAxis:CGFloat = 0;
 	
 	//time 또는 score 표시 부분
 	var gameScoreTitleImageTexture:SKTexture?;
@@ -117,11 +120,40 @@ class JumpUPGame:SKScene {
 		
 		//time 혹은 score 추가 (실행 타입에 따라 바뀜)
 		gameScoreStr = "";
+		
+		//아이패드의 경우, 게임 스크롤 속도를 강제로 올려야 함
+		if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+			gameScrollSpeed = 2;
+		}
+		
+		
+		var movPositionY:CGFloat = 0;
+		var gameScoreMovPositionY:CGFloat = 0;
+		
 		if (gameStartupType == 0) {
 			//time
 			gameScoreTitleImageTexture = SKTexture( imageNamed: "game_jumpup_assets_time_time.png" );
 			gameScoreTitleImage = SKSpriteNode( texture: gameScoreTitleImageTexture );
-			gameScoreTitleImage!.size = CGSizeMake( 87.65 * DeviceGeneral.scrRatioC, 38.35 * DeviceGeneral.scrRatioC );
+			
+			if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+				//iPhone 전용 사이즈
+				gameScoreTitleImage!.size = CGSizeMake( 87.65 * DeviceGeneral.scrRatioC, 38.35 * DeviceGeneral.scrRatioC );
+				
+				//4/4s의 경우, 세로길이가 부족하므로 기존 아이폰과 다른 y위치 지정
+				if (DeviceGeneral.scrSize?.height <= 480.0) {
+					//4/4s fallback
+					movPositionY = DeviceGeneral.scrSize!.height - (63 * DeviceGeneral.scrRatioC);
+				} else {
+					movPositionY = DeviceGeneral.scrSize!.height - (96 * DeviceGeneral.scrRatioC);
+				}
+				
+				gameScoreMovPositionY = movPositionY - (72 * DeviceGeneral.scrRatioC);
+			} else {
+				//iPad 전용 사이즈 (고정)
+				gameScoreTitleImage!.size = CGSizeMake( 122.15, 53.35 );
+				movPositionY = DeviceGeneral.scrSize!.height - (52 * DeviceGeneral.scrRatioC);
+				gameScoreMovPositionY = movPositionY - 94;
+			}
 			
 			gameScore = gameAlarmFirstGoalTime; //초반 120초 부여
 			addCountdownTimerForAlarm();
@@ -129,14 +161,8 @@ class JumpUPGame:SKScene {
 			//score
 			
 		}
+		
 		gameScoreTitleImage!.position.x = DeviceGeneral.scrSize!.width / 2;
-		var movPositionY:CGFloat = 0;
-		if (DeviceGeneral.scrSize?.height <= 480.0) {
-			//4/4s fallback
-			movPositionY = DeviceGeneral.scrSize!.height - (63 * DeviceGeneral.scrRatioC);
-		} else {
-			movPositionY = DeviceGeneral.scrSize!.height - (96 * DeviceGeneral.scrRatioC);
-		}
 		self.addChild(gameScoreTitleImage!);
 		
 		let moveEffect = SKTMoveEffect(node: gameScoreTitleImage!, duration: 0.5,
@@ -152,19 +178,26 @@ class JumpUPGame:SKScene {
 			} //0~9에 대한 숫자 데이터 텍스쳐
 			for (var i:Int = 0; i < 3; ++i) {
 				gameNumberSpriteNodesArray += [ SKSpriteNode( texture: gameNumberTexturesArray[0] ) ];
-				gameNumberSpriteNodesArray[i].size = CGSizeMake(50 * DeviceGeneral.scrRatioC , 70 * DeviceGeneral.scrRatioC);
+				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) { //iPhone 전용 크기 (가변)
+					gameNumberSpriteNodesArray[i].size = CGSizeMake(50 * DeviceGeneral.scrRatioC , 70 * DeviceGeneral.scrRatioC);
+					gameNumberSpriteNodesArray[i].position.y = movPositionY - (120 * DeviceGeneral.scrRatioC);
+				} else { //iPad 전용 크기 (고정)
+					gameNumberSpriteNodesArray[i].size = CGSizeMake(69.7, 97.4);
+					gameNumberSpriteNodesArray[i].position.y = movPositionY - 120;
+				}
+				
 				gameNumberSpriteNodesArray[i].position.x =
-					DeviceGeneral.scrSize!.width / 2 - (CGFloat(i) * (gameNumberSpriteNodesArray[i].size.width + 12 * DeviceGeneral.scrRatioC))
+					DeviceGeneral.scrSize!.width / 2 - (CGFloat(i) * (gameNumberSpriteNodesArray[i].size.width + 12 * DeviceGeneral.maxScrRatioC))
 					/* align to center */
-					+ ((gameNumberSpriteNodesArray[i].size.width + 12 * DeviceGeneral.scrRatioC));
-				gameNumberSpriteNodesArray[i].position.y = movPositionY - (120 * DeviceGeneral.scrRatioC);
+					+ ((gameNumberSpriteNodesArray[i].size.width + 12 * DeviceGeneral.maxScrRatioC));
+				
 				self.addChild( gameNumberSpriteNodesArray[i] );
 				
 				//숫자 밑에서 위로 올라오는 효과 주기
 				gameNumberSpriteNodesArray[i].alpha = 0;
 				let moveEffect = SKTMoveEffect(node: gameNumberSpriteNodesArray[i], duration: 0.5 ,
 					startPosition: CGPointMake( gameNumberSpriteNodesArray[i].position.x, movPositionY - (120 * DeviceGeneral.scrRatioC)),
-					endPosition: CGPointMake( gameNumberSpriteNodesArray[i].position.x, movPositionY - (72 * DeviceGeneral.scrRatioC)));
+					endPosition: CGPointMake( gameNumberSpriteNodesArray[i].position.x, gameScoreMovPositionY));
 				moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
 				//gameNumberSpriteNodesArray[i].runAction();
 				gameNumberSpriteNodesArray[i].runAction(
@@ -274,7 +307,15 @@ class JumpUPGame:SKScene {
 		
 		
 		//버튼 배치
-		buttonRetireSprite.size = CGSizeMake( 242.05 * DeviceGeneral.scrRatioC, 70.75 * DeviceGeneral.scrRatioC );
+		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+			//아이폰 (상대크기)
+			buttonRetireSprite.size = CGSizeMake( 242.05 * DeviceGeneral.scrRatioC, 70.75 * DeviceGeneral.scrRatioC );
+			buttonYAxis = gameStageYAxis - gameStageYHeight - (128 * DeviceGeneral.scrRatioC);
+		} else { //아이패드 (절대크기)
+			buttonRetireSprite.size = CGSizeMake( 336.75, 98.45 );
+			buttonYAxis = gameStageYAxis - gameStageYHeight - ((self.size.height - gameStageYHeight) / 4);
+		}
+		
 		buttonRetireSprite.position.x = self.view!.frame.width / 2;
 		buttonRetireSprite.position.y = -buttonRetireSprite.size.height / 2; //화면 밖에 배치
 		buttonRetireSprite.alpha = 0; //나옴/안나옴 플래그 대신 사용
@@ -497,7 +538,7 @@ class JumpUPGame:SKScene {
 					gameNodesArray[i]!.position.x -= CGFloat(gameScrollSpeed * gameNodesArray[i]!.elementSpeed);
 					break;
 				case JumpUpElements.TYPE_EFFECT:
-					print("Effect status", gameNodesArray[i]!.elementTargetElement);
+					//print("Effect status", gameNodesArray[i]!.elementTargetElement);
 					if (gameNodesArray[i]!.elementTargetElement != nil) {
 						gameNodesArray[i]!.position.x = gameNodesArray[i]!.elementTargetElement!.position.x + gameNodesArray[i]!.elementTargetPosFix!.width;
 						gameNodesArray[i]!.position.y = gameNodesArray[i]!.elementTargetElement!.position.y + gameNodesArray[i]!.elementTargetPosFix!.height;
@@ -789,7 +830,7 @@ class JumpUPGame:SKScene {
 			buttonAlarmOffSprite.alpha = 1;
 			let moveEffect = SKTMoveEffect(node: buttonAlarmOffSprite, duration: 0.5 ,
 				startPosition: CGPointMake( buttonAlarmOffSprite.position.x, buttonAlarmOffSprite.position.y ),
-				endPosition: CGPointMake( buttonAlarmOffSprite.position.x, gameStageYAxis - gameStageYHeight - (128 * DeviceGeneral.scrRatioC))
+				endPosition: CGPointMake( buttonAlarmOffSprite.position.x, buttonYAxis)
 			);
 			moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
 			buttonAlarmOffSprite.runAction(
@@ -810,7 +851,7 @@ class JumpUPGame:SKScene {
 			buttonRetireSprite.alpha = 1;
 			let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
 				startPosition: CGPointMake( buttonRetireSprite.position.x, buttonRetireSprite.position.y ),
-				endPosition: CGPointMake( buttonRetireSprite.position.x, gameStageYAxis - gameStageYHeight - (128 * DeviceGeneral.scrRatioC))
+				endPosition: CGPointMake( buttonRetireSprite.position.x, buttonYAxis)
 				);
 			moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
 			buttonRetireSprite.runAction(

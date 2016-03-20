@@ -12,79 +12,10 @@
                     <view key="view" contentMode="TopLeft" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="object_st.png" id="KEm-J4-clm">
-                                <rect key="frame" x="12" y="382" width="157" height="157"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="object_list.png" id="E95-e0-PgN">
-                                <rect key="frame" x="283" y="253" width="105" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_body_back.png" id="eZU-D9-dbs">
-                                <rect key="frame" x="71" y="253" width="273" height="255"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0.png" id="TyA-Dk-cDY">
-                                <rect key="frame" x="148" y="80" width="45" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0.png" id="l2R-CS-q3D">
-                                <rect key="frame" x="222" y="80" width="45" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0.png" id="aAk-ln-Gov">
-                                <rect key="frame" x="275" y="80" width="45" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="col.png" id="8Zs-Cc-yFa">
-                                <rect key="frame" x="185" y="80" width="45" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0.png" id="c5x-Zl-cX1">
-                                <rect key="frame" x="95" y="80" width="45" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_body.png" id="tO0-Fy-SKc">
-                                <rect key="frame" x="85" y="262" width="245" height="245"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_mh.png" id="Lnr-Xr-H5t">
-                                <rect key="frame" x="85" y="262" width="245" height="245"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ground.png" id="j9V-vd-mh0">
-                                <rect key="frame" x="0.0" y="665" width="414" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_hh.png" id="1Wq-5e-oof">
-                                <rect key="frame" x="85" y="263" width="245" height="245"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="astro0001.png" id="WyP-xo-GRw">
-                                <rect key="frame" x="294" y="525" width="63" height="151"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                    <connections>
-                        <outlet property="AlarmListImg" destination="E95-e0-PgN" id="fag-WK-sZU"/>
-                        <outlet property="AnalogBody" destination="tO0-Fy-SKc" id="pKy-zk-y3e"/>
-                        <outlet property="AnalogBodyBack" destination="eZU-D9-dbs" id="1Z1-yG-w3N"/>
-                        <outlet property="AnalogHours" destination="1Wq-5e-oof" id="vjO-rf-pfu"/>
-                        <outlet property="AnalogMinutes" destination="Lnr-Xr-H5t" id="vAs-2Z-5ta"/>
-                        <outlet property="AstroCharacter" destination="WyP-xo-GRw" id="MYh-7n-Rda"/>
-                        <outlet property="DigitalCol" destination="8Zs-Cc-yFa" id="tyh-iW-Ny3"/>
-                        <outlet property="DigitalNum0" destination="c5x-Zl-cX1" id="W1M-mA-xYz"/>
-                        <outlet property="DigitalNum1" destination="TyA-Dk-cDY" id="r3J-Kd-ovh"/>
-                        <outlet property="DigitalNum2" destination="l2R-CS-q3D" id="gKH-DA-4us"/>
-                        <outlet property="DigitalNum3" destination="aAk-ln-Gov" id="CMx-v0-ig8"/>
-                        <outlet property="GroundObj" destination="j9V-vd-mh0" id="znf-Ml-svN"/>
-                        <outlet property="SettingsImg" destination="KEm-J4-clm" id="IjX-Lb-s2B"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -105,32 +36,5 @@
             </objects>
             <point key="canvasLocation" x="1189" y="321"/>
         </scene>
-        <!--Alarm List View-->
-        <scene sceneID="GDY-DQ-Xuz">
-            <objects>
-                <viewController id="BiP-C5-gtl" customClass="AlarmListView" customModule="UP" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="TopLeft" id="kh9-o4-4TY">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1xV-rL-e56" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="161" y="1226"/>
-        </scene>
     </scenes>
-    <resources>
-        <image name="0.png" width="202" height="282"/>
-        <image name="astro0001.png" width="176" height="452"/>
-        <image name="col.png" width="202" height="282"/>
-        <image name="ground.png" width="1242" height="214"/>
-        <image name="object_list.png" width="315" height="449"/>
-        <image name="object_st.png" width="472" height="472"/>
-        <image name="time_body.png" width="735" height="735"/>
-        <image name="time_body_back.png" width="819" height="765"/>
-        <image name="time_hh.png" width="735" height="735"/>
-        <image name="time_mh.png" width="735" height="735"/>
-    </resources>
 </document>

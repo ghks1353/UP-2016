@@ -11,33 +11,29 @@ import AVFoundation;
 import AudioToolbox;
 
 class ViewController: UIViewController {
-   
-    @IBOutlet weak var DigitalNum0: UIImageView!
-    @IBOutlet weak var DigitalCol: UIImageView!
-    @IBOutlet weak var DigitalNum1: UIImageView!
-    @IBOutlet weak var DigitalNum2: UIImageView!
-    @IBOutlet weak var DigitalNum3: UIImageView!
-    
-    @IBOutlet weak var GroundObj: UIImageView!
-    @IBOutlet weak var AnalogBody: UIImageView!
-    @IBOutlet weak var AnalogHours: UIImageView!
-    @IBOutlet weak var AnalogMinutes: UIImageView!
-    
-    @IBOutlet weak var AnalogBodyBack: UIImageView!
-    @IBOutlet weak var SettingsImg: UIImageView!
-    @IBOutlet weak var AlarmListImg: UIImageView!
-    
-    @IBOutlet weak var AstroCharacter: UIImageView!
+
+	/// 스토리보드 리소스를 옮겨야함 (스킨때문에)
 	
-	////////// 위 리소스는 스토리보드에서 작업했음
+	//Digital 시계
+	var DigitalNum0:UIImageView = UIImageView(); var DigitalNum1:UIImageView = UIImageView();
+	var DigitalNum2:UIImageView = UIImageView(); var DigitalNum3:UIImageView = UIImageView();
+	var DigitalCol:UIImageView = UIImageView();
+	//아날로그 시계
+	var AnalogBody:UIImageView = UIImageView(); var AnalogHours:UIImageView = UIImageView();
+	var AnalogMinutes:UIImageView = UIImageView(); var AnalogBodyBack:UIImageView = UIImageView();
+	//아날로그 시계 좌우 버튼
+	var SettingsImg:UIImageView = UIImageView(); var AlarmListImg:UIImageView = UIImageView();
+	//땅 부분
+	var GroundObj:UIImageView = UIImageView(); var AstroCharacter:UIImageView = UIImageView();
 	
-    //Animation images
-        //스탠딩 모션
+	///아래 애니메이션 이미지의 이미지 배열도 스킨에 따라 바뀜.
+	//스탠딩 모션
     var astroMotionsStanding:Array<UIImage> = [];
-        //달리기
+	//달리기
     var astroMotionsRunning:Array<UIImage> = [];
-        //점프
+	//점프
     var astroMotionsJumping:Array<UIImage> = [];
+	
 	
     //Modal views
     var modalSettingsView:SettingsView = SettingsView();
@@ -69,25 +65,45 @@ class ViewController: UIViewController {
 		self.view.addSubview(backgroundImageView); self.view.addSubview(backgroundImageFadeView);
 		self.view.sendSubviewToBack(backgroundImageFadeView); self.view.sendSubviewToBack(backgroundImageView);
 		
+		//리소스 뷰에 추가
+		self.view.addSubview(DigitalNum0); self.view.addSubview(DigitalNum1); self.view.addSubview(DigitalNum2); self.view.addSubview(DigitalNum3);
+		self.view.addSubview(DigitalCol);
+		
+		self.view.addSubview(AnalogBody); self.view.addSubview(AnalogHours); self.view.addSubview(AnalogMinutes); self.view.addSubview(AnalogBodyBack);
+		self.view.addSubview(SettingsImg); self.view.addSubview(AlarmListImg);
+		self.view.addSubview(GroundObj); self.view.addSubview(AstroCharacter);
+		
+		//리소스 우선순위 설정
+		self.view.bringSubviewToFront(DigitalCol);
+		self.view.bringSubviewToFront(DigitalNum0); self.view.bringSubviewToFront(DigitalNum1);
+		self.view.bringSubviewToFront(DigitalNum2); self.view.bringSubviewToFront(DigitalNum3);
+		
+		self.view.bringSubviewToFront(AnalogBodyBack); self.view.bringSubviewToFront(AnalogBody);
+		self.view.bringSubviewToFront(AnalogHours); self.view.bringSubviewToFront(AnalogMinutes);
+		
+		self.view.bringSubviewToFront(GroundObj); self.view.bringSubviewToFront(AstroCharacter);
+		
+		//디지털시계 이미지 기본 설정
+		DigitalCol.image = UIImage( named: "col.png" );
+		DigitalNum0.image = UIImage( named: "0.png" ); DigitalNum1.image = UIImage( named: "0.png" );
+		DigitalNum2.image = UIImage( named: "0.png" ); DigitalNum3.image = UIImage( named: "0.png" );
+		DigitalCol.frame.size = CGSizeMake( 43.5, 60.9 ); //디바이스별 크기 설정은 밑에서 하므로 여긴 원본 크기를 입력함.
+		
+		//기본 스킨 선택. 나중엔 저장된 스킨번호를 불러오게 변경.
+		selectMainSkin(0);
+		
         var scrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (DigitalCol.bounds.width / 2));
         scrX += 4 * DeviceGeneral.maxScrRatioC;
 		
-        //디지털시계 이미지 스케일 조정
-        DigitalCol.frame = CGRectMake(scrX, 80 * DeviceGeneral.scrRatioC, DigitalCol.bounds.width * DeviceGeneral.maxScrRatioC, DigitalCol.bounds.height * DeviceGeneral.maxScrRatioC);
+		  //디지털시계 이미지 스케일 조정
+        DigitalCol.frame = CGRectMake(scrX, 90 * DeviceGeneral.scrRatioC, DigitalCol.bounds.width * DeviceGeneral.maxScrRatioC, DigitalCol.bounds.height * DeviceGeneral.maxScrRatioC);
+		
         //x위치를 제외한 나머지 통일
         DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width * 2 - 20 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
         DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - 12 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
         DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + 20 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
         DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + 12 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
         
-        //Ground 크기 조절. iPad의 경우 이미지를 넓은 것으로 교체할 필요가 있음
-		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
-			GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 75 * DeviceGeneral.maxScrRatioC, CGFloat((DeviceGeneral.scrSize?.width)!) , 75 * DeviceGeneral.maxScrRatioC );
-		} else {
-			//show pad ground
-			GroundObj.image = UIImage( named: "ground_pad43.png" );
-			GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 75 * DeviceGeneral.maxScrRatioC, (DeviceGeneral.scrSize!.width) , 85.6 * DeviceGeneral.maxScrRatioC );
-		}
 		
         //시계 바디 및 시침 분침 위치/크기조절
         let clockScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
@@ -105,31 +121,9 @@ class ViewController: UIViewController {
         SettingsImg.frame = CGRectMake( clockScrX - ((135 * DeviceGeneral.maxScrRatioC) / 2), clockScrY + (125 * DeviceGeneral.maxScrRatioC) , (157 * DeviceGeneral.maxScrRatioC), (157 * DeviceGeneral.maxScrRatioC) );
         AlarmListImg.frame = CGRectMake( clockRightScrX - ((90 * DeviceGeneral.maxScrRatioC) / 2), clockScrY - (10 * DeviceGeneral.maxScrRatioC), (105 * DeviceGeneral.maxScrRatioC), (150 * DeviceGeneral.maxScrRatioC) );
 		
-        //Astro 크기조정
-        AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - (126 * DeviceGeneral.maxScrRatioC), GroundObj.frame.origin.y - (151 * DeviceGeneral.maxScrRatioC) + (9 * DeviceGeneral.maxScrRatioC), 60 * DeviceGeneral.maxScrRatioC, 151 * DeviceGeneral.maxScrRatioC );
-        //Astro animations
-        for i in 1...40 { //부동
-            let numberStr:String = String(i).characters.count == 1 ? "0" + String(i) : String(i);
-            let fileName:String = "astro" + "00" + numberStr + ".png";
-            let fImage:UIImage = UIImage( named: fileName )!;
-            astroMotionsStanding += [fImage];
-        }
-        for i in 161...190 { //달리기(걷기)
-            let numberStr:String = String(i);
-            let fileName:String = "astro" + "0" + numberStr + ".png";
-            let fImage:UIImage = UIImage( named: fileName )!;
-            astroMotionsRunning += [fImage];
-        }
-        for i in 221...264 { //점프밎착지
-            let numberStr:String = String(i);
-            let fileName:String = "astro" + "0" + numberStr + ".png";
-            let fImage:UIImage = UIImage( named: fileName )!;
-            astroMotionsJumping += [fImage];
-        }
-        
+		//기본 스킨이 선택된 상태에서
         AstroCharacter.animationImages = astroMotionsStanding;
-        AstroCharacter.animationDuration = 1.0;
-        AstroCharacter.animationRepeatCount = -1;
+        AstroCharacter.animationDuration = 1.0; AstroCharacter.animationRepeatCount = -1;
         AstroCharacter.startAnimating();
         
         //Modal view 크기 및 위치
@@ -524,11 +518,63 @@ class ViewController: UIViewController {
 		
 	} //end if
 	
+	///////// 메인 스킨 변경 (혹은 스킨 설정 )
+	func selectMainSkin(skinID:Int = 0) {
+		
+		switch(skinID) {
+			case 0: //기본 up 스킨
+				
+				//시계
+				AnalogBody.image = UIImage( named: "time_body.png" ); AnalogHours.image = UIImage( named: "time_hh.png" );
+				AnalogMinutes.image = UIImage( named: "time_mh.png" ); AnalogBodyBack.image = UIImage( named: "time_body_back.png" );
+				//떠있는 버튼
+				SettingsImg.image = UIImage( named: "object_st.png" ); AlarmListImg.image = UIImage( named: "object_list.png" );
+				//땅 부분 (아스트로는 위에서 지정함) iPad의 경우 이미지를 넓은 것으로 교체할 필요가 있음
+				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+					GroundObj.image = UIImage( named: "ground.png" );
+					GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 75 * DeviceGeneral.maxScrRatioC, CGFloat((DeviceGeneral.scrSize?.width)!) , 75 * DeviceGeneral.maxScrRatioC );
+				} else {
+					//show pad ground
+					GroundObj.image = UIImage( named: "ground_pad43.png" );
+					GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 75 * DeviceGeneral.maxScrRatioC, (DeviceGeneral.scrSize!.width) , 85.6 * DeviceGeneral.maxScrRatioC );
+				}
+				
+				
+				//Astro 크기 및 위치조정
+				AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - (126 * DeviceGeneral.maxScrRatioC), GroundObj.frame.origin.y - (151 * DeviceGeneral.maxScrRatioC) + (9 * DeviceGeneral.maxScrRatioC), 60 * DeviceGeneral.maxScrRatioC, 151 * DeviceGeneral.maxScrRatioC );
+				
+				//기본 스킨 아스트로 애니메이션 (텍스쳐)
+				for i in 1...40 { //부동
+					let numberStr:String = String(i).characters.count == 1 ? "0" + String(i) : String(i);
+					let fileName:String = "astro" + "00" + numberStr + ".png";
+					let fImage:UIImage = UIImage( named: fileName )!;
+					astroMotionsStanding += [fImage];
+				} /* 아직 안쓰니까 주석처리함. 쓸때 다시 주석 품,
+				for i in 161...190 { //달리기(걷기)
+				let numberStr:String = String(i);
+				let fileName:String = "astro" + "0" + numberStr + ".png";
+				let fImage:UIImage = UIImage( named: fileName )!;
+				astroMotionsRunning += [fImage];
+				}
+				for i in 221...264 { //점프밎착지
+				let numberStr:String = String(i);
+				let fileName:String = "astro" + "0" + numberStr + ".png";
+				let fImage:UIImage = UIImage( named: fileName )!;
+				astroMotionsJumping += [fImage];
+				} */
+
+				
+				break;
+			default: break;
+		}
+		
+	}
+	
 	
     ///////////
 	
     //Changes image size
-    
+	
     func scaleUIImageToSize(let image: UIImage, let size: CGSize) -> UIImage {
         let hasAlpha = false
         let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
@@ -542,9 +588,6 @@ class ViewController: UIViewController {
         return scaledImage
     }
 	
-	
-	
-
 }
 
 
