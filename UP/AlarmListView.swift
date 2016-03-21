@@ -111,6 +111,12 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		AlarmListView.alarmListInited = true;
 		
+		
+		//DISABLE AUTORESIZE
+		self.view.autoresizesSubviews = false;
+		//self.view.autoresizingMask = .None;
+		
+		FitModalLocationToCenter();
     }
 	
 	func deleteAlarmConfirm() {
@@ -195,7 +201,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 	}
 	
-	
 	// iOS7 Background fallback
 	override func viewDidAppear(animated: Bool) {
 		if #available(iOS 8.0, *) {
@@ -242,12 +247,13 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tableView.reloadData();
 		tableView.reloadInputViews();
 		tableView.delegate = self; tableView.dataSource = self;
-
+		
+		//DISABLE AUTORESIZE
+		self.view.autoresizesSubviews = false;
+		self.view.autoresizingMask = .None;
+		
 	}
 	
-	func getGeneralModalRect() -> CGRect {
-		return CGRectMake(CGFloat(50 * DeviceGeneral.scrRatio) , ((DeviceGeneral.scrSize?.height)! - CGFloat(480 * DeviceGeneral.scrRatio)) / 2 , (DeviceGeneral.scrSize?.width)! - CGFloat(100 * DeviceGeneral.scrRatio), CGFloat(480 * DeviceGeneral.scrRatio));
-	}
 	
     /// table setup
 	
@@ -342,10 +348,15 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     
     ////////////////
     
-    func setupModalView(frame:CGRect) {
-        modalView.view.frame = frame;
-    }
-    
+	func setupModalView(frame:CGRect) {
+		modalView.view.frame = frame;
+	}
+	
+	func FitModalLocationToCenter() {
+		navigationCtrl.view.frame.origin.x = DeviceGeneral.defaultModalSizeRect.minX;
+		navigationCtrl.view.frame.origin.y = DeviceGeneral.defaultModalSizeRect.minY;
+	}
+	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -362,6 +373,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			modalAlarmAddView.removeBackgroundViews();
 			modalAddViewCalled = true;
 		};
+		modalAlarmAddView.FitModalLocationToCenter();
 		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
 		modalAlarmAddView.clearComponents();
 		
@@ -373,7 +385,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		if (modalBackgroundBlackCover != nil) { //iOS7 Fallback (Should work on iOS7 only)
 			modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
 		}
-		ViewController.viewSelf?.showHideBlurview(false);
+		ViewController.viewSelf!.showHideBlurview(false);
         self.dismissViewControllerAnimated(true, completion: nil);
     }
 	

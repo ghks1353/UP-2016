@@ -71,6 +71,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#663300");
 		navigationCtrl.navigationBar.tintColor = UIColor.whiteColor();
 		navigationCtrl.view.frame = modalView.view.frame;
+		
 		modalView.title = Languages.$("alarmSettings");
 		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
 		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Languages.$("generalAdd"), style: .Plain, target: self, action: "addAlarmToDevice");
@@ -81,6 +82,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		//add table to modals
 		tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
 		modalView.view.addSubview(tableView);
+		
 		
 		//add table cells (options)
 		tablesArray = [
@@ -104,6 +106,17 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA"); //modalView.view.backgroundColor;
 		
 		//set subview size
+		setSubviewSize();
+		
+		//DISABLE AUTORESIZE
+		self.view.autoresizesSubviews = false;
+		//self.view.autoresizingMask = .None;
+		
+		FitModalLocationToCenter();
+	}
+	
+	
+	internal func setSubviewSize() {
 		alarmSoundListView.view.frame = CGRectMake(
 			0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height );
 		alarmGameListView.view.frame = CGRectMake(
@@ -116,6 +129,10 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		if (modalBackgroundBlackCover != nil) { //iOs7 fallback
 			modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
 		}
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		//setupModalView( DeviceGeneral.defaultModalSizeRect );
 	}
 	
 	// iOS7 Background fallback
@@ -203,7 +220,12 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	func setupModalView(frame:CGRect) {
 		modalView.view.frame = frame;
-		//alarmSoundListView.view.frame = frame;
+		setSubviewSize();
+	}
+	
+	func FitModalLocationToCenter() {
+		navigationCtrl.view.frame.origin.x = DeviceGeneral.defaultModalSizeRect.minX;
+		navigationCtrl.view.frame.origin.y = DeviceGeneral.defaultModalSizeRect.minY;
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -218,7 +240,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		alarmSoundListView.stopSound();
 		
 		if (showBlur) {
-			ViewController.viewSelf?.showHideBlurview(false);
+			ViewController.viewSelf!.showHideBlurview(false);
 			removeBackgroundViews(); //iOS7 Fallback
 		}
 		self.dismissViewControllerAnimated(true, completion: nil);

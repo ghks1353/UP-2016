@@ -40,7 +40,7 @@ class ViewController: UIViewController {
     var modalAlarmListView:AlarmListView = AlarmListView();
 	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
 	
-	//screen blur view
+	//screen blur view (AnyObject => Fallback iOS 7.0)
 	var scrBlurView:AnyObject?;
 	
 	static var viewSelf:ViewController?;
@@ -59,9 +59,7 @@ class ViewController: UIViewController {
         //Init device size factor
         DeviceGeneral.initialDeviceSize();
 		
-		//Background image add
-		backgroundImageView.frame = CGRectMake(0, 0, (DeviceGeneral.scrSize?.width)!, (DeviceGeneral.scrSize?.height)!);
-		backgroundImageFadeView.frame = backgroundImageView.frame;
+		//Background image add.
 		self.view.addSubview(backgroundImageView); self.view.addSubview(backgroundImageFadeView);
 		self.view.sendSubviewToBack(backgroundImageFadeView); self.view.sendSubviewToBack(backgroundImageView);
 		
@@ -92,49 +90,19 @@ class ViewController: UIViewController {
 		//기본 스킨 선택. 나중엔 저장된 스킨번호를 불러오게 변경.
 		selectMainSkin(0);
 		
-        var scrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (DigitalCol.bounds.width / 2));
-        scrX += 4 * DeviceGeneral.maxScrRatioC;
+		// 화면에 배치하기
+		fitViewControllerElementsToScreen( false );
 		
-		  //디지털시계 이미지 스케일 조정
-        DigitalCol.frame = CGRectMake(scrX, 90 * DeviceGeneral.scrRatioC, DigitalCol.bounds.width * DeviceGeneral.maxScrRatioC, DigitalCol.bounds.height * DeviceGeneral.maxScrRatioC);
-		
-        //x위치를 제외한 나머지 통일
-        DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width * 2 - 20 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-        DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - 12 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-        DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + 20 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-        DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + 12 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-        
-		
-        //시계 바디 및 시침 분침 위치/크기조절
-        let clockScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
-        let clockRightScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 + (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
-
-        //clockScrX += CGFloat(4 * DeviceGeneral.maxScrRatio);
-        var clockScrY:CGFloat = CGFloat((DeviceGeneral.scrSize?.height)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
-        clockScrY += 20 * DeviceGeneral.maxScrRatioC;
-        
-        AnalogBody.frame = CGRectMake( clockScrX, clockScrY, 245 * DeviceGeneral.maxScrRatioC, 245 * DeviceGeneral.maxScrRatioC );
-        AnalogHours.frame = CGRectMake( clockScrX, clockScrY, 245 * DeviceGeneral.maxScrRatioC, 245 * DeviceGeneral.maxScrRatioC );
-        AnalogMinutes.frame = CGRectMake( clockScrX, clockScrY, 245 * DeviceGeneral.maxScrRatioC, 245 * DeviceGeneral.maxScrRatioC );
-        
-        AnalogBodyBack.frame = CGRectMake( clockScrX - (18 * DeviceGeneral.maxScrRatioC), clockScrY - (10 * DeviceGeneral.maxScrRatioC), (273 * DeviceGeneral.maxScrRatioC), (255 * DeviceGeneral.maxScrRatioC) );
-        SettingsImg.frame = CGRectMake( clockScrX - ((135 * DeviceGeneral.maxScrRatioC) / 2), clockScrY + (125 * DeviceGeneral.maxScrRatioC) , (157 * DeviceGeneral.maxScrRatioC), (157 * DeviceGeneral.maxScrRatioC) );
-        AlarmListImg.frame = CGRectMake( clockRightScrX - ((90 * DeviceGeneral.maxScrRatioC) / 2), clockScrY - (10 * DeviceGeneral.maxScrRatioC), (105 * DeviceGeneral.maxScrRatioC), (150 * DeviceGeneral.maxScrRatioC) );
 		
 		//기본 스킨이 선택된 상태에서
         AstroCharacter.animationImages = astroMotionsStanding;
         AstroCharacter.animationDuration = 1.0; AstroCharacter.animationRepeatCount = -1;
         AstroCharacter.startAnimating();
-        
-        //Modal view 크기 및 위치
-        modalSettingsView.setupModalView( getGeneralModalRect() );
-		modalAlarmListView.setupModalView( getGeneralModalRect() );
-		modalAlarmAddView.setupModalView( getGeneralModalRect() );
 		
         //시계 이미지 터치시
         var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("openAlarmaddView:")); //openAlarmaddView
-        AnalogMinutes.userInteractionEnabled = true;
-        AnalogMinutes.addGestureRecognizer(tapGestureRecognizer);
+        AnalogBody.userInteractionEnabled = true;
+        AnalogBody.addGestureRecognizer(tapGestureRecognizer);
         
         //환경설정 아이콘 터치시
         tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("openSettingsView:"))
@@ -155,12 +123,10 @@ class ViewController: UIViewController {
 			UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings);
 			
 			//iOS8 blur effect
-//			self.view.bounds
-			let scBlurEffect:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
-			scBlurEffect.frame = self.view.bounds;
-			scBlurEffect.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
-			scBlurEffect.translatesAutoresizingMaskIntoConstraints = true;
-			scrBlurView = scBlurEffect;
+			scrBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
+			(scrBlurView! as! UIVisualEffectView).frame = self.view.bounds;
+			(scrBlurView! as! UIVisualEffectView).autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
+			(scrBlurView! as! UIVisualEffectView).translatesAutoresizingMaskIntoConstraints = true;
 			
         } else {
             // Fallback on earlier versions
@@ -172,11 +138,6 @@ class ViewController: UIViewController {
 		
 		updateTimeAnimation(); //first call
 		setInterval(0.5, block: updateTimeAnimation);
-		
-		
-		//Background thread start
-		//backgroundThreadNSTimer = NSTimer(timeInterval: 2.0, target: self, selector: "upAlarmBackgroundThread:", userInfo: nil, repeats: true);
-		//NSRunLoop.currentRunLoop().addTimer( backgroundThreadNSTimer!, forMode: NSRunLoopCommonModes );
 		
 		//무음모드 사운드 허용
 		do {
@@ -190,10 +151,17 @@ class ViewController: UIViewController {
 			}
 		} catch let error as NSError {
 			print(error.localizedDescription)
-		}
+		} //end do catch
 		
+		//Modal view 크기 init시 처음 조정
+		modalSettingsView.setupModalView( getGeneralModalRect() );
+		modalAlarmListView.setupModalView( getGeneralModalRect() );
+		modalAlarmAddView.setupModalView( getGeneralModalRect() );
 		
-    }
+		//DISABLE AUTORESIZE
+		self.view.autoresizesSubviews = false;
+		
+    } //end viewdidload
 	
 	override func viewDidAppear(animated: Bool) {
 		//Check alarms
@@ -229,7 +197,6 @@ class ViewController: UIViewController {
 	
 	//modal cgrect
 	func getGeneralModalRect() -> CGRect {
-		
 		return CGRectMake(DeviceGeneral.defaultModalSizeRect.minX , DeviceGeneral.defaultModalSizeRect.minY , DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height);
 	}
 	
@@ -257,6 +224,7 @@ class ViewController: UIViewController {
         self.presentViewController(modalSettingsView, animated: true, completion: nil);
 		modalSettingsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
+	
     func openAlarmlistView (gestureRecognizer: UITapGestureRecognizer) {
         //Alarmlist view 열기
         if #available(iOS 8.0, *) {
@@ -267,18 +235,6 @@ class ViewController: UIViewController {
         self.presentViewController(modalAlarmListView, animated: true, completion: nil);
 		modalAlarmListView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
-	
-	
-	//아래는 테스트 func이며 삭제 예정
-    func imageTapped(gestureRecognizer: UITapGestureRecognizer) {
-        //이동할 뷰 컨트롤러 인스턴스 생성
-        let uvc = self.storyboard?.instantiateViewControllerWithIdentifier("testGameViewID")
-        //화면 전환 스타일 설정
-        uvc?.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-        //화면 전환
-		self.presentViewController(uvc!, animated: true, completion: nil);
-    }
-    
   
     func updateTimeAnimation() {
         //setinterval call
@@ -408,14 +364,11 @@ class ViewController: UIViewController {
 				//시간대가 바뀌어야 하는 경우
 				currentBackgroundImage = getBackgroundFileNameFromTime(components.hour); //시간대 이미지 변경
 				backgroundImageFadeView.alpha = 1;
-				
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
-					print("changing to phone bg");
 					backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
 						DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
 						) );
 				} else {
-					print("changing to pad bg");
 					backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
 						(UIApplication.sharedApplication().statusBarOrientation == .Portrait || UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown) ? "_pad43" : ""
 						) );
@@ -426,12 +379,10 @@ class ViewController: UIViewController {
 					}, completion: {_ in
 						
 						if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
-							print("changed to phone bg");
 							self.backgroundImageFadeView.image = UIImage( named: self.currentBackgroundImage + "_back" + (
 								DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
 								) );
 						} else {
-							print("changed to pad bg");
 							self.backgroundImageFadeView.image = UIImage( named: self.currentBackgroundImage + "_back" + (
 								(UIApplication.sharedApplication().statusBarOrientation == .Portrait || UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown) ? "_pad43" : ""
 								) );
@@ -487,20 +438,6 @@ class ViewController: UIViewController {
 			//알람이 울리고 있음
 			print("Alarm is ringing");
 			
-			//dismiss current views
-			/*if (self.presentingViewController != nil) {
-				print("Dismissing actived view");
-				if (self.presentingViewController == modalSettingsView) {
-					modalSettingsView.dismissViewControllerAnimated(false, completion: nil);
-				}
-				if (self.presentingViewController == modalAlarmAddView) {
-					modalAlarmAddView.dismissViewControllerAnimated(false, completion: nil);
-				}
-				if (self.presentingViewController == modalAlarmListView) {
-					modalAlarmListView.dismissViewControllerAnimated(false, completion: nil);
-				}
-			}*/
-			
 			if (AlarmManager.alarmRingActivated == true) {
 				print("Alarm ring progress is already running. skipping");
 			} else {
@@ -529,19 +466,14 @@ class ViewController: UIViewController {
 				AnalogMinutes.image = UIImage( named: "time_mh.png" ); AnalogBodyBack.image = UIImage( named: "time_body_back.png" );
 				//떠있는 버튼
 				SettingsImg.image = UIImage( named: "object_st.png" ); AlarmListImg.image = UIImage( named: "object_list.png" );
+				
 				//땅 부분 (아스트로는 위에서 지정함) iPad의 경우 이미지를 넓은 것으로 교체할 필요가 있음
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 					GroundObj.image = UIImage( named: "ground.png" );
-					GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 75 * DeviceGeneral.maxScrRatioC, CGFloat((DeviceGeneral.scrSize?.width)!) , 75 * DeviceGeneral.maxScrRatioC );
 				} else {
 					//show pad ground
 					GroundObj.image = UIImage( named: "ground_pad43.png" );
-					GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 75 * DeviceGeneral.maxScrRatioC, (DeviceGeneral.scrSize!.width) , 85.6 * DeviceGeneral.maxScrRatioC );
 				}
-				
-				
-				//Astro 크기 및 위치조정
-				AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - (126 * DeviceGeneral.maxScrRatioC), GroundObj.frame.origin.y - (151 * DeviceGeneral.maxScrRatioC) + (9 * DeviceGeneral.maxScrRatioC), 60 * DeviceGeneral.maxScrRatioC, 151 * DeviceGeneral.maxScrRatioC );
 				
 				//기본 스킨 아스트로 애니메이션 (텍스쳐)
 				for i in 1...40 { //부동
@@ -568,7 +500,119 @@ class ViewController: UIViewController {
 			default: break;
 		}
 		
+	} //end func
+	
+	//Element fit to screen 
+	//주의: 패드와 폰 둘다 동작하게 일단 만들어 놔야함. 물론, 실제로 화면이 회전될 때는 패드에서만 작동함.
+	//(단, init시 iPhone에서 작동함)
+	func fitViewControllerElementsToScreen( animated:Bool = false ) {
+		
+		var scrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (DigitalCol.bounds.width / 2));
+		var digiClockYAxis:CGFloat = 90 * DeviceGeneral.scrRatioC;
+		scrX += 4 * DeviceGeneral.maxScrRatioC;
+		
+		//가로로 누워있는 경우, 조정이 필요한 경우에 조금 조정
+		print("is landscape?", UIDevice.currentDevice().orientation.isLandscape == true)
+		if (UIDevice.currentDevice().orientation.isLandscape == true) {
+			digiClockYAxis = 60 * DeviceGeneral.scrRatioC;
+		}
+		
+		//디지털시계 이미지 스케일 조정
+		DigitalCol.frame = CGRectMake(scrX, digiClockYAxis, DigitalCol.bounds.width * DeviceGeneral.maxScrRatioC, DigitalCol.bounds.height * DeviceGeneral.maxScrRatioC);
+		
+		//x위치를 제외한 나머지 통일
+		DigitalNum0.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width * 2 - 20 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+		DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - 12 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+		DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + 20 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+		DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + 12 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
+		
+		
+		//시계 바디 및 시침 분침 위치/크기조절
+		let clockScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
+		let clockRightScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 + (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
+		var clockScrY:CGFloat = CGFloat((DeviceGeneral.scrSize?.height)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
+		clockScrY += 20 * DeviceGeneral.maxScrRatioC;
+		
+		AnalogHours.transform = CGAffineTransformIdentity; AnalogMinutes.transform = CGAffineTransformIdentity;
+		
+		AnalogBody.frame = CGRectMake( clockScrX, clockScrY, 245 * DeviceGeneral.maxScrRatioC, 245 * DeviceGeneral.maxScrRatioC );
+		AnalogHours.frame = CGRectMake( clockScrX, clockScrY, AnalogBody.frame.width, AnalogBody.frame.height );
+		AnalogMinutes.frame = CGRectMake( clockScrX, clockScrY, AnalogBody.frame.width, AnalogBody.frame.height );
+		
+		AnalogBodyBack.frame = CGRectMake( clockScrX - (18 * DeviceGeneral.maxScrRatioC), clockScrY - (10 * DeviceGeneral.maxScrRatioC), (273 * DeviceGeneral.maxScrRatioC), (255 * DeviceGeneral.maxScrRatioC) );
+		SettingsImg.frame = CGRectMake( clockScrX - ((135 * DeviceGeneral.maxScrRatioC) / 2), clockScrY + (125 * DeviceGeneral.maxScrRatioC) , (157 * DeviceGeneral.maxScrRatioC), (157 * DeviceGeneral.maxScrRatioC) );
+		AlarmListImg.frame = CGRectMake( clockRightScrX - ((90 * DeviceGeneral.maxScrRatioC) / 2), clockScrY - (10 * DeviceGeneral.maxScrRatioC), (105 * DeviceGeneral.maxScrRatioC), (150 * DeviceGeneral.maxScrRatioC) );
+		
+		
+		//땅 크기 조절
+		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+			GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 75 * DeviceGeneral.maxScrRatioC, CGFloat((DeviceGeneral.scrSize?.width)!) , 75 * DeviceGeneral.maxScrRatioC );
+		} else {
+			//show pad ground
+			GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 85.6 * DeviceGeneral.maxScrRatioC, (DeviceGeneral.scrSize!.width) , 85.6 * DeviceGeneral.maxScrRatioC );
+		}
+		
+		
+		//Astro 크기 및 위치조정
+		AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - (126 * DeviceGeneral.maxScrRatioC), GroundObj.frame.origin.y - (151 * DeviceGeneral.maxScrRatioC) + (9 * DeviceGeneral.maxScrRatioC), 60 * DeviceGeneral.maxScrRatioC, 151 * DeviceGeneral.maxScrRatioC );
+		
+		
+		//Background image scale
+		backgroundImageView.frame = CGRectMake(0, 0, (DeviceGeneral.scrSize?.width)!, (DeviceGeneral.scrSize?.height)!);
+		backgroundImageFadeView.frame = backgroundImageView.frame;
+		
+		//Modal view 크기 가운데로 조정. (rotation)
+		modalSettingsView.FitModalLocationToCenter( );
+		modalAlarmListView.FitModalLocationToCenter( );
+		modalAlarmAddView.FitModalLocationToCenter( );
+		
+		//Blur view 조절
+		if (scrBlurView != nil) {
+			if #available(iOS 8.0, *) {
+			    (scrBlurView as! UIVisualEffectView).frame = DeviceGeneral.scrSize!
+			} else {
+			    // Fallback on earlier versions
+			};
+		}
+		
+		//버그로 인해 위치변경 전까진 transform이 없어야 함
+		let date = NSDate(); let calendar = NSCalendar.currentCalendar()
+		let components = calendar.components([ .Hour, .Minute, .Second], fromDate: date);
+		let secondmov:Double = Double(components.minute) / 60 / 12;
+		AnalogHours.transform = CGAffineTransformMakeRotation(CGFloat(((Double(components.hour) / 12) + secondmov) * 360) * CGFloat(M_PI) / 180 );
+		AnalogMinutes.transform = CGAffineTransformMakeRotation(CGFloat((Double(components.minute) / 60) * 360) * CGFloat(M_PI) / 180 );
+		
+		//시간대의 변경은 아니지만, 배경의 배율에 따라서 달라지는 부분이 있으므로 변경
+		if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+		currentBackgroundImage = getBackgroundFileNameFromTime(components.hour);
+		backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+			UIDevice.currentDevice().orientation.isLandscape == false ? "_pad43" : ""
+			));
+		}
+		
+		
+	} //end func
+	
+	
+	//iOS 8.0 Rotation
+	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+		
+		print("View transition running. . .");
+		
+		//Re-calcuate scrSize
+		DeviceGeneral.changeDeviceSizeWith(size);
+		
+		//Fit elements again
+		fitViewControllerElementsToScreen( true );
+		
+		
 	}
+	
+	//iOS 7.0 Rotation (Fallback)
+	override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+		
+	}
+	
 	
 	
     ///////////

@@ -84,7 +84,12 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		if (tmpOption == true) { /* icloud option is true? */
 			setSwitchData("syncToiCloud", value: true);
 		}
-	
+		
+		//DISABLE AUTORESIZE
+		self.view.autoresizesSubviews = false;
+		//self.view.autoresizingMask = .None;
+		
+		FitModalLocationToCenter();
 	}
 	
 	// iOS7 Background fallback
@@ -158,6 +163,11 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         modalView.view.frame = frame;
     }
 	
+	func FitModalLocationToCenter() {
+		navigationCtrl.view.frame.origin.x = DeviceGeneral.defaultModalSizeRect.minX;
+		navigationCtrl.view.frame.origin.y = DeviceGeneral.defaultModalSizeRect.minY;
+	}
+	
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -187,7 +197,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
 		}
 		
-		ViewController.viewSelf?.showHideBlurview(false);
+		ViewController.viewSelf!.showHideBlurview(false);
         self.dismissViewControllerAnimated(true, completion: nil);
     }
     
