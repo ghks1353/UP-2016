@@ -16,7 +16,7 @@ class Languages {
     static func initLanugages( localeCode:String ) -> Void {
 		
 		var found:Bool = false;
-		for (var i:Int = 0; i < supportedLanguages.count; ++i) {
+		for i:Int in 0 ..< supportedLanguages.count {
 			if (supportedLanguages[i] == localeCode) {
 				found = true; break;
 			}

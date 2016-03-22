@@ -48,7 +48,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#333333");
 		navigationCtrl.view.frame = modalView.view.frame;
 		modalView.title = Languages.$("settingsMenu");
-		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
+		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: #selector(SettingsView.viewCloseAction));
 		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
 		self.view.addSubview(navigationCtrl.view);
 		
@@ -108,7 +108,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	} // iOS7 Background fallback end
 	
 	func setSwitchData(settingsID:String, value:Bool) {
-		for (var i:Int = 0; i < settingsArray.count; ++i) {
+		for i:Int in 0 ..< settingsArray.count {
 			if (settingsArray[i].settingsID == settingsID) {
 				(settingsArray[i].settingsElement as! UISwitch).on = true;
 				print("Saved data is on:", settingsArray[i].settingsID);
@@ -177,7 +177,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     func viewCloseAction() {
 		//Save changes
 		//DataManager.initDefaults();
-		for (var i:Int = 0; i < settingsArray.count; ++i) {
+		for i:Int in 0 ..< settingsArray.count {
 			switch(settingsArray[i].settingsID) {
 				case "showIconBadge":
 					DataManager.nsDefaults.setBool((settingsArray[i].settingsElement as! UISwitch).on, forKey: DataManager.settingsKeys.showBadge);

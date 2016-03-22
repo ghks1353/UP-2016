@@ -73,8 +73,8 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		navigationCtrl.view.frame = modalView.view.frame;
 		
 		modalView.title = Languages.$("alarmSettings");
-		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
-		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Languages.$("generalAdd"), style: .Plain, target: self, action: "addAlarmToDevice");
+		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: #selector(AddAlarmView.viewCloseAction));
+		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Languages.$("generalAdd"), style: .Plain, target: self, action: #selector(AddAlarmView.addAlarmToDevice));
 		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
 		modalView.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor();
 		self.view.addSubview(navigationCtrl.view);
@@ -182,7 +182,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		if (isAlarmEditMode == false) {
 			///Add alarm to system
 			AlarmManager.addAlarm((getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
-				alarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
+				funcAlarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
 				gameID: gameSelectedID,
 				soundFile: alarmSoundSelectedObj,
 				repeatArr: currentRepeatMode,
@@ -191,7 +191,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		} else {
 			//Edit alarm
 			AlarmManager.editAlarm(editingAlarmID,
-				date: (getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
+				funcDate: (getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
 				alarmTitle: (getElementFromTable("alarmName") as! UITextField).text!,
 				gameID: gameSelectedID,
 				soundFile: alarmSoundSelectedObj,
@@ -210,7 +210,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	//for default setting at view opening
 	internal func getElementFromTable(cellID:String, isSubElement:Bool = false)->AnyObject? {
 		//let anyobjectOfTable:AnyObject?;
-		for (var i:Int = 0; i < tableCells.count; ++i) {
+		for i:Int in 0 ..< tableCells.count {
 			if (tableCells[i].cellID == cellID) {
 				return isSubElement ? tableCells[i].cellSubElement! : tableCells[i].cellElement!;
 			}
@@ -386,9 +386,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		
 		let settingsLabelPointer:UILabel = getElementFromTable("alarmRepeatSetting") as! UILabel;
 		var repeatCount:Int = 0; var repeatDayNum:Int = -1;
-		for (var i:Int = 0; i < repeatInfo.count; ++i) {
+		for i:Int in 0 ..< repeatInfo.count {
 			if (repeatInfo[i] == true) {
-				++repeatCount;
+				repeatCount += 1;
 				repeatDayNum = i;
 			}
 		} //end for

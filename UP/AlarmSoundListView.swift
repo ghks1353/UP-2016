@@ -41,7 +41,7 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		
 		//add table cells (options)
 		var alarmSoundListsTableArr:Array<AlarmSoundListCell> = [];
-		for (var i:Int = 0; i < UPAlarmSoundLists.list.count; ++i) {
+		for i:Int in 0 ..< UPAlarmSoundLists.list.count {
 			alarmSoundListsTableArr += [ createCell(UPAlarmSoundLists.list[i]) ];
 		}
 		tablesArray = [ alarmSoundListsTableArr ];
@@ -67,7 +67,7 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		let cellObj:AlarmSoundListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmSoundListCell;
 		AddAlarmView.selfView!.setSoundElement(cellObj.soundInfoObject!);
 		
-		for (var i:Int = 0; i < (tablesArray[0] as! Array<AlarmSoundListCell>).count; ++i) {
+		for i:Int in 0 ..< (tablesArray[0] as! Array<AlarmSoundListCell>).count {
 			(tablesArray[0] as! Array<AlarmSoundListCell>)[i].accessoryType = .None;
 		}
 		cellObj.accessoryType = .Checkmark;
@@ -148,7 +148,7 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	
 	//Set selected style from other view (accessable)
 	func setSelectedCell( soundObj:SoundInfoObj ) {
-		for (var i:Int = 0; i < (tablesArray[0] as! Array<AlarmSoundListCell>).count; ++i) {
+		for i:Int in 0 ..< (tablesArray[0] as! Array<AlarmSoundListCell>).count {
 			if ((tablesArray[0] as! Array<AlarmSoundListCell>)[i].soundInfoObject?.soundFileName == soundObj.soundFileName) {
 				(tablesArray[0] as! Array<AlarmSoundListCell>)[i].accessoryType = .Checkmark;
 			} else {

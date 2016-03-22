@@ -64,8 +64,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#6C798C");
 		navigationCtrl.view.frame = modalView.view.frame;
 		modalView.title = Languages.$("alarmList");
-		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: "viewCloseAction");
-		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "alarmAddAction");
+		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: #selector(AlarmListView.viewCloseAction));
+		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(AlarmListView.alarmAddAction));
 		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
 		modalView.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor();
 		self.view.addSubview(navigationCtrl.view);
@@ -104,7 +104,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		} else { //ios7 or older uses actionsheet
 			listConfirmAction = UIActionSheet(title: Languages.$("alarmDeleteSure"), delegate: self, cancelButtonTitle: Languages.$("generalCancel"), destructiveButtonTitle: Languages.$("alarmDelete"));
 			//list long press action for iOS7
-			let longPressRec:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "tableCellLongPressAction:");
+			let longPressRec:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AlarmListView.tableCellLongPressAction(_:)));
 			longPressRec.allowableMovement = 15; longPressRec.minimumPressDuration = 0.8;
 			self.tableView.addGestureRecognizer(longPressRec);
 		}
@@ -220,13 +220,13 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	//table list create method
 	internal func createTableList() {
-		for (var i:Int = 0; i < alarmsCell.count; ++i) {
+		for i:Int in 0..<alarmsCell.count {
 			alarmsCell[i].removeFromSuperview();
 		}
 		alarmsCell.removeAll();
 		
 		var tmpComponentPointer:NSDateComponents;
-		for (var i:Int = 0; i < AlarmManager.alarmsArray.count; ++i) {
+		for i:Int in 0 ..< AlarmManager.alarmsArray.count {
 			tmpComponentPointer = NSCalendar.currentCalendar().components([.Hour, .Minute], fromDate: AlarmManager.alarmsArray[i].alarmFireDate);
 			print("Alarm adding:", AlarmManager.alarmsArray[i].alarmID, AlarmManager.alarmsArray[i].alarmToggle, "repeat", AlarmManager.alarmsArray[i].alarmRepeat);
 			alarmsCell += [
@@ -394,7 +394,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		AlarmManager.toggleAlarm(targetElement.elementID, alarmStatus: targetElement.on, isListOn: true);
 		
 		//리스트 갱신
-		for (var i:Int = 0; i < alarmsCell.count; ++i) {
+		for i:Int in 0 ..< alarmsCell.count {
 			if (alarmsCell[i].alarmID == targetElement.elementID) {
 				let bgFileName:String = getBackgroundFileNameFromTime(alarmsCell[i].timeHour);
 				let bgFileState:String = targetElement.on == true ? "on" : "off";
@@ -510,7 +510,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//NSLog("Available fonts: %@", UIFont.familyNames());
 		
 		//스위치 변경 이벤트
-		tSwitch.addTarget(self, action: Selector("alarmSwitchChangedEventHandler:"), forControlEvents: UIControlEvents.ValueChanged);
+		tSwitch.addTarget(self, action: #selector(AlarmListView.alarmSwitchChangedEventHandler(_:)), forControlEvents: UIControlEvents.ValueChanged);
 		
 		tCell.backgroundImage = tTimeBackground;
 		tCell.alarmName = tLabel;

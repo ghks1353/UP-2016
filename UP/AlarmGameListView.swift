@@ -37,7 +37,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		
 		//add game cell
 		alarmGameListsTableArray += [ createRandomCell() ]; //ADD random cell
-		for (var i:Int = 0; i < UPAlarmGameLists.list.count; ++i) {
+		for i:Int in 0 ..< UPAlarmGameLists.list.count {
 			alarmGameListsTableArray += [ createCell(UPAlarmGameLists.list[i]) ];
 		}
 		tablesArray = [ alarmGameListsTableArray ];
@@ -53,15 +53,17 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		// Dispose of any resources that can be recreated.
 	}
 	
-	internal func selectCell( var gameID:Int ) {
+	internal func selectCell( gameID:Int ) {
 		//unselect all
-		gameID = gameID + 1;
-		for (var i:Int = 0; i < alarmGameListsTableArray.count; ++i) {
+		//fuckiug swift 3.0
+		var gameIDvar:Int = gameID;
+		gameIDvar = gameIDvar + 1;
+		for i:Int in 0 ..< alarmGameListsTableArray.count {
 			alarmGameListsTableArray[i].gameCheckImageView!.alpha = 0;
 		}
 		
 		//Check it
-		alarmGameListsTableArray[gameID].gameCheckImageView!.alpha = 1;
+		alarmGameListsTableArray[gameIDvar].gameCheckImageView!.alpha = 1;
 		
 	}
 	
@@ -191,7 +193,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		tGameGenreLabel.textColor = gameObj.gameTextUIColor;
 		
 		var gameDifficultyLevelStr:String = "";
-		for (var i:Int = 0; i < 5; ++i) {
+		for i:Int in 0 ..< 5 {
 			gameDifficultyLevelStr += i < gameObj.gameDifficulty ? "★" : "☆";
 		}
 		

@@ -173,10 +173,10 @@ class JumpUPGame:SKScene {
 		
 		//time / score에 대한 데이터 처리
 		if (gameNumberTexturesArray.count == 0) {
-			for (var i:Int = 0; i < 10; ++i) {
+			for i:Int in 0 ..< 10 {
 				gameNumberTexturesArray += [ SKTexture( imageNamed: String(i) + ".png" ) ];
 			} //0~9에 대한 숫자 데이터 텍스쳐
-			for (var i:Int = 0; i < 3; ++i) {
+			for i:Int in 0 ..< 3 {
 				gameNumberSpriteNodesArray += [ SKSpriteNode( texture: gameNumberTexturesArray[0] ) ];
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) { //iPhone 전용 크기 (가변)
 					gameNumberSpriteNodesArray[i].size = CGSizeMake(50 * DeviceGeneral.scrRatioC , 70 * DeviceGeneral.scrRatioC);
@@ -235,7 +235,7 @@ class JumpUPGame:SKScene {
 		if (gameTexturesAIEffectsArray.count == 0) {
 			//texture effect creation
 			gameTexturesAIEffectsArray += [ Array<SKTexture>() ]; //빈 텍스쳐 배열을 만들고 그 안에 텍스쳐들 넣음.
-			for (var i = 0; i < 22; ++i) {
+			for i in 0 ..< 22 {
 				gameTexturesAIEffectsArray[0] += [
 					SKTexture( imageNamed: "game_jumpup_assets_time_ai_j_astro_effect" + String(i) + ".png")
 				];
@@ -254,14 +254,14 @@ class JumpUPGame:SKScene {
 		
 		//////// 캐릭터 모션 만들기
 		if (characterElement!.motions_walking.count == 0) {
-			for (var i:Int = 0; i < 6; ++i) {
+			for i:Int in 0 ..< 6 {
 				characterElement!.motions_walking += [
 					SKTexture( imageNamed: "game_jumpup_astro_move" + String(i) + ".png" )
 				];
 			}
 		} //walking motion end for *character*
 		if (characterElement!.motions_jumping.count == 0) {
-			for (var i:Int = 0; i < 8; ++i) {
+			for i:Int in 0 ..< 8 {
 				characterElement!.motions_jumping += [
 					SKTexture( imageNamed: "game_jumpup_astro_jump" + String(i) + ".png" )
 				];
@@ -274,21 +274,21 @@ class JumpUPGame:SKScene {
 		var gameTexturesAIJJumpTexturesArray:Array<SKTexture> = [];
 		*/
 		if (gameTexturesAIMoveTexturesArray.count == 0) {
-			for (var i:Int = 0; i < 6; ++i) {
+			for i:Int in 0 ..< 6 {
 				gameTexturesAIMoveTexturesArray += [
 					SKTexture( imageNamed: "game_jumpup_ai_astro_move" + String(i) + ".png" )
 				];
 			}
 		} //jumping motion end for *ai move*
 		if (gameTexturesAIJMoveTexturesArray.count == 0) {
-			for (var i:Int = 0; i < 6; ++i) {
+			for i:Int in 0 ..< 6 {
 				gameTexturesAIJMoveTexturesArray += [
 					SKTexture( imageNamed: "game_jumpup_ai_j_astro_move" + String(i) + ".png" )
 				];
 			}
 		} //jumping motion end for *ai_j move*
 		if (gameTexturesAIJJumpTexturesArray.count == 0) {
-			for (var i:Int = 0; i < 7; ++i) {
+			for i:Int in 0 ..< 7 {
 				gameTexturesAIJJumpTexturesArray += [
 					SKTexture( imageNamed: "game_jumpup_ai_j_astro_jump" + String(i) + ".png" )
 				];
@@ -302,8 +302,8 @@ class JumpUPGame:SKScene {
 		
 		// 일시정지 / 재생 혹은 버그 (나와도 타이머 흐름) 방지를 위한 코드
 		let nCenter = NSNotificationCenter.defaultCenter();
-		nCenter.addObserver(self, selector: "appEnteredToBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil);
-		nCenter.addObserver(self, selector: "appEnteredToForeground", name: UIApplicationDidBecomeActiveNotification, object: nil);
+		nCenter.addObserver(self, selector: #selector(JumpUPGame.appEnteredToBackground), name: UIApplicationDidEnterBackgroundNotification, object: nil);
+		nCenter.addObserver(self, selector: #selector(JumpUPGame.appEnteredToForeground), name: UIApplicationDidBecomeActiveNotification, object: nil);
 		
 		
 		//버튼 배치
@@ -382,7 +382,7 @@ class JumpUPGame:SKScene {
 	}
 	
 	func delAllElementsFromArray() {
-		for (var i:Int = 0; i < gameNodesArray.count; ++i) {
+		for i:Int in 0 ..< gameNodesArray.count {
 			gameNodesArray[i]!.removeFromParent();
 			gameNodesArray[i] = nil;
 		} //end for
@@ -526,7 +526,10 @@ class JumpUPGame:SKScene {
 		
 		
 		//Scroll nodes + Motion queue (w/o character)
-		for (var i:Int = 0; i < gameNodesArray.count; ++i) {
+		for i:Int in 0 ..< gameNodesArray.count {
+			if (i >= gameNodesArray.count) {
+				break;
+			}
 			
 			//위치관련
 			//print("Checking element type - ", gameNodesArray[i]!.elementType, JumpUpElements.TYPE_EFFECT);

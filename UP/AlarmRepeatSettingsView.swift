@@ -55,7 +55,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	override func viewWillDisappear(animated: Bool) {
 		//돌아가기 직전에 설정값을 parent view에 저장해야 함.
 		var tmpRepeatArr:Array<Bool> = [false, false, false, false, false, false, false];
-		for (var i:Int = 0; i < (tablesArray[0] as! Array<AlarmRepeatDayCell>).count; ++i) {
+		for i:Int in 0 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
 			tmpRepeatArr[i] = (tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .Checkmark;
 		}
 		
@@ -150,7 +150,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	
 	//Set selected style from other view (accessable)
 	internal func setSelectedCell( repeatArr:Array<Bool> ) {
-		for (var i:Int = 0; i < (tablesArray[0] as! Array<AlarmRepeatDayCell>).count; ++i) {
+		for i:Int in 0 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
 			if (repeatArr[i] == true) {
 				(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType = .Checkmark;
 			} else {

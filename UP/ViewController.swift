@@ -100,17 +100,17 @@ class ViewController: UIViewController {
         AstroCharacter.startAnimating();
 		
         //시계 이미지 터치시
-        var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("openAlarmaddView:")); //openAlarmaddView
+        var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openAlarmaddView(_:))); //openAlarmaddView
         AnalogBody.userInteractionEnabled = true;
         AnalogBody.addGestureRecognizer(tapGestureRecognizer);
         
         //환경설정 아이콘 터치시
-        tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("openSettingsView:"))
+        tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openSettingsView(_:)))
         SettingsImg.userInteractionEnabled = true;
         SettingsImg.addGestureRecognizer(tapGestureRecognizer);
         
         //리스트 아이콘 터치시
-        tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("openAlarmlistView:"))
+        tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openAlarmlistView(_:)))
         AlarmListImg.userInteractionEnabled = true;
         AlarmListImg.addGestureRecognizer(tapGestureRecognizer);
 		
@@ -418,11 +418,11 @@ class ViewController: UIViewController {
     }
     
     func setTimeout(delay:NSTimeInterval, block:()->Void) -> NSTimer {
-        return NSTimer.scheduledTimerWithTimeInterval(delay, target: NSBlockOperation(block: block), selector: "main", userInfo: nil, repeats: false)
+        return NSTimer.scheduledTimerWithTimeInterval(delay, target: NSBlockOperation(block: block), selector: #selector(NSOperation.main), userInfo: nil, repeats: false)
     }
     
     func setInterval(interval:NSTimeInterval, block:()->Void) -> NSTimer {
-        return NSTimer.scheduledTimerWithTimeInterval(interval, target: NSBlockOperation(block: block), selector: "main", userInfo: nil, repeats: true)
+        return NSTimer.scheduledTimerWithTimeInterval(interval, target: NSBlockOperation(block: block), selector: #selector(NSOperation.main), userInfo: nil, repeats: true)
     }
 	
 	/////////////////////////////////////////
@@ -648,7 +648,8 @@ extension String {
     subscript (r: Range<Int>) -> String {
         let start = startIndex.advancedBy(r.startIndex)
         let end = start.advancedBy(r.endIndex - r.startIndex)
-        return self[Range(start: start, end: end)]
+        //return self[Range(start: start, end: end)]
+		return self[start..<end]
     }
 }
 

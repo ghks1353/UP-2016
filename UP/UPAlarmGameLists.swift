@@ -17,7 +17,7 @@ class UPAlarmGameLists {
 	
 	//GameID => Index
 	static func getGameIDWithObject(gameObj:GameInfoObj) -> Int {
-		for (var i:Int = 0; i < list.count; ++i) {
+		for i:Int in 0 ..< list.count {
 			if(list[i].gameLangName == gameObj.gameLangName && list[i].gameLangGenre == gameObj.gameLangGenre && list[i].gameDifficulty == gameObj.gameDifficulty) {
 				return i;
 			}

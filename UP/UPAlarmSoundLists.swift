@@ -19,7 +19,7 @@ class UPAlarmSoundLists {
 	
 	static func findSoundObjectWithFileName(soundFileName:String)->SoundInfoObj {
 		var targetSoundInfoObj:SoundInfoObj = SoundInfoObj(soundName: "", fileName: ""); //nil
-		for (var i:Int = 0; i < list.count; ++i) {
+		for i:Int in 0 ..< list.count {
 			if (list[i].soundFileName == soundFileName) {
 				targetSoundInfoObj = list[i];
 				break;

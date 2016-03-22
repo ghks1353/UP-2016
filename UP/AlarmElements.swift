@@ -28,7 +28,7 @@ class AlarmElements:NSObject {
 		aCoder.encodeObject(alarmName, forKey: "alarmName");
 		aCoder.encodeInteger(gameSelected, forKey: "gameSelected");
 		aCoder.encodeInteger(alarmID, forKey: "alarmID");
-		for (var i:Int = 0; i < alarmRepeat.count; ++i) {
+		for i:Int in 0 ..< alarmRepeat.count {
 			aCoder.encodeBool(alarmRepeat[i], forKey: "alarmRepeat-" + String(i));
 		}
 		aCoder.encodeObject(alarmSound, forKey: "alarmSound");
@@ -44,7 +44,7 @@ class AlarmElements:NSObject {
 		alarmName = aDecoder.decodeObjectForKey("alarmName") as! String;
 		gameSelected = aDecoder.decodeIntegerForKey("gameSelected");
 		alarmID = aDecoder.decodeIntegerForKey("alarmID");
-		for (var i:Int = 0; i < alarmRepeat.count; ++i) {
+		for i:Int in 0 ..< alarmRepeat.count {
 			alarmRepeat[i] = aDecoder.decodeBoolForKey("alarmRepeat-" + String(i));
 		}
 		alarmSound = aDecoder.decodeObjectForKey("alarmSound") as! String;

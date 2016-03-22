@@ -112,7 +112,7 @@ class AlarmManager {
 		//또한 게임 진행중일땐 앱 자체에 게임 진행중이라는 체크가 필요하며 그렇지 않을 경우
 		//게임하다가 밖으로 나갔다왔는데 알람 울림화면으로 다시..
 		var currentDate:NSDate? = NSDate();
-		for(var i:Int = 0; i < alarmsArray.count; ++i) {
+		for i:Int in 0 ..< alarmsArray.count {
 			if (alarmsArray[i].alarmToggle == false) {
 				continue;
 			} //ignores off
@@ -168,7 +168,7 @@ class AlarmManager {
 		var scdNotifications:Array<UILocalNotification> = UIApplication.sharedApplication().scheduledLocalNotifications!;
 		
 		print("Scheduled alarm count", scdAlarm.count);
-		for (var i:Int = 0; i < scdAlarm.count; ++i) {
+		for i:Int in 0 ..< scdAlarm.count {
 			//Toggle on된것 대상으로만 검사
 			if (scdAlarm[i].alarmToggle == false) {
 				print("Scheduled alarm", scdAlarm[i].alarmID, " state off. skipping");
@@ -181,7 +181,7 @@ class AlarmManager {
 				&& scdAlarm[i].alarmCleared == true /* false = test */) { /* 시간이 지났어도, 게임을 클리어 해야됨. 게임 클리어시 true로 설정후 merge 한번더 하면됨 */
 					print("Merge start:", scdAlarm[i].alarmID);
 				//알람 merge 대상. 우선 일치하는 ID의 알람을 스케줄에서 삭제함
-				for (var j:Int = 0; j < scdNotifications.count; ++j) {
+				for j:Int in 0 ..< scdNotifications.count {
 					if (scdNotifications[j].userInfo!["id"] as! Int == scdAlarm[i].alarmID) {
 						UIApplication.sharedApplication().cancelLocalNotification(scdNotifications[j]);
 					}
@@ -192,14 +192,14 @@ class AlarmManager {
 				//TODO - 1. 오늘의 요일을 얻어옴. 2. 다음 날짜 알람 체크. 3. 날짜만큼 더함.
 				//단, 오늘날짜가 아니라 다음날짜로 계산해야함. (왜냐면 오늘은 울렸으니깐.)
 				var nextAlarmVaild:Int = -1;
-				for (var k:Int = todayDate.weekday ==  7 ? 0 : (todayDate.weekday - 0 /* 다음날짜부터 */); k < scdAlarm[i].alarmRepeat.count; ++k) {
+				for k:Int in (todayDate.weekday ==  7 ? 0 : (todayDate.weekday/* 다음날짜부터 */)) ..< scdAlarm[i].alarmRepeat.count {
 					//마지막(토요일)에는 다음주 체크
 					nextAlarmVaild = scdAlarm[i].alarmRepeat[k] == true ? k : nextAlarmVaild;
 					if (scdAlarm[i].alarmRepeat[k] == true) { break; }
 				}
 				if (todayDate.weekday != 7 && nextAlarmVaild == -1) { //찾을 수 없는경우 앞에서부터 다시 검색
 					//토요일을 배제하는 이유: 토요일은 이미 일요일부터 다시 돌기 때문.
-					for (var k:Int = 0; k < scdAlarm[i].alarmRepeat.count; ++k) {
+					for k:Int in 0 ..< scdAlarm[i].alarmRepeat.count {
 						nextAlarmVaild = scdAlarm[i].alarmRepeat[k] == true ? k : nextAlarmVaild;
 						if (scdAlarm[i].alarmRepeat[k] == true) { break; }
 					}
@@ -261,7 +261,7 @@ class AlarmManager {
 		let toBadgeShow:Bool = DataManager.nsDefaults.boolForKey(DataManager.settingsKeys.showBadge);
 		if (toBadgeShow) {
 			var badgeNumber:Int = 0;
-			for (var i:Int = 0; i < alarmsArray.count; ++i) {
+			for i:Int in 0 ..< alarmsArray.count {
 				if (alarmsArray[i].alarmToggle == true) {
 					badgeNumber += 1;
 				}
@@ -287,7 +287,7 @@ class AlarmManager {
 	static func getAlarm(alarmID:Int)->AlarmElements {
 		let targetAlarmElements:AlarmElements = AlarmElements();
 		
-		for (var i:Int = 0; i < alarmsArray.count; ++i) {
+		for i:Int in 0 ..< alarmsArray.count {
 			if (alarmsArray[i].alarmID == alarmID) {
 				return alarmsArray[i];
 			}
@@ -306,7 +306,7 @@ class AlarmManager {
 		
 		UIApplication.sharedApplication().networkActivityIndicatorVisible = true;
 		
-		for (var i:Int = 0; i < alarmsArray.count; ++i) {
+		for i:Int in 0 ..< alarmsArray.count {
 			if (alarmsArray[i].alarmID == alarmID) { //target found
 				print("Toggling. target:", alarmID);
 				if (alarmsArray[i].alarmToggle == alarmStatus) {
@@ -316,7 +316,7 @@ class AlarmManager {
 				var scdNotifications:Array<UILocalNotification> = UIApplication.sharedApplication().scheduledLocalNotifications!;
 				
 				if (alarmStatus == false) { //알람 끄기
-					for (var j:Int = 0; j < scdNotifications.count; ++j) {
+					for j:Int in 0 ..< scdNotifications.count {
 						if (scdNotifications[j].userInfo!["id"] as! Int == alarmsArray[i].alarmID) {
 							UIApplication.sharedApplication().cancelLocalNotification(scdNotifications[j]);
 						}
@@ -337,7 +337,7 @@ class AlarmManager {
 					
 					let alarmsArrTmpPointer:AlarmElements = alarmsArray[i];
 					alarmsArray.removeAtIndex(i);
-					addAlarm(alarmsArrTmpPointer.alarmFireDate, alarmTitle: alarmsArrTmpPointer.alarmName,
+					addAlarm(alarmsArrTmpPointer.alarmFireDate, funcAlarmTitle: alarmsArrTmpPointer.alarmName,
 						gameID: alarmsArrTmpPointer.gameSelected, soundFile: tmpsInfoObj,
 						repeatArr: alarmsArrTmpPointer.alarmRepeat, insertAt: i, alarmID: alarmsArrTmpPointer.alarmID,
 						redrawList: !isListOn);
@@ -366,13 +366,13 @@ class AlarmManager {
 		} //merge first
 		
 		var scdNotifications:Array<UILocalNotification> = UIApplication.sharedApplication().scheduledLocalNotifications!;
-		for (var i:Int = 0; i < scdNotifications.count; ++i) {
+		for i:Int in 0 ..< scdNotifications.count {
 			if (scdNotifications[i].userInfo!["id"] as! Int == alarmID) {
 				UIApplication.sharedApplication().cancelLocalNotification(scdNotifications[i]);
 			}
 		} //alarm del from sys
 		
-		for (var i:Int = 0; i < alarmsArray.count; ++i) {
+		for i:Int in 0 ..< alarmsArray.count {
 			if (alarmsArray[i].alarmID == alarmID) {
 				alarmsArray.removeAtIndex(i);
 				break;
@@ -387,7 +387,8 @@ class AlarmManager {
 	}
 	
 	//Edit alarm from system
-	static func editAlarm(alarmID:Int, var date:NSDate, alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, toggleStatus:Bool) {
+	static func editAlarm(alarmID:Int, funcDate:NSDate, alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, toggleStatus:Bool) {
+		var date:NSDate = funcDate;
 		if (!isAlarmMergedFirst) {
 			mergeAlarm();
 		} //merge first
@@ -395,13 +396,13 @@ class AlarmManager {
 		var alarmArrayIndex:Int = 0;
 		
 		var scdNotifications:Array<UILocalNotification> = UIApplication.sharedApplication().scheduledLocalNotifications!;
-		for (var i:Int = 0; i < scdNotifications.count; ++i) {
+		for i:Int in 0 ..< scdNotifications.count {
 			if (scdNotifications[i].userInfo!["id"] as! Int == alarmID) {
 				UIApplication.sharedApplication().cancelLocalNotification(scdNotifications[i]);
 			}
 		} //alarm del from sys
 		
-		for (var i:Int = 0; i < alarmsArray.count; ++i) {
+		for i:Int in 0 ..< alarmsArray.count {
 			if (alarmsArray[i].alarmID == alarmID) {
 				alarmsArray.removeAtIndex(i);
 				alarmArrayIndex = i;
@@ -417,13 +418,16 @@ class AlarmManager {
 		date = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
 		
 		//addAlarm
-		addAlarm(date, alarmTitle: alarmTitle, gameID: gameID, soundFile: soundFile, repeatArr: repeatArr, insertAt: alarmArrayIndex, alarmID:  alarmID, isToggled: toggleStatus, redrawList: true);
+		addAlarm(date, funcAlarmTitle: alarmTitle, gameID: gameID, soundFile: soundFile, repeatArr: repeatArr, insertAt: alarmArrayIndex, alarmID:  alarmID, isToggled: toggleStatus, redrawList: true);
 		
 	}
 	
 	//Add alarm to system
-	static func addAlarm(var date:NSDate, var alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1, isToggled:Bool = true, redrawList:Bool = true) {
+	static func addAlarm(funcDate:NSDate, funcAlarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1, isToggled:Bool = true, redrawList:Bool = true) {
 		//repeatarr에 일,월,화,수,목,금,토 순으로 채움
+		
+		var date:NSDate = funcDate;
+		var alarmTitle:String = funcAlarmTitle;
 		
 		if(alarmTitle == "") { //알람 타이틀이 없으면 소리만 울리는 상황이 발생하므로 기본 이름 설정
 			alarmTitle = Languages.$("alarmDefaultName");
@@ -435,19 +439,19 @@ class AlarmManager {
 		let todayDate:NSDateComponents = NSCalendar.currentCalendar().components( .Weekday, fromDate: NSDate());
 		var fireOnce:Int = -1; /* 반복요일 설정이 없는경우 1회성으로 판단하고 date 변화 없음) */
 		var fireSearched:Bool = false;
-		for (var i:Int = 0; i < repeatArr.count; ++i) {
+		for i:Int in 0 ..< repeatArr.count {
 			if (repeatArr[i] == true) {
 				fireOnce = i; break;
 			}
 		}
 		if (fireOnce != -1) { //여러번 울려야 하는 경우 오늘을 포함해서 다음 fireDate까지만 더함
-			for (var i:Int = todayDate.weekday ==  7 ? 0 : (todayDate.weekday - 1); i < repeatArr.count; ++i) {
+			for i:Int in (todayDate.weekday ==  7 ? 0 : (todayDate.weekday - 1)) ..< repeatArr.count {
 				if (repeatArr[i] == true) {
 					fireOnce = i; fireSearched = true; break;
 				}
 			} //없을경우 다음주로 넘어간것으로 치고 한번더 루프
 			if (!fireSearched) {
-				for (var i:Int = 0 ; i < repeatArr.count; ++i) {
+				for i:Int in 0  ..< repeatArr.count {
 					if (repeatArr[i] == true) {
 						fireOnce = i; fireSearched = true; break;
 					}

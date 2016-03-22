@@ -66,7 +66,7 @@ class GameTitleViewJumpUP:UIViewController {
 		gameStartButtonImage.frame = CGRectMake( self.view.frame.width / 2 - (242.05 * DeviceGeneral.scrRatioC) / 2, self.view.frame.height - (70.75 * DeviceGeneral.scrRatioC) - (86 * DeviceGeneral.scrRatioC), 242.05 * DeviceGeneral.scrRatioC, 70.75 * DeviceGeneral.scrRatioC );
 		
 		let gameStartGesture:UITapGestureRecognizer = UITapGestureRecognizer();
-		gameStartGesture.addTarget(self, action: Selector("gameStartFuncTapHandler:"));
+		gameStartGesture.addTarget(self, action: #selector(GameTitleViewJumpUP.gameStartFuncTapHandler(_:)));
 		gameStartButtonImage.addGestureRecognizer(gameStartGesture);
 		
 		self.view.addSubview(gameStartButtonImage);

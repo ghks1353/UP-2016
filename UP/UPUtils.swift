@@ -47,11 +47,11 @@ class UPUtils {
 	}
 	
 	static func setTimeout(delay:NSTimeInterval, block:()->Void) -> NSTimer {
-		return NSTimer.scheduledTimerWithTimeInterval(delay, target: NSBlockOperation(block: block), selector: "main", userInfo: nil, repeats: false)
+		return NSTimer.scheduledTimerWithTimeInterval(delay, target: NSBlockOperation(block: block), selector: #selector(NSOperation.main), userInfo: nil, repeats: false)
 	}
 	
 	static func setInterval(interval:NSTimeInterval, block:()->Void) -> NSTimer {
-		return NSTimer.scheduledTimerWithTimeInterval(interval, target: NSBlockOperation(block: block), selector: "main", userInfo: nil, repeats: true)
+		return NSTimer.scheduledTimerWithTimeInterval(interval, target: NSBlockOperation(block: block), selector: #selector(NSOperation.main), userInfo: nil, repeats: true)
 	}
 	
 }
