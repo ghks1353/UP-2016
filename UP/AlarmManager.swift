@@ -133,7 +133,7 @@ class AlarmManager {
 	
 	//알람 게임 클리어 토글
 	static func gameClearToggleAlarm( alarmID:Int, cleared:Bool ) {
-		let modAlarmElement:AlarmElements = getAlarm(alarmID);
+		let modAlarmElement:AlarmElements = getAlarm(alarmID)!;
 		modAlarmElement.alarmCleared = cleared;
 		
 		//save it
@@ -166,6 +166,20 @@ class AlarmManager {
 		}
 		
 		var scdNotifications:Array<UILocalNotification> = UIApplication.sharedApplication().scheduledLocalNotifications!;
+		
+		//앱을 삭제한 후 설치하거나, 데이터가 없는 경우에도 로컬알람이 울릴 수 있음.
+		//이 경우, Merge했을 때 지워지게 해야함.
+		print("Merging nil alarms");
+		for it:Int in 0 ..< scdNotifications.count {
+			let alarmTmpID:Int = scdNotifications[it].userInfo!["id"] as! Int;
+			if (AlarmManager.getAlarm(alarmTmpID) == nil) {
+				//REMOVE LocalNotification
+				UIApplication.sharedApplication().cancelLocalNotification(scdNotifications[it]);
+				print("Removed nil alarm ID:", alarmTmpID);
+			}
+		}
+		//Re-load list
+		scdNotifications = UIApplication.sharedApplication().scheduledLocalNotifications!;
 		
 		print("Scheduled alarm count", scdAlarm.count);
 		for i:Int in 0 ..< scdAlarm.count {
@@ -284,16 +298,14 @@ class AlarmManager {
 	}
 	
 	//Find alarm from array by ID
-	static func getAlarm(alarmID:Int)->AlarmElements {
-		let targetAlarmElements:AlarmElements = AlarmElements();
-		
+	static func getAlarm(alarmID:Int)->AlarmElements? {
 		for i:Int in 0 ..< alarmsArray.count {
 			if (alarmsArray[i].alarmID == alarmID) {
 				return alarmsArray[i];
 			}
 		}
 		
-		return targetAlarmElements;
+		return nil;
 	}
 	
 	//Toggle alarm (on/off)

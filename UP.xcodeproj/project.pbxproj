@@ -57,7 +57,6 @@
 		775ADBEA1C4FC4C700B52552 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775ADBE91C4FC4C700B52552 /* ViewController.swift */; };
 		775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBEB1C4FC4C700B52552 /* Main.storyboard */; };
 		775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBEE1C4FC4C700B52552 /* Assets.xcassets */; };
-		775ADBF21C4FC4C700B52552 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBF01C4FC4C700B52552 /* LaunchScreen.storyboard */; };
 		776437421CA1B488005369D3 /* a_back_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 7764373F1CA1B488005369D3 /* a_back_pad34.png */; };
 		776437431CA1B488005369D3 /* c_back_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 776437401CA1B488005369D3 /* c_back_pad34.png */; };
 		776437441CA1B488005369D3 /* b_back_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 776437411CA1B488005369D3 /* b_back_pad34.png */; };
@@ -71,7 +70,6 @@
 		77782E6A1C92B0B00016EE1B /* SKAction+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5E1C92B0B00016EE1B /* SKAction+SpecialEffects.swift */; };
 		77782E6B1C92B0B00016EE1B /* SKColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5F1C92B0B00016EE1B /* SKColor+Extensions.swift */; };
 		77782E6C1C92B0B00016EE1B /* SKNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E601C92B0B00016EE1B /* SKNode+Extensions.swift */; };
-		77782E6D1C92B0B00016EE1B /* SKTAudio.swift.bak in Sources */ = {isa = PBXBuildFile; fileRef = 77782E611C92B0B00016EE1B /* SKTAudio.swift.bak */; };
 		77782E6E1C92B0B00016EE1B /* SKTEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E621C92B0B00016EE1B /* SKTEffects.swift */; };
 		77782E6F1C92B0B00016EE1B /* SKTTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E631C92B0B00016EE1B /* SKTTimingFunctions.swift */; };
 		77782E701C92B0B00016EE1B /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E641C92B0B00016EE1B /* Vector3.swift */; };
@@ -375,7 +373,6 @@
 		775ADBE91C4FC4C700B52552 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
 		775ADBEC1C4FC4C700B52552 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		775ADBEE1C4FC4C700B52552 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		775ADBF11C4FC4C700B52552 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		775ADBF31C4FC4C700B52552 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		775ADBF91C4FC78100B52552 /* UP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UP.entitlements; sourceTree = "<group>"; };
 		7764373F1CA1B488005369D3 /* a_back_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_back_pad34.png; path = ImageAssets/MainBackgrounds/a_back_pad34.png; sourceTree = "<group>"; };
@@ -391,7 +388,6 @@
 		77782E5E1C92B0B00016EE1B /* SKAction+SpecialEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKAction+SpecialEffects.swift"; path = "SKTUtils/SKAction+SpecialEffects.swift"; sourceTree = SOURCE_ROOT; };
 		77782E5F1C92B0B00016EE1B /* SKColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKColor+Extensions.swift"; path = "SKTUtils/SKColor+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		77782E601C92B0B00016EE1B /* SKNode+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKNode+Extensions.swift"; path = "SKTUtils/SKNode+Extensions.swift"; sourceTree = SOURCE_ROOT; };
-		77782E611C92B0B00016EE1B /* SKTAudio.swift.bak */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SKTAudio.swift.bak; path = SKTUtils/SKTAudio.swift.bak; sourceTree = SOURCE_ROOT; };
 		77782E621C92B0B00016EE1B /* SKTEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKTEffects.swift; path = SKTUtils/SKTEffects.swift; sourceTree = SOURCE_ROOT; };
 		77782E631C92B0B00016EE1B /* SKTTimingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKTTimingFunctions.swift; path = SKTUtils/SKTTimingFunctions.swift; sourceTree = SOURCE_ROOT; };
 		77782E641C92B0B00016EE1B /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector3.swift; path = SKTUtils/Vector3.swift; sourceTree = SOURCE_ROOT; };
@@ -876,7 +872,6 @@
 				775ADBE91C4FC4C700B52552 /* ViewController.swift */,
 				775ADBEB1C4FC4C700B52552 /* Main.storyboard */,
 				775ADBEE1C4FC4C700B52552 /* Assets.xcassets */,
-				775ADBF01C4FC4C700B52552 /* LaunchScreen.storyboard */,
 				775ADBF31C4FC4C700B52552 /* Info.plist */,
 			);
 			path = UP;
@@ -894,7 +889,6 @@
 				77782E5E1C92B0B00016EE1B /* SKAction+SpecialEffects.swift */,
 				77782E5F1C92B0B00016EE1B /* SKColor+Extensions.swift */,
 				77782E601C92B0B00016EE1B /* SKNode+Extensions.swift */,
-				77782E611C92B0B00016EE1B /* SKTAudio.swift.bak */,
 				77782E621C92B0B00016EE1B /* SKTEffects.swift */,
 				77782E631C92B0B00016EE1B /* SKTTimingFunctions.swift */,
 				77782E641C92B0B00016EE1B /* Vector3.swift */,
@@ -1569,7 +1563,6 @@
 				77CAE0A21C9079B900FBA714 /* game_jumpup_ai_astro_move2.png in Resources */,
 				77C54DDC1C9EC02200013F9D /* astro0002.png in Resources */,
 				77C54E2F1C9EC02200013F9D /* astro0235.png in Resources */,
-				775ADBF21C4FC4C700B52552 /* LaunchScreen.storyboard in Resources */,
 				77C54DE41C9EC02200013F9D /* astro0010.png in Resources */,
 				77C54E371C9EC02200013F9D /* astro0243.png in Resources */,
 				77FBE6811C6DCB9F00E251A2 /* d_time_off.png in Resources */,
@@ -1742,7 +1735,6 @@
 				77782E6B1C92B0B00016EE1B /* SKColor+Extensions.swift in Sources */,
 				77FD0DF01C66312400B5B5E9 /* UPUtils.swift in Sources */,
 				77E23C071C6A334D005F0B03 /* UPAlarmSoundLists.swift in Sources */,
-				77782E6D1C92B0B00016EE1B /* SKTAudio.swift.bak in Sources */,
 				773D2F6B1C5B7CCF0093CD2D /* Languages.swift in Sources */,
 				77782E701C92B0B00016EE1B /* Vector3.swift in Sources */,
 				77EB7B071C6B6356008247DD /* AlarmListCell.swift in Sources */,
@@ -1758,14 +1750,6 @@
 				775ADBEC1C4FC4C700B52552 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		775ADBF01C4FC4C700B52552 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				775ADBF11C4FC4C700B52552 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1858,6 +1842,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = UP/UP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1874,6 +1859,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = UP/UP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

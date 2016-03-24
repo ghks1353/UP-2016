@@ -279,7 +279,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		};
 		
 		//find alarm object from array
-		let targetAlarm:AlarmElements = AlarmManager.getAlarm(cell.alarmID);
+		let targetAlarm:AlarmElements = AlarmManager.getAlarm(cell.alarmID)!;
 		
 		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
 		
