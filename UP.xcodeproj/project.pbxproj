@@ -58,6 +58,11 @@
 		775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBEB1C4FC4C700B52552 /* Main.storyboard */; };
 		775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBEE1C4FC4C700B52552 /* Assets.xcassets */; };
 		775ADBF21C4FC4C700B52552 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBF01C4FC4C700B52552 /* LaunchScreen.storyboard */; };
+		776437421CA1B488005369D3 /* a_back_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 7764373F1CA1B488005369D3 /* a_back_pad34.png */; };
+		776437431CA1B488005369D3 /* c_back_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 776437401CA1B488005369D3 /* c_back_pad34.png */; };
+		776437441CA1B488005369D3 /* b_back_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 776437411CA1B488005369D3 /* b_back_pad34.png */; };
+		776437461CA1B48E005369D3 /* d_back_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 776437451CA1B48E005369D3 /* d_back_pad34.png */; };
+		776437481CA1B62E005369D3 /* ground_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 776437471CA1B62E005369D3 /* ground_pad34.png */; };
 		77782E651C92B0B00016EE1B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E591C92B0B00016EE1B /* CGFloat+Extensions.swift */; };
 		77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5A1C92B0B00016EE1B /* CGPoint+Extensions.swift */; };
 		77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5B1C92B0B00016EE1B /* CGVector+Extensions.swift */; };
@@ -373,6 +378,11 @@
 		775ADBF11C4FC4C700B52552 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		775ADBF31C4FC4C700B52552 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		775ADBF91C4FC78100B52552 /* UP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UP.entitlements; sourceTree = "<group>"; };
+		7764373F1CA1B488005369D3 /* a_back_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_back_pad34.png; path = ImageAssets/MainBackgrounds/a_back_pad34.png; sourceTree = "<group>"; };
+		776437401CA1B488005369D3 /* c_back_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = c_back_pad34.png; path = ImageAssets/MainBackgrounds/c_back_pad34.png; sourceTree = "<group>"; };
+		776437411CA1B488005369D3 /* b_back_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = b_back_pad34.png; path = ImageAssets/MainBackgrounds/b_back_pad34.png; sourceTree = "<group>"; };
+		776437451CA1B48E005369D3 /* d_back_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_back_pad34.png; path = ImageAssets/MainBackgrounds/d_back_pad34.png; sourceTree = "<group>"; };
+		776437471CA1B62E005369D3 /* ground_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ground_pad34.png; path = ImageAssets/Skins/Default/GroundAssets/ground_pad34.png; sourceTree = "<group>"; };
 		77782E591C92B0B00016EE1B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGFloat+Extensions.swift"; path = "SKTUtils/CGFloat+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		77782E5A1C92B0B00016EE1B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGPoint+Extensions.swift"; path = "SKTUtils/CGPoint+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		77782E5B1C92B0B00016EE1B /* CGVector+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGVector+Extensions.swift"; path = "SKTUtils/CGVector+Extensions.swift"; sourceTree = SOURCE_ROOT; };
@@ -895,6 +905,10 @@
 		77802D201C8060A100766DB0 /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				776437451CA1B48E005369D3 /* d_back_pad34.png */,
+				7764373F1CA1B488005369D3 /* a_back_pad34.png */,
+				776437401CA1B488005369D3 /* c_back_pad34.png */,
+				776437411CA1B488005369D3 /* b_back_pad34.png */,
 				777F9C7F1C90B7770057E823 /* a_back_pad43.png */,
 				777F9C801C90B7770057E823 /* b_back_pad43.png */,
 				777F9C811C90B7770057E823 /* c_back_pad43.png */,
@@ -1144,6 +1158,7 @@
 		77C54E541C9EC05900013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
+				776437471CA1B62E005369D3 /* ground_pad34.png */,
 				77C54E791C9EC0DF00013F9D /* stat_object.png */,
 				77C54E501C9EC05500013F9D /* ground_pad43.png */,
 				77C54E511C9EC05500013F9D /* ground.png */,
@@ -1425,6 +1440,7 @@
 				77802D2E1C8060AD00766DB0 /* c_back.png in Resources */,
 				77C4C02C1C86D98000B7BB3B /* game_jumpup_astro_jump4.png in Resources */,
 				77C54E4C1C9EC02200013F9D /* astro0264.png in Resources */,
+				776437441CA1B488005369D3 /* b_back_pad34.png in Resources */,
 				77F9D2461C85D93F00E79CE8 /* game_jumpup_assets_time_time.png in Resources */,
 				77C54E211C9EC02200013F9D /* astro0221.png in Resources */,
 				77F9D2411C85D93F00E79CE8 /* game_jumpup_assets_time_box2.png in Resources */,
@@ -1472,6 +1488,7 @@
 				77C54E261C9EC02200013F9D /* astro0226.png in Resources */,
 				77C54DEF1C9EC02200013F9D /* astro0021.png in Resources */,
 				77C54E031C9EC02200013F9D /* astro0161.png in Resources */,
+				776437431CA1B488005369D3 /* c_back_pad34.png in Resources */,
 				77C54E0B1C9EC02200013F9D /* astro0169.png in Resources */,
 				77C54E101C9EC02200013F9D /* astro0174.png in Resources */,
 				77C54DF91C9EC02200013F9D /* astro0031.png in Resources */,
@@ -1503,6 +1520,7 @@
 				77C54E601C9EC08500013F9D /* time_hh.png in Resources */,
 				77C54E201C9EC02200013F9D /* astro0190.png in Resources */,
 				77C54E401C9EC02200013F9D /* astro0252.png in Resources */,
+				776437461CA1B48E005369D3 /* d_back_pad34.png in Resources */,
 				77C4C02D1C86D98000B7BB3B /* game_jumpup_astro_jump5.png in Resources */,
 				773D2E5E1C56835500177CF3 /* testeffect1.mp3 in Resources */,
 				77C54E5C1C9EC08500013F9D /* object_list.png in Resources */,
@@ -1540,6 +1558,7 @@
 				774D0DB41C5CAF3300E41385 /* ja.json in Resources */,
 				77C54E171C9EC02200013F9D /* astro0181.png in Resources */,
 				7756F9B81C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect3.png in Resources */,
+				776437481CA1B62E005369D3 /* ground_pad34.png in Resources */,
 				77C54E1B1C9EC02200013F9D /* astro0185.png in Resources */,
 				77C4C02A1C86D98000B7BB3B /* game_jumpup_astro_jump2.png in Resources */,
 				77CAE0BC1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump1.png in Resources */,
@@ -1644,6 +1663,7 @@
 				77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */,
 				77F9D23F1C85D93F00E79CE8 /* game_jumpup_assets_time_background.png in Resources */,
 				77C54E011C9EC02200013F9D /* astro0039.png in Resources */,
+				776437421CA1B488005369D3 /* a_back_pad34.png in Resources */,
 				77CAE0B11C907CB400FBA714 /* game_jumpup_ai_j_astro_move4.png in Resources */,
 				77C54E2C1C9EC02200013F9D /* astro0232.png in Resources */,
 				77C54E0D1C9EC02200013F9D /* astro0171.png in Resources */,

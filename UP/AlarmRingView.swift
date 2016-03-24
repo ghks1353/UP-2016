@@ -26,24 +26,10 @@ class AlarmRingView:UIViewController {
 	internal var currentAlarmElement:AlarmElements?;
 	var gameSelectedNumber:Int = 0;
 	
-	//Test elements
-	/*var alarmNameLabel:UILabel = UILabel();
-	var alarmOffUIButton:UIButton = UIButton();*/
-	
 	override func viewDidLoad() {
 		// view init func
 		self.view.backgroundColor = UIColor.blackColor();
 		AlarmRingView.selfView = self;
-		
-		/*alarmNameLabel.frame = CGRectMake(0, 48, self.view.frame.width, 40);
-		alarmNameLabel.font = UIFont.systemFontOfSize(28);
-		alarmNameLabel.textAlignment = .Center;
-		alarmNameLabel.textColor = UIColor.blackColor();
-		alarmOffUIButton.frame = CGRectMake(0, self.view.frame.height - 48, self.view.frame.width, 24);
-		alarmOffUIButton.setTitle("알림끄기", forState: .Normal);
-		alarmOffUIButton.setTitleColor(UIColor.blackColor(), forState: .Normal);
-		alarmOffUIButton.addTarget(self, action: "alarmOffTest:", forControlEvents: .TouchUpInside);
-		self.view.addSubview(alarmNameLabel); self.view.addSubview(alarmOffUIButton);*/
 		
 	}
 	
@@ -53,6 +39,13 @@ class AlarmRingView:UIViewController {
 			//알람 사운드 울림중일때 끔
 			AlarmManager.stopSoundAlarm();
 			
+			//세로로 화면 돌림
+			
+			//Rotate this view to portrait
+			let value = UIInterfaceOrientation.Portrait.rawValue;
+			UIDevice.currentDevice().setValue(value, forKey: "orientation");
+			//PS: this is unsecure use of APIs
+			// http://stackoverflow.com/questions/26357162/how-to-force-view-controller-orientation-in-ios-8
 			
 			//게임을 분류하여 각각 맞는 view를 present
 			if (currentAlarmElement?.gameSelected == -1) {
@@ -82,6 +75,7 @@ class AlarmRingView:UIViewController {
 			
 			
 		}
+		
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -101,30 +95,23 @@ class AlarmRingView:UIViewController {
 	} //end func
 	
 	override func viewWillDisappear(animated: Bool) {
-		
-		
+		//view disappear event handler
 	}
-	
-	/*
-	func alarmOffTest(sender: UIButton) {
-		//alarm off and close this view
-		
-		AlarmManager.gameClearToggleAlarm( (currentAlarmElement?.alarmID)!, cleared: true );
-		AlarmManager.mergeAlarm(); //Merge it
-		
-		AlarmManager.alarmRingActivated = false;
-		
-		//Refresh tables
-		AlarmListView.selfView?.createTableList();
-		
-		self.dismissViewControllerAnimated(true, completion: nil); //dismiss this view
-	}*/
-	
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
+	
+	// Lock rotation and fix
+	override func shouldAutorotate() -> Bool {
+		return false; //Lock autorotate in this view
+	}
+	override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+		//Lock it to Portrait
+		return .Portrait;
+	}
+	
 	
 	
 }

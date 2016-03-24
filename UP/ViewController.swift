@@ -341,18 +341,18 @@ class ViewController: UIViewController {
 			if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 				print("showing phone bg");
 				backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
-					DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+					DeviceGeneral.scrSize!.height <= 480.0 ? "_4s" : ""
 					) );
 				backgroundImageFadeView.image = UIImage( named: currentBackgroundImage + "_back" + (
-					DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+					DeviceGeneral.scrSize!.height <= 480.0 ? "_4s" : ""
 					) );
 			} else {
 				print("showing pad bg");
 				backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
-					(UIApplication.sharedApplication().statusBarOrientation == .Portrait || UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown) ? "_pad43" : ""
+					(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
 					) );
 				backgroundImageFadeView.image = UIImage( named: currentBackgroundImage + "_back" + (
-					(UIApplication.sharedApplication().statusBarOrientation == .Portrait || UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown) ? "_pad43" : ""
+					(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
 					) );
 			}
 			
@@ -366,11 +366,11 @@ class ViewController: UIViewController {
 				backgroundImageFadeView.alpha = 1;
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 					backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
-						DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+						DeviceGeneral.scrSize!.height <= 480.0 ? "_4s" : ""
 						) );
 				} else {
 					backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
-						(UIApplication.sharedApplication().statusBarOrientation == .Portrait || UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown) ? "_pad43" : ""
+						(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
 						) );
 				}
 				
@@ -380,11 +380,11 @@ class ViewController: UIViewController {
 						
 						if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 							self.backgroundImageFadeView.image = UIImage( named: self.currentBackgroundImage + "_back" + (
-								DeviceGeneral.scrSize?.height <= 480.0 ? "_4s" : ""
+								DeviceGeneral.scrSize!.height <= 480.0 ? "_4s" : ""
 								) );
 						} else {
 							self.backgroundImageFadeView.image = UIImage( named: self.currentBackgroundImage + "_back" + (
-								(UIApplication.sharedApplication().statusBarOrientation == .Portrait || UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown) ? "_pad43" : ""
+								(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
 								) );
 						}
 						
@@ -472,7 +472,9 @@ class ViewController: UIViewController {
 					GroundObj.image = UIImage( named: "ground.png" );
 				} else {
 					//show pad ground
-					GroundObj.image = UIImage( named: "ground_pad43.png" );
+					GroundObj.image = UIImage( named: "ground_pad" + (
+						UIDevice.currentDevice().orientation.isLandscape == true || DeviceGeneral.scrSize!.width > DeviceGeneral.scrSize!.height
+							? "34" : "43") + ".png" );
 				}
 				
 				//기본 스킨 아스트로 애니메이션 (텍스쳐)
@@ -550,6 +552,7 @@ class ViewController: UIViewController {
 		} else {
 			//show pad ground
 			GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 85.6 * DeviceGeneral.maxScrRatioC, (DeviceGeneral.scrSize!.width) , 85.6 * DeviceGeneral.maxScrRatioC );
+			GroundObj.image = UIImage( named: "ground_pad" + ((DeviceGeneral.scrSize!.width > DeviceGeneral.scrSize!.height) ? "34" : "43") + ".png" );
 		}
 		
 		
@@ -586,7 +589,7 @@ class ViewController: UIViewController {
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
 		currentBackgroundImage = getBackgroundFileNameFromTime(components.hour);
 		backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
-			UIDevice.currentDevice().orientation.isLandscape == false ? "_pad43" : ""
+			(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
 			));
 		}
 		
