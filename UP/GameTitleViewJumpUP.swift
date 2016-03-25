@@ -31,6 +31,12 @@ class GameTitleViewJumpUP:UIViewController {
 		// view init func
 		self.view.backgroundColor = UIColor.blackColor(); //black col
 		
+		
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		//View load func
+		
 		let gameTitleLabelYAxis:CGFloat = 128 * DeviceGeneral.scrRatioC;
 		
 		gameTitleLabel.text = Languages.$("gameNameJumpUP");
@@ -47,7 +53,7 @@ class GameTitleViewJumpUP:UIViewController {
 		gameTitleSkyblueLabel.frame = CGRectMake( 1.5, gameTitleLabelYAxis, gameTitleLabel.frame.width, gameTitleLabel.frame.height );
 		gameTitleSkyblueLabel.textColor = UPUtils.colorWithHexString("#00FFFF");
 		gameTitleSkyblueLabel.textAlignment = gameTitleLabel.textAlignment;
-
+		
 		self.view.addSubview(gameTitleRedLabel);
 		self.view.addSubview(gameTitleSkyblueLabel); self.view.addSubview(gameTitleLabel);
 		/////
@@ -71,19 +77,18 @@ class GameTitleViewJumpUP:UIViewController {
 		
 		self.view.addSubview(gameStartButtonImage);
 		gameStartButtonImage.userInteractionEnabled = true;
-		
-	}
+	} //end func
 	
 	func gameStartFuncTapHandler( recognizer: UITapGestureRecognizer ) {
 		//Game start
 		print("Presenting game view");
-		jumpUPGameScene = JumpUPGame( size: CGSizeMake( DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height ) );
+		jumpUPGameScene = JumpUPGame( size: CGSizeMake( self.view.frame.width, self.view.frame.height ) );
 		jumpUPGameScene!.scaleMode = SKSceneScaleMode.ResizeFill;
 		
 		gameView.showsFPS = true; //fps view
 		gameView.showsDrawCount = true;
 		gameView.showsNodeCount = true;
-		gameView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		gameView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
 		
 		self.view.addSubview(gameView);
 		gameView.presentScene(jumpUPGameScene!);
@@ -105,5 +110,11 @@ class GameTitleViewJumpUP:UIViewController {
 		// Dispose of any resources that can be recreated.
 	}
 	
+	
+	//Lock
+	override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+		//Lock it to Portrait
+		return .Portrait;
+	}
 	
 }

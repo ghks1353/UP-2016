@@ -35,34 +35,28 @@ class AlarmRingView:UIViewController {
 	
 	override func viewDidAppear(animated: Bool) {
 		if (currentAlarmElement != nil) {
-			
-			//알람 사운드 울림중일때 끔
-			AlarmManager.stopSoundAlarm();
-			
-			//세로로 화면 돌림
-			
-			//Rotate this view to portrait
-			let value = UIInterfaceOrientation.Portrait.rawValue;
-			UIDevice.currentDevice().setValue(value, forKey: "orientation");
-			//PS: this is unsecure use of APIs
-			// http://stackoverflow.com/questions/26357162/how-to-force-view-controller-orientation-in-ios-8
-			
 			//게임을 분류하여 각각 맞는 view를 present
 			if (currentAlarmElement?.gameSelected == -1) {
 				gameSelectedNumber = Int(arc4random_uniform( UInt32(UPAlarmGameLists.list.count) ));
 			} //rdm sel end
 			
+			//알람 사운드 울림중일때 끔
+			AlarmManager.stopSoundAlarm();
+			
 			print("view appreared and preparing to present a new view controller");
-			UPUtils.setTimeout(0.5, block: {
+			UPUtils.setTimeout(0.5, block: { //일종의 버그방지를 위한 타이머인데 걍 빼도 될거라고 (생각 중)
 				print("selected ->", self.gameSelectedNumber);
 				switch( self.gameSelectedNumber ) {
 					case 0: //점프업
+						self.changeRotation(0);
+						
 						if (AlarmRingView.jumpUPStartupViewController == nil) {
 							AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP();
 						} else {
 							AlarmRingView.jumpUPStartupViewController = nil;
 							AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP(); //게임 초기화가 귀찮다 ㅗ
 						}
+						
 						self.presentViewController(AlarmRingView.jumpUPStartupViewController!, animated: false, completion: nil);
 						break;
 						
@@ -88,10 +82,6 @@ class AlarmRingView:UIViewController {
 			
 			
 		} //end if
-		
-		
-		
-		
 	} //end func
 	
 	override func viewWillDisappear(animated: Bool) {
@@ -103,13 +93,29 @@ class AlarmRingView:UIViewController {
 		// Dispose of any resources that can be recreated.
 	}
 	
+	//Rotation set
+	func changeRotation(rotationNum:Int) {
+		
+		//세로로 화면 돌림
+		
+		//Rotate this view to portrait
+		let portraitOriention = UIInterfaceOrientation.Portrait.rawValue;
+		let landscapeOriention = UIInterfaceOrientation.LandscapeRight.rawValue;
+		
+		if (rotationNum == 0) { // 0 - 세로, 1 - 가로
+			UIDevice.currentDevice().setValue(portraitOriention, forKey: "orientation");
+		} else {
+			UIDevice.currentDevice().setValue(landscapeOriention, forKey: "orientation");
+		}
+		
+		//PS: this is unsecure use of APIs
+		// http://stackoverflow.com/questions/26357162/how-to-force-view-controller-orientation-in-ios-8
+	}
+	
+	
 	// Lock rotation and fix
 	override func shouldAutorotate() -> Bool {
 		return false; //Lock autorotate in this view
-	}
-	override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-		//Lock it to Portrait
-		return .Portrait;
 	}
 	
 	

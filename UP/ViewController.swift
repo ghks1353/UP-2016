@@ -599,16 +599,11 @@ class ViewController: UIViewController {
 	
 	//iOS 8.0 Rotation
 	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-		
 		print("View transition running. . .");
-		
 		//Re-calcuate scrSize
 		DeviceGeneral.changeDeviceSizeWith(size);
-		
 		//Fit elements again
 		fitViewControllerElementsToScreen( true );
-		
-		
 	}
 	
 	//iOS 7.0 Rotation (Fallback)
