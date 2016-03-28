@@ -57,7 +57,10 @@
 	"gameNameJumpUP": "점프 UP",
 	"gameDescriptionJumpUP": "점프 하나만 믿고 하는 게임이 아닙니다\n생각을 넓혀 보세요!",
 	
-	"gameGenreJumpAction": "점프액션"
+	"gameGenreJumpAction": "점프액션",
+	
+	"informationAlarmAdded": "알람이 추가되었습니다.",
+	"informationAlarmEdited": "알람이 수정되었습니다."
 	
 	
 }

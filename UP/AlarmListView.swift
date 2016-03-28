@@ -38,6 +38,9 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
 	internal var modalAddViewCalled:Bool = false;
 	
+	//위쪽에서 내려오는 알람 메시지를 위한 뷰
+	var upAlarmMessageView:UIView = UIView(); var upAlarmMessageText:UILabel = UILabel();
+	
     override func viewDidLoad() {
         super.viewDidLoad();
 		self.view.backgroundColor = .clearColor();
@@ -111,6 +114,20 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		AlarmListView.alarmListInited = true;
 		
+		//Upside message initial
+		upAlarmMessageView.backgroundColor = UIColor.whiteColor(); //color initial
+		upAlarmMessageText.textColor = UIColor.blackColor();
+		
+		upAlarmMessageText.text = "";
+		upAlarmMessageText.textAlignment = .Center;
+		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, 48);
+		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceGeneral.scrSize!.width, 24);
+		upAlarmMessageText.font = UIFont.systemFontOfSize(16);
+		upAlarmMessageView.addSubview(upAlarmMessageText);
+		
+		self.view.addSubview( upAlarmMessageView );
+		upAlarmMessageView.hidden = true;
+		///// upside message inital
 		
 		//DISABLE AUTORESIZE
 		self.view.autoresizesSubviews = false;
@@ -518,5 +535,40 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		return tCell;
 	}
-
+	
+	////////////////////////////
+	//notify on scr
+	func showMessageOnView( message:String, backgroundColorHex:String, textColorHex:String ) {
+		if (upAlarmMessageView.hidden == false) {
+			//몇초 뒤 나타나게 함.
+			UPUtils.setTimeout(2.5, block: {_ in
+				self.showMessageOnView( message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex );
+			});
+			return;
+		}
+		
+		self.view.bringSubviewToFront(upAlarmMessageView);
+		upAlarmMessageView.hidden = false;
+		upAlarmMessageView.backgroundColor = UPUtils.colorWithHexString(backgroundColorHex);
+		upAlarmMessageText.textColor = UPUtils.colorWithHexString(textColorHex)
+		upAlarmMessageText.text = message;
+		
+		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade); //statusbar hidden
+		self.upAlarmMessageView.frame = CGRectMake(0, -self.upAlarmMessageView.frame.height, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
+		
+		//Message animation
+		UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+			self.upAlarmMessageView.frame = CGRectMake(0, 0, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
+			}, completion: {_ in
+		});
+		
+		//animation fin.
+		UIView.animateWithDuration(0.32, delay: 2, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+			self.upAlarmMessageView.frame = CGRectMake(0, -self.upAlarmMessageView.frame.height, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
+			}, completion: {_ in
+				self.upAlarmMessageView.hidden = true;
+				UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Fade);
+		});
+	} //end func
+	
 }

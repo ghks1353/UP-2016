@@ -43,6 +43,8 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	internal var showBlur:Bool = true;
 	internal var isAlarmEditMode:Bool = false;
 	
+	var confirmed:Bool = false; //편집 혹은 확인을 누를 경우임.
+	
 	//Background for iOS7 fallback
 	var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
 	
@@ -94,11 +96,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			],
 			[ /* section 3 */
 				createCell(2, cellID: "alarmGame"),
-				createCell(2, cellID: "alarmSound")
-			],
-			[ /* section 4 */
+				createCell(2, cellID: "alarmSound"),
+				
 				createCell(2, cellID: "alarmRepeatSetting")
-				/*createCell(3, cellID: "alarmRepeatSetting")*/
 			]
 		];
 		
@@ -179,6 +179,8 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	//add alarm evt
 	func addAlarmToDevice() {
 		
+		confirmed = true;
+		
 		if (isAlarmEditMode == false) {
 			///Add alarm to system
 			AlarmManager.addAlarm((getElementFromTable("alarmDatePicker") as! UIDatePicker).date,
@@ -242,13 +244,27 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		if (showBlur) {
 			ViewController.viewSelf!.showHideBlurview(false);
 			removeBackgroundViews(); //iOS7 Fallback
-		}
+			
+			//Add alarm alert to main
+			if (confirmed == true) {
+				ViewController.viewSelf!.showMessageOnView(Languages.$(isAlarmEditMode == true ? "informationAlarmEdited" : "informationAlarmAdded"), backgroundColorHex: "219421", textColorHex: "FFFFFF");
+			}
+			
+		} else {
+			
+			//Add alarm alert to list
+			if (confirmed == true) {
+				AlarmListView.selfView!.showMessageOnView(Languages.$(isAlarmEditMode == true ? "informationAlarmEdited" : "informationAlarmAdded"), backgroundColorHex: "219421", textColorHex: "FFFFFF");
+			}
+			
+		} //end if
+		
 		self.dismissViewControllerAnimated(true, completion: nil);
 	}
 	
 	///// for table func
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 4;
+		return 3; //4;
 	}
 	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
@@ -439,6 +455,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		isAlarmEditMode = false; //AddMode
 		alarmDefaultStatus = true; //default on
 		editingAlarmID = -1;
+		confirmed = false;
 		
 		self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
 	}
@@ -459,6 +476,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		//alarmRepeatSelectListView.setSelectedCell( currentRepeatMode );
 		
 		gameSelectedID = selectedGameID;
+		confirmed = false;
 		
 		modalView.title = Languages.$("alarmEditTitle"); //Modal title set to alarmedit
 		modalView.navigationItem.rightBarButtonItem!.title = Languages.$("generalEdit");

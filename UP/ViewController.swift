@@ -50,7 +50,10 @@ class ViewController: UIViewController {
 	//뒷 배경 이미지 (시간에 따라 변경되며 변경 시간대마다 한번씩 fade)
 	var backgroundImageView:UIImageView = UIImageView();
 	var backgroundImageFadeView:UIImageView = UIImageView();
-	var currentBackgroundImage:String = "a";
+	var currentBackgroundImage:String = "a"; //default background
+	
+	//위쪽에서 내려오는 알람 메시지를 위한 뷰
+	var upAlarmMessageView:UIView = UIView(); var upAlarmMessageText:UILabel = UILabel();
 	
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
@@ -160,6 +163,22 @@ class ViewController: UIViewController {
 		
 		//DISABLE AUTORESIZE
 		self.view.autoresizesSubviews = false;
+		
+		
+		//Upside message initial
+		upAlarmMessageView.backgroundColor = UIColor.whiteColor(); //color initial
+		upAlarmMessageText.textColor = UIColor.blackColor();
+		
+		upAlarmMessageText.text = "";
+		upAlarmMessageText.textAlignment = .Center;
+		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, 48);
+		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceGeneral.scrSize!.width, 24);
+		upAlarmMessageText.font = UIFont.systemFontOfSize(16);
+		upAlarmMessageView.addSubview(upAlarmMessageText);
+		
+		self.view.addSubview( upAlarmMessageView );
+		upAlarmMessageView.hidden = true;
+		///// upside message inital
 		
     } //end viewdidload
 	
@@ -445,7 +464,8 @@ class ViewController: UIViewController {
 				modalAlarmAddView.dismissViewControllerAnimated(false, completion: nil);
 				modalAlarmListView.dismissViewControllerAnimated(false, completion: nil);
 				//Dismiss하면서 blur같은거 없애야 하는데, 일단 지금은 그게 뜨는지 체크먼저 해보고 구현 예정 ....
-				self.showHideBlurview(false); 
+				self.showHideBlurview(false);
+				GlobalSubView.alarmRingViewcontroller.modalTransitionStyle = .CrossDissolve;
 				self.presentViewController(GlobalSubView.alarmRingViewcontroller, animated: true, completion: nil);
 				AlarmManager.alarmRingActivated = true;
 				
@@ -514,9 +534,17 @@ class ViewController: UIViewController {
 		scrX += 4 * DeviceGeneral.maxScrRatioC;
 		
 		//가로로 누워있는 경우, 조정이 필요한 경우에 조금 조정
-		print("is landscape?", UIDevice.currentDevice().orientation.isLandscape == true)
-		if (UIDevice.currentDevice().orientation.isLandscape == true) {
-			digiClockYAxis = 60 * DeviceGeneral.scrRatioC;
+		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+			//iPhone일 시, 4s이외의 경우 조금 더 위치를 내림
+			if (DeviceGeneral.scrSize!.height > 480.0) { //iPhone 4, 4s는 이 크기임
+				//그래서 이 외의 경우임
+				digiClockYAxis = 110 * DeviceGeneral.scrRatioC;
+
+			}
+		} else { //iPad일 시 위치 조정
+			if (UIDevice.currentDevice().orientation.isLandscape == true) {
+				digiClockYAxis = 60 * DeviceGeneral.scrRatioC;
+			}
 		}
 		
 		//디지털시계 이미지 스케일 조정
@@ -608,27 +636,45 @@ class ViewController: UIViewController {
 	
 	//iOS 7.0 Rotation (Fallback)
 	override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+		//TODO.
 		
 	}
 	
+	////////////////////////////
+	//notify on scr
+	func showMessageOnView( message:String, backgroundColorHex:String, textColorHex:String ) {
+		if (upAlarmMessageView.hidden == false) {
+			//몇초 뒤 나타나게 함.
+			UPUtils.setTimeout(2.5, block: {_ in
+				self.showMessageOnView( message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex );
+				});
+			return;
+		}
+		
+		self.view.bringSubviewToFront(upAlarmMessageView);
+		upAlarmMessageView.hidden = false;
+		upAlarmMessageView.backgroundColor = UPUtils.colorWithHexString(backgroundColorHex);
+		upAlarmMessageText.textColor = UPUtils.colorWithHexString(textColorHex)
+		upAlarmMessageText.text = message;
+		
+		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade); //statusbar hidden
+		self.upAlarmMessageView.frame = CGRectMake(0, -self.upAlarmMessageView.frame.height, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
+		
+		//Message animation
+		UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+			self.upAlarmMessageView.frame = CGRectMake(0, 0, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
+			}, completion: {_ in
+		});
+		
+		//animation fin.
+		UIView.animateWithDuration(0.32, delay: 2, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+			self.upAlarmMessageView.frame = CGRectMake(0, -self.upAlarmMessageView.frame.height, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
+			}, completion: {_ in
+				self.upAlarmMessageView.hidden = true;
+				UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Fade);
+		});
+	} //end func
 	
-	
-    ///////////
-	
-    //Changes image size
-	
-    func scaleUIImageToSize(let image: UIImage, let size: CGSize) -> UIImage {
-        let hasAlpha = false
-        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
-        
-        UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
-        image.drawInRect(CGRect(origin: CGPointZero, size: size))
-        
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return scaledImage
-    }
 	
 }
 

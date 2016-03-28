@@ -472,26 +472,43 @@ class AlarmManager {
 		}
 		
 		print("Next alarm date is ",fireOnce," (-1: no repeat, 0=sunday)");
-		if (fireOnce == -1 || (fireSearched && fireOnce == todayDate.weekday - 1)) {
+		var fireAfterDay:Int = 0;
+		
+		if (fireOnce == -1 || (fireSearched && fireOnce == todayDate.weekday - 1 )) {
 			//Firedate modifiy not needed but check time
 			//시간이 과거면 알람 추가 안해야함 + 다음날로 넘겨야됨
 			if (date.timeIntervalSince1970 <= (NSDate().timeIntervalSince1970)) {
 				//과거의 알람이기 때문에, 다음날로 넘겨야됨!
-				print("Past alarm!! add 1 day");
-				date = UPUtils.addDays(date, additionalDays: 1);
-			}
+				
+				// <<< >>> 이 부분 수정해야함. 무조건 다음날로 넘기는게 아니라 다음 반복일까지 넘겨야함 (반복이 있을 경우)
+				if (fireOnce == -1) { //반복 꺼짐인 경우 그냥 다음날로 넘김.
+					print("Past alarm!! add 1 day");
+					date = UPUtils.addDays(date, additionalDays: 1);
+				} else {
+					//다음 반복일까지 대기후 추가
+					if (fireOnce - (todayDate.weekday - 1) > 0) {
+						fireAfterDay = fireOnce - (todayDate.weekday - 1);
+						print("(past) Firedate is over today: ", fireAfterDay);
+					} else {
+						fireAfterDay = (7 - (todayDate.weekday - 1)) + fireOnce;
+						print("(past) Firedate is before today: ", fireAfterDay);
+					}
+					date = UPUtils.addDays(date, additionalDays: fireAfterDay);
+					print("Firedate", date);
+				}
+				
+			} else {
+				print("This is not past alarm.");
+			} //end if
 			
 		} else {
 			//Firedate modify.
-			var fireAfterDay:Int = 0;
 			if (fireOnce - (todayDate.weekday - 1) > 0) {
 				fireAfterDay = fireOnce - (todayDate.weekday - 1);
 				print("Firedate is over today: ", fireAfterDay);
-				
 			} else {
 				fireAfterDay = (7 - (todayDate.weekday - 1)) + fireOnce;
 				print("Firedate is before today: ", fireAfterDay);
-				
 			}
 			//Add to date
 			date = UPUtils.addDays(date, additionalDays: fireAfterDay);

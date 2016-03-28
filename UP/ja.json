@@ -55,9 +55,11 @@
 		"alarmDefaultName": "アラーム",
 	
 	"gameNameJumpUP": "ジャンプ UP",
-	"gameDescriptionJumpUP": "くのいちでも恋がしたい！ --작업완료 안된거임--",
+	"gameDescriptionJumpUP": "ジャンプだけのゲームじゃありません！深く考えてみてください！",
 	
-	"gameGenreJumpAction": "ジャンプアクション"
+	"gameGenreJumpAction": "ジャンプアクション",
 	
+	"informationAlarmAdded": "アラームが追加されました。",
+	"informationAlarmEdited": "アラームが削除されました。"
 	
 }
