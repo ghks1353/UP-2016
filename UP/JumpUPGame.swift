@@ -309,7 +309,11 @@ class JumpUPGame:SKScene {
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 			//아이폰 (상대크기)
 			buttonRetireSprite.size = CGSizeMake( 242.05 * DeviceGeneral.scrRatioC, 70.75 * DeviceGeneral.scrRatioC );
-			buttonYAxis = gameStageYAxis - gameStageYHeight - (128 * DeviceGeneral.scrRatioC);
+			if (DeviceGeneral.scrSize!.height > 480.0) { //iPhone 4, 4s 이외
+				buttonYAxis = gameStageYAxis - gameStageYHeight - (128 * DeviceGeneral.scrRatioC);
+			} else { //iPhone 4시리즈
+				buttonYAxis = gameStageYAxis - gameStageYHeight - (86 * DeviceGeneral.scrRatioC);
+			}
 		} else { //아이패드 (절대크기)
 			buttonRetireSprite.size = CGSizeMake( 336.75, 98.45 );
 			buttonYAxis = gameStageYAxis - gameStageYHeight - ((self.size.height - gameStageYHeight) / 4);
