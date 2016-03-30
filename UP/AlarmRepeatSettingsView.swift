@@ -92,11 +92,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 			break;
 		}
 		
-		if #available(iOS 8.0, *) {
-			return UITableViewAutomaticDimension;
-		} else {
-			return 45;
-		}
+		return UITableViewAutomaticDimension;
 	}
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;

@@ -45,22 +45,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	var confirmed:Bool = false; //편집 혹은 확인을 누를 경우임.
 	
-	//Background for iOS7 fallback
-	var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
-	
 	override func viewDidLoad() {
 		super.viewDidLoad();
 		self.view.backgroundColor = .clearColor();
-		
-		//iOS7 fallback
-		if #available(iOS 8.0, *) {
-		} else {
-			modalBackground = UIImageView(); modalBackgroundBlackCover = UIView();
-			modalBackgroundBlackCover!.backgroundColor = UIColor.blackColor();
-			modalBackgroundBlackCover!.alpha = 0.7;
-			modalBackground!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
-			modalBackgroundBlackCover!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
-		} //End of iOS7 fallback
 		
 		AddAlarmView.selfView = self;
 		
@@ -75,8 +62,11 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		navigationCtrl.view.frame = modalView.view.frame;
 		
 		modalView.title = Languages.$("alarmSettings");
-		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: #selector(AddAlarmView.viewCloseAction));
-		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Languages.$("generalAdd"), style: .Plain, target: self, action: #selector(AddAlarmView.addAlarmToDevice));
+		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(AddAlarmView.viewCloseAction));
+		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: #selector(AddAlarmView.addAlarmToDevice));
+		
+		//modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Languages.$("generalAdd"), style: .Plain, target: self, action: #selector(AddAlarmView.addAlarmToDevice));
+		
 		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
 		modalView.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor();
 		self.view.addSubview(navigationCtrl.view);
@@ -125,18 +115,13 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height );
 	}
 	
-	internal func removeBackgroundViews() {
-		if (modalBackgroundBlackCover != nil) { //iOs7 fallback
-			modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
-		}
-	}
 	
 	override func viewWillAppear(animated: Bool) {
 		//setupModalView( DeviceGeneral.defaultModalSizeRect );
 	}
 	
 	// iOS7 Background fallback
-	override func viewDidAppear(animated: Bool) {
+	/*override func viewDidAppear(animated: Bool) {
 		if #available(iOS 8.0, *) {
 		} else {
 			modalBackground!.image = ViewController.viewSelf!.viewImage;
@@ -152,7 +137,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				modalBackgroundBlackCover!.alpha = 0.7;
 			}
 		}
-	} // iOS7 Background fallback end
+	}*/ // iOS7 Background fallback end
 	
 	//set sound element from other view
 	internal func setSoundElement(sInfo:SoundInfoObj) {
@@ -243,7 +228,6 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		
 		if (showBlur) {
 			ViewController.viewSelf!.showHideBlurview(false);
-			removeBackgroundViews(); //iOS7 Fallback
 			
 			//Add alarm alert to main
 			if (confirmed == true) {
@@ -285,11 +269,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				break;
 		}
 		
-		if #available(iOS 8.0, *) {
-			return UITableViewAutomaticDimension;
-		} else {
-			return 45;
-		}
+		return UITableViewAutomaticDimension;
 	}
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
@@ -443,14 +423,14 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	internal func clearComponents() {
 		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
 		(self.getElementFromTable("alarmName") as! UITextField).text = ""; //empty alarm name
-		self.setSoundElement(UPAlarmSoundLists.list[0]); //default - first element of soundlist
+		self.setSoundElement(SoundManager.list[0]); //default - first element of soundlist
 		self.setGameElement(-1); //set default to random
 		
 		gameSelectedID = -1; //clear selected game id
 		self.resetAlarmRepeatCell();
 		
 		modalView.title = Languages.$("alarmSettings"); //Modal title set to alarmsettings
-		modalView.navigationItem.rightBarButtonItem!.title = Languages.$("generalAdd");
+		//modalView.navigationItem.rightBarButtonItem!.title = Languages.$("generalAdd");
 		
 		isAlarmEditMode = false; //AddMode
 		alarmDefaultStatus = true; //default on
@@ -465,7 +445,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		//set alarm name
 		(self.getElementFromTable("alarmName") as! UITextField).text = alarmName;
 		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = alarmFireDate; //uipicker
-		self.setSoundElement(UPAlarmSoundLists.findSoundObjectWithFileName(selectedSoundFileName)); //set sound
+		self.setSoundElement(SoundManager.findSoundObjectWithFileName(selectedSoundFileName)); //set sound
 		self.setGameElement(selectedGameID); //set game
 		self.resetAlarmRepeatCell();
 		
@@ -479,7 +459,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		confirmed = false;
 		
 		modalView.title = Languages.$("alarmEditTitle"); //Modal title set to alarmedit
-		modalView.navigationItem.rightBarButtonItem!.title = Languages.$("generalEdit");
+		//modalView.navigationItem.rightBarButtonItem!.title = Languages.$("generalComplete");
 		
 		isAlarmEditMode = true; //EditMode
 		alarmDefaultStatus = alarmDefaultToggle; //Default toggle status

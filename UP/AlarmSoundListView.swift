@@ -41,8 +41,8 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		
 		//add table cells (options)
 		var alarmSoundListsTableArr:Array<AlarmSoundListCell> = [];
-		for i:Int in 0 ..< UPAlarmSoundLists.list.count {
-			alarmSoundListsTableArr += [ createCell(UPAlarmSoundLists.list[i]) ];
+		for i:Int in 0 ..< SoundManager.list.count {
+			alarmSoundListsTableArr += [ createCell(SoundManager.list[i]) ];
 		}
 		tablesArray = [ alarmSoundListsTableArr ];
 		
@@ -109,11 +109,7 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 				break;
 		}
 		
-		if #available(iOS 8.0, *) {
-			return UITableViewAutomaticDimension;
-		} else {
-			return 45;
-		}
+		return UITableViewAutomaticDimension;
 	}
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;

@@ -25,6 +25,8 @@ class ViewController: UIViewController {
 	var SettingsImg:UIImageView = UIImageView(); var AlarmListImg:UIImageView = UIImageView();
 	//땅 부분
 	var GroundObj:UIImageView = UIImageView(); var AstroCharacter:UIImageView = UIImageView();
+	//땅의 통계 부분
+	var GroundStatSign:UIImageView = UIImageView();
 	
 	///아래 애니메이션 이미지의 이미지 배열도 스킨에 따라 바뀜.
 	//스탠딩 모션
@@ -73,6 +75,7 @@ class ViewController: UIViewController {
 		self.view.addSubview(AnalogBody); self.view.addSubview(AnalogHours); self.view.addSubview(AnalogMinutes); self.view.addSubview(AnalogBodyBack);
 		self.view.addSubview(SettingsImg); self.view.addSubview(AlarmListImg);
 		self.view.addSubview(GroundObj); self.view.addSubview(AstroCharacter);
+		self.view.addSubview(GroundStatSign);
 		
 		//리소스 우선순위 설정
 		self.view.bringSubviewToFront(DigitalCol);
@@ -83,11 +86,14 @@ class ViewController: UIViewController {
 		self.view.bringSubviewToFront(AnalogHours); self.view.bringSubviewToFront(AnalogMinutes);
 		
 		self.view.bringSubviewToFront(GroundObj); self.view.bringSubviewToFront(AstroCharacter);
-		
+		self.view.bringSubviewToFront(GroundStatSign);
+
 		//디지털시계 이미지 기본 설정
-		DigitalCol.image = UIImage( named: "col.png" );
-		DigitalNum0.image = UIImage( named: "0.png" ); DigitalNum1.image = UIImage( named: "0.png" );
-		DigitalNum2.image = UIImage( named: "0.png" ); DigitalNum3.image = UIImage( named: "0.png" );
+		DigitalCol.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "col.png" );
+		DigitalNum0.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
+		DigitalNum1.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
+		DigitalNum2.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
+		DigitalNum3.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
 		DigitalCol.frame.size = CGSizeMake( 43.5, 60.9 ); //디바이스별 크기 설정은 밑에서 하므로 여긴 원본 크기를 입력함.
 		
 		//기본 스킨 선택. 나중엔 저장된 스킨번호를 불러오게 변경.
@@ -121,19 +127,15 @@ class ViewController: UIViewController {
 		ViewController.viewSelf = self;
         
         //Startup permission request
-        if #available(iOS 8.0, *) {
-            let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
-			UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings);
-			
-			//iOS8 blur effect
-			scrBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
-			(scrBlurView! as! UIVisualEffectView).frame = self.view.bounds;
-			(scrBlurView! as! UIVisualEffectView).autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
-			(scrBlurView! as! UIVisualEffectView).translatesAutoresizingMaskIntoConstraints = true;
-			
-        } else {
-            // Fallback on earlier versions
-        };
+		let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+		UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings);
+		
+		//iOS8 blur effect
+		scrBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
+		(scrBlurView! as! UIVisualEffectView).frame = self.view.bounds;
+		(scrBlurView! as! UIVisualEffectView).autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
+		(scrBlurView! as! UIVisualEffectView).translatesAutoresizingMaskIntoConstraints = true;
+		
 		
 		//FOR TEST
 		//UIApplication.sharedApplication().cancelAllLocalNotifications();
@@ -188,31 +190,23 @@ class ViewController: UIViewController {
 	}
 	
 	func showHideBlurview( show:Bool ) {
-		if #available(iOS 8.0, *) {
-			if (show) {
-				self.view.addSubview(scrBlurView as! UIVisualEffectView);
-				(scrBlurView as! UIVisualEffectView).alpha = 0;
-				UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-					(self.scrBlurView as! UIVisualEffectView).alpha = 1;
-				}, completion: nil);
-			} else {
-				(scrBlurView as! UIVisualEffectView).alpha = 1;
-				UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-				(self.scrBlurView as! UIVisualEffectView).alpha = 0;
-					}, completion: {_ in
-						self.scrBlurView?.removeFromSuperview();
-				});
-			}
+		
+		//Show or hide blur
+		if (show) {
+			self.view.addSubview(scrBlurView as! UIVisualEffectView);
+			(scrBlurView as! UIVisualEffectView).alpha = 0;
+			UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+				(self.scrBlurView as! UIVisualEffectView).alpha = 1;
+			}, completion: nil);
 		} else {
-			//iOS 7 fallback
-			if (show == true) {
-				UIGraphicsBeginImageContext(view.frame.size);
-				view.layer.renderInContext(UIGraphicsGetCurrentContext()!);
-				viewImage = UIGraphicsGetImageFromCurrentImageContext();
-				UIGraphicsEndImageContext();
-			}
+			(scrBlurView as! UIVisualEffectView).alpha = 1;
+			UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+			(self.scrBlurView as! UIVisualEffectView).alpha = 0;
+				}, completion: {_ in
+					self.scrBlurView?.removeFromSuperview();
+			});
 		}
-	}
+	} //end func
 	
 	//modal cgrect
 	func getGeneralModalRect() -> CGRect {
@@ -222,12 +216,8 @@ class ViewController: UIViewController {
 	func openAlarmaddView (gestureRecognizer: UITapGestureRecognizer) {
 		//알람추가뷰 열기
 		modalAlarmAddView.showBlur = true;
+		modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
 		
-		if #available(iOS 8.0, *) {
-			modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
-		} else {
-			modalAlarmAddView.removeBackgroundViews();
-		}
 		showHideBlurview(true);
 		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
 		modalAlarmAddView.clearComponents();
@@ -236,9 +226,7 @@ class ViewController: UIViewController {
 	
     func openSettingsView (gestureRecognizer: UITapGestureRecognizer) {
         //환경설정 열기
-        if #available(iOS 8.0, *) {
-			modalSettingsView.modalPresentationStyle = .OverFullScreen;
-		}
+		modalSettingsView.modalPresentationStyle = .OverFullScreen;
 		showHideBlurview(true);
         self.presentViewController(modalSettingsView, animated: true, completion: nil);
 		modalSettingsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
@@ -246,9 +234,7 @@ class ViewController: UIViewController {
 	
     func openAlarmlistView (gestureRecognizer: UITapGestureRecognizer) {
         //Alarmlist view 열기
-        if #available(iOS 8.0, *) {
-			modalAlarmListView.modalPresentationStyle = .OverFullScreen;
-        }
+		modalAlarmListView.modalPresentationStyle = .OverFullScreen;
 		showHideBlurview(true);
 		
         self.presentViewController(modalAlarmListView, animated: true, completion: nil);
@@ -267,8 +253,8 @@ class ViewController: UIViewController {
 		
 		//hour str time
         if (hourString.characters.count) == 1 {
-            DigitalNum0.image = UIImage( named: "0.png" );
-            DigitalNum1.image = UIImage( named:  hourString[0] + ".png" );
+            DigitalNum0.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
+            DigitalNum1.image = UIImage( named: SkinManager.getDefaultAssetPresets() + hourString[0] + ".png" );
             
             if (hourString[0] == "1") {
                 //숫자1의경우 오른쪽으로 당김.
@@ -281,8 +267,8 @@ class ViewController: UIViewController {
             }
             
         } else { //첫자리 밑 둘째자리는 각 시간에 맞게
-            DigitalNum0.image = UIImage( named:  hourString[0] + ".png" );
-            DigitalNum1.image = UIImage( named:  hourString[1] + ".png" );
+            DigitalNum0.image = UIImage( named: SkinManager.getDefaultAssetPresets() + hourString[0] + ".png" );
+            DigitalNum1.image = UIImage( named: SkinManager.getDefaultAssetPresets() + hourString[1] + ".png" );
             
             var movesRightOffset:Double = 0;
              if (hourString[0] == "1") {
@@ -303,8 +289,8 @@ class ViewController: UIViewController {
 		
 		//min str
         if (minString.characters.count == 1) {
-            DigitalNum2.image = UIImage( named: "0.png" );
-            DigitalNum3.image = UIImage( named:  minString[0] + ".png" );
+            DigitalNum2.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
+            DigitalNum3.image = UIImage( named: SkinManager.getDefaultAssetPresets() + minString[0] + ".png" );
             
             if (minString[0] == "1") {
                 //숫자1의경우 왼쪽으로 당김.
@@ -319,8 +305,8 @@ class ViewController: UIViewController {
             }
             
         } else { //첫자리 밑 둘째자리는 각 시간에 맞게
-            DigitalNum2.image = UIImage( named:  minString[0] + ".png" );
-            DigitalNum3.image = UIImage( named:  minString[1] + ".png" );
+            DigitalNum2.image = UIImage( named: SkinManager.getDefaultAssetPresets() + minString[0] + ".png" );
+            DigitalNum3.image = UIImage( named: SkinManager.getDefaultAssetPresets() + minString[1] + ".png" );
             
             var movesLeftOffset:Double = 0;
             if (minString[1] == "1") {
@@ -359,18 +345,22 @@ class ViewController: UIViewController {
 			print("current", UIApplication.sharedApplication().statusBarOrientation == .Portrait);
 			if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 				print("showing phone bg");
-				backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+				backgroundImageView.image = UIImage( named:
+					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
 					DeviceGeneral.scrSize!.height <= 480.0 ? "_4s" : ""
 					) );
-				backgroundImageFadeView.image = UIImage( named: currentBackgroundImage + "_back" + (
+				backgroundImageFadeView.image = UIImage( named:
+					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
 					DeviceGeneral.scrSize!.height <= 480.0 ? "_4s" : ""
 					) );
 			} else {
 				print("showing pad bg");
-				backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+				backgroundImageView.image = UIImage( named:
+					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
 					(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
 					) );
-				backgroundImageFadeView.image = UIImage( named: currentBackgroundImage + "_back" + (
+				backgroundImageFadeView.image = UIImage( named:
+					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
 					(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
 					) );
 			}
@@ -384,11 +374,13 @@ class ViewController: UIViewController {
 				currentBackgroundImage = getBackgroundFileNameFromTime(components.hour); //시간대 이미지 변경
 				backgroundImageFadeView.alpha = 1;
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
-					backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+					backgroundImageView.image = UIImage( named:
+						SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
 						DeviceGeneral.scrSize!.height <= 480.0 ? "_4s" : ""
 						) );
 				} else {
-					backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+					backgroundImageView.image = UIImage( named:
+						SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
 						(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
 						) );
 				}
@@ -398,11 +390,13 @@ class ViewController: UIViewController {
 					}, completion: {_ in
 						
 						if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
-							self.backgroundImageFadeView.image = UIImage( named: self.currentBackgroundImage + "_back" + (
+							self.backgroundImageFadeView.image = UIImage( named:
+								SkinManager.getDefaultAssetPresets() + self.currentBackgroundImage + "_back" + (
 								DeviceGeneral.scrSize!.height <= 480.0 ? "_4s" : ""
 								) );
 						} else {
-							self.backgroundImageFadeView.image = UIImage( named: self.currentBackgroundImage + "_back" + (
+							self.backgroundImageFadeView.image = UIImage( named:
+								SkinManager.getDefaultAssetPresets() + self.currentBackgroundImage + "_back" + (
 								(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
 								) );
 						}
@@ -482,25 +476,30 @@ class ViewController: UIViewController {
 			case 0: //기본 up 스킨
 				
 				//시계
-				AnalogBody.image = UIImage( named: "time_body.png" ); AnalogHours.image = UIImage( named: "time_hh.png" );
-				AnalogMinutes.image = UIImage( named: "time_mh.png" ); AnalogBodyBack.image = UIImage( named: "time_body_back.png" );
+				AnalogBody.image = UIImage( named: SkinManager.getAssetPresets() + "time_body.png" );
+				AnalogHours.image = UIImage( named: SkinManager.getAssetPresets() + "time_hh.png" );
+				AnalogMinutes.image = UIImage( named: SkinManager.getAssetPresets() + "time_mh.png" );
+				AnalogBodyBack.image = UIImage( named: SkinManager.getAssetPresets() + "time_body_back.png" );
 				//떠있는 버튼
-				SettingsImg.image = UIImage( named: "object_st.png" ); AlarmListImg.image = UIImage( named: "object_list.png" );
+				SettingsImg.image = UIImage( named: SkinManager.getAssetPresets() + "object_st.png" );
+				AlarmListImg.image = UIImage( named: SkinManager.getAssetPresets() + "object_list.png" );
 				
 				//땅 부분 (아스트로는 위에서 지정함) iPad의 경우 이미지를 넓은 것으로 교체할 필요가 있음
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
-					GroundObj.image = UIImage( named: "ground.png" );
+					GroundObj.image = UIImage( named: SkinManager.getAssetPresets() + "ground.png" );
 				} else {
 					//show pad ground
-					GroundObj.image = UIImage( named: "ground_pad" + (
+					GroundObj.image = UIImage( named:
+						SkinManager.getAssetPresets() + "ground_pad" + (
 						UIDevice.currentDevice().orientation.isLandscape == true || DeviceGeneral.scrSize!.width > DeviceGeneral.scrSize!.height
 							? "34" : "43") + ".png" );
 				}
+				GroundStatSign.image = UIImage( named: SkinManager.getAssetPresets() + "stat_object.png" );
 				
 				//기본 스킨 아스트로 애니메이션 (텍스쳐)
 				for i in 1...40 { //부동
 					let numberStr:String = String(i).characters.count == 1 ? "0" + String(i) : String(i);
-					let fileName:String = "astro" + "00" + numberStr + ".png";
+					let fileName:String = SkinManager.getAssetPresets() + "character_" + "00" + numberStr + ".png";
 					let fImage:UIImage = UIImage( named: fileName )!;
 					astroMotionsStanding += [fImage];
 				} /* 아직 안쓰니까 주석처리함. 쓸때 다시 주석 품,
@@ -580,12 +579,18 @@ class ViewController: UIViewController {
 		} else {
 			//show pad ground
 			GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 85.6 * DeviceGeneral.maxScrRatioC, (DeviceGeneral.scrSize!.width) , 85.6 * DeviceGeneral.maxScrRatioC );
-			GroundObj.image = UIImage( named: "ground_pad" + ((DeviceGeneral.scrSize!.width > DeviceGeneral.scrSize!.height) ? "34" : "43") + ".png" );
+			GroundObj.image = UIImage( named:
+				SkinManager.getAssetPresets() + "ground_pad" + ((DeviceGeneral.scrSize!.width > DeviceGeneral.scrSize!.height) ? "34" : "43") + ".png" );
 		}
 		
-		
-		//Astro 크기 및 위치조정
-		AstroCharacter.frame = CGRectMake( (DeviceGeneral.scrSize?.width)! - (126 * DeviceGeneral.maxScrRatioC), GroundObj.frame.origin.y - (151 * DeviceGeneral.maxScrRatioC) + (9 * DeviceGeneral.maxScrRatioC), 60 * DeviceGeneral.maxScrRatioC, 151 * DeviceGeneral.maxScrRatioC );
+		//캐릭터 크기 및 위치조정
+		AstroCharacter.frame =
+			CGRectMake( (DeviceGeneral.scrSize?.width)! - (126 * DeviceGeneral.maxScrRatioC), GroundObj.frame.origin.y - (151 * DeviceGeneral.maxScrRatioC) + (9 * DeviceGeneral.maxScrRatioC), 60 * DeviceGeneral.maxScrRatioC, 151 * DeviceGeneral.maxScrRatioC );
+		GroundStatSign.frame =
+			CGRectMake( 64 * DeviceGeneral.maxScrRatioC,
+			            GroundObj.frame.origin.y - (96.95 * DeviceGeneral.maxScrRatioC) + (7 * DeviceGeneral.maxScrRatioC),
+			            101.1 * DeviceGeneral.maxScrRatioC,
+			            96.95 * DeviceGeneral.maxScrRatioC );
 		
 		
 		//Background image scale
@@ -599,11 +604,8 @@ class ViewController: UIViewController {
 		
 		//Blur view 조절
 		if (scrBlurView != nil) {
-			if #available(iOS 8.0, *) {
-			    (scrBlurView as! UIVisualEffectView).frame = DeviceGeneral.scrSize!
-			} else {
-			    // Fallback on earlier versions
-			};
+			(scrBlurView as! UIVisualEffectView).frame = DeviceGeneral.scrSize!
+			
 		}
 		
 		//버그로 인해 위치변경 전까진 transform이 없어야 함
@@ -634,12 +636,6 @@ class ViewController: UIViewController {
 		fitViewControllerElementsToScreen( true );
 	}
 	
-	//iOS 7.0 Rotation (Fallback)
-	override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-		//TODO.
-		
-	}
-	
 	////////////////////////////
 	//notify on scr
 	func showMessageOnView( message:String, backgroundColorHex:String, textColorHex:String ) {
@@ -667,7 +663,7 @@ class ViewController: UIViewController {
 		});
 		
 		//animation fin.
-		UIView.animateWithDuration(0.32, delay: 2, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+		UIView.animateWithDuration(0.32, delay: 1, options: UIViewAnimationOptions.CurveEaseIn, animations: {
 			self.upAlarmMessageView.frame = CGRectMake(0, -self.upAlarmMessageView.frame.height, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
 			}, completion: {_ in
 				self.upAlarmMessageView.hidden = true;

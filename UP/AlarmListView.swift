@@ -35,7 +35,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	var alarmTargetIndexPath:NSIndexPath?; // = NSIndexPath(); //to delete animation/optimization
 	
 	//Background for iOS7 fallback
-	var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
+	//var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
 	internal var modalAddViewCalled:Bool = false;
 	
 	//위쪽에서 내려오는 알람 메시지를 위한 뷰
@@ -44,17 +44,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad();
 		self.view.backgroundColor = .clearColor();
-		
-		//iOS7 fallback
-		if #available(iOS 8.0, *) {
-		} else {
-			modalBackground = UIImageView(); modalBackgroundBlackCover = UIView();
-			modalBackgroundBlackCover!.backgroundColor = UIColor.blackColor();
-			modalBackgroundBlackCover!.alpha = 0.7;
-			modalBackground!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
-			modalBackgroundBlackCover!.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
-		} //End of iOS7 fallback
-		
 		
 		AlarmListView.selfView = self;
 		
@@ -67,8 +56,10 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#6C798C");
 		navigationCtrl.view.frame = modalView.view.frame;
 		modalView.title = Languages.$("alarmList");
-		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Languages.$("generalClose"), style: .Plain, target: self, action: #selector(AlarmListView.viewCloseAction));
+		
+		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(AlarmListView.viewCloseAction));
 		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(AlarmListView.alarmAddAction));
+		
 		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
 		modalView.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor();
 		self.view.addSubview(navigationCtrl.view);
@@ -86,31 +77,33 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
         tableView.delegate = self; tableView.dataSource = self;
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
-		
+		//tableView.setEditing(true, animated: true);
 		//alertaction
-		if #available(iOS 8.2, *) { //ios8.2 or above only..!!
-			listConfirmAction = UIAlertController(title: Languages.$("alarmDeleteTitle"), message: Languages.$("alarmDeleteSure"), preferredStyle: .ActionSheet);
-			//add menus
-			let cancelAct:UIAlertAction = UIAlertAction(title: Languages.$("generalCancel"), style: .Cancel) { action -> Void in
-				//Cancel just dismiss it
-			};
-			let deleteSureAct:UIAlertAction = UIAlertAction(title: Languages.$("alarmDelete"), style: .Destructive) { action -> Void in
-				//delete it
-				self.deleteAlarmConfirm();
-				
-			};
-			listConfirmAction!.addAction(cancelAct);
-			listConfirmAction!.addAction(deleteSureAct);
+		//if #available(iOS 8.2, *) { //ios8.2 or above only..!!
+		
+		//Document상에서는 iOS 8부터임
+		listConfirmAction = UIAlertController(title: Languages.$("alarmDeleteTitle"), message: Languages.$("alarmDeleteSure"), preferredStyle: .ActionSheet);
+		//add menus
+		let cancelAct:UIAlertAction = UIAlertAction(title: Languages.$("generalCancel"), style: .Cancel) { action -> Void in
+			//Cancel just dismiss it
+		};
+		let deleteSureAct:UIAlertAction = UIAlertAction(title: Languages.$("alarmDelete"), style: .Destructive) { action -> Void in
+			//delete it
+			self.deleteAlarmConfirm();
+			
+		};
+		listConfirmAction!.addAction(cancelAct);
+		listConfirmAction!.addAction(deleteSureAct);
 			
 			//let cellSelectRec:
 			
-		} else { //ios7 or older uses actionsheet
+		/*} else { //ios7 or older uses actionsheet
 			listConfirmAction = UIActionSheet(title: Languages.$("alarmDeleteSure"), delegate: self, cancelButtonTitle: Languages.$("generalCancel"), destructiveButtonTitle: Languages.$("alarmDelete"));
 			//list long press action for iOS7
 			let longPressRec:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AlarmListView.tableCellLongPressAction(_:)));
 			longPressRec.allowableMovement = 15; longPressRec.minimumPressDuration = 0.8;
 			self.tableView.addGestureRecognizer(longPressRec);
-		}
+		}*/
 		
 		AlarmListView.alarmListInited = true;
 		
@@ -148,27 +141,16 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	//iPad Alarm Delete Question
 	func showAlarmDelAlert() {
-		if #available(iOS 8.0, *) {
-			let alarmDelAlertController = UIAlertController(title: Languages.$("alarmDelete"), message: Languages.$("alarmDeleteSure"), preferredStyle: UIAlertControllerStyle.Alert);
-			alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
-				//Alarm delete
-				self.deleteAlarmConfirm();
-			}));
-			
-			alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalCancel"), style: .Default, handler: { (action: UIAlertAction!) in
-				//Cancel
-			}));
-			presentViewController(alarmDelAlertController, animated: true, completion: nil);
-		} else {
-		    // iOS7 Fallback
-			let alarmDelAlertView = UIAlertView(
-				title: Languages.$("alarmDelete"),
-				message: Languages.$("alarmDeleteSure"), delegate: self,
-				cancelButtonTitle: Languages.$("generalCancel"),
-				otherButtonTitles: Languages.$("generalOK"));
-			alarmDelAlertView.show();
-			
-		} //end chk fallback
+		let alarmDelAlertController = UIAlertController(title: Languages.$("alarmDelete"), message: Languages.$("alarmDeleteSure"), preferredStyle: UIAlertControllerStyle.Alert);
+		alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
+			//Alarm delete
+			self.deleteAlarmConfirm();
+		}));
+		
+		alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalCancel"), style: .Default, handler: { (action: UIAlertAction!) in
+			//Cancel
+		}));
+		presentViewController(alarmDelAlertController, animated: true, completion: nil);
 		
 	} //end function
 	
@@ -220,19 +202,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	// iOS7 Background fallback
 	override func viewDidAppear(animated: Bool) {
-		if #available(iOS 8.0, *) {
-		} else {
-			if (modalAddViewCalled == false) {
-				modalBackground!.image = ViewController.viewSelf!.viewImage;
-				modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
-				self.view.addSubview(modalBackgroundBlackCover!); self.view.addSubview(modalBackground!);
-				self.view.sendSubviewToBack(modalBackgroundBlackCover!); self.view.sendSubviewToBack(modalBackground!);
-				modalBackgroundBlackCover!.alpha = 0;
-				UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-					self.modalBackgroundBlackCover!.alpha = 0.7;
-					}, completion: nil);
-			}
-		}
+		
 	} // iOS7 Background fallback end
 	
 	//table list create method
@@ -289,11 +259,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//Show alarm edit view
 		
 		modalAlarmAddView.showBlur = false;
-		if #available(iOS 8.0, *) {
-			modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
-		} else { //iOS7 Fallback
-			modalAlarmAddView.removeBackgroundViews(); modalAddViewCalled = true;
-		};
+		modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
 		
 		//find alarm object from array
 		let targetAlarm:AlarmElements = AlarmManager.getAlarm(cell.alarmID)!;
@@ -329,15 +295,17 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	/*
 	@available(iOS 8.0, *)
-	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-	}
+	
 	
 	@available(iOS 8.0, *)
 	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
 		return true
 	}*/
 	
-	@available(iOS 8.0, *)
+	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+		
+	}
+	
 	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 		//get row
 		//let cell:AlarmListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmListCell;
@@ -383,13 +351,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
         //Show alarm-add view
 		//뷰는 단 하나의 추가 뷰만 present가 가능한 관계로..
 		modalAlarmAddView.showBlur = false;
+		modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
 		
-		if #available(iOS 8.0, *) {
-			modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
-		} else {
-			modalAlarmAddView.removeBackgroundViews();
-			modalAddViewCalled = true;
-		};
 		modalAlarmAddView.FitModalLocationToCenter();
 		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
 		modalAlarmAddView.clearComponents();
@@ -399,9 +362,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     func viewCloseAction() {
         //Close this view
 		modalAddViewCalled = false;
-		if (modalBackgroundBlackCover != nil) { //iOS7 Fallback (Should work on iOS7 only)
-			modalBackgroundBlackCover!.removeFromSuperview(); modalBackground!.removeFromSuperview();
-		}
 		ViewController.viewSelf!.showHideBlurview(false);
         self.dismissViewControllerAnimated(true, completion: nil);
     }
@@ -563,7 +523,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		});
 		
 		//animation fin.
-		UIView.animateWithDuration(0.32, delay: 2, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+		UIView.animateWithDuration(0.32, delay: 1, options: UIViewAnimationOptions.CurveEaseIn, animations: {
 			self.upAlarmMessageView.frame = CGRectMake(0, -self.upAlarmMessageView.frame.height, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
 			}, completion: {_ in
 				self.upAlarmMessageView.hidden = true;

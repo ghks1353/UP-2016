@@ -5,6 +5,7 @@
 	"generalOK": "OK",
 	"generalClose": "閉じる",
 	"generalAdd": "追加",
+	"generalComplete": "完了",
 	"generalEdit": "エディット",
 	"generalCancel": "キャンセル",
 	"generalBack": "もどる",
@@ -60,6 +61,6 @@
 	"gameGenreJumpAction": "ジャンプアクション",
 	
 	"informationAlarmAdded": "アラームが追加されました。",
-	"informationAlarmEdited": "アラームが削除されました。"
+	"informationAlarmEdited": "アラームが修正されました。"
 	
 }
