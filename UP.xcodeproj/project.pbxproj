@@ -72,9 +72,7 @@
 		77802D1F1C805E1A00766DB0 /* game-thumb-random.png in Resources */ = {isa = PBXBuildFile; fileRef = 77802D1D1C805E1A00766DB0 /* game-thumb-random.png */; };
 		77802D331C80998700766DB0 /* NanumBarunGothicUltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77802D321C8097E200766DB0 /* NanumBarunGothicUltraLight.ttf */; };
 		77958C9A1C68D05C00E99864 /* SoundInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77958C991C68D05C00E99864 /* SoundInfoObj.swift */; };
-		77958C9C1C68DB2900E99864 /* alarm-test.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77958C9B1C68DB2900E99864 /* alarm-test.aiff */; };
 		77958C9E1C68E0D900E99864 /* AlarmSoundListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */; };
-		7799B4891C6F640900BEA0CF /* alarm-test-koreagarang.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7799B4881C6F640900BEA0CF /* alarm-test-koreagarang.aiff */; };
 		779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */; };
 		77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */; };
 		77AC4F8F1CABDE800044F5C8 /* SkinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AC4F8E1CABDE800044F5C8 /* SkinManager.swift */; };
@@ -229,6 +227,12 @@
 		77AC50BC1CABE5D40044F5C8 /* skin_default_character_0262.png in Resources */ = {isa = PBXBuildFile; fileRef = 77AC504A1CABE5D40044F5C8 /* skin_default_character_0262.png */; };
 		77AC50BD1CABE5D40044F5C8 /* skin_default_character_0263.png in Resources */ = {isa = PBXBuildFile; fileRef = 77AC504B1CABE5D40044F5C8 /* skin_default_character_0263.png */; };
 		77AC50BE1CABE5D40044F5C8 /* skin_default_character_0264.png in Resources */ = {isa = PBXBuildFile; fileRef = 77AC504C1CABE5D40044F5C8 /* skin_default_character_0264.png */; };
+		77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */; };
+		77AC50C21CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C11CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff */; };
+		77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */; };
+		77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */; };
+		77AC50CF1CAC5CA60044F5C8 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC50C51CAC526B0044F5C8 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */; };
 		77C35C8B1C81CC2A002EE465 /* GameTitleViewJumpUP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C35C8A1C81CC2A002EE465 /* GameTitleViewJumpUP.swift */; };
 		77C4C0001C86A61700B7BB3B /* JumpUpElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C4BFFF1C86A61700B7BB3B /* JumpUpElements.swift */; };
 		77C4C0081C86B7CF00B7BB3B /* game_jumpup_astro_move0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0021C86B7CF00B7BB3B /* game_jumpup_astro_move0.png */; };
@@ -288,7 +292,6 @@
 		77E288081C7334A30020B766 /* c_time_on_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E288001C7334A30020B766 /* c_time_on_small.png */; };
 		77E288091C7334A30020B766 /* d_time_off_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E288011C7334A30020B766 /* d_time_off_small.png */; };
 		77E2880A1C7334A30020B766 /* d_time_on_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E288021C7334A30020B766 /* d_time_on_small.png */; };
-		77E2880C1C7342670020B766 /* alarm-test-epicsax.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77E2880B1C7342670020B766 /* alarm-test-epicsax.aiff */; };
 		77E3F47A1C746C71002BBDA6 /* AlarmGameListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3F4791C746C71002BBDA6 /* AlarmGameListView.swift */; };
 		77E3F47C1C746D3C002BBDA6 /* GameInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3F47B1C746D3C002BBDA6 /* GameInfoObj.swift */; };
 		77E3F47E1C747272002BBDA6 /* UPAlarmGameLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E3F47D1C747272002BBDA6 /* UPAlarmGameLists.swift */; };
@@ -318,10 +321,23 @@
 		77FBE6821C6DCB9F00E251A2 /* d_time_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FBE67A1C6DCB9F00E251A2 /* d_time_on.png */; };
 		77FBE6841C6DCBAA00E251A2 /* game-thumb-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FBE6831C6DCBAA00E251A2 /* game-thumb-background.png */; };
 		77FBE6861C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FBE6851C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift */; };
-		77FBE6881C6E512300E251A2 /* marvelsoda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77FBE6871C6E512300E251A2 /* marvelsoda.aiff */; };
 		77FD0DEE1C6625FD00B5B5E9 /* GlobalSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */; };
 		77FD0DF01C66312400B5B5E9 /* UPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FD0DEF1C66312400B5B5E9 /* UPUtils.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		77AC50D01CAC5CA70044F5C8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				77AC50CF1CAC5CA60044F5C8 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		771181DC1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_alram_off.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_alram_off.png; sourceTree = "<group>"; };
@@ -392,9 +408,7 @@
 		77802D1D1C805E1A00766DB0 /* game-thumb-random.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-random.png"; path = "ImageAssets/GameThumbs/game-thumb-random.png"; sourceTree = "<group>"; };
 		77802D321C8097E200766DB0 /* NanumBarunGothicUltraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = NanumBarunGothicUltraLight.ttf; path = FontAssets/NanumBarunGothicUltraLight.ttf; sourceTree = "<group>"; };
 		77958C991C68D05C00E99864 /* SoundInfoObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundInfoObj.swift; sourceTree = "<group>"; };
-		77958C9B1C68DB2900E99864 /* alarm-test.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "alarm-test.aiff"; path = "SoundAssets/AlarmSounds/alarm-test.aiff"; sourceTree = "<group>"; };
 		77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundListCell.swift; sourceTree = "<group>"; };
-		7799B4881C6F640900BEA0CF /* alarm-test-koreagarang.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "alarm-test-koreagarang.aiff"; path = "SoundAssets/AlarmSounds/alarm-test-koreagarang.aiff"; sourceTree = "<group>"; };
 		779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = up_background_task_alarm.mp3; path = SoundAssets/SystemSounds/up_background_task_alarm.mp3; sourceTree = "<group>"; };
 		77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		77AC4F8E1CABDE800044F5C8 /* SkinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkinManager.swift; sourceTree = "<group>"; };
@@ -549,6 +563,12 @@
 		77AC504A1CABE5D40044F5C8 /* skin_default_character_0262.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_character_0262.png; path = ImageAssets/Skins/Default/Character/skin_default_character_0262.png; sourceTree = "<group>"; };
 		77AC504B1CABE5D40044F5C8 /* skin_default_character_0263.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_character_0263.png; path = ImageAssets/Skins/Default/Character/skin_default_character_0263.png; sourceTree = "<group>"; };
 		77AC504C1CABE5D40044F5C8 /* skin_default_character_0264.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_character_0264.png; path = ImageAssets/Skins/Default/Character/skin_default_character_0264.png; sourceTree = "<group>"; };
+		77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsoda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsoda.aiff"; sourceTree = "<group>"; };
+		77AC50C11CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-kari-sapphire.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-kari-sapphire.aiff"; sourceTree = "<group>"; };
+		77AC50C51CAC526B0044F5C8 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = ../Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
+		77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-wanderlust.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-wanderlust.aiff"; sourceTree = "<group>"; };
+		77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-bigblack.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-bigblack.aiff"; sourceTree = "<group>"; };
+		77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsodamatsuda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsodamatsuda.aiff"; sourceTree = "<group>"; };
 		77C35C8A1C81CC2A002EE465 /* GameTitleViewJumpUP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTitleViewJumpUP.swift; sourceTree = "<group>"; };
 		77C4BFFF1C86A61700B7BB3B /* JumpUpElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpUpElements.swift; sourceTree = "<group>"; };
 		77C4C0021C86B7CF00B7BB3B /* game_jumpup_astro_move0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_move0.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_move/game_jumpup_astro_move0.png; sourceTree = "<group>"; };
@@ -608,7 +628,6 @@
 		77E288001C7334A30020B766 /* c_time_on_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = c_time_on_small.png; path = ImageAssets/TimeListAssets/LQ/c_time_on_small.png; sourceTree = "<group>"; };
 		77E288011C7334A30020B766 /* d_time_off_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_time_off_small.png; path = ImageAssets/TimeListAssets/LQ/d_time_off_small.png; sourceTree = "<group>"; };
 		77E288021C7334A30020B766 /* d_time_on_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_time_on_small.png; path = ImageAssets/TimeListAssets/LQ/d_time_on_small.png; sourceTree = "<group>"; };
-		77E2880B1C7342670020B766 /* alarm-test-epicsax.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "alarm-test-epicsax.aiff"; path = "SoundAssets/AlarmSounds/alarm-test-epicsax.aiff"; sourceTree = "<group>"; };
 		77E3F4791C746C71002BBDA6 /* AlarmGameListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmGameListView.swift; sourceTree = "<group>"; };
 		77E3F47B1C746D3C002BBDA6 /* GameInfoObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInfoObj.swift; sourceTree = "<group>"; };
 		77E3F47D1C747272002BBDA6 /* UPAlarmGameLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPAlarmGameLists.swift; sourceTree = "<group>"; };
@@ -638,7 +657,6 @@
 		77FBE67A1C6DCB9F00E251A2 /* d_time_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_time_on.png; path = ImageAssets/TimeListAssets/d_time_on.png; sourceTree = "<group>"; };
 		77FBE6831C6DCBAA00E251A2 /* game-thumb-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-background.png"; path = "ImageAssets/GameThumbs/game-thumb-background.png"; sourceTree = "<group>"; };
 		77FBE6851C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlarmIDSwitch.swift; sourceTree = "<group>"; };
-		77FBE6871C6E512300E251A2 /* marvelsoda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = marvelsoda.aiff; path = SoundAssets/AlarmSounds/marvelsoda.aiff; sourceTree = "<group>"; };
 		77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSubView.swift; sourceTree = "<group>"; };
 		77FD0DEF1C66312400B5B5E9 /* UPUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -845,6 +863,7 @@
 		775ADBDB1C4FC4C700B52552 = {
 			isa = PBXGroup;
 			children = (
+				77AC50C51CAC526B0044F5C8 /* Charts.framework */,
 				77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */,
 				775ADBE61C4FC4C700B52552 /* UP */,
 				775ADBE51C4FC4C700B52552 /* Products */,
@@ -959,10 +978,11 @@
 		77C3CFC61C6325BE009A183A /* Alarms */ = {
 			isa = PBXGroup;
 			children = (
-				77E2880B1C7342670020B766 /* alarm-test-epicsax.aiff */,
-				7799B4881C6F640900BEA0CF /* alarm-test-koreagarang.aiff */,
-				77FBE6871C6E512300E251A2 /* marvelsoda.aiff */,
-				77958C9B1C68DB2900E99864 /* alarm-test.aiff */,
+				77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */,
+				77AC50C11CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff */,
+				77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */,
+				77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */,
+				77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */,
 			);
 			name = Alarms;
 			sourceTree = "<group>";
@@ -1374,6 +1394,7 @@
 				775ADBE01C4FC4C700B52552 /* Sources */,
 				775ADBE11C4FC4C700B52552 /* Frameworks */,
 				775ADBE21C4FC4C700B52552 /* Resources */,
+				77AC50D01CAC5CA70044F5C8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1445,7 +1466,6 @@
 				77AC4FB81CABE0C10044F5C8 /* skin_default_9.png in Resources */,
 				77AC4F951CABDFB10044F5C8 /* skin_default_ground_pad43.png in Resources */,
 				77CAE0B21C907CB400FBA714 /* game_jumpup_ai_j_astro_move5.png in Resources */,
-				77958C9C1C68DB2900E99864 /* alarm-test.aiff in Resources */,
 				77AC506A1CABE5D40044F5C8 /* skin_default_character_0030.png in Resources */,
 				77AC50541CABE5D40044F5C8 /* skin_default_character_0008.png in Resources */,
 				77AC50841CABE5D40044F5C8 /* skin_default_character_0176.png in Resources */,
@@ -1467,7 +1487,7 @@
 				77AC50791CABE5D40044F5C8 /* skin_default_character_0165.png in Resources */,
 				77AC50941CABE5D40044F5C8 /* skin_default_character_0222.png in Resources */,
 				77AC508D1CABE5D40044F5C8 /* skin_default_character_0185.png in Resources */,
-				7799B4891C6F640900BEA0CF /* alarm-test-koreagarang.aiff in Resources */,
+				77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */,
 				77C4C01A1C86D95800B7BB3B /* game_jumpup_ai_astro_jump3.png in Resources */,
 				77AC50B51CABE5D40044F5C8 /* skin_default_character_0255.png in Resources */,
 				77AC50AA1CABE5D40044F5C8 /* skin_default_character_0244.png in Resources */,
@@ -1519,6 +1539,7 @@
 				77CAE0BB1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump0.png in Resources */,
 				773D2E601C56835500177CF3 /* testeffect3.mp3 in Resources */,
 				77AC50801CABE5D40044F5C8 /* skin_default_character_0172.png in Resources */,
+				77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */,
 				779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */,
 				77AC4FCE1CABE5C70044F5C8 /* skin_default_a_back.png in Resources */,
 				77E2880A1C7334A30020B766 /* d_time_on_small.png in Resources */,
@@ -1544,7 +1565,6 @@
 				77AC4FB41CABE0C10044F5C8 /* skin_default_5.png in Resources */,
 				77AC504F1CABE5D40044F5C8 /* skin_default_character_0003.png in Resources */,
 				77E288041C7334A30020B766 /* a_time_on_small.png in Resources */,
-				77E2880C1C7342670020B766 /* alarm-test-epicsax.aiff in Resources */,
 				77AC50951CABE5D40044F5C8 /* skin_default_character_0223.png in Resources */,
 				77AC4FD41CABE5C70044F5C8 /* skin_default_c_back_pad34.png in Resources */,
 				77C4C02D1C86D98000B7BB3B /* game_jumpup_astro_jump5.png in Resources */,
@@ -1618,6 +1638,8 @@
 				77FBE67C1C6DCB9F00E251A2 /* a_time_on.png in Resources */,
 				77E288031C7334A30020B766 /* a_time_off_small.png in Resources */,
 				7756F9B51C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect0.png in Resources */,
+				77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */,
+				77AC50C21CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff in Resources */,
 				77AC50721CABE5D40044F5C8 /* skin_default_character_0038.png in Resources */,
 				77C4C02E1C86D98000B7BB3B /* game_jumpup_astro_jump6.png in Resources */,
 				77AC506E1CABE5D40044F5C8 /* skin_default_character_0034.png in Resources */,
@@ -1645,7 +1667,6 @@
 				77E288061C7334A30020B766 /* b_time_on_small.png in Resources */,
 				77AC506B1CABE5D40044F5C8 /* skin_default_character_0031.png in Resources */,
 				77AC509C1CABE5D40044F5C8 /* skin_default_character_0230.png in Resources */,
-				77FBE6881C6E512300E251A2 /* marvelsoda.aiff in Resources */,
 				77AC50911CABE5D40044F5C8 /* skin_default_character_0189.png in Resources */,
 				77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */,
 				77CAE0B01C907CB400FBA714 /* game_jumpup_ai_j_astro_move3.png in Resources */,
@@ -1695,6 +1716,7 @@
 				7756F9B71C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect2.png in Resources */,
 				77E288051C7334A30020B766 /* b_time_off_small.png in Resources */,
 				77AC50621CABE5D40044F5C8 /* skin_default_character_0022.png in Resources */,
+				77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */,
 				77AC509D1CABE5D40044F5C8 /* skin_default_character_0231.png in Resources */,
 				77AC4F9F1CABE0290044F5C8 /* skin_default_object_st.png in Resources */,
 				77AC507A1CABE5D40044F5C8 /* skin_default_character_0166.png in Resources */,

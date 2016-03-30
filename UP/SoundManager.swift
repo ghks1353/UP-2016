@@ -11,22 +11,23 @@ import Foundation
 class SoundManager {
 	
 	static var list:Array<SoundInfoObj> = [
-		SoundInfoObj(soundName: "alarm-testsound-giza", fileName: "alarm-test.aiff"),
-		SoundInfoObj(soundName: "Marble Soda", fileName: "marvelsoda.aiff"),
-		SoundInfoObj(soundName: "국뽕★가랭", fileName: "alarm-test-koreagarang.aiff"),
-		SoundInfoObj(soundName: "Epic Sax Guy", fileName: "alarm-test-epicsax.aiff")
+		SoundInfoObj(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff"),
+		SoundInfoObj(soundName: "Sapphire", fileName: "sounds-alarms-test-kari-sapphire.aiff"),
+		SoundInfoObj(soundName: "WANDERLUST", fileName: "sounds-alarms-test-wanderlust.aiff"),
+		SoundInfoObj(soundName: "The big black", fileName: "sounds-alarms-test-bigblack.aiff"),
+		SoundInfoObj(soundName: "바ㅏㅏ카야로오오오ㅗㅗ", fileName: "sounds-alarms-test-marvelsodamatsuda.aiff")
+		
 	];
 	
-	static func findSoundObjectWithFileName(soundFileName:String)->SoundInfoObj {
-		var targetSoundInfoObj:SoundInfoObj = SoundInfoObj(soundName: "", fileName: ""); //nil
+	//사운드 이름에 대한 실제 사운드 오브젝트 반환
+	static func findSoundObjectWithFileName(soundFileName:String) -> SoundInfoObj? {
 		for i:Int in 0 ..< list.count {
 			if (list[i].soundFileName == soundFileName) {
-				targetSoundInfoObj = list[i];
-				break;
+				return list[i];
 			}
 		} //end for
 		
-		return targetSoundInfoObj;
+		return nil;
 	} //end func
 	
 	

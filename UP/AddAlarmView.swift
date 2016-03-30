@@ -445,7 +445,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		//set alarm name
 		(self.getElementFromTable("alarmName") as! UITextField).text = alarmName;
 		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = alarmFireDate; //uipicker
-		self.setSoundElement(SoundManager.findSoundObjectWithFileName(selectedSoundFileName)); //set sound
+		self.setSoundElement(SoundManager.findSoundObjectWithFileName(selectedSoundFileName)!); //set sound
 		self.setGameElement(selectedGameID); //set game
 		self.resetAlarmRepeatCell();
 		

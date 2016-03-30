@@ -87,6 +87,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				
 				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm();
 				
+				//이부분 수정해야함 - 켜져있는 알람 중 타임스탬프를 빼서 곧 울릴것 같은 알람을 알람매니저측에서 구현한 다음
+				//만약 곧 울릴거 같다라고 판단되면 엄청 빠르게 백그라운드 태스크를 그때만 순간적으로 돌려서
+				//사운드 울리는 타이밍의 어긋남을 줄여야함.
+				
 				//1. 알람이 울리는 중일 경우, 2. 백그라운드에 앱이 있을 경우.
 				if (ringingAlarm != nil && DeviceGeneral.appIsBackground == true) {
 					AlarmManager.ringSoundAlarm( ringingAlarm! );

@@ -154,7 +154,7 @@ class AlarmManager {
 	}
 	
 	static func mergeAlarm() {
-		//스케줄된 알람들 가져와서 지난것들 merge함
+		//스케줄된 알람들 가져와서 지난것들 merge하고, 발생할 수 있는 오류에 대해서 체크함
 		DataManager.initDefaults();
 		UIApplication.sharedApplication().networkActivityIndicatorVisible = true;
 		
@@ -183,16 +183,52 @@ class AlarmManager {
 		
 		print("Scheduled alarm count", scdAlarm.count);
 		for i:Int in 0 ..< scdAlarm.count {
-			//Toggle on된것 대상으로만 검사
+			
+			//없는 사운드에 대해서 첫번째 사운드로 적용
+			if (SoundManager.findSoundObjectWithFileName(scdAlarm[i].alarmSound) == nil) {
+				//찾고 있는 사운드는 존재하지 않으니, 맨 첫번째 사운드로 바꿈.
+				print("Merging sound to first element", scdAlarm[i].alarmID);
+				scdAlarm[i].alarmSound = SoundManager.list[0].soundFileName;
+				if (scdAlarm[i].alarmToggle == true) {
+					//Toggle 상태면 기존 Notification을 삭제하고 새로 바꿈
+					for j:Int in 0 ..< scdNotifications.count {
+						if (scdNotifications[j].userInfo!["id"] as! Int == scdAlarm[i].alarmID) {
+							UIApplication.sharedApplication().cancelLocalNotification(scdNotifications[j]);
+						}
+					} //end for
+					if ((scdAlarm[i].alarmFireDate.timeIntervalSince1970 <= NSDate().timeIntervalSince1970
+						&& scdAlarm[i].alarmCleared == true) == false) { //말 그대로, Merge대상에 포함이 안되었을 경우만 다시 추가함
+						print("Adding to schedule alarm", scdAlarm[i].alarmID);
+						
+						//add new push for next alarm
+						var dateForRepeat:NSDate = NSDate(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
+						var tmpNSComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: dateForRepeat);
+						tmpNSComp.second = 0;
+						dateForRepeat = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
+						
+						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
+						                     soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
+						//add 30sec needed
+						dateForRepeat = NSDate(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
+						tmpNSComp = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: dateForRepeat);
+						tmpNSComp.second = 30;
+						dateForRepeat = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
+						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
+						                     soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
+						//Add end..
+					}
+				}
+			} //end if
+			
+			//이 다음은, Toggle on된것 대상으로만 검사
 			if (scdAlarm[i].alarmToggle == false) {
 				print("Scheduled alarm", scdAlarm[i].alarmID, " state off. skipping");
 				continue;
 			}
-			
 			print("alarm id", scdAlarm[i].alarmID, " firedate", scdAlarm[i].alarmFireDate.timeIntervalSince1970);
-			print("current firedate", NSDate().timeIntervalSince1970);
+			
 			if (scdAlarm[i].alarmFireDate.timeIntervalSince1970 <= NSDate().timeIntervalSince1970
-				&& scdAlarm[i].alarmCleared == true /* false = test */) { /* 시간이 지났어도, 게임을 클리어 해야됨. 게임 클리어시 true로 설정후 merge 한번더 하면됨 */
+				&& scdAlarm[i].alarmCleared == true ) { /* 시간이 지났어도, 게임을 클리어 해야됨. 게임 클리어시 true로 설정후 merge 한번더 하면됨 */
 					print("Merge start:", scdAlarm[i].alarmID);
 				//알람 merge 대상. 우선 일치하는 ID의 알람을 스케줄에서 삭제함
 				for j:Int in 0 ..< scdNotifications.count {
