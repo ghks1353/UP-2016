@@ -95,9 +95,21 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	}
 	
 	
-	
     /// table setup
-    
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let cell:CustomTableCell = tableView.cellForRowAtIndexPath(indexPath) as! CustomTableCell;
+		//element touch handler
+		
+		switch (cell.cellID) {
+			case "gotoAVNGraphic":
+				UIApplication.sharedApplication().openURL(NSURL(string: "http://avngraphic.kr/")!);
+				break;
+			default: break;
+		}
+		
+		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+	} //end func
+	
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2;
     }
@@ -128,9 +140,6 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 38;
     }
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true);
-	}
     
     ////////////////
     

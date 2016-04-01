@@ -83,9 +83,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			//self.alarmBackgroundTaskPlayer!.play();
 
 			while(DeviceGeneral.appIsBackground) {
-				print("background thread remaining:", UIApplication.sharedApplication().backgroundTimeRemaining);
-				
+				let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds();
+				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(NSDate().timeIntervalSince1970));
 				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm();
+				
+				print( "thread remaining:", UIApplication.sharedApplication().backgroundTimeRemaining, ", remaining next alarm:", nextAlarmLeft );
 				
 				//이부분 수정해야함 - 켜져있는 알람 중 타임스탬프를 빼서 곧 울릴것 같은 알람을 알람매니저측에서 구현한 다음
 				//만약 곧 울릴거 같다라고 판단되면 엄청 빠르게 백그라운드 태스크를 그때만 순간적으로 돌려서
@@ -110,8 +112,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				if (ringingAlarm != nil && DeviceGeneral.appIsBackground == true) {
 					NSThread.sleepForTimeInterval(1); //1초 주기 실행
 				} else {
-					NSThread.sleepForTimeInterval(10); //10초 주기 실행
-				}
+					//남은 시간 비례하여 쓰레드 주기를 좁혀, 보다 정확한 시간에 알람이 울리게 함.
+					if (nextAlarmLeft >= 0) {
+						if (nextAlarmLeft > 90) {
+							NSThread.sleepForTimeInterval(30); //30초 주기 실행
+						} else if (nextAlarmLeft > 30) {
+							NSThread.sleepForTimeInterval(10); //10
+						} else if (nextAlarmLeft > 20) {
+							NSThread.sleepForTimeInterval(5); //5
+						} else if (nextAlarmLeft > 3) {
+							NSThread.sleepForTimeInterval(1); //1
+						} else if (nextAlarmLeft > 1) {
+							NSThread.sleepForTimeInterval(0.5); //0.5
+						} else {
+							NSThread.sleepForTimeInterval(0.25); //0.25
+						} //end if
+					} else {
+						NSThread.sleepForTimeInterval(30); //30초 주기 실행
+					} //end if
+					
+				} //end chk alarm vaild
 			}
 			//print("thread finished");
 			

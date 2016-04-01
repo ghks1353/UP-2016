@@ -361,6 +361,15 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     
     func viewCloseAction() {
         //Close this view
+		if (upAlarmMessageView.hidden == false) {
+			//가리면서 사라지게
+			self.upAlarmMessageView.alpha = 1;
+			UIView.animateWithDuration(0.12, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+				self.upAlarmMessageView.alpha = 0;
+				}, completion: {_ in
+			});
+		}
+		
 		modalAddViewCalled = false;
 		ViewController.viewSelf!.showHideBlurview(false);
         self.dismissViewControllerAnimated(true, completion: nil);
@@ -506,6 +515,11 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			});
 			return;
 		}
+		
+		//이 부분은 메인 뷰 컨트롤러에도 나오게끔 만듬
+		ViewController.viewSelf!.showMessageOnView(message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex);
+		
+		self.upAlarmMessageView.alpha = 1;
 		
 		self.view.bringSubviewToFront(upAlarmMessageView);
 		upAlarmMessageView.hidden = false;

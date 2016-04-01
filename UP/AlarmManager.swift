@@ -103,6 +103,27 @@ class AlarmManager {
 		alarmSoundPlaying = true;
 	} // end func
 	
+	//알람이 켜져있는 게 있을 경우 다음 알람이 몇초 후에 울릴지 가져옴
+	static func getNextAlarmFireInSeconds() -> Int {
+		//Merge된 후 실행되야 함
+		if (!isAlarmMergedFirst) {
+			mergeAlarm();
+		} //merge first
+		
+		var alarmNextFireDate:Int = -1;
+		for i:Int in 0 ..< alarmsArray.count {
+			if (alarmsArray[i].alarmToggle == false) {
+				continue;
+			} //ignores off
+			if (alarmNextFireDate == -1 || alarmNextFireDate > Int(alarmsArray[i].alarmFireDate.timeIntervalSince1970) ) {
+				//적은 시간 우선으로 대입
+				alarmNextFireDate = Int(alarmsArray[i].alarmFireDate.timeIntervalSince1970);
+			}
+		}
+		
+		return alarmNextFireDate; //-1을 리턴한 경우, 켜져있는 알람이 없음
+	} //end func
+	
 	
 	//울리고 있는 알람을 가져옴. 여러개인 경우, 첫번째 알람만 리턴함
 	static func getRingingAlarm() -> AlarmElements? {

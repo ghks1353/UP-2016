@@ -173,7 +173,7 @@ class JumpUPGame:SKScene {
 		//time / score에 대한 데이터 처리
 		if (gameNumberTexturesArray.count == 0) {
 			for i:Int in 0 ..< 10 {
-				gameNumberTexturesArray += [ SKTexture( imageNamed: String(i) + ".png" ) ];
+				gameNumberTexturesArray += [ SKTexture( imageNamed: SkinManager.getDefaultAssetPresets() + String(i) + ".png" ) ];
 			} //0~9에 대한 숫자 데이터 텍스쳐
 			for i:Int in 0 ..< 3 {
 				gameNumberSpriteNodesArray += [ SKSpriteNode( texture: gameNumberTexturesArray[0] ) ];

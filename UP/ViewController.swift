@@ -41,6 +41,8 @@ class ViewController: UIViewController {
     var modalSettingsView:SettingsView = SettingsView();
     var modalAlarmListView:AlarmListView = AlarmListView();
 	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
+	var modalAlarmStatsView:StatisticsView = StatisticsView();
+
 	
 	//screen blur view (AnyObject => Fallback iOS 7.0)
 	var scrBlurView:AnyObject?;
@@ -123,6 +125,12 @@ class ViewController: UIViewController {
         AlarmListImg.userInteractionEnabled = true;
         AlarmListImg.addGestureRecognizer(tapGestureRecognizer);
 		
+		//통계 아이콘 터치시
+		tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openStatisticsView(_:)))
+		GroundStatSign.userInteractionEnabled = true;
+		GroundStatSign.addGestureRecognizer(tapGestureRecognizer);
+		
+		
 		//클래스 외부접근을 위함
 		ViewController.viewSelf = self;
         
@@ -162,6 +170,7 @@ class ViewController: UIViewController {
 		modalSettingsView.setupModalView( getGeneralModalRect() );
 		modalAlarmListView.setupModalView( getGeneralModalRect() );
 		modalAlarmAddView.setupModalView( getGeneralModalRect() );
+		modalAlarmStatsView.setupModalView( getGeneralModalRect() );
 		
 		//DISABLE AUTORESIZE
 		self.view.autoresizesSubviews = false;
@@ -240,6 +249,16 @@ class ViewController: UIViewController {
         self.presentViewController(modalAlarmListView, animated: true, completion: nil);
 		modalAlarmListView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
+	
+	func openStatisticsView (gestureRecognizer: UITapGestureRecognizer) {
+		//Stats 열기
+		modalAlarmStatsView.modalPresentationStyle = .OverFullScreen;
+		showHideBlurview(true);
+		
+		self.presentViewController(modalAlarmStatsView, animated: true, completion: nil);
+		modalAlarmStatsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+		
+	}
   
     func updateTimeAnimation() {
         //setinterval call

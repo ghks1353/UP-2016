@@ -231,8 +231,10 @@
 		77AC50C21CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C11CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff */; };
 		77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */; };
 		77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */; };
-		77AC50CF1CAC5CA60044F5C8 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC50C51CAC526B0044F5C8 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */; };
+		77C136561CAE8CF100B91214 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C136551CAE8CF100B91214 /* StatisticsView.swift */; };
+		77C1365B1CAE9AA300B91214 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; };
+		77C1365C1CAE9AA400B91214 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77C35C8B1C81CC2A002EE465 /* GameTitleViewJumpUP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C35C8A1C81CC2A002EE465 /* GameTitleViewJumpUP.swift */; };
 		77C4C0001C86A61700B7BB3B /* JumpUpElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C4BFFF1C86A61700B7BB3B /* JumpUpElements.swift */; };
 		77C4C0081C86B7CF00B7BB3B /* game_jumpup_astro_move0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0021C86B7CF00B7BB3B /* game_jumpup_astro_move0.png */; };
@@ -326,13 +328,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		77AC50D01CAC5CA70044F5C8 /* Embed Frameworks */ = {
+		77C1365D1CAE9AA400B91214 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				77AC50CF1CAC5CA60044F5C8 /* Charts.framework in Embed Frameworks */,
+				77C1365C1CAE9AA400B91214 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,10 +567,11 @@
 		77AC504C1CABE5D40044F5C8 /* skin_default_character_0264.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_character_0264.png; path = ImageAssets/Skins/Default/Character/skin_default_character_0264.png; sourceTree = "<group>"; };
 		77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsoda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsoda.aiff"; sourceTree = "<group>"; };
 		77AC50C11CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-kari-sapphire.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-kari-sapphire.aiff"; sourceTree = "<group>"; };
-		77AC50C51CAC526B0044F5C8 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = ../Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
 		77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-wanderlust.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-wanderlust.aiff"; sourceTree = "<group>"; };
 		77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-bigblack.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-bigblack.aiff"; sourceTree = "<group>"; };
 		77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsodamatsuda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsodamatsuda.aiff"; sourceTree = "<group>"; };
+		77C136551CAE8CF100B91214 /* StatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		77C1365A1CAE9AA300B91214 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = UP/Framework/Charts.framework; sourceTree = "<group>"; };
 		77C35C8A1C81CC2A002EE465 /* GameTitleViewJumpUP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTitleViewJumpUP.swift; sourceTree = "<group>"; };
 		77C4BFFF1C86A61700B7BB3B /* JumpUpElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JumpUpElements.swift; sourceTree = "<group>"; };
 		77C4C0021C86B7CF00B7BB3B /* game_jumpup_astro_move0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_move0.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_move/game_jumpup_astro_move0.png; sourceTree = "<group>"; };
@@ -667,6 +670,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */,
+				77C1365B1CAE9AA300B91214 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -819,6 +823,7 @@
 				77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */,
 				77E3F4791C746C71002BBDA6 /* AlarmGameListView.swift */,
 				77C54E7B1C9EC3EA00013F9D /* AlarmRepeatSettingsView.swift */,
+				77C136551CAE8CF100B91214 /* StatisticsView.swift */,
 			);
 			name = SubViews;
 			sourceTree = "<group>";
@@ -863,7 +868,7 @@
 		775ADBDB1C4FC4C700B52552 = {
 			isa = PBXGroup;
 			children = (
-				77AC50C51CAC526B0044F5C8 /* Charts.framework */,
+				77C1365A1CAE9AA300B91214 /* Charts.framework */,
 				77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */,
 				775ADBE61C4FC4C700B52552 /* UP */,
 				775ADBE51C4FC4C700B52552 /* Products */,
@@ -1394,7 +1399,7 @@
 				775ADBE01C4FC4C700B52552 /* Sources */,
 				775ADBE11C4FC4C700B52552 /* Frameworks */,
 				775ADBE21C4FC4C700B52552 /* Resources */,
-				77AC50D01CAC5CA70044F5C8 /* Embed Frameworks */,
+				77C1365D1CAE9AA400B91214 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1759,6 +1764,7 @@
 				77782E6A1C92B0B00016EE1B /* SKAction+SpecialEffects.swift in Sources */,
 				773E910C1C5A36480084EB07 /* CustomTableCell.swift in Sources */,
 				77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */,
+				77C136561CAE8CF100B91214 /* StatisticsView.swift in Sources */,
 				77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */,
 				77E3F47E1C747272002BBDA6 /* UPAlarmGameLists.swift in Sources */,
 				77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */,
@@ -1887,6 +1893,10 @@
 				CODE_SIGN_ENTITLEMENTS = UP/UP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UP/Framework",
+				);
 				INFOPLIST_FILE = UP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1905,6 +1915,10 @@
 				CODE_SIGN_ENTITLEMENTS = UP/UP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UP/Framework",
+				);
 				INFOPLIST_FILE = UP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

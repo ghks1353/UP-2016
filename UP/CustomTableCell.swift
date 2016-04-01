@@ -12,17 +12,9 @@ import UIKit
 class CustomTableCell:UITableViewCell {
     
     internal var cellID:String = "";
-    
+	
+	//CellID를 가진 범용 커스텀 테이블셀
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        switch(self.cellID) {
-            case "gotoAVNGraphic":
-                UIApplication.sharedApplication().openURL(NSURL(string: "http://avngraphic.kr/")!);
-            break;
-            default:
-            break;
-        }
-        
-        print(self.cellID);
 		super.touchesBegan(touches, withEvent: event);
     }
     
