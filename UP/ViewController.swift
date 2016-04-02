@@ -620,6 +620,7 @@ class ViewController: UIViewController {
 		modalSettingsView.FitModalLocationToCenter( );
 		modalAlarmListView.FitModalLocationToCenter( );
 		modalAlarmAddView.FitModalLocationToCenter( );
+		modalAlarmStatsView.FitModalLocationToCenter( );
 		
 		//Blur view 조절
 		if (scrBlurView != nil) {

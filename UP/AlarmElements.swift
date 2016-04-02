@@ -23,7 +23,7 @@ class AlarmElements:NSObject {
 	//Game clear check bool
 	internal var alarmCleared:Bool = false; //false인 경우, merge 대상에서 빠짐.
 	
-	
+	//Class to NSData
 	func encodeWithCoder(aCoder: NSCoder!) {
 		aCoder.encodeObject(alarmName, forKey: "alarmName");
 		aCoder.encodeInteger(gameSelected, forKey: "gameSelected");
@@ -40,6 +40,7 @@ class AlarmElements:NSObject {
 		aCoder.encodeBool(alarmCleared, forKey: "alarmCleared");
 	}
 	
+	//Decode from NSData to class
 	init(coder aDecoder: NSCoder!) {
 		alarmName = aDecoder.decodeObjectForKey("alarmName") as! String;
 		gameSelected = aDecoder.decodeIntegerForKey("gameSelected");

@@ -281,6 +281,7 @@
 		77CAE0C01C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE0B91C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png */; };
 		77CAE0C11C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE0BA1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png */; };
 		77CE3D9B1C98464900A6EA36 /* game_jumpup_assets_time_retire.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CE3D9A1C98464900A6EA36 /* game_jumpup_assets_time_retire.png */; };
+		77DDF3611CAFAC8D00C8E5F0 /* StatisticsDataElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DDF3601CAFAC8D00C8E5F0 /* StatisticsDataElements.swift */; };
 		77E23BFF1C699723005F0B03 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23BFE1C699723005F0B03 /* AlarmManager.swift */; };
 		77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C001C69A7F5005F0B03 /* AlarmElements.swift */; };
 		77E23C051C6A20F1005F0B03 /* UISingleSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */; };
@@ -618,6 +619,7 @@
 		77CAE0B91C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_j_astro_jump5.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_j_astro_jump/game_jumpup_ai_j_astro_jump5.png; sourceTree = "<group>"; };
 		77CAE0BA1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_j_astro_jump6.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_j_astro_jump/game_jumpup_ai_j_astro_jump6.png; sourceTree = "<group>"; };
 		77CE3D9A1C98464900A6EA36 /* game_jumpup_assets_time_retire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_retire.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_retire.png; sourceTree = "<group>"; };
+		77DDF3601CAFAC8D00C8E5F0 /* StatisticsDataElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsDataElements.swift; sourceTree = "<group>"; };
 		77E23BFE1C699723005F0B03 /* AlarmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
 		77E23C001C69A7F5005F0B03 /* AlarmElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmElements.swift; sourceTree = "<group>"; };
 		77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISingleSegmentControl.swift; sourceTree = "<group>"; };
@@ -745,7 +747,6 @@
 				773E91081C59FBBF0084EB07 /* SettingsElement.swift */,
 				77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */,
 				77958C991C68D05C00E99864 /* SoundInfoObj.swift */,
-				77E23C001C69A7F5005F0B03 /* AlarmElements.swift */,
 				77FBE6851C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift */,
 				77E3F47B1C746D3C002BBDA6 /* GameInfoObj.swift */,
 				77E3F47D1C747272002BBDA6 /* UPAlarmGameLists.swift */,
@@ -887,6 +888,7 @@
 		775ADBE61C4FC4C700B52552 /* UP */ = {
 			isa = PBXGroup;
 			children = (
+				77DDF35F1CAFAC6C00C8E5F0 /* NSClasses */,
 				77782E581C92B0A50016EE1B /* SKTUtils */,
 				77232C931C84B0AC006E221A /* SKViews */,
 				77C6BDE41C7EF84200F2887C /* Views */,
@@ -1276,6 +1278,15 @@
 				77CAE0BA1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png */,
 			);
 			name = AIJAstroJump;
+			sourceTree = "<group>";
+		};
+		77DDF35F1CAFAC6C00C8E5F0 /* NSClasses */ = {
+			isa = PBXGroup;
+			children = (
+				77E23C001C69A7F5005F0B03 /* AlarmElements.swift */,
+				77DDF3601CAFAC8D00C8E5F0 /* StatisticsDataElements.swift */,
+			);
+			name = NSClasses;
 			sourceTree = "<group>";
 		};
 		77E23BFD1C6996EE005F0B03 /* Managers */ = {
@@ -1747,6 +1758,7 @@
 				775ADBE81C4FC4C700B52552 /* AppDelegate.swift in Sources */,
 				77C4C0001C86A61700B7BB3B /* JumpUpElements.swift in Sources */,
 				774B30F31C5E56CF0058CFB2 /* AddAlarmView.swift in Sources */,
+				77DDF3611CAFAC8D00C8E5F0 /* StatisticsDataElements.swift in Sources */,
 				77782E681C92B0B00016EE1B /* Int+Extensions.swift in Sources */,
 				7759757D1C5F05A60057CDD6 /* AlarmSettingsCell.swift in Sources */,
 				77E3F47A1C746C71002BBDA6 /* AlarmGameListView.swift in Sources */,
