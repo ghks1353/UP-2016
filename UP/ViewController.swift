@@ -10,6 +10,8 @@ import UIKit;
 import AVFoundation;
 import AudioToolbox;
 
+import SQLite;
+
 class ViewController: UIViewController {
 
 	/// 스토리보드 리소스를 옮겨야함 (스킨때문에)
@@ -65,6 +67,8 @@ class ViewController: UIViewController {
         
         //Init device size factor
         DeviceGeneral.initialDeviceSize();
+		//Init DataManager
+		DataManager.initDataManager();
 		
 		//Background image add.
 		self.view.addSubview(backgroundImageView); self.view.addSubview(backgroundImageFadeView);
@@ -190,6 +194,30 @@ class ViewController: UIViewController {
 		self.view.addSubview( upAlarmMessageView );
 		upAlarmMessageView.hidden = true;
 		///// upside message inital
+		
+		//DB Select test
+		//https://github.com/stephencelis/SQLite.swift/blob/master/Documentation/Index.md#selecting-rows
+		do {
+			print("type0");
+			for dbResult in try DataManager.db()!.prepare( DataManager.statsTable().filter( Expression<Int64>("type") == 0 ) ) {
+				print("id", dbResult[ Expression<Int64>("id") ], "type", dbResult[ Expression<Int64>("type") ], "date", dbResult[ Expression<Int64>("date") ],
+				      "int", dbResult[ Expression<Int64>("statsDataInt") ] );
+			}
+			print("type1");
+			for dbResult in try DataManager.db()!.prepare( DataManager.statsTable().filter( Expression<Int64>("type") == 1 ) ) {
+				print("id", dbResult[ Expression<Int64>("id") ], "type", dbResult[ Expression<Int64>("type") ], "date", dbResult[ Expression<Int64>("date") ],
+				      "int", dbResult[ Expression<Int64>("statsDataInt") ] );
+			}
+			
+			print("Game result here");
+			for dbResult in try DataManager.db()!.prepare( DataManager.statsTable().filter( Expression<Int64>("type") == 3 ) ) {
+				print("id", dbResult[ Expression<Int64>("id") ], "type", dbResult[ Expression<Int64>("type") ], "date", dbResult[ Expression<Int64>("date") ],
+					"gameResult", dbResult[ Expression<String>("statsDataArray") ] );
+				//결과를 불러올 땐 결과가 null이 아니라고 장담한다면 Optional 빼버리죠.
+			}
+		} catch {
+			print("DB Selection error");
+		}
 		
     } //end viewdidload
 	
@@ -547,7 +575,7 @@ class ViewController: UIViewController {
 	//(단, init시 iPhone에서 작동함)
 	func fitViewControllerElementsToScreen( animated:Bool = false ) {
 		
-		var scrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (DigitalCol.bounds.width / 2));
+		var scrX:CGFloat = CGFloat(DeviceGeneral.scrSize!.width / 2 - (DigitalCol.bounds.width / 2));
 		var digiClockYAxis:CGFloat = 90 * DeviceGeneral.scrRatioC;
 		scrX += 4 * DeviceGeneral.maxScrRatioC;
 		
@@ -576,9 +604,9 @@ class ViewController: UIViewController {
 		
 		
 		//시계 바디 및 시침 분침 위치/크기조절
-		let clockScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
-		let clockRightScrX:CGFloat = CGFloat((DeviceGeneral.scrSize?.width)! / 2 + (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
-		var clockScrY:CGFloat = CGFloat((DeviceGeneral.scrSize?.height)! / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
+		let clockScrX:CGFloat = CGFloat(DeviceGeneral.scrSize!.width / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
+		let clockRightScrX:CGFloat = CGFloat(DeviceGeneral.scrSize!.width / 2 + (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
+		var clockScrY:CGFloat = CGFloat(DeviceGeneral.scrSize!.height / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatio) / 2));
 		clockScrY += 20 * DeviceGeneral.maxScrRatioC;
 		
 		AnalogHours.transform = CGAffineTransformIdentity; AnalogMinutes.transform = CGAffineTransformIdentity;

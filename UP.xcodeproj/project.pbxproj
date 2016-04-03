@@ -232,6 +232,7 @@
 		77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */; };
 		77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */; };
 		77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */; };
+		77BA6ED91CB100540053115A /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BA6EC71CB0FF800053115A /* SQLite.framework */; };
 		77C136561CAE8CF100B91214 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C136551CAE8CF100B91214 /* StatisticsView.swift */; };
 		77C1365B1CAE9AA300B91214 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; };
 		77C1365C1CAE9AA400B91214 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -281,7 +282,6 @@
 		77CAE0C01C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE0B91C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png */; };
 		77CAE0C11C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE0BA1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png */; };
 		77CE3D9B1C98464900A6EA36 /* game_jumpup_assets_time_retire.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CE3D9A1C98464900A6EA36 /* game_jumpup_assets_time_retire.png */; };
-		77DDF3611CAFAC8D00C8E5F0 /* StatisticsDataElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DDF3601CAFAC8D00C8E5F0 /* StatisticsDataElements.swift */; };
 		77E23BFF1C699723005F0B03 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23BFE1C699723005F0B03 /* AlarmManager.swift */; };
 		77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C001C69A7F5005F0B03 /* AlarmElements.swift */; };
 		77E23C051C6A20F1005F0B03 /* UISingleSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */; };
@@ -327,6 +327,58 @@
 		77FD0DEE1C6625FD00B5B5E9 /* GlobalSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */; };
 		77FD0DF01C66312400B5B5E9 /* UPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FD0DEF1C66312400B5B5E9 /* UPUtils.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		77BA6EC61CB0FF800053115A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EE247AD31C3F04ED00AE3E12;
+			remoteInfo = "SQLite iOS";
+		};
+		77BA6EC81CB0FF800053115A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EE247ADD1C3F04ED00AE3E12;
+			remoteInfo = "SQLiteTests iOS";
+		};
+		77BA6ECA1CB0FF800053115A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EE247B3C1C3F3ED000AE3E12;
+			remoteInfo = "SQLite Mac";
+		};
+		77BA6ECC1CB0FF800053115A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EE247B451C3F3ED000AE3E12;
+			remoteInfo = "SQLiteTests Mac";
+		};
+		77BA6ECE1CB0FF800053115A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 03A65E5A1C6BB0F50062603F;
+			remoteInfo = "SQLite tvOS";
+		};
+		77BA6ED01CB0FF800053115A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 03A65E631C6BB0F60062603F;
+			remoteInfo = "SQLiteTests tvOS";
+		};
+		77BA6ED21CB0FF800053115A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A121AC451CA35C79005A31D1;
+			remoteInfo = "SQLite watchOS";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		77C1365D1CAE9AA400B91214 /* Embed Frameworks */ = {
@@ -571,6 +623,7 @@
 		77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-wanderlust.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-wanderlust.aiff"; sourceTree = "<group>"; };
 		77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-bigblack.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-bigblack.aiff"; sourceTree = "<group>"; };
 		77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsodamatsuda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsodamatsuda.aiff"; sourceTree = "<group>"; };
+		77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = UP/Framework/SQLite/SQLite.xcodeproj; sourceTree = "<group>"; };
 		77C136551CAE8CF100B91214 /* StatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		77C1365A1CAE9AA300B91214 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = UP/Framework/Charts.framework; sourceTree = "<group>"; };
 		77C35C8A1C81CC2A002EE465 /* GameTitleViewJumpUP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTitleViewJumpUP.swift; sourceTree = "<group>"; };
@@ -619,7 +672,6 @@
 		77CAE0B91C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_j_astro_jump5.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_j_astro_jump/game_jumpup_ai_j_astro_jump5.png; sourceTree = "<group>"; };
 		77CAE0BA1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_j_astro_jump6.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_j_astro_jump/game_jumpup_ai_j_astro_jump6.png; sourceTree = "<group>"; };
 		77CE3D9A1C98464900A6EA36 /* game_jumpup_assets_time_retire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_retire.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_retire.png; sourceTree = "<group>"; };
-		77DDF3601CAFAC8D00C8E5F0 /* StatisticsDataElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsDataElements.swift; sourceTree = "<group>"; };
 		77E23BFE1C699723005F0B03 /* AlarmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
 		77E23C001C69A7F5005F0B03 /* AlarmElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmElements.swift; sourceTree = "<group>"; };
 		77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISingleSegmentControl.swift; sourceTree = "<group>"; };
@@ -671,6 +723,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77BA6ED91CB100540053115A /* SQLite.framework in Frameworks */,
 				77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */,
 				77C1365B1CAE9AA300B91214 /* Charts.framework in Frameworks */,
 			);
@@ -873,6 +926,7 @@
 				77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */,
 				775ADBE61C4FC4C700B52552 /* UP */,
 				775ADBE51C4FC4C700B52552 /* Products */,
+				77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -972,6 +1026,20 @@
 				77AC4FCA1CABE5C70044F5C8 /* skin_default_d_back.png */,
 			);
 			name = Default;
+			sourceTree = "<group>";
+		};
+		77BA6EBD1CB0FF7F0053115A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				77BA6EC71CB0FF800053115A /* SQLite.framework */,
+				77BA6EC91CB0FF800053115A /* SQLiteTests iOS.xctest */,
+				77BA6ECB1CB0FF800053115A /* SQLite.framework */,
+				77BA6ECD1CB0FF800053115A /* SQLiteTests Mac.xctest */,
+				77BA6ECF1CB0FF800053115A /* SQLite.framework */,
+				77BA6ED11CB0FF800053115A /* SQLiteTests tvOS.xctest */,
+				77BA6ED31CB0FF800053115A /* SQLite.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		77C35C891C81CBCA002EE465 /* AlarmGamesView */ = {
@@ -1284,7 +1352,6 @@
 			isa = PBXGroup;
 			children = (
 				77E23C001C69A7F5005F0B03 /* AlarmElements.swift */,
-				77DDF3601CAFAC8D00C8E5F0 /* StatisticsDataElements.swift */,
 			);
 			name = NSClasses;
 			sourceTree = "<group>";
@@ -1459,12 +1526,70 @@
 			mainGroup = 775ADBDB1C4FC4C700B52552;
 			productRefGroup = 775ADBE51C4FC4C700B52552 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 77BA6EBD1CB0FF7F0053115A /* Products */;
+					ProjectRef = 77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				775ADBE31C4FC4C700B52552 /* UP */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		77BA6EC71CB0FF800053115A /* SQLite.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLite.framework;
+			remoteRef = 77BA6EC61CB0FF800053115A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		77BA6EC91CB0FF800053115A /* SQLiteTests iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SQLiteTests iOS.xctest";
+			remoteRef = 77BA6EC81CB0FF800053115A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		77BA6ECB1CB0FF800053115A /* SQLite.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLite.framework;
+			remoteRef = 77BA6ECA1CB0FF800053115A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		77BA6ECD1CB0FF800053115A /* SQLiteTests Mac.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SQLiteTests Mac.xctest";
+			remoteRef = 77BA6ECC1CB0FF800053115A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		77BA6ECF1CB0FF800053115A /* SQLite.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLite.framework;
+			remoteRef = 77BA6ECE1CB0FF800053115A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		77BA6ED11CB0FF800053115A /* SQLiteTests tvOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SQLiteTests tvOS.xctest";
+			remoteRef = 77BA6ED01CB0FF800053115A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		77BA6ED31CB0FF800053115A /* SQLite.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLite.framework;
+			remoteRef = 77BA6ED21CB0FF800053115A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		775ADBE21C4FC4C700B52552 /* Resources */ = {
@@ -1758,7 +1883,6 @@
 				775ADBE81C4FC4C700B52552 /* AppDelegate.swift in Sources */,
 				77C4C0001C86A61700B7BB3B /* JumpUpElements.swift in Sources */,
 				774B30F31C5E56CF0058CFB2 /* AddAlarmView.swift in Sources */,
-				77DDF3611CAFAC8D00C8E5F0 /* StatisticsDataElements.swift in Sources */,
 				77782E681C92B0B00016EE1B /* Int+Extensions.swift in Sources */,
 				7759757D1C5F05A60057CDD6 /* AlarmSettingsCell.swift in Sources */,
 				77E3F47A1C746C71002BBDA6 /* AlarmGameListView.swift in Sources */,

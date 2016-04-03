@@ -6,10 +6,11 @@
 //  Copyright © 2016년 AVN Graphic. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
-import SpriteKit
-import UIKit
+import Foundation;
+import AVFoundation;
+import SpriteKit;
+import UIKit;
+import SQLite;
 
 class JumpUPGame:SKScene {
 	
@@ -92,8 +93,20 @@ class JumpUPGame:SKScene {
 	//판정 완화의 정도
 	let characterRatherbox:CGFloat = 18 * DeviceGeneral.scrRatioC;
 	
+	/////// 통계를 위한 데이터 변수
+	
+	//아래 시작 종료 시간의 경우, 통계시에는 게임 시작까지 걸린 시간 / 게임 진행 시간으로 재집계
+	var stats_gameStartedTimeStamp:Int = 0; //게임 시작 시간
+	var stats_gameFinishedTimeStamp:Int = 0; //게임 종료 시간
+	
+	var stats_gameDiedCount:Int = 0; //맞은 횟수
+	var stats_gameIsFailed:Bool = false; //리타이어한 경우
+	var stats_gameTouchCount:Int = 0; //전체 터치 횟수
+	var stats_gameValidTouchCount:Int = 0; //유효 터치 횟수
+	var stats_gameToBackgroundCount:Int = 0; //게임 중 백그라운드로 간 횟수
+	
+	//View initial function
 	override func didMoveToView(view: SKView) {
-		//View inited
 		print("Game view inited");
 		self.backgroundColor = UIColor.blackColor();
 		
@@ -333,7 +346,10 @@ class JumpUPGame:SKScene {
 		self.addChild(buttonAlarmOffSprite);
 		buttonAlarmOffSprite.name = "button_alarm_off";
 		
-		//buttonAlarmOffSprite
+		
+		/////////////////
+		//Game starttime 기록
+		stats_gameStartedTimeStamp = Int(NSDate().timeIntervalSince1970);
 	}
 	
 	func appEnteredToBackground() {
@@ -356,6 +372,7 @@ class JumpUPGame:SKScene {
 			//감히 멀티태스킹을 했겠다. 120초 다시줌
 			gameScore = gameAlarmFirstGoalTime;
 			gameRetireTimeCount = gameRetireTimeCount / 2; //리타이어 수작일수도 있으니 이거도 조절함
+			stats_gameToBackgroundCount += 1;
 			
 			//리타이어 버튼이 이미 나와있는 경우, 다시 없앰
 			if (buttonRetireSprite.alpha == 1) {
@@ -639,6 +656,9 @@ class JumpUPGame:SKScene {
 								//진동
 								AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate));
 								
+								//통계값 추가
+								stats_gameDiedCount += 1;
+								
 								if (gameStartupType == 0) {
 									//알람으로 켜진 경우, 최대 120초까지 커지도록 시간 추가
 									if (gameScore <= gameLevelAverageTime) {
@@ -874,15 +894,26 @@ class JumpUPGame:SKScene {
 			if let chkButtonName:SKNode = self.nodeAtPoint(location) {
 				if (chkButtonName.name == "button_retire" || chkButtonName.name == "button_alarm_off") {
 					//포기 버튼일 때 혹은 알람끄기 일 때
+					
+					//포기 여부 체크.
+					stats_gameIsFailed = chkButtonName.name == "button_retire" ? true : false;
+					
 					exitJumpUPGame();
 					
 				} else {
 					//기타 터치
+					
+					//터치 통계값 추가
+					stats_gameTouchCount += 1;
+					
 					if (gameFinishedBool == false) { //게임이 진행중일 때만 점프 가능.
 						if (characterElement!.jumpFlaggedCount < 2) { //캐릭터 점프횟수 제한
 							characterElement!.ySpeed = 11;
 							characterElement!.jumpFlaggedCount += 1;
 							gameUserJumpCount += 1; //점프 횟수 카운트
+							
+							//통계값 추가 (유효터치)
+							stats_gameValidTouchCount += 1;
 						}
 					}
 				}
@@ -893,12 +924,85 @@ class JumpUPGame:SKScene {
 		super.touchesBegan(touches, withEvent:event)
 	}
 	
+	/* 
+	var stats_gameStartedTimeStamp:Int = 0; //게임 시작 시간
+	var stats_gameFinishedTimeStamp:Int = 0; //게임 종료 시간
+	
+	var stats_gameDiedCount:Int = 0; //맞은 횟수
+	var stats_gameIsFailed:Bool = false; //리타이어한 경우
+	var stats_gameTouchCount:Int = 0; //전체 터치 횟수
+	var stats_gameValidTouchCount:Int = 0; //유효 터치 횟수
+	
+	*/
+	
 	//게임 포기 혹은 종료.
 	func exitJumpUPGame() {
 		print("Game finished");
 		gameFinishedBool = true;
 		
-		AlarmManager.gameClearToggleAlarm( (AlarmRingView.selfView!.currentAlarmElement?.alarmID)!, cleared: true );
+		let currentDateTimeStamp:Int64 = Int64(NSDate().timeIntervalSince1970);
+		stats_gameFinishedTimeStamp = Int(currentDateTimeStamp);
+		
+		//// 알람으로 켜진 경우에만 로그를 남김
+		if (gameStartupType == 0) {
+			do {
+				//DB -> 알람 기록 저장 (게임 시작 전까지 걸린 시간)
+				try DataManager.db()!.run(
+					DataManager.statsTable().insert(
+						//type -> 게임 로그 데이터 저장
+						Expression<Int64>("type") <- Int64(DataManager.statsType.TYPE_ALARM_START_TIME),
+						Expression<Int64>("date") <- currentDateTimeStamp,
+						Expression<Int64?>("statsDataInt") <-
+						Int64(stats_gameStartedTimeStamp - Int(AlarmManager.getAlarm(AlarmRingView.selfView!.currentAlarmElement!.alarmID)!.alarmFireDate.timeIntervalSince1970))
+						/* 게임 시작까지 걸린 시간 (시작시간 - 현재 울리고있는 알람의 알람 발생 시각) */
+					)
+				); //end try
+				
+				//DB -> 알람 기록 저장 (게임 플레이 시간)
+				try DataManager.db()!.run(
+					DataManager.statsTable().insert(
+						//type -> 게임 로그 데이터 저장
+						Expression<Int64>("type") <- Int64(DataManager.statsType.TYPE_ALARM_CLEAR_TIME),
+						Expression<Int64>("date") <- currentDateTimeStamp,
+						Expression<Int64?>("statsDataInt") <-
+							Int64(stats_gameFinishedTimeStamp - stats_gameStartedTimeStamp)
+						/* 게임 플레이 경과시간 */
+					)
+				); //end try
+				
+				//DB -> 게임 기록 저장
+				try DataManager.db()!.run(
+					DataManager.statsTable().insert(
+						//type -> 게임 로그 데이터 저장
+						Expression<Int64>("type") <- Int64(DataManager.statsType.TYPE_ALARM_GAME_DATA),
+						//통계 저장 날짜 저장 (timestamp)
+						Expression<Int64>("date") <- currentDateTimeStamp,
+						//statsDataArray -> 게임 결과 배열(Str배열) 저장
+						Expression<String?>("statsDataArray") <-
+							DataManager.covertToStringArray(
+								[ 0, /* <= 게임 ID */
+									stats_gameIsFailed == false ? 0 : 1, /* 포기 여부. 1 = 포기 */
+									stats_gameStartedTimeStamp, /* 게임 시작 시간 */
+									stats_gameFinishedTimeStamp - stats_gameStartedTimeStamp, /* 게임 플레이 경과시간 */
+									stats_gameDiedCount, /* 맞은 횟수 */
+									stats_gameTouchCount, /* 총 화면 터치 횟수 */
+									stats_gameValidTouchCount, /* 유효 터치 횟수 */
+									stats_gameToBackgroundCount /* 게임 중 백그라운드로 나갔다 온 횟수 */
+								] ) 
+					
+					) /* insert end */
+				); // run end
+				
+				print("DB Statement successful");
+				//covertToStringArray
+			} catch {
+				print("DB Statement error in JumpUP");
+			}
+			
+			
+		} // end if
+		
+		AlarmManager.gameClearToggleAlarm( AlarmRingView.selfView!.currentAlarmElement!.alarmID, cleared: true );
 		AlarmManager.mergeAlarm(); //Merge it
 		AlarmManager.alarmRingActivated = false;
 		//Refresh tables
