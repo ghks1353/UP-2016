@@ -235,6 +235,8 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			}
 			
 		} else {
+			//Check alarm make/ornot
+			AlarmListView.selfView!.checkAlarmLimitExceed();
 			
 			//Add alarm alert to list
 			if (confirmed == true) {

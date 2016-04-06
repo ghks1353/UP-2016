@@ -64,8 +64,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		modalView.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor();
 		self.view.addSubview(navigationCtrl.view);
 		
-		
-        //add table to modal
+		//add table to modal
         tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
 		tableView.separatorStyle = .None;
 		
@@ -77,9 +76,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
         tableView.delegate = self; tableView.dataSource = self;
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
-		//tableView.setEditing(true, animated: true);
-		//alertaction
-		//if #available(iOS 8.2, *) { //ios8.2 or above only..!!
 		
 		//Document상에서는 iOS 8부터임
 		listConfirmAction = UIAlertController(title: Languages.$("alarmDeleteTitle"), message: Languages.$("alarmDeleteSure"), preferredStyle: .ActionSheet);
@@ -94,16 +90,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		};
 		listConfirmAction!.addAction(cancelAct);
 		listConfirmAction!.addAction(deleteSureAct);
-			
-			//let cellSelectRec:
-			
-		/*} else { //ios7 or older uses actionsheet
-			listConfirmAction = UIActionSheet(title: Languages.$("alarmDeleteSure"), delegate: self, cancelButtonTitle: Languages.$("generalCancel"), destructiveButtonTitle: Languages.$("alarmDelete"));
-			//list long press action for iOS7
-			let longPressRec:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AlarmListView.tableCellLongPressAction(_:)));
-			longPressRec.allowableMovement = 15; longPressRec.minimumPressDuration = 0.8;
-			self.tableView.addGestureRecognizer(longPressRec);
-		}*/
+		
 		
 		AlarmListView.alarmListInited = true;
 		
@@ -137,6 +124,9 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//Update table with animation
 		self.alarmsCell.removeAtIndex(self.alarmTargetIndexPath!.row); self.tablesArray = [self.alarmsCell];
 		self.tableView.deleteRowsAtIndexPaths([self.alarmTargetIndexPath!], withRowAnimation: UITableViewRowAnimation.Top);
+		
+		//chk alarm make available
+		checkAlarmLimitExceed();
 	}
 	
 	//iPad Alarm Delete Question
@@ -200,10 +190,10 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 	}
 	
-	// iOS7 Background fallback
-	override func viewDidAppear(animated: Bool) {
-		
-	} // iOS7 Background fallback end
+	override func viewWillAppear(animated: Bool) {
+		//Check alarm limit and disable/enable button
+		checkAlarmLimitExceed();
+	}
 	
 	//table list create method
 	internal func createTableList() {
@@ -340,6 +330,11 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	func FitModalLocationToCenter() {
 		navigationCtrl.view.frame.origin.x = DeviceGeneral.defaultModalSizeRect.minX;
 		navigationCtrl.view.frame.origin.y = DeviceGeneral.defaultModalSizeRect.minY;
+		
+		//알람 텍스트 및 배경의 조절
+		upAlarmMessageText.textAlignment = .Center;
+		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, 48);
+		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceGeneral.scrSize!.width, 24);
 	}
 	
     override func didReceiveMemoryWarning() {
@@ -373,7 +368,20 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		modalAddViewCalled = false;
 		ViewController.viewSelf!.showHideBlurview(false);
         self.dismissViewControllerAnimated(true, completion: nil);
-    }
+    } //end func
+	
+	func checkAlarmLimitExceed() {
+		//informationAlarmExceed
+		if ( AlarmManager.alarmsArray.count >= AlarmManager.alarmMaxRegisterCount ) {
+			print("Alarm over", AlarmManager.alarmMaxRegisterCount, "(current ", AlarmManager.alarmsArray.count ,")");
+			modalView.navigationItem.rightBarButtonItem!.enabled = false;
+		} else {
+			print("You can add alarm.");
+			modalView.navigationItem.rightBarButtonItem!.enabled = true;
+			
+		}
+		
+	}
 	
 	//Switch changed-event
 	func alarmSwitchChangedEventHandler(targetElement:UIAlarmIDSwitch) {

@@ -62,7 +62,7 @@ class DataManager {
 		print("Database init works started");
 		do {
 			//DB 연결
-			upDatabaseConnection = try Connection( libPathArr.objectAtIndex(0) as! String + "db.sqlite3" );
+			upDatabaseConnection = try Connection( libPathArr.objectAtIndex(0) as! String + "/db.sqlite3" );
 			//테이블 생성 (없을 경우)
 			try upDatabaseConnection!.run(upDBTableStats.create(ifNotExists: true) { t in
 				t.column( Expression<Int64>("id") , primaryKey: .Autoincrement) //자동증가 ID

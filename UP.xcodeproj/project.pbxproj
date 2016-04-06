@@ -74,6 +74,8 @@
 		77958C9A1C68D05C00E99864 /* SoundInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77958C991C68D05C00E99864 /* SoundInfoObj.swift */; };
 		77958C9E1C68E0D900E99864 /* AlarmSoundListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */; };
 		779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */; };
+		77A890B81CB58665009171F9 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BA6EC71CB0FF800053115A /* SQLite.framework */; };
+		77A890B91CB58665009171F9 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77BA6EC71CB0FF800053115A /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */; };
 		77AC4F8F1CABDE800044F5C8 /* SkinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AC4F8E1CABDE800044F5C8 /* SkinManager.swift */; };
 		77AC4F941CABDFB10044F5C8 /* skin_default_ground_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77AC4F901CABDFB10044F5C8 /* skin_default_ground_pad34.png */; };
@@ -232,7 +234,6 @@
 		77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */; };
 		77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */; };
 		77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */; };
-		77BA6ED91CB100540053115A /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BA6EC71CB0FF800053115A /* SQLite.framework */; };
 		77C136561CAE8CF100B91214 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C136551CAE8CF100B91214 /* StatisticsView.swift */; };
 		77C1365B1CAE9AA300B91214 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; };
 		77C1365C1CAE9AA400B91214 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -329,6 +330,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		77A890BA1CB58665009171F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EE247AD21C3F04ED00AE3E12;
+			remoteInfo = "SQLite iOS";
+		};
 		77BA6EC61CB0FF800053115A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */;
@@ -387,6 +395,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				77A890B91CB58665009171F9 /* SQLite.framework in Embed Frameworks */,
 				77C1365C1CAE9AA400B91214 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -723,9 +732,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77BA6ED91CB100540053115A /* SQLite.framework in Frameworks */,
 				77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */,
 				77C1365B1CAE9AA300B91214 /* Charts.framework in Frameworks */,
+				77A890B81CB58665009171F9 /* SQLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1482,6 +1491,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				77A890BB1CB58665009171F9 /* PBXTargetDependency */,
 			);
 			name = UP;
 			productName = UP;
@@ -1926,6 +1936,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		77A890BB1CB58665009171F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SQLite iOS";
+			targetProxy = 77A890BA1CB58665009171F9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		775ADBEB1C4FC4C700B52552 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -2029,6 +2047,7 @@
 				CODE_SIGN_ENTITLEMENTS = UP/UP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UP/Framework",
@@ -2051,6 +2070,7 @@
 				CODE_SIGN_ENTITLEMENTS = UP/UP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UP/Framework",

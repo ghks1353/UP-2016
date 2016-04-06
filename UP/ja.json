@@ -5,6 +5,7 @@
 	"generalOK": "OK",
 	"generalClose": "閉じる",
 	"generalAdd": "追加",
+	"generalAlert": "案内",
 	"generalComplete": "完了",
 	"generalEdit": "エディット",
 	"generalCancel": "キャンセル",
@@ -60,7 +61,8 @@
 	
 	"gameGenreJumpAction": "ジャンプアクション",
 	
-	"informationAlarmAdded": "アラームが追加されました。",
-	"informationAlarmEdited": "アラームが修正されました。"
+	"informationAlarmAdded": "アラームを追加しました。",
+	"informationAlarmEdited": "アラームをエディットしました。",
+	"informationAlarmExceed": "これ以上アラームを追加できません。\nアラームを削除したりエディットしてください。"
 	
 }

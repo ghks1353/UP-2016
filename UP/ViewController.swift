@@ -148,7 +148,6 @@ class ViewController: UIViewController {
 		(scrBlurView! as! UIVisualEffectView).autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
 		(scrBlurView! as! UIVisualEffectView).translatesAutoresizingMaskIntoConstraints = true;
 		
-		
 		//FOR TEST
 		//UIApplication.sharedApplication().cancelAllLocalNotifications();
 		//AlarmManager.clearAlarm();
@@ -198,6 +197,9 @@ class ViewController: UIViewController {
 		//DB Select test
 		//https://github.com/stephencelis/SQLite.swift/blob/master/Documentation/Index.md#selecting-rows
 		do {
+			if (DataManager.db() == nil) {
+				print("DB is nil");
+			}
 			print("type0");
 			for dbResult in try DataManager.db()!.prepare( DataManager.statsTable().filter( Expression<Int64>("type") == 0 ) ) {
 				print("id", dbResult[ Expression<Int64>("id") ], "type", dbResult[ Expression<Int64>("type") ], "date", dbResult[ Expression<Int64>("date") ],
@@ -251,15 +253,28 @@ class ViewController: UIViewController {
 	}
 	
 	func openAlarmaddView (gestureRecognizer: UITapGestureRecognizer) {
-		//알람추가뷰 열기
-		modalAlarmAddView.showBlur = true;
-		modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
 		
-		showHideBlurview(true);
-		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
-		modalAlarmAddView.clearComponents();
+		//알람추가뷰 열기. 일단 최대 초과하는지 체크함
+		if ( AlarmManager.alarmsArray.count >= AlarmManager.alarmMaxRegisterCount ) {
+			//초과하므로, 열 수 없음
+			
+			let alarmCantAddAlert = UIAlertController(title: Languages.$("generalAlert"), message: Languages.$("informationAlarmExceed"), preferredStyle: UIAlertControllerStyle.Alert);
+			alarmCantAddAlert.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
+				//Nothing do
+			}));
+			presentViewController(alarmCantAddAlert, animated: true, completion: nil);
+			
+			
+		} else {
+			modalAlarmAddView.showBlur = true;
+			modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
+			
+			showHideBlurview(true);
+			self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
+			modalAlarmAddView.clearComponents();
+		} //end if
 		
-	}
+	} //end func
 	
     func openSettingsView (gestureRecognizer: UITapGestureRecognizer) {
         //환경설정 열기
@@ -620,10 +635,15 @@ class ViewController: UIViewController {
 		AlarmListImg.frame = CGRectMake( clockRightScrX - ((90 * DeviceGeneral.maxScrRatioC) / 2), clockScrY - (10 * DeviceGeneral.maxScrRatioC), (105 * DeviceGeneral.maxScrRatioC), (150 * DeviceGeneral.maxScrRatioC) );
 		
 		
-		//땅 크기 조절
+		
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+			//배경화면 프레임도 같이 조절 (패드는 끝부분의 회전처리와 동시에 함)
+			backgroundImageView.frame = CGRectMake(0, 0, (DeviceGeneral.scrSize?.width)!, (DeviceGeneral.scrSize?.height)!);
+			backgroundImageFadeView.frame = backgroundImageView.frame;
+			
+			//땅 크기 조절
 			GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 75 * DeviceGeneral.maxScrRatioC, CGFloat((DeviceGeneral.scrSize?.width)!) , 75 * DeviceGeneral.maxScrRatioC );
-		} else {
+		} else { //패드에서의 땅 크기 조절
 			//show pad ground
 			GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 85.6 * DeviceGeneral.maxScrRatioC, (DeviceGeneral.scrSize!.width) , 85.6 * DeviceGeneral.maxScrRatioC );
 			GroundObj.image = UIImage( named:
@@ -639,11 +659,6 @@ class ViewController: UIViewController {
 			            101.1 * DeviceGeneral.maxScrRatioC,
 			            96.95 * DeviceGeneral.maxScrRatioC );
 		
-		
-		//Background image scale
-		backgroundImageView.frame = CGRectMake(0, 0, (DeviceGeneral.scrSize?.width)!, (DeviceGeneral.scrSize?.height)!);
-		backgroundImageFadeView.frame = backgroundImageView.frame;
-		
 		//Modal view 크기 가운데로 조정. (rotation)
 		modalSettingsView.FitModalLocationToCenter( );
 		modalAlarmListView.FitModalLocationToCenter( );
@@ -653,8 +668,12 @@ class ViewController: UIViewController {
 		//Blur view 조절
 		if (scrBlurView != nil) {
 			(scrBlurView as! UIVisualEffectView).frame = DeviceGeneral.scrSize!
-			
 		}
+		
+		//안내 텍스트 조절
+		upAlarmMessageText.textAlignment = .Center;
+		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, 48);
+		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceGeneral.scrSize!.width, 24);
 		
 		//버그로 인해 위치변경 전까진 transform이 없어야 함
 		let date = NSDate(); let calendar = NSCalendar.currentCalendar()
@@ -665,11 +684,26 @@ class ViewController: UIViewController {
 		
 		//시간대의 변경은 아니지만, 배경의 배율에 따라서 달라지는 부분이 있으므로 변경
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
-		currentBackgroundImage = getBackgroundFileNameFromTime(components.hour);
-		backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
-			(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
-			));
-		}
+			//배경의 자연스러운 변경 연출을 위한 애니메이션 효과 적용
+			currentBackgroundImage = getBackgroundFileNameFromTime(components.hour);
+			backgroundImageFadeView.image = backgroundImageView.image;
+			backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
+				(DeviceGeneral.scrSize!.width < DeviceGeneral.scrSize!.height) ? "_pad43" : "_pad34"
+				));
+			backgroundImageFadeView.alpha = 1;
+			backgroundImageView.alpha = 0;
+			
+			//Background image scale
+			backgroundImageView.frame = CGRectMake(0, 0, (DeviceGeneral.scrSize?.width)!, (DeviceGeneral.scrSize?.height)!);
+			
+			UIView.animateWithDuration(0.48, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+				self.backgroundImageFadeView.alpha = 0;
+				self.backgroundImageView.alpha = 1;
+				}, completion: {_ in
+					self.backgroundImageFadeView.frame = self.backgroundImageView.frame;
+			});
+			
+		} //end if
 		
 		
 	} //end func

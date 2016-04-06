@@ -148,8 +148,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03A65E5A1C6BB0F50062603F /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-appletvos/SQLite.framework"; sourceTree = "<absolute>"; };
-		03A65E631C6BB0F60062603F /* SQLiteTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "SQLiteTests tvOS.xctest"; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-appletvos/SQLiteTests tvOS.xctest"; sourceTree = "<absolute>"; };
 		03A65E961C6BB3210062603F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 		39548A631CA63C740003E3B5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		39548A651CA63C740003E3B5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
@@ -158,11 +156,15 @@
 		39548A6B1CA63C740003E3B5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		39548A6D1CA63C740003E3B5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		39548A6F1CA63C740003E3B5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		A121AC451CA35C79005A31D1 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-watchos/SQLite.framework"; sourceTree = "<absolute>"; };
-		EE247AD31C3F04ED00AE3E12 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-iphoneos/SQLite.framework"; sourceTree = "<absolute>"; };
+		7702C81C1CB2643C00814761 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7702C81D1CB2643C00814761 /* SQLiteTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "SQLiteTests iOS.xctest"; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-iphoneos/SQLiteTests iOS.xctest"; sourceTree = "<absolute>"; };
+		7702C81E1CB2643C00814761 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug/SQLite.framework"; sourceTree = "<absolute>"; };
+		7702C81F1CB2643C00814761 /* SQLiteTests Mac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "SQLiteTests Mac.xctest"; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug/SQLiteTests Mac.xctest"; sourceTree = "<absolute>"; };
+		7702C8201CB2643C00814761 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-appletvos/SQLite.framework"; sourceTree = "<absolute>"; };
+		7702C8211CB2643C00814761 /* SQLiteTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "SQLiteTests tvOS.xctest"; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-appletvos/SQLiteTests tvOS.xctest"; sourceTree = "<absolute>"; };
+		7702C8221CB2643C00814761 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-watchos/SQLite.framework"; sourceTree = "<absolute>"; };
 		EE247AD61C3F04ED00AE3E12 /* SQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQLite.h; sourceTree = "<group>"; };
 		EE247AD81C3F04ED00AE3E12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EE247ADD1C3F04ED00AE3E12 /* SQLiteTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "SQLiteTests iOS.xctest"; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-iphoneos/SQLiteTests iOS.xctest"; sourceTree = "<absolute>"; };
 		EE247AE41C3F04ED00AE3E12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE247AEE1C3F06E900AE3E12 /* Blob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
 		EE247AEF1C3F06E900AE3E12 /* Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
@@ -198,8 +200,6 @@
 		EE247B2D1C3F141E00AE3E12 /* SchemaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaTests.swift; sourceTree = "<group>"; };
 		EE247B321C3F142E00AE3E12 /* StatementTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementTests.swift; sourceTree = "<group>"; };
 		EE247B331C3F142E00AE3E12 /* ValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueTests.swift; sourceTree = "<group>"; };
-		EE247B3C1C3F3ED000AE3E12 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug/SQLite.framework"; sourceTree = "<absolute>"; };
-		EE247B451C3F3ED000AE3E12 /* SQLiteTests Mac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "SQLiteTests Mac.xctest"; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug/SQLiteTests Mac.xctest"; sourceTree = "<absolute>"; };
 		EE247B8D1C3F821200AE3E12 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		EE247B931C3F826100AE3E12 /* SQLite.swift.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = SQLite.swift.podspec; sourceTree = "<group>"; };
 		EE91808B1C46E34A0038162A /* usr/include/sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usr/include/sqlite3.h; sourceTree = SDKROOT; };
@@ -340,6 +340,7 @@
 				EE247AD51C3F04ED00AE3E12 /* SQLite */,
 				EE247AE11C3F04ED00AE3E12 /* SQLiteTests */,
 				EE247B8A1C3F81D000AE3E12 /* Metadata */,
+				7702C81C1CB2643C00814761 /* SQLite.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -494,7 +495,7 @@
 			);
 			name = "SQLite tvOS";
 			productName = "SQLite tvOS";
-			productReference = 03A65E5A1C6BB0F50062603F /* SQLite.framework */;
+			productReference = 7702C8201CB2643C00814761 /* SQLite.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		03A65E621C6BB0F60062603F /* SQLiteTests tvOS */ = {
@@ -512,7 +513,7 @@
 			);
 			name = "SQLiteTests tvOS";
 			productName = "SQLite tvOSTests";
-			productReference = 03A65E631C6BB0F60062603F /* SQLiteTests tvOS.xctest */;
+			productReference = 7702C8211CB2643C00814761 /* SQLiteTests tvOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		A121AC441CA35C79005A31D1 /* SQLite watchOS */ = {
@@ -530,7 +531,7 @@
 			);
 			name = "SQLite watchOS";
 			productName = "SQLite watchOS";
-			productReference = A121AC451CA35C79005A31D1 /* SQLite.framework */;
+			productReference = 7702C8221CB2643C00814761 /* SQLite.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EE247AD21C3F04ED00AE3E12 /* SQLite iOS */ = {
@@ -548,7 +549,7 @@
 			);
 			name = "SQLite iOS";
 			productName = SQLite;
-			productReference = EE247AD31C3F04ED00AE3E12 /* SQLite.framework */;
+			productReference = 7702C81C1CB2643C00814761 /* SQLite.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EE247ADC1C3F04ED00AE3E12 /* SQLiteTests iOS */ = {
@@ -566,7 +567,7 @@
 			);
 			name = "SQLiteTests iOS";
 			productName = SQLiteTests;
-			productReference = EE247ADD1C3F04ED00AE3E12 /* SQLiteTests iOS.xctest */;
+			productReference = 7702C81D1CB2643C00814761 /* SQLiteTests iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		EE247B3B1C3F3ED000AE3E12 /* SQLite Mac */ = {
@@ -584,7 +585,7 @@
 			);
 			name = "SQLite Mac";
 			productName = SQLite;
-			productReference = EE247B3C1C3F3ED000AE3E12 /* SQLite.framework */;
+			productReference = 7702C81E1CB2643C00814761 /* SQLite.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EE247B441C3F3ED000AE3E12 /* SQLiteTests Mac */ = {
@@ -602,7 +603,7 @@
 			);
 			name = "SQLiteTests Mac";
 			productName = SQLiteTests;
-			productReference = EE247B451C3F3ED000AE3E12 /* SQLiteTests Mac.xctest */;
+			productReference = 7702C81F1CB2643C00814761 /* SQLiteTests Mac.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */

@@ -27,6 +27,10 @@ class GameTitleViewJumpUP:UIViewController {
 	var gameView:SKView = SKView();
 	var jumpUPGameScene:JumpUPGame?;
 	
+	let gameTitleLabelYAxis:CGFloat = 128 * DeviceGeneral.scrRatioC;
+	let gameThumbsSize:CGFloat = 180 * DeviceGeneral.maxScrRatioC;
+	
+	
 	override func viewDidLoad() {
 		// view init func
 		self.view.backgroundColor = UIColor.blackColor(); //black col
@@ -36,9 +40,6 @@ class GameTitleViewJumpUP:UIViewController {
 	
 	override func viewDidAppear(animated: Bool) {
 		//View load func
-		
-		let gameTitleLabelYAxis:CGFloat = 128 * DeviceGeneral.scrRatioC;
-		
 		gameTitleLabel.text = Languages.$("gameNameJumpUP");
 		gameTitleLabel.font = UIFont.systemFontOfSize(38);
 		gameTitleLabel.frame = CGRectMake( 0, gameTitleLabelYAxis, self.view.frame.width, 38 );
@@ -61,7 +62,6 @@ class GameTitleViewJumpUP:UIViewController {
 		gameThumbnailsBackgroundImage.image = UIImage( named: "game-thumb-background.png" );
 		gameThumbnailsImage.image = UIImage( named: "game-thumb-jumpup.png" );
 		
-		let gameThumbsSize:CGFloat = 180 * DeviceGeneral.scrRatioC;
 		gameThumbnailsBackgroundImage.frame = CGRectMake( self.view.frame.width / 2 - gameThumbsSize / 2, self.view.frame.height / 2 - gameThumbsSize / 2, gameThumbsSize, gameThumbsSize);
 		gameThumbnailsImage.frame = gameThumbnailsBackgroundImage.frame;
 		
@@ -69,7 +69,7 @@ class GameTitleViewJumpUP:UIViewController {
 		
 		//start btn add.
 		gameStartButtonImage.image = UIImage( named: "game-start-button.png" );
-		gameStartButtonImage.frame = CGRectMake( self.view.frame.width / 2 - (242.05 * DeviceGeneral.scrRatioC) / 2, self.view.frame.height - (70.75 * DeviceGeneral.scrRatioC) - (86 * DeviceGeneral.scrRatioC), 242.05 * DeviceGeneral.scrRatioC, 70.75 * DeviceGeneral.scrRatioC );
+		gameStartButtonImage.frame = CGRectMake( self.view.frame.width / 2 - (242.05 * DeviceGeneral.maxScrRatioC) / 2, self.view.frame.height - (70.75 * DeviceGeneral.maxScrRatioC) - (86 * DeviceGeneral.maxScrRatioC), 242.05 * DeviceGeneral.maxScrRatioC, 70.75 * DeviceGeneral.maxScrRatioC );
 		
 		let gameStartGesture:UITapGestureRecognizer = UITapGestureRecognizer();
 		gameStartGesture.addTarget(self, action: #selector(GameTitleViewJumpUP.gameStartFuncTapHandler(_:)));
@@ -77,6 +77,23 @@ class GameTitleViewJumpUP:UIViewController {
 		
 		self.view.addSubview(gameStartButtonImage);
 		gameStartButtonImage.userInteractionEnabled = true;
+		
+		///////
+		self.gameTitleLabel.alpha = 0; self.gameTitleRedLabel.alpha = 0; self.gameTitleSkyblueLabel.alpha = 0;
+		self.gameThumbnailsBackgroundImage.alpha = 0; self.gameThumbnailsImage.alpha = 0;
+		self.gameStartButtonImage.alpha = 0;
+		
+		//View fade-in effect
+		UIView.animateWithDuration(0.25, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+			self.gameTitleLabel.alpha = 1; self.gameTitleRedLabel.alpha = 1; self.gameTitleSkyblueLabel.alpha = 1;
+			self.gameThumbnailsBackgroundImage.alpha = 1; self.gameThumbnailsImage.alpha = 1;
+			self.gameStartButtonImage.alpha = 1; 
+			
+			
+			}, completion: {_ in
+		});
+		
+		
 	} //end func
 	
 	func gameStartFuncTapHandler( recognizer: UITapGestureRecognizer ) {
@@ -92,13 +109,22 @@ class GameTitleViewJumpUP:UIViewController {
 		
 		self.view.addSubview(gameView);
 		gameView.presentScene(jumpUPGameScene!);
-	}
+		
+		//Gameview alpha transition
+		gameView.alpha = 0;
+		
+		UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+			self.gameView.alpha = 1;
+			}, completion: {_ in
+		});
+		
+	} //end start func
 	
-	override func viewWillAppear(animated: Bool) {
+	//override func viewWillAppear(animated: Bool) {
 		//뷰가 열릴 직전에.
 		//UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default;
 		
-	} //end func
+	//} //end func
 	
 	override func viewWillDisappear(animated: Bool) {
 		//UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent;

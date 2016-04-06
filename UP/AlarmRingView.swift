@@ -43,34 +43,28 @@ class AlarmRingView:UIViewController {
 			//알람 사운드 울림중일때 끔
 			AlarmManager.stopSoundAlarm();
 			
-			print("view appreared and preparing to present a new view controller");
-			UPUtils.setTimeout(0.5, block: { //일종의 버그방지를 위한 타이머인데 걍 빼도 될거라고 (생각 중)
-				print("selected ->", self.gameSelectedNumber);
-				switch( self.gameSelectedNumber ) {
-					case 0: //점프업
-						self.changeRotation(0);
-						
-						if (AlarmRingView.jumpUPStartupViewController == nil) {
-							AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP();
-						} else {
-							AlarmRingView.jumpUPStartupViewController = nil;
-							AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP(); //게임 초기화가 귀찮다 ㅗ
-						}
-						
-						self.presentViewController(AlarmRingView.jumpUPStartupViewController!, animated: false, completion: nil);
-						break;
-						
-					default:
-						print("game code", self.gameSelectedNumber, "not found err");
-						break;
-				}
-			});
+			print("selected ->", gameSelectedNumber);
+			switch( gameSelectedNumber ) {
+				case 0: //점프업
+					changeRotation(0);
+					
+					AlarmRingView.jumpUPStartupViewController = nil;
+					AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP(); //게임 강제 초기화 (TitleView)
+					
+					//AlarmRingView.jumpUPStartupViewController!.modalTransitionStyle = .CrossDissolve;
+					presentViewController(AlarmRingView.jumpUPStartupViewController!, animated: false, completion: nil);
+					break;
+					
+				default:
+					print("game code", self.gameSelectedNumber, "not found err");
+					break;
+			} //end switch
 			
 			
 			
-		}
+		} //end element chk
 		
-	}
+	} //end func
 	
 	override func viewWillAppear(animated: Bool) {
 		//뷰가 열릴 직전에.
