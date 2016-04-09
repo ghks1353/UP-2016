@@ -234,6 +234,7 @@
 		77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */; };
 		77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */; };
 		77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */; };
+		77AE733E1CB925D40008CAAD /* CharacterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AE733D1CB925D40008CAAD /* CharacterInfoView.swift */; };
 		77C136561CAE8CF100B91214 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C136551CAE8CF100B91214 /* StatisticsView.swift */; };
 		77C1365B1CAE9AA300B91214 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; };
 		77C1365C1CAE9AA400B91214 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -632,6 +633,7 @@
 		77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-wanderlust.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-wanderlust.aiff"; sourceTree = "<group>"; };
 		77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-bigblack.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-bigblack.aiff"; sourceTree = "<group>"; };
 		77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsodamatsuda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsodamatsuda.aiff"; sourceTree = "<group>"; };
+		77AE733D1CB925D40008CAAD /* CharacterInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterInfoView.swift; sourceTree = "<group>"; };
 		77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = UP/Framework/SQLite/SQLite.xcodeproj; sourceTree = "<group>"; };
 		77C136551CAE8CF100B91214 /* StatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		77C1365A1CAE9AA300B91214 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = UP/Framework/Charts.framework; sourceTree = "<group>"; };
@@ -887,6 +889,7 @@
 				77E3F4791C746C71002BBDA6 /* AlarmGameListView.swift */,
 				77C54E7B1C9EC3EA00013F9D /* AlarmRepeatSettingsView.swift */,
 				77C136551CAE8CF100B91214 /* StatisticsView.swift */,
+				77AE733D1CB925D40008CAAD /* CharacterInfoView.swift */,
 			);
 			name = SubViews;
 			sourceTree = "<group>";
@@ -1885,6 +1888,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77AE733E1CB925D40008CAAD /* CharacterInfoView.swift in Sources */,
 				77E5B9B21C624BD30075431A /* AlarmSoundListView.swift in Sources */,
 				77782E691C92B0B00016EE1B /* SKAction+Extensions.swift in Sources */,
 				77782E6F1C92B0B00016EE1B /* SKTTimingFunctions.swift in Sources */,

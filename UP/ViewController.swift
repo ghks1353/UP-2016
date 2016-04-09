@@ -44,10 +44,11 @@ class ViewController: UIViewController {
     var modalAlarmListView:AlarmListView = AlarmListView();
 	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
 	var modalAlarmStatsView:StatisticsView = StatisticsView();
-
+	var modalCharacterInformationView:CharacterInfoView = CharacterInfoView();
 	
-	//screen blur view (AnyObject => Fallback iOS 7.0)
-	var scrBlurView:AnyObject?;
+	
+	//screen blur view
+	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
 	
 	static var viewSelf:ViewController?;
 	internal var viewImage:UIImage = UIImage();
@@ -69,6 +70,11 @@ class ViewController: UIViewController {
         DeviceGeneral.initialDeviceSize();
 		//Init DataManager
 		DataManager.initDataManager();
+		//클래스 외부접근
+		ViewController.viewSelf = self;
+		//Startup permission request
+		let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+		UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings);
 		
 		//Background image add.
 		self.view.addSubview(backgroundImageView); self.view.addSubview(backgroundImageFadeView);
@@ -105,14 +111,15 @@ class ViewController: UIViewController {
 		//기본 스킨 선택. 나중엔 저장된 스킨번호를 불러오게 변경.
 		selectMainSkin(0);
 		
-		// 화면에 배치하기
+		//Element fit to screen
 		fitViewControllerElementsToScreen( false );
-		
 		
 		//기본 스킨이 선택된 상태에서
         AstroCharacter.animationImages = astroMotionsStanding;
         AstroCharacter.animationDuration = 1.0; AstroCharacter.animationRepeatCount = -1;
         AstroCharacter.startAnimating();
+		
+		//////////////////// 터치 인터렉션 (메뉴 이동)
 		
         //시계 이미지 터치시
         var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openAlarmaddView(_:))); //openAlarmaddView
@@ -134,26 +141,21 @@ class ViewController: UIViewController {
 		GroundStatSign.userInteractionEnabled = true;
 		GroundStatSign.addGestureRecognizer(tapGestureRecognizer);
 		
+		//Astro 터치 시
+		tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openCharacterInformationView(_:)))
+		AstroCharacter.userInteractionEnabled = true;
+		AstroCharacter.addGestureRecognizer(tapGestureRecognizer);
 		
-		//클래스 외부접근을 위함
-		ViewController.viewSelf = self;
-        
-        //Startup permission request
-		let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
-		UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings);
+		//////////////////////////////////////
 		
 		//iOS8 blur effect
-		scrBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
-		(scrBlurView! as! UIVisualEffectView).frame = self.view.bounds;
-		(scrBlurView! as! UIVisualEffectView).autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
-		(scrBlurView! as! UIVisualEffectView).translatesAutoresizingMaskIntoConstraints = true;
+		scrBlurView.frame = self.view.bounds;
+		scrBlurView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight];
+		scrBlurView.translatesAutoresizingMaskIntoConstraints = true;
 		
 		//FOR TEST
 		//UIApplication.sharedApplication().cancelAllLocalNotifications();
 		//AlarmManager.clearAlarm();
-		
-		updateTimeAnimation(); //first call
-		setInterval(0.5, block: updateTimeAnimation);
 		
 		//무음모드 사운드 허용
 		do {
@@ -174,10 +176,10 @@ class ViewController: UIViewController {
 		modalAlarmListView.setupModalView( getGeneralModalRect() );
 		modalAlarmAddView.setupModalView( getGeneralModalRect() );
 		modalAlarmStatsView.setupModalView( getGeneralModalRect() );
+		modalCharacterInformationView.setupModalView( getGeneralModalRect() );
 		
 		//DISABLE AUTORESIZE
 		self.view.autoresizesSubviews = false;
-		
 		
 		//Upside message initial
 		upAlarmMessageView.backgroundColor = UIColor.whiteColor(); //color initial
@@ -190,8 +192,7 @@ class ViewController: UIViewController {
 		upAlarmMessageText.font = UIFont.systemFontOfSize(16);
 		upAlarmMessageView.addSubview(upAlarmMessageText);
 		
-		self.view.addSubview( upAlarmMessageView );
-		upAlarmMessageView.hidden = true;
+		self.view.addSubview( upAlarmMessageView ); upAlarmMessageView.hidden = true;
 		///// upside message inital
 		
 		//DB Select test
@@ -219,7 +220,12 @@ class ViewController: UIViewController {
 			}
 		} catch {
 			print("DB Selection error");
-		}
+		} ////////////////////// test fin
+		
+		
+		///////// start update task
+		updateTimeAnimation(); //first call
+		setInterval(0.5, block: updateTimeAnimation);
 		
     } //end viewdidload
 	
@@ -232,17 +238,17 @@ class ViewController: UIViewController {
 		
 		//Show or hide blur
 		if (show) {
-			self.view.addSubview(scrBlurView as! UIVisualEffectView);
-			(scrBlurView as! UIVisualEffectView).alpha = 0;
+			self.view.addSubview(scrBlurView);
+			scrBlurView.alpha = 0;
 			UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-				(self.scrBlurView as! UIVisualEffectView).alpha = 1;
+				self.scrBlurView.alpha = 1;
 			}, completion: nil);
 		} else {
-			(scrBlurView as! UIVisualEffectView).alpha = 1;
+			self.scrBlurView.alpha = 1;
 			UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-			(self.scrBlurView as! UIVisualEffectView).alpha = 0;
+			self.scrBlurView.alpha = 0;
 				}, completion: {_ in
-					self.scrBlurView?.removeFromSuperview();
+					self.scrBlurView.removeFromSuperview();
 			});
 		}
 	} //end func
@@ -300,8 +306,19 @@ class ViewController: UIViewController {
 		
 		self.presentViewController(modalAlarmStatsView, animated: true, completion: nil);
 		modalAlarmStatsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
-		
 	}
+	
+	func openCharacterInformationView  (gestureRecognizer: UITapGestureRecognizer) {
+		//Character information 열기
+		modalCharacterInformationView.modalPresentationStyle = .OverFullScreen;
+		showHideBlurview(true);
+		
+		self.presentViewController(modalCharacterInformationView, animated: true, completion: nil);
+		modalCharacterInformationView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+	}
+
+	
+	////////////////////////////////////
   
     func updateTimeAnimation() {
         //setinterval call
@@ -666,9 +683,7 @@ class ViewController: UIViewController {
 		modalAlarmStatsView.FitModalLocationToCenter( );
 		
 		//Blur view 조절
-		if (scrBlurView != nil) {
-			(scrBlurView as! UIVisualEffectView).frame = DeviceGeneral.scrSize!
-		}
+		scrBlurView.frame = DeviceGeneral.scrSize!;
 		
 		//안내 텍스트 조절
 		upAlarmMessageText.textAlignment = .Center;

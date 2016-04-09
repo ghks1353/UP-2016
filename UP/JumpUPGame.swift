@@ -138,7 +138,7 @@ class JumpUPGame:SKScene {
 			gameScrollSpeed = 2;
 		}
 		
-		
+		//컴포넌트 위치조정을 위한 값
 		var movPositionY:CGFloat = 0;
 		var gameScoreMovPositionY:CGFloat = 0;
 		
@@ -239,8 +239,12 @@ class JumpUPGame:SKScene {
 				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_2.png" ),
 				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_3.png" ),
 				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_4.png" )
-				
 			];
+			
+			//Preload textures
+			for i:Int in 0 ..< gameNodesTexturesArray.count {
+				gameNodesTexturesArray[i].preloadWithCompletionHandler({});
+			}
 			
 		} //end of creation txt
 		
@@ -251,6 +255,8 @@ class JumpUPGame:SKScene {
 				gameTexturesAIEffectsArray[0] += [
 					SKTexture( imageNamed: "game_jumpup_assets_time_ai_j_astro_effect" + String(i) + ".png")
 				];
+				// Preload texture (reduce fps drop)
+				(gameTexturesAIEffectsArray[0][i] as SKTexture).preloadWithCompletionHandler({});
 			}
 			
 		} //end of effet create
@@ -264,32 +270,31 @@ class JumpUPGame:SKScene {
 		characterElement!.position.x = 64 * DeviceGeneral.scrRatioC; //캐릭터의 왼쪽. 초기위치 잡음
 		characterElement!.position.y = gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2); // * DeviceGeneral.scrRatioC;
 		
-		//////// 캐릭터 모션 만들기
+		//////// Make textures for Character (Player)
 		if (characterElement!.motions_walking.count == 0) {
 			for i:Int in 0 ..< 6 {
 				characterElement!.motions_walking += [
 					SKTexture( imageNamed: "game_jumpup_astro_move" + String(i) + ".png" )
-				];
+				]; //Character motions preload
+				(characterElement!.motions_walking[i] as SKTexture).preloadWithCompletionHandler({});
 			}
 		} //walking motion end for *character*
 		if (characterElement!.motions_jumping.count == 0) {
 			for i:Int in 0 ..< 8 {
 				characterElement!.motions_jumping += [
 					SKTexture( imageNamed: "game_jumpup_astro_jump" + String(i) + ".png" )
-				];
+				]; //Character motions preload
+				(characterElement!.motions_jumping[i] as SKTexture).preloadWithCompletionHandler({});
 			}
 		} //jumping motion end for *character*
 		
-		/*
-		var gameTexturesAIMoveTexturesArray:Array<SKTexture> = [];
-		var gameTexturesAIJMoveTexturesArray:Array<SKTexture> = [];
-		var gameTexturesAIJJumpTexturesArray:Array<SKTexture> = [];
-		*/
+		///////////// Make textures for AI
 		if (gameTexturesAIMoveTexturesArray.count == 0) {
 			for i:Int in 0 ..< 6 {
 				gameTexturesAIMoveTexturesArray += [
 					SKTexture( imageNamed: "game_jumpup_ai_astro_move" + String(i) + ".png" )
 				];
+				(gameTexturesAIMoveTexturesArray[i] as SKTexture).preloadWithCompletionHandler({});
 			}
 		} //jumping motion end for *ai move*
 		if (gameTexturesAIJMoveTexturesArray.count == 0) {
@@ -297,6 +302,7 @@ class JumpUPGame:SKScene {
 				gameTexturesAIJMoveTexturesArray += [
 					SKTexture( imageNamed: "game_jumpup_ai_j_astro_move" + String(i) + ".png" )
 				];
+				(gameTexturesAIJMoveTexturesArray[i] as SKTexture).preloadWithCompletionHandler({});
 			}
 		} //jumping motion end for *ai_j move*
 		if (gameTexturesAIJJumpTexturesArray.count == 0) {
@@ -304,6 +310,7 @@ class JumpUPGame:SKScene {
 				gameTexturesAIJJumpTexturesArray += [
 					SKTexture( imageNamed: "game_jumpup_ai_j_astro_jump" + String(i) + ".png" )
 				];
+				(gameTexturesAIJJumpTexturesArray[i] as SKTexture).preloadWithCompletionHandler({});
 			}
 		} //jumping motion end for *ai_j jump*
 		
@@ -368,8 +375,7 @@ class JumpUPGame:SKScene {
 		//App -> Foreground
 		
 		if (gameStartupType == 0 && gameFinishedBool == false) {
-			//알람으로 게임이 켜졌을 때
-			//감히 멀티태스킹을 했겠다. 120초 다시줌
+			//알람으로 게임이 켜졌을 때, 졸거나 하는 등으로 화면이 꺼지거나 백그라운드로 나갔다 오면 시간은 리셋.
 			gameScore = gameAlarmFirstGoalTime;
 			gameRetireTimeCount = gameRetireTimeCount / 2; //리타이어 수작일수도 있으니 이거도 조절함
 			stats_gameToBackgroundCount += 1;
@@ -389,7 +395,7 @@ class JumpUPGame:SKScene {
 			}
 			
 			addCountdownTimerForAlarm(); //타이머 재시작
-		}
+		} //end if gametype 0
 	} //end func
 	
 	
