@@ -33,7 +33,7 @@ class CharacterInfoView:UIViewController, UITableViewDataSource, UITableViewDele
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#333333");
 		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = "Character info";
+		modalView.title = Languages.$("userCharacterInformation");
 		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(SettingsView.viewCloseAction));
 		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
 		self.view.addSubview(navigationCtrl.view);

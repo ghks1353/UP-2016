@@ -55,6 +55,7 @@
 		"alarmDelete": "삭제",
 		"alarmDeleteSure": "이 알람을 삭제하시겠습니까?",
 		"alarmDefaultName": "알람",
+	"alarmListEmpty": "등록된 알람 없음",
 	
 	"gameNameJumpUP": "점프 UP",
 	"gameDescriptionJumpUP": "점프 하나만 믿고 하는 게임이 아닙니다\n생각을 넓혀 보세요!",
@@ -63,7 +64,11 @@
 	
 	"informationAlarmAdded": "알람이 추가되었습니다.",
 	"informationAlarmEdited": "알람이 수정되었습니다.",
-	"informationAlarmExceed": "더 이상 알람을 추가할 수 없습니다.\n기존 알람을 삭제하거나 편집하세요."
+	"informationAlarmExceed": "더 이상 알람을 추가할 수 없습니다.\n기존 알람을 삭제하거나 편집하세요.",
+	
+	"userStatistics": "통계",
+	
+	"userCharacterInformation": "캐릭터 정보"
 	
 	
 }

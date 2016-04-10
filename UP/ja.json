@@ -55,6 +55,7 @@
 		"alarmDelete": "削除",
 		"alarmDeleteSure": "このアラームを削除しますか？",
 		"alarmDefaultName": "アラーム",
+	"alarmListEmpty": "アラーム無し",
 	
 	"gameNameJumpUP": "ジャンプ UP",
 	"gameDescriptionJumpUP": "ジャンプだけのゲームじゃありません！深く考えてみてください！",

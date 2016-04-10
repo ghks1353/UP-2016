@@ -34,6 +34,8 @@ class AlarmRingView:UIViewController {
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		currentAlarmElement = AlarmManager.getRingingAlarm();
+		
 		if (currentAlarmElement != nil) {
 			//게임을 분류하여 각각 맞는 view를 present
 			if (currentAlarmElement?.gameSelected == -1) {
@@ -49,9 +51,8 @@ class AlarmRingView:UIViewController {
 					changeRotation(0);
 					
 					AlarmRingView.jumpUPStartupViewController = nil;
-					AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP(); //게임 강제 초기화 (TitleView)
+					AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP(); //게임 강제 초기화. (TitleView)
 					
-					//AlarmRingView.jumpUPStartupViewController!.modalTransitionStyle = .CrossDissolve;
 					presentViewController(AlarmRingView.jumpUPStartupViewController!, animated: false, completion: nil);
 					break;
 					
@@ -66,17 +67,6 @@ class AlarmRingView:UIViewController {
 		
 	} //end func
 	
-	override func viewWillAppear(animated: Bool) {
-		//뷰가 열릴 직전에.
-		
-		currentAlarmElement = AlarmManager.getRingingAlarm();
-		if (currentAlarmElement == nil) {
-			print("alarm element is nil");
-		} else {
-			
-			
-		} //end if
-	} //end func
 	
 	override func viewWillDisappear(animated: Bool) {
 		//view disappear event handler

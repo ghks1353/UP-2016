@@ -21,7 +21,7 @@ class JumpUPGame:SKScene {
 		game_jumpup_assets_time_cloud_1~4: 94.05 X 24.4
 		game_jumpup_assets_time_trap: -
 		
-		아스트로 모든 모션: 44 X 65
+		아스트로 모든 모션: 44 X 65 -> 변경됨
 	*/
 	
 	//게임 실행 타입 (0= 알람, 1= 메인화면 실행)
@@ -44,6 +44,8 @@ class JumpUPGame:SKScene {
 	var buttonRetireSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_time_retire.png" ) );
 	var buttonAlarmOffSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_time_alram_off.png" ) );
 	var buttonAlarmOnSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_time_alram_reset.png" ) );
+	
+	var gameTipTextField:UILabel = UILabel();
 	
 	//게임 종료 / 포기 버튼이 생기는 Y위치
 	var buttonYAxis:CGFloat = 0;
@@ -129,7 +131,20 @@ class JumpUPGame:SKScene {
 		//실제 게임 스테이지 y값
 		gameStageYAxis = backgroundCoverImage!.position.y + (backgroundCoverImage!.size.height / 2);
 		gameStageYHeight = backgroundCoverImage!.frame.height;
-	
+		
+		//게임 팁 표시할 텍스트 추가
+		gameTipTextField.textColor = UIColor.whiteColor();
+		gameTipTextField.frame = CGRectMake(
+			12 * DeviceGeneral.scrRatioC,
+			gameStageYAxis + (48 * DeviceGeneral.scrRatioC),
+			self.view!.frame.width - (12 * DeviceGeneral.scrRatioC),
+			24 * DeviceGeneral.scrRatioC
+		);
+		gameTipTextField.text = "테스트 텍스트";
+		gameTipTextField.textAlignment = .Center;
+		gameTipTextField.font = UIFont.systemFontOfSize(18); //절대 크기로 사용
+		self.view!.addSubview(gameTipTextField);
+		
 		//time 혹은 score 추가 (실행 타입에 따라 바뀜)
 		gameScoreStr = "";
 		

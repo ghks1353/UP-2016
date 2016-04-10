@@ -21,6 +21,10 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	//Navigationbar view
 	var navigationCtrl:UINavigationController = UINavigationController();
 	
+	//Alarm guide label and image
+	var alarmAddGuideImageView:UIImageView = UIImageView();
+	var alarmAddGuideText:UILabel = UILabel();
+	
     //Table for menu
     internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Plain);
     var tablesArray:Array<AnyObject> = [];
@@ -30,12 +34,10 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
 	
 	//List delete confirm alert
-	var listConfirmAction:AnyObject?; //Fallback of iOS7
+	var listConfirmAction:UIAlertController = UIAlertController();
 	var alarmTargetID:Int = 0; //target del id(tmp)
 	var alarmTargetIndexPath:NSIndexPath?; // = NSIndexPath(); //to delete animation/optimization
 	
-	//Background for iOS7 fallback
-	//var modalBackground:UIImageView?; var modalBackgroundBlackCover:UIView?;
 	internal var modalAddViewCalled:Bool = false;
 	
 	//위쪽에서 내려오는 알람 메시지를 위한 뷰
@@ -67,11 +69,21 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//add table to modal
         tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
 		tableView.separatorStyle = .None;
-		
         modalView.view.addSubview(tableView);
-        
+		
+		//알람이 없을 경우 나타나는 메시지에 대한 뷰
+		alarmAddGuideText.textColor = UIColor.grayColor();
+		alarmAddGuideText.textAlignment = .Center;
+		alarmAddGuideText.frame = CGRectMake(
+			0, modalView.view.frame.height / 2,
+			modalView.view.frame.width, 24
+		);
+		alarmAddGuideText.font = UIFont.systemFontOfSize(18);
+		alarmAddGuideText.text = Languages.$("alarmListEmpty");
+		self.modalView.view.addSubview(alarmAddGuideText);
+		/////////////////////
+		
         //add alarm-list
-		//todo- 이 리스트가 새로고침되어 다시 만들어질 수 있도록 유연하게 만들 필요가 있음
 		createTableList();
 		
         tableView.delegate = self; tableView.dataSource = self;
@@ -88,12 +100,12 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			self.deleteAlarmConfirm();
 			
 		};
-		listConfirmAction!.addAction(cancelAct);
-		listConfirmAction!.addAction(deleteSureAct);
-		
+		listConfirmAction.addAction(cancelAct);
+		listConfirmAction.addAction(deleteSureAct);
 		
 		AlarmListView.alarmListInited = true;
 		
+		///////
 		//Upside message initial
 		upAlarmMessageView.backgroundColor = UIColor.whiteColor(); //color initial
 		upAlarmMessageText.textColor = UIColor.blackColor();
@@ -127,6 +139,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		//chk alarm make available
 		checkAlarmLimitExceed();
+		checkAlarmIsEmpty(); //and check is empty
 	}
 	
 	//iPad Alarm Delete Question
@@ -167,7 +180,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 	
 	//iOS7 longpress-del handler
-	func tableCellLongPressAction(sender:UILongPressGestureRecognizer) {
+	/*func tableCellLongPressAction(sender:UILongPressGestureRecognizer) {
 		let point: CGPoint = sender.locationInView(tableView);
 		let indexPath = tableView.indexPathForRowAtPoint(point);
 		
@@ -188,11 +201,12 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			}
 		}
 		
-	}
+	}*/
 	
 	override func viewWillAppear(animated: Bool) {
 		//Check alarm limit and disable/enable button
 		checkAlarmLimitExceed();
+		checkAlarmIsEmpty();
 	}
 	
 	//table list create method
@@ -313,7 +327,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 				self.showAlarmDelAlert();
 			} else {
 				//폰일 때
-				self.presentViewController(self.listConfirmAction as! UIAlertController, animated: true, completion: nil); //show menu
+				self.presentViewController(self.listConfirmAction, animated: true, completion: nil); //show menu
 			} //end chk phone or not
 			
 		} //end if
@@ -381,7 +395,22 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			
 		}
 		
-	}
+	} //end chk limit func
+	
+	func checkAlarmIsEmpty() {
+		//알람이 비어있는 경우 비어있으니 추가해달라는 메시지 표시.
+		if ( AlarmManager.alarmsArray.count == 0 ) {
+			//뷰 표시
+			alarmAddGuideText.hidden = false;
+			
+		} else {
+			//메시지 삭제
+			alarmAddGuideText.hidden = true;
+			
+		}
+		
+		
+	} //end func
 	
 	//Switch changed-event
 	func alarmSwitchChangedEventHandler(targetElement:UIAlarmIDSwitch) {

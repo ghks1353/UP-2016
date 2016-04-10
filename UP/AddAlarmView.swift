@@ -237,6 +237,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		} else {
 			//Check alarm make/ornot
 			AlarmListView.selfView!.checkAlarmLimitExceed();
+			AlarmListView.selfView!.checkAlarmIsEmpty(); //and chk list is empty or not
 			
 			//Add alarm alert to list
 			if (confirmed == true) {

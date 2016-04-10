@@ -168,13 +168,9 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 				break;
 		}
 		
+		//게임 섬네일, 체크박스 이미지뷰
 		let tGameThumbnailsPicture:UIImageView = UIImageView(image: UIImage(named: gameImgName));
 		tGameThumbnailsPicture.frame = tGameThumbnailsPictureBackground.frame; tCell.addSubview(tGameThumbnailsPicture);
-		/*if (gameBackgroundImageName != "") {
-			let tGameBackgroundPicture:UIImageView = UIImageView(image: UIImage(named: gameBackgroundImageName));
-			tGameBackgroundPicture.frame = CGRectMake(0, tCell.frame.height - 72.8, tableView.frame.width, 72.8); tCell.addSubview(tGameBackgroundPicture);
-		}*/
-		
 		let tGameCheckPic:UIImageView = UIImageView(image: UIImage(named: "game-thumbs-check.png"));
 		tGameCheckPic.frame = tGameThumbnailsPictureBackground.frame;
 		tCell.addSubview(tGameCheckPic);
