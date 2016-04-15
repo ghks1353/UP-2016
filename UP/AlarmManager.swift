@@ -204,7 +204,6 @@ class AlarmManager {
 		
 		print("Scheduled alarm count", scdAlarm.count);
 		for i:Int in 0 ..< scdAlarm.count {
-			
 			//없는 사운드에 대해서 첫번째 사운드로 적용
 			if (SoundManager.findSoundObjectWithFileName(scdAlarm[i].alarmSound) == nil) {
 				//찾고 있는 사운드는 존재하지 않으니, 맨 첫번째 사운드로 바꿈.
@@ -318,10 +317,17 @@ class AlarmManager {
 					
 				} //end vaild chk
 				
-					
-				//todayDate.weekday
+			//alarm merge check if end
+			} else {
+				//알람이 켜져있지만, 시간이 지나지 않았거나 게임을 클리어하지 않은 경우
+				print("Alarm is on but not cleared (or not passed), id:", scdAlarm[i].alarmID);
+				//이런 경우 firedate를 먼저 검사해본다.
+				print("time -> ", scdAlarm[i].alarmFireDate.timeIntervalSince1970, "curr:", NSDate().timeIntervalSince1970 );
+				print("is cleared already?", scdAlarm[i].alarmCleared )
+				//버그가 생겼을 때 LocalNotification에 나타나지 않았으므로
+				//LocalNotification에 등록되어 있는가를 검사한 후, 등록을 시켜주자.
 				
-			} //alarm merge check if end
+			}
 			
 		} //for end
 		print("Merge is done. time to save!");
@@ -514,7 +520,12 @@ class AlarmManager {
 			}
 		}
 		if (fireOnce != -1) { //여러번 울려야 하는 경우 오늘을 포함해서 다음 fireDate까지만 더함
-			for i:Int in (todayDate.weekday ==  7 ? 0 : (todayDate.weekday - 1)) ..< repeatArr.count {
+			//todayDate.weekday 에서 0을 빼는 이유. weekday는 1이 Sunday임. 그래서 1부터 시작함. 즉
+			//주의 끝을 체크하려면 7인지를 검사해야 함.
+			//이 포문에서는 다음 날짜를 잴 때 현재 날짜는 건너뛰어야하는데, 1을 빼게되면
+			//현재 날짜부터 시작하는 문제점이 있음.
+			//아마 C문법의 for문을 swift 형태로 바꾸다가 일어난 참사라고 생각.
+			for i:Int in (todayDate.weekday == 7 ? 0 : (todayDate.weekday - 0)) ..< repeatArr.count {
 				if (repeatArr[i] == true) {
 					fireOnce = i; fireSearched = true; break;
 				}

@@ -67,6 +67,21 @@
 	"informationAlarmExceed": "더 이상 알람을 추가할 수 없습니다.\n기존 알람을 삭제하거나 편집하세요.",
 	
 	"userStatistics": "통계",
+		"statsNoDataAvailable": "표시할 데이터가 없습니다.",
+		"statsTitleUntilAlarmOff": "알람 해제까지",
+	
+		"statsAverageFormat": "평균 $0",
+	
+		"statsWeek": "주",
+		"statsMonth": "월",
+		"statsYear": "년",
+	
+		"statsDateFormatWithMonth": "$0월 $1일",
+		"statsDateFormatDayOnly": "$0일",
+		"statsTimeFormatMinOnly": "$0분",
+	
+		"statsTimeFormatMinPrefix": "",
+		"statsTimeFormatMinSuffix": "분",
 	
 	"userCharacterInformation": "캐릭터 정보"
 	

@@ -64,6 +64,25 @@
 	
 	"informationAlarmAdded": "アラームを追加しました。",
 	"informationAlarmEdited": "アラームをエディットしました。",
-	"informationAlarmExceed": "これ以上アラームを追加できません。\nアラームを削除したりエディットしてください。"
+	"informationAlarmExceed": "これ以上アラームを追加できません。\nアラームを削除したりエディットしてください。",
+	
+	"userStatistics": "統計",
+		"statsNoDataAvailable": "表示できるデータがありません。",
+		"statsTitleUntilAlarmOff": "アラーム解除まで",
+		
+		"statsAverageFormat": "平均 $0",
+	
+		"statsWeek": "週",
+		"statsMonth": "月",
+		"statsYear": "年",
+	
+		"statsDateFormatWithMonth": "$0月 $1日",
+		"statsDateFormatDayOnly": "$0日",
+		"statsTimeFormatMinOnly": "$0分",
+	
+		"statsTimeFormatMinPrefix": "",
+		"statsTimeFormatMinSuffix": "分",
+	
+	"userCharacterInformation": "キャラクターの情報"
 	
 }

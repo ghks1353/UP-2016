@@ -235,6 +235,7 @@
 		77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */; };
 		77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */; };
 		77AE733E1CB925D40008CAAD /* CharacterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AE733D1CB925D40008CAAD /* CharacterInfoView.swift */; };
+		77B091731CBFBD720093FACC /* StatsDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B091721CBFBD720093FACC /* StatsDataElement.swift */; };
 		77C136561CAE8CF100B91214 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C136551CAE8CF100B91214 /* StatisticsView.swift */; };
 		77C1365B1CAE9AA300B91214 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; };
 		77C1365C1CAE9AA400B91214 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -634,6 +635,7 @@
 		77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-bigblack.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-bigblack.aiff"; sourceTree = "<group>"; };
 		77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsodamatsuda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsodamatsuda.aiff"; sourceTree = "<group>"; };
 		77AE733D1CB925D40008CAAD /* CharacterInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterInfoView.swift; sourceTree = "<group>"; };
+		77B091721CBFBD720093FACC /* StatsDataElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsDataElement.swift; sourceTree = "<group>"; };
 		77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = UP/Framework/SQLite/SQLite.xcodeproj; sourceTree = "<group>"; };
 		77C136551CAE8CF100B91214 /* StatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		77C1365A1CAE9AA300B91214 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = UP/Framework/Charts.framework; sourceTree = "<group>"; };
@@ -814,6 +816,7 @@
 				77FBE6851C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift */,
 				77E3F47B1C746D3C002BBDA6 /* GameInfoObj.swift */,
 				77E3F47D1C747272002BBDA6 /* UPAlarmGameLists.swift */,
+				77B091721CBFBD720093FACC /* StatsDataElement.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1908,6 +1911,7 @@
 				774141301C5BC09500E5A723 /* DataManager.swift in Sources */,
 				77782E651C92B0B00016EE1B /* CGFloat+Extensions.swift in Sources */,
 				77782E6C1C92B0B00016EE1B /* SKNode+Extensions.swift in Sources */,
+				77B091731CBFBD720093FACC /* StatsDataElement.swift in Sources */,
 				77C35C8B1C81CC2A002EE465 /* GameTitleViewJumpUP.swift in Sources */,
 				77E3F47C1C746D3C002BBDA6 /* GameInfoObj.swift in Sources */,
 				77FBE6861C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift in Sources */,

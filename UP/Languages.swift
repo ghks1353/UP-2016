@@ -46,7 +46,8 @@ class Languages {
         }
         
     } //end init
-    
+	
+	//Get language result from json file
     static func $(subject:String) -> String {
 		if (languageJsonFile == nil) {
 			initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
@@ -59,6 +60,28 @@ class Languages {
 		 	translatedStr = "ERR:" + subject; //cannot find subject
 		}
         return translatedStr;
-    }
-    
+    } //end func
+	
+	//Parse special characters to variable
+	//Ported from AvoidTap Reborn, AS3
+	static func parseStr(str:String, args:AnyObject...) -> String {
+		if (str == "") {
+			return "";
+		}
+		if (str.characters.contains("$") == false) {
+			return str;
+		}
+		if (args.count == 0) {
+			return str;
+		}
+		//찾을 문자는 $로 하고, $0부터 시작해서 args의 length만큼 찾는다.
+		
+		var modifiableString:String = str;
+		for i:Int in 0 ..< args.count {
+			modifiableString = modifiableString.stringByReplacingOccurrencesOfString("$" + String(i), withString: String(args[i]));
+		}
+		return modifiableString;
+	} //end func
+	
+	
 }
