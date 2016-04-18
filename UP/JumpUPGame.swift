@@ -992,25 +992,29 @@ class JumpUPGame:SKScene {
 				); //end try
 				
 				//DB -> 게임 기록 저장
+				/*t.column( Expression<Int64>("id") , primaryKey: .Autoincrement) //uid.
+				t.column( Expression<Int64>("gameid")) //게임 ID
+				t.column( Expression<Int64>("date")) //통계 저장 날짜
+				t.column( Expression<Int64>("startedTimeStamp")) //게임 시작 시간 (타임스탬프)
+				t.column( Expression<Int64>("playTime")) //게임 플레이 시간
+				t.column( Expression<Int64>("resultMissCount")) //게임오버 등에 해당하는 값
+				t.column( Expression<Int64>("touchAll")) //전체 행동수
+				t.column( Expression<Int64>("touchValid")) //유효 행동수
+				t.column( Expression<Int64>("backgroundExitCount")) //중간에 백그라운드로 나간 횟수*/
+				
+				
 				try DataManager.db()!.run(
-					DataManager.statsTable().insert(
-						//type -> 게임 로그 데이터 저장
-						Expression<Int64>("type") <- Int64(DataManager.statsType.TYPE_ALARM_GAME_DATA),
+					DataManager.gameResultTable().insert(
 						//통계 저장 날짜 저장 (timestamp)
-						Expression<Int64>("date") <- currentDateTimeStamp,
-						//statsDataArray -> 게임 결과 배열(Str배열) 저장
-						Expression<String?>("statsDataArray") <-
-							DataManager.covertToStringArray(
-								[ 0, /* <= 게임 ID */
-									stats_gameIsFailed == false ? 0 : 1, /* 포기 여부. 1 = 포기 */
-									stats_gameStartedTimeStamp, /* 게임 시작 시간 */
-									stats_gameFinishedTimeStamp - stats_gameStartedTimeStamp, /* 게임 플레이 경과시간 */
-									stats_gameDiedCount, /* 맞은 횟수 */
-									stats_gameTouchCount, /* 총 화면 터치 횟수 */
-									stats_gameValidTouchCount, /* 유효 터치 횟수 */
-									stats_gameToBackgroundCount /* 게임 중 백그라운드로 나갔다 온 횟수 */
-								] ) 
-					
+						Expression<Int64>("date") <- currentDateTimeStamp, /* 데이터 기록 타임스탬프 */
+						Expression<Int64>("gameid") <- 0, /* 게임 ID */
+						Expression<Int64>("gameCleared") <- (stats_gameIsFailed == false ? 1 : 0), /* 클리어 여부. 1 = 클리어 */
+						Expression<Int64>("startedTimeStamp") <- Int64(stats_gameStartedTimeStamp), /* 게임 시작 시간 */
+						Expression<Int64>("playTime") <- Int64(stats_gameFinishedTimeStamp - stats_gameStartedTimeStamp), /* 플레이 시간 */
+						Expression<Int64>("resultMissCount") <- Int64(stats_gameDiedCount), /* 뒈짓 */
+						Expression<Int64>("touchAll") <- Int64(stats_gameTouchCount), /* 총 터치수 */
+						Expression<Int64>("touchValid") <- Int64(stats_gameValidTouchCount), /* 유효 터치수 */
+						Expression<Int64>("backgroundExitCount") <- Int64(stats_gameToBackgroundCount) /* 백그라운드 탈출횟수 */
 					) /* insert end */
 				); // run end
 				

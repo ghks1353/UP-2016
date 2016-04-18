@@ -149,6 +149,12 @@
 
 /* Begin PBXFileReference section */
 		03A65E961C6BB3210062603F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		03FF75461CC52AB700E44F79 /* SQLiteTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SQLiteTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03FF75471CC52AB700E44F79 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		03FF75481CC52AB700E44F79 /* SQLiteTests Mac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SQLiteTests Mac.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03FF75491CC52AB700E44F79 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		03FF754A1CC52AB700E44F79 /* SQLiteTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SQLiteTests tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03FF754B1CC52AB700E44F79 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39548A631CA63C740003E3B5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		39548A651CA63C740003E3B5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		39548A671CA63C740003E3B5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
@@ -157,12 +163,6 @@
 		39548A6D1CA63C740003E3B5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		39548A6F1CA63C740003E3B5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		7702C81C1CB2643C00814761 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7702C81D1CB2643C00814761 /* SQLiteTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "SQLiteTests iOS.xctest"; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-iphoneos/SQLiteTests iOS.xctest"; sourceTree = "<absolute>"; };
-		7702C81E1CB2643C00814761 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug/SQLite.framework"; sourceTree = "<absolute>"; };
-		7702C81F1CB2643C00814761 /* SQLiteTests Mac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "SQLiteTests Mac.xctest"; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug/SQLiteTests Mac.xctest"; sourceTree = "<absolute>"; };
-		7702C8201CB2643C00814761 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-appletvos/SQLite.framework"; sourceTree = "<absolute>"; };
-		7702C8211CB2643C00814761 /* SQLiteTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "SQLiteTests tvOS.xctest"; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-appletvos/SQLiteTests tvOS.xctest"; sourceTree = "<absolute>"; };
-		7702C8221CB2643C00814761 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = "/Users/exfl/Desktop/XCode projects/UP/UP/Framework/SQLite/build/Debug-watchos/SQLite.framework"; sourceTree = "<absolute>"; };
 		EE247AD61C3F04ED00AE3E12 /* SQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQLite.h; sourceTree = "<group>"; };
 		EE247AD81C3F04ED00AE3E12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE247AE41C3F04ED00AE3E12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -341,6 +341,12 @@
 				EE247AE11C3F04ED00AE3E12 /* SQLiteTests */,
 				EE247B8A1C3F81D000AE3E12 /* Metadata */,
 				7702C81C1CB2643C00814761 /* SQLite.framework */,
+				03FF75461CC52AB700E44F79 /* SQLiteTests iOS.xctest */,
+				03FF75471CC52AB700E44F79 /* SQLite.framework */,
+				03FF75481CC52AB700E44F79 /* SQLiteTests Mac.xctest */,
+				03FF75491CC52AB700E44F79 /* SQLite.framework */,
+				03FF754A1CC52AB700E44F79 /* SQLiteTests tvOS.xctest */,
+				03FF754B1CC52AB700E44F79 /* SQLite.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -495,7 +501,7 @@
 			);
 			name = "SQLite tvOS";
 			productName = "SQLite tvOS";
-			productReference = 7702C8201CB2643C00814761 /* SQLite.framework */;
+			productReference = 03FF75491CC52AB700E44F79 /* SQLite.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		03A65E621C6BB0F60062603F /* SQLiteTests tvOS */ = {
@@ -513,7 +519,7 @@
 			);
 			name = "SQLiteTests tvOS";
 			productName = "SQLite tvOSTests";
-			productReference = 7702C8211CB2643C00814761 /* SQLiteTests tvOS.xctest */;
+			productReference = 03FF754A1CC52AB700E44F79 /* SQLiteTests tvOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		A121AC441CA35C79005A31D1 /* SQLite watchOS */ = {
@@ -531,7 +537,7 @@
 			);
 			name = "SQLite watchOS";
 			productName = "SQLite watchOS";
-			productReference = 7702C8221CB2643C00814761 /* SQLite.framework */;
+			productReference = 03FF754B1CC52AB700E44F79 /* SQLite.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EE247AD21C3F04ED00AE3E12 /* SQLite iOS */ = {
@@ -567,7 +573,7 @@
 			);
 			name = "SQLiteTests iOS";
 			productName = SQLiteTests;
-			productReference = 7702C81D1CB2643C00814761 /* SQLiteTests iOS.xctest */;
+			productReference = 03FF75461CC52AB700E44F79 /* SQLiteTests iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		EE247B3B1C3F3ED000AE3E12 /* SQLite Mac */ = {
@@ -585,7 +591,7 @@
 			);
 			name = "SQLite Mac";
 			productName = SQLite;
-			productReference = 7702C81E1CB2643C00814761 /* SQLite.framework */;
+			productReference = 03FF75471CC52AB700E44F79 /* SQLite.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EE247B441C3F3ED000AE3E12 /* SQLiteTests Mac */ = {
@@ -603,7 +609,7 @@
 			);
 			name = "SQLiteTests Mac";
 			productName = SQLiteTests;
-			productReference = 7702C81F1CB2643C00814761 /* SQLiteTests Mac.xctest */;
+			productReference = 03FF75481CC52AB700E44F79 /* SQLiteTests Mac.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -626,6 +632,7 @@
 					};
 					EE247AD21C3F04ED00AE3E12 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = CYYSPH8DRG;
 					};
 					EE247ADC1C3F04ED00AE3E12 = {
 						CreatedOnToolsVersion = 7.2;
@@ -1087,6 +1094,8 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1097,6 +1106,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stephencelis.SQLite;
 				PRODUCT_NAME = SQLite;
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/CocoaPods/iphoneos";
 				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/CocoaPods/iphonesimulator";
@@ -1109,6 +1119,8 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1119,6 +1131,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stephencelis.SQLite;
 				PRODUCT_NAME = SQLite;
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				"SWIFT_INCLUDE_PATHS[sdk=iphoneos*]" = "$(SRCROOT)/CocoaPods/iphoneos";
 				"SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]" = "$(SRCROOT)/CocoaPods/iphonesimulator";

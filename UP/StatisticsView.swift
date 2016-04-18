@@ -24,9 +24,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	//Main charts pointer
 	var rootViewChartPointer:ChartViewBase?; var rootViewChartSubtitle:UILabel?;
 	var rootViewChartWrapperCellPointer:UIView?; var rootViewChartBackgroundGradient:CAGradientLayer?;
-	var rootViewChartSelSegmentCell:UISegmentedControl?;
+	var rootViewChartSelSegmentCell:UISegmentedControl?; var rootViewChartNodataUILabel:UILabel?;
 	var rootViewChartSelectedCategory:Int = 0; //메인차트 주/월/년 구분
-	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -40,7 +39,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#333333");
+		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#005396");
 		navigationCtrl.view.frame = modalView.view.frame;
 		modalView.title = Languages.$("userStatistics");
 		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(SettingsView.viewCloseAction));
@@ -93,10 +92,24 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		if (statsDataResult == nil) {
 			//no data or error
 		} else {
+			//그래디언트 색은 미리 여기서 정해줍시다
+			switch(rootViewChartSelectedCategory) {
+				case 0: //파랑 계열 그래디언트 색 설정
+					rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("0082ED").CGColor , UPUtils.colorWithHexString("005396").CGColor ];
+					break;
+				case 1, 2: //주황 계열 그래디언트 색 설정
+					rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("FFCE08").CGColor , UPUtils.colorWithHexString("FF7300").CGColor ];
+					break;
+				default: break;
+			}
+			
 			if (statsDataResult!.count == 0) {
 				//데이터 없음 fallback
-				
+				rootViewChartSubtitle!.text = "-";
+				rootViewChartNodataUILabel!.hidden = false;
+				return;
 			}
+			rootViewChartNodataUILabel!.hidden = true;
 			
 			//데이터 구축
 			var tDataEntries:Array<BarChartDataEntry> = []; //data entries array
@@ -156,9 +169,6 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					
 					barChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
 					
-					//그래디언트 색 설정
-					rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("0082ED").CGColor , UPUtils.colorWithHexString("005396").CGColor ];
-					
 					break;
 				case 1, 2: //use line chart.
 					rootViewChartPointer = createPredesignedLineChart() as ChartViewBase;
@@ -209,8 +219,6 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					
 					lineChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
 					
-					//그래디언트 색 설정
-					rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("FFCE08").CGColor , UPUtils.colorWithHexString("FF7300").CGColor ];
 					
 					break;
 				default: //fallback
@@ -249,7 +257,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		//return UITableViewAutomaticDimension;
 		switch(indexPath.section) {
 			case 0:
-				return 180 + 48 + 12;
+				return 180 + 48 + 6;
 			default:
 				return UITableViewAutomaticDimension;
 		}
@@ -309,12 +317,20 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		//create chart table
 		let tChartTableWrapper:UIView = createBarChartTableCell();
 		tChartTableWrapper.frame = CGRectMake( 0, 54, self.modalView.view.frame.width, 180 );
-		
+		let tChartNodataUILabel:UILabel = UILabel();
+		tChartNodataUILabel.textAlignment = .Center;
+		tChartNodataUILabel.font = UIFont.systemFontOfSize(14);
+		tChartNodataUILabel.textColor = UIColor.whiteColor();
+		tChartNodataUILabel.frame = CGRectMake( 0, 140, self.modalView.view.frame.width, 24 );
+		tChartNodataUILabel.text = Languages.$("statsNoDataAvailable");
+			
 		rootViewChartWrapperCellPointer = tChartTableWrapper; //set pointer
 		rootViewChartSelSegmentCell = tSelection;
-		
+		rootViewChartNodataUILabel = tChartNodataUILabel;
+			
 		tCell.addSubview(tChartTableWrapper);
 		tCell.addSubview(tSelection);
+		tCell.addSubview(tChartNodataUILabel);
 		
 		return tCell;
 	} //end func
@@ -326,20 +342,6 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		}
 		
 		rootViewChartSelectedCategory = target.selectedSegmentIndex;
-		/*switch( target.selectedSegmentIndex ) {
-			case 0: //주단위 그래프 선택
-				
-				break;
-			case 1: //월단위 그래프 선택
-				
-				break;
-			case 2: //연단위 그래프 선택
-				
-				break;
-			default:
-				break;
-		} //end switch
-		*/
 		drawMainGraph();
 	} //end func
 	

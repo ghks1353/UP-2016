@@ -21,15 +21,7 @@ import SQLite;
 	Type:
 		아래 enum 리스트 참고.
 
-	게임 값 저장 수치(타입3) 의 경우 ,로 구분한 Str에 저장
-		0 -> 게임ID
-		1 -> 정상적으로 클리어한 경우 0, 포기했을 경우 1
-		2 -> 게임 시작 시간 (NSDate timestamp)
-		3 -> 게임 플레이 시간
-		4 -> 게임오버 혹은 그와 상정하는 결과에 대한 카운트 횟수
-		5 -> 전체 행동수 (터치 등)
-		6 -> 유효 행동수 (조작 터치)
-		7 -> 중간에 백그라운드로 나간 횟수 (졸아서 화면이 꺼졌다거나 등)
+	게임 값 저장 수치(타입3) 의 경우 타입3으로 두지말고 타 테이블에 저장
 */
 
 class DataManager {
@@ -53,7 +45,10 @@ class DataManager {
 	
 	/////////// DB
 	static var upDatabaseConnection:Connection? = nil;
+	
+	/// Tables
 	static let upDBTableStats = Table("statisticsCollection"); //통계 자료를 모아놓는 테이블
+	static let upDBTableGameResults = Table("statisticsGameResults"); //게임 결과 모아놓는 테이블.
 	
 	//DataManager init (nsDefault의 init와는 다르게 작동함)
 	static func initDataManager() {
@@ -63,7 +58,7 @@ class DataManager {
 		do {
 			//DB 연결
 			upDatabaseConnection = try Connection( libPathArr.objectAtIndex(0) as! String + "/db.sqlite3" );
-			//테이블 생성 (없을 경우)
+			//Type 0,1을 위한 테이블 생성 (없을 경우)
 			try upDatabaseConnection!.run(upDBTableStats.create(ifNotExists: true) { t in
 				t.column( Expression<Int64>("id") , primaryKey: .Autoincrement) //자동증가 ID
 				t.column( Expression<Int64>("type")) //통계 타입
@@ -75,6 +70,19 @@ class DataManager {
 				//배열 저장 데이터. Expression에 배열은 없으므로, 문자형으로 저장하며 ,로 구분
 			});
 			
+			//게임 성과 저장을 위한 테이블 생성
+			try upDatabaseConnection!.run(upDBTableGameResults.create(ifNotExists: true) { t in
+				t.column( Expression<Int64>("id") , primaryKey: .Autoincrement) //uid.
+				t.column( Expression<Int64>("gameid")) //게임 ID
+				t.column( Expression<Int64>("date")) //통계 저장 날짜
+				t.column( Expression<Int64>("gameCleared")) //게임 클리어 여부. 0 = 클리어 못함, 1 = 클리어함
+				t.column( Expression<Int64>("startedTimeStamp")) //게임 시작 시간 (타임스탬프)
+				t.column( Expression<Int64>("playTime")) //게임 플레이 시간
+				t.column( Expression<Int64>("resultMissCount")) //게임오버 등에 해당하는 값
+				t.column( Expression<Int64>("touchAll")) //전체 행동수
+				t.column( Expression<Int64>("touchValid")) //유효 행동수
+				t.column( Expression<Int64>("backgroundExitCount")) //중간에 백그라운드로 나간 횟수
+				});
 			
 			print("Database init works finished");
 		} catch {
@@ -90,6 +98,9 @@ class DataManager {
 	//Stats Collection fetch
 	static func statsTable() -> Table {
 		return upDBTableStats;
+	}
+	static func gameResultTable() -> Table {
+		return upDBTableGameResults;
 	}
 	
 	

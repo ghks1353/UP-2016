@@ -213,9 +213,17 @@ class ViewController: UIViewController {
 			}
 			
 			print("Game result here");
-			for dbResult in try DataManager.db()!.prepare( DataManager.statsTable().filter( Expression<Int64>("type") == 3 ) ) {
-				print("id", dbResult[ Expression<Int64>("id") ], "type", dbResult[ Expression<Int64>("type") ], "date", dbResult[ Expression<Int64>("date") ],
-					"gameResult", dbResult[ Expression<String>("statsDataArray") ] );
+			for dbResult in try DataManager.db()!.prepare( DataManager.gameResultTable() ) {
+				print("id", dbResult[ Expression<Int64>("id") ], "date", dbResult[ Expression<Int64>("date") ],
+					"gameid", dbResult[ Expression<Int64>("gameid") ],
+					"gameCleared", dbResult[ Expression<Int64>("gameCleared") ],
+					"startedTimeStamp", dbResult[ Expression<Int64>("startedTimeStamp") ],
+					"playTime", dbResult[ Expression<Int64>("playTime") ],
+					"resultMissCount", dbResult[ Expression<Int64>("resultMissCount") ],
+					"touchAll", dbResult[ Expression<Int64>("touchAll") ],
+					"touchValid", dbResult[ Expression<Int64>("touchValid") ],
+					"backgroundExitCount", dbResult[ Expression<Int64>("backgroundExitCount") ]
+				);
 				//결과를 불러올 땐 결과가 null이 아니라고 장담한다면 Optional 빼버리죠.
 			}
 		} catch {

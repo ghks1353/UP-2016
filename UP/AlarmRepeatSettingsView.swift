@@ -20,6 +20,9 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
 	var tablesArray:Array<AnyObject> = [];
 	
+	//주중 평일 주말 3세그먼트
+	var selSegmetDaysGroup:UISegmentedControl?;
+	
 	override func viewDidLoad() {
 		super.viewDidLoad();
 		AlarmRepeatSettingsView.selfView = self;
@@ -37,6 +40,12 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		print("Adding repeat table cells");
 		//add table cells (options)
 		var alarmSoundListsTableArr:Array<AlarmRepeatDayCell> = [];
+		
+		//주중~ 선택 기능 추가
+		//for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count { 
+		//를 하는 이유: 1번째 엘리멘트는 일~토 선택지가 아닌 3-세그먼트가 들어가기 때문임
+		alarmSoundListsTableArr += [ createDaysGroupSelectCell() ];
+		
 		//일~토 추가
 		for i in 0...6 {
 			alarmSoundListsTableArr += [ createCell(i) ];
@@ -55,8 +64,8 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	override func viewWillDisappear(animated: Bool) {
 		//돌아가기 직전에 설정값을 parent view에 저장해야 함.
 		var tmpRepeatArr:Array<Bool> = [false, false, false, false, false, false, false];
-		for i:Int in 0 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
-			tmpRepeatArr[i] = (tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .Checkmark;
+		for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
+			tmpRepeatArr[i - 1] = (tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .Checkmark;
 		}
 		
 		AddAlarmView.selfView!.autoSelectRepeatElement( tmpRepeatArr );
@@ -64,12 +73,64 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		
 	}
 	
+	//// SegmentedControl func
+	func segmentIdxChanged(target: UISegmentedControl) {
+		//segment에 따라 리스트 자동선택
+		var listPresetArray:Array<Bool> = [ false, false, false, false, false, false, false ];
+		switch(target.selectedSegmentIndex) {
+			case 0: //매일
+				listPresetArray = [ true, true, true, true, true, true, true ];
+				break;
+			case 1: //주중
+				listPresetArray = [ false, true, true, true, true, true, false ];
+				break;
+			case 2: //주말
+				listPresetArray = [ true, false, false, false, false, false, true ];
+				break;
+			default: break;
+		} //end switch
+		
+		//auto-selection
+		for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
+			(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType = listPresetArray[i - 1] == true ? .Checkmark : .None;
+		}
+	} //end func
+	//Check auto segment status.
+	func checkAutoSegmentStatus() {
+		
+		var repeatInfo:Array<Bool> = Array<Bool>();
+		for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
+			repeatInfo += [(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .Checkmark ? true : false];
+		}
+		
+		if (repeatInfo[0] == true && repeatInfo[1] == true && repeatInfo[2] == true &&
+		repeatInfo[3] == true && repeatInfo[4] == true && repeatInfo[5] == true && repeatInfo[6] == true) { //everyday
+			selSegmetDaysGroup!.selectedSegmentIndex = 0; //every
+		} else if (repeatInfo[0] == false && repeatInfo[1] == true && repeatInfo[2] == true &&
+			repeatInfo[3] == true && repeatInfo[4] == true && repeatInfo[5] == true && repeatInfo[6] == false) { //weekday
+			selSegmetDaysGroup!.selectedSegmentIndex = 1; //day
+		} else if (repeatInfo[0] == true && repeatInfo[1] == false && repeatInfo[2] == false && repeatInfo[3] == false &&
+			repeatInfo[4] == false && repeatInfo[5] == false && repeatInfo[6] == true) { //weekend
+			selSegmetDaysGroup!.selectedSegmentIndex = 2; //wend
+		} else {
+			//else
+			selSegmetDaysGroup!.selectedSegmentIndex = -1;
+		} //end if
+		
+		
+	}
+	
 	///// for table func
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let cellObj:AlarmRepeatDayCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmRepeatDayCell;
+		if (cellObj.dayID == -1) {
+			tableView.deselectRowAtIndexPath(indexPath, animated: true);
+			return; //선택 불가능 예외
+		}
 		
 		//Check toggle
 		cellObj.accessoryType = cellObj.accessoryType == .Checkmark ? .None : .Checkmark;
+		checkAutoSegmentStatus();
 		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true);
 	}
@@ -88,10 +149,16 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	}
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		switch(indexPath.section){
-		default:
-			break;
+			default:
+				break;
 		}
-		
+		/*let cellObj:AlarmRepeatDayCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmRepeatDayCell;
+		if (cellObj.dayID == -1) {
+			return 80;
+		}*/
+		if (indexPath.row == 0) {
+			return 54;
+		}
 		return UITableViewAutomaticDimension;
 	}
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -105,6 +172,24 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		return 0;
 	}
 	
+	//Tableview group-selection cell create
+	func createDaysGroupSelectCell() -> AlarmRepeatDayCell {
+		let tCell:AlarmRepeatDayCell = AlarmRepeatDayCell();
+		tCell.backgroundColor = UIColor.whiteColor();
+		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 54); //기본 셀 사이즈보다 조금 큰 정도
+		tCell.dayID = -1; //selection 예외처리
+		
+		let tSelection:UISegmentedControl
+			= UISegmentedControl( items: [ Languages.$("alarmRepeatFreqEveryday"), Languages.$("alarmRepeatFreqWeekday"), Languages.$("alarmRepeatFreqWeekend") ] );
+		tSelection.frame = CGRectMake( (tableView.frame.width / 2) - (190 / 2), 12, 190, 30 );
+		tSelection.selectedSegmentIndex = -1; //default selected index
+		tSelection.addTarget(self, action: #selector(AlarmRepeatSettingsView.segmentIdxChanged(_:)), forControlEvents: .ValueChanged);
+		
+		selSegmetDaysGroup = tSelection;
+		
+		tCell.addSubview(tSelection);
+		return tCell;
+	}
 	
 	//Tableview cell view create
 	func createCell( dayID:Int ) -> AlarmRepeatDayCell {
@@ -146,13 +231,15 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	
 	//Set selected style from other view (accessable)
 	internal func setSelectedCell( repeatArr:Array<Bool> ) {
-		for i:Int in 0 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
-			if (repeatArr[i] == true) {
+		for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
+			if (repeatArr[i - 1] == true) {
 				(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType = .Checkmark;
 			} else {
 				(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType = .None;
 			}
 		}
+		
+		checkAutoSegmentStatus(); //check segments
 	} //end func
 	
 	

@@ -120,25 +120,6 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		//setupModalView( DeviceGeneral.defaultModalSizeRect );
 	}
 	
-	// iOS7 Background fallback
-	/*override func viewDidAppear(animated: Bool) {
-		if #available(iOS 8.0, *) {
-		} else {
-			modalBackground!.image = ViewController.viewSelf!.viewImage;
-			removeBackgroundViews();
-			self.view.addSubview(modalBackgroundBlackCover!); self.view.addSubview(modalBackground!);
-			self.view.sendSubviewToBack(modalBackgroundBlackCover!); self.view.sendSubviewToBack(modalBackground!);
-			if (showBlur == true) { //Animation with singie-view
-				modalBackgroundBlackCover!.alpha = 0;
-				UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-					self.modalBackgroundBlackCover!.alpha = 0.7;
-					}, completion: nil);
-			} else { //No-animation with multiple view
-				modalBackgroundBlackCover!.alpha = 0.7;
-			}
-		}
-	}*/ // iOS7 Background fallback end
-	
 	//set sound element from other view
 	internal func setSoundElement(sInfo:SoundInfoObj) {
 		(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundLangName;
