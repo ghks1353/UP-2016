@@ -177,6 +177,11 @@ class DataManager {
 				let dateComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second],
 				                                                       fromDate: NSDate( timeIntervalSince1970: NSTimeInterval(dbResult[ Expression<Int64>("date") ]) ) );
 				
+				//test
+				/*if (dbResult[ Expression<Int64>("type") ] == 0) {
+					print("data", dbResult[Expression<Int64>("statsDataInt")], "date", dateComp.year, "-", dateComp.month, "-", dateComp.day);
+				}*/
+				
 				let tmpDataElements:StatsDataElement = StatsDataElement();
 				let tmpDataResult:Float = Float( dbResult[Expression<Int64>("statsDataInt")] ) / 60; //초 단위를 분으로 계산하기 위해 나눔.
 				tmpDataElements.dataType = Int( dbResult[ Expression<Int64>("type") ] );

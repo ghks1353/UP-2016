@@ -22,8 +22,11 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	var tablesArray:Array<AnyObject> = [];
 	
 	//Main charts pointer
-	var rootViewBarChartPointer:BarChartView?; var rootViewBarChartSubtitle:UILabel?;
-	var rootViewBarChartWrapperCellPointer:UIView?;
+	var rootViewChartPointer:ChartViewBase?; var rootViewChartSubtitle:UILabel?;
+	var rootViewChartWrapperCellPointer:UIView?; var rootViewChartBackgroundGradient:CAGradientLayer?;
+	var rootViewChartSelSegmentCell:UISegmentedControl?;
+	var rootViewChartSelectedCategory:Int = 0; //메인차트 주/월/년 구분
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -67,85 +70,166 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	}
 	
 	override func viewWillAppear(animated: Bool) {
+		rootViewChartSelectedCategory = 0;
+		rootViewChartSelSegmentCell!.selectedSegmentIndex = 0;
+		
+		drawMainGraph();
+	} //end func
+	
+	func drawMainGraph() {
 		//data fetch
 		print("Getting data");
-		let statsDataResult:Array<StatsDataElement>? = DataManager.getAlarmOffGraphData();
+		let statsDataResult:Array<StatsDataElement>? = DataManager.getAlarmOffGraphData( rootViewChartSelectedCategory );
+		
+		//Set pointers
+		var barChartPointer:BarChartView?; var lineChartPointer:LineChartView?;
 		
 		//Remove existing view
-		if (rootViewBarChartPointer != nil) {
-			rootViewBarChartPointer!.removeFromSuperview();
-			rootViewBarChartPointer = nil;
-		}
+		if (rootViewChartPointer != nil) {
+			rootViewChartPointer!.removeFromSuperview();
+			rootViewChartPointer = nil;
+		} //end chk
 		
 		if (statsDataResult == nil) {
 			//no data or error
 		} else {
+			if (statsDataResult!.count == 0) {
+				//데이터 없음 fallback
+				
+			}
+			
 			//데이터 구축
-			
-			//Create new chart
-			rootViewBarChartPointer = createPredesignedBarChart();
-			
 			var tDataEntries:Array<BarChartDataEntry> = []; //data entries array
+			var tLineDataEntries:Array<ChartDataEntry> = [];
 			var tDatasXAxisEntry:Array<String> = []; //x-dayas entry (아마 날짜 표시)
 			var previousMonth:Int = -1; //다음 달과 비교해서 넘어갔다고 판단되는 경우, x값에 월도 표시하기 위함
 			var resultAverage:Float = 0;
 			
-			if (statsDataResult!.count == 0) {
-				
-			} else {
-				for i:Int in 0 ..< statsDataResult!.count {
-					let dataEntry = BarChartDataEntry( value: Double(statsDataResult![i].numberData), xIndex: i );
-					tDataEntries.append( dataEntry );
+			switch(rootViewChartSelectedCategory) { //차트별 데이터 정리
+				case 0: //use bar chart.
+					rootViewChartPointer = createPredesignedBarChart() as ChartViewBase;
+					barChartPointer = rootViewChartPointer as? BarChartView;
 					
-					resultAverage += statsDataResult![i].numberData;
+					for i:Int in 0 ..< statsDataResult!.count {
+						let dataEntry = BarChartDataEntry( value: Double(statsDataResult![i].numberData), xIndex: i );
+						tDataEntries.append( dataEntry );
+						
+						resultAverage += statsDataResult![i].numberData;
+						
+						//x축 라벨 추가를 위한 작업
+						if (previousMonth != statsDataResult![i].dateComponents!.month) {
+							previousMonth = statsDataResult![i].dateComponents!.month;
+							//Languages $0 ~ $1 되있는것 자동 변수 삽입.
+							tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: statsDataResult![i].dateComponents!.month, statsDataResult![i].dateComponents!.day) ];
+						} else {
+							//일만 추가
+							tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day) ];
+						}
+					} //end for
 					
-					//x축 라벨 추가를 위한 작업
-					if (previousMonth != statsDataResult![i].dateComponents!.month) {
-						previousMonth = statsDataResult![i].dateComponents!.month;
-						//Languages $0 ~ $1 되있는것 자동 변수 삽입.
-						tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: statsDataResult![i].dateComponents!.month, statsDataResult![i].dateComponents!.day) ];
-					} else {
-						//일만 추가
-						tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day) ];
-					}
-				} //end for
-				
-				//Get average
-				resultAverage = resultAverage / Float(statsDataResult!.count);
-				
-				//DataSet 지정(하나의 legend라고 생각하면 됨)
-				let chartDataSet:BarChartDataSet = BarChartDataSet( yVals: tDataEntries, label: "" );
-				//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
-				let chartData = BarChartData(xVals: tDatasXAxisEntry, dataSet: chartDataSet );
-				
-				//Visual settings
-				chartDataSet.barSpace = 0.8; chartDataSet.drawValuesEnabled = false;
-				chartDataSet.setColor( UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) ); //Chart color
-				
-				let tYaxisTopLine:ChartLimitLine = ChartLimitLine(limit: chartData.getYMax(), label: "");
-				tYaxisTopLine.lineColor = UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5);
-				tYaxisTopLine.lineWidth = 1;
-				//표에 구분선 추가
-				rootViewBarChartPointer!.rightYAxisRenderer.yAxis!.removeAllLimitLines(); //Reset all lines
-				rootViewBarChartPointer!.rightYAxisRenderer.yAxis!.addLimitLine(tYaxisTopLine);
-				
-				rootViewBarChartPointer!.data = chartData; //data apply
-				
-				rootViewBarChartPointer!.rightYAxisRenderer.yAxis!.axisMinValue = 0;
-				rootViewBarChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax(); //set max value
-				rootViewBarChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
-																	args: Languages.$("statsTimeFormatMinPrefix") + String(round(resultAverage)) + Languages.$("statsTimeFormatMinSuffix"));
-				
-				rootViewBarChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
-				
-			} // end if chk chart counts
+					//Get average
+					resultAverage = resultAverage / Float(statsDataResult!.count);
+					
+					//DataSet 지정(하나의 legend라고 생각하면 됨)
+					let chartDataSet:BarChartDataSet = BarChartDataSet( yVals: tDataEntries, label: "" );
+					//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
+					let chartData = BarChartData(xVals: tDatasXAxisEntry, dataSet: chartDataSet );
+					
+					//Visual settings
+					chartDataSet.barSpace = 0.8; chartDataSet.drawValuesEnabled = false;
+					chartDataSet.setColor( UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) ); //Chart color
+					
+					let tYaxisTopLine:ChartLimitLine = ChartLimitLine(limit: chartData.getYMax(), label: "");
+					tYaxisTopLine.lineColor = UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5);
+					tYaxisTopLine.lineWidth = 1;
+					
+					//표에 구분선 추가
+					barChartPointer!.rightYAxisRenderer.yAxis!.removeAllLimitLines(); //Reset all lines
+					barChartPointer!.rightYAxisRenderer.yAxis!.addLimitLine(tYaxisTopLine);
+					
+					barChartPointer!.data = chartData; //data apply
+					
+					barChartPointer!.rightYAxisRenderer.yAxis!.axisMinValue = 0;
+					barChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax(); //set max value
+					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
+					                                                    args: Languages.$("statsTimeFormatMinPrefix") + String(round(resultAverage)) + Languages.$("statsTimeFormatMinSuffix"));
+					
+					barChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
+					
+					//그래디언트 색 설정
+					rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("0082ED").CGColor , UPUtils.colorWithHexString("005396").CGColor ];
+					
+					break;
+				case 1, 2: //use line chart.
+					rootViewChartPointer = createPredesignedLineChart() as ChartViewBase;
+					lineChartPointer = rootViewChartPointer as? LineChartView;
+					
+					for i:Int in 0 ..< statsDataResult!.count {
+						let dataEntry = ChartDataEntry( value: Double(statsDataResult![i].numberData), xIndex: i );
+						tLineDataEntries.append( dataEntry );
+						
+						resultAverage += statsDataResult![i].numberData;
+						
+						//x축 라벨 추가를 위한 작업
+						if (previousMonth != statsDataResult![i].dateComponents!.month) {
+							previousMonth = statsDataResult![i].dateComponents!.month;
+							//Languages $0 ~ $1 되있는것 자동 변수 삽입.
+							tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: statsDataResult![i].dateComponents!.month, statsDataResult![i].dateComponents!.day) ];
+						} else {
+							//일만 추가
+							tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day) ];
+						}
+					} //end for
+					
+					//Get average
+					resultAverage = resultAverage / Float(statsDataResult!.count);
+					
+					//DataSet 지정(하나의 legend라고 생각하면 됨)
+					let chartDataSet:LineChartDataSet = LineChartDataSet(yVals: tLineDataEntries, label: "");
+					//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
+					let chartData = LineChartData(xVals: tDatasXAxisEntry, dataSet: chartDataSet );
+					
+					chartDataSet.drawValuesEnabled = false; //값 표시 안함
+					//선 색 설정. 알파 적용을 위해 RGB 입력
+					chartDataSet.setColor( UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) );
+					chartDataSet.circleRadius = 2;
+					chartDataSet.circleHoleColor = UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5);
+					chartDataSet.circleColors = [ UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) ];
+					chartDataSet.drawFilledEnabled = true;
+					chartDataSet.fillColor = UIColor.whiteColor();
+					chartDataSet.fillAlpha = 0.5;
+					
+					//데이터 적용
+					lineChartPointer!.data = chartData;
+					
+					//최대치 설정. 최대치는 여기서 설정해야 버그없이 작동함.
+					lineChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax();
+					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
+					                                                 args: Languages.$("statsTimeFormatMinPrefix") + String(round(resultAverage)) + Languages.$("statsTimeFormatMinSuffix"));
+					
+					lineChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
+					
+					//그래디언트 색 설정
+					rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("FFCE08").CGColor , UPUtils.colorWithHexString("FF7300").CGColor ];
+					
+					break;
+				default: //fallback
+					break;
+			} //end switch
+			
+			
+			
+			
+			
 		} //end if
 		
 		//Add charts to view
-		if (rootViewBarChartWrapperCellPointer != nil) {
-			rootViewBarChartWrapperCellPointer!.addSubview( rootViewBarChartPointer! );
+		if (rootViewChartPointer != nil) {
+			rootViewChartWrapperCellPointer!.addSubview( rootViewChartPointer! );
 		}
-	} //end func
+		
+	}
+	
 	
 	/// table setup
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -219,11 +303,15 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		let tSelection:UISegmentedControl
 			= UISegmentedControl( items: [ Languages.$("statsWeek"), Languages.$("statsMonth"), Languages.$("statsYear") ] );
 		tSelection.frame = CGRectMake( (self.modalView.view.frame.width / 2) - (190 / 2), 12, 190, 30 );
+		tSelection.selectedSegmentIndex = 0; //default selected index
+		tSelection.addTarget(self, action: #selector(StatisticsView.segmentIdxChanged(_:)), forControlEvents: .ValueChanged);
 		
 		//create chart table
 		let tChartTableWrapper:UIView = createBarChartTableCell();
 		tChartTableWrapper.frame = CGRectMake( 0, 54, self.modalView.view.frame.width, 180 );
-		rootViewBarChartWrapperCellPointer = tChartTableWrapper; //set pointer
+		
+		rootViewChartWrapperCellPointer = tChartTableWrapper; //set pointer
+		rootViewChartSelSegmentCell = tSelection;
 		
 		tCell.addSubview(tChartTableWrapper);
 		tCell.addSubview(tSelection);
@@ -231,6 +319,29 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		return tCell;
 	} //end func
 	
+	//// SegmentedControl func
+	func segmentIdxChanged(target: UISegmentedControl) {
+		if (target.selectedSegmentIndex == rootViewChartSelectedCategory || target.selectedSegmentIndex == -1) {
+			return; //같은걸 선택했으면 새로 안 그림
+		}
+		
+		rootViewChartSelectedCategory = target.selectedSegmentIndex;
+		/*switch( target.selectedSegmentIndex ) {
+			case 0: //주단위 그래프 선택
+				
+				break;
+			case 1: //월단위 그래프 선택
+				
+				break;
+			case 2: //연단위 그래프 선택
+				
+				break;
+			default:
+				break;
+		} //end switch
+		*/
+		drawMainGraph();
+	} //end func
 	
 	
 	//바 차트 테이블 뷰 반환
@@ -267,7 +378,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		
 		
 		//후에 차트 조정을 위한 포인터 지정
-		rootViewBarChartSubtitle = tChartSubtitleLabel;
+		rootViewChartSubtitle = tChartSubtitleLabel;
+		rootViewChartBackgroundGradient = gradient;
 		
 		return tCell;
 	} //함수 끝
@@ -326,6 +438,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		
 		//라벨 컬러 지정
 		tMultipleChart.rightYAxisRenderer.yAxis!.labelTextColor = UIColor.whiteColor();
+		tMultipleChart.leftYAxisRenderer.yAxis!.axisMinValue = 0; //disabled 되어있어도 설정이 필요.
 		tMultipleChart.rightYAxisRenderer.yAxis!.axisMinValue = 0;
 		tMultipleChart.rightYAxisRenderer.yAxis!.showOnlyMinMaxEnabled = true;
 		
@@ -334,25 +447,20 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		return tMultipleChart;
 	}
 	
-	
-	//라인차트 테이블 셀 생성
-	func createLineChartTableCell() -> CustomTableCell {
-		let tCell:CustomTableCell = CustomTableCell();
-		let tMultipleChart:LineChartView = LineChartView(); //차트 뷰
-		let yAxisNumberFormatter:NSNumberFormatter = NSNumberFormatter();
-		yAxisNumberFormatter.numberStyle = .NoStyle; //숫자 표현 방법. NoStyle이면 포맷 안함
-		yAxisNumberFormatter.positiveSuffix = "분"; //positiveSuffix -> 숫자 뒤에 붙는 문자
-		
+	//라인 차트 테이블 뷰 반환
+	func createLineChartTableCell() -> UIView {
+		print("adding line chart");
+		let tCell:UIView = UIView();
 		//Chart title
 		let tChartTitleLabel:UILabel = UILabel();
-		tChartTitleLabel.text = "알람 해제까지 (Line)";
+		tChartTitleLabel.text = Languages.$("statsTitleUntilAlarmOff"); // title text.
 		tChartTitleLabel.font = UIFont.systemFontOfSize(17);
 		tChartTitleLabel.frame = CGRectMake(16, 10, self.modalView.view.frame.width / 1.25, 24);
 		tChartTitleLabel.textColor = UIColor.whiteColor();
 		
 		//Chart subtitle
 		let tChartSubtitleLabel:UILabel = UILabel();
-		tChartSubtitleLabel.text = "2016.03";
+		tChartSubtitleLabel.text = ""; //Subtitle.
 		tChartSubtitleLabel.font = UIFont.systemFontOfSize(13);
 		tChartSubtitleLabel.frame = CGRectMake(self.modalView.view.frame.width / 2 - 6, 13, self.modalView.view.frame.width / 2 - 6, 24);
 		tChartSubtitleLabel.textAlignment = .Right;
@@ -370,6 +478,22 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		
 		//셀 크기 지정
 		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 180);
+		
+		
+		//후에 차트 조정을 위한 포인터 지정
+		rootViewChartSubtitle = tChartSubtitleLabel;
+		rootViewChartBackgroundGradient = gradient;
+		
+		return tCell;
+	} //함수 끝
+	
+	func createPredesignedLineChart() -> LineChartView {
+		let tMultipleChart:LineChartView = LineChartView(); //차트 뷰
+		let yAxisNumberFormatter:NSNumberFormatter = NSNumberFormatter();
+		yAxisNumberFormatter.numberStyle = .NoStyle; //숫자 표현 방법. NoStyle이면 포맷 안함
+		yAxisNumberFormatter.positivePrefix = Languages.$("statsTimeFormatMinPrefix"); //숫자 앞
+		yAxisNumberFormatter.positiveSuffix = Languages.$("statsTimeFormatMinSuffix"); //positiveSuffix -> 숫자 뒤에 붙는 문자
+		
 		//차트 크기 지정
 		tMultipleChart.frame = CGRectMake(0, 28, self.modalView.view.frame.width, 140);
 		
@@ -420,6 +544,46 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tMultipleChart.rightYAxisRenderer.yAxis!.axisMinValue = 0;
 		tMultipleChart.rightYAxisRenderer.yAxis!.showOnlyMinMaxEnabled = true;
 		
+		tMultipleChart.noDataText = Languages.$("statsNoDataAvailable");
+		
+		//chart 반환
+		return tMultipleChart;
+	}
+	
+	
+	//라인차트 테이블 셀 생성
+	/*func createLineChartTableCell() -> CustomTableCell {
+		let tCell:CustomTableCell = CustomTableCell();
+		
+		
+		//Chart title
+		let tChartTitleLabel:UILabel = UILabel();
+		tChartTitleLabel.text = "알람 해제까지 (Line)";
+		tChartTitleLabel.font = UIFont.systemFontOfSize(17);
+		tChartTitleLabel.frame = CGRectMake(16, 10, self.modalView.view.frame.width / 1.25, 24);
+		tChartTitleLabel.textColor = UIColor.whiteColor();
+		
+		//Chart subtitle
+		let tChartSubtitleLabel:UILabel = UILabel();
+		tChartSubtitleLabel.text = "2016.03";
+		tChartSubtitleLabel.font = UIFont.systemFontOfSize(13);
+		tChartSubtitleLabel.frame = CGRectMake(self.modalView.view.frame.width / 2 - 6, 13, self.modalView.view.frame.width / 2 - 6, 24);
+		tChartSubtitleLabel.textAlignment = .Right;
+		tChartSubtitleLabel.textColor = UIColor.whiteColor();
+		
+		//Add to cell view
+		tCell.addSubview(tChartTitleLabel); tCell.addSubview(tChartSubtitleLabel);
+		
+		//gradient background
+		let gradient:CAGradientLayer = CAGradientLayer();
+		gradient.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 180);
+		// 그래디언트 시작컬러, 끝컬러 지정
+		gradient.colors = [ UPUtils.colorWithHexString("FFCE08").CGColor , UPUtils.colorWithHexString("FF7300").CGColor ];
+		tCell.layer.insertSublayer(gradient, atIndex: 0); // 셀 레이어로 추가
+		
+		//셀 크기 지정
+		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 180);
+		
 		//데이터 차트 맨 위쪽에 구분선 그림. (xAxis를 상하에 배치하면 라벨도 같이 배치되므로 이렇게 함)
 		/*let tYaxisTopLine:ChartLimitLine = ChartLimitLine(limit: 78, label: ""); //limit 부분은 데이터의 최대치로 지정해야함.
 		tYaxisTopLine.lineColor = UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5);
@@ -464,7 +628,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		//뷰에 차트 추가
 		tCell.addSubview(tMultipleChart);
 		return tCell;
-	} //함수 끝
+	} //함수 끝*/
 	
 	
 	
