@@ -132,6 +132,7 @@ class DataManager {
 		var dataBeforeStartArray:Array<StatsDataElement> = Array<StatsDataElement>();
 		var dataClearReducedArray:Array<StatsDataElement> = Array<StatsDataElement>();
 		var dataUntilAlarmOff:Array<StatsDataElement> = Array<StatsDataElement>(); //이 변수는 위 두 값을 합친 형태임
+		var dataGameResults:Array<StatsDataElement> = Array<StatsDataElement>();
 		
 		//돌려줄 데이터 모음.
 		var toReturnDatasArray:Array<StatsDataElement>?;
@@ -151,16 +152,21 @@ class DataManager {
 			default: break;
 		}
 		
-		//데이터 셀렉션에 따른 참조 테이블 변경
+		var isGameTable:Bool = false;
+		
+		//데이터 셀렉션에 따른 참조 테이블 변경 및 필터링 생성
 		switch(dataPointSelection) {
 			case 0, 1, 2:
 				seekTablePointer = DataManager.statsTable();
 				break;
-			case 3, 4, 5: //완주 비율, 행동 비율, 잠든 횟수
+			case 3, 4, 5, 6: //완주 비율, 전체 행동 수, 행동 비율, 잠든 횟수
 				seekTablePointer = DataManager.gameResultTable();
+				isGameTable = true;
 				break;
 			default: break;
 		}
+		
+		////////////////////
 		
 		print("Starting to get latest log for extract log data");
 		do {
@@ -169,7 +175,8 @@ class DataManager {
 			//1. 맨 마지막 데이터를 얻어옴
 			for dbResult in try DataManager.db()!.prepare(
 				seekTablePointer!
-					.filter( Expression<Int64>("type") == 0 ) /* type0,1,2이 같이 저장되기 때문에, 중복 방지로 하나만 불러옴 */
+					.filter( isGameTable == true || Expression<Int64>("type") == 0 )
+					/* type0,1,2이 같이 저장되기 때문에, 중복 방지로 하나만 불러옴 */
 					.order( Expression<Int64>("id").desc )
 					.limit( 1, offset: 1 )
 			) {
@@ -185,7 +192,7 @@ class DataManager {
 			//2. 시작할 Seektime을 얻어온 것을 기반으로 데이터 검색을 시작함.
 			for dbResult in try DataManager.db()!.prepare(
 				seekTablePointer!
-					.filter( Expression<Int64>("type") == 0 || Expression<Int64>("type") == 1 )
+					.filter( isGameTable == true || Expression<Int64>("type") == 0 || Expression<Int64>("type") == 1 )
 					.filter( Expression<Int64>("date") >= Int64(dataSeekStartTimeStamp) )
 					.order( Expression<Int64>("date").asc )
 			) {
@@ -199,14 +206,32 @@ class DataManager {
 				//전 컴포넌트의 날짜랑 비교해서 같은 경우, 전 컴포넌트를 수정해주는 방식으로 해보자.
 				
 				var targetArrayPointer:Array<StatsDataElement> = /* 타겟 배열 포인터. */
-					dbResult[ Expression<Int64>("type") ] == 0 ? dataBeforeStartArray : dataClearReducedArray;
+					isGameTable ? dataGameResults : (
+					dbResult[ Expression<Int64>("type") ] == 0 ? dataBeforeStartArray : dataClearReducedArray
+				);
 				
 				let dateComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second],
 				                                                       fromDate: NSDate( timeIntervalSince1970: NSTimeInterval(dbResult[ Expression<Int64>("date") ]) ) );
 				
 				let tmpDataElements:StatsDataElement = StatsDataElement();
-				let tmpDataResult:Float = Float( dbResult[Expression<Int64>("statsDataInt")] ) / 60; //초 단위를 분으로 계산하기 위해 나눔.
-				tmpDataElements.dataType = Int( dbResult[ Expression<Int64>("type") ] );
+				var tmpDataResult:Float = 0;
+				switch(dataPointSelection) { //값에 따른 데이터 참조값 변경
+					case 4: //전체 행동 수
+						tmpDataResult = Float( dbResult[Expression<Int64>("touchAll")] );
+						break;
+					case 5: //유효 행동 비율
+						tmpDataResult =
+							(Float(dbResult[Expression<Int64>("touchValid")]) / Float( dbResult[Expression<Int64>("touchAll")] )) * 100;
+						break;
+					case 6: //잠든 횟수
+						tmpDataResult = Float( dbResult[Expression<Int64>("backgroundExitCount")] );
+						break;
+					default: //기타 참조하는 데이터는...
+						tmpDataResult = Float( dbResult[Expression<Int64>("statsDataInt")] ) / 60; //초 단위를 분으로 계산하기 위해 나눔.
+						break;
+				} //end switch
+				
+				tmpDataElements.dataType = isGameTable ? 0 : Int( dbResult[ Expression<Int64>("type") ] );
 				tmpDataElements.dataID = Int( dbResult[ Expression<Int64>("id") ] ); //같은 ID끼리 취합할때 사용
 				
 				tmpDataElements.dateComponents = dateComp;
@@ -215,7 +240,9 @@ class DataManager {
 				//날짜 중복 방지를 위한 계산
 				if (targetArrayPointer.count == 0) {
 					//배열에 아무것도 없는 경우 새로 추가
-					if (dbResult[ Expression<Int64>("type") ] == 0) {
+					if (isGameTable) {
+						dataGameResults += [tmpDataElements];
+					} else if (dbResult[ Expression<Int64>("type") ] == 0) {
 						dataBeforeStartArray += [tmpDataElements];
 					} else {
 						dataClearReducedArray += [tmpDataElements];
@@ -237,7 +264,9 @@ class DataManager {
 						
 					} else {
 						//안하면 다른날짜 취급하여 그냥 추가함
-						if (dbResult[ Expression<Int64>("type") ] == 0) {
+						if (isGameTable) {
+							dataGameResults += [tmpDataElements];
+						} else if (dbResult[ Expression<Int64>("type") ] == 0) {
 							dataBeforeStartArray += [tmpDataElements];
 						} else {
 							dataClearReducedArray += [tmpDataElements];
@@ -251,7 +280,9 @@ class DataManager {
 			//평균 배열에 들어가있는 값을 정리
 			for tmpLr:Int in 0 ..< 2 { //loop 0 ~ 1
 				var targetArrayPointer:Array<StatsDataElement> = /* 타겟 배열 포인터. */
-					tmpLr == 0 ? dataBeforeStartArray : dataClearReducedArray;
+					isGameTable ? dataGameResults : ( /* 게임 테이블이면 테이블배열 참조 */
+						tmpLr == 0 ? dataBeforeStartArray : dataClearReducedArray
+					);
 				
 				for i:Int in 0 ..< targetArrayPointer.count {
 					if (targetArrayPointer[i].numberDataArray == nil) {
@@ -262,8 +293,16 @@ class DataManager {
 					for j:Int in 0 ..< targetArrayPointer[i].numberDataArray!.count {
 						nResult += targetArrayPointer[i].numberDataArray![j];
 					}
-					//평균 구함. 1을 더하는 이유는 배열에 하나가 추가가 안 되어 있는 상태라서.
-					nResult /= Float(targetArrayPointer[i].numberDataArray!.count + 1);
+					
+					switch(dataPointSelection) {
+						case 4: //총 터치 수는 나눌 필요가 없음
+							//nothing to do
+							break;
+						default: //평균 구함. 1을 더하는 이유는 배열에 하나가 추가가 안 되어 있는 상태라서.
+							nResult /= Float(targetArrayPointer[i].numberDataArray!.count + 1);
+							break;
+					}
+					
 					targetArrayPointer[i].numberData = nResult; //평균값 대입
 					targetArrayPointer[i].numberDataArray = nil; //배열 초기화
 				} //end for
@@ -294,6 +333,9 @@ class DataManager {
 					break;
 				case 2: //게임 플레이 시간
 					toReturnDatasArray = dataClearReducedArray;
+					break;
+				case 3, 4, 5, 6: //게임 데이터 리턴
+					toReturnDatasArray = dataGameResults;
 					break;
 				default: break;
 			}

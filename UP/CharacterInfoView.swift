@@ -62,10 +62,24 @@ class CharacterInfoView:UIViewController, UITableViewDataSource, UITableViewDele
 		FitModalLocationToCenter();
 	}
 	
-	// iOS7 Background fallback
+	
+	/////// View transition animation
+	override func viewWillAppear(animated: Bool) {
+		//setup bounce animation
+		self.view.alpha = 0;
+	}
 	override func viewDidAppear(animated: Bool) {
-		
-	} // iOS7 Background fallback end
+		//queue bounce animation
+		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
+		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
+			self.view.frame = CGRectMake(0, 0,
+				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+			self.view.alpha = 1;
+		}) { _ in
+		}
+	} ///////////////////////////////
+	
 	
 	/// table setup
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {

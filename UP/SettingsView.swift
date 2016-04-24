@@ -6,8 +6,9 @@
 //  Copyright © 2016년 AVN Graphic. All rights reserved.
 //
 
-import Foundation
-import UIKit
+import Foundation;
+import UIKit;
+import QuartzCore;
 
 class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
@@ -79,10 +80,22 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		FitModalLocationToCenter();
 	}
 	
-	// iOS7 Background fallback
+	/////// View transition animation
+	override func viewWillAppear(animated: Bool) {
+		//setup bounce animation
+		self.view.alpha = 0;
+	}
 	override func viewDidAppear(animated: Bool) {
-		
-	} // iOS7 Background fallback end
+		//queue bounce animation
+		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
+		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
+			self.view.frame = CGRectMake(0, 0,
+				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+			self.view.alpha = 1;
+		}) { _ in
+		}
+	} ///////////////////////////////
 	
 	func setSwitchData(settingsID:String, value:Bool) {
 		for i:Int in 0 ..< settingsArray.count {
@@ -92,6 +105,8 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				break;
 			}
 		} //end for
+		
+		//saveChasngesToSystem();
 	}
 	
 	
@@ -144,7 +159,8 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     ////////////////
     
     func setupModalView(frame:CGRect) {
-        modalView.view.frame = frame;
+		modalView.view.frame = frame;
+		
     }
 	
 	func FitModalLocationToCenter() {
@@ -160,7 +176,13 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     
     func viewCloseAction() {
 		//Save changes
-		//DataManager.initDefaults();
+		saveChasngesToSystem();
+		
+		ViewController.viewSelf!.showHideBlurview(false);
+        self.dismissViewControllerAnimated(true, completion: nil);
+    }
+	
+	func saveChasngesToSystem() {
 		for i:Int in 0 ..< settingsArray.count {
 			switch(settingsArray[i].settingsID) {
 				case "showIconBadge":
@@ -175,12 +197,13 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		}
 		
 		DataManager.nsDefaults.synchronize();
-		
-		ViewController.viewSelf!.showHideBlurview(false);
-        self.dismissViewControllerAnimated(true, completion: nil);
-    }
-    
-   
+	}
+	
+	func switchChangedEvent( target:UISwitch ) {
+		print("switch changed. saving.");
+		saveChasngesToSystem();
+	}
+	
     //Tableview cell view create
     func createSettingsToggle(name:String, defaultState:Bool, settingsID:String ) -> CustomTableCell {
         let tCell:CustomTableCell = CustomTableCell();
@@ -195,29 +218,24 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         tLabel.frame = CGRectMake(16, 0, self.modalView.view.frame.width * 0.75, 45);
         tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 45 /*CGFloat(45 * maxDeviceGeneral.scrRatio)*/ );
         tCell.backgroundColor = UIColor.whiteColor();
-        
-        
-        //tSwitch.frame = CGRectMake(, , CGFloat(36 * maxDeviceGeneral.scrRatio), CGFloat(24 * maxDeviceGeneral.scrRatio));
-        //tSwitch.transform = CGAffineTransformMakeScale(CGFloat(maxDeviceGeneral.scrRatio), CGFloat(maxDeviceGeneral.scrRatio));
-        
+		
         tSwitch.frame.origin.x = self.modalView.view.frame.width - tSwitch.frame.width - 8;
         tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2;
         //tSwitch.selected = defaultState;
         
         tCell.addSubview(tLabel); tCell.addSubview(tSwitch);
-        //tCell.d
-        
-        tLabel.text = name; //tLabel.font = UIFont(name: "", size: CGFloat(18 * maxDeviceGeneral.scrRatio));
-        tLabel.font = UIFont.systemFontOfSize(16);
-        
-        //tCell.selectionStyle = UITableViewCellSelectionStyle.None;
-        //tCell.clipsToBounds = true;
-        
+		
+		tSwitch.addTarget(self, action: #selector(SettingsView.switchChangedEvent(_:)), forControlEvents: .ValueChanged);
+		
+        tLabel.text = name;
+		tLabel.font = UIFont.systemFontOfSize(16);
+		
         //push to settingselement
         settingsArray += [settingsObj];
         
         return tCell;
     }
+	
     func createSettingsOnlyLabel(name:String, menuID:String ) -> CustomTableCell {
         let tCell:CustomTableCell = CustomTableCell();
         let tLabel:UILabel = UILabel();

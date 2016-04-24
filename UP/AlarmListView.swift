@@ -179,35 +179,26 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		}
 	}
 	
-	//iOS7 longpress-del handler
-	/*func tableCellLongPressAction(sender:UILongPressGestureRecognizer) {
-		let point: CGPoint = sender.locationInView(tableView);
-		let indexPath = tableView.indexPathForRowAtPoint(point);
-		
-		if let indexPath = indexPath {
-			if sender.state == UIGestureRecognizerState.Began {
-				let cell:AlarmListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmListCell;
-				print("Cell long pressed:", cell.alarmID);
-				alarmTargetID = cell.alarmID;
-				alarmTargetIndexPath = indexPath;
-				
-				if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
-					//패드일 땐 그냥 alert로 띄움
-					showAlarmDelAlert();
-				} else {
-					(listConfirmAction as! UIActionSheet).showInView(self.view);
-				}
-				
-			}
-		}
-		
-	}*/
-	
+	/////// View transition animation
 	override func viewWillAppear(animated: Bool) {
+		//setup bounce animation
+		self.view.alpha = 0;
+		
 		//Check alarm limit and disable/enable button
 		checkAlarmLimitExceed();
 		checkAlarmIsEmpty();
 	}
+	override func viewDidAppear(animated: Bool) {
+		//queue bounce animation
+		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
+		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
+			self.view.frame = CGRectMake(0, 0,
+				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+			self.view.alpha = 1;
+		}) { _ in
+		}
+	} ///////////////////////////////
 	
 	//table list create method
 	internal func createTableList() {
@@ -268,7 +259,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//find alarm object from array
 		let targetAlarm:AlarmElements = AlarmManager.getAlarm(cell.alarmID)!;
 		
-		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
+		self.presentViewController(modalAlarmAddView, animated: false, completion: nil);
 		
 		print("Modifing", targetAlarm.alarmName, targetAlarm.alarmID);
 		modalAlarmAddView.fillComponentsWithEditMode(cell.alarmID,

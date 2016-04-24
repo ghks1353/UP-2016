@@ -17,6 +17,7 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 	static let POINT_PLAYTIME:String = "playtime";
 	
 	static let POINT_GAME_CLEARED:String = "gameclrpercent";
+	static let POINT_GAME_TOUCHES:String = "gametouches";
 	static let POINT_GAME_VALID:String = "gamevalidtouch";
 	static let POINT_GAME_ASLEEP:String = "gameasleepcount";
 	
@@ -50,6 +51,7 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 			],
 			[ /* section 2 */
 				createCell(Languages.$("statsTitleGameClearPercent"), cellID: StatisticsDataPointView.POINT_GAME_CLEARED),
+				createCell(Languages.$("statsTitleTouches"), cellID: StatisticsDataPointView.POINT_GAME_TOUCHES),
 				createCell(Languages.$("statsTitleVaildTouchPercent"), cellID: StatisticsDataPointView.POINT_GAME_VALID),
 				createCell(Languages.$("statsTitleFellAsleepCount"), cellID: StatisticsDataPointView.POINT_GAME_ASLEEP)
 			]

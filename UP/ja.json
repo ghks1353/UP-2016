@@ -70,10 +70,36 @@
 		"statsNoDataAvailable": "表示できるデータがありません。",
 		
 		"statsAverageFormat": "平均 $0",
+		"statsTotalFormat": "合計 $0",
 	
 		"statsWeek": "週",
 		"statsMonth": "月",
 		"statsYear": "年",
+	
+		"statsMonthJanuary": "January",
+			"statsMonthMinJanuary": "Jan",
+		"statsMonthFebruary": "February",
+			"statsMonthMinFebruary": "Feb",
+		"statsMonthMarch": "March",
+			"statsMonthMinMarch": "Mar",
+		"statsMonthApril": "April",
+			"statsMonthMinApril": "Apr",
+		"statsMonthMay": "May",
+			"statsMonthMinMay": "May",
+		"statsMonthJune": "June",
+			"statsMonthMinJune": "Jun",
+		"statsMonthJuly": "July",
+			"statsMonthMinJuly": "Jul",
+		"statsMonthAugust": "August",
+			"statsMonthMinAugust": "Aug",
+		"statsMonthSeptember": "September",
+			"statsMonthMinSeptember": "Sep",
+		"statsMonthOctober": "October",
+			"statsMonthMinOctober": "Oct",
+		"statsMonthNovember": "November",
+			"statsMonthMinNovember": "Nov",
+		"statsMonthDecember": "December",
+			"statsMonthMinDecember": "Dec",
 	
 		"statsDateFormatWithMonth": "$0月 $1日",
 		"statsDateFormatDayOnly": "$0日",
@@ -82,6 +108,11 @@
 		"statsTimeFormatMinPrefix": "",
 		"statsTimeFormatMinSuffix": "分",
 	
+		"statsDataFormatCountsPrefix": "",
+		"statsDataFormatCountsSuffix": "回",
+	
+		"statsDataFormatPercent": "%",
+	
 		"statsDataPoint": "データポイント",
 			"statsDataCategoryTime": "時間のデータ",
 				"statsTitleUntilAlarmOff": "アラーム解除まで",
@@ -89,6 +120,7 @@
 				"statsTitleGamePlayTime": "プレータイム",
 			"statsDataCategoryGame": "ゲームのデータ",
 				"statsTitleGameClearPercent": "ゲームの成功比率",
+				"statsTitleTouches": "全体行動数",
 				"statsTitleVaildTouchPercent": "有効な行動比率",
 				"statsTitleFellAsleepCount": "ゲーム中眠った回数",
 	

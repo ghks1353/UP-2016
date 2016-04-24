@@ -70,10 +70,36 @@
 		"statsNoDataAvailable": "표시할 데이터가 없습니다.",
 	
 		"statsAverageFormat": "평균 $0",
+		"statsTotalFormat": "총 $0",
 	
 		"statsWeek": "주",
 		"statsMonth": "월",
 		"statsYear": "년",
+	
+		"statsMonthJanuary": "January",
+			"statsMonthMinJanuary": "Jan",
+		"statsMonthFebruary": "February",
+			"statsMonthMinFebruary": "Feb",
+		"statsMonthMarch": "March",
+			"statsMonthMinMarch": "Mar",
+		"statsMonthApril": "April",
+			"statsMonthMinApril": "Apr",
+		"statsMonthMay": "May",
+			"statsMonthMinMay": "May",
+		"statsMonthJune": "June",
+			"statsMonthMinJune": "Jun",
+		"statsMonthJuly": "July",
+			"statsMonthMinJuly": "Jul",
+		"statsMonthAugust": "August",
+			"statsMonthMinAugust": "Aug",
+		"statsMonthSeptember": "September",
+			"statsMonthMinSeptember": "Sep",
+		"statsMonthOctober": "October",
+			"statsMonthMinOctober": "Oct",
+		"statsMonthNovember": "November",
+			"statsMonthMinNovember": "Nov",
+		"statsMonthDecember": "December",
+			"statsMonthMinDecember": "Dec",
 	
 		"statsDateFormatWithMonth": "$0월 $1일",
 		"statsDateFormatDayOnly": "$0일",
@@ -82,6 +108,11 @@
 		"statsTimeFormatMinPrefix": "",
 		"statsTimeFormatMinSuffix": "분",
 	
+		"statsDataFormatCountsPrefix": "",
+		"statsDataFormatCountsSuffix": "회",
+	
+		"statsDataFormatPercent": "%",
+	
 		"statsDataPoint": "데이터 포인트",
 			"statsDataCategoryTime": "시간 데이터",
 				"statsTitleUntilAlarmOff": "알람 해제까지",
@@ -89,6 +120,7 @@
 				"statsTitleGamePlayTime": "플레이 시간",
 			"statsDataCategoryGame": "게임 데이터",
 				"statsTitleGameClearPercent": "게임 완주 비율",
+				"statsTitleTouches": "전체 행동 수",
 				"statsTitleVaildTouchPercent": "유효 행동 비율",
 				"statsTitleFellAsleepCount": "중간에 잠든 횟수",
 	

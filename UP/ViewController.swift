@@ -284,7 +284,7 @@ class ViewController: UIViewController {
 			modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
 			
 			showHideBlurview(true);
-			self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
+			self.presentViewController(modalAlarmAddView, animated: false, completion: nil);
 			modalAlarmAddView.clearComponents();
 		} //end if
 		
@@ -293,8 +293,9 @@ class ViewController: UIViewController {
     func openSettingsView (gestureRecognizer: UITapGestureRecognizer) {
         //환경설정 열기
 		modalSettingsView.modalPresentationStyle = .OverFullScreen;
+		
 		showHideBlurview(true);
-        self.presentViewController(modalSettingsView, animated: true, completion: nil);
+        self.presentViewController(modalSettingsView, animated: false, completion: nil);
 		modalSettingsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
 	
@@ -303,7 +304,7 @@ class ViewController: UIViewController {
 		modalAlarmListView.modalPresentationStyle = .OverFullScreen;
 		showHideBlurview(true);
 		
-        self.presentViewController(modalAlarmListView, animated: true, completion: nil);
+        self.presentViewController(modalAlarmListView, animated: false, completion: nil);
 		modalAlarmListView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
     }
 	
@@ -312,7 +313,7 @@ class ViewController: UIViewController {
 		modalAlarmStatsView.modalPresentationStyle = .OverFullScreen;
 		showHideBlurview(true);
 		
-		self.presentViewController(modalAlarmStatsView, animated: true, completion: nil);
+		self.presentViewController(modalAlarmStatsView, animated: false, completion: nil);
 		modalAlarmStatsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
 	}
 	
@@ -321,7 +322,7 @@ class ViewController: UIViewController {
 		modalCharacterInformationView.modalPresentationStyle = .OverFullScreen;
 		showHideBlurview(true);
 		
-		self.presentViewController(modalCharacterInformationView, animated: true, completion: nil);
+		self.presentViewController(modalCharacterInformationView, animated: false, completion: nil);
 		modalCharacterInformationView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
 	}
 

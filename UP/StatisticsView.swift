@@ -82,7 +82,11 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		FitModalLocationToCenter();
 	}
 	
+	/////// View transition animation
 	override func viewWillAppear(animated: Bool) {
+		//setup bounce animation
+		self.view.alpha = 0;
+		
 		//뷰 초기 진입시 설정 초기화
 		
 		rootViewChartSelectedCategory = 0;
@@ -90,12 +94,25 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		rootViewChartSelSegmentCell!.selectedSegmentIndex = 0;
 		
 		drawMainGraph();
-	} //end func
+	}
+	override func viewDidAppear(animated: Bool) {
+		//queue bounce animation
+		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
+		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
+			self.view.frame = CGRectMake(0, 0,
+				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+			self.view.alpha = 1;
+		}) { _ in
+		}
+	} ///////////////////////////////
+	
 	
 	func drawMainGraph() {
 		//data fetch
 		print("Getting data");
 		var selDataPointInt:Int = 0;
+		
 		switch(rootSelectedCurrentDataPoint) {
 			case StatisticsDataPointView.POINT_UNTIL_OFF:
 				selDataPointInt = 0;
@@ -108,6 +125,19 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 			case StatisticsDataPointView.POINT_PLAYTIME:
 				selDataPointInt = 2;
 				rootViewChartTitle!.text = Languages.$("statsTitleGamePlayTime");
+				break;
+			
+			case StatisticsDataPointView.POINT_GAME_TOUCHES:
+				selDataPointInt = 4;
+				rootViewChartTitle!.text = Languages.$("statsTitleTouches");
+				break;
+			case StatisticsDataPointView.POINT_GAME_VALID:
+				selDataPointInt = 5;
+				rootViewChartTitle!.text = Languages.$("statsTitleVaildTouchPercent");
+				break;
+			case StatisticsDataPointView.POINT_GAME_ASLEEP:
+				selDataPointInt = 6;
+				rootViewChartTitle!.text = Languages.$("statsTitleFellAsleepCount");
 				break;
 			default: break;
 		}
@@ -128,15 +158,30 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 			//no data or error
 		} else {
 			//그래디언트 색은 미리 여기서 정해줍시다
-			switch(rootViewChartSelectedCategory) {
-				case 0: //파랑 계열 그래디언트 색 설정
-					rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("0082ED").CGColor , UPUtils.colorWithHexString("005396").CGColor ];
+			switch(selDataPointInt) {
+				case 3,4,5,6: //게임 데이터 그래프 색
+					switch(rootViewChartSelectedCategory) { //주 월 년?
+						case 0: //보라 계열 그래디언트 색 설정
+							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("7E49B3").CGColor , UPUtils.colorWithHexString("532185").CGColor ];
+							break;
+						case 1, 2: //초록 계열 그래디언트 색 설정
+							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("50B354").CGColor , UPUtils.colorWithHexString("218524").CGColor ];
+							break;
+						default: break;
+					}
 					break;
-				case 1, 2: //주황 계열 그래디언트 색 설정
-					rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("FFCE08").CGColor , UPUtils.colorWithHexString("FF7300").CGColor ];
+				default: //기본 그래프 색
+					switch(rootViewChartSelectedCategory) { //주 월 년?
+						case 0: //파랑 계열 그래디언트 색 설정
+							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("0082ED").CGColor , UPUtils.colorWithHexString("005396").CGColor ];
+							break;
+						case 1, 2: //주황 계열 그래디언트 색 설정
+							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("FFCE08").CGColor , UPUtils.colorWithHexString("FF7300").CGColor ];
+							break;
+						default: break;
+					}
 					break;
-				default: break;
-			}
+			} //end switch
 			
 			if (statsDataResult!.count == 0) {
 				//데이터 없음 fallback
@@ -152,6 +197,9 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 			var tDatasXAxisEntry:Array<String> = []; //x-dayas entry (아마 날짜 표시)
 			var previousMonth:Int = -1; //다음 달과 비교해서 넘어갔다고 판단되는 경우, x값에 월도 표시하기 위함
 			var resultAverage:Float = 0;
+			
+			var currentDataPrefix:String = "";
+			var currentDataSuffix:String = "";
 			
 			switch(rootViewChartSelectedCategory) { //차트별 데이터 정리
 				case 0: //use bar chart.
@@ -175,9 +223,6 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 						}
 					} //end for
 					
-					//Get average
-					resultAverage = resultAverage / Float(statsDataResult!.count);
-					
 					//DataSet 지정(하나의 legend라고 생각하면 됨)
 					let chartDataSet:BarChartDataSet = BarChartDataSet( yVals: tDataEntries, label: "" );
 					//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
@@ -199,10 +244,33 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					
 					barChartPointer!.rightYAxisRenderer.yAxis!.axisMinValue = 0;
 					barChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax(); //set max value
-					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
-					                                                    args: Languages.$("statsTimeFormatMinPrefix") + String(round(resultAverage)) + Languages.$("statsTimeFormatMinSuffix"));
+					
+					switch(selDataPointInt) {
+						case 3, 5: //~% 표기
+							currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
+							
+							//Get average
+							resultAverage = resultAverage / Float(statsDataResult!.count);
+							break;
+						case 4, 6: //합계 ~회 표기
+							currentDataPrefix = Languages.$("statsDataFormatCountsPrefix");
+							currentDataSuffix = Languages.$("statsDataFormatCountsSuffix");
+							
+							//Average 구할 필요 없음
+							break;
+						default: //평균 ~분 표기
+							currentDataPrefix = Languages.$("statsTimeFormatMinPrefix");
+							currentDataSuffix = Languages.$("statsTimeFormatMinSuffix");
+							
+							//Get average
+							resultAverage = resultAverage / Float(statsDataResult!.count);
+							break;
+					} //end switch
+					
 					
 					barChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
+					barChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positivePrefix = currentDataPrefix;
+					barChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positiveSuffix = currentDataSuffix;
 					
 					break;
 				case 1, 2: //use line chart.
@@ -226,9 +294,6 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 						}
 					} //end for
 					
-					//Get average
-					resultAverage = resultAverage / Float(statsDataResult!.count);
-					
 					//DataSet 지정(하나의 legend라고 생각하면 됨)
 					let chartDataSet:LineChartDataSet = LineChartDataSet(yVals: tLineDataEntries, label: "");
 					//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
@@ -249,18 +314,54 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					
 					//최대치 설정. 최대치는 여기서 설정해야 버그없이 작동함.
 					lineChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax();
-					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
-					                                                 args: Languages.$("statsTimeFormatMinPrefix") + String(round(resultAverage)) + Languages.$("statsTimeFormatMinSuffix"));
+					
+					
+					switch(selDataPointInt) {
+						case 3, 5: //~% 표기
+							currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
+							
+							//Get average
+							resultAverage = resultAverage / Float(statsDataResult!.count);
+							break;
+						case 4, 6: //합계 ~회 표기
+							currentDataPrefix = Languages.$("statsDataFormatCountsPrefix");
+							currentDataSuffix = Languages.$("statsDataFormatCountsSuffix");
+							
+							//Average 구할 필요 없음
+							break;
+						default: //평균 ~분 표기
+							currentDataPrefix = Languages.$("statsTimeFormatMinPrefix");
+							currentDataSuffix = Languages.$("statsTimeFormatMinSuffix");
+							
+							//Get average
+							resultAverage = resultAverage / Float(statsDataResult!.count);
+							break;
+					} //end switch
+					
 					
 					lineChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
-					
+					lineChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positivePrefix = currentDataPrefix;
+					lineChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positiveSuffix = currentDataSuffix;
 					
 					break;
 				default: //fallback
 					break;
 			} //end switch
 			
-			
+			switch(selDataPointInt) {
+				case 3, 5: //평균 ~% 표기
+					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
+					                                                 args: String(round(resultAverage)) + Languages.$("statsDataFormatPercent"));
+					break;
+				case 4, 6: //합계 ~회 표기
+					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsTotalFormat"),
+																	 args: Languages.$("statsDataFormatCountsPrefix") + String(round(resultAverage)) + Languages.$("statsDataFormatCountsSuffix"));
+					break;
+				default: //평균 ~분 표기
+					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
+																	 args: Languages.$("statsTimeFormatMinPrefix") + String(round(resultAverage)) + Languages.$("statsTimeFormatMinSuffix"));
+				break;
+			} //end switch
 			
 			
 			
