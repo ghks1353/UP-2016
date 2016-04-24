@@ -68,7 +68,6 @@
 	
 	"userStatistics": "Stat",
 		"statsNoDataAvailable": "There is no data to display.",
-		"statsTitleUntilAlarmOff": "Total elapsed time",
 	
 		"statsAverageFormat": "Mean $0",
 	
@@ -83,6 +82,19 @@
 		"statsTimeFormatMinPrefix": "",
 		"statsTimeFormatMinSuffix": "분",
 	
+		"statsDataPoint": "Data point",
+			"statsDataCategoryTime": "Alarm data",
+				"statsTitleUntilAlarmOff": "Time until turn off alarm",
+				"statsTitleUntilGameStart": "Time until game start",
+				"statsTitleGamePlayTime": "Play time",
+			"statsDataCategoryGame": "Play data",
+				"statsTitleGameClearPercent": "Game clear rate",
+				"statsTitleVaildTouchPercent": "Valid play rate",
+				"statsTitleFellAsleepCount": "Sleep count while in game",
+	
+		"statsDetails": "Details",
+
+
 	"userCharacterInformation": "Character Info"
 
 
