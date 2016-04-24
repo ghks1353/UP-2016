@@ -68,7 +68,6 @@
 	
 	"userStatistics": "統計",
 		"statsNoDataAvailable": "表示できるデータがありません。",
-		"statsTitleUntilAlarmOff": "アラーム解除まで",
 		
 		"statsAverageFormat": "平均 $0",
 	
@@ -82,6 +81,18 @@
 	
 		"statsTimeFormatMinPrefix": "",
 		"statsTimeFormatMinSuffix": "分",
+	
+		"statsDataPoint": "データポイント",
+			"statsDataCategoryTime": "時間のデータ",
+				"statsTitleUntilAlarmOff": "アラーム解除まで",
+				"statsTitleUntilGameStart": "ゲーム開始まで",
+				"statsTitleGamePlayTime": "プレータイム",
+			"statsDataCategoryGame": "ゲームのデータ",
+				"statsTitleGameClearPercent": "ゲームの成功比率",
+				"statsTitleVaildTouchPercent": "有効な行動比率",
+				"statsTitleFellAsleepCount": "ゲーム中眠った回数",
+	
+		"statsDetails": "詳細データへ",
 	
 	"userCharacterInformation": "キャラクターの情報"
 	

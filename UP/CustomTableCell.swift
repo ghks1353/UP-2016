@@ -17,5 +17,4 @@ class CustomTableCell:UITableViewCell {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event);
     }
-    
 }

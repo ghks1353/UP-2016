@@ -118,12 +118,16 @@ class DataManager {
 	} //end func
 	
 	//// 타임스탬프를 계산하여 연, 월, 일을 나누고 같은 날은 평균으로 계산한다.
-	static func getAlarmOffGraphData( daysCategory:Int = 0 ) -> Array<StatsDataElement>? {
+	static func getAlarmGraphData( daysCategory:Int = 0, dataPointSelection:Int = 0 ) -> Array<StatsDataElement>? {
 		//daysCategory 0 - 주, 1 - 월, 2 - 년
 		//id가 큰것 하나만 얻어서 (id desc limit 1), 해당 날짜를 구한 다음, 해당 날짜의 타임스탬프 첫 시작일을 구함
 		//그 다음, 거기서 카테고리에 따라 3600 * 일 만큼 뺀 부분부터 데이터 집계를 시작하면 됨.
 		//그 다음 모은 데이터들을 for돌리면서 날짜를 구한다음(아마 숫자로도 할수있을듯), 같은 날짜의 경우 평균을 구함
 		//그렇게 한 날짜의 데이터가 다 모아지면 배열에 날짜별로 넣음. 최대 1년치. 365개. 그걸 나중에 차트로 표현함.
+		
+		/*
+		dataPointSelection에 따라 밑 3개 배열 중 뭘 줄지 결정해야 함
+		*/
 		
 		var dataBeforeStartArray:Array<StatsDataElement> = Array<StatsDataElement>();
 		var dataClearReducedArray:Array<StatsDataElement> = Array<StatsDataElement>();
@@ -131,6 +135,7 @@ class DataManager {
 		
 		//돌려줄 데이터 모음.
 		var toReturnDatasArray:Array<StatsDataElement>?;
+		var seekTablePointer:Table?;
 		
 		var goalToFetchDataDays:Int = 0;
 		switch(daysCategory) {
@@ -146,13 +151,24 @@ class DataManager {
 			default: break;
 		}
 		
+		//데이터 셀렉션에 따른 참조 테이블 변경
+		switch(dataPointSelection) {
+			case 0, 1, 2:
+				seekTablePointer = DataManager.statsTable();
+				break;
+			case 3, 4, 5: //완주 비율, 행동 비율, 잠든 횟수
+				seekTablePointer = DataManager.gameResultTable();
+				break;
+			default: break;
+		}
+		
 		print("Starting to get latest log for extract log data");
 		do {
 			var dataSeekStartTimeStamp:Int = 0;
 			
 			//1. 맨 마지막 데이터를 얻어옴
 			for dbResult in try DataManager.db()!.prepare(
-				DataManager.statsTable()
+				seekTablePointer!
 					.filter( Expression<Int64>("type") == 0 ) /* type0,1,2이 같이 저장되기 때문에, 중복 방지로 하나만 불러옴 */
 					.order( Expression<Int64>("id").desc )
 					.limit( 1, offset: 1 )
@@ -168,7 +184,7 @@ class DataManager {
 			} //end for
 			//2. 시작할 Seektime을 얻어온 것을 기반으로 데이터 검색을 시작함.
 			for dbResult in try DataManager.db()!.prepare(
-				DataManager.statsTable()
+				seekTablePointer!
 					.filter( Expression<Int64>("type") == 0 || Expression<Int64>("type") == 1 )
 					.filter( Expression<Int64>("date") >= Int64(dataSeekStartTimeStamp) )
 					.order( Expression<Int64>("date").asc )
@@ -187,11 +203,6 @@ class DataManager {
 				
 				let dateComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second],
 				                                                       fromDate: NSDate( timeIntervalSince1970: NSTimeInterval(dbResult[ Expression<Int64>("date") ]) ) );
-				
-				//test
-				/*if (dbResult[ Expression<Int64>("type") ] == 0) {
-					print("data", dbResult[Expression<Int64>("statsDataInt")], "date", dateComp.year, "-", dateComp.month, "-", dateComp.day);
-				}*/
 				
 				let tmpDataElements:StatsDataElement = StatsDataElement();
 				let tmpDataResult:Float = Float( dbResult[Expression<Int64>("statsDataInt")] ) / 60; //초 단위를 분으로 계산하기 위해 나눔.
@@ -259,21 +270,36 @@ class DataManager {
 				
 			} //end for
 			
+			switch(dataPointSelection) {
+				case 0: //두개를 합친 종합 데이터
+					
+					//이제 같은 ID끼리 묶어서 배열에 정리하자.
+					for i:Int in 0 ..< dataBeforeStartArray.count {
+						//start를 돌면서 end랑 같은걸 찾아 하나의 배열에 합쳐 넣을거임
+						let statsElement:StatsDataElement = StatsDataElement();
+						//시간 합산. 통계에서 요구하는게 따로따로면 합산 필요가 없음
+						statsElement.numberData = dataBeforeStartArray[i].numberData + dataClearReducedArray[i].numberData;
+						statsElement.dataID = dataBeforeStartArray[i].dataID;
+						statsElement.dateComponents = dataBeforeStartArray[i].dateComponents;
+						dataUntilAlarmOff += [statsElement]; //통계 배열에 추가
+						
+						print("STATS id:", statsElement.dataID, ", result:", statsElement.numberData, ", date:",
+						      statsElement.dateComponents!.year,"-",statsElement.dateComponents!.month,"-",statsElement.dateComponents!.day);
+					} //end for
+					toReturnDatasArray = dataUntilAlarmOff; //Return pointer
+					
+					break;
+				case 1: //게임 시작 전까지 걸린 시간
+					toReturnDatasArray = dataBeforeStartArray;
+					break;
+				case 2: //게임 플레이 시간
+					toReturnDatasArray = dataClearReducedArray;
+					break;
+				default: break;
+			}
 			
-			//이제 같은 ID끼리 묶어서 배열에 정리하자.
-			for i:Int in 0 ..< dataBeforeStartArray.count {
-				//start를 돌면서 end랑 같은걸 찾아 하나의 배열에 합쳐 넣을거임
-				let statsElement:StatsDataElement = StatsDataElement();
-				//시간 합산. 통계에서 요구하는게 따로따로면 합산 필요가 없음
-				statsElement.numberData = dataBeforeStartArray[i].numberData + dataClearReducedArray[i].numberData;
-				statsElement.dataID = dataBeforeStartArray[i].dataID;
-				statsElement.dateComponents = dataBeforeStartArray[i].dateComponents;
-				dataUntilAlarmOff += [statsElement]; //통계 배열에 추가
-				
-				print("STATS id:", statsElement.dataID, ", result:", statsElement.numberData, ", date:",
-				      statsElement.dateComponents!.year,"-",statsElement.dateComponents!.month,"-",statsElement.dateComponents!.day);
-			} //end for
-			toReturnDatasArray = dataUntilAlarmOff; //Return pointer
+			
+			
 			
 			
 		} catch {

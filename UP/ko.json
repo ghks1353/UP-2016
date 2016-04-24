@@ -68,7 +68,6 @@
 	
 	"userStatistics": "통계",
 		"statsNoDataAvailable": "표시할 데이터가 없습니다.",
-		"statsTitleUntilAlarmOff": "알람 해제까지",
 	
 		"statsAverageFormat": "평균 $0",
 	
@@ -82,6 +81,19 @@
 	
 		"statsTimeFormatMinPrefix": "",
 		"statsTimeFormatMinSuffix": "분",
+	
+		"statsDataPoint": "데이터 포인트",
+			"statsDataCategoryTime": "시간 데이터",
+				"statsTitleUntilAlarmOff": "알람 해제까지",
+				"statsTitleUntilGameStart": "게임 시작까지",
+				"statsTitleGamePlayTime": "플레이 시간",
+			"statsDataCategoryGame": "게임 데이터",
+				"statsTitleGameClearPercent": "게임 완주 비율",
+				"statsTitleVaildTouchPercent": "유효 행동 비율",
+				"statsTitleFellAsleepCount": "중간에 잠든 횟수",
+	
+		"statsDetails": "상세 데이터 보기",
+	
 	
 	"userCharacterInformation": "캐릭터 정보"
 	

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		039D993E1CCA3BFD00B79E5C /* StatisticsDataPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039D993D1CCA3BFD00B79E5C /* StatisticsDataPointView.swift */; };
 		771181DE1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 771181DC1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png */; };
 		771181DF1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 771181DD1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png */; };
 		77232C921C848CCA006E221A /* game-start-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 77232C911C848CCA006E221A /* game-start-button.png */; };
@@ -406,6 +407,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		039D993D1CCA3BFD00B79E5C /* StatisticsDataPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatisticsDataPointView.swift; sourceTree = "<group>"; };
 		771181DC1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_alram_off.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_alram_off.png; sourceTree = "<group>"; };
 		771181DD1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_alram_reset.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_alram_reset.png; sourceTree = "<group>"; };
 		77232C911C848CCA006E221A /* game-start-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-start-button.png"; path = "GameAssets/JumpUP/StartupView/game-start-button.png"; sourceTree = "<group>"; };
@@ -893,6 +895,7 @@
 				77C54E7B1C9EC3EA00013F9D /* AlarmRepeatSettingsView.swift */,
 				77C136551CAE8CF100B91214 /* StatisticsView.swift */,
 				77AE733D1CB925D40008CAAD /* CharacterInfoView.swift */,
+				039D993D1CCA3BFD00B79E5C /* StatisticsDataPointView.swift */,
 			);
 			name = SubViews;
 			sourceTree = "<group>";
@@ -1919,6 +1922,7 @@
 				773E910C1C5A36480084EB07 /* CustomTableCell.swift in Sources */,
 				77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */,
 				77C136561CAE8CF100B91214 /* StatisticsView.swift in Sources */,
+				039D993E1CCA3BFD00B79E5C /* StatisticsDataPointView.swift in Sources */,
 				77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */,
 				77E3F47E1C747272002BBDA6 /* UPAlarmGameLists.swift in Sources */,
 				77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */,

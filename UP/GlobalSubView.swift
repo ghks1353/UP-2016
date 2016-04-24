@@ -11,11 +11,15 @@ import UIKit;
 
 class GlobalSubView {
 	
+	//각 클래스에 새로선언 시 초기화크래시때문에 미리선언함
+	
 	static var alarmAddView:AddAlarmView = AddAlarmView();
 	static var alarmSoundListView:AlarmSoundListView = AlarmSoundListView();
 	static var alarmGameListView:AlarmGameListView = AlarmGameListView();
 	static var alarmRepeatSettingsView:AlarmRepeatSettingsView = AlarmRepeatSettingsView();
 	
 	static var alarmRingViewcontroller:AlarmRingView = AlarmRingView();
+	
+	static var alarmStatisticsDataPointView:StatisticsDataPointView = StatisticsDataPointView();
 	
 }
