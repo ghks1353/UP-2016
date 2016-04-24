@@ -5,6 +5,8 @@
 	"generalOK": "Ok",
     "generalClose": "Close",
 	"generalAdd": "Add",
+	"generalAlert": "Alert",
+	"generalComplete": "Complete",
 	"generalEdit": "Edit",
 	"generalCancel": "Cancel",
 	"generalBack": "Back",
@@ -19,7 +21,7 @@
 	"alarmList": "Alarm list",
 	"addAlarm": "New alarm",
 	
-    "generalSettings": "GeneralSettings",
+    "generalSettings": "General",
 		"settingsIconBadgeSetting": "Show icon badge",
 		"settingsiCloud": "Use iCloud SYNC",
 	"generalGuide": "Help",
@@ -53,10 +55,35 @@
 		"alarmDelete": "Delete",
 		"alarmDeleteSure": "Are you sure want to delete this alarm?",
 		"alarmDefaultName": "Alarm",
-	
+	"alarmListEmpty": "No alarm on list",
+
 	"gameNameJumpUP": "Jump UP",
 	"gameDescriptionJumpUP": "Jump is not A only Solution\nbelieve your own sense!",
 	
-	"gameGenreJumpAction": "JumpAction"
+	"gameGenreJumpAction": "JumpAction",
+
+	"informationAlarmAdded": "Alarm has been added.",
+	"informationAlarmEdited": "Alarm has been edited.",
+	"informationAlarmExceed": "Cannot add more alarm.\nPlease delete existing alarm.",
+	
+	"userStatistics": "Stat",
+		"statsNoDataAvailable": "There is no data to display.",
+		"statsTitleUntilAlarmOff": "Total elapsed time",
+	
+		"statsAverageFormat": "Mean $0",
+	
+		"statsWeek": "Week",
+		"statsMonth": "Month",
+		"statsYear": "Year",
+	
+		"statsDateFormatWithMonth": "$0월 $1일",
+		"statsDateFormatDayOnly": "$0일",
+		"statsTimeFormatMinOnly": "$0분",
+	
+		"statsTimeFormatMinPrefix": "",
+		"statsTimeFormatMinSuffix": "분",
+	
+	"userCharacterInformation": "Character Info"
+
 
 }
