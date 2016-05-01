@@ -158,10 +158,11 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		//이건 단순히 hidden 상태만 조정하는거임
 		DataManager.initDefaults();
 		let tmpOption:Bool = DataManager.nsDefaults.boolForKey(DataManager.EXPERIMENTS_USE_MEMO_KEY);
+		let alarmsCellArr:Array<AlarmSettingsCell> = tablesArray[0] as! Array<AlarmSettingsCell>;
 		if (tmpOption == true) { /* 메모 사용 시 */
-			(tablesArray[0][1] as! AlarmSettingsCell).hidden = false;
+			alarmsCellArr[1].hidden = false;
 		} else { //메모 사용 안함.
-			(tablesArray[0][1] as! AlarmSettingsCell).hidden = true;
+			alarmsCellArr[1].hidden = true;
 		}
 		tableView.reloadData();
 		
