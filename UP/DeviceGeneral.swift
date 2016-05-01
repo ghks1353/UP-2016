@@ -24,7 +24,11 @@ class DeviceGeneral {
 	//평균 Modal size
 	static var defaultModalSizeRect:CGRect = CGRect();
 	
+	//chk is back or not
 	static var appIsBackground:Bool = false;
+	
+	////// Is 24hours or not
+	static var is24HourMode:Bool = false;
 	
     static func initialDeviceSize() {
         //화면 사이즈를 얻어옴.
@@ -50,7 +54,10 @@ class DeviceGeneral {
 		print("Checking user interface ipad is", UIDevice.currentDevice().userInterfaceIdiom == .Pad);
 		changeModalSize();
 		
-		print("Device size inited successfully");
+		//오전/오후 체크
+		let formatString:NSString = NSDateFormatter.dateFormatFromTemplate("j", options: 0, locale: NSLocale.currentLocale())!;
+		is24HourMode = !formatString.containsString("a"); // true - 24시모드 / false - 12시모드
+		
     }
 	
 	static func changeDeviceSizeWith( size:CGSize ) {

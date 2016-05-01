@@ -64,9 +64,9 @@ class AlarmManager {
 		if (alarmSoundPlaying == true) {
 			if (alarmAudioPlayer != nil) {
 				//진짜로 울리는 중이면 강제로 볼륨을 위로 설정
-				alarmAudioPlayer!.volume = 1.0;
+				alarmAudioPlayer!.volume = Float(targetAlarmElement!.alarmSoundLevel) / 100;
 				if let view = alarmVolumeView.subviews.first as? UISlider{
-					view.value = 1.0;
+					view.value = Float(targetAlarmElement!.alarmSoundLevel) / 100;
 				} else {
 					print("Volume control error. creating new context");
 					alarmVolumeView = MPVolumeView();
@@ -92,9 +92,9 @@ class AlarmManager {
 			print(error.description);
 		}
 		alarmAudioPlayer!.numberOfLoops = -1; alarmAudioPlayer!.prepareToPlay(); alarmAudioPlayer!.play();
-		alarmAudioPlayer!.volume = 1.0;
+		alarmAudioPlayer!.volume = Float(targetAlarmElement!.alarmSoundLevel) / 100;
 		if let view = alarmVolumeView.subviews.first as? UISlider{
-			view.value = 1.0;
+			view.value = Float(targetAlarmElement!.alarmSoundLevel) / 100;
 		} else {
 			print("Volume control error. creating new context");
 			alarmVolumeView = MPVolumeView();
@@ -413,7 +413,9 @@ class AlarmManager {
 					let alarmsArrTmpPointer:AlarmElements = alarmsArray[i];
 					alarmsArray.removeAtIndex(i);
 					addAlarm(alarmsArrTmpPointer.alarmFireDate, funcAlarmTitle: alarmsArrTmpPointer.alarmName,
-						gameID: alarmsArrTmpPointer.gameSelected, soundFile: tmpsInfoObj,
+						funcAlarmMemo: alarmsArrTmpPointer.alarmMemo,
+						gameID: alarmsArrTmpPointer.gameSelected,
+						alarmLevel: alarmsArrTmpPointer.alarmSoundLevel, soundFile: tmpsInfoObj,
 						repeatArr: alarmsArrTmpPointer.alarmRepeat, insertAt: i, alarmID: alarmsArrTmpPointer.alarmID,
 						redrawList: !isListOn);
 					
@@ -462,7 +464,8 @@ class AlarmManager {
 	}
 	
 	//Edit alarm from system
-	static func editAlarm(alarmID:Int, funcDate:NSDate, alarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, toggleStatus:Bool) {
+	static func editAlarm(alarmID:Int, funcDate:NSDate, alarmTitle:String, alarmMemo:String, gameID:Int,
+	                      soundLevel:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, toggleStatus:Bool) {
 		var date:NSDate = funcDate;
 		if (!isAlarmMergedFirst) {
 			mergeAlarm();
@@ -493,16 +496,19 @@ class AlarmManager {
 		date = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
 		
 		//addAlarm
-		addAlarm(date, funcAlarmTitle: alarmTitle, gameID: gameID, soundFile: soundFile, repeatArr: repeatArr, insertAt: alarmArrayIndex, alarmID:  alarmID, isToggled: toggleStatus, redrawList: true);
+		addAlarm(date, funcAlarmTitle: alarmTitle, funcAlarmMemo: alarmMemo,
+			gameID: gameID, alarmLevel: soundLevel,
+			soundFile: soundFile, repeatArr: repeatArr, insertAt: alarmArrayIndex, alarmID:  alarmID, isToggled: toggleStatus, redrawList: true);
 		
 	}
 	
 	//Add alarm to system
-	static func addAlarm(funcDate:NSDate, funcAlarmTitle:String, gameID:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1, isToggled:Bool = true, redrawList:Bool = true) {
+	static func addAlarm(funcDate:NSDate, funcAlarmTitle:String, funcAlarmMemo:String, gameID:Int, alarmLevel:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1, isToggled:Bool = true, redrawList:Bool = true) {
 		//repeatarr에 일,월,화,수,목,금,토 순으로 채움
 		
 		var date:NSDate = funcDate;
 		var alarmTitle:String = funcAlarmTitle;
+		let alarmMemo:String = funcAlarmMemo;
 		
 		if(alarmTitle == "") { //알람 타이틀이 없으면 소리만 울리는 상황이 발생하므로 기본 이름 설정
 			alarmTitle = Languages.$("alarmDefaultName");
@@ -519,17 +525,32 @@ class AlarmManager {
 				fireOnce = i; break;
 			}
 		}
+		
 		if (fireOnce != -1) { //여러번 울려야 하는 경우 오늘을 포함해서 다음 fireDate까지만 더함
-			//todayDate.weekday 에서 0을 빼는 이유. weekday는 1이 Sunday임. 그래서 1부터 시작함. 즉
-			//주의 끝을 체크하려면 7인지를 검사해야 함.
-			//이 포문에서는 다음 날짜를 잴 때 현재 날짜는 건너뛰어야하는데, 1을 빼게되면
-			//현재 날짜부터 시작하는 문제점이 있음.
-			//아마 C문법의 for문을 swift 형태로 바꾸다가 일어난 참사라고 생각.
-			for i:Int in (todayDate.weekday == 7 ? 0 : (todayDate.weekday - 0)) ..< repeatArr.count {
-				if (repeatArr[i] == true) {
-					fireOnce = i; fireSearched = true; break;
+			//오늘부터 검사하는게 맞음.
+			//그러니까 이게, 오늘이 토요일이면 다음 루프를 일요일(0)부터 돌고, 
+			//그런게 아니라면 루프 시작점이 현재 날짜(-1을 빼는건 weekday는 +1이기 때문임)부터 돌게 되어 있음
+			//가령 금요일날 설정한다고 하면, 오늘을 포함해야 제대로ㅓ된 검사가 가능함.
+			if (todayDate.weekday == 7) {
+				//토요일일 경우 먼저 계산을 함. (루프는 순서대로 돌아야 하기 때문에 예외처리..)
+				if (repeatArr[6] == true) { //6은 토요일
+					fireOnce = 6; fireSearched = true;
+				} else {
+					for i:Int in 0 ..< repeatArr.count { //어차피 토요일부터 검사하기 때문에 0으로 해도 상관없음
+						if (repeatArr[i] == true) {
+							fireOnce = i; fireSearched = true; break;
+						}
+					}
+				} //end chk sat is true
+			} else {
+				//토요일이 아닌 경우 일반적인 방법으로 검사함
+				for i:Int in (todayDate.weekday == 7 ? 0 : (todayDate.weekday - 1)) ..< repeatArr.count {
+					if (repeatArr[i] == true) {
+						fireOnce = i; fireSearched = true; break;
+					}
 				}
-			} //없을경우 다음주로 넘어간것으로 치고 한번더 루프
+			}
+			//없을경우 다음주로 넘어간것으로 치고 한번더 루프
 			if (!fireSearched) {
 				for i:Int in 0  ..< repeatArr.count {
 					if (repeatArr[i] == true) {
@@ -538,7 +559,7 @@ class AlarmManager {
 				}
 			}
 		}
-		
+		print("Today's weekday is ", todayDate.weekday);
 		print("Next alarm date is ",fireOnce," (-1: no repeat, 0=sunday)");
 		var fireAfterDay:Int = 0;
 		
@@ -609,7 +630,8 @@ class AlarmManager {
 		tmpNSComp.second = 0;
 		date = NSCalendar.currentCalendar().dateFromComponents(tmpNSComp)!;
 		
-		tmpAlarmEle.initObject(alarmTitle, game: gameID, repeats: repeatArr, sound: soundFile.soundFileName, alarmDate: date, alarmTool: isToggled, id: alarmUUID);
+		tmpAlarmEle.initObject(alarmTitle, memo: alarmMemo, game: gameID, repeats: repeatArr,
+		                       soundSize: alarmLevel, sound: soundFile.soundFileName, alarmDate: date, alarmTool: isToggled, id: alarmUUID);
 		
 		if (insertAt == -1) {
 			//add to arr and save
@@ -634,7 +656,7 @@ class AlarmManager {
 		//Add to system
 		let notification = UILocalNotification();
 		notification.alertBody = aBody;
-		notification.alertAction = "게임시작"; //'밀어서' 고정
+		notification.alertAction = Languages.$("alarmSlideToStartGameSuffix"); //'밀어서' 고정 아시발.
 		notification.fireDate = aFireDate;
 		notification.soundName = soundFile;
 		notification.userInfo = [
@@ -647,5 +669,51 @@ class AlarmManager {
 		UIApplication.sharedApplication().scheduleLocalNotification(notification);
 		
 	}
+	
+	
+	////// 반복 배열에 따른 라벨 획득
+	static func fetchRepeatLabel( repeatInfo:Array<Bool>, loadType:Int ) -> String {
+		//loadtype: 리스트용이냐, Add용이냐.
+		//0 - 추가용, 1 - 리스트용
+		
+		var repeatCount:Int = 0; var repeatDayNum:Int = -1;
+		for i:Int in 0 ..< repeatInfo.count {
+			if (repeatInfo[i] == true) {
+				repeatCount += 1;
+				repeatDayNum = i;
+			}
+		} //end for
+		
+		//영어도 짧게해야하게 생겨서 걍 전체 짧은거 사용
+		let shortPara:String = "Short"; //loadType == 0 ? "" : "Short";
+		
+		if (repeatCount == 7) { //everyday
+			return Languages.$("alarmRepeatFreqEveryday");
+		} else if (repeatInfo[0] == false && repeatInfo[1] == true && repeatInfo[2] == true &&
+			repeatInfo[3] == true && repeatInfo[4] == true && repeatInfo[5] == true && repeatInfo[6] == false) { //weekday
+			return Languages.$("alarmRepeatFreqWeekday");
+		} else if (repeatInfo[0] == true && repeatInfo[1] == false && repeatInfo[2] == false && repeatInfo[3] == false &&
+			repeatInfo[4] == false && repeatInfo[5] == false && repeatInfo[6] == true) { //weekend
+			return Languages.$("alarmRepeatFreqWeekend");
+		} else if (repeatInfo[0] == false && repeatInfo[1] == false && repeatInfo[2] == false && repeatInfo[3] == false &&
+			repeatInfo[4] == false && repeatInfo[5] == false && repeatInfo[6] == false) {
+			return loadType == 0 ? Languages.$("alarmRepeatFreqOnce") : ""; //no repeats
+		} else if (repeatCount == 1) { //하루만 있는 경우는, 해당 하루의 요일을 표시함
+			print("rep:", repeatDayNum);
+			switch(repeatDayNum) {
+				case 0: return Languages.$("alarmRepeatSun" + shortPara);
+				case 1: return Languages.$("alarmRepeatMon" + shortPara);
+				case 2: return Languages.$("alarmRepeatTue" + shortPara);
+				case 3: return Languages.$("alarmRepeatWed" + shortPara);
+				case 4: return Languages.$("alarmRepeatThu" + shortPara);
+				case 5: return Languages.$("alarmRepeatFri" + shortPara);
+				case 6: return Languages.$("alarmRepeatSat" + shortPara);
+					
+				default: break;
+			}
+		}
+		
+		return loadType == 0 ? Languages.$("alarmRepeatFreqOn") : Languages.$("timeRepeatOn"); //unselected
+	} //end func
 	
 }

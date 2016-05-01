@@ -9,11 +9,33 @@
 import Foundation
 
 class Languages {
-    
-    static let supportedLanguages:Array<String> = ["ko", "en", "ja"];
+	
+    static let supportedLanguages:Array<String> = ["ko", "en", "ja", "waldo"];
     static var languageJsonFile:NSDictionary?;
-    
-    static func initLanugages( localeCode:String ) -> Void {
+	
+	static var langInited:Bool = false;
+	
+	static func initLanugages( funcLocaleCode:String, ignoreForceLang:Bool = false ) -> Void {
+		var localeCode:String = funcLocaleCode;
+		if (langInited == true) {
+			print("Lang already inited. ignoring");
+			return;
+		}
+		
+		//init lang.
+		if (ignoreForceLang == false) {
+			DataManager.initDefaults();
+			if (DataManager.nsDefaults.objectForKey(DataManager.EXPERIMENTS_FORCE_LANGUAGES_KEY) == nil) {
+				//not force. because there is no key
+			} else {
+				let forceLang:String = DataManager.nsDefaults.objectForKey(DataManager.EXPERIMENTS_FORCE_LANGUAGES_KEY) as! String;
+				if (forceLang != "") {
+					//apply language FORCE
+					print("Applying force language.");
+					localeCode = forceLang;
+				}
+			}
+		}
 		
 		var found:Bool = false;
 		for i:Int in 0 ..< supportedLanguages.count {
@@ -23,7 +45,7 @@ class Languages {
 		}
 		if (found == false) {
 			print("Not supporting language.. using english file");
-			initLanugages ("en");
+			initLanugages ("en", ignoreForceLang: true);
 			return;
 		}
 		
@@ -35,6 +57,8 @@ class Languages {
                 let jsonResult:NSDictionary = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary;
                 languageJsonFile = jsonResult;
                 print("File loaded");
+				
+				langInited = true;
             } catch {
                 print("Json error");
             }
@@ -42,7 +66,7 @@ class Languages {
         } else {
             print("File not found error. using english file");
             
-            initLanugages ("en");
+            initLanugages ("en", ignoreForceLang: true);
         }
         
     } //end init

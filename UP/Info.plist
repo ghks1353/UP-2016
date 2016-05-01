@@ -24,7 +24,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>NanumBarunGothicUltraLight.ttf</string>
+		<string>SF-UI-Display-Ultralight.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
@@ -35,6 +35,7 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
+		<string>gamekit</string>
 	</array>
 	<key>UIRequiresFullScreen</key>
 	<true/>

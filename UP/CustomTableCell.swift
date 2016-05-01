@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class CustomTableCell:UITableViewCell {
+class CustomTableCell:UITableDottedCell {
     
     internal var cellID:String = "";
 	

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AlarmSettingsCell:UITableViewCell {
+class AlarmSettingsCell:UITableDottedCell {
 	
 	internal var cellID:String = "";
 	internal var cellElement:AnyObject?;

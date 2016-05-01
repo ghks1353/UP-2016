@@ -8,7 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		030D38E01CCD4632002D1025 /* TKTimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030D38DF1CCD4632002D1025 /* TKTimingFunction.swift */; };
+		03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B731CCEB2BF00243B28 /* modal-mask.png */; };
+		03425B781CCEB2E400243B28 /* modal-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B751CCEB2E400243B28 /* modal-back.png */; };
+		03425B791CCEB2E400243B28 /* modal-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B761CCEB2E400243B28 /* modal-check.png */; };
+		03425B7A1CCEB2E400243B28 /* modal-close.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B771CCEB2E400243B28 /* modal-close.png */; };
+		03425B7C1CCEBD0000243B28 /* modal-add.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B7B1CCEBD0000243B28 /* modal-add.png */; };
+		03425B7E1CCFC49200243B28 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03425B7D1CCFC49200243B28 /* GameKit.framework */; };
+		03425B811CD01A3B00243B28 /* comp-slider-track.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B801CD01A3B00243B28 /* comp-slider-track.png */; };
+		03425B8C1CD0635700243B28 /* comp-icons-blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B851CD0635700243B28 /* comp-icons-blank.png */; };
+		03425B8D1CD0635700243B28 /* comp-icons-settings-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B861CD0635700243B28 /* comp-icons-settings-badge.png */; };
+		03425B8E1CD0635700243B28 /* comp-icons-settings-developers.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B871CD0635700243B28 /* comp-icons-settings-developers.png */; };
+		03425B8F1CD0635700243B28 /* comp-icons-settings-guide.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B881CD0635700243B28 /* comp-icons-settings-guide.png */; };
+		03425B901CD0635700243B28 /* comp-icons-settings-icloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B891CD0635700243B28 /* comp-icons-settings-icloud.png */; };
+		03425B911CD0635700243B28 /* comp-icons-settings-newgames.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B8A1CD0635700243B28 /* comp-icons-settings-newgames.png */; };
+		03425B921CD0635700243B28 /* comp-icons-settings-rating.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B8B1CD0635700243B28 /* comp-icons-settings-rating.png */; };
+		03425B951CD0668600243B28 /* UITableDottedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03425B941CD0668600243B28 /* UITableDottedCell.swift */; };
+		03425B981CD0670800243B28 /* comp-cell-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B961CD0670800243B28 /* comp-cell-arrow.png */; };
+		03425B991CD0670800243B28 /* comp-cell-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B971CD0670800243B28 /* comp-cell-check.png */; };
+		03425B9C1CD08B1C00243B28 /* comp-icons-settings-avn.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B9B1CD08B1C00243B28 /* comp-icons-settings-avn.png */; };
+		03425B9F1CD0924F00243B28 /* ExperimentsLanguagesSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03425B9E1CD0924F00243B28 /* ExperimentsLanguagesSetupView.swift */; };
+		03425BA11CD099C800243B28 /* comp-alarm-notfound.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425BA01CD099C800243B28 /* comp-alarm-notfound.png */; };
+		03425BA41CD0A1E200243B28 /* skin_default_floating_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425BA21CD0A1E200243B28 /* skin_default_floating_box.png */; };
+		03425BA51CD0A1E200243B28 /* skin_default_standing_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425BA31CD0A1E200243B28 /* skin_default_standing_box.png */; };
+		03425BA71CD0B13400243B28 /* waldo.json in Resources */ = {isa = PBXBuildFile; fileRef = 03425BA61CD0B13400243B28 /* waldo.json */; };
+		03425BA91CD389E100243B28 /* comp-icons-settings-experiments.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425BA81CD389E100243B28 /* comp-icons-settings-experiments.png */; };
+		03425BAB1CD38D4E00243B28 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 03425BAA1CD38D4E00243B28 /* Podfile */; };
+		03425BAF1CD391E500243B28 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03425BAE1CD391E500243B28 /* GoogleService-Info.plist */; };
+		03425BC21CD5294B00243B28 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03425BC11CD5294B00243B28 /* AdSupport.framework */; };
+		03425BC51CD52A1200243B28 /* libAdIdAccessLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03425BC41CD52A1200243B28 /* libAdIdAccessLibrary.a */; };
+		03425BCD1CD52BEF00243B28 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03425BCC1CD52BEF00243B28 /* AnalyticsManager.swift */; };
+		03425BCF1CD5516500243B28 /* SF-UI-Display-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 03425BCE1CD5507300243B28 /* SF-UI-Display-Ultralight.otf */; };
+		03425BD11CD658F800243B28 /* AnimatedImg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03425BD01CD658F800243B28 /* AnimatedImg.swift */; };
+		03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425BD21CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png */; };
+		03425BD51CD6661F00243B28 /* ExperimentsAlarmsSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03425BD41CD6661F00243B28 /* ExperimentsAlarmsSetupView.swift */; };
 		039D993E1CCA3BFD00B79E5C /* StatisticsDataPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039D993D1CCA3BFD00B79E5C /* StatisticsDataPointView.swift */; };
+		2AB47A6C29CAE2DEC917822D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C755B1D1BE797EEFB676E5A0 /* libPods.a */; };
 		771181DE1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 771181DC1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png */; };
 		771181DF1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 771181DD1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png */; };
 		77232C921C848CCA006E221A /* game-start-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 77232C911C848CCA006E221A /* game-start-button.png */; };
@@ -72,7 +106,6 @@
 		77782E701C92B0B00016EE1B /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E641C92B0B00016EE1B /* Vector3.swift */; };
 		77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */ = {isa = PBXBuildFile; fileRef = 77802D1C1C805E1A00766DB0 /* game-thumb-jumpup.png */; };
 		77802D1F1C805E1A00766DB0 /* game-thumb-random.png in Resources */ = {isa = PBXBuildFile; fileRef = 77802D1D1C805E1A00766DB0 /* game-thumb-random.png */; };
-		77802D331C80998700766DB0 /* NanumBarunGothicUltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77802D321C8097E200766DB0 /* NanumBarunGothicUltraLight.ttf */; };
 		77958C9A1C68D05C00E99864 /* SoundInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77958C991C68D05C00E99864 /* SoundInfoObj.swift */; };
 		77958C9E1C68E0D900E99864 /* AlarmSoundListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */; };
 		779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */; };
@@ -409,7 +442,42 @@
 
 /* Begin PBXFileReference section */
 		030D38DF1CCD4632002D1025 /* TKTimingFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TKTimingFunction.swift; sourceTree = "<group>"; };
+		03425B731CCEB2BF00243B28 /* modal-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-mask.png"; path = "ImageAssets/ModalWindows/modal-mask.png"; sourceTree = "<group>"; };
+		03425B751CCEB2E400243B28 /* modal-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-back.png"; path = "ImageAssets/ModalWindows/modal-back.png"; sourceTree = "<group>"; };
+		03425B761CCEB2E400243B28 /* modal-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-check.png"; path = "ImageAssets/ModalWindows/modal-check.png"; sourceTree = "<group>"; };
+		03425B771CCEB2E400243B28 /* modal-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-close.png"; path = "ImageAssets/ModalWindows/modal-close.png"; sourceTree = "<group>"; };
+		03425B7B1CCEBD0000243B28 /* modal-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-add.png"; path = "ImageAssets/ModalWindows/modal-add.png"; sourceTree = "<group>"; };
+		03425B7D1CCFC49200243B28 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		03425B801CD01A3B00243B28 /* comp-slider-track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-slider-track.png"; path = "ImageAssets/Components/comp-slider-track.png"; sourceTree = "<group>"; };
+		03425B851CD0635700243B28 /* comp-icons-blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-blank.png"; path = "ImageAssets/Components/Icons/comp-icons-blank.png"; sourceTree = "<group>"; };
+		03425B861CD0635700243B28 /* comp-icons-settings-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-badge.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-badge.png"; sourceTree = "<group>"; };
+		03425B871CD0635700243B28 /* comp-icons-settings-developers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-developers.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-developers.png"; sourceTree = "<group>"; };
+		03425B881CD0635700243B28 /* comp-icons-settings-guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-guide.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-guide.png"; sourceTree = "<group>"; };
+		03425B891CD0635700243B28 /* comp-icons-settings-icloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-icloud.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-icloud.png"; sourceTree = "<group>"; };
+		03425B8A1CD0635700243B28 /* comp-icons-settings-newgames.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-newgames.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-newgames.png"; sourceTree = "<group>"; };
+		03425B8B1CD0635700243B28 /* comp-icons-settings-rating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-rating.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-rating.png"; sourceTree = "<group>"; };
+		03425B941CD0668600243B28 /* UITableDottedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableDottedCell.swift; sourceTree = "<group>"; };
+		03425B961CD0670800243B28 /* comp-cell-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-cell-arrow.png"; path = "ImageAssets/Components/comp-cell-arrow.png"; sourceTree = "<group>"; };
+		03425B971CD0670800243B28 /* comp-cell-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-cell-check.png"; path = "ImageAssets/Components/comp-cell-check.png"; sourceTree = "<group>"; };
+		03425B9B1CD08B1C00243B28 /* comp-icons-settings-avn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-avn.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-avn.png"; sourceTree = "<group>"; };
+		03425B9E1CD0924F00243B28 /* ExperimentsLanguagesSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperimentsLanguagesSetupView.swift; sourceTree = "<group>"; };
+		03425BA01CD099C800243B28 /* comp-alarm-notfound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-alarm-notfound.png"; path = "ImageAssets/Components/comp-alarm-notfound.png"; sourceTree = "<group>"; };
+		03425BA21CD0A1E200243B28 /* skin_default_floating_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_floating_box.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_floating_box.png; sourceTree = "<group>"; };
+		03425BA31CD0A1E200243B28 /* skin_default_standing_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_standing_box.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_standing_box.png; sourceTree = "<group>"; };
+		03425BA61CD0B13400243B28 /* waldo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = waldo.json; sourceTree = "<group>"; };
+		03425BA81CD389E100243B28 /* comp-icons-settings-experiments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-experiments.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-experiments.png"; sourceTree = "<group>"; };
+		03425BAA1CD38D4E00243B28 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		03425BAE1CD391E500243B28 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		03425BC11CD5294B00243B28 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		03425BC41CD52A1200243B28 /* libAdIdAccessLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdIdAccessLibrary.a; path = Pods/GoogleIDFASupport/Libraries/libAdIdAccessLibrary.a; sourceTree = "<group>"; };
+		03425BCC1CD52BEF00243B28 /* AnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
+		03425BCE1CD5507300243B28 /* SF-UI-Display-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Ultralight.otf"; path = "../../../../Downloads/SF-UI/SF-UI-Display-Ultralight.otf"; sourceTree = "<group>"; };
+		03425BD01CD658F800243B28 /* AnimatedImg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedImg.swift; sourceTree = "<group>"; };
+		03425BD21CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-experiments-alarm.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-experiments-alarm.png"; sourceTree = "<group>"; };
+		03425BD41CD6661F00243B28 /* ExperimentsAlarmsSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperimentsAlarmsSetupView.swift; sourceTree = "<group>"; };
 		039D993D1CCA3BFD00B79E5C /* StatisticsDataPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatisticsDataPointView.swift; sourceTree = "<group>"; };
+		3364461F2ECC83E39023BC40 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		348AAD55ACE8900ADC2D8B52 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		771181DC1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_alram_off.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_alram_off.png; sourceTree = "<group>"; };
 		771181DD1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_alram_reset.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_alram_reset.png; sourceTree = "<group>"; };
 		77232C911C848CCA006E221A /* game-start-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-start-button.png"; path = "GameAssets/JumpUP/StartupView/game-start-button.png"; sourceTree = "<group>"; };
@@ -476,7 +544,6 @@
 		77782E641C92B0B00016EE1B /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector3.swift; path = SKTUtils/Vector3.swift; sourceTree = SOURCE_ROOT; };
 		77802D1C1C805E1A00766DB0 /* game-thumb-jumpup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-jumpup.png"; path = "ImageAssets/GameThumbs/game-thumb-jumpup.png"; sourceTree = "<group>"; };
 		77802D1D1C805E1A00766DB0 /* game-thumb-random.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-random.png"; path = "ImageAssets/GameThumbs/game-thumb-random.png"; sourceTree = "<group>"; };
-		77802D321C8097E200766DB0 /* NanumBarunGothicUltraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = NanumBarunGothicUltraLight.ttf; path = FontAssets/NanumBarunGothicUltraLight.ttf; sourceTree = "<group>"; };
 		77958C991C68D05C00E99864 /* SoundInfoObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundInfoObj.swift; sourceTree = "<group>"; };
 		77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundListCell.swift; sourceTree = "<group>"; };
 		779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = up_background_task_alarm.mp3; path = SoundAssets/SystemSounds/up_background_task_alarm.mp3; sourceTree = "<group>"; };
@@ -733,6 +800,7 @@
 		77FBE6851C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlarmIDSwitch.swift; sourceTree = "<group>"; };
 		77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSubView.swift; sourceTree = "<group>"; };
 		77FD0DEF1C66312400B5B5E9 /* UPUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPUtils.swift; sourceTree = "<group>"; };
+		C755B1D1BE797EEFB676E5A0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -740,9 +808,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03425BC51CD52A1200243B28 /* libAdIdAccessLibrary.a in Frameworks */,
+				03425BC21CD5294B00243B28 /* AdSupport.framework in Frameworks */,
 				77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */,
 				77C1365B1CAE9AA300B91214 /* Charts.framework in Frameworks */,
 				77A890B81CB58665009171F9 /* SQLite.framework in Frameworks */,
+				03425B7E1CCFC49200243B28 /* GameKit.framework in Frameworks */,
+				2AB47A6C29CAE2DEC917822D /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -755,6 +827,84 @@
 				030D38DF1CCD4632002D1025 /* TKTimingFunction.swift */,
 			);
 			name = TKTUtils;
+			sourceTree = "<group>";
+		};
+		03425B6A1CCEAD8500243B28 /* Modals */ = {
+			isa = PBXGroup;
+			children = (
+				03425B7B1CCEBD0000243B28 /* modal-add.png */,
+				03425B731CCEB2BF00243B28 /* modal-mask.png */,
+				03425B751CCEB2E400243B28 /* modal-back.png */,
+				03425B761CCEB2E400243B28 /* modal-check.png */,
+				03425B771CCEB2E400243B28 /* modal-close.png */,
+			);
+			name = Modals;
+			sourceTree = "<group>";
+		};
+		03425B7F1CD01A2600243B28 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				03425B841CD0634F00243B28 /* Icons */,
+				03425B801CD01A3B00243B28 /* comp-slider-track.png */,
+				03425BA01CD099C800243B28 /* comp-alarm-notfound.png */,
+				03425B961CD0670800243B28 /* comp-cell-arrow.png */,
+				03425B971CD0670800243B28 /* comp-cell-check.png */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		03425B841CD0634F00243B28 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				03425BD21CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png */,
+				03425B9B1CD08B1C00243B28 /* comp-icons-settings-avn.png */,
+				03425B851CD0635700243B28 /* comp-icons-blank.png */,
+				03425B861CD0635700243B28 /* comp-icons-settings-badge.png */,
+				03425B871CD0635700243B28 /* comp-icons-settings-developers.png */,
+				03425B881CD0635700243B28 /* comp-icons-settings-guide.png */,
+				03425B891CD0635700243B28 /* comp-icons-settings-icloud.png */,
+				03425B8A1CD0635700243B28 /* comp-icons-settings-newgames.png */,
+				03425B8B1CD0635700243B28 /* comp-icons-settings-rating.png */,
+				03425BA81CD389E100243B28 /* comp-icons-settings-experiments.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+		03425B931CD0666800243B28 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				03425B941CD0668600243B28 /* UITableDottedCell.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		03425B9A1CD082B200243B28 /* PopView */ = {
+			isa = PBXGroup;
+			children = (
+				039D993D1CCA3BFD00B79E5C /* StatisticsDataPointView.swift */,
+				77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */,
+				77E3F4791C746C71002BBDA6 /* AlarmGameListView.swift */,
+				77C54E7B1C9EC3EA00013F9D /* AlarmRepeatSettingsView.swift */,
+			);
+			name = PopView;
+			sourceTree = "<group>";
+		};
+		03425B9D1CD090FB00243B28 /* ExperimentsPopView */ = {
+			isa = PBXGroup;
+			children = (
+				03425B9E1CD0924F00243B28 /* ExperimentsLanguagesSetupView.swift */,
+				03425BD41CD6661F00243B28 /* ExperimentsAlarmsSetupView.swift */,
+			);
+			name = ExperimentsPopView;
+			sourceTree = "<group>";
+		};
+		0A0A683564B929C37068B5AD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				348AAD55ACE8900ADC2D8B52 /* Pods.debug.xcconfig */,
+				3364461F2ECC83E39023BC40 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		77232C8F1C848CAB006E221A /* GameAssets */ = {
@@ -823,12 +973,12 @@
 			isa = PBXGroup;
 			children = (
 				773E91081C59FBBF0084EB07 /* SettingsElement.swift */,
-				77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */,
 				77958C991C68D05C00E99864 /* SoundInfoObj.swift */,
 				77FBE6851C6DE7AD00E251A2 /* UIAlarmIDSwitch.swift */,
 				77E3F47B1C746D3C002BBDA6 /* GameInfoObj.swift */,
 				77E3F47D1C747272002BBDA6 /* UPAlarmGameLists.swift */,
 				77B091721CBFBD720093FACC /* StatsDataElement.swift */,
+				03425BD01CD658F800243B28 /* AnimatedImg.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -839,6 +989,7 @@
 				773D2F6C1C5B80050093CD2D /* ko.json */,
 				7741412C1C5BBF5500E5A723 /* en.json */,
 				774D0DB31C5CAF3300E41385 /* ja.json */,
+				03425BA61CD0B13400243B28 /* waldo.json */,
 			);
 			name = Languages;
 			sourceTree = "<group>";
@@ -877,6 +1028,8 @@
 		7740E22C1C507CAC00B11A24 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				03425B7F1CD01A2600243B28 /* Components */,
+				03425B6A1CCEAD8500243B28 /* Modals */,
 				77C54E4F1C9EC04800013F9D /* GroundAssets */,
 				77C54E4E1C9EC03700013F9D /* AnalogClock */,
 				77C54E4D1C9EC02B00013F9D /* DigitalClock */,
@@ -894,20 +1047,18 @@
 			name = Effects;
 			sourceTree = "<group>";
 		};
-		774C56251C59246A00421F06 /* SubViews */ = {
+		774C56251C59246A00421F06 /* ModalView */ = {
 			isa = PBXGroup;
 			children = (
+				03425B9D1CD090FB00243B28 /* ExperimentsPopView */,
+				03425B9A1CD082B200243B28 /* PopView */,
 				774C56261C59247900421F06 /* SettingsView.swift */,
 				774D0DAF1C5CA7AC00E41385 /* AlarmListView.swift */,
 				774B30F21C5E56CF0058CFB2 /* AddAlarmView.swift */,
-				77E5B9B11C624BD30075431A /* AlarmSoundListView.swift */,
-				77E3F4791C746C71002BBDA6 /* AlarmGameListView.swift */,
-				77C54E7B1C9EC3EA00013F9D /* AlarmRepeatSettingsView.swift */,
 				77C136551CAE8CF100B91214 /* StatisticsView.swift */,
 				77AE733D1CB925D40008CAAD /* CharacterInfoView.swift */,
-				039D993D1CCA3BFD00B79E5C /* StatisticsDataPointView.swift */,
 			);
-			name = SubViews;
+			name = ModalView;
 			sourceTree = "<group>";
 		};
 		7756F9691C99D1C700675AB7 /* Effects */ = {
@@ -950,11 +1101,14 @@
 		775ADBDB1C4FC4C700B52552 = {
 			isa = PBXGroup;
 			children = (
+				03425B7D1CCFC49200243B28 /* GameKit.framework */,
 				77C1365A1CAE9AA300B91214 /* Charts.framework */,
 				77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */,
 				775ADBE61C4FC4C700B52552 /* UP */,
 				775ADBE51C4FC4C700B52552 /* Products */,
 				77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */,
+				0A0A683564B929C37068B5AD /* Pods */,
+				EF890AADCE69D30C316D9266 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -979,7 +1133,7 @@
 				77E23C021C6A0804005F0B03 /* Utils */,
 				773E91071C59FB9E0084EB07 /* Classes */,
 				77E23BFD1C6996EE005F0B03 /* Managers */,
-				774C56251C59246A00421F06 /* SubViews */,
+				774C56251C59246A00421F06 /* ModalView */,
 				7740E2271C507AC800B11A24 /* Resources */,
 				775ADBF91C4FC78100B52552 /* UP.entitlements */,
 				775ADBE71C4FC4C700B52552 /* AppDelegate.swift */,
@@ -987,6 +1141,8 @@
 				775ADBEB1C4FC4C700B52552 /* Main.storyboard */,
 				775ADBEE1C4FC4C700B52552 /* Assets.xcassets */,
 				775ADBF31C4FC4C700B52552 /* Info.plist */,
+				03425BAE1CD391E500243B28 /* GoogleService-Info.plist */,
+				03425BAA1CD38D4E00243B28 /* Podfile */,
 			);
 			path = UP;
 			sourceTree = "<group>";
@@ -1021,7 +1177,7 @@
 		77802D311C8097DB00766DB0 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				77802D321C8097E200766DB0 /* NanumBarunGothicUltraLight.ttf */,
+				03425BCE1CD5507300243B28 /* SF-UI-Display-Ultralight.otf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -1289,6 +1445,8 @@
 		77C54E541C9EC05900013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
+				03425BA21CD0A1E200243B28 /* skin_default_floating_box.png */,
+				03425BA31CD0A1E200243B28 /* skin_default_standing_box.png */,
 				77AC4F901CABDFB10044F5C8 /* skin_default_ground_pad34.png */,
 				77AC4F911CABDFB10044F5C8 /* skin_default_ground_pad43.png */,
 				77AC4F921CABDFB10044F5C8 /* skin_default_ground.png */,
@@ -1388,10 +1546,13 @@
 		77E23BFD1C6996EE005F0B03 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				77FD0DED1C6625FD00B5B5E9 /* GlobalSubView.swift */,
 				77E23C061C6A334D005F0B03 /* SoundManager.swift */,
 				7741412F1C5BC09500E5A723 /* DataManager.swift */,
 				77E23BFE1C699723005F0B03 /* AlarmManager.swift */,
 				77AC4F8E1CABDE800044F5C8 /* SkinManager.swift */,
+				773D2F6A1C5B7CCF0093CD2D /* Languages.swift */,
+				03425BCC1CD52BEF00243B28 /* AnalyticsManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -1399,7 +1560,6 @@
 		77E23C021C6A0804005F0B03 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				773D2F6A1C5B7CCF0093CD2D /* Languages.swift */,
 				77FD0DEF1C66312400B5B5E9 /* UPUtils.swift */,
 				774D0DB11C5CA85A00E41385 /* DeviceGeneral.swift */,
 			);
@@ -1409,13 +1569,14 @@
 		77E23C031C6A082F005F0B03 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				03425B931CD0666800243B28 /* Components */,
 				7759757C1C5F05A60057CDD6 /* AlarmSettingsCell.swift */,
 				77958C9D1C68E0D900E99864 /* AlarmSoundListCell.swift */,
 				773E910B1C5A36480084EB07 /* CustomTableCell.swift */,
 				77E23C041C6A20F1005F0B03 /* UISingleSegmentControl.swift */,
 				77E23C081C6A46F5005F0B03 /* UITouchableSegmentControl.swift */,
-				77EB7B061C6B6356008247DD /* AlarmListCell.swift */,
 				77E3F47F1C747479002BBDA6 /* UPGamesListCell.swift */,
+				77EB7B061C6B6356008247DD /* AlarmListCell.swift */,
 				77C54E7D1C9EC70C00013F9D /* AlarmRepeatDayCell.swift */,
 			);
 			name = Cells;
@@ -1496,6 +1657,16 @@
 			name = TimeListAssets;
 			sourceTree = "<group>";
 		};
+		EF890AADCE69D30C316D9266 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				03425BC41CD52A1200243B28 /* libAdIdAccessLibrary.a */,
+				03425BC11CD5294B00243B28 /* AdSupport.framework */,
+				C755B1D1BE797EEFB676E5A0 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1503,10 +1674,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 775ADBF61C4FC4C700B52552 /* Build configuration list for PBXNativeTarget "UP" */;
 			buildPhases = (
+				5BFAC0C44A186D8062B8E446 /* Check Pods Manifest.lock */,
 				775ADBE01C4FC4C700B52552 /* Sources */,
 				775ADBE11C4FC4C700B52552 /* Frameworks */,
 				775ADBE21C4FC4C700B52552 /* Resources */,
 				77C1365D1CAE9AA400B91214 /* Embed Frameworks */,
+				DB25741477D826496D88B90D /* Embed Pods Frameworks */,
+				FFA52BCC9A30B142BDF0322E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1533,6 +1707,9 @@
 						DevelopmentTeam = CYYSPH8DRG;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.GameCenter = {
 								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
@@ -1626,14 +1803,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03425BCF1CD5516500243B28 /* SF-UI-Display-Ultralight.otf in Resources */,
 				77AC507F1CABE5D40044F5C8 /* skin_default_character_0171.png in Resources */,
 				77AC508A1CABE5D40044F5C8 /* skin_default_character_0182.png in Resources */,
 				77AC504D1CABE5D40044F5C8 /* skin_default_character_0001.png in Resources */,
 				77CAE0A01C9079B900FBA714 /* game_jumpup_ai_astro_move0.png in Resources */,
-				77802D331C80998700766DB0 /* NanumBarunGothicUltraLight.ttf in Resources */,
 				77AC505E1CABE5D40044F5C8 /* skin_default_character_0018.png in Resources */,
 				77FBE67E1C6DCB9F00E251A2 /* b_time_on.png in Resources */,
 				77AC50861CABE5D40044F5C8 /* skin_default_character_0178.png in Resources */,
+				03425BA51CD0A1E200243B28 /* skin_default_standing_box.png in Resources */,
 				77AC4FB81CABE0C10044F5C8 /* skin_default_9.png in Resources */,
 				77AC4F951CABDFB10044F5C8 /* skin_default_ground_pad43.png in Resources */,
 				77CAE0B21C907CB400FBA714 /* game_jumpup_ai_j_astro_move5.png in Resources */,
@@ -1646,6 +1824,7 @@
 				77AC50511CABE5D40044F5C8 /* skin_default_character_0005.png in Resources */,
 				77AC509B1CABE5D40044F5C8 /* skin_default_character_0229.png in Resources */,
 				77AC507C1CABE5D40044F5C8 /* skin_default_character_0168.png in Resources */,
+				03425B901CD0635700243B28 /* comp-icons-settings-icloud.png in Resources */,
 				77AC4FCF1CABE5C70044F5C8 /* skin_default_b_back_4s.png in Resources */,
 				77AC50691CABE5D40044F5C8 /* skin_default_character_0029.png in Resources */,
 				77AC4FCD1CABE5C70044F5C8 /* skin_default_a_back_pad43.png in Resources */,
@@ -1661,6 +1840,7 @@
 				77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */,
 				77C4C01A1C86D95800B7BB3B /* game_jumpup_ai_astro_jump3.png in Resources */,
 				77AC50B51CABE5D40044F5C8 /* skin_default_character_0255.png in Resources */,
+				03425BAF1CD391E500243B28 /* GoogleService-Info.plist in Resources */,
 				77AC50AA1CABE5D40044F5C8 /* skin_default_character_0244.png in Resources */,
 				77AC50741CABE5D40044F5C8 /* skin_default_character_0040.png in Resources */,
 				77FBE6821C6DCB9F00E251A2 /* d_time_on.png in Resources */,
@@ -1677,6 +1857,7 @@
 				77AC50891CABE5D40044F5C8 /* skin_default_character_0181.png in Resources */,
 				77AC4F971CABDFB10044F5C8 /* skin_default_stat_object.png in Resources */,
 				7756F9B91C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect4.png in Resources */,
+				03425BA41CD0A1E200243B28 /* skin_default_floating_box.png in Resources */,
 				77CAE0AF1C907CB400FBA714 /* game_jumpup_ai_j_astro_move2.png in Resources */,
 				77AC508F1CABE5D40044F5C8 /* skin_default_character_0187.png in Resources */,
 				77CE3D9B1C98464900A6EA36 /* game_jumpup_assets_time_retire.png in Resources */,
@@ -1684,10 +1865,12 @@
 				77CAE0A51C9079B900FBA714 /* game_jumpup_ai_astro_move5.png in Resources */,
 				7756F9C51C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect16.png in Resources */,
 				77AC50521CABE5D40044F5C8 /* skin_default_character_0006.png in Resources */,
+				03425B791CCEB2E400243B28 /* modal-check.png in Resources */,
 				77C4C0171C86D95800B7BB3B /* game_jumpup_ai_astro_jump0.png in Resources */,
 				77CAE0C11C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png in Resources */,
 				77AC50681CABE5D40044F5C8 /* skin_default_character_0028.png in Resources */,
 				77802D1F1C805E1A00766DB0 /* game-thumb-random.png in Resources */,
+				03425B8D1CD0635700243B28 /* comp-icons-settings-badge.png in Resources */,
 				77C4C02F1C86D98000B7BB3B /* game_jumpup_astro_jump7.png in Resources */,
 				77C4C0191C86D95800B7BB3B /* game_jumpup_ai_astro_jump2.png in Resources */,
 				771181DF1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png in Resources */,
@@ -1758,6 +1941,7 @@
 				77F9D2451C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_4.png in Resources */,
 				7756F9CA1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect21.png in Resources */,
 				77CAE0BE1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump3.png in Resources */,
+				03425BA91CD389E100243B28 /* comp-icons-settings-experiments.png in Resources */,
 				77AC50BB1CABE5D40044F5C8 /* skin_default_character_0261.png in Resources */,
 				77AC509F1CABE5D40044F5C8 /* skin_default_character_0233.png in Resources */,
 				77FBE67B1C6DCB9F00E251A2 /* a_time_off.png in Resources */,
@@ -1770,6 +1954,7 @@
 				7756F9B81C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect3.png in Resources */,
 				77C4C02A1C86D98000B7BB3B /* game_jumpup_astro_jump2.png in Resources */,
 				77AC50AC1CABE5D40044F5C8 /* skin_default_character_0246.png in Resources */,
+				03425B911CD0635700243B28 /* comp-icons-settings-newgames.png in Resources */,
 				77AC506D1CABE5D40044F5C8 /* skin_default_character_0033.png in Resources */,
 				77AC505F1CABE5D40044F5C8 /* skin_default_character_0019.png in Resources */,
 				77CAE0BC1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump1.png in Resources */,
@@ -1799,9 +1984,11 @@
 				77AC50731CABE5D40044F5C8 /* skin_default_character_0039.png in Resources */,
 				77AC50901CABE5D40044F5C8 /* skin_default_character_0188.png in Resources */,
 				77AC4FD61CABE5C70044F5C8 /* skin_default_c_back.png in Resources */,
+				03425BAB1CD38D4E00243B28 /* Podfile in Resources */,
 				7756F9C31C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect14.png in Resources */,
 				77AC50981CABE5D40044F5C8 /* skin_default_character_0226.png in Resources */,
 				77AC50A31CABE5D40044F5C8 /* skin_default_character_0237.png in Resources */,
+				03425B7A1CCEB2E400243B28 /* modal-close.png in Resources */,
 				7756F9C21C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect13.png in Resources */,
 				77AC4FDA1CABE5C70044F5C8 /* skin_default_d_back.png in Resources */,
 				77AC50B31CABE5D40044F5C8 /* skin_default_character_0253.png in Resources */,
@@ -1809,12 +1996,14 @@
 				77FBE67C1C6DCB9F00E251A2 /* a_time_on.png in Resources */,
 				77E288031C7334A30020B766 /* a_time_off_small.png in Resources */,
 				7756F9B51C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect0.png in Resources */,
+				03425B7C1CCEBD0000243B28 /* modal-add.png in Resources */,
 				77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */,
 				77AC50C21CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff in Resources */,
 				77AC50721CABE5D40044F5C8 /* skin_default_character_0038.png in Resources */,
 				77C4C02E1C86D98000B7BB3B /* game_jumpup_astro_jump6.png in Resources */,
 				77AC506E1CABE5D40044F5C8 /* skin_default_character_0034.png in Resources */,
 				77AC50651CABE5D40044F5C8 /* skin_default_character_0025.png in Resources */,
+				03425B921CD0635700243B28 /* comp-icons-settings-rating.png in Resources */,
 				77AC505D1CABE5D40044F5C8 /* skin_default_character_0017.png in Resources */,
 				77AC50A61CABE5D40044F5C8 /* skin_default_character_0240.png in Resources */,
 				771181DE1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png in Resources */,
@@ -1823,13 +2012,17 @@
 				7756F9BB1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect6.png in Resources */,
 				77CAE0AD1C907CB400FBA714 /* game_jumpup_ai_j_astro_move0.png in Resources */,
 				77AC50711CABE5D40044F5C8 /* skin_default_character_0037.png in Resources */,
+				03425B8C1CD0635700243B28 /* comp-icons-blank.png in Resources */,
 				773D2E661C568FAC00177CF3 /* testeffect6.mp3 in Resources */,
 				77AC4FB61CABE0C10044F5C8 /* skin_default_7.png in Resources */,
 				77AC4FD91CABE5C70044F5C8 /* skin_default_d_back_pad43.png in Resources */,
+				03425BA71CD0B13400243B28 /* waldo.json in Resources */,
 				7756F9C91C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect20.png in Resources */,
 				77AC4F961CABDFB10044F5C8 /* skin_default_ground.png in Resources */,
 				77AC50B21CABE5D40044F5C8 /* skin_default_character_0252.png in Resources */,
+				03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */,
 				77AC50581CABE5D40044F5C8 /* skin_default_character_0012.png in Resources */,
+				03425B811CD01A3B00243B28 /* comp-slider-track.png in Resources */,
 				77AC50B01CABE5D40044F5C8 /* skin_default_character_0250.png in Resources */,
 				77AC50AF1CABE5D40044F5C8 /* skin_default_character_0249.png in Resources */,
 				77AC508C1CABE5D40044F5C8 /* skin_default_character_0184.png in Resources */,
@@ -1845,6 +2038,7 @@
 				77F9D2441C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_3.png in Resources */,
 				77AC4F941CABDFB10044F5C8 /* skin_default_ground_pad34.png in Resources */,
 				7756F9BE1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect9.png in Resources */,
+				03425B9C1CD08B1C00243B28 /* comp-icons-settings-avn.png in Resources */,
 				77C4C01C1C86D95800B7BB3B /* game_jumpup_ai_astro_jump5.png in Resources */,
 				77AC50991CABE5D40044F5C8 /* skin_default_character_0227.png in Resources */,
 				77AC4FA01CABE0290044F5C8 /* skin_default_time_body_back.png in Resources */,
@@ -1854,6 +2048,7 @@
 				77C4C02B1C86D98000B7BB3B /* game_jumpup_astro_jump3.png in Resources */,
 				775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */,
 				77AC50B91CABE5D40044F5C8 /* skin_default_character_0259.png in Resources */,
+				03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */,
 				77AC505B1CABE5D40044F5C8 /* skin_default_character_0015.png in Resources */,
 				77AC50921CABE5D40044F5C8 /* skin_default_character_0190.png in Resources */,
 				77AC50881CABE5D40044F5C8 /* skin_default_character_0180.png in Resources */,
@@ -1873,22 +2068,28 @@
 				77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */,
 				77AC50961CABE5D40044F5C8 /* skin_default_character_0224.png in Resources */,
 				77F9D23F1C85D93F00E79CE8 /* game_jumpup_assets_time_background.png in Resources */,
+				03425B8F1CD0635700243B28 /* comp-icons-settings-guide.png in Resources */,
 				77CAE0B11C907CB400FBA714 /* game_jumpup_ai_j_astro_move4.png in Resources */,
 				77E3F4881C74B7B2002BBDA6 /* game-background-sample-2.png in Resources */,
 				77AC4FB31CABE0C10044F5C8 /* skin_default_4.png in Resources */,
 				77AC50A81CABE5D40044F5C8 /* skin_default_character_0242.png in Resources */,
+				03425BA11CD099C800243B28 /* comp-alarm-notfound.png in Resources */,
 				77AC50A21CABE5D40044F5C8 /* skin_default_character_0236.png in Resources */,
 				7741412D1C5BBF5500E5A723 /* en.json in Resources */,
 				77AC50A71CABE5D40044F5C8 /* skin_default_character_0241.png in Resources */,
 				77AC4FA21CABE0290044F5C8 /* skin_default_time_hh.png in Resources */,
 				77AC50A41CABE5D40044F5C8 /* skin_default_character_0238.png in Resources */,
+				03425B8E1CD0635700243B28 /* comp-icons-settings-developers.png in Resources */,
+				03425B981CD0670800243B28 /* comp-cell-arrow.png in Resources */,
 				77CAE0AE1C907CB400FBA714 /* game_jumpup_ai_j_astro_move1.png in Resources */,
 				7756F9C01C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect11.png in Resources */,
+				03425B781CCEB2E400243B28 /* modal-back.png in Resources */,
 				7756F9B71C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect2.png in Resources */,
 				77E288051C7334A30020B766 /* b_time_off_small.png in Resources */,
 				77AC50621CABE5D40044F5C8 /* skin_default_character_0022.png in Resources */,
 				77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */,
 				77AC509D1CABE5D40044F5C8 /* skin_default_character_0231.png in Resources */,
+				03425B991CD0670800243B28 /* comp-cell-check.png in Resources */,
 				77AC4F9F1CABE0290044F5C8 /* skin_default_object_st.png in Resources */,
 				77AC507A1CABE5D40044F5C8 /* skin_default_character_0166.png in Resources */,
 				77C4C0181C86D95800B7BB3B /* game_jumpup_ai_astro_jump1.png in Resources */,
@@ -1899,6 +2100,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5BFAC0C44A186D8062B8E446 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DB25741477D826496D88B90D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFA52BCC9A30B142BDF0322E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		775ADBE01C4FC4C700B52552 /* Sources */ = {
@@ -1921,6 +2170,7 @@
 				77FD0DEE1C6625FD00B5B5E9 /* GlobalSubView.swift in Sources */,
 				774D0DB21C5CA85A00E41385 /* DeviceGeneral.swift in Sources */,
 				77958C9A1C68D05C00E99864 /* SoundInfoObj.swift in Sources */,
+				03425BD51CD6661F00243B28 /* ExperimentsAlarmsSetupView.swift in Sources */,
 				77C54E7C1C9EC3EA00013F9D /* AlarmRepeatSettingsView.swift in Sources */,
 				77E23BFF1C699723005F0B03 /* AlarmManager.swift in Sources */,
 				774141301C5BC09500E5A723 /* DataManager.swift in Sources */,
@@ -1934,6 +2184,7 @@
 				773E910C1C5A36480084EB07 /* CustomTableCell.swift in Sources */,
 				77E23C011C69A7F5005F0B03 /* AlarmElements.swift in Sources */,
 				77C136561CAE8CF100B91214 /* StatisticsView.swift in Sources */,
+				03425BCD1CD52BEF00243B28 /* AnalyticsManager.swift in Sources */,
 				039D993E1CCA3BFD00B79E5C /* StatisticsDataPointView.swift in Sources */,
 				77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */,
 				77E3F47E1C747272002BBDA6 /* UPAlarmGameLists.swift in Sources */,
@@ -1948,12 +2199,15 @@
 				77E23C051C6A20F1005F0B03 /* UISingleSegmentControl.swift in Sources */,
 				77958C9E1C68E0D900E99864 /* AlarmSoundListCell.swift in Sources */,
 				77782E6E1C92B0B00016EE1B /* SKTEffects.swift in Sources */,
+				03425B951CD0668600243B28 /* UITableDottedCell.swift in Sources */,
 				77782E6B1C92B0B00016EE1B /* SKColor+Extensions.swift in Sources */,
 				77AC4F8F1CABDE800044F5C8 /* SkinManager.swift in Sources */,
 				77FD0DF01C66312400B5B5E9 /* UPUtils.swift in Sources */,
 				77E23C071C6A334D005F0B03 /* SoundManager.swift in Sources */,
 				773D2F6B1C5B7CCF0093CD2D /* Languages.swift in Sources */,
+				03425B9F1CD0924F00243B28 /* ExperimentsLanguagesSetupView.swift in Sources */,
 				77782E701C92B0B00016EE1B /* Vector3.swift in Sources */,
+				03425BD11CD658F800243B28 /* AnimatedImg.swift in Sources */,
 				77EB7B071C6B6356008247DD /* AlarmListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2065,6 +2319,7 @@
 		};
 		775ADBF71C4FC4C700B52552 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 348AAD55ACE8900ADC2D8B52 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2077,8 +2332,12 @@
 					"$(PROJECT_DIR)/UP/Framework",
 				);
 				INFOPLIST_FILE = UP/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleIDFASupport/Libraries",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.avngraphic.UP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2088,6 +2347,7 @@
 		};
 		775ADBF81C4FC4C700B52552 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3364461F2ECC83E39023BC40 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2100,8 +2360,12 @@
 					"$(PROJECT_DIR)/UP/Framework",
 				);
 				INFOPLIST_FILE = UP/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleIDFASupport/Libraries",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.avngraphic.UP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

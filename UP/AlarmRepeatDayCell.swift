@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AlarmRepeatDayCell:UITableViewCell {
+class AlarmRepeatDayCell:UITableDottedCell {
 	
 	internal var cellID:String = "";
 	internal var dayID:Int = 0;

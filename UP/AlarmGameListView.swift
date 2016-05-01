@@ -29,6 +29,16 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		self.view.backgroundColor = UIColor.whiteColor();
 		self.title = Languages.$("alarmGame");
 		
+		// Make modal custom image buttons
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		navLeftPadding.width = -12; //Button left padding
+		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
+		navCloseButton.setImage( UIImage(named: "modal-back"), forState: .Normal);
+		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(AlarmGameListView.popToRootAction), forControlEvents: .TouchUpInside);
+		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
+		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
+		
 		//add table to modals
 		tableView.frame = CGRectMake(0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height);
 		self.view.addSubview(tableView);
@@ -47,6 +57,10 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 	}
 	
+	func popToRootAction() {
+		//Pop to root by back button
+		self.navigationController?.popViewControllerAnimated(true);
+	}
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()

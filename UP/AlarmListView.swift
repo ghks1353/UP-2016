@@ -24,6 +24,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	//Alarm guide label and image
 	var alarmAddGuideImageView:UIImageView = UIImageView();
 	var alarmAddGuideText:UILabel = UILabel();
+	var alarmAddIfEmptyButton:UIButton = UIButton();
 	
     //Table for menu
     internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Plain);
@@ -51,19 +52,35 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
         //ModalView
         modalView.view.backgroundColor = UIColor.whiteColor();
+		modalView.view.frame = DeviceGeneral.defaultModalSizeRect;
 		
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#6C798C");
+		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#535B66");
 		navigationCtrl.view.frame = modalView.view.frame;
 		modalView.title = Languages.$("alarmList");
 		
-		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(AlarmListView.viewCloseAction));
-		modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: #selector(AlarmListView.alarmAddAction));
+		// Make modal custom image buttons
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		navLeftPadding.width = -12; //Button left padding
+		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
+		navCloseButton.setImage( UIImage(named: "modal-close"), forState: .Normal);
+		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(AlarmListView.viewCloseAction), forControlEvents: .TouchUpInside);
+		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		
-		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
-		modalView.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor();
+		//add right items
+		let navRightPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		navRightPadding.width = -12; //Button right padding
+		let navFuncButton:UIButton = UIButton(); //Add image into UIButton
+		navFuncButton.setImage( UIImage(named: "modal-add"), forState: .Normal);
+		navFuncButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
+		navFuncButton.addTarget(self, action: #selector(AlarmListView.alarmAddAction), forControlEvents: .TouchUpInside);
+		modalView.navigationItem.rightBarButtonItems = [ navRightPadding, UIBarButtonItem(customView: navFuncButton) ];
+		///////// Nav items fin
+		
+		//Add Ctrl vw
 		self.view.addSubview(navigationCtrl.view);
 		
 		//add table to modal
@@ -72,15 +89,41 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
         modalView.view.addSubview(tableView);
 		
 		//알람이 없을 경우 나타나는 메시지에 대한 뷰
+		alarmAddGuideImageView = UIImageView( image: UIImage( named: "comp-alarm-notfound.png" ) );
+		alarmAddGuideImageView.frame = CGRectMake(
+			modalView.view.frame.width / 2 - (102.7 / 2) /* 착시 fix */ + (3.5),
+			modalView.view.frame.height / 2 - 48,
+			102.7, 59.6
+		);
+		modalView.view.addSubview(alarmAddGuideImageView);
+		
+		//텍스트
 		alarmAddGuideText.textColor = UIColor.grayColor();
 		alarmAddGuideText.textAlignment = .Center;
 		alarmAddGuideText.frame = CGRectMake(
-			0, modalView.view.frame.height / 2,
+			0, modalView.view.frame.height / 2 + 18,
 			modalView.view.frame.width, 24
 		);
 		alarmAddGuideText.font = UIFont.systemFontOfSize(18);
 		alarmAddGuideText.text = Languages.$("alarmListEmpty");
-		self.modalView.view.addSubview(alarmAddGuideText);
+		modalView.view.addSubview(alarmAddGuideText);
+		
+		//추가 버튼
+		alarmAddIfEmptyButton = UIButton();
+		alarmAddIfEmptyButton.titleLabel!.font = UIFont.systemFontOfSize(14);
+		alarmAddIfEmptyButton.setTitleColor(UPUtils.colorWithHexString("#BBBBBB"), forState: .Normal);
+		alarmAddIfEmptyButton.setTitle(Languages.$("alarmListAddWhenEmpty"), forState: .Normal);
+		alarmAddIfEmptyButton.frame = CGRectMake(
+			modalView.view.frame.width / 2 - (80 / 2),
+			modalView.view.frame.height / 2 + 64,
+			80, 28
+		);
+		alarmAddIfEmptyButton.backgroundColor = UIColor.clearColor();
+		alarmAddIfEmptyButton.layer.borderWidth = 1;
+		alarmAddIfEmptyButton.layer.borderColor = UPUtils.colorWithHexString("#BBBBBB").CGColor;
+		modalView.view.addSubview(alarmAddIfEmptyButton);
+		
+		alarmAddIfEmptyButton.addTarget(self, action: #selector(AlarmListView.alarmAddAction), forControlEvents: .TouchUpInside);
 		/////////////////////
 		
         //add alarm-list
@@ -123,7 +166,11 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		//DISABLE AUTORESIZE
 		self.view.autoresizesSubviews = false;
-		//self.view.autoresizingMask = .None;
+		
+		//SET MASK for dot eff
+		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
+		modalMaskImageView.frame = modalView.view.frame;
+		modalMaskImageView.contentMode = .ScaleAspectFit; self.view.maskView = modalMaskImageView;
 		
 		FitModalLocationToCenter();
     }
@@ -184,10 +231,18 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//setup bounce animation
 		self.view.alpha = 0;
 		
+		//Tracking by google analytics
+		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_ALARMLIST);
+		
 		//Check alarm limit and disable/enable button
 		checkAlarmLimitExceed();
 		checkAlarmIsEmpty();
 	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		AnalyticsManager.untrackScreen(); //untrack to previous screen
+	}
+	
 	override func viewDidAppear(animated: Bool) {
 		//queue bounce animation
 		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
@@ -210,13 +265,17 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		var tmpComponentPointer:NSDateComponents;
 		for i:Int in 0 ..< AlarmManager.alarmsArray.count {
 			tmpComponentPointer = NSCalendar.currentCalendar().components([.Hour, .Minute], fromDate: AlarmManager.alarmsArray[i].alarmFireDate);
-			print("Alarm adding:", AlarmManager.alarmsArray[i].alarmID, AlarmManager.alarmsArray[i].alarmToggle, "repeat", AlarmManager.alarmsArray[i].alarmRepeat);
+			print("Alarm adding:", AlarmManager.alarmsArray[i].alarmID,
+			     ( AlarmManager.alarmsArray[i].alarmFireDate as NSDate).timeIntervalSince1970 ,
+			      AlarmManager.alarmsArray[i].alarmToggle, "repeat", AlarmManager.alarmsArray[i].alarmRepeat);
 			alarmsCell += [
 				createAlarmList(AlarmManager.alarmsArray[i].alarmName,
+					alarmMemo: AlarmManager.alarmsArray[i].alarmMemo,
 					defaultState: AlarmManager.alarmsArray[i].alarmToggle,
-					timeHour: tmpComponentPointer.hour,
-					timeMin: tmpComponentPointer.minute,
+					funcTimeHour: tmpComponentPointer.hour,
+					funcTimeMin: tmpComponentPointer.minute,
 					selectedGame: AlarmManager.alarmsArray[i].gameSelected,
+					repeatSettings: AlarmManager.alarmsArray[i].alarmRepeat,
 					uuid: AlarmManager.alarmsArray[i].alarmID)
 			];
 		}
@@ -264,8 +323,10 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		print("Modifing", targetAlarm.alarmName, targetAlarm.alarmID);
 		modalAlarmAddView.fillComponentsWithEditMode(cell.alarmID,
 			alarmName: targetAlarm.alarmName,
+			alarmMemo: targetAlarm.alarmMemo,
 			alarmFireDate: targetAlarm.alarmFireDate,
 			selectedGameID: targetAlarm.gameSelected,
+			scaledSoundLevel: targetAlarm.alarmSoundLevel,
 			selectedSoundFileName: targetAlarm.alarmSound,
 			repeatInfo: targetAlarm.alarmRepeat,
 			alarmDefaultToggle: targetAlarm.alarmToggle);
@@ -288,18 +349,9 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
         return 0;
     }
 	
-	/*
-	@available(iOS 8.0, *)
-	
-	
-	@available(iOS 8.0, *)
-	func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-		return true
-	}*/
-	
+	//Fallback function. DO NOT REMOVE
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-		
-	}
+	} //end func
 	
 	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 		//get row
@@ -327,14 +379,13 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
     
     ////////////////
-    
-	func setupModalView(frame:CGRect) {
-		modalView.view.frame = frame;
-	}
 	
 	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame.origin.x = DeviceGeneral.defaultModalSizeRect.minX;
-		navigationCtrl.view.frame.origin.y = DeviceGeneral.defaultModalSizeRect.minY;
+		navigationCtrl.view.frame = DeviceGeneral.defaultModalSizeRect;
+		
+		if (self.view.maskView != nil) {
+			self.view.maskView!.frame = DeviceGeneral.defaultModalSizeRect;
+		}
 		
 		//알람 텍스트 및 배경의 조절
 		upAlarmMessageText.textAlignment = .Center;
@@ -354,7 +405,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
 		
 		modalAlarmAddView.FitModalLocationToCenter();
-		self.presentViewController(modalAlarmAddView, animated: true, completion: nil);
+		self.presentViewController(modalAlarmAddView, animated: false, completion: nil);
 		modalAlarmAddView.clearComponents();
 		
     }
@@ -381,9 +432,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			print("Alarm over", AlarmManager.alarmMaxRegisterCount, "(current ", AlarmManager.alarmsArray.count ,")");
 			modalView.navigationItem.rightBarButtonItem!.enabled = false;
 		} else {
-			print("You can add alarm.");
 			modalView.navigationItem.rightBarButtonItem!.enabled = true;
-			
 		}
 		
 	} //end chk limit func
@@ -393,11 +442,13 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		if ( AlarmManager.alarmsArray.count == 0 ) {
 			//뷰 표시
 			alarmAddGuideText.hidden = false;
-			
+			alarmAddGuideImageView.hidden = false;
+			alarmAddIfEmptyButton.hidden = false;
 		} else {
 			//메시지 삭제
 			alarmAddGuideText.hidden = true;
-			
+			alarmAddGuideImageView.hidden = true;
+			alarmAddIfEmptyButton.hidden = true;
 		}
 		
 		
@@ -406,22 +457,63 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	//Switch changed-event
 	func alarmSwitchChangedEventHandler(targetElement:UIAlarmIDSwitch) {
 		AlarmManager.toggleAlarm(targetElement.elementID, alarmStatus: targetElement.on, isListOn: true);
+		var statusChanged:Bool = false;
 		
 		//리스트 갱신
+		var tImage:String = ""; var targetCell:AlarmListCell?;
 		for i:Int in 0 ..< alarmsCell.count {
 			if (alarmsCell[i].alarmID == targetElement.elementID) {
+				targetCell = alarmsCell[i];
+				
+				if ( alarmsCell[i].alarmToggled != targetElement.on) {
+					statusChanged = true;
+				}
+				alarmsCell[i].alarmToggled = targetElement.on; // on = true / off = false
+				
 				let bgFileName:String = getBackgroundFileNameFromTime(alarmsCell[i].timeHour);
 				let bgFileState:String = targetElement.on == true ? "on" : "off";
 				let fileUsesSmallPrefix:String = DeviceGeneral.usesLowQualityImage == true ? "_small" : "";
-				alarmsCell[i].backgroundImage!.image = UIImage(named: bgFileName + "_time_" + bgFileState + fileUsesSmallPrefix + ".png");
+				tImage = bgFileName + "_time_" + bgFileState + fileUsesSmallPrefix + ".png";
+				//alarmsCell[i].backgroundImage!.image = UIImage(named: bgFileName + "_time_" + bgFileState + fileUsesSmallPrefix + ".png");
 				
-				alarmsCell[i].alarmName!.textColor = (bgFileName == "a" || bgFileName == "b") ?
-					(targetElement.on ? UIColor.blackColor() : UIColor.whiteColor()) : (targetElement.on ? UIColor.whiteColor() : UIColor.blackColor());
+				//alarmsCell[i].alarmName!.textColor = alarmsCell[i].alarmToggled ? UIColor.whiteColor() : UIColor.blackColor();
+				alarmsCell[i].alarmName!.alpha = targetElement.on ? 1 : 0.8;
+				alarmsCell[i].timeText!.alpha = alarmsCell[i].alarmName!.alpha;
+				alarmsCell[i].timeAMPM!.alpha = alarmsCell[i].alarmName!.alpha;
+				alarmsCell[i].timeRepeat!.alpha = alarmsCell[i].alarmName!.alpha;
+				
+				alarmsCell[i].alarmName!.textColor = targetElement.on ? UIColor.whiteColor() : UPUtils.colorWithHexString("#878787");
 				alarmsCell[i].timeText!.textColor = alarmsCell[i].alarmName!.textColor;
-				
+				alarmsCell[i].timeAMPM!.textColor = alarmsCell[i].alarmName!.textColor;
+				alarmsCell[i].timeRepeat!.textColor = alarmsCell[i].alarmName!.textColor;
 				break;
 			}
 		} //end for
+		
+		//리스트 타임 변경 애니메이션
+		if (statusChanged == true) {
+			var tChangeBG:UIImageView? = UIImageView( image: targetCell!.backgroundImage!.image );
+			tChangeBG!.frame = targetCell!.backgroundImage!.frame;
+			targetCell!.addSubview(tChangeBG!); targetCell!.sendSubviewToBack(tChangeBG!);
+			targetCell!.backgroundImage!.frame = CGRectMake(0, 80 /* 초기값 위로 */, self.modalView.view.frame.width, 80);
+			targetCell!.backgroundImage!.image = UIImage( named: tImage ); //new img
+			//구조: 애니메이션용 프레임이 기존 위치에서 위로 올라감, 기존 프레임이 아래에서 올라옴
+			
+			UIView.animateWithDuration(0.56, delay: 0,
+									   usingSpringWithDamping: 1, initialSpringVelocity: 1,
+									   options: .CurveEaseIn, animations: {
+				tChangeBG!.frame = CGRectMake(0, -80 /* 아래로 */, self.modalView.view.frame.width, 80);
+				targetCell!.backgroundImage!.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 80);
+										
+				
+			}) { _ in
+				//완료 시 변경용 뷰 삭제
+				tChangeBG!.removeFromSuperview();
+				tChangeBG!.image = nil; //GC
+				tChangeBG = nil; //gc
+			}
+		}
+		
 	}
 	
 	//get str from time
@@ -439,16 +531,32 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 	
 	//Tableview cell view create
-	func createAlarmList(name:String, defaultState:Bool, timeHour:Int, timeMin:Int, selectedGame:Int, uuid:Int ) -> AlarmListCell {
-		//TODO-func 16.1.31 PM 11:50
+	func createAlarmList(name:String, alarmMemo:String, defaultState:Bool, funcTimeHour:Int, funcTimeMin:Int, selectedGame:Int, repeatSettings:Array<Bool>, uuid:Int ) -> AlarmListCell {
+		var timeHour:Int = funcTimeHour;
+		let timeMin:Int = funcTimeMin;
+		
 		let tCell:AlarmListCell = AlarmListCell();
 		let tLabel:UILabel = UILabel(); let tLabelTime:UILabel = UILabel();
-		let tSwitch:UIAlarmIDSwitch = UIAlarmIDSwitch();
-		let tGameImage:UIImageView = UIImageView(); let tGameImageBackground:UIImageView = UIImageView();
 		let tTimeBackground:UIImageView = UIImageView();
 		
-		tCell.alarmID = uuid;
-		tCell.timeHour = timeHour; tCell.timeMinute = timeMin;
+		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 80 );
+		tCell.backgroundColor = UIColor.whiteColor();
+		tTimeBackground.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 80);
+		tCell.addSubview(tTimeBackground);
+		
+		//온오프 시 애니메이션 효과를 주기 위해 마스크를 씌울거임.
+		let maskLayer:CAShapeLayer = CAShapeLayer();
+		let maskRect:CGRect = CGRectMake(0, 0, self.modalView.view.frame.width * 2, 80 ); //삭제버튼까지 나와야하므로 마스크 2배
+		let path:CGPathRef = CGPathCreateWithRect(maskRect, nil);
+		maskLayer.path = path;
+		tCell.layer.mask = maskLayer;
+		
+		let tSwitch:UIAlarmIDSwitch = UIAlarmIDSwitch();
+		//let tGameImage:UIButton = UIButton(); let tGameImageBackground:UIImageView = UIImageView();
+		let tAMPMLabel:UILabel = UILabel(); let tRepeatLabel:UILabel = UILabel();
+		
+		tCell.alarmID = uuid; tCell.timeHour = timeHour; tCell.timeMinute = timeMin;
+		tCell.alarmToggled = defaultState;
 		tSwitch.elementID = uuid;
 		
 		let tTimeImgName:String = defaultState == true ? "on" : "off";
@@ -456,79 +564,106 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		let fileUsesSmallPrefix:String = DeviceGeneral.usesLowQualityImage == true ? "_small" : "";
 		tTimeBackground.image = UIImage(named: bgFileName + "_time_" + tTimeImgName + fileUsesSmallPrefix + ".png");
 		
-		tLabel.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.55, 0, self.modalView.view.frame.width * 0.45, 40); //알람 이름
-		tLabelTime.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.45, 20, self.modalView.view.frame.width * 0.55, 72); //현재 시간
-		tLabel.textAlignment = .Center; tLabelTime.textAlignment = .Center;
+		tLabel.frame = CGRectMake(15, 50, self.modalView.view.frame.width * 0.7, 24); //알람 이름
+		tLabelTime.frame = CGRectMake(12, 4, 0, 0); //현재 시간
+		tLabel.textAlignment = .Left;
 		
-		//On일때 흰색 폰트로
-		tLabel.textColor = (bgFileName == "a" || bgFileName == "b") ?
-			(defaultState ? UIColor.blackColor() : UIColor.whiteColor()) : (defaultState ? UIColor.whiteColor() : UIColor.blackColor());
-		tLabelTime.textColor = tLabel.textColor;
-		
-		
-		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 80 );
-		tCell.backgroundColor = UIColor.whiteColor();
-		
-		tTimeBackground.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 80);
-		tCell.addSubview(tTimeBackground);
-		
-		tSwitch.frame.origin.x = self.modalView.view.frame.width - tSwitch.frame.width - CGFloat(10);
-		tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2;
-		tSwitch.on = defaultState;
-		
-		tCell.addSubview(tLabel); tCell.addSubview(tLabelTime);
-		tCell.addSubview(tSwitch);
-		
-		tLabel.text = name; tLabel.font = UIFont.systemFontOfSize(17);
-		
-		//이미지는 게임마다 따로분류
-		tGameImageBackground.image = UIImage(named: "game-thumb-background.png");
-		switch(selectedGame) {
-			case -1:
-				tGameImage.image = UIImage(named: "game-thumb-random.png");
-				break;
-			case 0:
-				tGameImage.image = UIImage(named: "game-thumb-jumpup.png");
-				break;
-			default:
-				tGameImage.image = UIImage(named: "game-thumb-sample.png");
-				break;
+		if (DeviceGeneral.is24HourMode == false) {
+			//오전 오후 모드면
+			timeHour = timeHour > 12 ? timeHour - 12 : timeHour;
+			tAMPMLabel.hidden = false;
+		} else {
+			//24시 모드면
+			tAMPMLabel.hidden = true;
 		}
-		tGameImage.frame = CGRectMake(12, 12, 56, 56);
-		tGameImageBackground.frame = tGameImage.frame;
 		
-		tCell.addSubview(tGameImageBackground); tCell.addSubview(tGameImage);
-		
-		//시간은 별도의 글씨체(ios내장)를 사용함
-		/*var timeHourStr:String = String(timeHour);
+		var timeHourStr:String = String(timeHour);
 		if (timeHourStr.characters.count == 1) {
 			timeHourStr = "0" + timeHourStr;
-		}*/
+		}
 		var timeMinStr:String = String(timeMin);
 		if (timeMinStr.characters.count == 1) {
 			timeMinStr = "0" + timeMinStr;
 		}
+		let timeStr:String = timeHourStr + ":" + timeMinStr; tLabelTime.text = timeStr;
 		
-		let timeStr:String = String(timeHour) + ":" + timeMinStr;
-		tLabelTime.text = timeStr;
+		//12시간제인 경우 오전오후 표기
+		tAMPMLabel.text = funcTimeHour >= 12 && funcTimeHour <= 23 ? Languages.$("generalPM") : Languages.$("generalAM");
+		//반복설정에 따른 반복표기
+		tRepeatLabel.text = AlarmManager.fetchRepeatLabel(repeatSettings, loadType: 1);
 		
+		tLabelTime.numberOfLines = 0;
+		tLabelTime.textAlignment = .Center;
+		/*
 		if #available(iOS 9.0, *) {
 			tLabelTime.font = UIFont.systemFontOfSize(44, weight: UIFontWeightThin); //iOS9 uses San fransisco font
-			tLabelTime.frame = CGRectMake((self.modalView.view.frame.width * 0.5) * 0.45, 20, self.modalView.view.frame.width * 0.55, 66.5);
 		} else {
 			tLabelTime.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 44);
+		}*/
+		
+		tLabelTime.font = UIFont(name: "SFUIDisplay-Ultralight", size: 41);
+		
+		
+		
+		tLabelTime.adjustsFontSizeToFitWidth = true;
+		tLabelTime.sizeToFit();
+		
+		tAMPMLabel.frame = CGRectMake(  tLabelTime.frame.width + 16, 8, 60, 24 ); //오전 오후 인디케이터. (12시간만 해당)
+		tRepeatLabel.frame = CGRectMake(  tLabelTime.frame.width + 16, 25, 60, 24 ); //반복 인디케이터.
+		tAMPMLabel.textAlignment = .Left; tRepeatLabel.textAlignment = .Left;
+		
+		//알람명 표시.
+		tLabel.text = name;
+		
+		tLabel.font = UIFont.systemFontOfSize(16);
+		tAMPMLabel.font = UIFont.boldSystemFontOfSize(15); tRepeatLabel.font = UIFont.systemFontOfSize(15);
+		
+		//On일때 알파 1
+		tLabel.textColor = defaultState ? UIColor.whiteColor() : UPUtils.colorWithHexString("#878787");
+		tLabel.alpha = defaultState ? 1 : 0.8; tLabelTime.alpha = tLabel.alpha;
+		tAMPMLabel.alpha = tLabel.alpha; tRepeatLabel.alpha = tLabel.alpha;
+		
+		tLabelTime.textColor = tLabel.textColor; tAMPMLabel.textColor = tLabel.textColor;
+		tRepeatLabel.textColor = tLabel.textColor;
+		
+		
+		tSwitch.frame.origin.x = self.modalView.view.frame.width - tSwitch.frame.width - CGFloat(16);
+		tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2;
+		tSwitch.on = defaultState; tCell.addSubview(tSwitch);
+		
+		tCell.addSubview(tLabel); tCell.addSubview(tLabelTime); tCell.addSubview(tAMPMLabel); tCell.addSubview(tRepeatLabel);
+		
+		//이미지는 게임마다 따로분류
+		/*tGameImageBackground.image = UIImage(named: "game-thumb-background.png");
+		switch(selectedGame) {
+			case -1:
+				tGameImage.setImage(UIImage(named: "game-thumb-random.png"), forState: .Normal);
+				break;
+			case 0:
+				tGameImage.setImage(UIImage(named: "game-thumb-jumpup.png"), forState: .Normal);
+				break;
+			default:
+				tGameImage.setImage(UIImage(named: "game-thumb-sample.png"), forState: .Normal);
+				break;
 		}
-		//NanumBarunGothicUltraLight
-		//tLabelTime.font =   UIFont(name: "NanumBarunGothic", size: 44);
-		//tCell.selectionStyle = UITableViewCellSelectionStyle.None;
-		//NSLog("Available fonts: %@", UIFont.familyNames());
+		
+		//오른쪽에 정렬
+		tGameImage.frame = CGRectMake(self.modalView.view.frame.width - 12 - 56, 12, 56, 56);
+		tGameImageBackground.frame = tGameImage.frame;
+		tCell.addSubview(tGameImageBackground); tCell.addSubview(tGameImage);
+		
+		tGameImage.tag = uuid; //UUID로 리스트 찾기를 위함
+		
+		//스위치 변경 이벤트
+		tGameImage.addTarget(self, action: #selector(AlarmListView.alarmSwitchChangedEventHandler(_:)), forControlEvents: UIControlEvents.TouchUpInside);*/
 		
 		//스위치 변경 이벤트
 		tSwitch.addTarget(self, action: #selector(AlarmListView.alarmSwitchChangedEventHandler(_:)), forControlEvents: UIControlEvents.ValueChanged);
 		
+		
 		tCell.backgroundImage = tTimeBackground;
-		tCell.alarmName = tLabel;
-		tCell.timeText = tLabelTime;
+		tCell.alarmName = tLabel; tCell.timeText = tLabelTime;
+		tCell.timeAMPM = tAMPMLabel; tCell.timeRepeat = tRepeatLabel;
 		
 		return tCell;
 	}

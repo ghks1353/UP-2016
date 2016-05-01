@@ -21,5 +21,4 @@ class GlobalSubView {
 	static var alarmRingViewcontroller:AlarmRingView = AlarmRingView();
 	
 	static var alarmStatisticsDataPointView:StatisticsDataPointView = StatisticsDataPointView();
-	
 }

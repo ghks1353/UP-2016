@@ -33,6 +33,11 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	var rootViewChartSelSegmentCell:UISegmentedControl?; var rootViewChartNodataUILabel:UILabel?;
 	var rootViewChartSelectedCategory:Int = 0; //메인차트 주/월/년 구분
 	
+	//완주 비율 그래프일 때 나타낼 텍스트 (4개)
+	var rootViewRightLFirstTitle:UILabel?; var rootViewRightLFirstValue:UILabel?;
+	var rootViewRightLSecondTitle:UILabel?; var rootViewRightLSecondValue:UILabel?;
+	
+	
 	var rootSelectedCurrentDataPoint:String = StatisticsDataPointView.POINT_UNTIL_OFF; //ualarmoff - 겜시작+플레이, ugamestart - 겜시작, playtime - 플레이
 	
 	//Subviews
@@ -47,16 +52,26 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		
 		//ModalView
 		modalView.view.backgroundColor = UIColor.whiteColor();
+		modalView.view.frame = DeviceGeneral.defaultModalSizeRect;
 		
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#005396");
+		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#174468");
 		navigationCtrl.view.frame = modalView.view.frame;
 		modalView.title = Languages.$("userStatistics");
-		modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(SettingsView.viewCloseAction));
-		modalView.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor();
-		navigationCtrl.navigationBar.tintColor = UIColor.whiteColor();
+		
+		// Make modal custom image buttons
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		navLeftPadding.width = -12; //Button left padding
+		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
+		navCloseButton.setImage( UIImage(named: "modal-close"), forState: .Normal);
+		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(StatisticsView.viewCloseAction), forControlEvents: .TouchUpInside);
+		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
+		///////// Nav items fin
+		
+		//add ctrl
 		self.view.addSubview(navigationCtrl.view);
 		
 		//add table to modal
@@ -76,8 +91,15 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tableView.delegate = self; tableView.dataSource = self;
 		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 		
+		setSubviewSize();
+		
 		//DISABLE AUTORESIZE
 		self.view.autoresizesSubviews = false;
+		
+		//SET MASK for dot eff
+		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
+		modalMaskImageView.frame = modalView.view.frame;
+		modalMaskImageView.contentMode = .ScaleAspectFit; self.view.maskView = modalMaskImageView;
 		
 		FitModalLocationToCenter();
 	}
@@ -87,14 +109,21 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		//setup bounce animation
 		self.view.alpha = 0;
 		
-		//뷰 초기 진입시 설정 초기화
+		//Tracking by google analytics
+		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_STATS);
 		
+		//뷰 초기 진입시 설정 초기화
 		rootViewChartSelectedCategory = 0;
 		rootSelectedCurrentDataPoint = StatisticsDataPointView.POINT_UNTIL_OFF;
 		rootViewChartSelSegmentCell!.selectedSegmentIndex = 0;
 		
 		drawMainGraph();
 	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		AnalyticsManager.untrackScreen(); //untrack to previous screen
+	}
+	
 	override func viewDidAppear(animated: Bool) {
 		//queue bounce animation
 		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
@@ -126,6 +155,10 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 				selDataPointInt = 2;
 				rootViewChartTitle!.text = Languages.$("statsTitleGamePlayTime");
 				break;
+			case StatisticsDataPointView.POINT_GAME_CLEARED:
+				selDataPointInt = 3;
+				rootViewChartTitle!.text = Languages.$("statsTitleGameClearPercent");
+				break;
 			
 			case StatisticsDataPointView.POINT_GAME_TOUCHES:
 				selDataPointInt = 4;
@@ -142,11 +175,17 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 			default: break;
 		}
 		
+		//Default hidden
+		rootViewRightLFirstTitle!.hidden = true; rootViewRightLFirstValue!.hidden = true;
+		rootViewRightLSecondTitle!.hidden = true; rootViewRightLSecondValue!.hidden = true;
 		
+		//Data fetch from datamanager
 		let statsDataResult:Array<StatsDataElement>? = DataManager.getAlarmGraphData( rootViewChartSelectedCategory, dataPointSelection: selDataPointInt );
 		
 		//Set pointers
-		var barChartPointer:BarChartView?; var lineChartPointer:LineChartView?;
+		var barChartPointer:BarChartView?; var lineChartPointer:LineChartView?; var pieChartPointer:PieChartView?;
+		//BGColor
+		var currentBGColor:String = "";
 		
 		//Remove existing view
 		if (rootViewChartPointer != nil) {
@@ -163,9 +202,11 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					switch(rootViewChartSelectedCategory) { //주 월 년?
 						case 0: //보라 계열 그래디언트 색 설정
 							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("7E49B3").CGColor , UPUtils.colorWithHexString("532185").CGColor ];
+							currentBGColor = "7E49B3";
 							break;
 						case 1, 2: //초록 계열 그래디언트 색 설정
 							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("50B354").CGColor , UPUtils.colorWithHexString("218524").CGColor ];
+							currentBGColor = "50B354";
 							break;
 						default: break;
 					}
@@ -201,155 +242,237 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 			var currentDataPrefix:String = "";
 			var currentDataSuffix:String = "";
 			
-			switch(rootViewChartSelectedCategory) { //차트별 데이터 정리
-				case 0: //use bar chart.
-					rootViewChartPointer = createPredesignedBarChart() as ChartViewBase;
-					barChartPointer = rootViewChartPointer as? BarChartView;
+			//createPredesignedPieChart
+			
+			//데이터별 차트 선택.
+			switch(selDataPointInt) {
+				case 3: //게임 포기 비율 차트
+					rootViewChartPointer = createPredesignedPieChart() as ChartViewBase;
+					pieChartPointer = rootViewChartPointer as? PieChartView;
+					
+					//받아온 데이터를 0인지 1인지를 검사하여 두 카테고리로 분리해야 함
+					var xIndArr:Array<String> = [
+						Languages.$("statsDataGameRetired"), Languages.$("statsDataGameCleared")
+					]; //0번째 카테고리 - 포기, 1번째 카테고리 - 성공
+					
+					//element를 돌면서 성공과 비율을 먼저 구하자
+					var successCount:Int = 0; var failedCount:Int = 0;
 					
 					for i:Int in 0 ..< statsDataResult!.count {
-						let dataEntry = BarChartDataEntry( value: Double(statsDataResult![i].numberData), xIndex: i );
-						tDataEntries.append( dataEntry );
-						
-						resultAverage += statsDataResult![i].numberData;
-						
-						//x축 라벨 추가를 위한 작업
-						if (previousMonth != statsDataResult![i].dateComponents!.month) {
-							previousMonth = statsDataResult![i].dateComponents!.month;
-							//Languages $0 ~ $1 되있는것 자동 변수 삽입.
-							tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: statsDataResult![i].dateComponents!.month, statsDataResult![i].dateComponents!.day) ];
-						} else {
-							//일만 추가
-							tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day) ];
-						}
+						if (statsDataResult![i].numberData < 1) { //== 0인데, float라 걱정되서 이렇게 검사함
+							failedCount += 1; //실패 시 실패 카운트
+						} else { //성공 시 성공 카운트
+							successCount += 1;
+						} //end if
 					} //end for
 					
-					//DataSet 지정(하나의 legend라고 생각하면 됨)
-					let chartDataSet:BarChartDataSet = BarChartDataSet( yVals: tDataEntries, label: "" );
-					//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
-					let chartData = BarChartData(xVals: tDatasXAxisEntry, dataSet: chartDataSet );
+					//둘중 하나 카운트가 없으면 라벨 표기 안함
+					if (failedCount == 0) {
+						xIndArr[0] = ""; //0번째는 실패 라벨
+					}
+					if (successCount == 0) {
+						xIndArr[1] = ""; //1번째는 클리어 라벨
+					}
 					
-					//Visual settings
-					chartDataSet.barSpace = 0.8; chartDataSet.drawValuesEnabled = false;
-					chartDataSet.setColor( UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) ); //Chart color
+					//카운트를 기반으로 데이터를 넣기.
+					let successPercent:Double = (Double(successCount) / Double(statsDataResult!.count)) * 100;
+					let failedPercent:Double = (Double(failedCount) / Double(statsDataResult!.count)) * 100;
 					
-					let tYaxisTopLine:ChartLimitLine = ChartLimitLine(limit: chartData.getYMax(), label: "");
-					tYaxisTopLine.lineColor = UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5);
-					tYaxisTopLine.lineWidth = 1;
+					let failedDataEntry:ChartDataEntry =
+						ChartDataEntry(value: failedPercent, xIndex: 0);
+					let successDataEntry:ChartDataEntry =
+						ChartDataEntry(value: successPercent, xIndex: 1);
+					let pieChartDataSet:PieChartDataSet =
+						PieChartDataSet(yVals: [ failedDataEntry, successDataEntry ], label: "");
 					
-					//표에 구분선 추가
-					barChartPointer!.rightYAxisRenderer.yAxis!.removeAllLimitLines(); //Reset all lines
-					barChartPointer!.rightYAxisRenderer.yAxis!.addLimitLine(tYaxisTopLine);
+					pieChartDataSet.colors = [
+						UIColor(red: 1, green: 1, blue: 1, alpha: 0.3), /* 포기 */
+						UIColor(red: 1, green: 1, blue: 1, alpha: 0.82) //성공
+					];
+					pieChartDataSet.valueColors = [
+						UIColor.whiteColor(),
+						UPUtils.colorWithHexString(currentBGColor)
+					];
 					
-					barChartPointer!.data = chartData; //data apply
+					let pieChartDatas:PieChartData = PieChartData( xVals: xIndArr, dataSet: pieChartDataSet );
+					pieChartDatas.setDrawValues(false);
 					
-					barChartPointer!.rightYAxisRenderer.yAxis!.axisMinValue = 0;
-					barChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax(); //set max value
+					pieChartPointer!.data = pieChartDatas; //data apply
+					currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
 					
-					switch(selDataPointInt) {
-						case 3, 5: //~% 표기
-							currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
+					//Show pie titles
+					rootViewRightLFirstTitle!.hidden = false; rootViewRightLFirstValue!.hidden = false;
+					rootViewRightLSecondTitle!.hidden = false; rootViewRightLSecondValue!.hidden = false;
+					
+					/*rootViewRightLFirstValue!.text =
+						String(round(successPercent)) + currentDataSuffix + " (" +
+						Languages.$("statsDataFormatCountsPrefix") + String(successCount) + Languages.$("statsDataFormatCountsSuffix")
+					+ ")";*/
+					rootViewRightLFirstValue!.text = String(round(successPercent)) + currentDataSuffix;
+					rootViewRightLSecondValue!.text = String(round(failedPercent)) + currentDataSuffix;
+					
+					pieChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
+					
+					break;
+				default: //기타 주/연도에 따른 바/라인차트 생성
+					
+					switch(rootViewChartSelectedCategory) { //차트별 데이터 정리
+						case 0: //use bar chart.
+							rootViewChartPointer = createPredesignedBarChart() as ChartViewBase;
+							barChartPointer = rootViewChartPointer as? BarChartView;
 							
-							//Get average
-							resultAverage = resultAverage / Float(statsDataResult!.count);
+							for i:Int in 0 ..< statsDataResult!.count {
+								let dataEntry = BarChartDataEntry( value: Double(statsDataResult![i].numberData), xIndex: i );
+								tDataEntries.append( dataEntry );
+								
+								resultAverage += statsDataResult![i].numberData;
+								
+								//x축 라벨 추가를 위한 작업
+								if (previousMonth != statsDataResult![i].dateComponents!.month) {
+									previousMonth = statsDataResult![i].dateComponents!.month;
+									//Languages $0 ~ $1 되있는것 자동 변수 삽입.
+									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: statsDataResult![i].dateComponents!.month, statsDataResult![i].dateComponents!.day) ];
+								} else {
+									//일만 추가
+									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day) ];
+								}
+							} //end for
+							
+							//DataSet 지정(하나의 legend라고 생각하면 됨)
+							let chartDataSet:BarChartDataSet = BarChartDataSet( yVals: tDataEntries, label: "" );
+							//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
+							let chartData = BarChartData(xVals: tDatasXAxisEntry, dataSet: chartDataSet );
+							
+							//Visual settings
+							chartDataSet.barSpace = 0.8; chartDataSet.drawValuesEnabled = false;
+							chartDataSet.setColor( UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) ); //Chart color
+							
+							let tYaxisTopLine:ChartLimitLine = ChartLimitLine(limit: chartData.getYMax(), label: "");
+							tYaxisTopLine.lineColor = UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5);
+							tYaxisTopLine.lineWidth = 1;
+							
+							//표에 구분선 추가
+							barChartPointer!.rightYAxisRenderer.yAxis!.removeAllLimitLines(); //Reset all lines
+							barChartPointer!.rightYAxisRenderer.yAxis!.addLimitLine(tYaxisTopLine);
+							
+							barChartPointer!.data = chartData; //data apply
+							
+							barChartPointer!.rightYAxisRenderer.yAxis!.axisMinValue = 0;
+							barChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax(); //set max value
+							
+							switch(selDataPointInt) {
+								case 3, 5: //~% 표기
+									currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
+									
+									//Get average
+									resultAverage = resultAverage / Float(statsDataResult!.count);
+									break;
+								case 4, 6: //합계 ~회 표기
+									currentDataPrefix = Languages.$("statsDataFormatCountsPrefix");
+									currentDataSuffix = Languages.$("statsDataFormatCountsSuffix");
+									
+									//Average 구할 필요 없음
+									break;
+								default: //평균 ~분 표기
+									currentDataPrefix = Languages.$("statsTimeFormatMinPrefix");
+									currentDataSuffix = Languages.$("statsTimeFormatMinSuffix");
+									
+									//Get average
+									resultAverage = resultAverage / Float(statsDataResult!.count);
+									break;
+							} //end switch
+							
+							
+							barChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
+							barChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positivePrefix = currentDataPrefix;
+							barChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positiveSuffix = currentDataSuffix;
+							
 							break;
-						case 4, 6: //합계 ~회 표기
-							currentDataPrefix = Languages.$("statsDataFormatCountsPrefix");
-							currentDataSuffix = Languages.$("statsDataFormatCountsSuffix");
+						case 1, 2: //use line chart.
+							rootViewChartPointer = createPredesignedLineChart() as ChartViewBase;
+							lineChartPointer = rootViewChartPointer as? LineChartView;
 							
-							//Average 구할 필요 없음
+							for i:Int in 0 ..< statsDataResult!.count {
+								let dataEntry = ChartDataEntry( value: Double(statsDataResult![i].numberData), xIndex: i );
+								tLineDataEntries.append( dataEntry );
+								
+								resultAverage += statsDataResult![i].numberData;
+								
+								//x축 라벨 추가를 위한 작업
+								if (previousMonth != statsDataResult![i].dateComponents!.month) {
+									previousMonth = statsDataResult![i].dateComponents!.month;
+									//Languages $0 ~ $1 되있는것 자동 변수 삽입.
+									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: statsDataResult![i].dateComponents!.month, statsDataResult![i].dateComponents!.day) ];
+								} else {
+									//일만 추가
+									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day) ];
+								}
+							} //end for
+							
+							//DataSet 지정(하나의 legend라고 생각하면 됨)
+							let chartDataSet:LineChartDataSet = LineChartDataSet(yVals: tLineDataEntries, label: "");
+							//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
+							let chartData = LineChartData(xVals: tDatasXAxisEntry, dataSet: chartDataSet );
+							
+							chartDataSet.drawValuesEnabled = false; //값 표시 안함
+							//선 색 설정. 알파 적용을 위해 RGB 입력
+							chartDataSet.setColor( UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) );
+							chartDataSet.circleRadius = 2;
+							chartDataSet.circleHoleColor = UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5);
+							chartDataSet.circleColors = [ UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) ];
+							chartDataSet.drawFilledEnabled = true;
+							chartDataSet.fillColor = UIColor.whiteColor();
+							chartDataSet.fillAlpha = 0.5;
+							
+							//데이터 적용
+							lineChartPointer!.data = chartData;
+							
+							//최대치 설정. 최대치는 여기서 설정해야 버그없이 작동함.
+							lineChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax();
+							
+							
+							switch(selDataPointInt) {
+							case 3, 5: //~% 표기
+								currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
+								
+								//Get average
+								resultAverage = resultAverage / Float(statsDataResult!.count);
+								break;
+							case 4, 6: //합계 ~회 표기
+								currentDataPrefix = Languages.$("statsDataFormatCountsPrefix");
+								currentDataSuffix = Languages.$("statsDataFormatCountsSuffix");
+								
+								//Average 구할 필요 없음
+								break;
+							default: //평균 ~분 표기
+								currentDataPrefix = Languages.$("statsTimeFormatMinPrefix");
+								currentDataSuffix = Languages.$("statsTimeFormatMinSuffix");
+								
+								//Get average
+								resultAverage = resultAverage / Float(statsDataResult!.count);
+								break;
+							} //end switch
+							
+							
+							lineChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
+							lineChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positivePrefix = currentDataPrefix;
+							lineChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positiveSuffix = currentDataSuffix;
+							
 							break;
-						default: //평균 ~분 표기
-							currentDataPrefix = Languages.$("statsTimeFormatMinPrefix");
-							currentDataSuffix = Languages.$("statsTimeFormatMinSuffix");
-							
-							//Get average
-							resultAverage = resultAverage / Float(statsDataResult!.count);
+						default: //fallback
 							break;
 					} //end switch
 					
-					
-					barChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
-					barChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positivePrefix = currentDataPrefix;
-					barChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positiveSuffix = currentDataSuffix;
-					
 					break;
-				case 1, 2: //use line chart.
-					rootViewChartPointer = createPredesignedLineChart() as ChartViewBase;
-					lineChartPointer = rootViewChartPointer as? LineChartView;
-					
-					for i:Int in 0 ..< statsDataResult!.count {
-						let dataEntry = ChartDataEntry( value: Double(statsDataResult![i].numberData), xIndex: i );
-						tLineDataEntries.append( dataEntry );
-						
-						resultAverage += statsDataResult![i].numberData;
-						
-						//x축 라벨 추가를 위한 작업
-						if (previousMonth != statsDataResult![i].dateComponents!.month) {
-							previousMonth = statsDataResult![i].dateComponents!.month;
-							//Languages $0 ~ $1 되있는것 자동 변수 삽입.
-							tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: statsDataResult![i].dateComponents!.month, statsDataResult![i].dateComponents!.day) ];
-						} else {
-							//일만 추가
-							tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day) ];
-						}
-					} //end for
-					
-					//DataSet 지정(하나의 legend라고 생각하면 됨)
-					let chartDataSet:LineChartDataSet = LineChartDataSet(yVals: tLineDataEntries, label: "");
-					//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
-					let chartData = LineChartData(xVals: tDatasXAxisEntry, dataSet: chartDataSet );
-					
-					chartDataSet.drawValuesEnabled = false; //값 표시 안함
-					//선 색 설정. 알파 적용을 위해 RGB 입력
-					chartDataSet.setColor( UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) );
-					chartDataSet.circleRadius = 2;
-					chartDataSet.circleHoleColor = UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5);
-					chartDataSet.circleColors = [ UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) ];
-					chartDataSet.drawFilledEnabled = true;
-					chartDataSet.fillColor = UIColor.whiteColor();
-					chartDataSet.fillAlpha = 0.5;
-					
-					//데이터 적용
-					lineChartPointer!.data = chartData;
-					
-					//최대치 설정. 최대치는 여기서 설정해야 버그없이 작동함.
-					lineChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax();
-					
-					
-					switch(selDataPointInt) {
-						case 3, 5: //~% 표기
-							currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
-							
-							//Get average
-							resultAverage = resultAverage / Float(statsDataResult!.count);
-							break;
-						case 4, 6: //합계 ~회 표기
-							currentDataPrefix = Languages.$("statsDataFormatCountsPrefix");
-							currentDataSuffix = Languages.$("statsDataFormatCountsSuffix");
-							
-							//Average 구할 필요 없음
-							break;
-						default: //평균 ~분 표기
-							currentDataPrefix = Languages.$("statsTimeFormatMinPrefix");
-							currentDataSuffix = Languages.$("statsTimeFormatMinSuffix");
-							
-							//Get average
-							resultAverage = resultAverage / Float(statsDataResult!.count);
-							break;
-					} //end switch
-					
-					
-					lineChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .EaseOutCirc );
-					lineChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positivePrefix = currentDataPrefix;
-					lineChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positiveSuffix = currentDataSuffix;
-					
-					break;
-				default: //fallback
-					break;
-			} //end switch
+			}
+			
+			
 			
 			switch(selDataPointInt) {
-				case 3, 5: //평균 ~% 표기
+				case 3: //표기 없음
+					rootViewChartSubtitle!.text = "";
+					break;
+				case 5: //평균 ~% 표기
 					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
 					                                                 args: String(round(resultAverage)) + Languages.$("statsDataFormatPercent"));
 					break;
@@ -422,6 +545,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 				//open datapoint view
 				self.statsDataPointView.setSelectedCell( rootSelectedCurrentDataPoint );
 				navigationCtrl.pushViewController(self.statsDataPointView, animated: true);
+				statsDataPointView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+
 				break;
 			default: break;
 		}
@@ -432,19 +557,17 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	
 	////////////////
 	
-	func setupModalView(frame:CGRect) {
-		modalView.view.frame = frame;
-		setSubviewSize();
-	}
-	
 	internal func setSubviewSize() {
 		statsDataPointView.view.frame = CGRectMake(
 			0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height );
 	}
 	
 	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame.origin.x = DeviceGeneral.defaultModalSizeRect.minX;
-		navigationCtrl.view.frame.origin.y = DeviceGeneral.defaultModalSizeRect.minY;
+		navigationCtrl.view.frame = DeviceGeneral.defaultModalSizeRect;
+		
+		if (self.view.maskView != nil) {
+			self.view.maskView!.frame = DeviceGeneral.defaultModalSizeRect;
+		}
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -481,14 +604,49 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tChartNodataUILabel.textColor = UIColor.whiteColor();
 		tChartNodataUILabel.frame = CGRectMake( 0, 140, self.modalView.view.frame.width, 24 );
 		tChartNodataUILabel.text = Languages.$("statsNoDataAvailable");
-			
+		
+		//// 아래 4개 라벨은 파이차트용
+		let tChartRightFirstLabelTitle:UILabel = UILabel();
+		tChartRightFirstLabelTitle.textAlignment = .Right;
+		tChartRightFirstLabelTitle.font = UIFont.boldSystemFontOfSize(22);
+		tChartRightFirstLabelTitle.textColor = UIColor.whiteColor();
+		tChartRightFirstLabelTitle.frame = CGRectMake( 0, 110, self.modalView.view.frame.width - 24, 24 );
+		tChartRightFirstLabelTitle.text = Languages.$("statsDataGameCleared");
+		
+		let tChartRightFirstLabelValue:UILabel = UILabel();
+		tChartRightFirstLabelValue.textAlignment = .Right;
+		tChartRightFirstLabelValue.font = UIFont.systemFontOfSize(14);
+		tChartRightFirstLabelValue.textColor = UIColor.whiteColor();
+		tChartRightFirstLabelValue.frame = CGRectMake( 0, 132, self.modalView.view.frame.width - 24, 24 );
+		tChartRightFirstLabelValue.text = "100%";
+		
+		let tChartRightSecondLabelTitle:UILabel = UILabel();
+		tChartRightSecondLabelTitle.textAlignment = .Right;
+		tChartRightSecondLabelTitle.font = UIFont.boldSystemFontOfSize(22);
+		tChartRightSecondLabelTitle.textColor = UIColor.whiteColor();
+		tChartRightSecondLabelTitle.frame = CGRectMake( 0, 164, self.modalView.view.frame.width - 24, 24 );
+		tChartRightSecondLabelTitle.text = Languages.$("statsDataGameRetired");
+		
+		let tChartRightSecondLabelValue:UILabel = UILabel();
+		tChartRightSecondLabelValue.textAlignment = .Right;
+		tChartRightSecondLabelValue.font = UIFont.systemFontOfSize(14);
+		tChartRightSecondLabelValue.textColor = UIColor.whiteColor();
+		tChartRightSecondLabelValue.frame = CGRectMake( 0, 186, self.modalView.view.frame.width - 24, 24 );
+		tChartRightSecondLabelValue.text = "100%";
+
 		rootViewChartWrapperCellPointer = tChartTableWrapper; //set pointer
 		rootViewChartSelSegmentCell = tSelection;
 		rootViewChartNodataUILabel = tChartNodataUILabel;
-			
+		
+		rootViewRightLFirstTitle = tChartRightFirstLabelTitle; rootViewRightLFirstValue = tChartRightFirstLabelValue;
+		rootViewRightLSecondTitle = tChartRightSecondLabelTitle; rootViewRightLSecondValue = tChartRightSecondLabelValue;
+		
 		tCell.addSubview(tChartTableWrapper);
 		tCell.addSubview(tSelection);
 		tCell.addSubview(tChartNodataUILabel);
+		
+		tCell.addSubview(tChartRightFirstLabelTitle); tCell.addSubview(tChartRightFirstLabelValue);
+		tCell.addSubview(tChartRightSecondLabelTitle); tCell.addSubview(tChartRightSecondLabelValue);
 		
 		return tCell;
 	} //end func
@@ -543,6 +701,26 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		
 		return tCell;
 	} //함수 끝
+	
+	func createPredesignedPieChart() -> PieChartView {
+		let tMultipleChart:PieChartView = PieChartView(); //차트 뷰
+		
+		//차트 크기 지정
+		//파이차트는 반만 그리고, 남는 우측에 %를 크게 씁시다
+		tMultipleChart.frame = CGRectMake(0, 34, self.modalView.view.frame.width / 1.75, 140);
+		
+		//User-interaction 해제 부분
+		tMultipleChart.legend.enabled = false;
+		tMultipleChart.highlightPerTapEnabled = false;
+		//오른쪽 아래 차트에 오버레이되는 라벨 텍스트
+		tMultipleChart.descriptionText = "";
+		tMultipleChart.noDataText = Languages.$("statsNoDataAvailable");
+		tMultipleChart.holeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
+		
+		
+		return tMultipleChart;
+		
+	}
 	
 	func createPredesignedBarChart() -> BarChartView {
 		let tMultipleChart:BarChartView = BarChartView(); //차트 뷰

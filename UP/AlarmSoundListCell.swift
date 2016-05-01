@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AlarmSoundListCell:UITableViewCell {
+class AlarmSoundListCell:UITableDottedCell {
 	
 	internal var cellID:String = "";
 	internal var soundInfoObject:SoundInfoObj?;

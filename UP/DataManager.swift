@@ -25,6 +25,11 @@ import SQLite;
 */
 
 class DataManager {
+	
+	//Experiments keys
+	static let EXPERIMENTS_FORCE_LANGUAGES_KEY:String = "experiments-force-lang";
+	static let EXPERIMENTS_USE_MEMO_KEY:String = "experiments-alarm-memo";
+	
     enum settingsKeys {
         static let showBadge:String = "settings_showbadge";
         static let syncToiCloud:String = "settings_synctoicloud";
@@ -147,7 +152,7 @@ class DataManager {
 				goalToFetchDataDays = 30; //한달치 데이터.
 				break;
 			case 2:
-				goalToFetchDataDays = 365; //1년치 데이터. (365일이라 쳤을 때)
+				goalToFetchDataDays = 365; //1년치 데이터.
 				break;
 			default: break;
 		}
@@ -185,7 +190,8 @@ class DataManager {
 				components.hour = 0; components.minute = 0; components.second = 0;
 				targetDate = NSCalendar.currentCalendar().dateFromComponents(components)!;
 				
-				dataSeekStartTimeStamp = Int(targetDate.timeIntervalSince1970) - (86400 * goalToFetchDataDays);
+				//1일치 시간 * (구할 시간 - 1) + 23시간 59분 59초치 시간
+				dataSeekStartTimeStamp = Int(targetDate.timeIntervalSince1970) - (86400 * (goalToFetchDataDays-1) + 86399);
 				print( "Latest id:", dbResult[ Expression<Int64>("id") ], ", time:", dbResult[ Expression<Int64>("date") ], "days start:", targetDate.timeIntervalSince1970 );
 				print(" Data time seek start is:", dataSeekStartTimeStamp);
 			} //end for
@@ -216,6 +222,11 @@ class DataManager {
 				let tmpDataElements:StatsDataElement = StatsDataElement();
 				var tmpDataResult:Float = 0;
 				switch(dataPointSelection) { //값에 따른 데이터 참조값 변경
+					case 3: //포기했니 성공했니에 대한 비율. 이건 클리어개수를 ... 아 아니다.
+						//클리어비율은 그냥 1인지 0인지만 저장하고. 이전날짜랑 겹치면 평균구해서 50% 기준으로
+						//해당날짜에 한해 그 이하일 경우 포기 이상일 경우 성공으로 처리하죠 ㅇㅋ ㄲ
+						tmpDataResult = Float( dbResult[Expression<Int64>("gameCleared")] );
+						break;
 					case 4: //전체 행동 수
 						tmpDataResult = Float( dbResult[Expression<Int64>("touchAll")] );
 						break;
@@ -247,7 +258,6 @@ class DataManager {
 					} else {
 						dataClearReducedArray += [tmpDataElements];
 					}
-					//print("Element adding:", tmpDataResult);
 				} else {
 					let toCompareComp:NSDateComponents = targetArrayPointer[targetArrayPointer.count - 1].dateComponents!;
 					
@@ -295,6 +305,19 @@ class DataManager {
 					}
 					
 					switch(dataPointSelection) {
+						case 3: //성공 비율은 다음과 같이 계산함
+							//1. 다른 평균을 구하는 것 처럼 똑같이 나누고
+							//2. 그 나눈 값이 50% 이상이면 성공 이하면 실패
+							//값은 0또는 1이니까 잘 되겠지
+							nResult /= Float(targetArrayPointer[i].numberDataArray!.count + 1);
+							
+							if (nResult >= 0.555) {
+								nResult = 1; //성공
+							} else {
+								nResult = 0; //실패
+							} //0 = 실패, 1 = 성공으로 전달하여 2카테고리로 나누게 표시해야함
+							
+							break;
 						case 4: //총 터치 수는 나눌 필요가 없음
 							//nothing to do
 							break;

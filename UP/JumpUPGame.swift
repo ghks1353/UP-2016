@@ -112,6 +112,9 @@ class JumpUPGame:SKScene {
 		print("Game view inited");
 		self.backgroundColor = UIColor.blackColor();
 		
+		//Tracking by google analytics
+		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_GAME_JUMPUP);
+		
 		//variable initialize
 		gameCloudDecorationAddDelay = gameCloudAddDelayMAX; //초기값
 		//reset character element
@@ -959,10 +962,20 @@ class JumpUPGame:SKScene {
 	//게임 포기 혹은 종료.
 	func exitJumpUPGame() {
 		print("Game finished");
-		gameFinishedBool = true;
 		
+		gameFinishedBool = true;
 		let currentDateTimeStamp:Int64 = Int64(NSDate().timeIntervalSince1970);
 		stats_gameFinishedTimeStamp = Int(currentDateTimeStamp);
+		
+		AnalyticsManager.untrackScreen(); //untrack to previous screen
+		
+		/// .. and send result for tracking.
+		AnalyticsManager.makeEvent(
+			AnalyticsManager.E_CATEGORY_GAMEDATA,
+			action: AnalyticsManager.E_ACTION_GAME_JUMPUP,
+			label: AnalyticsManager.E_LABEL_JUMPUP_PLAYTIME,
+			value: stats_gameFinishedTimeStamp - stats_gameStartedTimeStamp);
+		
 		
 		//// 알람으로 켜진 경우에만 로그를 남김
 		if (gameStartupType == 0) {

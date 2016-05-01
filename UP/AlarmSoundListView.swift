@@ -23,6 +23,9 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	internal var sampSoundPlayer:AVAudioPlayer = AVAudioPlayer();
 	internal var soundLoaded:Bool = false;
 	
+	//슬라이더 포인터
+	var soundSliderPointer:UISlider?;
+	
 	override func viewDidLoad() {
 		super.viewDidLoad();
 		AlarmSoundListView.selfView = self;
@@ -33,7 +36,15 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		self.view.backgroundColor = UIColor.whiteColor();
 		self.title = Languages.$("alarmSound");
 		
-		//Sound list
+		// Make modal custom image buttons
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		navLeftPadding.width = -12; //Button left padding
+		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
+		navCloseButton.setImage( UIImage(named: "modal-back"), forState: .Normal);
+		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(AlarmSoundListView.popToRootAction), forControlEvents: .TouchUpInside);
+		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
+		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
 				
 		//add table to modals
 		tableView.frame = CGRectMake(0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height);
@@ -44,13 +55,22 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		for i:Int in 0 ..< SoundManager.list.count {
 			alarmSoundListsTableArr += [ createCell(SoundManager.list[i]) ];
 		}
-		tablesArray = [ alarmSoundListsTableArr ];
+		tablesArray = [ [ /* section 1 */
+			createSliderCell()
+			],
+			/* section 2 */
+			alarmSoundListsTableArr ];
 		
 		//custom back button for pause sound
 		navigationController?.setNavigationBarHidden(false, animated: true);
 		
 		tableView.delegate = self; tableView.dataSource = self;
 		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
+	}
+	
+	func popToRootAction() {
+		//Pop to root by back button
+		self.navigationController?.popViewControllerAnimated(true);
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -60,15 +80,21 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	
 	override func viewWillDisappear(animated: Bool) {
 		self.stopSound();
+		AddAlarmView.selfView!.alarmCurrentSoundLevel = Int(soundSliderPointer!.value * 100); //scale 0~1 to 0~100
 	}
 	
 	///// for table func
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let cellObj:AlarmSoundListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmSoundListCell;
+		if (cellObj.soundInfoObject == nil) {
+			tableView.deselectRowAtIndexPath(indexPath, animated: true);
+			return;
+		}
+		
 		AddAlarmView.selfView!.setSoundElement(cellObj.soundInfoObject!);
 		
-		for i:Int in 0 ..< (tablesArray[0] as! Array<AlarmSoundListCell>).count {
-			(tablesArray[0] as! Array<AlarmSoundListCell>)[i].accessoryType = .None;
+		for i:Int in 0 ..< (tablesArray[1] as! Array<AlarmSoundListCell>).count {
+			(tablesArray[1] as! Array<AlarmSoundListCell>)[i].accessoryType = .None;
 		}
 		cellObj.accessoryType = .Checkmark;
 		
@@ -90,40 +116,74 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true);
 	}
+	
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 1;
+		return 2;
 	}
+	
 	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
-		default:
-			return "";
-		}
+			case 0:
+				return Languages.$("alarmSoundLevelTitle");
+			case 1:
+				return Languages.$("alarmSoundSelection");
+			default:
+				return "";
+		} //end switch
+	}
+	
+	func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+		switch(section) {
+			case 0:
+				return Languages.$("alarmSoundLevelDescription");
+			default:
+				return "";
+		} //end switch
 	}
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (tablesArray[section] as! Array<AnyObject>).count;
 	}
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		switch(indexPath.section){
-			default:
-				break;
-		}
-		
-		return UITableViewAutomaticDimension;
+		return 45;
 	}
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
 		return cell;
 	}
 	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 0.0001;
+		return 36;
 	}
 	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 0;
+		switch(section) {
+			case 0:
+				return 45;
+			default:
+				return 12;
+		}
 	}
 	
-	
 	//Tableview cell view create
+	func createSliderCell( ) -> AlarmSoundListCell {
+		let tCell:AlarmSoundListCell = AlarmSoundListCell();
+		tCell.backgroundColor = UIColor.whiteColor();
+		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 45); //default cell size
+		
+		let tSlider:UISlider = UISlider();
+		tSlider.frame = CGRectMake(9, 0, tableView.frame.width - 18, 45);
+		tSlider.value = 0;
+		tSlider.minimumTrackTintColor = UPUtils.colorWithHexString("FFCC00");
+		
+		//let thumbImg:UIImage = UIImage(named: "comp-slider-track.png")!;
+		//tSlider.setThumbImage(thumbImg, forState: UIControlState.Normal);
+		//슬라이더 포인터 지정
+		soundSliderPointer = tSlider;
+		
+		tCell.addSubview(tSlider);
+		
+		return tCell;
+	}
+	
 	func createCell( soundObj:SoundInfoObj ) -> AlarmSoundListCell {
 		let tCell:AlarmSoundListCell = AlarmSoundListCell();
 		tCell.backgroundColor = UIColor.whiteColor();
@@ -144,11 +204,11 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	
 	//Set selected style from other view (accessable)
 	func setSelectedCell( soundObj:SoundInfoObj ) {
-		for i:Int in 0 ..< (tablesArray[0] as! Array<AlarmSoundListCell>).count {
-			if ((tablesArray[0] as! Array<AlarmSoundListCell>)[i].soundInfoObject?.soundFileName == soundObj.soundFileName) {
-				(tablesArray[0] as! Array<AlarmSoundListCell>)[i].accessoryType = .Checkmark;
+		for i:Int in 0 ..< (tablesArray[1] as! Array<AlarmSoundListCell>).count {
+			if ((tablesArray[1] as! Array<AlarmSoundListCell>)[i].soundInfoObject?.soundFileName == soundObj.soundFileName) {
+				(tablesArray[1] as! Array<AlarmSoundListCell>)[i].accessoryType = .Checkmark;
 			} else {
-				(tablesArray[0] as! Array<AlarmSoundListCell>)[i].accessoryType = .None;
+				(tablesArray[1] as! Array<AlarmSoundListCell>)[i].accessoryType = .None;
 			}
 		}
 		

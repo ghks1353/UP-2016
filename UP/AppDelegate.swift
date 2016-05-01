@@ -9,6 +9,7 @@
 import UIKit;
 import AVFoundation;
 import MediaPlayer;
+import Google.Analytics;
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
 		//Startup alarm merge
 		AlarmManager.mergeAlarm();
+		
+		//Gogle Analytics active
+		AnalyticsManager.initGoogleAnalytics();
 		
 		//로컬알림 (등)으로인해 앱실행된경우.
 		if let options = launchOptions {

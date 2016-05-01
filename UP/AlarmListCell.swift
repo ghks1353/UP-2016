@@ -14,11 +14,13 @@ class AlarmListCell:UITableViewCell {
 	internal var alarmID:Int = 0;
 	
 	internal var backgroundImage:UIImageView?;
-	internal var timeText:UILabel?;
-	internal var alarmName:UILabel?;
+	internal var timeText:UILabel?; internal var alarmName:UILabel?;
+	internal var timeAMPM:UILabel?; internal var timeRepeat:UILabel?;
 	
 	internal var timeHour:Int = 0;
 	internal var timeMinute:Int = 0;
+	
+	internal var alarmToggled:Bool = false;
 	
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		//AddAlarmView.selfView!.cellFunc(self.cellID);

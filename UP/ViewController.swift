@@ -23,12 +23,16 @@ class ViewController: UIViewController {
 	//아날로그 시계
 	var AnalogBody:UIImageView = UIImageView(); var AnalogHours:UIImageView = UIImageView();
 	var AnalogMinutes:UIImageView = UIImageView(); var AnalogBodyBack:UIImageView = UIImageView();
+	
+	var AnalogBodyToucharea:UIView = UIView(); //시계 터치 부분에 대해 fix하기 위해 생성
 	//아날로그 시계 좌우 버튼
 	var SettingsImg:UIImageView = UIImageView(); var AlarmListImg:UIImageView = UIImageView();
 	//땅 부분
 	var GroundObj:UIImageView = UIImageView(); var AstroCharacter:UIImageView = UIImageView();
-	//땅의 통계 부분
-	var GroundStatSign:UIImageView = UIImageView();
+	var GroundStatSign:UIImageView = UIImageView(); //통계 사인
+	//고정 박스와 떠있는 박스 (게임쪽)
+	var GroundStandingBox:UIImageView = UIImageView(); var GroundFloatingBox:UIImageView = UIImageView();
+	
 	
 	///아래 애니메이션 이미지의 이미지 배열도 스킨에 따라 바뀜.
 	//스탠딩 모션
@@ -46,12 +50,10 @@ class ViewController: UIViewController {
 	var modalAlarmStatsView:StatisticsView = StatisticsView();
 	var modalCharacterInformationView:CharacterInfoView = CharacterInfoView();
 	
-	
 	//screen blur view
 	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
 	
 	static var viewSelf:ViewController?;
-	internal var viewImage:UIImage = UIImage();
 	
 	//////////
 	//뒷 배경 이미지 (시간에 따라 변경되며 변경 시간대마다 한번씩 fade)
@@ -61,6 +63,9 @@ class ViewController: UIViewController {
 	
 	//위쪽에서 내려오는 알람 메시지를 위한 뷰
 	var upAlarmMessageView:UIView = UIView(); var upAlarmMessageText:UILabel = UILabel();
+	
+	///// 메인 애니메이션용 값 저장 배열.
+	var mainAnimatedObjs:Array<AnimatedImg> = Array<AnimatedImg>();
 	
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
@@ -81,13 +86,21 @@ class ViewController: UIViewController {
 		self.view.sendSubviewToBack(backgroundImageFadeView); self.view.sendSubviewToBack(backgroundImageView);
 		
 		//리소스 뷰에 추가
-		self.view.addSubview(DigitalNum0); self.view.addSubview(DigitalNum1); self.view.addSubview(DigitalNum2); self.view.addSubview(DigitalNum3);
-		self.view.addSubview(DigitalCol);
+		self.view.addSubview(DigitalNum0); self.view.addSubview(DigitalNum1);
+		self.view.addSubview(DigitalNum2); self.view.addSubview(DigitalNum3); self.view.addSubview(DigitalCol);
 		
-		self.view.addSubview(AnalogBody); self.view.addSubview(AnalogHours); self.view.addSubview(AnalogMinutes); self.view.addSubview(AnalogBodyBack);
+		self.view.addSubview(AnalogBody); self.view.addSubview(AnalogHours);
+		self.view.addSubview(AnalogMinutes); self.view.addSubview(AnalogBodyBack);
 		self.view.addSubview(SettingsImg); self.view.addSubview(AlarmListImg);
+		
 		self.view.addSubview(GroundObj); self.view.addSubview(AstroCharacter);
 		self.view.addSubview(GroundStatSign);
+		
+		self.view.addSubview(GroundStandingBox); self.view.addSubview(GroundFloatingBox);
+		
+		//toucharea imgview add
+		AnalogBodyToucharea.backgroundColor = UIColor.clearColor();
+		self.view.addSubview(AnalogBodyToucharea);
 		
 		//리소스 우선순위 설정
 		self.view.bringSubviewToFront(DigitalCol);
@@ -96,9 +109,12 @@ class ViewController: UIViewController {
 		
 		self.view.bringSubviewToFront(AnalogBodyBack); self.view.bringSubviewToFront(AnalogBody);
 		self.view.bringSubviewToFront(AnalogHours); self.view.bringSubviewToFront(AnalogMinutes);
+		self.view.bringSubviewToFront(AnalogBodyToucharea);
 		
 		self.view.bringSubviewToFront(GroundObj); self.view.bringSubviewToFront(AstroCharacter);
 		self.view.bringSubviewToFront(GroundStatSign);
+		
+		self.view.bringSubviewToFront(GroundStandingBox); self.view.bringSubviewToFront(GroundFloatingBox);
 
 		//디지털시계 이미지 기본 설정
 		DigitalCol.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "col.png" );
@@ -123,8 +139,8 @@ class ViewController: UIViewController {
 		
         //시계 이미지 터치시
         var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openAlarmaddView(_:))); //openAlarmaddView
-        AnalogBody.userInteractionEnabled = true;
-        AnalogBody.addGestureRecognizer(tapGestureRecognizer);
+        AnalogBodyToucharea.userInteractionEnabled = true;
+        AnalogBodyToucharea.addGestureRecognizer(tapGestureRecognizer);
         
         //환경설정 아이콘 터치시
         tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openSettingsView(_:)))
@@ -171,13 +187,6 @@ class ViewController: UIViewController {
 			print(error.localizedDescription)
 		} //end do catch
 		
-		//Modal view 크기 init시 처음 조정
-		modalSettingsView.setupModalView( getGeneralModalRect() );
-		modalAlarmListView.setupModalView( getGeneralModalRect() );
-		modalAlarmAddView.setupModalView( getGeneralModalRect() );
-		modalAlarmStatsView.setupModalView( getGeneralModalRect() );
-		modalCharacterInformationView.setupModalView( getGeneralModalRect() );
-		
 		//DISABLE AUTORESIZE
 		self.view.autoresizesSubviews = false;
 		
@@ -197,7 +206,7 @@ class ViewController: UIViewController {
 		
 		//DB Select test
 		//https://github.com/stephencelis/SQLite.swift/blob/master/Documentation/Index.md#selecting-rows
-		do {
+		/*do {
 			if (DataManager.db() == nil) {
 				print("DB is nil");
 			}
@@ -229,6 +238,25 @@ class ViewController: UIViewController {
 		} catch {
 			print("DB Selection error");
 		} ////////////////////// test fin
+		*/
+		/*
+		print("Font name start");
+		for name in UIFont.familyNames()
+		{
+			print(name)
+			print(UIFont.fontNamesForFamilyName(name))
+		}*/
+		
+		
+		//애니메이션을 위해 배열에 넣음
+		mainAnimatedObjs += [
+			AnimatedImg(targetView: GroundFloatingBox, defaultMovFactor: 1.0, defaultMovMaxFactor: 8.0, defaultMovRandomFactor: 0.9)//,
+			
+			/* 시계를 움직이면 엄청난 일이 발생하니까 시계는 고정 시키자... */
+			//AnimatedImg(targetView: SettingsImg, defaultMovFactor: 1.0, defaultMovMaxFactor: 12.0, defaultMovRandomFactor: 0.6),
+		//	AnimatedImg(targetView: AlarmListImg, defaultMovFactor: 1.0, defaultMovMaxFactor: 14.0, defaultMovRandomFactor: 0.6)
+			
+		];
 		
 		
 		///////// start update task
@@ -236,6 +264,11 @@ class ViewController: UIViewController {
 		setInterval(0.5, block: updateTimeAnimation);
 		
     } //end viewdidload
+	
+	override func viewWillAppear(animated: Bool) {
+		//Tracking by google analytics
+		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_MAIN);
+	}
 	
 	override func viewDidAppear(animated: Bool) {
 		//Check alarms
@@ -260,11 +293,6 @@ class ViewController: UIViewController {
 			});
 		}
 	} //end func
-	
-	//modal cgrect
-	func getGeneralModalRect() -> CGRect {
-		return CGRectMake(DeviceGeneral.defaultModalSizeRect.minX , DeviceGeneral.defaultModalSizeRect.minY , DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height);
-	}
 	
 	func openAlarmaddView (gestureRecognizer: UITapGestureRecognizer) {
 		
@@ -496,6 +524,16 @@ class ViewController: UIViewController {
 		} //end if
 		
 		
+		//Animate objects on Main
+		for i:Int in 0 ..< mainAnimatedObjs.count {
+			if (mainAnimatedObjs[i].target == nil) {
+				continue;
+			} //ignore nil target
+			mainAnimatedObjs[i].movY(2);
+			
+		} //end for
+		
+		
     } //end tick func
 	
 	
@@ -565,6 +603,7 @@ class ViewController: UIViewController {
 				
 				//시계
 				AnalogBody.image = UIImage( named: SkinManager.getAssetPresets() + "time_body.png" );
+				
 				AnalogHours.image = UIImage( named: SkinManager.getAssetPresets() + "time_hh.png" );
 				AnalogMinutes.image = UIImage( named: SkinManager.getAssetPresets() + "time_mh.png" );
 				AnalogBodyBack.image = UIImage( named: SkinManager.getAssetPresets() + "time_body_back.png" );
@@ -582,7 +621,10 @@ class ViewController: UIViewController {
 						UIDevice.currentDevice().orientation.isLandscape == true || DeviceGeneral.scrSize!.width > DeviceGeneral.scrSize!.height
 							? "34" : "43") + ".png" );
 				}
+				
 				GroundStatSign.image = UIImage( named: SkinManager.getAssetPresets() + "stat_object.png" );
+				GroundStandingBox.image = UIImage( named: SkinManager.getAssetPresets() + "standing_box.png" );
+				GroundFloatingBox.image = UIImage( named: SkinManager.getAssetPresets() + "floating_box.png" );
 				
 				//기본 스킨 아스트로 애니메이션 (텍스쳐)
 				for i in 1...40 { //부동
@@ -653,6 +695,14 @@ class ViewController: UIViewController {
 		AnalogHours.transform = CGAffineTransformIdentity; AnalogMinutes.transform = CGAffineTransformIdentity;
 		
 		AnalogBody.frame = CGRectMake( clockScrX, clockScrY, 245 * DeviceGeneral.maxScrRatioC, 245 * DeviceGeneral.maxScrRatioC );
+		
+		//터치 에어리어를 위한 별도의 프레임
+		AnalogBodyToucharea.frame =
+			CGRectMake( DeviceGeneral.scrSize!.width / 2 - (CGFloat(168 * DeviceGeneral.maxScrRatioC) / 2),
+			            CGFloat(DeviceGeneral.scrSize!.height / 2 - (CGFloat(168 * DeviceGeneral.maxScrRatio) / 2))
+				+ 20 * DeviceGeneral.maxScrRatioC
+				, 168 * DeviceGeneral.maxScrRatioC, 168 * DeviceGeneral.maxScrRatioC );
+		
 		AnalogHours.frame = CGRectMake( clockScrX, clockScrY, AnalogBody.frame.width, AnalogBody.frame.height );
 		AnalogMinutes.frame = CGRectMake( clockScrX, clockScrY, AnalogBody.frame.width, AnalogBody.frame.height );
 		
@@ -678,19 +728,33 @@ class ViewController: UIViewController {
 		
 		//캐릭터 크기 및 위치조정
 		AstroCharacter.frame =
-			CGRectMake( (DeviceGeneral.scrSize?.width)! - (126 * DeviceGeneral.maxScrRatioC), GroundObj.frame.origin.y - (151 * DeviceGeneral.maxScrRatioC) + (9 * DeviceGeneral.maxScrRatioC), 60 * DeviceGeneral.maxScrRatioC, 151 * DeviceGeneral.maxScrRatioC );
+			CGRectMake( DeviceGeneral.scrSize!.width - (100 * DeviceGeneral.maxScrRatioC),
+			            GroundObj.frame.origin.y - (151 * DeviceGeneral.maxScrRatioC) + (9 * DeviceGeneral.maxScrRatioC),
+			            60 * DeviceGeneral.maxScrRatioC,
+			            151 * DeviceGeneral.maxScrRatioC );
 		GroundStatSign.frame =
-			CGRectMake( 64 * DeviceGeneral.maxScrRatioC,
+			CGRectMake( 48 * DeviceGeneral.maxScrRatioC,
 			            GroundObj.frame.origin.y - (96.95 * DeviceGeneral.maxScrRatioC) + (7 * DeviceGeneral.maxScrRatioC),
 			            101.1 * DeviceGeneral.maxScrRatioC,
 			            96.95 * DeviceGeneral.maxScrRatioC );
+		GroundStandingBox.frame =
+			CGRectMake( AstroCharacter.frame.origin.x - (75 * DeviceGeneral.maxScrRatioC),
+			            GroundObj.frame.origin.y - (25.4 * DeviceGeneral.maxScrRatioC) + (8 * DeviceGeneral.maxScrRatioC),
+			            36.8 * DeviceGeneral.maxScrRatioC,
+			            25.4 * DeviceGeneral.maxScrRatioC );
+		GroundFloatingBox.frame =
+			CGRectMake( GroundStandingBox.frame.origin.x,
+			            GroundStandingBox.frame.origin.y - (40 * DeviceGeneral.maxScrRatioC),
+			            40.9 * DeviceGeneral.maxScrRatioC,
+			            44.6 * DeviceGeneral.maxScrRatioC );
 		
 		//Modal view 크기 가운데로 조정. (rotation)
 		modalSettingsView.FitModalLocationToCenter( );
 		modalAlarmListView.FitModalLocationToCenter( );
 		modalAlarmAddView.FitModalLocationToCenter( );
 		modalAlarmStatsView.FitModalLocationToCenter( );
-		
+		modalCharacterInformationView.FitModalLocationToCenter( );
+
 		//Blur view 조절
 		scrBlurView.frame = DeviceGeneral.scrSize!;
 		
@@ -698,6 +762,12 @@ class ViewController: UIViewController {
 		upAlarmMessageText.textAlignment = .Center;
 		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, 48);
 		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceGeneral.scrSize!.width, 24);
+		
+		//애니메이션되는 항목의 경우 프레임 위치를 리셋하기 때문에 마찬가지로 이동항목도 리셋
+		for i:Int in 0 ..< mainAnimatedObjs.count {
+			mainAnimatedObjs[i].movCurrentFactor = 0;
+			mainAnimatedObjs[i].movReverse = false;
+		} //end for
 		
 		//버그로 인해 위치변경 전까진 transform이 없어야 함
 		let date = NSDate(); let calendar = NSCalendar.currentCalendar()
