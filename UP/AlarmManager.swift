@@ -519,7 +519,9 @@ class AlarmManager {
 		//해결방안- firedate를 해당 다른일부터 시작하게 만들면 되지 않을까?
 		let todayDate:NSDateComponents = NSCalendar.currentCalendar().components( .Weekday, fromDate: NSDate());
 		var fireOnce:Int = -1; /* 반복요일 설정이 없는경우 1회성으로 판단하고 date 변화 없음) */
-		var fireSearched:Bool = false;
+		var fireNextDay:Int = -1; /* 반복이 여러개인 경우, 과거 알람 설정 때 판단을 위한 다음 반복 날짜 구함 */
+		var fireSearched:Bool = false; var fireNextdaySearched:Bool = false;
+		
 		for i:Int in 0 ..< repeatArr.count {
 			if (repeatArr[i] == true) {
 				fireOnce = i; break;
@@ -544,7 +546,7 @@ class AlarmManager {
 				} //end chk sat is true
 			} else {
 				//토요일이 아닌 경우 일반적인 방법으로 검사함
-				for i:Int in (todayDate.weekday == 7 ? 0 : (todayDate.weekday - 1)) ..< repeatArr.count {
+				for i:Int in (todayDate.weekday - 1) ..< repeatArr.count {
 					if (repeatArr[i] == true) {
 						fireOnce = i; fireSearched = true; break;
 					}
@@ -558,9 +560,31 @@ class AlarmManager {
 					}
 				}
 			}
-		}
+		} //end if
+		
+		//fireOnce가 위 과정을 거친 다음에도 -1이 아니면, 그 다음 반복을 검사
+		if (fireOnce != -1) {
+			for i:Int in (fireOnce == 6 ? 0 : (fireOnce + 1))  ..< repeatArr.count {
+				if (repeatArr[i] == true) {
+					fireNextDay = i; fireNextdaySearched = true; break;
+				}
+			}
+			if (!fireNextdaySearched) { //다음 반복일이 없으면 다음주로 넘어간것으로 치고 한번더 루프
+				for i:Int in 0 ..< repeatArr.count {
+					if (repeatArr[i] == true) {
+						fireNextDay = i; fireNextdaySearched = true; break;
+					}
+				}
+			}
+			
+		} //end if
+		
+		
 		print("Today's weekday is ", todayDate.weekday);
 		print("Next alarm date is ",fireOnce," (-1: no repeat, 0=sunday)");
+		print("If this is repeat, repeat vars over 2? =>", fireNextdaySearched);
+		print("Then when?", fireNextDay, " (-1: no nextday, 0=sunday)");
+		
 		var fireAfterDay:Int = 0;
 		
 		if (fireOnce == -1 || (fireSearched && fireOnce == todayDate.weekday - 1 )) {
@@ -575,11 +599,13 @@ class AlarmManager {
 					date = UPUtils.addDays(date, additionalDays: 1);
 				} else {
 					//다음 반복일까지 대기후 추가
-					if (fireOnce - (todayDate.weekday - 1) > 0) {
-						fireAfterDay = fireOnce - (todayDate.weekday - 1);
+					let fireDtIfRepeatValid:Int = fireNextdaySearched == true ? fireNextDay : fireOnce;
+					
+					if (fireDtIfRepeatValid - (todayDate.weekday - 1) > 0) {
+						fireAfterDay = fireDtIfRepeatValid - (todayDate.weekday - 1);
 						print("(past) Firedate is over today: ", fireAfterDay);
 					} else {
-						fireAfterDay = (7 - (todayDate.weekday - 1)) + fireOnce;
+						fireAfterDay = (7 - (todayDate.weekday - 1)) + fireDtIfRepeatValid;
 						print("(past) Firedate is before today: ", fireAfterDay);
 					}
 					date = UPUtils.addDays(date, additionalDays: fireAfterDay);
