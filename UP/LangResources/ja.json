@@ -131,7 +131,7 @@
 		"statsDataGameRetired": "放棄",
 		"statsDataGameCleared": "成功",
 	
-		"statsDataPoint": "データポイント",
+		"statsDataPoint": "カテゴリー",
 			"statsDataCategoryTime": "時間のデータ",
 				"statsTitleUntilAlarmOff": "アラーム解除まで",
 				"statsTitleUntilGameStart": "ゲーム開始まで",

@@ -22,7 +22,7 @@ class ViewController: UIViewController {
 	var DigitalCol:UIImageView = UIImageView();
 	//아날로그 시계
 	var AnalogBody:UIImageView = UIImageView(); var AnalogHours:UIImageView = UIImageView();
-	var AnalogMinutes:UIImageView = UIImageView(); var AnalogBodyBack:UIImageView = UIImageView();
+	var AnalogMinutes:UIImageView = UIImageView();
 	
 	var AnalogBodyToucharea:UIView = UIView(); //시계 터치 부분에 대해 fix하기 위해 생성
 	//아날로그 시계 좌우 버튼
@@ -90,13 +90,16 @@ class ViewController: UIViewController {
 		self.view.addSubview(DigitalNum2); self.view.addSubview(DigitalNum3); self.view.addSubview(DigitalCol);
 		
 		self.view.addSubview(AnalogBody); self.view.addSubview(AnalogHours);
-		self.view.addSubview(AnalogMinutes); self.view.addSubview(AnalogBodyBack);
+		self.view.addSubview(AnalogMinutes);
 		self.view.addSubview(SettingsImg); self.view.addSubview(AlarmListImg);
 		
 		self.view.addSubview(GroundObj); self.view.addSubview(AstroCharacter);
 		self.view.addSubview(GroundStatSign);
 		
 		self.view.addSubview(GroundStandingBox); self.view.addSubview(GroundFloatingBox);
+		
+		//약간 투명하게 조정
+		SettingsImg.alpha = 0.8; AlarmListImg.alpha = 0.8;
 		
 		//toucharea imgview add
 		AnalogBodyToucharea.backgroundColor = UIColor.clearColor();
@@ -107,7 +110,7 @@ class ViewController: UIViewController {
 		self.view.bringSubviewToFront(DigitalNum0); self.view.bringSubviewToFront(DigitalNum1);
 		self.view.bringSubviewToFront(DigitalNum2); self.view.bringSubviewToFront(DigitalNum3);
 		
-		self.view.bringSubviewToFront(AnalogBodyBack); self.view.bringSubviewToFront(AnalogBody);
+		self.view.bringSubviewToFront(AnalogBody);
 		self.view.bringSubviewToFront(AnalogHours); self.view.bringSubviewToFront(AnalogMinutes);
 		self.view.bringSubviewToFront(AnalogBodyToucharea);
 		
@@ -115,7 +118,7 @@ class ViewController: UIViewController {
 		self.view.bringSubviewToFront(GroundStatSign);
 		
 		self.view.bringSubviewToFront(GroundStandingBox); self.view.bringSubviewToFront(GroundFloatingBox);
-
+		
 		//디지털시계 이미지 기본 설정
 		DigitalCol.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "col.png" );
 		DigitalNum0.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
@@ -351,7 +354,6 @@ class ViewController: UIViewController {
 		showHideBlurview(true);
 		
 		self.presentViewController(modalCharacterInformationView, animated: false, completion: nil);
-		modalCharacterInformationView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
 	}
 
 	
@@ -606,7 +608,6 @@ class ViewController: UIViewController {
 				
 				AnalogHours.image = UIImage( named: SkinManager.getAssetPresets() + "time_hh.png" );
 				AnalogMinutes.image = UIImage( named: SkinManager.getAssetPresets() + "time_mh.png" );
-				AnalogBodyBack.image = UIImage( named: SkinManager.getAssetPresets() + "time_body_back.png" );
 				//떠있는 버튼
 				SettingsImg.image = UIImage( named: SkinManager.getAssetPresets() + "object_st.png" );
 				AlarmListImg.image = UIImage( named: SkinManager.getAssetPresets() + "object_list.png" );
@@ -706,7 +707,6 @@ class ViewController: UIViewController {
 		AnalogHours.frame = CGRectMake( clockScrX, clockScrY, AnalogBody.frame.width, AnalogBody.frame.height );
 		AnalogMinutes.frame = CGRectMake( clockScrX, clockScrY, AnalogBody.frame.width, AnalogBody.frame.height );
 		
-		AnalogBodyBack.frame = CGRectMake( clockScrX - (18 * DeviceGeneral.maxScrRatioC), clockScrY - (10 * DeviceGeneral.maxScrRatioC), (273 * DeviceGeneral.maxScrRatioC), (255 * DeviceGeneral.maxScrRatioC) );
 		SettingsImg.frame = CGRectMake( clockScrX - ((135 * DeviceGeneral.maxScrRatioC) / 2), clockScrY + (125 * DeviceGeneral.maxScrRatioC) , (157 * DeviceGeneral.maxScrRatioC), (157 * DeviceGeneral.maxScrRatioC) );
 		AlarmListImg.frame = CGRectMake( clockRightScrX - ((90 * DeviceGeneral.maxScrRatioC) / 2), clockScrY - (10 * DeviceGeneral.maxScrRatioC), (105 * DeviceGeneral.maxScrRatioC), (150 * DeviceGeneral.maxScrRatioC) );
 		

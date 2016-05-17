@@ -889,93 +889,22 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	}
 	
 	
-	//라인차트 테이블 셀 생성
-	/*func createLineChartTableCell() -> CustomTableCell {
-		let tCell:CustomTableCell = CustomTableCell();
-		
-		
-		//Chart title
-		let tChartTitleLabel:UILabel = UILabel();
-		tChartTitleLabel.text = "알람 해제까지 (Line)";
-		tChartTitleLabel.font = UIFont.systemFontOfSize(17);
-		tChartTitleLabel.frame = CGRectMake(16, 10, self.modalView.view.frame.width / 1.25, 24);
-		tChartTitleLabel.textColor = UIColor.whiteColor();
-		
-		//Chart subtitle
-		let tChartSubtitleLabel:UILabel = UILabel();
-		tChartSubtitleLabel.text = "2016.03";
-		tChartSubtitleLabel.font = UIFont.systemFontOfSize(13);
-		tChartSubtitleLabel.frame = CGRectMake(self.modalView.view.frame.width / 2 - 6, 13, self.modalView.view.frame.width / 2 - 6, 24);
-		tChartSubtitleLabel.textAlignment = .Right;
-		tChartSubtitleLabel.textColor = UIColor.whiteColor();
-		
-		//Add to cell view
-		tCell.addSubview(tChartTitleLabel); tCell.addSubview(tChartSubtitleLabel);
-		
-		//gradient background
-		let gradient:CAGradientLayer = CAGradientLayer();
-		gradient.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 180);
-		// 그래디언트 시작컬러, 끝컬러 지정
-		gradient.colors = [ UPUtils.colorWithHexString("FFCE08").CGColor , UPUtils.colorWithHexString("FF7300").CGColor ];
-		tCell.layer.insertSublayer(gradient, atIndex: 0); // 셀 레이어로 추가
-		
-		//셀 크기 지정
-		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 180);
-		
-		//데이터 차트 맨 위쪽에 구분선 그림. (xAxis를 상하에 배치하면 라벨도 같이 배치되므로 이렇게 함)
-		/*let tYaxisTopLine:ChartLimitLine = ChartLimitLine(limit: 78, label: ""); //limit 부분은 데이터의 최대치로 지정해야함.
-		tYaxisTopLine.lineColor = UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5);
-		tYaxisTopLine.lineWidth = 1;
-		//표에 구분선 추가
-		tMultipleChart.rightYAxisRenderer.yAxis!.addLimitLine(tYaxisTopLine);*/
-		
-		//DataEntry라는 배열 항목으로 정리하여 데이터가 들어가는듯 함.
-		var tDataEntries:Array<ChartDataEntry> = [];
-		//실제 데이터를 여기다 넣을 예정
-		var exampleDatas:Array<Double> = [1, 5, 3, 9, 32, 56, 12, 54, 2, 7 ,2 ,8, 1, 78 ,15 ,8 ,2 ,8];
-		//xAxis (가로줄) 에 나타나는 데이터는 실 데이터의 수와 일치해야 함
-		let dataDateVals:Array<String> = ["2일", "3일", "4일", "5일", "6일", "7일", "8일", "9일", "10일", "11일", "12일", "13일", "14일", "15일", "16일"
-		,"17일", "18일", "19일"];
-		
-		for i:Int in 0 ..< exampleDatas.count {
-			let dataEntry = ChartDataEntry(value: exampleDatas[i], xIndex: i);
-			tDataEntries.append( dataEntry ); //DataEntry 객체로 만들어서 넣음.
-		} //end for
-		
-		//DataSet 지정(하나의 legend라고 생각하면 됨)
-		let chartDataSet:LineChartDataSet = LineChartDataSet(yVals: tDataEntries, label: "");
-		//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
-		let chartData = LineChartData(xVals: dataDateVals, dataSet: chartDataSet );
-		
-		chartDataSet.drawValuesEnabled = false; //값 표시 안함
-		//선 색 설정. 알파 적용을 위해 RGB 입력
-		chartDataSet.setColor( UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) );
-		chartDataSet.circleRadius = 2;
-		chartDataSet.circleHoleColor = UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5);
-		chartDataSet.circleColors = [ UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) ];
-		chartDataSet.drawFilledEnabled = true;
-		chartDataSet.fillColor = UIColor.whiteColor();
-		chartDataSet.fillAlpha = 0.5;
-		
-		//데이터 적용
-		tMultipleChart.data = chartData;
-		
-		//최대치 설정. 최대치는 여기서 설정해야 버그없이 작동함.
-		tMultipleChart.rightYAxisRenderer.yAxis!.axisMaxValue = 78;
-		
-		//뷰에 차트 추가
-		tCell.addSubview(tMultipleChart);
-		return tCell;
-	} //함수 끝*/
-	
-	
-	
 	func createCellWithNextArrow( name:String, menuID:String ) -> CustomTableCell {
 		let tCell:CustomTableCell = CustomTableCell();
 		let tLabel:UILabel = UILabel();
 		
+		//아이콘 표시 관련
+		let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
+		tIconImg.frame = CGRectMake(12, 6, 31.3, 31.3);
+		switch(menuID) { //특정 조건으로 아이콘 구분
+			default:
+				tIconFileStr = "comp-icons-blank";
+				break;
+		}; tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8;
+		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
+		
 		//해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
-		tLabel.frame = CGRectMake(16, 0, self.modalView.view.frame.width, 45);
+		tLabel.frame = CGRectMake(tIconWPadding, 0, self.modalView.view.frame.width, 45);
 		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 45);
 		tCell.backgroundColor = UIColor.whiteColor();
 		

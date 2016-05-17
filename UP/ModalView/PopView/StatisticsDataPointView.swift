@@ -145,8 +145,25 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 		tCell.backgroundColor = UIColor.whiteColor();
 		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 45); //default cell size
 		
+		//아이콘 표시 관련
+		let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
+		tIconImg.frame = CGRectMake(12, 6, 31.3, 31.3);
+		switch(cellID) { //특정 조건으로 아이콘 구분
+			case StatisticsDataPointView.POINT_UNTIL_OFF: tIconFileStr = "comp-icons-datacategory-untiloff"; break;
+			case StatisticsDataPointView.POINT_UNTIL_START: tIconFileStr = "comp-icons-datacategory-untilstart"; break;
+			case StatisticsDataPointView.POINT_PLAYTIME: tIconFileStr = "comp-icons-datacategory-playtime"; break;
+			case StatisticsDataPointView.POINT_GAME_VALID: tIconFileStr = "comp-icons-datacategory-validratio"; break;
+			case StatisticsDataPointView.POINT_GAME_CLEARED: tIconFileStr = "comp-icons-datacategory-compratio"; break;
+			case StatisticsDataPointView.POINT_GAME_ASLEEP: tIconFileStr = "comp-icons-datacategory-asleepcount"; break;
+			case StatisticsDataPointView.POINT_GAME_TOUCHES: tIconFileStr = "comp-icons-datacategory-alltouches"; break;
+			default:
+				tIconFileStr = "comp-icons-blank";
+				break;
+		}; tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8;
+		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
+		
 		let tLabel:UILabel = UILabel();
-		tLabel.frame = CGRectMake(16, 0, tableView.frame.width * 0.85, 45);
+		tLabel.frame = CGRectMake(tIconWPadding, 0, tableView.frame.width * 0.85, 45);
 		tLabel.font = UIFont.systemFontOfSize(16);
 		tLabel.text = cellName;
 		

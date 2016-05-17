@@ -9,17 +9,12 @@
 import Foundation;
 import UIKit;
 
-class CharacterInfoView:UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CharacterInfoView:UIViewController {
 	
 	//Inner-modal view
 	var modalView:UIViewController = UIViewController();
 	//Navigationbar view
 	var navigationCtrl:UINavigationController = UINavigationController();
-	
-	//Table for menu
-	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
-	
-	var tablesArray:Array<AnyObject> = [];
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -48,20 +43,6 @@ class CharacterInfoView:UIViewController, UITableViewDataSource, UITableViewDele
 		
 		self.view.addSubview(navigationCtrl.view);
 		
-		//add table to modal
-		tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
-		modalView.view.addSubview(tableView);
-		
-		//add table cells (options)
-		tablesArray = [
-			[ /* SECTION 1 */
-				createCellWithNextArrow("testview", menuID: "test")
-			]
-			
-		];
-		tableView.delegate = self; tableView.dataSource = self;
-		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
-		
 		//get data from local (stat data)
 		DataManager.initDefaults();
 		
@@ -72,6 +53,8 @@ class CharacterInfoView:UIViewController, UITableViewDataSource, UITableViewDele
 		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
 		modalMaskImageView.frame = modalView.view.frame;
 		modalMaskImageView.contentMode = .ScaleAspectFit; self.view.maskView = modalMaskImageView;
+		
+		//bg이미지 박아야함!
 		
 		FitModalLocationToCenter();
 	}
@@ -102,44 +85,6 @@ class CharacterInfoView:UIViewController, UITableViewDataSource, UITableViewDele
 		}
 	} ///////////////////////////////
 	
-	
-	/// table setup
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 1;
-	}
-	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		switch(section) {
-		default:
-			return "";
-		}
-	} //end func
-	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return (tablesArray[section] as! Array<AnyObject>).count;
-	}
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		//return UITableViewAutomaticDimension;
-		switch(indexPath.section) {
-		case 0:
-			return 45;
-		default:
-			return UITableViewAutomaticDimension;
-		}
-	}
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
-		return cell;
-	}
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		switch( section ) {
-			default:
-				return 38;
-		}
-		
-	}
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true);
-	}
 	
 	////////////////
 	

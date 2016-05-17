@@ -131,7 +131,7 @@
 		"statsDataGameRetired": "포기",
 		"statsDataGameCleared": "성공",
 	
-		"statsDataPoint": "데이터 포인트",
+		"statsDataPoint": "데이터 카테고리",
 			"statsDataCategoryTime": "시간 데이터",
 				"statsTitleUntilAlarmOff": "알람 해제까지",
 				"statsTitleUntilGameStart": "게임 시작까지",
