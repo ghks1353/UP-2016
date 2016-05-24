@@ -37,6 +37,7 @@
 	"alarmEditTitle": "エディット",
 		"alarmTitle": "アラームの名前",
 		"alarmMemo": "メモ",
+		"alarmGameSelect": "ゲーム選択",
 		"alarmGame": "ゲーム",
 			"alarmGameRandom": "ランダム",
 			"alarmGameDifficulty": "難易度",

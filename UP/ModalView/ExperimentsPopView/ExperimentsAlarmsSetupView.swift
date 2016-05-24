@@ -152,7 +152,7 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 			}
 		}
 		
-		DataManager.nsDefaults.synchronize();
+		DataManager.save();
 	}
 	
 	func switchChangedEvent( target:UISwitch ) {

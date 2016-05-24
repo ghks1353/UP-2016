@@ -474,15 +474,15 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					break;
 				case 5: //평균 ~% 표기
 					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
-					                                                 args: String(round(resultAverage)) + Languages.$("statsDataFormatPercent"));
+					                                                 args: String(format:"%.0f", resultAverage) + Languages.$("statsDataFormatPercent"));
 					break;
 				case 4, 6: //합계 ~회 표기
 					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsTotalFormat"),
-																	 args: Languages.$("statsDataFormatCountsPrefix") + String(round(resultAverage)) + Languages.$("statsDataFormatCountsSuffix"));
+																	 args: Languages.$("statsDataFormatCountsPrefix") + String(format:"%.0f", resultAverage) + Languages.$("statsDataFormatCountsSuffix"));
 					break;
 				default: //평균 ~분 표기
 					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
-																	 args: Languages.$("statsTimeFormatMinPrefix") + String(round(resultAverage)) + Languages.$("statsTimeFormatMinSuffix"));
+																	 args: Languages.$("statsTimeFormatMinPrefix") + String(format:"%.0f", resultAverage) + Languages.$("statsTimeFormatMinSuffix"));
 				break;
 			} //end switch
 			
@@ -897,6 +897,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
 		tIconImg.frame = CGRectMake(12, 6, 31.3, 31.3);
 		switch(menuID) { //특정 조건으로 아이콘 구분
+			case "dataPoint": tIconFileStr = "comp-icons-datacategory-icon"; break;
 			default:
 				tIconFileStr = "comp-icons-blank";
 				break;

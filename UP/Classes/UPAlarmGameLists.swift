@@ -12,7 +12,10 @@ import UIKit
 class UPAlarmGameLists {
 	
 	static var list:Array<GameInfoObj> = [
-		GameInfoObj(gameName: "gameNameJumpUP", gameGenre: "gameGenreJumpAction", gameDifficultyLevel: 3, gameDescription: "gameDescriptionJumpUP", gameColor: UPUtils.colorWithHexString("FF9933"), textColor: UIColor.whiteColor())
+		GameInfoObj(
+			gameName: "gameNameJumpUP", gameGenre: "gameGenreJumpAction", gameDifficultyLevel: 3,
+			gameDescription: "gameDescriptionJumpUP", gameFileName: "game-thumb-jumpup",
+			gameColor: UPUtils.colorWithHexString("FF9933"), textColor: UIColor.whiteColor())
 	];
 	
 	//GameID => Index

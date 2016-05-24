@@ -110,6 +110,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		//setup bounce animation
 		self.view.alpha = 0;
 		
+		//iCloud 가능 여부에 따른 설정 활성/비활성
+		setSwitchEnabled("syncToiCloud", value: DataManager.iCloudAvailable);
+		
 		//Tracking by google analytics
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_SETTINGS);
 	}
@@ -138,8 +141,14 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				break;
 			}
 		} //end for
-		
-		//saveChasngesToSystem();
+	}
+	func setSwitchEnabled(settingsID:String, value:Bool) {
+		for i:Int in 0 ..< settingsArray.count {
+			if (settingsArray[i].settingsID == settingsID) {
+				(settingsArray[i].settingsElement as! UISwitch).enabled = value;
+				break;
+			}
+		} //end for
 	}
 	
 	
@@ -240,13 +249,17 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 					break;
 				case "syncToiCloud":
 					DataManager.nsDefaults.setBool((settingsArray[i].settingsElement as! UISwitch).on, forKey: DataManager.settingsKeys.syncToiCloud);
+					if ((settingsArray[i].settingsElement as! UISwitch).on == true) {
+						print("Settings-Changed iCloud vals");
+						DataManager.loadiCloudDefaults();
+					}
 					break;
 				default: //잉어킹: 잉어.. 잉어!! 그러나 아무 일도 일어나지 않았다
 					break;
 			}
 		}
 		
-		DataManager.nsDefaults.synchronize();
+		DataManager.save();
 	}
 	
 	func switchChangedEvent( target:UISwitch ) {

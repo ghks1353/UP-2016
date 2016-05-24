@@ -159,7 +159,7 @@ class AlarmManager {
 		
 		//save it
 		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
-		DataManager.nsDefaults.synchronize();
+		DataManager.save();
 		print("Alarm clear toggle to ..." ,cleared, "to id", alarmID);
 	}
 	
@@ -332,7 +332,7 @@ class AlarmManager {
 		} //for end
 		print("Merge is done. time to save!");
 		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
-		DataManager.nsDefaults.synchronize();
+		DataManager.save();
 		
 		//Badge 표시용
 		let toBadgeShow:Bool = DataManager.nsDefaults.boolForKey(DataManager.settingsKeys.showBadge);
@@ -357,7 +357,7 @@ class AlarmManager {
 		print("Clearing saved alarm");
 		alarmsArray = [];
 		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
-		DataManager.nsDefaults.synchronize();
+		DataManager.save();
 	}
 	
 	//Find alarm from array by ID
@@ -431,7 +431,7 @@ class AlarmManager {
 		//save it
 		print("Status change saving");
 		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
-		DataManager.nsDefaults.synchronize();
+		DataManager.save();
 		
 		UIApplication.sharedApplication().networkActivityIndicatorVisible = false;
 	} //end func
@@ -459,7 +459,7 @@ class AlarmManager {
 		//save it
 		print("Alarm removed from system. saving");
 		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
-		DataManager.nsDefaults.synchronize();
+		DataManager.save();
 		
 	}
 	
@@ -667,7 +667,7 @@ class AlarmManager {
 		}
 		
 		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(alarmsArray), forKey: "alarmsList");
-		DataManager.nsDefaults.synchronize();
+		DataManager.save();
 		
 		
 		//refresh another view

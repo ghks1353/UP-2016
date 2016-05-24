@@ -15,9 +15,9 @@ class AlarmSettingsCell:UITableDottedCell {
 	internal var cellElement:AnyObject?;
 	internal var cellSubElement:AnyObject?;
 	
+	internal var cellImageViewElement:UIImageView?;
+	
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		//AddAlarmView.selfView!.cellFunc(self.cellID);
-		
 		super.touchesBegan(touches, withEvent: event);
 	}
 	

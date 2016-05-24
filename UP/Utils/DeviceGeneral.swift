@@ -18,6 +18,7 @@ class DeviceGeneral {
     //기준에 대한 비율
     static var scrRatio:Double = 1; static var maxScrRatio:Double = 1; //최대가 1인 비율 크기
 	static var scrRatioC:CGFloat = 1; static var maxScrRatioC:CGFloat = 1;
+	static var modalRatioC:CGFloat = 1; static var maxModalRatioC:CGFloat = 1; //modal에서 조정이 필요할 때 사용. 특히 태블릿에서.
 	
 	//낮은 해상도 사용
 	static var usesLowQualityImage:Bool = false;
@@ -78,9 +79,13 @@ class DeviceGeneral {
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
 			//패드의 경우, 크기를 미리 지정해줌
 			defaultModalSizeRect = CGRectMake(((scrSize!.width) - 320) / 2, ((scrSize!.height) - 480) / 2 , 320, 480);
+			modalRatioC = CGFloat(defaultModalSizeRect.width / (workSize.width - 100));
+			maxModalRatioC = min(1, modalRatioC);
 		} else {
 			//기타 (폰)의 경우
 			defaultModalSizeRect = CGRectMake(50 * DeviceGeneral.scrRatioC , (scrSizeForCalcuate!.height - (480 * DeviceGeneral.scrRatioC)) / 2 , scrSizeForCalcuate!.width - (100 * DeviceGeneral.scrRatioC), (480 * DeviceGeneral.scrRatioC));
+			modalRatioC = DeviceGeneral.scrRatioC;
+			maxModalRatioC = min(1, modalRatioC);
 		}
 		
 		print("Modal size changed to width ", defaultModalSizeRect.width, "height", defaultModalSizeRect.height);

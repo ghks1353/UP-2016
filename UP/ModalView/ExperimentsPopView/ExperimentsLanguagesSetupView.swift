@@ -77,7 +77,7 @@ class ExperimentsLanguagesSetupView:UIViewController, UITableViewDataSource, UIT
 				DataManager.nsDefaults.setObject(cellObj.cellID, forKey: DataManager.EXPERIMENTS_FORCE_LANGUAGES_KEY);
 				break;
 		} //switch end
-		DataManager.nsDefaults.synchronize();
+		DataManager.save();
 		
 		let alarmCantAddAlert = UIAlertController(title: "설정 저장됨", message: "애플리케이션을 재시작하여 주세요.", preferredStyle: UIAlertControllerStyle.Alert);
 		alarmCantAddAlert.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in

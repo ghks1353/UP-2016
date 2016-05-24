@@ -124,7 +124,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 	//Random select cell
 	func createRandomCell() -> UPGamesListCell {
 		let tCell:UPGamesListCell = UPGamesListCell();
-		tCell.backgroundColor = UPUtils.colorWithHexString("#FF6633");
+		tCell.backgroundColor = UPUtils.colorWithHexString("#333333");
 		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 95);
 		
 		//Random game

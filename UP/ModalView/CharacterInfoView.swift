@@ -8,13 +8,34 @@
 
 import Foundation;
 import UIKit;
+import GameKit;
 
-class CharacterInfoView:UIViewController {
+class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
+	
+	var XAXIS_PRESET_PAD:CGFloat = 6;
+	var YAXIS_PRESET_PAD:CGFloat = 13;
 	
 	//Inner-modal view
 	var modalView:UIViewController = UIViewController();
 	//Navigationbar view
 	var navigationCtrl:UINavigationController = UINavigationController();
+	
+	//Background img
+	var charInfoBGView:UIImageView = UIImageView();
+	
+	///// 화면 에셋
+	var charLevelWrapper:UIImageView = UIImageView();
+	var charLevelIndicator:UIImageView = UIImageView();
+	
+	var charExpWrapper:UIImageView = UIImageView();
+	var charExpMaskView:UIView = UIView(); //Exp 내용물 마스크 처리를 위함
+	
+	var charGameCenterIcon:UIImageView = UIImageView();
+	var charAchievementsIcon:UIImageView = UIImageView();
+	
+	
+	//레벨 표시를 위한 인디케이터 배열
+	var charLevelDigitalArr:Array<UIImageView> = Array<UIImageView>();
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -55,15 +76,110 @@ class CharacterInfoView:UIViewController {
 		modalMaskImageView.contentMode = .ScaleAspectFit; self.view.maskView = modalMaskImageView;
 		
 		//bg이미지 박아야함!
+		charInfoBGView.image = UIImage( named: "modal-background-characterinfo.png" );
+		charInfoBGView.frame = CGRectMake(0, navigationCtrl.navigationBar.frame.size.height,
+		                                  modalView.view.frame.width, modalView.view.frame.height - navigationCtrl.navigationBar.frame.size.height);
+		modalView.view.addSubview(charInfoBGView);
+		
+		//컴포넌트 이미지 설정
+		charLevelWrapper.image = UIImage( named: "characterinfo-level-wrapper.png" );
+		charLevelIndicator.image = UIImage( named: "characterinfo-level.png" );
+		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" );
+		charGameCenterIcon.image = UIImage( named: "characterinfo-gamecenter.png" );
+		charAchievementsIcon.image = UIImage( named: "characterinfo-achievements.png" );
+		
+		//기타 컴포넌트 배치.
+		modalView.view.addSubview(charLevelWrapper);
+		modalView.view.addSubview(charLevelIndicator);
+		modalView.view.addSubview(charExpWrapper);
+		modalView.view.addSubview(charGameCenterIcon);
+		modalView.view.addSubview(charAchievementsIcon);
+		
+		//마스크 레이어 테스트
+		charExpMaskView.backgroundColor = UIColor.whiteColor();
+		modalView.view.addSubview(charExpMaskView);
+		
+		//Pad는 세로위치에 약간 차이가 있어서 적용함
+		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+			XAXIS_PRESET_PAD = 0;
+			YAXIS_PRESET_PAD = 0; //phone는 프리셋 적용 필요 없음
+		}
+		
+		charLevelWrapper.frame = CGRectMake( 195 * DeviceGeneral.modalRatioC, (66 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
+		                                     104.5 * DeviceGeneral.modalRatioC, 61.75 * DeviceGeneral.modalRatioC);
+		charLevelIndicator.frame = CGRectMake( 151 * DeviceGeneral.modalRatioC, (96 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
+		                                       38 * DeviceGeneral.modalRatioC, 33.25 * DeviceGeneral.modalRatioC);
+		charExpWrapper.frame = CGRectMake( 28 * DeviceGeneral.modalRatioC, (108 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
+		                                   95 * DeviceGeneral.modalRatioC, 57 * DeviceGeneral.modalRatioC);
+		charGameCenterIcon.frame = CGRectMake( 37 * DeviceGeneral.modalRatioC, (164.5 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
+		                                       78.5 * DeviceGeneral.modalRatioC, 130.25 * DeviceGeneral.modalRatioC);
+		charAchievementsIcon.frame = CGRectMake( 210 * DeviceGeneral.modalRatioC, (127.5 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
+		                                   70.95 * DeviceGeneral.modalRatioC, 168.6 * DeviceGeneral.modalRatioC);
+		
+		
+		//마스크용 프레임 배치
+		charExpMaskView.frame = CGRectMake(32 * DeviceGeneral.modalRatioC, (112 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
+		                                   82 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
+		
+		
+		//레벨 숫자 배치
+		for i:Int in 0 ..< 3 {
+			let tmpView:UIImageView = UIImageView();
+			tmpView.image = UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  );
+			tmpView.frame = CGRectMake( (213 * DeviceGeneral.modalRatioC) + ((24 * CGFloat(i)) * DeviceGeneral.maxModalRatioC)
+				, (84 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
+					19.15 * DeviceGeneral.modalRatioC, 26.80 * DeviceGeneral.modalRatioC );
+			modalView.view.addSubview(tmpView);
+			charLevelDigitalArr += [tmpView];
+		}
+		
+		
+		//터치이벤트 바인드
+		let tapGestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.showGameCenter(_:)))
+		charGameCenterIcon.userInteractionEnabled = true; charGameCenterIcon.addGestureRecognizer(tapGestureRecognizer);
+		
+		
 		
 		FitModalLocationToCenter();
 	}
+	
+	func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
+		gameCenterViewController.dismissViewControllerAnimated(true, completion: nil);
+	}
+	
+	//게임센터 창 띄우기
+	func showGameCenter(gestureRecognizer: UITapGestureRecognizer) {
+		let gcViewController: GKGameCenterViewController = GKGameCenterViewController();
+		gcViewController.gameCenterDelegate = self;
+		gcViewController.viewState = GKGameCenterViewControllerState.Achievements;
+		
+		self.showViewController(gcViewController, sender: self);
+		self.presentViewController(gcViewController, animated: true, completion: nil);
+	}
+	
 	
 	
 	/////// View transition animation
 	override func viewWillAppear(animated: Bool) {
 		//setup bounce animation
 		self.view.alpha = 0;
+		
+		//test
+		//CharacterManager.currentCharInfo.characterLevel = 4;
+		
+		//캐릭터 레벨에 대한 숫자 표시
+		let levStr = String(CharacterManager.currentCharInfo.characterLevel);
+		charLevelDigitalArr[0].alpha = levStr.characters.count < 3 ? 0.6 : 1;
+		charLevelDigitalArr[1].alpha = levStr.characters.count < 2 ? 0.6 : 1;
+		//Render text
+		charLevelDigitalArr[2].image = UIImage(named: SkinManager.getDefaultAssetPresets() + String(UTF8String: levStr[ levStr.characters.count - 1 ])! + ".png" );
+		charLevelDigitalArr[1].image =
+			levStr.characters.count < 2 ? UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  )
+			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(UTF8String: levStr[ levStr.characters.count - 2 ])! + ".png" )
+		charLevelDigitalArr[0].image =
+			levStr.characters.count < 3 ? UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  )
+			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(UTF8String: levStr[ levStr.characters.count - 3 ])! + ".png" )
+		
 		
 		//Tracking by google analytics
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_CHARACTERINFO);

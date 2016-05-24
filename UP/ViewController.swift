@@ -70,11 +70,12 @@ class ViewController: UIViewController {
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
         super.viewDidLoad();
-        
-        //Init device size factor
+		
+		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Fade);
+		
+		//Init device size factor
         DeviceGeneral.initialDeviceSize();
-		//Init DataManager
-		DataManager.initDataManager();
+		
 		//클래스 외부접근
 		ViewController.viewSelf = self;
 		//Startup permission request
@@ -253,7 +254,7 @@ class ViewController: UIViewController {
 		
 		//애니메이션을 위해 배열에 넣음
 		mainAnimatedObjs += [
-			AnimatedImg(targetView: GroundFloatingBox, defaultMovFactor: 1.0, defaultMovMaxFactor: 8.0, defaultMovRandomFactor: 0.9)//,
+			AnimatedImg(targetView: GroundFloatingBox, defaultMovFactor: 1.0, defaultMovMaxFactor: 8.0, defaultMovRandomFactor: 1.0)//,
 			
 			/* 시계를 움직이면 엄청난 일이 발생하니까 시계는 고정 시키자... */
 			//AnimatedImg(targetView: SettingsImg, defaultMovFactor: 1.0, defaultMovMaxFactor: 12.0, defaultMovRandomFactor: 0.6),
@@ -265,6 +266,10 @@ class ViewController: UIViewController {
 		///////// start update task
 		updateTimeAnimation(); //first call
 		setInterval(0.5, block: updateTimeAnimation);
+		
+		
+		//test
+		//CharacterManager.giveEXP(50);
 		
     } //end viewdidload
 	

@@ -10,6 +10,7 @@ import UIKit;
 import AVFoundation;
 import MediaPlayer;
 import Google.Analytics;
+import GameKit;
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		//Startup language initial
 		print("Pref lang", NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
 		Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
+		//Init DataManager
+		DataManager.initDataManager();
+		//Init CharacterMgr
+		CharacterManager.merge();
 		//Startup alarm merge
 		AlarmManager.mergeAlarm();
 		
@@ -43,6 +48,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				
 			}
 		}
+		
+		//게임센터 초기화 및 뷰 표시
+		if let presentVC = window?.rootViewController {
+			let targetVC = presentVC;
+			let player = GKLocalPlayer.localPlayer();
+			player.authenticateHandler = {(viewController, error) -> Void in
+				if ((viewController) != nil) {
+					// Login phase start
+					targetVC.presentViewController(viewController!, animated: true, completion: nil);
+				} else {
+					if (error == nil){
+						print("Authentication: OK")
+					} else {
+						print("Authentication: Error")
+						print("Error message:" + error!.description);
+					}
+				}
+			}
+		} //fin
+		
+		
+		
 		
 		return true;
     }

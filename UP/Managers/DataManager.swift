@@ -30,10 +30,20 @@ class DataManager {
 	static let EXPERIMENTS_FORCE_LANGUAGES_KEY:String = "experiments-force-lang";
 	static let EXPERIMENTS_USE_MEMO_KEY:String = "experiments-alarm-memo";
 	
+	//환경설정 저장값 key
     enum settingsKeys {
         static let showBadge:String = "settings_showbadge";
         static let syncToiCloud:String = "settings_synctoicloud";
+		
+		//아이클라우드 동기화 시, 자신 폰 데이터와 비교하여 높은 쪽을 유지함.
+		static let lastSyncDate:String = "settings_data_lastSync";
     }
+	
+	enum characterInfoKeys {
+		static let info:String = "character_info";
+	}
+	
+	//DB Stats type
 	enum statsType {
 		static let TYPE_ALARM_START_TIME:Int = 0; //게임을 시작하기 전 까지 걸린 시간. 단위: 초
 		static let TYPE_ALARM_CLEAR_TIME:Int = 1; //게임을 클리어하는데 걸린 시간. 단위: 초
@@ -41,12 +51,107 @@ class DataManager {
 		static let TYPE_ALARM_GAME_DATA:Int = 3; //게임에 대한 전반적인 결과를 가짐.
 	}
 	
+	static var iCloudAvailable = false;
+	
 	//////////////////////
 	
 	static var nsDefaults = NSUserDefaults.standardUserDefaults();
+	static var nsCloudDefaults:NSUbiquitousKeyValueStore? = nil;
 	static func initDefaults() {
 		nsDefaults = NSUserDefaults.standardUserDefaults();
+		
+		if (isICloudContainerAvailable() == true && iCloudAvailable == false) {
+			print("iCloudAvailable. activiting");
+			iCloudAvailable = true;
+			nsCloudDefaults = NSUbiquitousKeyValueStore.defaultStore();
+			NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DataManager.iCloudValChanged(_:)), name: NSUbiquitousKeyValueStoreDidChangeExternallyNotification, object: nsCloudDefaults);
+		}
+		
+		
 	} //end func
+	
+	static func loadiCloudDefaults() {
+		print("Loading iCloud defaults.");
+		nsCloudDefaults = NSUbiquitousKeyValueStore.defaultStore();
+		DataManager.nsCloudDefaults!.synchronize(); //Receive data
+		iCloudMerge();
+	}
+	
+	//iCloud merge
+	static func iCloudMerge() {
+		if (iCloudAvailable == false) {
+			return;
+		}
+		
+		print("Merging cloud data");
+		
+		if (DataManager.nsCloudDefaults!.objectForKey( DataManager.characterInfoKeys.info ) != nil) {
+			let tmpInfo:NSData = DataManager.nsCloudDefaults!.objectForKey( DataManager.characterInfoKeys.info ) as! NSData;
+			let cloudCharacterInfo:CharacterInfo = NSKeyedUnarchiver.unarchiveObjectWithData(tmpInfo) as! CharacterInfo;
+			
+			if (CharacterManager.currentCharInfo.characterLevel < cloudCharacterInfo.characterLevel ||
+				(CharacterManager.currentCharInfo.characterExp < cloudCharacterInfo.characterExp &&
+					CharacterManager.currentCharInfo.characterLevel == cloudCharacterInfo.characterLevel
+				)) { //캐릭터 레벨이 낮거나, 캐릭터 레벨은 같은데 경험치가 낮을 경우
+				//클라우드 데이터로 덮어쓰기
+				CharacterManager.setDataTo(cloudCharacterInfo);
+				print("Merged characterinfo data to cloud data.");
+			}
+		}
+		
+	}
+	
+	//iCloud 값 변경시
+	@objc static func iCloudValChanged(sender:NSNotification) {
+		//현재 캐릭터 정보와 비교후 클라우드쪽이 높을 경우 반영
+		print("iCloud val changed disp");
+		CharacterManager.merge();
+		
+		iCloudMerge();
+		
+	}
+	
+	static func save() {
+		//save를 이쪽으로 돌려야 하는 이유: icloud.
+		//lastSyncDate
+		let isSync = DataManager.nsDefaults.boolForKey(DataManager.settingsKeys.syncToiCloud);
+		if (isSync == true) { //iCloud sync의 경우 데이터 갱신일 지정
+			DataManager.nsDefaults.setInteger(Int(NSDate().timeIntervalSince1970), forKey: DataManager.settingsKeys.lastSyncDate);
+			
+			//일단 환경설정과 알람 목록 제외하고 캐릭터 정보만 저장 및 로드를 해봅시다
+			//여긴 저장이니까 저장을 해야겠지 음 그래 저장
+			
+			//레벨체크를 해서 클라우드가 더 높으면 저장 안함
+			iCloudMerge();
+			
+			DataManager.nsCloudDefaults!.setObject(NSKeyedArchiver.archivedDataWithRootObject(CharacterManager.currentCharInfo),
+			                                      forKey: DataManager.characterInfoKeys.info);
+			
+		}
+		
+		nsDefaults.synchronize();
+	}
+	
+	static func saveCloud() {
+		if (DataManager.nsCloudDefaults == nil) {
+			return;
+		} //el
+		print("Saving some datas to iCloud");
+		DataManager.nsCloudDefaults!.synchronize(); //save to iCloud
+		
+		//and merge it
+		iCloudMerge();
+	}
+	
+	//// Utils
+	
+	static func isICloudContainerAvailable()->Bool {
+		if NSFileManager.defaultManager().ubiquityIdentityToken != nil {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	/////////// DB
 	static var upDatabaseConnection:Connection? = nil;
@@ -191,7 +296,7 @@ class DataManager {
 				targetDate = NSCalendar.currentCalendar().dateFromComponents(components)!;
 				
 				//1일치 시간 * (구할 시간 - 1) + 23시간 59분 59초치 시간
-				dataSeekStartTimeStamp = Int(targetDate.timeIntervalSince1970) - (86400 * (goalToFetchDataDays-1) + 86399);
+				dataSeekStartTimeStamp = Int(targetDate.timeIntervalSince1970) - (86400 * goalToFetchDataDays);
 				print( "Latest id:", dbResult[ Expression<Int64>("id") ], ", time:", dbResult[ Expression<Int64>("date") ], "days start:", targetDate.timeIntervalSince1970 );
 				print(" Data time seek start is:", dataSeekStartTimeStamp);
 			} //end for
@@ -363,14 +468,13 @@ class DataManager {
 				default: break;
 			}
 			
-			
-			
-			
-			
 		} catch {
 			
 		}
 		
+		
+		//데이터값 일수에 맞게 자르기
+		toReturnDatasArray = Array(toReturnDatasArray![ max(0,toReturnDatasArray!.count-goalToFetchDataDays)...(toReturnDatasArray!.count-1) ]);
 		
 		//통계 데이터값 return
 		return toReturnDatasArray;

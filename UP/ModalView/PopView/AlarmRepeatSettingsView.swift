@@ -184,7 +184,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		return 0.0001;
 	}
 	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 0;
+		return 12;
 	}
 	
 	//Tableview group-selection cell create

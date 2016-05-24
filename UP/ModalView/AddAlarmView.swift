@@ -85,9 +85,6 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		modalView.navigationItem.rightBarButtonItems = [ navRightPadding, UIBarButtonItem(customView: navFuncButton) ];
 		///////// Nav items fin
 		
-		//modalView.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(AddAlarmView.viewCloseAction));
-		//modalView.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: #selector(AddAlarmView.addAlarmToDevice));
-		
 		//add ctrl
 		self.view.addSubview(navigationCtrl.view);
 		
@@ -95,25 +92,20 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
 		modalView.view.addSubview(tableView);
 		
-		/*
-		DataManager.initDefaults();
-		let tmpOption:Bool = DataManager.nsDefaults.boolForKey(DataManager.EXPERIMENTS_USE_MEMO_KEY);
-		if (tmpOption == true) { /* badge option is true? */
-		setSwitchData("useAlarmMemo", value: true);
-		}
-*/
-		
 		//add table cells (options)
 		tablesArray = [
-			[ /* section 1 */
+			[ /* sec 1 */
+				createGameSelectionCell()
+			],
+			[ /* section 2 */
 				createCell(0, cellID: "alarmName"),
 				createCell(0, cellID: "alarmMemo")
 			],
-			[ /* section 2 */
+			[ /* section 3 */
 				createCell(1, cellID: "alarmDatePicker")
 			],
-			[ /* section 3 */
-				createCell(2, cellID: "alarmGame"),
+			[ /* section 4 */
+				//createCell(2, cellID: "alarmGame"),
 				createCell(2, cellID: "alarmSound"),
 				createCell(2, cellID: "alarmRepeatSetting")
 			]
@@ -158,7 +150,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		//이건 단순히 hidden 상태만 조정하는거임
 		DataManager.initDefaults();
 		let tmpOption:Bool = DataManager.nsDefaults.boolForKey(DataManager.EXPERIMENTS_USE_MEMO_KEY);
-		let alarmsCellArr:Array<AlarmSettingsCell> = tablesArray[0] as! Array<AlarmSettingsCell>;
+		let alarmsCellArr:Array<AlarmSettingsCell> = tablesArray[1] as! Array<AlarmSettingsCell>;
 		if (tmpOption == true) { /* 메모 사용 시 */
 			alarmsCellArr[1].hidden = false;
 		} else { //메모 사용 안함.
@@ -196,16 +188,27 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	//set game id from other view
 	internal func setGameElement(gameID:Int) {
 		var gameName:String = "";
+		let tArray:Array<AlarmSettingsCell> = tablesArray[0] as! Array<AlarmSettingsCell>;
+		//cellImageViewElement
 		switch(gameID) {
 			case -1: //RANDOM
-				gameName = Languages.$("alarmGameRandom");
+				//랜덤은 게임선택으로 하고, 설명을 랜덤으로 하죠
+				(getElementFromTable("alarmGame") as! UILabel).text = Languages.$("alarmGameSelect");
+				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = Languages.$("alarmGameRandom");
+				
+				getImageViewFromTable("alarmGame")!.image = UIImage(named: "game-thumb-random.png");
+				tArray[0].backgroundColor = UPUtils.colorWithHexString("#333333");
 				break;
 			default:
 				gameName = UPAlarmGameLists.list[gameID].gameLangName;
+				(getElementFromTable("alarmGame") as! UILabel).text = gameName; //Languages.$("alarmGameSelect");
+				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = Languages.$("alarmGameSelect");
+				
+				getImageViewFromTable("alarmGame")!.image = UIImage(named: UPAlarmGameLists.list[gameID].gameThumbFileName + ".png");
+				tArray[0].backgroundColor = UPAlarmGameLists.list[gameID].gameBackgroundUIColor;
 				break;
 		}
 		
-		(getElementFromTable("alarmGame") as! UILabel).text = gameName;
 		gameSelectedID = gameID;
 	}
 	
@@ -257,6 +260,17 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		return nil;
 	}
 	
+	//위 함수의 이미지 버전
+	internal func getImageViewFromTable(cellID:String)->UIImageView? {
+		for i:Int in 0 ..< tableCells.count {
+			if (tableCells[i].cellID == cellID) {
+				return tableCells[i].cellImageViewElement!;
+			}
+		}
+		return nil;
+	}
+	
+	
 	func FitModalLocationToCenter() {
 		navigationCtrl.view.frame = DeviceGeneral.defaultModalSizeRect;
 		
@@ -301,7 +315,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	///// for table func
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 3; //4;
+		return 4;
 	}
 	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
@@ -315,8 +329,11 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		
 	}
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		//print("progressing section", indexPath.section);
 		switch(indexPath.section){
-			case 1:
+			case 0:
+				return 95;
+			case 2:
 				return 200;
 			default:
 				break;
@@ -336,6 +353,12 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		return cell;
 	}
 	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		switch(section){
+			case 0:
+				return 0.00001;
+			default:
+				break;
+		}
 		return 8;
 	}
 	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -364,6 +387,46 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		} //end switch
 		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+	}
+	
+	//Create cell, game selection
+	func createGameSelectionCell() -> AlarmSettingsCell {
+		let tCell:AlarmSettingsCell = AlarmSettingsCell();
+		tCell.backgroundColor = UPUtils.colorWithHexString("#333333");
+		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 95);
+		
+		//Random game
+		//let gameImgName:String = "game-thumb-random.png";
+		let tGameThumbnailsPictureBackground:UIImageView = UIImageView(image: UIImage(named: "game-thumb-background.png"));
+		tGameThumbnailsPictureBackground.frame = CGRectMake(14, 14, 66, 66);
+		tCell.addSubview(tGameThumbnailsPictureBackground);
+		
+		let tGameThumbnailsPicture:UIImageView = UIImageView(); //UIImageView(image: UIImage(named: gameImgName));
+		tGameThumbnailsPicture.frame = tGameThumbnailsPictureBackground.frame; tCell.addSubview(tGameThumbnailsPicture);
+		
+		///////
+		let tGameSubjectLabel:UILabel = UILabel(); //게임 제목
+		tGameSubjectLabel.frame = CGRectMake(92, 22, tableView.frame.width * 0.6, 28);
+		tGameSubjectLabel.font = UIFont.systemFontOfSize(22);
+		tGameSubjectLabel.text = ""; //Languages.$("alarmGameRandom"); //Random
+		tGameSubjectLabel.textColor = UIColor.whiteColor();
+		
+		let tGameGenreLabel:UILabel = UILabel(); //게임 장르
+		tGameGenreLabel.frame = CGRectMake(92, 49, tableView.frame.width * 0.6, 20);
+		tGameGenreLabel.font = UIFont.systemFontOfSize(14);
+		tGameGenreLabel.text = "";
+		tGameGenreLabel.textColor = UIColor.whiteColor();
+		
+		tCell.cellElement = tGameSubjectLabel; tCell.cellSubElement = tGameGenreLabel;
+		tCell.cellImageViewElement = tGameThumbnailsPicture;
+		
+		tCell.cellID = "alarmGame";
+		
+		tCell.accessoryType = .DisclosureIndicator;
+		tCell.addSubview(tGameSubjectLabel); tCell.addSubview(tGameGenreLabel);
+		
+		tableCells += [tCell];
+		return tCell;
 	}
 	
 	
@@ -425,6 +488,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				tIconImg.frame = CGRectMake(12, 6, 31.3, 31.3);
 				switch(cellID) { //특정 조건으로 아이콘 구분
 					case "alarmGame": tIconFileStr = "comp-icons-settings-newgames"; break;
+					case "alarmSound": tIconFileStr = "comp-icons-alarm-music"; break;
+					case "alarmRepeatSetting": tIconFileStr = "comp-icons-alarm-repeat"; break;
+						
 					default: tIconFileStr = "comp-icons-blank"; break;
 				}; tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8;
 				tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
