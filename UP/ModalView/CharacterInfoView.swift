@@ -29,6 +29,8 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	
 	var charExpWrapper:UIImageView = UIImageView();
 	var charExpMaskView:UIView = UIView(); //Exp 내용물 마스크 처리를 위함
+	var charExpProgress:UIView = UIView();
+	var charExpProgressImageView:UIImageView = UIImageView();
 	
 	var charGameCenterIcon:UIImageView = UIImageView();
 	var charAchievementsIcon:UIImageView = UIImageView();
@@ -96,7 +98,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		modalView.view.addSubview(charAchievementsIcon);
 		
 		//마스크 레이어 테스트
-		charExpMaskView.backgroundColor = UIColor.whiteColor();
+		charExpMaskView.backgroundColor = UIColor.clearColor();
 		modalView.view.addSubview(charExpMaskView);
 		
 		//Pad는 세로위치에 약간 차이가 있어서 적용함
@@ -120,7 +122,16 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		//마스크용 프레임 배치
 		charExpMaskView.frame = CGRectMake(32 * DeviceGeneral.modalRatioC, (112 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
 		                                   82 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
-		
+		let maskLayer:CAShapeLayer = CAShapeLayer();
+		let cMaskRect = CGRectMake(0, 0, 82 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
+		let cPath:CGPathRef = CGPathCreateWithRect(cMaskRect, nil);
+		maskLayer.path = cPath;
+		charExpMaskView.layer.mask = maskLayer;
+		//경험치 막대
+		charExpProgress.backgroundColor = UPUtils.colorWithHexString("#00CC33");
+		//경험치 막대 옆에 붙는 데코
+		charExpProgressImageView.image = UIImage( named: "characterinfo-exp-deco.png" );
+		charExpMaskView.addSubview(charExpProgress); charExpMaskView.addSubview(charExpProgressImageView); // 마스크 씌울 것이기 때문에 이 안에다.
 		
 		//레벨 숫자 배치
 		for i:Int in 0 ..< 3 {
@@ -180,6 +191,12 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 			levStr.characters.count < 3 ? UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  )
 			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(UTF8String: levStr[ levStr.characters.count - 3 ])! + ".png" )
 		
+		//경험치량 표시
+		//CharacterManager.currentCharInfo.characterExp = 4;
+		charExpProgress.frame = CGRectMake(0, 0,
+		                                   (82 * DeviceGeneral.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
+			, 49 * DeviceGeneral.modalRatioC);
+		charExpProgressImageView.frame = CGRectMake(charExpProgress.frame.maxX, 0, 43.55 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
 		
 		//Tracking by google analytics
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_CHARACTERINFO);

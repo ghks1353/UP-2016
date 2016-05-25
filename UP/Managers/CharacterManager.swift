@@ -15,6 +15,12 @@ class CharacterManager {
 	
 	static var currentCharInfo:CharacterInfo = CharacterInfo();
 	
+	static func getExpProgress() -> Float {
+		let maxEXPLevelIn:Float = 6 + (4 * Float(currentCharInfo.characterLevel));
+		
+		return Float(currentCharInfo.characterExp) / maxEXPLevelIn;
+	}
+	
 	static func giveEXP(amount:Int = 0) {
 		//exp 채움. 
 		

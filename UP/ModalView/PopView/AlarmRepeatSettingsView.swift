@@ -167,10 +167,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 			default:
 				break;
 		}
-		/*let cellObj:AlarmRepeatDayCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmRepeatDayCell;
-		if (cellObj.dayID == -1) {
-			return 80;
-		}*/
+		
 		if (indexPath.row == 0) {
 			return 54;
 		}

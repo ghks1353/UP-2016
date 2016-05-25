@@ -1,0 +1,26 @@
+{ "list": [
+	{
+		"id": "wake-up-with-up",
+		"name": [
+			"ko": "최초의 알람",
+			"ja": "最初のアラーム",
+			"en": "First alarm"
+		],
+	   "description": [
+			"ko": "알람 1회 클리어",
+			"ja": "アラーム1回クリア",
+			"en": "Clear alarm one time"
+	   ],
+	  "targets": [ "alarm-clearcount" ],
+	  "valueEquals": [ ">=" ],
+	  "values": [ 1 ],
+	  
+	  "rewards": [ "common-exp" ],
+	  "rewardsAmount": [ 5 ],
+	  
+	  "hiddenTitle": false,
+	  "hiddenDescription": false
+	}
+	
+	]
+}
