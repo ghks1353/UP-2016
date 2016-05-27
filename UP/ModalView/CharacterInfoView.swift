@@ -196,7 +196,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		charExpProgress.frame = CGRectMake(0, 0,
 		                                   (82 * DeviceGeneral.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
 			, 49 * DeviceGeneral.modalRatioC);
-		charExpProgressImageView.frame = CGRectMake(charExpProgress.frame.maxX, 0, 43.55 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
+		charExpProgressImageView.frame = CGRectMake(charExpProgress.frame.maxX, 49 * DeviceGeneral.modalRatioC - 42.75 * DeviceGeneral.modalRatioC, 38 * DeviceGeneral.modalRatioC, 42.75 * DeviceGeneral.modalRatioC);
 		
 		//Tracking by google analytics
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_CHARACTERINFO);
