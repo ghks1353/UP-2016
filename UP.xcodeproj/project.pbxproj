@@ -74,7 +74,7 @@
 		03DDD81B1CEB99C9007C026D /* GameTitleViewJumpUP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD81A1CEB99C9007C026D /* GameTitleViewJumpUP.swift */; };
 		03DDD81D1CEB99D1007C026D /* AlarmRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD81C1CEB99D1007C026D /* AlarmRingView.swift */; };
 		03DDD8201CEB99F0007C026D /* JumpUpElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD81E1CEB99F0007C026D /* JumpUpElements.swift */; };
-		03DDD8211CEB99F0007C026D /* JumpUPGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD81F1CEB99F0007C026D /* JumpUPGame.swift */; };
+		03DDD8211CEB99F0007C026D /* JumpUPGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD81F1CEB99F0007C026D /* JumpUPGame.swift */; };
 		03DDD8231CEB9A0F007C026D /* AlarmElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8221CEB9A0F007C026D /* AlarmElements.swift */; };
 		03DDD8251CEB9A2B007C026D /* TKTimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8241CEB9A2B007C026D /* TKTimingFunction.swift */; };
 		03DDD82A1CEB9A49007C026D /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8261CEB9A49007C026D /* en.json */; };
@@ -520,7 +520,7 @@
 		03DDD81A1CEB99C9007C026D /* GameTitleViewJumpUP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameTitleViewJumpUP.swift; path = Views/AlarmGamesView/GameTitleViewJumpUP.swift; sourceTree = "<group>"; };
 		03DDD81C1CEB99D1007C026D /* AlarmRingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmRingView.swift; path = Views/AlarmRingView.swift; sourceTree = "<group>"; };
 		03DDD81E1CEB99F0007C026D /* JumpUpElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JumpUpElements.swift; path = SKViews/JumpUP/JumpUpElements.swift; sourceTree = "<group>"; };
-		03DDD81F1CEB99F0007C026D /* JumpUPGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Jump\U0010UPGame.swift"; path = "SKViews/JumpUP/Jump\U0010UPGame.swift"; sourceTree = "<group>"; };
+		03DDD81F1CEB99F0007C026D /* JumpUPGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JumpUPGame.swift; path = SKViews/JumpUP/JumpUPGame.swift; sourceTree = "<group>"; };
 		03DDD8221CEB9A0F007C026D /* AlarmElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmElements.swift; path = NSClasses/AlarmElements.swift; sourceTree = "<group>"; };
 		03DDD8241CEB9A2B007C026D /* TKTimingFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TKTimingFunction.swift; path = TKTUtils/TKTimingFunction.swift; sourceTree = "<group>"; };
 		03DDD8261CEB9A49007C026D /* en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = en.json; path = LangResources/en.json; sourceTree = "<group>"; };
@@ -1029,7 +1029,7 @@
 			isa = PBXGroup;
 			children = (
 				03DDD81E1CEB99F0007C026D /* JumpUpElements.swift */,
-				03DDD81F1CEB99F0007C026D /* JumpUPGame.swift */,
+				03DDD81F1CEB99F0007C026D /* JumpUPGame.swift */,
 			);
 			name = JumpUP;
 			sourceTree = "<group>";
@@ -2279,7 +2279,7 @@
 				03DDD7E11CEB929F007C026D /* AlarmRepeatSettingsView.swift in Sources */,
 				03DDD8251CEB9A2B007C026D /* TKTimingFunction.swift in Sources */,
 				03DDD7F41CEB98D2007C026D /* SkinManager.swift in Sources */,
-				03DDD8211CEB99F0007C026D /* JumpUPGame.swift in Sources */,
+				03DDD8211CEB99F0007C026D /* JumpUPGame.swift in Sources */,
 				03DDD80F1CEB9990007C026D /* UISingleSegmentControl.swift in Sources */,
 				03DDD7E21CEB929F007C026D /* AlarmSoundListView.swift in Sources */,
 				03DDD8171CEB9999007C026D /* AlarmRepeatDayCell.swift in Sources */,
