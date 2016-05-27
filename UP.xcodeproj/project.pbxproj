@@ -35,9 +35,6 @@
 		03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425BD21CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png */; };
 		0383DB801CF6169F0009D5DE /* CharacterAchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383DB7F1CF6169F0009D5DE /* CharacterAchievementsView.swift */; };
 		0383DB891CF617010009D5DE /* AchievementList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0383DB881CF617010009D5DE /* AchievementList.json */; };
-		0383DB8B1CF660DE0009D5DE /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383DB8A1CF660DE0009D5DE /* AchievementManager.swift */; };
-		0383DB8E1CF8274F0009D5DE /* UPAchievementsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383DB8D1CF8274F0009D5DE /* UPAchievementsCell.swift */; };
-		0383DB961CF82B130009D5DE /* AchievementElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383DB951CF82B130009D5DE /* AchievementElement.swift */; };
 		03DDD7D31CEB91D4007C026D /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7D21CEB91D4007C026D /* StatisticsView.swift */; };
 		03DDD7D81CEB921E007C026D /* AddAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7D41CEB921E007C026D /* AddAlarmView.swift */; };
 		03DDD7D91CEB921E007C026D /* AlarmListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7D51CEB921E007C026D /* AlarmListView.swift */; };
@@ -484,9 +481,6 @@
 		0368399E1CEB604000204E86 /* SF-UI-Display-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Ultralight.otf"; path = "FontAssets/SF-UI-Display-Ultralight.otf"; sourceTree = "<group>"; };
 		0383DB7F1CF6169F0009D5DE /* CharacterAchievementsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterAchievementsView.swift; path = ModalView/PopView/CharacterAchievementsView.swift; sourceTree = "<group>"; };
 		0383DB881CF617010009D5DE /* AchievementList.json */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = text.json; name = AchievementList.json; path = Datas/AchievementList.json; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; wrapsLines = 1; };
-		0383DB8A1CF660DE0009D5DE /* AchievementManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AchievementManager.swift; path = Managers/AchievementManager.swift; sourceTree = "<group>"; };
-		0383DB8D1CF8274F0009D5DE /* UPAchievementsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UPAchievementsCell.swift; path = Cells/UPAchievementsCell.swift; sourceTree = "<group>"; };
-		0383DB951CF82B130009D5DE /* AchievementElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AchievementElement.swift; path = Classes/AchievementElement.swift; sourceTree = "<group>"; };
 		03DDD7D21CEB91D4007C026D /* StatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatisticsView.swift; path = ModalView/StatisticsView.swift; sourceTree = "<group>"; };
 		03DDD7D41CEB921E007C026D /* AddAlarmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddAlarmView.swift; path = ModalView/AddAlarmView.swift; sourceTree = "<group>"; };
 		03DDD7D51CEB921E007C026D /* AlarmListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmListView.swift; path = ModalView/AlarmListView.swift; sourceTree = "<group>"; };
@@ -1050,7 +1044,6 @@
 				03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */,
 				03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */,
 				03DDD7FC1CEB990D007C026D /* UPAlarmGameLists.swift */,
-				0383DB951CF82B130009D5DE /* AchievementElement.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1626,7 +1619,6 @@
 				03DDD7ED1CEB98D2007C026D /* SkinManager.swift */,
 				03DDD7EE1CEB98D2007C026D /* SoundManager.swift */,
 				03E1D1341CF32DB600B552FC /* CharacterManager.swift */,
-				0383DB8A1CF660DE0009D5DE /* AchievementManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -1652,7 +1644,6 @@
 				03DDD80C1CEB9990007C026D /* UITouchableSegmentControl.swift */,
 				03DDD80D1CEB9990007C026D /* UPGamesListCell.swift */,
 				03425B931CD0666800243B28 /* Components */,
-				0383DB8D1CF8274F0009D5DE /* UPAchievementsCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -2255,7 +2246,6 @@
 				775ADBE81C4FC4C700B52552 /* AppDelegate.swift in Sources */,
 				03DDD7FF1CEB990D007C026D /* SettingsElement.swift in Sources */,
 				77782E681C92B0B00016EE1B /* Int+Extensions.swift in Sources */,
-				0383DB8B1CF660DE0009D5DE /* AchievementManager.swift in Sources */,
 				03DDD7DB1CEB921E007C026D /* SettingsView.swift in Sources */,
 				03DDD8011CEB990D007C026D /* StatsDataElement.swift in Sources */,
 				77782E651C92B0B00016EE1B /* CGFloat+Extensions.swift in Sources */,
@@ -2268,7 +2258,6 @@
 				03DDD7D91CEB921E007C026D /* AlarmListView.swift in Sources */,
 				03DDD8091CEB9952007C026D /* UITableDottedCell.swift in Sources */,
 				0383DB801CF6169F0009D5DE /* CharacterAchievementsView.swift in Sources */,
-				0383DB8E1CF8274F0009D5DE /* UPAchievementsCell.swift in Sources */,
 				77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */,
 				77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */,
 				03DDD7E01CEB929F007C026D /* AlarmGameListView.swift in Sources */,
@@ -2280,7 +2269,6 @@
 				03DDD7D31CEB91D4007C026D /* StatisticsView.swift in Sources */,
 				03DDD80E1CEB9990007C026D /* CustomTableCell.swift in Sources */,
 				77782E6E1C92B0B00016EE1B /* SKTEffects.swift in Sources */,
-				0383DB961CF82B130009D5DE /* AchievementElement.swift in Sources */,
 				03DDD8181CEB9999007C026D /* AlarmSettingsCell.swift in Sources */,
 				03DDD7E31CEB929F007C026D /* StatisticsDataPointView.swift in Sources */,
 				77782E6B1C92B0B00016EE1B /* SKColor+Extensions.swift in Sources */,

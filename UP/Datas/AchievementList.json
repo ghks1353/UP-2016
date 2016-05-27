@@ -1,16 +1,16 @@
 { "list": [
 	{
 		"id": "wake-up-with-up",
-		"name": {
+		"name": [
 			"ko": "최초의 알람",
 			"ja": "最初のアラーム",
 			"en": "First alarm"
-		},
-	   "description": {
+		],
+	   "description": [
 			"ko": "알람 1회 클리어",
 			"ja": "アラーム1回クリア",
 			"en": "Clear alarm one time"
-	   },
+	   ],
 	  "targets": [ "alarm-clearcount" ],
 	  "valueEquals": [ ">=" ],
 	  "values": [ 1 ],
@@ -20,29 +20,7 @@
 	  
 	  "hiddenTitle": false,
 	  "hiddenDescription": false
-  },
-   {
-   "id": "alarm-list-many",
-   "name": {
-			"ko": "바쁜 사람?",
-			"ja": "忙しい人?",
-			"en": "Are you busy?"
-			},
-   "description": {
-				   "ko": "활성 알람 개수 5개 이상",
-				   "ja": "ONされているアラーム５個以上",
-				   "en": "Requires 5 activited alarm"
-				   },
-   "targets": [ "alarm-list-activated" ],
-   "valueEquals": [ ">=" ],
-   "values": [ 5 ],
-   
-   "rewards": [ "common-exp" ],
-   "rewardsAmount": [ 1 ],
-   
-   "hiddenTitle": false,
-   "hiddenDescription": true
-   }
+	}
 	
 	]
 }

@@ -14,7 +14,6 @@ class Languages {
     static var languageJsonFile:NSDictionary?;
 	
 	static var langInited:Bool = false;
-	static var currentLocaleCode:String = "en";
 	
 	static func initLanugages( funcLocaleCode:String, ignoreForceLang:Bool = false ) -> Void {
 		var localeCode:String = funcLocaleCode;
@@ -59,7 +58,6 @@ class Languages {
                 languageJsonFile = jsonResult;
                 print("File loaded");
 				
-				currentLocaleCode = localeCode;
 				langInited = true;
             } catch {
                 print("Json error");
