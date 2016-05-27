@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		032318AF1CF8BA4D0052732F /* AchievementElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318AE1CF8BA4D0052732F /* AchievementElement.swift */; };
+		032318B71CF8BA540052732F /* UPAchievementsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318B61CF8BA540052732F /* UPAchievementsCell.swift */; };
+		032318B91CF8BA6A0052732F /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318B81CF8BA6A0052732F /* AchievementManager.swift */; };
 		03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B731CCEB2BF00243B28 /* modal-mask.png */; };
 		03425B781CCEB2E400243B28 /* modal-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B751CCEB2E400243B28 /* modal-back.png */; };
 		03425B791CCEB2E400243B28 /* modal-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B761CCEB2E400243B28 /* modal-check.png */; };
@@ -452,6 +455,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		032318AE1CF8BA4D0052732F /* AchievementElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AchievementElement.swift; path = Classes/AchievementElement.swift; sourceTree = "<group>"; };
+		032318B61CF8BA540052732F /* UPAchievementsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UPAchievementsCell.swift; path = Cells/UPAchievementsCell.swift; sourceTree = "<group>"; };
+		032318B81CF8BA6A0052732F /* AchievementManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AchievementManager.swift; path = Managers/AchievementManager.swift; sourceTree = "<group>"; };
 		03425B731CCEB2BF00243B28 /* modal-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-mask.png"; path = "ImageAssets/ModalWindows/modal-mask.png"; sourceTree = "<group>"; };
 		03425B751CCEB2E400243B28 /* modal-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-back.png"; path = "ImageAssets/ModalWindows/modal-back.png"; sourceTree = "<group>"; };
 		03425B761CCEB2E400243B28 /* modal-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-check.png"; path = "ImageAssets/ModalWindows/modal-check.png"; sourceTree = "<group>"; };
@@ -1037,6 +1043,7 @@
 		773E91071C59FB9E0084EB07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				032318AE1CF8BA4D0052732F /* AchievementElement.swift */,
 				03DDD7F61CEB990D007C026D /* AnimatedImg.swift */,
 				03DDD7F71CEB990D007C026D /* GameInfoObj.swift */,
 				03DDD7F81CEB990D007C026D /* SettingsElement.swift */,
@@ -1611,6 +1618,7 @@
 		77E23BFD1C6996EE005F0B03 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				032318B81CF8BA6A0052732F /* AchievementManager.swift */,
 				03DDD7E81CEB98D2007C026D /* AlarmManager.swift */,
 				03DDD7E91CEB98D2007C026D /* AnalyticsManager.swift */,
 				03DDD7EA1CEB98D2007C026D /* DataManager.swift */,
@@ -1635,6 +1643,7 @@
 		77E23C031C6A082F005F0B03 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				032318B61CF8BA540052732F /* UPAchievementsCell.swift */,
 				03DDD8121CEB9999007C026D /* AlarmListCell.swift */,
 				03DDD8131CEB9999007C026D /* AlarmRepeatDayCell.swift */,
 				03DDD8141CEB9999007C026D /* AlarmSettingsCell.swift */,
@@ -2259,16 +2268,19 @@
 				03DDD8091CEB9952007C026D /* UITableDottedCell.swift in Sources */,
 				0383DB801CF6169F0009D5DE /* CharacterAchievementsView.swift in Sources */,
 				77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */,
+				032318B71CF8BA540052732F /* UPAchievementsCell.swift in Sources */,
 				77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */,
 				03DDD7E01CEB929F007C026D /* AlarmGameListView.swift in Sources */,
 				03DDD8031CEB990D007C026D /* UPAlarmGameLists.swift in Sources */,
 				03DDD8111CEB9990007C026D /* UPGamesListCell.swift in Sources */,
 				03DDD8161CEB9999007C026D /* AlarmListCell.swift in Sources */,
 				03DDD7F31CEB98D2007C026D /* Languages.swift in Sources */,
+				032318B91CF8BA6A0052732F /* AchievementManager.swift in Sources */,
 				03DDD81B1CEB99C9007C026D /* GameTitleViewJumpUP.swift in Sources */,
 				03DDD7D31CEB91D4007C026D /* StatisticsView.swift in Sources */,
 				03DDD80E1CEB9990007C026D /* CustomTableCell.swift in Sources */,
 				77782E6E1C92B0B00016EE1B /* SKTEffects.swift in Sources */,
+				032318AF1CF8BA4D0052732F /* AchievementElement.swift in Sources */,
 				03DDD8181CEB9999007C026D /* AlarmSettingsCell.swift in Sources */,
 				03DDD7E31CEB929F007C026D /* StatisticsDataPointView.swift in Sources */,
 				77782E6B1C92B0B00016EE1B /* SKColor+Extensions.swift in Sources */,
