@@ -36,16 +36,27 @@ class AchievementManager {
 		}
 		
 		let jData = JSON.parse(jStr); //JSON(data: NSData(contentsOfFile: NSBundle.mainBundle().pathForResource("AchievementList", ofType: "json")!)!);
-		print("len", jData["list"].arrayValue.count);
-		print( jData["list"][0]["id"].string );
+		//print("len", jData["list"].arrayValue.count);
+		//print( jData["list"][0]["id"].string );
 		
 		//도전과제 파싱
 		for i:Int in 0 ..< jData["list"].arrayValue.count {
 			let tmpAchievement:AchievementElement = AchievementElement();
-			tmpAchievement.id = String( jData["list"][i]["id"].string );
-			tmpAchievement.name = String( jData["list"][i]["name"][ Languages.currentLocaleCode ].string );
+			tmpAchievement.id = jData["list"][i]["id"].string!;
+			tmpAchievement.name = jData["list"][i]["name"][ Languages.currentLocaleCode ].string!;
+			tmpAchievement.description = jData["list"][i]["description"][ Languages.currentLocaleCode ].string!;
+			tmpAchievement.checkTargets = jData["list"][i]["targets"].arrayValue.map {$0.string!};
+			tmpAchievement.equalStr = jData["list"][i]["valueEquals"].arrayValue.map {$0.string!};
+			tmpAchievement.checkVals = jData["list"][i]["values"].arrayValue.map {$0.float!};
+			tmpAchievement.rewardsID = jData["list"][i]["rewards"].arrayValue.map {$0.string!};
+			tmpAchievement.rewardsAmount = jData["list"][i]["rewardsAmount"].arrayValue.map {$0.float!};
 			
+			tmpAchievement.isHiddenTitle = jData["list"][i]["hiddenTitle"].bool!;
+			tmpAchievement.isHiddenDescription = jData["list"][i]["hiddenDescription"].bool!;
+			achievementList += [tmpAchievement];
 		}
+		
+		//print(achievementList);
 		
 		
 	}

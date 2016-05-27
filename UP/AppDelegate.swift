@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		CharacterManager.merge();
 		//Startup alarm merge
 		AlarmManager.mergeAlarm();
+		//achievementmanager init
+		AchievementManager.initManager();
 		
 		//Gogle Analytics active
 		AnalyticsManager.initGoogleAnalytics();
