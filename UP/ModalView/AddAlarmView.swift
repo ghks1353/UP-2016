@@ -200,12 +200,12 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				tArray[0].backgroundColor = UPUtils.colorWithHexString("#333333");
 				break;
 			default:
-				gameName = UPAlarmGameLists.list[gameID].gameLangName;
+				gameName = GameManager.list[gameID].gameLangName;
 				(getElementFromTable("alarmGame") as! UILabel).text = gameName; //Languages.$("alarmGameSelect");
 				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = Languages.$("alarmGameSelect");
 				
-				getImageViewFromTable("alarmGame")!.image = UIImage(named: UPAlarmGameLists.list[gameID].gameThumbFileName + ".png");
-				tArray[0].backgroundColor = UPAlarmGameLists.list[gameID].gameBackgroundUIColor;
+				getImageViewFromTable("alarmGame")!.image = UIImage(named: GameManager.list[gameID].gameThumbFileName + ".png");
+				tArray[0].backgroundColor = GameManager.list[gameID].gameBackgroundUIColor;
 				break;
 		}
 		

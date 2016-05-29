@@ -49,6 +49,8 @@ class ViewController: UIViewController {
 	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
 	var modalAlarmStatsView:StatisticsView = StatisticsView();
 	var modalCharacterInformationView:CharacterInfoView = CharacterInfoView();
+	var modalPlayGameview:GamePlayView = GamePlayView();
+	var modalGameResultView:GameResultView = GameResultView();
 	
 	//screen blur view
 	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
@@ -166,6 +168,11 @@ class ViewController: UIViewController {
 		AstroCharacter.userInteractionEnabled = true;
 		AstroCharacter.addGestureRecognizer(tapGestureRecognizer);
 		
+		//게임 박스 터치시
+		tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openGamePlayView(_:)))
+		GroundStandingBox.userInteractionEnabled = true; GroundFloatingBox.userInteractionEnabled = true;
+		GroundStandingBox.addGestureRecognizer(tapGestureRecognizer); GroundFloatingBox.addGestureRecognizer(tapGestureRecognizer);
+		
 		//////////////////////////////////////
 		
 		//iOS8 blur effect
@@ -269,7 +276,10 @@ class ViewController: UIViewController {
 		
 		
 		//test
-		//CharacterManager.giveEXP(50);
+		//CharacterManager.giveEXP(4);
+		
+		
+		///////
 		
     } //end viewdidload
 	
@@ -281,6 +291,11 @@ class ViewController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		//Check alarms
 		checkToCallAlarmRingingView();
+		
+		//gameresulttest
+		//modalGameResultView.modalPresentationStyle = .OverFullScreen;
+		//showHideBlurview(true);
+		//self.presentViewController(modalGameResultView, animated: false, completion: nil);
 	}
 	
 	func showHideBlurview( show:Bool ) {
@@ -353,12 +368,20 @@ class ViewController: UIViewController {
 		modalAlarmStatsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
 	}
 	
-	func openCharacterInformationView  (gestureRecognizer: UITapGestureRecognizer) {
+	func openCharacterInformationView(gestureRecognizer: UITapGestureRecognizer) {
 		//Character information 열기
 		modalCharacterInformationView.modalPresentationStyle = .OverFullScreen;
 		showHideBlurview(true);
 		
 		self.presentViewController(modalCharacterInformationView, animated: false, completion: nil);
+	}
+	
+	func openGamePlayView(gestureRecognizer: UITapGestureRecognizer) {
+		//GamePlay View 열기
+		modalPlayGameview.modalPresentationStyle = .OverFullScreen;
+		showHideBlurview(true);
+		
+		self.presentViewController(modalPlayGameview, animated: false, completion: nil);
 	}
 
 	
@@ -759,7 +782,9 @@ class ViewController: UIViewController {
 		modalAlarmAddView.FitModalLocationToCenter( );
 		modalAlarmStatsView.FitModalLocationToCenter( );
 		modalCharacterInformationView.FitModalLocationToCenter( );
-
+		modalPlayGameview.FitModalLocationToCenter( );
+		modalGameResultView.FitModalLocationToCenter( );
+		
 		//Blur view 조절
 		scrBlurView.frame = DeviceGeneral.scrSize!;
 		

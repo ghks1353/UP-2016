@@ -19,6 +19,8 @@ class AnalyticsManager {
 	static let T_SCREEN_STATS:String = "Screen-Statistics";
 	static let T_SCREEN_CHARACTERINFO:String = "Screen-CharacterInformation";
 	static let T_SCREEN_GAME_JUMPUP:String = "Screen-Game-JumpUP";
+	static let T_SCREEN_PLAYGAME:String = "Screen-GameSelect";
+	static let T_SCREEN_RESULT:String = "Screen-Result";
 	
 	// Event category
 	static let E_CATEGORY_GAMEDATA:String = "Event-Game";

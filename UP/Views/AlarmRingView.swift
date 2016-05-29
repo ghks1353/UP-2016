@@ -39,7 +39,7 @@ class AlarmRingView:UIViewController {
 		if (currentAlarmElement != nil) {
 			//게임을 분류하여 각각 맞는 view를 present
 			if (currentAlarmElement?.gameSelected == -1) {
-				gameSelectedNumber = Int(arc4random_uniform( UInt32(UPAlarmGameLists.list.count) ));
+				gameSelectedNumber = Int(arc4random_uniform( UInt32(GameManager.list.count) ));
 			} //rdm sel end
 			
 			//알람 사운드 울림중일때 끔

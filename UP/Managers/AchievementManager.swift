@@ -56,9 +56,18 @@ class AchievementManager {
 			achievementList += [tmpAchievement];
 		}
 		
-		//print(achievementList);
+		achievementLoaded = true;
 		
+	} //end init.
+	
+	//ID로 아이콘 가져오기
+	static func getIconNameFromID(achievementID:String) -> String {
+		switch(achievementID) { //ID에 따라 준비된 아이콘들 표시
+			default: break;
+		}
 		
+		//return blank
+		return "achievements-icon-blank.png";
 	}
 	
 }

@@ -15,6 +15,9 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	var XAXIS_PRESET_PAD:CGFloat = 6;
 	var YAXIS_PRESET_PAD:CGFloat = 13;
 	
+	//Pop views
+	var achievementsView:CharacterAchievementsView = CharacterAchievementsView();
+	
 	//Inner-modal view
 	var modalView:UIViewController = UIViewController();
 	//Navigationbar view
@@ -31,6 +34,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	var charExpMaskView:UIView = UIView(); //Exp 내용물 마스크 처리를 위함
 	var charExpProgress:UIView = UIView();
 	var charExpProgressImageView:UIImageView = UIImageView();
+	var charExpProgressAnimationImages:Array<UIImage> = [];
 	
 	var charGameCenterIcon:UIImageView = UIImageView();
 	var charAchievementsIcon:UIImageView = UIImageView();
@@ -120,7 +124,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		
 		
 		//마스크용 프레임 배치
-		charExpMaskView.frame = CGRectMake(32 * DeviceGeneral.modalRatioC, (112 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
+		charExpMaskView.frame = CGRectMake(33 * DeviceGeneral.modalRatioC, (112 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
 		                                   82 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
 		let maskLayer:CAShapeLayer = CAShapeLayer();
 		let cMaskRect = CGRectMake(0, 0, 82 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
@@ -130,7 +134,14 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		//경험치 막대
 		charExpProgress.backgroundColor = UPUtils.colorWithHexString("#00CC33");
 		//경험치 막대 옆에 붙는 데코
-		charExpProgressImageView.image = UIImage( named: "characterinfo-exp-deco.png" );
+		for i:Int in 0 ..< 33 {
+			charExpProgressAnimationImages += [ UIImage( named: "characterinfo-exp-deco-" + String(i) + ".png" )! ];
+		}
+		charExpProgressImageView.animationImages = charExpProgressAnimationImages;
+		charExpProgressImageView.animationDuration = 1.1; charExpProgressImageView.animationRepeatCount = -1;
+		charExpProgressImageView.startAnimating();
+		
+		//charExpProgressImageView.image = UIImage( named: "characterinfo-exp-deco.png" );
 		charExpMaskView.addSubview(charExpProgress); charExpMaskView.addSubview(charExpProgressImageView); // 마스크 씌울 것이기 때문에 이 안에다.
 		
 		//레벨 숫자 배치
@@ -145,10 +156,13 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		}
 		
 		
-		//터치이벤트 바인드
-		let tapGestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.showGameCenter(_:)))
+		//게임 센터 아이콘 터치
+		var tapGestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.showGameCenter(_:)))
 		charGameCenterIcon.userInteractionEnabled = true; charGameCenterIcon.addGestureRecognizer(tapGestureRecognizer);
 		
+		//도전과제 터치
+		tapGestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.showAchievements(_:)))
+		charAchievementsIcon.userInteractionEnabled = true; charAchievementsIcon.addGestureRecognizer(tapGestureRecognizer);
 		
 		
 		FitModalLocationToCenter();
@@ -166,6 +180,11 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		
 		self.showViewController(gcViewController, sender: self);
 		self.presentViewController(gcViewController, animated: true, completion: nil);
+	}
+	
+	//도전과제 열기
+	func showAchievements(gestureRecognizer: UITapGestureRecognizer) {
+		navigationCtrl.pushViewController(self.achievementsView, animated: true);
 	}
 	
 	
@@ -193,10 +212,10 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		
 		//경험치량 표시
 		//CharacterManager.currentCharInfo.characterExp = 4;
-		charExpProgress.frame = CGRectMake(0, 0,
+		charExpProgress.frame = CGRectMake( (-14 * DeviceGeneral.modalRatioC), 0,
 		                                   (82 * DeviceGeneral.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
 			, 49 * DeviceGeneral.modalRatioC);
-		charExpProgressImageView.frame = CGRectMake(charExpProgress.frame.maxX, 49 * DeviceGeneral.modalRatioC - 42.75 * DeviceGeneral.modalRatioC, 38 * DeviceGeneral.modalRatioC, 42.75 * DeviceGeneral.modalRatioC);
+		charExpProgressImageView.frame = CGRectMake(charExpProgress.frame.maxX, 49 * DeviceGeneral.modalRatioC - 47.5 * DeviceGeneral.modalRatioC, 47.5 * DeviceGeneral.modalRatioC, 47.5 * DeviceGeneral.modalRatioC);
 		
 		//Tracking by google analytics
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_CHARACTERINFO);

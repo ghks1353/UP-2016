@@ -73,8 +73,10 @@
 		"alarmListAddWhenEmpty": "추가하기",
 	"alarmSlideToStartGameSuffix": "게임시작",
 	
+	"gamePlay": "게임하기",
+	
 	"gameNameJumpUP": "점프 UP",
-	"gameDescriptionJumpUP": "점프 하나만 믿고 하는 게임이 아닙니다\n생각을 넓혀 보세요!",
+		"gameDescriptionJumpUP": "점프 하나만 믿고 하는 게임이 아닙니다\n생각을 넓혀 보세요!",
 	
 	"gameGenreJumpAction": "점프액션",
 	
@@ -146,7 +148,11 @@
 		"statsDetails": "상세 데이터 보기",
 	
 	
-	"userCharacterInformation": "캐릭터 정보"
+	"userCharacterInformation": "캐릭터 정보",
+	
+	"achievements": "도전과제",
+		"hiddenAchieveTitle": "숨겨진 도전과제",
+		"hiddenAchieveDescription": "숨겨진 목표"
 	
 	
 }

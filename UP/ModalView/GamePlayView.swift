@@ -1,83 +1,132 @@
 //
-//  AlarmGameListView.swift
+//  GamePlayView.swift
 //  UP
 //
-//  Created by ExFl on 2016. 2. 17..
+//  Created by ExFl on 2016. 5. 28..
 //  Copyright © 2016년 AVN Graphic. All rights reserved.
 //
 
-import Foundation
-import UIKit
+import Foundation;
+import UIKit;
 
-class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDelegate {
+class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
-	//클래스 외부접근을 위함
-	static var selfView:AlarmGameListView?;
+	//for access
+	static var selfView:GamePlayView?;
 	
-	//Table for view
+	//Inner-modal view
+	var modalView:UIViewController = UIViewController();
+	//Navigationbar view
+	var navigationCtrl:UINavigationController = UINavigationController();
+	
+	//Table for menu
 	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Plain);
 	var tablesArray:Array<AnyObject> = [];
 	var alarmGameListsTableArray:Array<UPGamesListCell> = [];
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
-		AlarmGameListView.selfView = self;
-		
 		self.view.backgroundColor = .clearColor();
 		
+		GamePlayView.selfView = self;
+		
 		//ModalView
-		self.view.backgroundColor = UIColor.whiteColor();
-		self.title = Languages.$("alarmGame");
+		modalView.view.backgroundColor = UIColor.whiteColor();
+		modalView.view.frame = DeviceGeneral.defaultModalSizeRect;
+		
+		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
+		navigationCtrl = UINavigationController.init(rootViewController: modalView);
+		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
+		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#333333");
+		navigationCtrl.view.frame = modalView.view.frame;
+		modalView.title = Languages.$("gamePlay");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-back"), forState: .Normal);
+		navCloseButton.setImage( UIImage(named: "modal-close"), forState: .Normal);
 		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(AlarmGameListView.popToRootAction), forControlEvents: .TouchUpInside);
-		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
-		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
+		navCloseButton.addTarget(self, action: #selector(GamePlayView.viewCloseAction), forControlEvents: .TouchUpInside);
+		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		
-		//add table to modals
-		tableView.frame = CGRectMake(0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height);
-		self.view.addSubview(tableView);
+		///////// Nav items fin
 		
-		print("Table wid", DeviceGeneral.defaultModalSizeRect.width)
+		//Add Ctrl vw
+		self.view.addSubview(navigationCtrl.view);
+		
+		//add table to modal
+		tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
+		tableView.separatorStyle = .None;
+		modalView.view.addSubview(tableView);
 		
 		//add game cell
-		alarmGameListsTableArray += [ createRandomCell() ]; //ADD random cell
 		for i:Int in 0 ..< GameManager.list.count {
 			alarmGameListsTableArray += [ createCell(GameManager.list[i]) ];
 		}
 		tablesArray = [ alarmGameListsTableArray ];
 		
-		tableView.separatorStyle = .None;
 		tableView.delegate = self; tableView.dataSource = self;
 		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
+		
+		//DISABLE AUTORESIZE
+		self.view.autoresizesSubviews = false;
+		
+		//SET MASK for dot eff
+		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
+		modalMaskImageView.frame = modalView.view.frame;
+		modalMaskImageView.contentMode = .ScaleAspectFit; self.view.maskView = modalMaskImageView;
+		
+		FitModalLocationToCenter();
 	}
 	
-	func popToRootAction() {
-		//Pop to root by back button
-		self.navigationController?.popViewControllerAnimated(true);
+	////////////////
+	
+	func FitModalLocationToCenter() {
+		navigationCtrl.view.frame = DeviceGeneral.defaultModalSizeRect;
+		
+		if (self.view.maskView != nil) {
+			self.view.maskView!.frame = DeviceGeneral.defaultModalSizeRect;
+		}
 	}
 	
 	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
+		super.didReceiveMemoryWarning();
 		// Dispose of any resources that can be recreated.
 	}
 	
-	internal func selectCell( gameID:Int ) {
-		//unselect all
-		//fuckiug swift 3.0
-		var gameIDvar:Int = gameID;
-		gameIDvar = gameIDvar + 1;
-		for i:Int in 0 ..< alarmGameListsTableArray.count {
-			alarmGameListsTableArray[i].gameCheckImageView!.alpha = 0;
-		}
+	func viewCloseAction() {
+		//Close this view
+		ViewController.viewSelf!.showHideBlurview(false);
+		self.dismissViewControllerAnimated(true, completion: nil);
+	} //end func
+	
+	override func viewWillAppear(animated: Bool) {
+		//setup bounce animation
+		self.view.alpha = 0;
 		
-		//Check it
-		alarmGameListsTableArray[gameIDvar].gameCheckImageView!.alpha = 1;
+		//Tracking by google analytics
+		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_PLAYGAME);
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		AnalyticsManager.untrackScreen(); //untrack to previous screen
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		//queue bounce animation
+		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
+		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
+			self.view.frame = CGRectMake(0, 0,
+				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+			self.view.alpha = 1;
+		}) { _ in
+		}
+	} ///////////////////////////////
+	
+	//////////////// tables delg
+	internal func selectCell( gameID:Int ) {
 		
 	}
 	
@@ -85,10 +134,8 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		//table sel evt
 		let currCell:UPGamesListCell = tableView.cellForRowAtIndexPath(indexPath) as! UPGamesListCell;
-		AddAlarmView.selfView?.setGameElement( currCell.gameID );
 		
 		selectCell( currCell.gameID );
-		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true);
 	}
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -98,15 +145,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (tablesArray[section] as! Array<AnyObject>).count;
 	}
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		/*let currCell:UPGamesListCell = tableView.cellForRowAtIndexPath(indexPath) as! UPGamesListCell;
-		if (currCell.gameID == -1) {
-			return 85;
-		}*/
-		if (indexPath.row == 0) {
-			return 95;
-		}
-		
+	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {		
 		return 140;
 	}
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -120,46 +159,6 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		return 0;
 	}
 	
-	
-	//Random select cell
-	func createRandomCell() -> UPGamesListCell {
-		let tCell:UPGamesListCell = UPGamesListCell();
-		tCell.backgroundColor = UPUtils.colorWithHexString("#333333");
-		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 95);
-		
-		//Random game
-		let gameImgName:String = "game-thumb-random.png";
-		let tGameThumbnailsPictureBackground:UIImageView = UIImageView(image: UIImage(named: "game-thumb-background.png"));
-		tGameThumbnailsPictureBackground.frame = CGRectMake(14, 14, 66, 66);
-		tCell.addSubview(tGameThumbnailsPictureBackground);
-		
-		let tGameThumbnailsPicture:UIImageView = UIImageView(image: UIImage(named: gameImgName));
-		tGameThumbnailsPicture.frame = tGameThumbnailsPictureBackground.frame; tCell.addSubview(tGameThumbnailsPicture);
-		
-		let tGameCheckPic:UIImageView = UIImageView(image: UIImage(named: "game-thumbs-check.png"));
-		tGameCheckPic.frame = tGameThumbnailsPictureBackground.frame;
-		tCell.addSubview(tGameCheckPic);
-		
-		///////
-		let tGameSubjectLabel:UILabel = UILabel(); //게임 제목
-		tGameSubjectLabel.frame = CGRectMake(92, 22, tableView.frame.width * 0.6, 28);
-		tGameSubjectLabel.font = UIFont.systemFontOfSize(22);
-		tGameSubjectLabel.text = Languages.$("alarmGameRandom"); //Random
-		tGameSubjectLabel.textColor = UIColor.whiteColor();
-		
-		let tGameGenreLabel:UILabel = UILabel(); //게임 장르
-		tGameGenreLabel.frame = CGRectMake(92, 49, tableView.frame.width * 0.6, 20);
-		tGameGenreLabel.font = UIFont.systemFontOfSize(14);
-		tGameGenreLabel.text = "# ?";
-		tGameGenreLabel.textColor = UIColor.whiteColor();
-		
-		
-		tCell.gameID = -1;
-		tCell.gameCheckImageView = tGameCheckPic;
-		tCell.addSubview(tGameSubjectLabel); tCell.addSubview(tGameGenreLabel);
-		
-		return tCell;
-	}
 	
 	//Tableview cell view create
 	func createCell( gameObj:GameInfoObj ) -> UPGamesListCell {
@@ -179,10 +178,6 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		//게임 섬네일, 체크박스 이미지뷰
 		let tGameThumbnailsPicture:UIImageView = UIImageView(image: UIImage(named: gameImgName));
 		tGameThumbnailsPicture.frame = tGameThumbnailsPictureBackground.frame; tCell.addSubview(tGameThumbnailsPicture);
-		let tGameCheckPic:UIImageView = UIImageView(image: UIImage(named: "game-thumbs-check.png"));
-		tGameCheckPic.frame = tGameThumbnailsPictureBackground.frame;
-		tCell.addSubview(tGameCheckPic);
-		
 		
 		///////
 		let tGameSubjectLabel:UILabel = UILabel(); //게임 제목
@@ -216,18 +211,11 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		tGameDescriptionLabel.textColor = gameObj.gameTextUIColor;
 		
 		tCell.gameID = gameID;
-		tCell.gameCheckImageView = tGameCheckPic;
 		tCell.gameInfoObj = gameObj;
 		tCell.addSubview(tGameSubjectLabel); tCell.addSubview(tGameGenreLabel); tCell.addSubview(tGameDifficultyLabel);
 		tCell.addSubview(tGameDescriptionLabel);
 		
 		return tCell;
-	}
-	
-	//UITextfield del
-	func textFieldShouldReturn(textField: UITextField) -> Bool { //Returnkey to hide
-		self.view.endEditing(true);
-		return false;
 	}
 	
 	

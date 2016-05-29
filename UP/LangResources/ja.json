@@ -41,7 +41,7 @@
 		"alarmGame": "ゲーム",
 			"alarmGameRandom": "ランダム",
 			"alarmGameDifficulty": "難易度",
-		"alarmSound": "音 設定",
+		"alarmSound": "音設定",
 			"alarmSoundLevelTitle": "アラーム音量設定",
 				"alarmSoundLevelDescription": "音量が小さすぎると、起きるのが大変になるかもしれません。",
 			"alarmSoundSelection": "アラーム音の選択",
@@ -72,6 +72,8 @@
 	"alarmListEmpty": "アラームがありません！",
 		"alarmListAddWhenEmpty": "追加する",
 	"alarmSlideToStartGameSuffix": "ゲームスタート",
+	
+	"gamePlay": "ゲーム",
 	
 	"gameNameJumpUP": "ジャンプ UP",
 	"gameDescriptionJumpUP": "ジャンプだけのゲームじゃありません！深く考えてみてください！",
@@ -145,6 +147,10 @@
 	
 		"statsDetails": "詳細データへ",
 	
-	"userCharacterInformation": "キャラクターの情報"
+	"userCharacterInformation": "キャラクターの情報",
+	
+	"achievements": "アチーブメント",
+		"hiddenAchieveTitle": "隠れたアチーブメント",
+		"hiddenAchieveDescription": "隠れた目標"
 	
 }

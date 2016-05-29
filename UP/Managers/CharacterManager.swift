@@ -39,6 +39,8 @@ class CharacterManager {
 		currentCharInfo.characterLevelChecksum = makeLvChecksum(currentCharInfo.characterLevel);
 		currentCharInfo.characterExpChecksum = makeExpChecksum(currentCharInfo.characterExp);
 		
+		print("current exp:", currentCharInfo.characterExp, ", max:", maxEXPLevelIn, ", percent:", getExpProgress());
+		
 		save(); //저장
 	}
 	

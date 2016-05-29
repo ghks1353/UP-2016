@@ -10,6 +10,60 @@
 		032318AF1CF8BA4D0052732F /* AchievementElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318AE1CF8BA4D0052732F /* AchievementElement.swift */; };
 		032318B71CF8BA540052732F /* UPAchievementsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318B61CF8BA540052732F /* UPAchievementsCell.swift */; };
 		032318B91CF8BA6A0052732F /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318B81CF8BA6A0052732F /* AchievementManager.swift */; };
+		032318BB1CF9BABC0052732F /* GamePlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318BA1CF9BABC0052732F /* GamePlayView.swift */; };
+		032318BD1CFA05BF0052732F /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318BC1CFA05BF0052732F /* GameManager.swift */; };
+		032318C11CFA1D010052732F /* achievements-icon-blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318BF1CFA1D010052732F /* achievements-icon-blank.png */; };
+		032318C21CFA1D010052732F /* achievements-item.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318C01CFA1D010052732F /* achievements-item.png */; };
+		032318C41CFA24D90052732F /* modal-background-characterinfo-blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318C31CFA24D90052732F /* modal-background-characterinfo-blank.png */; };
+		032318C61CFA4A4C0052732F /* achievements-item-disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318C51CFA4A4C0052732F /* achievements-item-disabled.png */; };
+		032318C91CFA4F860052732F /* GameResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318C81CFA4F860052732F /* GameResultView.swift */; };
+		032318CB1CFA52B90052732F /* modal-mask-result.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318CA1CFA52B90052732F /* modal-mask-result.png */; };
+		032318CF1CFA686E0052732F /* result-best.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318CD1CFA686E0052732F /* result-best.png */; };
+		032318D01CFA686E0052732F /* result-score.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318CE1CFA686E0052732F /* result-score.png */; };
+		032318DC1CFA91250052732F /* skin_default_black_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318D21CFA91250052732F /* skin_default_black_0.png */; };
+		032318DD1CFA91250052732F /* skin_default_black_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318D31CFA91250052732F /* skin_default_black_1.png */; };
+		032318DE1CFA91250052732F /* skin_default_black_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318D41CFA91250052732F /* skin_default_black_2.png */; };
+		032318DF1CFA91250052732F /* skin_default_black_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318D51CFA91250052732F /* skin_default_black_3.png */; };
+		032318E01CFA91250052732F /* skin_default_black_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318D61CFA91250052732F /* skin_default_black_4.png */; };
+		032318E11CFA91250052732F /* skin_default_black_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318D71CFA91250052732F /* skin_default_black_5.png */; };
+		032318E21CFA91250052732F /* skin_default_black_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318D81CFA91250052732F /* skin_default_black_6.png */; };
+		032318E31CFA91250052732F /* skin_default_black_7.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318D91CFA91250052732F /* skin_default_black_7.png */; };
+		032318E41CFA91250052732F /* skin_default_black_8.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318DA1CFA91250052732F /* skin_default_black_8.png */; };
+		032318E51CFA91250052732F /* skin_default_black_9.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318DB1CFA91250052732F /* skin_default_black_9.png */; };
+		032318E71CFB4B670052732F /* result-game-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318E61CFB4B670052732F /* result-game-background.png */; };
+		0323190A1CFB5C7B0052732F /* characterinfo-exp-deco-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318E91CFB5C7B0052732F /* characterinfo-exp-deco-0.png */; };
+		0323190B1CFB5C7B0052732F /* characterinfo-exp-deco-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318EA1CFB5C7B0052732F /* characterinfo-exp-deco-1.png */; };
+		0323190C1CFB5C7B0052732F /* characterinfo-exp-deco-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318EB1CFB5C7B0052732F /* characterinfo-exp-deco-2.png */; };
+		0323190D1CFB5C7B0052732F /* characterinfo-exp-deco-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318EC1CFB5C7B0052732F /* characterinfo-exp-deco-3.png */; };
+		0323190E1CFB5C7B0052732F /* characterinfo-exp-deco-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318ED1CFB5C7B0052732F /* characterinfo-exp-deco-4.png */; };
+		0323190F1CFB5C7B0052732F /* characterinfo-exp-deco-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318EE1CFB5C7B0052732F /* characterinfo-exp-deco-5.png */; };
+		032319101CFB5C7B0052732F /* characterinfo-exp-deco-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318EF1CFB5C7B0052732F /* characterinfo-exp-deco-6.png */; };
+		032319111CFB5C7B0052732F /* characterinfo-exp-deco-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318F01CFB5C7B0052732F /* characterinfo-exp-deco-7.png */; };
+		032319121CFB5C7B0052732F /* characterinfo-exp-deco-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318F11CFB5C7B0052732F /* characterinfo-exp-deco-8.png */; };
+		032319131CFB5C7B0052732F /* characterinfo-exp-deco-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318F21CFB5C7B0052732F /* characterinfo-exp-deco-9.png */; };
+		032319141CFB5C7B0052732F /* characterinfo-exp-deco-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318F31CFB5C7B0052732F /* characterinfo-exp-deco-10.png */; };
+		032319151CFB5C7B0052732F /* characterinfo-exp-deco-11.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318F41CFB5C7B0052732F /* characterinfo-exp-deco-11.png */; };
+		032319161CFB5C7B0052732F /* characterinfo-exp-deco-12.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318F51CFB5C7B0052732F /* characterinfo-exp-deco-12.png */; };
+		032319171CFB5C7B0052732F /* characterinfo-exp-deco-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318F61CFB5C7B0052732F /* characterinfo-exp-deco-13.png */; };
+		032319181CFB5C7B0052732F /* characterinfo-exp-deco-14.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318F71CFB5C7B0052732F /* characterinfo-exp-deco-14.png */; };
+		032319191CFB5C7B0052732F /* characterinfo-exp-deco-15.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318F81CFB5C7B0052732F /* characterinfo-exp-deco-15.png */; };
+		0323191A1CFB5C7B0052732F /* characterinfo-exp-deco-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318F91CFB5C7B0052732F /* characterinfo-exp-deco-16.png */; };
+		0323191B1CFB5C7B0052732F /* characterinfo-exp-deco-17.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318FA1CFB5C7B0052732F /* characterinfo-exp-deco-17.png */; };
+		0323191C1CFB5C7B0052732F /* characterinfo-exp-deco-18.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318FB1CFB5C7B0052732F /* characterinfo-exp-deco-18.png */; };
+		0323191D1CFB5C7B0052732F /* characterinfo-exp-deco-19.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318FC1CFB5C7B0052732F /* characterinfo-exp-deco-19.png */; };
+		0323191E1CFB5C7B0052732F /* characterinfo-exp-deco-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318FD1CFB5C7B0052732F /* characterinfo-exp-deco-20.png */; };
+		0323191F1CFB5C7B0052732F /* characterinfo-exp-deco-21.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318FE1CFB5C7B0052732F /* characterinfo-exp-deco-21.png */; };
+		032319201CFB5C7B0052732F /* characterinfo-exp-deco-22.png in Resources */ = {isa = PBXBuildFile; fileRef = 032318FF1CFB5C7B0052732F /* characterinfo-exp-deco-22.png */; };
+		032319211CFB5C7B0052732F /* characterinfo-exp-deco-23.png in Resources */ = {isa = PBXBuildFile; fileRef = 032319001CFB5C7B0052732F /* characterinfo-exp-deco-23.png */; };
+		032319221CFB5C7B0052732F /* characterinfo-exp-deco-24.png in Resources */ = {isa = PBXBuildFile; fileRef = 032319011CFB5C7B0052732F /* characterinfo-exp-deco-24.png */; };
+		032319231CFB5C7B0052732F /* characterinfo-exp-deco-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 032319021CFB5C7B0052732F /* characterinfo-exp-deco-25.png */; };
+		032319241CFB5C7B0052732F /* characterinfo-exp-deco-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 032319031CFB5C7B0052732F /* characterinfo-exp-deco-26.png */; };
+		032319251CFB5C7B0052732F /* characterinfo-exp-deco-27.png in Resources */ = {isa = PBXBuildFile; fileRef = 032319041CFB5C7B0052732F /* characterinfo-exp-deco-27.png */; };
+		032319261CFB5C7B0052732F /* characterinfo-exp-deco-28.png in Resources */ = {isa = PBXBuildFile; fileRef = 032319051CFB5C7B0052732F /* characterinfo-exp-deco-28.png */; };
+		032319271CFB5C7B0052732F /* characterinfo-exp-deco-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 032319061CFB5C7B0052732F /* characterinfo-exp-deco-29.png */; };
+		032319281CFB5C7B0052732F /* characterinfo-exp-deco-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 032319071CFB5C7B0052732F /* characterinfo-exp-deco-30.png */; };
+		032319291CFB5C7B0052732F /* characterinfo-exp-deco-31.png in Resources */ = {isa = PBXBuildFile; fileRef = 032319081CFB5C7B0052732F /* characterinfo-exp-deco-31.png */; };
+		0323192C1CFB5E340052732F /* characterinfo-exp-deco-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0323192B1CFB5E340052732F /* characterinfo-exp-deco-32.png */; };
 		03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B731CCEB2BF00243B28 /* modal-mask.png */; };
 		03425B781CCEB2E400243B28 /* modal-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B751CCEB2E400243B28 /* modal-back.png */; };
 		03425B791CCEB2E400243B28 /* modal-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B761CCEB2E400243B28 /* modal-check.png */; };
@@ -62,7 +116,6 @@
 		03DDD8001CEB990D007C026D /* SoundInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7F91CEB990D007C026D /* SoundInfoObj.swift */; };
 		03DDD8011CEB990D007C026D /* StatsDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */; };
 		03DDD8021CEB990D007C026D /* UIAlarmIDSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */; };
-		03DDD8031CEB990D007C026D /* UPAlarmGameLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7FC1CEB990D007C026D /* UPAlarmGameLists.swift */; };
 		03DDD8061CEB992D007C026D /* DeviceGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8041CEB992D007C026D /* DeviceGeneral.swift */; };
 		03DDD8071CEB992D007C026D /* UPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8051CEB992D007C026D /* UPUtils.swift */; };
 		03DDD8091CEB9952007C026D /* UITableDottedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8081CEB9952007C026D /* UITableDottedCell.swift */; };
@@ -357,7 +410,6 @@
 		77E288091C7334A30020B766 /* d_time_off_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E288011C7334A30020B766 /* d_time_off_small.png */; };
 		77E2880A1C7334A30020B766 /* d_time_on_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E288021C7334A30020B766 /* d_time_on_small.png */; };
 		77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */; };
-		77E3F4881C74B7B2002BBDA6 /* game-background-sample-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3F4871C74B7B2002BBDA6 /* game-background-sample-2.png */; };
 		77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */; };
 		77F9D23F1C85D93F00E79CE8 /* game_jumpup_assets_time_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D2361C85D93F00E79CE8 /* game_jumpup_assets_time_background.png */; };
 		77F9D2401C85D93F00E79CE8 /* game_jumpup_assets_time_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9D2371C85D93F00E79CE8 /* game_jumpup_assets_time_box.png */; };
@@ -458,6 +510,60 @@
 		032318AE1CF8BA4D0052732F /* AchievementElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AchievementElement.swift; path = Classes/AchievementElement.swift; sourceTree = "<group>"; };
 		032318B61CF8BA540052732F /* UPAchievementsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UPAchievementsCell.swift; path = Cells/UPAchievementsCell.swift; sourceTree = "<group>"; };
 		032318B81CF8BA6A0052732F /* AchievementManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AchievementManager.swift; path = Managers/AchievementManager.swift; sourceTree = "<group>"; };
+		032318BA1CF9BABC0052732F /* GamePlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GamePlayView.swift; path = ModalView/GamePlayView.swift; sourceTree = "<group>"; };
+		032318BC1CFA05BF0052732F /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameManager.swift; path = Managers/GameManager.swift; sourceTree = "<group>"; };
+		032318BF1CFA1D010052732F /* achievements-icon-blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "achievements-icon-blank.png"; path = "ImageAssets/ModalWindows/Achievements/achievements-icon-blank.png"; sourceTree = "<group>"; };
+		032318C01CFA1D010052732F /* achievements-item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "achievements-item.png"; path = "ImageAssets/ModalWindows/Achievements/achievements-item.png"; sourceTree = "<group>"; };
+		032318C31CFA24D90052732F /* modal-background-characterinfo-blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-background-characterinfo-blank.png"; path = "ImageAssets/ModalWindows/CharacterInfo/modal-background-characterinfo-blank.png"; sourceTree = "<group>"; };
+		032318C51CFA4A4C0052732F /* achievements-item-disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "achievements-item-disabled.png"; path = "ImageAssets/ModalWindows/Achievements/achievements-item-disabled.png"; sourceTree = "<group>"; };
+		032318C81CFA4F860052732F /* GameResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameResultView.swift; path = ModalView/NoNavModals/GameResultView.swift; sourceTree = "<group>"; };
+		032318CA1CFA52B90052732F /* modal-mask-result.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-mask-result.png"; path = "ImageAssets/ModalWindows/modal-mask-result.png"; sourceTree = "<group>"; };
+		032318CD1CFA686E0052732F /* result-best.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "result-best.png"; path = "ImageAssets/ModalWindows/Result/result-best.png"; sourceTree = "<group>"; };
+		032318CE1CFA686E0052732F /* result-score.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "result-score.png"; path = "ImageAssets/ModalWindows/Result/result-score.png"; sourceTree = "<group>"; };
+		032318D21CFA91250052732F /* skin_default_black_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_black_0.png; path = ImageAssets/Skins/Default/DigitalClock/Black/skin_default_black_0.png; sourceTree = "<group>"; };
+		032318D31CFA91250052732F /* skin_default_black_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_black_1.png; path = ImageAssets/Skins/Default/DigitalClock/Black/skin_default_black_1.png; sourceTree = "<group>"; };
+		032318D41CFA91250052732F /* skin_default_black_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_black_2.png; path = ImageAssets/Skins/Default/DigitalClock/Black/skin_default_black_2.png; sourceTree = "<group>"; };
+		032318D51CFA91250052732F /* skin_default_black_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_black_3.png; path = ImageAssets/Skins/Default/DigitalClock/Black/skin_default_black_3.png; sourceTree = "<group>"; };
+		032318D61CFA91250052732F /* skin_default_black_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_black_4.png; path = ImageAssets/Skins/Default/DigitalClock/Black/skin_default_black_4.png; sourceTree = "<group>"; };
+		032318D71CFA91250052732F /* skin_default_black_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_black_5.png; path = ImageAssets/Skins/Default/DigitalClock/Black/skin_default_black_5.png; sourceTree = "<group>"; };
+		032318D81CFA91250052732F /* skin_default_black_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_black_6.png; path = ImageAssets/Skins/Default/DigitalClock/Black/skin_default_black_6.png; sourceTree = "<group>"; };
+		032318D91CFA91250052732F /* skin_default_black_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_black_7.png; path = ImageAssets/Skins/Default/DigitalClock/Black/skin_default_black_7.png; sourceTree = "<group>"; };
+		032318DA1CFA91250052732F /* skin_default_black_8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_black_8.png; path = ImageAssets/Skins/Default/DigitalClock/Black/skin_default_black_8.png; sourceTree = "<group>"; };
+		032318DB1CFA91250052732F /* skin_default_black_9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_black_9.png; path = ImageAssets/Skins/Default/DigitalClock/Black/skin_default_black_9.png; sourceTree = "<group>"; };
+		032318E61CFB4B670052732F /* result-game-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "result-game-background.png"; path = "ImageAssets/ModalWindows/Result/result-game-background.png"; sourceTree = "<group>"; };
+		032318E91CFB5C7B0052732F /* characterinfo-exp-deco-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-0.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-0.png"; sourceTree = "<group>"; };
+		032318EA1CFB5C7B0052732F /* characterinfo-exp-deco-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-1.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-1.png"; sourceTree = "<group>"; };
+		032318EB1CFB5C7B0052732F /* characterinfo-exp-deco-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-2.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-2.png"; sourceTree = "<group>"; };
+		032318EC1CFB5C7B0052732F /* characterinfo-exp-deco-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-3.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-3.png"; sourceTree = "<group>"; };
+		032318ED1CFB5C7B0052732F /* characterinfo-exp-deco-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-4.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-4.png"; sourceTree = "<group>"; };
+		032318EE1CFB5C7B0052732F /* characterinfo-exp-deco-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-5.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-5.png"; sourceTree = "<group>"; };
+		032318EF1CFB5C7B0052732F /* characterinfo-exp-deco-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-6.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-6.png"; sourceTree = "<group>"; };
+		032318F01CFB5C7B0052732F /* characterinfo-exp-deco-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-7.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-7.png"; sourceTree = "<group>"; };
+		032318F11CFB5C7B0052732F /* characterinfo-exp-deco-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-8.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-8.png"; sourceTree = "<group>"; };
+		032318F21CFB5C7B0052732F /* characterinfo-exp-deco-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-9.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-9.png"; sourceTree = "<group>"; };
+		032318F31CFB5C7B0052732F /* characterinfo-exp-deco-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-10.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-10.png"; sourceTree = "<group>"; };
+		032318F41CFB5C7B0052732F /* characterinfo-exp-deco-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-11.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-11.png"; sourceTree = "<group>"; };
+		032318F51CFB5C7B0052732F /* characterinfo-exp-deco-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-12.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-12.png"; sourceTree = "<group>"; };
+		032318F61CFB5C7B0052732F /* characterinfo-exp-deco-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-13.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-13.png"; sourceTree = "<group>"; };
+		032318F71CFB5C7B0052732F /* characterinfo-exp-deco-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-14.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-14.png"; sourceTree = "<group>"; };
+		032318F81CFB5C7B0052732F /* characterinfo-exp-deco-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-15.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-15.png"; sourceTree = "<group>"; };
+		032318F91CFB5C7B0052732F /* characterinfo-exp-deco-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-16.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-16.png"; sourceTree = "<group>"; };
+		032318FA1CFB5C7B0052732F /* characterinfo-exp-deco-17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-17.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-17.png"; sourceTree = "<group>"; };
+		032318FB1CFB5C7B0052732F /* characterinfo-exp-deco-18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-18.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-18.png"; sourceTree = "<group>"; };
+		032318FC1CFB5C7B0052732F /* characterinfo-exp-deco-19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-19.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-19.png"; sourceTree = "<group>"; };
+		032318FD1CFB5C7B0052732F /* characterinfo-exp-deco-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-20.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-20.png"; sourceTree = "<group>"; };
+		032318FE1CFB5C7B0052732F /* characterinfo-exp-deco-21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-21.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-21.png"; sourceTree = "<group>"; };
+		032318FF1CFB5C7B0052732F /* characterinfo-exp-deco-22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-22.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-22.png"; sourceTree = "<group>"; };
+		032319001CFB5C7B0052732F /* characterinfo-exp-deco-23.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-23.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-23.png"; sourceTree = "<group>"; };
+		032319011CFB5C7B0052732F /* characterinfo-exp-deco-24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-24.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-24.png"; sourceTree = "<group>"; };
+		032319021CFB5C7B0052732F /* characterinfo-exp-deco-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-25.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-25.png"; sourceTree = "<group>"; };
+		032319031CFB5C7B0052732F /* characterinfo-exp-deco-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-26.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-26.png"; sourceTree = "<group>"; };
+		032319041CFB5C7B0052732F /* characterinfo-exp-deco-27.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-27.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-27.png"; sourceTree = "<group>"; };
+		032319051CFB5C7B0052732F /* characterinfo-exp-deco-28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-28.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-28.png"; sourceTree = "<group>"; };
+		032319061CFB5C7B0052732F /* characterinfo-exp-deco-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-29.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-29.png"; sourceTree = "<group>"; };
+		032319071CFB5C7B0052732F /* characterinfo-exp-deco-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-30.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-30.png"; sourceTree = "<group>"; };
+		032319081CFB5C7B0052732F /* characterinfo-exp-deco-31.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-31.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-31.png"; sourceTree = "<group>"; };
+		0323192B1CFB5E340052732F /* characterinfo-exp-deco-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "characterinfo-exp-deco-32.png"; path = "ImageAssets/ModalWindows/CharacterInfo/ExpAnimation/characterinfo-exp-deco-32.png"; sourceTree = "<group>"; };
 		03425B731CCEB2BF00243B28 /* modal-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-mask.png"; path = "ImageAssets/ModalWindows/modal-mask.png"; sourceTree = "<group>"; };
 		03425B751CCEB2E400243B28 /* modal-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-back.png"; path = "ImageAssets/ModalWindows/modal-back.png"; sourceTree = "<group>"; };
 		03425B761CCEB2E400243B28 /* modal-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-check.png"; path = "ImageAssets/ModalWindows/modal-check.png"; sourceTree = "<group>"; };
@@ -511,7 +617,6 @@
 		03DDD7F91CEB990D007C026D /* SoundInfoObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundInfoObj.swift; path = Classes/SoundInfoObj.swift; sourceTree = "<group>"; };
 		03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatsDataElement.swift; path = Classes/StatsDataElement.swift; sourceTree = "<group>"; };
 		03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIAlarmIDSwitch.swift; path = Classes/UIAlarmIDSwitch.swift; sourceTree = "<group>"; };
-		03DDD7FC1CEB990D007C026D /* UPAlarmGameLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UPAlarmGameLists.swift; path = Classes/UPAlarmGameLists.swift; sourceTree = "<group>"; };
 		03DDD8041CEB992D007C026D /* DeviceGeneral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceGeneral.swift; path = Utils/DeviceGeneral.swift; sourceTree = "<group>"; };
 		03DDD8051CEB992D007C026D /* UPUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UPUtils.swift; path = Utils/UPUtils.swift; sourceTree = "<group>"; };
 		03DDD8081CEB9952007C026D /* UITableDottedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableDottedCell.swift; path = Cells/Components/UITableDottedCell.swift; sourceTree = "<group>"; };
@@ -808,7 +913,6 @@
 		77E288011C7334A30020B766 /* d_time_off_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_time_off_small.png; path = ImageAssets/TimeListAssets/LQ/d_time_off_small.png; sourceTree = "<group>"; };
 		77E288021C7334A30020B766 /* d_time_on_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_time_on_small.png; path = ImageAssets/TimeListAssets/LQ/d_time_on_small.png; sourceTree = "<group>"; };
 		77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumbs-check.png"; path = "ImageAssets/game-thumbs-check.png"; sourceTree = "<group>"; };
-		77E3F4871C74B7B2002BBDA6 /* game-background-sample-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-background-sample-2.png"; path = "ImageAssets/GameBackgrounds/game-background-sample-2.png"; sourceTree = "<group>"; };
 		77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-sample.png"; path = "ImageAssets/GameThumbs/game-thumb-sample.png"; sourceTree = "<group>"; };
 		77F9D2361C85D93F00E79CE8 /* game_jumpup_assets_time_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_background.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_background.png; sourceTree = "<group>"; };
 		77F9D2371C85D93F00E79CE8 /* game_jumpup_assets_time_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_box.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_box.png; sourceTree = "<group>"; };
@@ -857,15 +961,103 @@
 			name = TKTUtils;
 			sourceTree = "<group>";
 		};
+		032318BE1CFA1CF80052732F /* Achievements */ = {
+			isa = PBXGroup;
+			children = (
+				032318C51CFA4A4C0052732F /* achievements-item-disabled.png */,
+				032318BF1CFA1D010052732F /* achievements-icon-blank.png */,
+				032318C01CFA1D010052732F /* achievements-item.png */,
+			);
+			name = Achievements;
+			sourceTree = "<group>";
+		};
+		032318C71CFA4F570052732F /* NoNavModals */ = {
+			isa = PBXGroup;
+			children = (
+				032318C81CFA4F860052732F /* GameResultView.swift */,
+			);
+			name = NoNavModals;
+			sourceTree = "<group>";
+		};
+		032318CC1CFA68680052732F /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				032318E61CFB4B670052732F /* result-game-background.png */,
+				032318CD1CFA686E0052732F /* result-best.png */,
+				032318CE1CFA686E0052732F /* result-score.png */,
+			);
+			name = Result;
+			sourceTree = "<group>";
+		};
+		032318D11CFA911C0052732F /* Black */ = {
+			isa = PBXGroup;
+			children = (
+				032318D21CFA91250052732F /* skin_default_black_0.png */,
+				032318D31CFA91250052732F /* skin_default_black_1.png */,
+				032318D41CFA91250052732F /* skin_default_black_2.png */,
+				032318D51CFA91250052732F /* skin_default_black_3.png */,
+				032318D61CFA91250052732F /* skin_default_black_4.png */,
+				032318D71CFA91250052732F /* skin_default_black_5.png */,
+				032318D81CFA91250052732F /* skin_default_black_6.png */,
+				032318D91CFA91250052732F /* skin_default_black_7.png */,
+				032318DA1CFA91250052732F /* skin_default_black_8.png */,
+				032318DB1CFA91250052732F /* skin_default_black_9.png */,
+			);
+			name = Black;
+			sourceTree = "<group>";
+		};
+		032318E81CFB5C6E0052732F /* ExpAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				0323192B1CFB5E340052732F /* characterinfo-exp-deco-32.png */,
+				032318E91CFB5C7B0052732F /* characterinfo-exp-deco-0.png */,
+				032318EA1CFB5C7B0052732F /* characterinfo-exp-deco-1.png */,
+				032318EB1CFB5C7B0052732F /* characterinfo-exp-deco-2.png */,
+				032318EC1CFB5C7B0052732F /* characterinfo-exp-deco-3.png */,
+				032318ED1CFB5C7B0052732F /* characterinfo-exp-deco-4.png */,
+				032318EE1CFB5C7B0052732F /* characterinfo-exp-deco-5.png */,
+				032318EF1CFB5C7B0052732F /* characterinfo-exp-deco-6.png */,
+				032318F01CFB5C7B0052732F /* characterinfo-exp-deco-7.png */,
+				032318F11CFB5C7B0052732F /* characterinfo-exp-deco-8.png */,
+				032318F21CFB5C7B0052732F /* characterinfo-exp-deco-9.png */,
+				032318F31CFB5C7B0052732F /* characterinfo-exp-deco-10.png */,
+				032318F41CFB5C7B0052732F /* characterinfo-exp-deco-11.png */,
+				032318F51CFB5C7B0052732F /* characterinfo-exp-deco-12.png */,
+				032318F61CFB5C7B0052732F /* characterinfo-exp-deco-13.png */,
+				032318F71CFB5C7B0052732F /* characterinfo-exp-deco-14.png */,
+				032318F81CFB5C7B0052732F /* characterinfo-exp-deco-15.png */,
+				032318F91CFB5C7B0052732F /* characterinfo-exp-deco-16.png */,
+				032318FA1CFB5C7B0052732F /* characterinfo-exp-deco-17.png */,
+				032318FB1CFB5C7B0052732F /* characterinfo-exp-deco-18.png */,
+				032318FC1CFB5C7B0052732F /* characterinfo-exp-deco-19.png */,
+				032318FD1CFB5C7B0052732F /* characterinfo-exp-deco-20.png */,
+				032318FE1CFB5C7B0052732F /* characterinfo-exp-deco-21.png */,
+				032318FF1CFB5C7B0052732F /* characterinfo-exp-deco-22.png */,
+				032319001CFB5C7B0052732F /* characterinfo-exp-deco-23.png */,
+				032319011CFB5C7B0052732F /* characterinfo-exp-deco-24.png */,
+				032319021CFB5C7B0052732F /* characterinfo-exp-deco-25.png */,
+				032319031CFB5C7B0052732F /* characterinfo-exp-deco-26.png */,
+				032319041CFB5C7B0052732F /* characterinfo-exp-deco-27.png */,
+				032319051CFB5C7B0052732F /* characterinfo-exp-deco-28.png */,
+				032319061CFB5C7B0052732F /* characterinfo-exp-deco-29.png */,
+				032319071CFB5C7B0052732F /* characterinfo-exp-deco-30.png */,
+				032319081CFB5C7B0052732F /* characterinfo-exp-deco-31.png */,
+			);
+			name = ExpAnimation;
+			sourceTree = "<group>";
+		};
 		03425B6A1CCEAD8500243B28 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
+				032318CC1CFA68680052732F /* Result */,
+				032318BE1CFA1CF80052732F /* Achievements */,
 				03DDD83E1CEBA082007C026D /* CharacterInfo */,
 				03425B7B1CCEBD0000243B28 /* modal-add.png */,
 				03425B731CCEB2BF00243B28 /* modal-mask.png */,
 				03425B751CCEB2E400243B28 /* modal-back.png */,
 				03425B761CCEB2E400243B28 /* modal-check.png */,
 				03425B771CCEB2E400243B28 /* modal-close.png */,
+				032318CA1CFA52B90052732F /* modal-mask-result.png */,
 			);
 			name = Modals;
 			sourceTree = "<group>";
@@ -964,6 +1156,8 @@
 		03DDD83E1CEBA082007C026D /* CharacterInfo */ = {
 			isa = PBXGroup;
 			children = (
+				032318E81CFB5C6E0052732F /* ExpAnimation */,
+				032318C31CFA24D90052732F /* modal-background-characterinfo-blank.png */,
 				03E1D1301CF1BCF400B552FC /* characterinfo-gamecenter.png */,
 				03E1D12C1CF1BCF000B552FC /* characterinfo-achievements.png */,
 				03E1D12D1CF1BCF000B552FC /* characterinfo-exp-deco.png */,
@@ -1050,7 +1244,6 @@
 				03DDD7F91CEB990D007C026D /* SoundInfoObj.swift */,
 				03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */,
 				03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */,
-				03DDD7FC1CEB990D007C026D /* UPAlarmGameLists.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1122,6 +1315,7 @@
 		774C56251C59246A00421F06 /* ModalView */ = {
 			isa = PBXGroup;
 			children = (
+				032318C71CFA4F570052732F /* NoNavModals */,
 				03425B9D1CD090FB00243B28 /* ExperimentsPopView */,
 				03425B9A1CD082B200243B28 /* PopView */,
 				03DDD7D21CEB91D4007C026D /* StatisticsView.swift */,
@@ -1129,6 +1323,7 @@
 				03DDD7D51CEB921E007C026D /* AlarmListView.swift */,
 				03DDD7D61CEB921E007C026D /* CharacterInfoView.swift */,
 				03DDD7D71CEB921E007C026D /* SettingsView.swift */,
+				032318BA1CF9BABC0052732F /* GamePlayView.swift */,
 			);
 			name = ModalView;
 			sourceTree = "<group>";
@@ -1542,6 +1737,7 @@
 		77C54E621C9EC08A00013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
+				032318D11CFA911C0052732F /* Black */,
 				77AC4FA41CABE0C10044F5C8 /* skin_default_0.png */,
 				77AC4FA51CABE0C10044F5C8 /* skin_default_1.png */,
 				77AC4FA61CABE0C10044F5C8 /* skin_default_2.png */,
@@ -1627,6 +1823,7 @@
 				03DDD7ED1CEB98D2007C026D /* SkinManager.swift */,
 				03DDD7EE1CEB98D2007C026D /* SoundManager.swift */,
 				03E1D1341CF32DB600B552FC /* CharacterManager.swift */,
+				032318BC1CFA05BF0052732F /* GameManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -1686,7 +1883,6 @@
 		77E3F4841C74B7A3002BBDA6 /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				77E3F4871C74B7B2002BBDA6 /* game-background-sample-2.png */,
 			);
 			name = Backgrounds;
 			sourceTree = "<group>";
@@ -1881,15 +2077,20 @@
 				77AC507F1CABE5D40044F5C8 /* skin_default_character_0171.png in Resources */,
 				77AC508A1CABE5D40044F5C8 /* skin_default_character_0182.png in Resources */,
 				77AC504D1CABE5D40044F5C8 /* skin_default_character_0001.png in Resources */,
+				032318DF1CFA91250052732F /* skin_default_black_3.png in Resources */,
 				77CAE0A01C9079B900FBA714 /* game_jumpup_ai_astro_move0.png in Resources */,
 				77AC505E1CABE5D40044F5C8 /* skin_default_character_0018.png in Resources */,
 				77FBE67E1C6DCB9F00E251A2 /* b_time_on.png in Resources */,
+				0323190B1CFB5C7B0052732F /* characterinfo-exp-deco-1.png in Resources */,
 				77AC50861CABE5D40044F5C8 /* skin_default_character_0178.png in Resources */,
 				03425BA51CD0A1E200243B28 /* skin_default_standing_box.png in Resources */,
 				03E1D1241CEC70A600B552FC /* comp-icons-alarm-repeat.png in Resources */,
+				032319161CFB5C7B0052732F /* characterinfo-exp-deco-12.png in Resources */,
 				77AC4FB81CABE0C10044F5C8 /* skin_default_9.png in Resources */,
+				032319291CFB5C7B0052732F /* characterinfo-exp-deco-31.png in Resources */,
 				03E1D12E1CF1BCF000B552FC /* characterinfo-achievements.png in Resources */,
 				03DDD82C1CEB9A49007C026D /* ko.json in Resources */,
+				032319181CFB5C7B0052732F /* characterinfo-exp-deco-14.png in Resources */,
 				77AC4F951CABDFB10044F5C8 /* skin_default_ground_pad43.png in Resources */,
 				77CAE0B21C907CB400FBA714 /* game_jumpup_ai_j_astro_move5.png in Resources */,
 				77AC506A1CABE5D40044F5C8 /* skin_default_character_0030.png in Resources */,
@@ -1899,8 +2100,10 @@
 				7756F9BA1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect5.png in Resources */,
 				03DDD82B1CEB9A49007C026D /* ja.json in Resources */,
 				77AC50B71CABE5D40044F5C8 /* skin_default_character_0257.png in Resources */,
+				032318E31CFA91250052732F /* skin_default_black_7.png in Resources */,
 				77AC50511CABE5D40044F5C8 /* skin_default_character_0005.png in Resources */,
 				77AC509B1CABE5D40044F5C8 /* skin_default_character_0229.png in Resources */,
+				032319201CFB5C7B0052732F /* characterinfo-exp-deco-22.png in Resources */,
 				77AC507C1CABE5D40044F5C8 /* skin_default_character_0168.png in Resources */,
 				03425B901CD0635700243B28 /* comp-icons-settings-icloud.png in Resources */,
 				77AC4FCF1CABE5C70044F5C8 /* skin_default_b_back_4s.png in Resources */,
@@ -1910,12 +2113,14 @@
 				77AC50971CABE5D40044F5C8 /* skin_default_character_0225.png in Resources */,
 				77AC50591CABE5D40044F5C8 /* skin_default_character_0013.png in Resources */,
 				77C4C00D1C86B7CF00B7BB3B /* game_jumpup_astro_move5.png in Resources */,
+				0323190F1CFB5C7B0052732F /* characterinfo-exp-deco-5.png in Resources */,
 				03DDD83D1CEB9D07007C026D /* comp-icons-datacategory-validratio.png in Resources */,
 				77AC50831CABE5D40044F5C8 /* skin_default_character_0175.png in Resources */,
 				77AC50871CABE5D40044F5C8 /* skin_default_character_0179.png in Resources */,
 				77AC50791CABE5D40044F5C8 /* skin_default_character_0165.png in Resources */,
 				77AC50941CABE5D40044F5C8 /* skin_default_character_0222.png in Resources */,
 				77AC508D1CABE5D40044F5C8 /* skin_default_character_0185.png in Resources */,
+				032319261CFB5C7B0052732F /* characterinfo-exp-deco-28.png in Resources */,
 				77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */,
 				77C4C01A1C86D95800B7BB3B /* game_jumpup_ai_astro_jump3.png in Resources */,
 				77AC50B51CABE5D40044F5C8 /* skin_default_character_0255.png in Resources */,
@@ -1930,8 +2135,11 @@
 				77AC509E1CABE5D40044F5C8 /* skin_default_character_0232.png in Resources */,
 				77AC50851CABE5D40044F5C8 /* skin_default_character_0177.png in Resources */,
 				77F9D2411C85D93F00E79CE8 /* game_jumpup_assets_time_box2.png in Resources */,
+				032318C11CFA1D010052732F /* achievements-icon-blank.png in Resources */,
 				77E288081C7334A30020B766 /* c_time_on_small.png in Resources */,
+				0323190D1CFB5C7B0052732F /* characterinfo-exp-deco-3.png in Resources */,
 				77AC504E1CABE5D40044F5C8 /* skin_default_character_0002.png in Resources */,
+				032319241CFB5C7B0052732F /* characterinfo-exp-deco-26.png in Resources */,
 				77AC506C1CABE5D40044F5C8 /* skin_default_character_0032.png in Resources */,
 				77AC50891CABE5D40044F5C8 /* skin_default_character_0181.png in Resources */,
 				77AC4F971CABDFB10044F5C8 /* skin_default_stat_object.png in Resources */,
@@ -1940,6 +2148,8 @@
 				77CAE0AF1C907CB400FBA714 /* game_jumpup_ai_j_astro_move2.png in Resources */,
 				77AC508F1CABE5D40044F5C8 /* skin_default_character_0187.png in Resources */,
 				77CE3D9B1C98464900A6EA36 /* game_jumpup_assets_time_retire.png in Resources */,
+				0323190A1CFB5C7B0052732F /* characterinfo-exp-deco-0.png in Resources */,
+				032319271CFB5C7B0052732F /* characterinfo-exp-deco-29.png in Resources */,
 				77AC50B81CABE5D40044F5C8 /* skin_default_character_0258.png in Resources */,
 				77CAE0A51C9079B900FBA714 /* game_jumpup_ai_astro_move5.png in Resources */,
 				7756F9C51C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect16.png in Resources */,
@@ -1950,11 +2160,15 @@
 				77AC50681CABE5D40044F5C8 /* skin_default_character_0028.png in Resources */,
 				77802D1F1C805E1A00766DB0 /* game-thumb-random.png in Resources */,
 				03425B8D1CD0635700243B28 /* comp-icons-settings-badge.png in Resources */,
+				032319281CFB5C7B0052732F /* characterinfo-exp-deco-30.png in Resources */,
 				0383DB891CF617010009D5DE /* AchievementList.json in Resources */,
 				03DDD82D1CEB9A49007C026D /* waldo.json in Resources */,
+				032318E71CFB4B670052732F /* result-game-background.png in Resources */,
 				77C4C02F1C86D98000B7BB3B /* game_jumpup_astro_jump7.png in Resources */,
 				77C4C0191C86D95800B7BB3B /* game_jumpup_ai_astro_jump2.png in Resources */,
 				771181DF1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png in Resources */,
+				0323191E1CFB5C7B0052732F /* characterinfo-exp-deco-20.png in Resources */,
+				032318DC1CFA91250052732F /* skin_default_black_0.png in Resources */,
 				77AC509A1CABE5D40044F5C8 /* skin_default_character_0228.png in Resources */,
 				77CAE0BD1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump2.png in Resources */,
 				77AC50631CABE5D40044F5C8 /* skin_default_character_0023.png in Resources */,
@@ -1964,6 +2178,7 @@
 				7756F9C81C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect19.png in Resources */,
 				77AC50811CABE5D40044F5C8 /* skin_default_character_0173.png in Resources */,
 				77C4C00A1C86B7CF00B7BB3B /* game_jumpup_astro_move2.png in Resources */,
+				0323191F1CFB5C7B0052732F /* characterinfo-exp-deco-21.png in Resources */,
 				7756F9BF1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect10.png in Resources */,
 				77AC4FD01CABE5C70044F5C8 /* skin_default_b_back_pad34.png in Resources */,
 				77AC50571CABE5D40044F5C8 /* skin_default_character_0011.png in Resources */,
@@ -1981,17 +2196,21 @@
 				77AC4FB71CABE0C10044F5C8 /* skin_default_8.png in Resources */,
 				77FBE67F1C6DCB9F00E251A2 /* c_time_off.png in Resources */,
 				77AC50A91CABE5D40044F5C8 /* skin_default_character_0243.png in Resources */,
+				032319101CFB5C7B0052732F /* characterinfo-exp-deco-6.png in Resources */,
 				77FBE6801C6DCB9F00E251A2 /* c_time_on.png in Resources */,
 				03DDD83B1CEB9D07007C026D /* comp-icons-datacategory-untiloff.png in Resources */,
 				77AC4FCC1CABE5C70044F5C8 /* skin_default_a_back_pad34.png in Resources */,
 				03DDD83A1CEB9D07007C026D /* comp-icons-datacategory-playtime.png in Resources */,
+				032318DD1CFA91250052732F /* skin_default_black_1.png in Resources */,
 				77AC508B1CABE5D40044F5C8 /* skin_default_character_0183.png in Resources */,
 				77AC50781CABE5D40044F5C8 /* skin_default_character_0164.png in Resources */,
 				77AC4FAF1CABE0C10044F5C8 /* skin_default_0.png in Resources */,
+				0323191A1CFB5C7B0052732F /* characterinfo-exp-deco-16.png in Resources */,
 				77AC506F1CABE5D40044F5C8 /* skin_default_character_0035.png in Resources */,
 				77AC4FB11CABE0C10044F5C8 /* skin_default_2.png in Resources */,
 				7756F9C71C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect18.png in Resources */,
 				77AC50AE1CABE5D40044F5C8 /* skin_default_character_0248.png in Resources */,
+				0323190C1CFB5C7B0052732F /* characterinfo-exp-deco-2.png in Resources */,
 				77AC4FB91CABE0C10044F5C8 /* skin_default_col.png in Resources */,
 				77AC4FB21CABE0C10044F5C8 /* skin_default_3.png in Resources */,
 				77AC4FB41CABE0C10044F5C8 /* skin_default_5.png in Resources */,
@@ -2002,8 +2221,11 @@
 				77C4C02D1C86D98000B7BB3B /* game_jumpup_astro_jump5.png in Resources */,
 				03DDD8371CEB9D07007C026D /* comp-icons-datacategory-alltouches.png in Resources */,
 				77AC50B11CABE5D40044F5C8 /* skin_default_character_0251.png in Resources */,
+				032319221CFB5C7B0052732F /* characterinfo-exp-deco-24.png in Resources */,
+				032318C61CFA4A4C0052732F /* achievements-item-disabled.png in Resources */,
 				77AC50601CABE5D40044F5C8 /* skin_default_character_0020.png in Resources */,
 				77AC50AD1CABE5D40044F5C8 /* skin_default_character_0247.png in Resources */,
+				032319151CFB5C7B0052732F /* characterinfo-exp-deco-11.png in Resources */,
 				77AC50A01CABE5D40044F5C8 /* skin_default_character_0234.png in Resources */,
 				77AC507B1CABE5D40044F5C8 /* skin_default_character_0167.png in Resources */,
 				77AC50931CABE5D40044F5C8 /* skin_default_character_0221.png in Resources */,
@@ -2012,6 +2234,7 @@
 				77AC4FD81CABE5C70044F5C8 /* skin_default_d_back_pad34.png in Resources */,
 				77CAE0C01C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png in Resources */,
 				77AC50A51CABE5D40044F5C8 /* skin_default_character_0239.png in Resources */,
+				032319251CFB5C7B0052732F /* characterinfo-exp-deco-27.png in Resources */,
 				03E1D1291CF0BC7000B552FC /* characterinfo-level-wrapper.png in Resources */,
 				77AC50531CABE5D40044F5C8 /* skin_default_character_0007.png in Resources */,
 				77CAE0BF1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump4.png in Resources */,
@@ -2020,6 +2243,8 @@
 				7756F9CA1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect21.png in Resources */,
 				77CAE0BE1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump3.png in Resources */,
 				03425BA91CD389E100243B28 /* comp-icons-settings-experiments.png in Resources */,
+				032319211CFB5C7B0052732F /* characterinfo-exp-deco-23.png in Resources */,
+				0323191B1CFB5C7B0052732F /* characterinfo-exp-deco-17.png in Resources */,
 				77AC50BB1CABE5D40044F5C8 /* skin_default_character_0261.png in Resources */,
 				77AC509F1CABE5D40044F5C8 /* skin_default_character_0233.png in Resources */,
 				77FBE67B1C6DCB9F00E251A2 /* a_time_off.png in Resources */,
@@ -2032,11 +2257,13 @@
 				77C4C02A1C86D98000B7BB3B /* game_jumpup_astro_jump2.png in Resources */,
 				77AC50AC1CABE5D40044F5C8 /* skin_default_character_0246.png in Resources */,
 				03425B911CD0635700243B28 /* comp-icons-settings-newgames.png in Resources */,
+				032319131CFB5C7B0052732F /* characterinfo-exp-deco-9.png in Resources */,
 				77AC506D1CABE5D40044F5C8 /* skin_default_character_0033.png in Resources */,
 				77AC505F1CABE5D40044F5C8 /* skin_default_character_0019.png in Resources */,
 				77CAE0BC1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump1.png in Resources */,
 				77CAE0A21C9079B900FBA714 /* game_jumpup_ai_astro_move2.png in Resources */,
 				77FBE6811C6DCB9F00E251A2 /* d_time_off.png in Resources */,
+				032318E11CFA91250052732F /* skin_default_black_5.png in Resources */,
 				77AC50821CABE5D40044F5C8 /* skin_default_character_0174.png in Resources */,
 				03E1D1311CF1BCF400B552FC /* characterinfo-gamecenter.png in Resources */,
 				77AC507D1CABE5D40044F5C8 /* skin_default_character_0169.png in Resources */,
@@ -2044,6 +2271,7 @@
 				7756F9C61C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect17.png in Resources */,
 				77AC50551CABE5D40044F5C8 /* skin_default_character_0009.png in Resources */,
 				77AC507E1CABE5D40044F5C8 /* skin_default_character_0170.png in Resources */,
+				032319171CFB5C7B0052732F /* characterinfo-exp-deco-13.png in Resources */,
 				775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */,
 				77FBE67D1C6DCB9F00E251A2 /* b_time_off.png in Resources */,
 				77AC4FD11CABE5C70044F5C8 /* skin_default_b_back_pad43.png in Resources */,
@@ -2061,19 +2289,25 @@
 				7756F9BC1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect7.png in Resources */,
 				77AC4FB51CABE0C10044F5C8 /* skin_default_6.png in Resources */,
 				77AC50731CABE5D40044F5C8 /* skin_default_character_0039.png in Resources */,
+				0323191C1CFB5C7B0052732F /* characterinfo-exp-deco-18.png in Resources */,
+				032318CB1CFA52B90052732F /* modal-mask-result.png in Resources */,
 				77AC50901CABE5D40044F5C8 /* skin_default_character_0188.png in Resources */,
 				77AC4FD61CABE5C70044F5C8 /* skin_default_c_back.png in Resources */,
 				03425BAB1CD38D4E00243B28 /* Podfile in Resources */,
 				7756F9C31C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect14.png in Resources */,
+				032319191CFB5C7B0052732F /* characterinfo-exp-deco-15.png in Resources */,
 				77AC50981CABE5D40044F5C8 /* skin_default_character_0226.png in Resources */,
+				032318D01CFA686E0052732F /* result-score.png in Resources */,
 				77AC50A31CABE5D40044F5C8 /* skin_default_character_0237.png in Resources */,
 				03425B7A1CCEB2E400243B28 /* modal-close.png in Resources */,
 				7756F9C21C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect13.png in Resources */,
 				77AC4FDA1CABE5C70044F5C8 /* skin_default_d_back.png in Resources */,
+				032319231CFB5C7B0052732F /* characterinfo-exp-deco-25.png in Resources */,
 				77AC50B31CABE5D40044F5C8 /* skin_default_character_0253.png in Resources */,
 				77AC4F9E1CABE0290044F5C8 /* skin_default_object_list.png in Resources */,
 				77FBE67C1C6DCB9F00E251A2 /* a_time_on.png in Resources */,
 				77E288031C7334A30020B766 /* a_time_off_small.png in Resources */,
+				032318CF1CFA686E0052732F /* result-best.png in Resources */,
 				7756F9B51C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect0.png in Resources */,
 				03425B7C1CCEBD0000243B28 /* modal-add.png in Resources */,
 				77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */,
@@ -2085,17 +2319,23 @@
 				03DDD83C1CEB9D07007C026D /* comp-icons-datacategory-untilstart.png in Resources */,
 				77AC50651CABE5D40044F5C8 /* skin_default_character_0025.png in Resources */,
 				03425B921CD0635700243B28 /* comp-icons-settings-rating.png in Resources */,
+				0323190E1CFB5C7B0052732F /* characterinfo-exp-deco-4.png in Resources */,
+				032318E21CFA91250052732F /* skin_default_black_6.png in Resources */,
 				77AC505D1CABE5D40044F5C8 /* skin_default_character_0017.png in Resources */,
 				77AC50A61CABE5D40044F5C8 /* skin_default_character_0240.png in Resources */,
 				771181DE1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png in Resources */,
 				77CAE0A31C9079B900FBA714 /* game_jumpup_ai_astro_move3.png in Resources */,
 				7756F9C41C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect15.png in Resources */,
 				7756F9BB1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect6.png in Resources */,
+				0323191D1CFB5C7B0052732F /* characterinfo-exp-deco-19.png in Resources */,
 				77CAE0AD1C907CB400FBA714 /* game_jumpup_ai_j_astro_move0.png in Resources */,
+				0323192C1CFB5E340052732F /* characterinfo-exp-deco-32.png in Resources */,
 				77AC50711CABE5D40044F5C8 /* skin_default_character_0037.png in Resources */,
 				03425B8C1CD0635700243B28 /* comp-icons-blank.png in Resources */,
 				77AC4FB61CABE0C10044F5C8 /* skin_default_7.png in Resources */,
 				03DDD8381CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png in Resources */,
+				032319141CFB5C7B0052732F /* characterinfo-exp-deco-10.png in Resources */,
+				032318E01CFA91250052732F /* skin_default_black_4.png in Resources */,
 				77AC4FD91CABE5C70044F5C8 /* skin_default_d_back_pad43.png in Resources */,
 				7756F9C91C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect20.png in Resources */,
 				77AC4F961CABDFB10044F5C8 /* skin_default_ground.png in Resources */,
@@ -2105,9 +2345,11 @@
 				77AC50581CABE5D40044F5C8 /* skin_default_character_0012.png in Resources */,
 				03425B811CD01A3B00243B28 /* comp-slider-track.png in Resources */,
 				77AC50B01CABE5D40044F5C8 /* skin_default_character_0250.png in Resources */,
+				032319111CFB5C7B0052732F /* characterinfo-exp-deco-7.png in Resources */,
 				77AC50AF1CABE5D40044F5C8 /* skin_default_character_0249.png in Resources */,
 				77AC508C1CABE5D40044F5C8 /* skin_default_character_0184.png in Resources */,
 				7756F9BD1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect8.png in Resources */,
+				032318E41CFA91250052732F /* skin_default_black_8.png in Resources */,
 				77AC50661CABE5D40044F5C8 /* skin_default_character_0026.png in Resources */,
 				77E288061C7334A30020B766 /* b_time_on_small.png in Resources */,
 				77AC506B1CABE5D40044F5C8 /* skin_default_character_0031.png in Resources */,
@@ -2116,6 +2358,7 @@
 				77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */,
 				77CAE0B01C907CB400FBA714 /* game_jumpup_ai_j_astro_move3.png in Resources */,
 				77AC4FD31CABE5C70044F5C8 /* skin_default_c_back_4s.png in Resources */,
+				032318C21CFA1D010052732F /* achievements-item.png in Resources */,
 				77F9D2441C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_3.png in Resources */,
 				77AC4F941CABDFB10044F5C8 /* skin_default_ground_pad34.png in Resources */,
 				03E1D1231CEC70A600B552FC /* comp-icons-alarm-music.png in Resources */,
@@ -2132,6 +2375,7 @@
 				03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */,
 				77AC505B1CABE5D40044F5C8 /* skin_default_character_0015.png in Resources */,
 				77AC50921CABE5D40044F5C8 /* skin_default_character_0190.png in Resources */,
+				032318DE1CFA91250052732F /* skin_default_black_2.png in Resources */,
 				03E1D1281CF0BC7000B552FC /* characterinfo-exp-wrapper.png in Resources */,
 				77AC50881CABE5D40044F5C8 /* skin_default_character_0180.png in Resources */,
 				77AC4FB01CABE0C10044F5C8 /* skin_default_1.png in Resources */,
@@ -2147,10 +2391,10 @@
 				77AC50671CABE5D40044F5C8 /* skin_default_character_0027.png in Resources */,
 				77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */,
 				77AC50961CABE5D40044F5C8 /* skin_default_character_0224.png in Resources */,
+				032319121CFB5C7B0052732F /* characterinfo-exp-deco-8.png in Resources */,
 				77F9D23F1C85D93F00E79CE8 /* game_jumpup_assets_time_background.png in Resources */,
 				03425B8F1CD0635700243B28 /* comp-icons-settings-guide.png in Resources */,
 				77CAE0B11C907CB400FBA714 /* game_jumpup_ai_j_astro_move4.png in Resources */,
-				77E3F4881C74B7B2002BBDA6 /* game-background-sample-2.png in Resources */,
 				03E1D12F1CF1BCF000B552FC /* characterinfo-exp-deco.png in Resources */,
 				77AC4FB31CABE0C10044F5C8 /* skin_default_4.png in Resources */,
 				77AC50A81CABE5D40044F5C8 /* skin_default_character_0242.png in Resources */,
@@ -2167,6 +2411,7 @@
 				03425B781CCEB2E400243B28 /* modal-back.png in Resources */,
 				7756F9B71C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect2.png in Resources */,
 				77E288051C7334A30020B766 /* b_time_off_small.png in Resources */,
+				032318C41CFA24D90052732F /* modal-background-characterinfo-blank.png in Resources */,
 				77AC50621CABE5D40044F5C8 /* skin_default_character_0022.png in Resources */,
 				77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */,
 				77AC509D1CABE5D40044F5C8 /* skin_default_character_0231.png in Resources */,
@@ -2174,6 +2419,7 @@
 				77AC4F9F1CABE0290044F5C8 /* skin_default_object_st.png in Resources */,
 				77AC507A1CABE5D40044F5C8 /* skin_default_character_0166.png in Resources */,
 				77C4C0181C86D95800B7BB3B /* game_jumpup_ai_astro_jump1.png in Resources */,
+				032318E51CFA91250052732F /* skin_default_black_9.png in Resources */,
 				03E1D11F1CEC707A00B552FC /* comp-icons-datacategory-icon.png in Resources */,
 				77C4C00B1C86B7CF00B7BB3B /* game_jumpup_astro_move3.png in Resources */,
 				77E288091C7334A30020B766 /* d_time_off_small.png in Resources */,
@@ -2246,6 +2492,7 @@
 				03E1D1331CF3020B00B552FC /* CharacterInfo.swift in Sources */,
 				03DDD7FE1CEB990D007C026D /* GameInfoObj.swift in Sources */,
 				03DDD7F21CEB98D2007C026D /* GlobalSubView.swift in Sources */,
+				032318BD1CFA05BF0052732F /* GameManager.swift in Sources */,
 				03DDD7E71CEB9884007C026D /* ExperimentsLanguagesSetupView.swift in Sources */,
 				775ADBEA1C4FC4C700B52552 /* ViewController.swift in Sources */,
 				03E1D1351CF32DB600B552FC /* CharacterManager.swift in Sources */,
@@ -2271,7 +2518,6 @@
 				032318B71CF8BA540052732F /* UPAchievementsCell.swift in Sources */,
 				77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */,
 				03DDD7E01CEB929F007C026D /* AlarmGameListView.swift in Sources */,
-				03DDD8031CEB990D007C026D /* UPAlarmGameLists.swift in Sources */,
 				03DDD8111CEB9990007C026D /* UPGamesListCell.swift in Sources */,
 				03DDD8161CEB9999007C026D /* AlarmListCell.swift in Sources */,
 				03DDD7F31CEB98D2007C026D /* Languages.swift in Sources */,
@@ -2284,12 +2530,14 @@
 				03DDD8181CEB9999007C026D /* AlarmSettingsCell.swift in Sources */,
 				03DDD7E31CEB929F007C026D /* StatisticsDataPointView.swift in Sources */,
 				77782E6B1C92B0B00016EE1B /* SKColor+Extensions.swift in Sources */,
+				032318BB1CF9BABC0052732F /* GamePlayView.swift in Sources */,
 				03DDD7F01CEB98D2007C026D /* AnalyticsManager.swift in Sources */,
 				03DDD7F11CEB98D2007C026D /* DataManager.swift in Sources */,
 				03DDD7DA1CEB921E007C026D /* CharacterInfoView.swift in Sources */,
 				03DDD8061CEB992D007C026D /* DeviceGeneral.swift in Sources */,
 				03DDD7E11CEB929F007C026D /* AlarmRepeatSettingsView.swift in Sources */,
 				03DDD8251CEB9A2B007C026D /* TKTimingFunction.swift in Sources */,
+				032318C91CFA4F860052732F /* GameResultView.swift in Sources */,
 				03DDD7F41CEB98D2007C026D /* SkinManager.swift in Sources */,
 				03DDD8211CEB99F0007C026D /* JumpUPGame.swift in Sources */,
 				03DDD80F1CEB9990007C026D /* UISingleSegmentControl.swift in Sources */,

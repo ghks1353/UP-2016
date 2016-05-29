@@ -42,6 +42,28 @@
    
    "hiddenTitle": false,
    "hiddenDescription": true
+   },
+   {
+   "id": "test-achievement",
+   "name": {
+	 "ko": "제목 테스트 긴거 제목 테스트 긴거 제목",
+	 "ja": "長いタイトルテスト長いタイトルテスト長いタイトルテスト",
+	 "en": "Testing for long title Testing for long title Testing for long title"
+   },
+   "description": {
+	 "ko": "긴 설명을 테스트 긴 설명을 테스트 긴 설명을 테스트 긴 설명을 테스트 긴 설명을 테스트 ㅇㅇㅇ ㄴㄴ ㅋㅋ ㅇ? ㅋㅋ ;;ㅇㅇㅁㄴㅇ",
+	 "ja": "出展申込締切日 ： 2016年5月31日(火）  出展申込締切日 ： 2016年5月31日(火）  出展申込締切日 ： 2016年5月31日(火）  出展申込締切日 ： 2016年5月31日(火） ",
+	 "en": "long description text test long description text testlong description text test long description text testlong description text testlong description text test"
+   },
+	 "targets": [ "alarm-list-activated" ],
+	 "valueEquals": [ ">=" ],
+	 "values": [ 1 ],
+	 
+	 "rewards": [ "common-exp" ],
+	 "rewardsAmount": [ 1 ],
+	 
+	 "hiddenTitle": false,
+	 "hiddenDescription": false
    }
 	
 	]

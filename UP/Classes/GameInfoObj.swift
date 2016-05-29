@@ -12,8 +12,9 @@ import UIKit;
 class GameInfoObj {
 	
 	//gameID = 게임 배열에 저장된 인덱스
-	init(gameName:String, gameGenre:String, gameDifficultyLevel:Int, gameDescription:String, gameFileName:String, gameColor:UIColor, textColor:UIColor) {
+	init(gameIDf:String, gameName:String, gameGenre:String, gameDifficultyLevel:Int, gameDescription:String, gameFileName:String, gameColor:UIColor, textColor:UIColor) {
 		//Get variables from lang file
+		gameID = gameIDf;
 		gameLangName = Languages.$(gameName); gameLangGenre = Languages.$(gameGenre);
 		gameDifficulty = gameDifficultyLevel;
 		gameLangDescription = Languages.$(gameDescription);
@@ -23,6 +24,7 @@ class GameInfoObj {
 		gameTextUIColor = textColor;
 	}
 	
+	internal var gameID:String = "";
 	internal var gameLangName:String = "";
 	internal var gameLangGenre:String = "";
 	internal var gameDifficulty:Int = 0; //Level 0~5

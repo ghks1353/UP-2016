@@ -19,11 +19,15 @@ class DeviceGeneral {
     static var scrRatio:Double = 1; static var maxScrRatio:Double = 1; //최대가 1인 비율 크기
 	static var scrRatioC:CGFloat = 1; static var maxScrRatioC:CGFloat = 1;
 	static var modalRatioC:CGFloat = 1; static var maxModalRatioC:CGFloat = 1; //modal에서 조정이 필요할 때 사용. 특히 태블릿에서.
+	static var resultModalRatioC:CGFloat = 1; static var resultMaxModalRatioC:CGFloat = 1;
 	
 	//낮은 해상도 사용
 	static var usesLowQualityImage:Bool = false;
 	//평균 Modal size
 	static var defaultModalSizeRect:CGRect = CGRect();
+	
+	//Result / 게임시작 창 Modal size
+	static var resultModalSizeRect:CGRect = CGRect();
 	
 	//chk is back or not
 	static var appIsBackground:Bool = false;
@@ -79,14 +83,26 @@ class DeviceGeneral {
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
 			//패드의 경우, 크기를 미리 지정해줌
 			defaultModalSizeRect = CGRectMake(((scrSize!.width) - 320) / 2, ((scrSize!.height) - 480) / 2 , 320, 480);
+			resultModalSizeRect = CGRectMake(((scrSize!.width) - 334) / 2, ((scrSize!.height) - 460) / 2 , 334, 460);
+			
 			modalRatioC = CGFloat(defaultModalSizeRect.width / (workSize.width - 100));
 			maxModalRatioC = min(1, modalRatioC);
+			
+			resultModalRatioC = CGFloat(resultModalSizeRect.width / (workSize.width - 100));
+			resultMaxModalRatioC = min(1, resultModalRatioC);
 		} else {
 			//기타 (폰)의 경우
 			defaultModalSizeRect = CGRectMake(50 * DeviceGeneral.scrRatioC , (scrSizeForCalcuate!.height - (480 * DeviceGeneral.scrRatioC)) / 2 , scrSizeForCalcuate!.width - (100 * DeviceGeneral.scrRatioC), (480 * DeviceGeneral.scrRatioC));
+			resultModalSizeRect = CGRectMake(50 * DeviceGeneral.scrRatioC , (scrSizeForCalcuate!.height - (460 * DeviceGeneral.scrRatioC)) / 2 , scrSizeForCalcuate!.width - (100 * DeviceGeneral.scrRatioC), (460 * DeviceGeneral.scrRatioC));
+			
 			modalRatioC = DeviceGeneral.scrRatioC;
 			maxModalRatioC = min(1, modalRatioC);
+			
+			resultModalRatioC = DeviceGeneral.scrRatioC;
+			resultMaxModalRatioC = min(1, resultModalRatioC);
 		}
+		
+		
 		
 		print("Modal size changed to width ", defaultModalSizeRect.width, "height", defaultModalSizeRect.height);
 	}
