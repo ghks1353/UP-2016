@@ -570,7 +570,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		if (DeviceGeneral.is24HourMode == false) {
 			//오전 오후 모드면
-			timeHour = timeHour > 12 ? timeHour - 12 : timeHour;
+			timeHour = timeHour > 12 ? timeHour - 12 : (timeHour == 0 ? 12 : timeHour);
 			tAMPMLabel.hidden = false;
 		} else {
 			//24시 모드면

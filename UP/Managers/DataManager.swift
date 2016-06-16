@@ -472,9 +472,12 @@ class DataManager {
 			
 		}
 		
-		
-		//데이터값 일수에 맞게 자르기
-		toReturnDatasArray = Array(toReturnDatasArray![ max(0,toReturnDatasArray!.count-goalToFetchDataDays)...(toReturnDatasArray!.count-1) ]);
+		if (toReturnDatasArray!.count == 0) {
+			//빈 배열 리턴
+		} else {
+			//데이터값 일수에 맞게 자르기
+			toReturnDatasArray = Array(toReturnDatasArray![ max(0,toReturnDatasArray!.count-goalToFetchDataDays)...(toReturnDatasArray!.count-1) ]);
+		}
 		
 		//통계 데이터값 return
 		return toReturnDatasArray;

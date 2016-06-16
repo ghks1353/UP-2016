@@ -93,7 +93,7 @@ class JumpUPGame:SKScene {
 	//Character element
 	var characterElement:JumpUpElements?;// = JumpUpElements();
 	//판정 완화의 정도
-	let characterRatherbox:CGFloat = 18 * DeviceGeneral.scrRatioC;
+	let characterRatherbox:CGFloat = 14 * DeviceGeneral.scrRatioC;
 	
 	/////// 통계를 위한 데이터 변수
 	
@@ -105,7 +105,7 @@ class JumpUPGame:SKScene {
 	var stats_gameIsFailed:Bool = false; //리타이어한 경우
 	var stats_gameTouchCount:Int = 0; //전체 터치 횟수
 	var stats_gameValidTouchCount:Int = 0; //유효 터치 횟수
-	var stats_gameToBackgroundCount:Int = 0; //게임 중 백그라운드로 간 횟수
+	//var stats_gameToBackgroundCount:Int = 0; //게임 중 백그라운드로 간 횟수
 	
 	//View initial function
 	override func didMoveToView(view: SKView) {
@@ -147,6 +147,9 @@ class JumpUPGame:SKScene {
 		gameTipTextField.textAlignment = .Center;
 		gameTipTextField.font = UIFont.systemFontOfSize(18); //절대 크기로 사용
 		self.view!.addSubview(gameTipTextField);
+		
+		//영상을 위해 잠시 가림
+		gameTipTextField.hidden = true;
 		
 		//time 혹은 score 추가 (실행 타입에 따라 바뀜)
 		gameScoreStr = "";
@@ -394,9 +397,10 @@ class JumpUPGame:SKScene {
 		
 		if (gameStartupType == 0 && gameFinishedBool == false) {
 			//알람으로 게임이 켜졌을 때, 졸거나 하는 등으로 화면이 꺼지거나 백그라운드로 나갔다 오면 시간은 리셋.
-			gameScore = gameAlarmFirstGoalTime;
+			gameScore = max(gameAlarmFirstGoalTime, gameScore); //남은 시간이 더 크면 유지
 			gameRetireTimeCount = gameRetireTimeCount / 2; //리타이어 수작일수도 있으니 이거도 조절함
-			stats_gameToBackgroundCount += 1;
+			AlarmRingView.selfView!.userAsleepCount += 1;
+			//stats_gameToBackgroundCount += 1;
 			
 			//리타이어 버튼이 이미 나와있는 경우, 다시 없앰
 			if (buttonRetireSprite.alpha == 1) {
@@ -667,10 +671,10 @@ class JumpUPGame:SKScene {
 					
 					if ( //캐릭터 - 적간 충돌판정 (조금 완화 함.)
 						characterElement!.containsPoint( gameNodesArray[i]!.position ) ||
-							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.frame.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.frame.height / 2) + characterRatherbox  ) ) ||
-							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x + gameNodesArray[i]!.frame.width / 2) - characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.frame.height / 2) + characterRatherbox ) ) ||
-							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.frame.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y + gameNodesArray[i]!.frame.height / 2) - characterRatherbox ) ) ||
-							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.frame.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.frame.height / 2) + characterRatherbox ) )
+							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.size.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.size.height / 2) + characterRatherbox  ) ) ||
+							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x + gameNodesArray[i]!.size.width / 2) - characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.size.height / 2) + characterRatherbox ) ) ||
+							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.size.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y + gameNodesArray[i]!.size.height / 2) - characterRatherbox ) ) ||
+							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.size.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.size.height / 2) + characterRatherbox ) )
 						) {
 							if (gameCharacterUnlimitedLife == 0) {
 								print("Character collision");
@@ -748,7 +752,7 @@ class JumpUPGame:SKScene {
 						toAddelement!.size = CGSizeMake( 39.4 * DeviceGeneral.scrRatioC , 9.2 * DeviceGeneral.scrRatioC );
 						break;
 					case 2:
-						toAddelement!.size = CGSizeMake( 24.8 * DeviceGeneral.scrRatioC , 21.8 * DeviceGeneral.scrRatioC );
+						toAddelement!.size = CGSizeMake( 18.4 * DeviceGeneral.scrRatioC , 16.2 * DeviceGeneral.scrRatioC );
 						break;
 					case 3:
 						toAddelement!.size = CGSizeMake( 34.75 * DeviceGeneral.scrRatioC , 60.35 * DeviceGeneral.scrRatioC );
@@ -1027,7 +1031,7 @@ class JumpUPGame:SKScene {
 						Expression<Int64>("resultMissCount") <- Int64(stats_gameDiedCount), /* 뒈짓 */
 						Expression<Int64>("touchAll") <- Int64(stats_gameTouchCount), /* 총 터치수 */
 						Expression<Int64>("touchValid") <- Int64(stats_gameValidTouchCount), /* 유효 터치수 */
-						Expression<Int64>("backgroundExitCount") <- Int64(stats_gameToBackgroundCount) /* 백그라운드 탈출횟수 */
+						Expression<Int64>("backgroundExitCount") <- Int64(AlarmRingView.selfView!.userAsleepCount) /* 존 횟수 */
 					) /* insert end */
 				); // run end
 				

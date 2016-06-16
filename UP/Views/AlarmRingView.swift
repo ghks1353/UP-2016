@@ -19,12 +19,15 @@ class AlarmRingView:UIViewController {
 	
 	static var selfView:AlarmRingView?;
 	
+	internal var userAsleepCount:Int = 0; //중간에 존 횟수를 여기다 추가하도록 함
+	
 	//게임 서브 뷰는 예외적으로 이 뷰에 포함.
 	static var jumpUPStartupViewController:GameTitleViewJumpUP?;
-	
-	
 	internal var currentAlarmElement:AlarmElements?;
 	var gameSelectedNumber:Int = 0;
+	
+	var lastActivatedTimeAfter:Int = 0;
+	var asleepTimer:NSTimer?;
 	
 	override func viewDidLoad() {
 		// view init func
@@ -35,6 +38,11 @@ class AlarmRingView:UIViewController {
 	
 	override func viewDidAppear(animated: Bool) {
 		currentAlarmElement = AlarmManager.getRingingAlarm();
+		userAsleepCount = 0;
+		if (asleepTimer != nil) {
+			asleepTimer!.invalidate();
+			asleepTimer = nil;
+		}
 		
 		if (currentAlarmElement != nil) {
 			//게임을 분류하여 각각 맞는 view를 present
@@ -61,7 +69,8 @@ class AlarmRingView:UIViewController {
 					break;
 			} //end switch
 			
-			
+			//게임 중간에 조는 것 관련한 핸들링
+			UPUtils.setInterval(1, block: asleepTimeCheckFunc);
 			
 		} //end element chk
 		
@@ -70,6 +79,10 @@ class AlarmRingView:UIViewController {
 	
 	override func viewWillDisappear(animated: Bool) {
 		//view disappear event handler
+		if (asleepTimer != nil) {
+			asleepTimer!.invalidate();
+			asleepTimer = nil;
+		}
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -100,6 +113,35 @@ class AlarmRingView:UIViewController {
 	// Lock rotation and fix
 	override func shouldAutorotate() -> Bool {
 		return false; //Lock autorotate in this view
+	}
+	
+	//Check last touch
+	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		print("In alarm, Touched!");
+		
+		if (lastActivatedTimeAfter > 60) {
+			//한번 졸았다고 체크함
+			userAsleepCount += 1;
+		}
+		
+		AlarmManager.stopSoundAlarm(); //터치시에만 꺼지게..
+		lastActivatedTimeAfter = 0;
+	}
+	
+	//Check if asleep or not
+	func asleepTimeCheckFunc() {
+		if (currentAlarmElement == nil) {
+			//remove it
+			if (asleepTimer != nil) {
+				asleepTimer!.invalidate();
+				asleepTimer = nil;
+			}
+			return;
+		}
+		lastActivatedTimeAfter += 1;
+		if (lastActivatedTimeAfter > 60) {
+			AlarmManager.ringSoundAlarm(currentAlarmElement);
+		}
 	}
 	
 	

@@ -202,6 +202,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		//알람이 울리고 있었다면 꺼줌.
 		AlarmManager.stopSoundAlarm();
+		//알람 게임뷰가 켜져있는 경우, 터치 지연 시간을 0으로 초기화
+		if (AlarmRingView.selfView != nil) {
+			AlarmRingView.selfView!.lastActivatedTimeAfter = 0;
+		}
     }
 
     func applicationWillTerminate(application: UIApplication) {

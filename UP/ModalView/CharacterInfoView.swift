@@ -30,15 +30,14 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	var charLevelWrapper:UIImageView = UIImageView();
 	var charLevelIndicator:UIImageView = UIImageView();
 	
-	var charExpWrapper:UIImageView = UIImageView();
-	var charExpMaskView:UIView = UIView(); //Exp 내용물 마스크 처리를 위함
-	var charExpProgress:UIView = UIView();
-	var charExpProgressImageView:UIImageView = UIImageView();
+	var charExpWrapper:UIImageView = UIImageView(); var charExpMaskView:UIView = UIView(); //Exp 내용물 마스크 처리를 위함
+	var charExpProgress:UIView = UIView(); var charExpProgressImageView:UIImageView = UIImageView();
 	var charExpProgressAnimationImages:Array<UIImage> = [];
 	
 	var charGameCenterIcon:UIImageView = UIImageView();
 	var charAchievementsIcon:UIImageView = UIImageView();
 	
+	var charCurrentCharacter:UIImageView = UIImageView();
 	
 	//레벨 표시를 위한 인디케이터 배열
 	var charLevelDigitalArr:Array<UIImageView> = Array<UIImageView>();
@@ -93,11 +92,14 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" );
 		charGameCenterIcon.image = UIImage( named: "characterinfo-gamecenter.png" );
 		charAchievementsIcon.image = UIImage( named: "characterinfo-achievements.png" );
+		charCurrentCharacter.image = UIImage( named: SkinManager.getAssetPresets() + "character_" + "0001" + ".png" ); //현재 캐릭터 스킨 불러오기
 		
 		//기타 컴포넌트 배치.
 		modalView.view.addSubview(charLevelWrapper);
 		modalView.view.addSubview(charLevelIndicator);
 		modalView.view.addSubview(charExpWrapper);
+		
+		modalView.view.addSubview(charCurrentCharacter); //영역이 넓어서 먼저.
 		modalView.view.addSubview(charGameCenterIcon);
 		modalView.view.addSubview(charAchievementsIcon);
 		
@@ -121,7 +123,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		                                       78.5 * DeviceGeneral.modalRatioC, 130.25 * DeviceGeneral.modalRatioC);
 		charAchievementsIcon.frame = CGRectMake( 210 * DeviceGeneral.modalRatioC, (127.5 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
 		                                   70.95 * DeviceGeneral.modalRatioC, 168.6 * DeviceGeneral.modalRatioC);
-		
+		charCurrentCharacter.frame = CGRectMake( 6 * DeviceGeneral.modalRatioC, modalView.view.frame.height - 252 * DeviceGeneral.modalRatioC, 300 * DeviceGeneral.modalRatioC, 300 * DeviceGeneral.modalRatioC );
 		
 		//마스크용 프레임 배치
 		charExpMaskView.frame = CGRectMake(33 * DeviceGeneral.modalRatioC, (112 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,

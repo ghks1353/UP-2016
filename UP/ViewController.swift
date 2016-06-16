@@ -20,6 +20,11 @@ class ViewController: UIViewController {
 	var DigitalNum0:UIImageView = UIImageView(); var DigitalNum1:UIImageView = UIImageView();
 	var DigitalNum2:UIImageView = UIImageView(); var DigitalNum3:UIImageView = UIImageView();
 	var DigitalCol:UIImageView = UIImageView();
+	
+	//AM / PM
+	var digitalAMPMIndicator:UIImageView = UIImageView();
+	var digitalCurrentIsPM:Int = -1; //am이면 0, pm이면 1
+	
 	//아날로그 시계
 	var AnalogBody:UIImageView = UIImageView(); var AnalogHours:UIImageView = UIImageView();
 	var AnalogMinutes:UIImageView = UIImageView();
@@ -53,7 +58,7 @@ class ViewController: UIViewController {
 	var modalGameResultView:GameResultView = GameResultView();
 	
 	//screen blur view
-	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light));
+	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark));
 	
 	static var viewSelf:ViewController?;
 	
@@ -91,6 +96,7 @@ class ViewController: UIViewController {
 		//리소스 뷰에 추가
 		self.view.addSubview(DigitalNum0); self.view.addSubview(DigitalNum1);
 		self.view.addSubview(DigitalNum2); self.view.addSubview(DigitalNum3); self.view.addSubview(DigitalCol);
+		self.view.addSubview(digitalAMPMIndicator);
 		
 		self.view.addSubview(AnalogBody); self.view.addSubview(AnalogHours);
 		self.view.addSubview(AnalogMinutes);
@@ -112,6 +118,7 @@ class ViewController: UIViewController {
 		self.view.bringSubviewToFront(DigitalCol);
 		self.view.bringSubviewToFront(DigitalNum0); self.view.bringSubviewToFront(DigitalNum1);
 		self.view.bringSubviewToFront(DigitalNum2); self.view.bringSubviewToFront(DigitalNum3);
+		self.view.bringSubviewToFront(digitalAMPMIndicator);
 		
 		self.view.bringSubviewToFront(AnalogBody);
 		self.view.bringSubviewToFront(AnalogHours); self.view.bringSubviewToFront(AnalogMinutes);
@@ -129,6 +136,10 @@ class ViewController: UIViewController {
 		DigitalNum2.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
 		DigitalNum3.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
 		DigitalCol.frame.size = CGSizeMake( 43.5, 60.9 ); //디바이스별 크기 설정은 밑에서 하므로 여긴 원본 크기를 입력함.
+		
+		if (DeviceGeneral.is24HourMode == true) {
+			digitalAMPMIndicator.hidden = true; //24시간에선 오전오후 표시필요가 없음
+		}
 		
 		//기본 스킨 선택. 나중엔 저장된 스킨번호를 불러오게 변경.
 		selectMainSkin(0);
@@ -272,7 +283,7 @@ class ViewController: UIViewController {
 		
 		///////// start update task
 		updateTimeAnimation(); //first call
-		setInterval(0.5, block: updateTimeAnimation);
+		UPUtils.setInterval(0.5, block: updateTimeAnimation);
 		
 		
 		//test
@@ -305,10 +316,10 @@ class ViewController: UIViewController {
 			self.view.addSubview(scrBlurView);
 			scrBlurView.alpha = 0;
 			UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-				self.scrBlurView.alpha = 1;
+				self.scrBlurView.alpha = 0.8;
 			}, completion: nil);
 		} else {
-			self.scrBlurView.alpha = 1;
+			self.scrBlurView.alpha = 0.8;
 			UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
 			self.scrBlurView.alpha = 0;
 				}, completion: {_ in
@@ -394,8 +405,31 @@ class ViewController: UIViewController {
         let date = NSDate(); let calendar = NSCalendar.currentCalendar()
         let components = calendar.components([ .Hour, .Minute, .Second], fromDate: date);
         
-        let hourString:String = String(components.hour);
-        let minString:String = String(components.minute);
+		var hourString:String = ""; var minString:String = "";
+		minString = String(components.minute);
+		
+		if (DeviceGeneral.is24HourMode == true) {
+			//24시간 시, 문자 그대로 표시
+			hourString = String(components.hour);
+		} else {
+			//12시간 시, 12만큼 짜름
+			hourString = String(components.hour > 12 ? components.hour - 12 : (components.hour == 0 ? 12 : components.hour));
+		}
+		
+		//AMPM check
+		if (components.hour >= 12) {
+			if (digitalCurrentIsPM != 1) {
+				digitalAMPMIndicator.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "pm.png" );
+			}
+			digitalCurrentIsPM = 1;
+		} else {
+			if (digitalCurrentIsPM != 0) {
+				//change
+				digitalAMPMIndicator.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "am.png" );
+			}
+			digitalCurrentIsPM = 0;
+		}
+		
 		
 		//hour str time
         if (hourString.characters.count) == 1 {
@@ -586,13 +620,6 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func setTimeout(delay:NSTimeInterval, block:()->Void) -> NSTimer {
-        return NSTimer.scheduledTimerWithTimeInterval(delay, target: NSBlockOperation(block: block), selector: #selector(NSOperation.main), userInfo: nil, repeats: false)
-    }
-    
-    func setInterval(interval:NSTimeInterval, block:()->Void) -> NSTimer {
-        return NSTimer.scheduledTimerWithTimeInterval(interval, target: NSBlockOperation(block: block), selector: #selector(NSOperation.main), userInfo: nil, repeats: true)
-    }
 	
 	/////////////////////////////////////////
 	
@@ -662,13 +689,13 @@ class ViewController: UIViewController {
 					let fImage:UIImage = UIImage( named: fileName )!;
 					astroMotionsStanding += [fImage];
 				} /* 아직 안쓰니까 주석처리함. 쓸때 다시 주석 품,
-				for i in 161...190 { //달리기(걷기)
+				for i in 41...70 { //달리기(걷기)
 				let numberStr:String = String(i);
 				let fileName:String = "astro" + "0" + numberStr + ".png";
 				let fImage:UIImage = UIImage( named: fileName )!;
 				astroMotionsRunning += [fImage];
 				}
-				for i in 221...264 { //점프밎착지
+				for i in 71...113 { //점프밎착지
 				let numberStr:String = String(i);
 				let fileName:String = "astro" + "0" + numberStr + ".png";
 				let fImage:UIImage = UIImage( named: fileName )!;
@@ -713,7 +740,10 @@ class ViewController: UIViewController {
 		DigitalNum1.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - 12 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
 		DigitalNum3.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + 20 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
 		DigitalNum2.frame = CGRectMake((DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + 12 * DeviceGeneral.maxScrRatioC, DigitalCol.frame.minY, DigitalCol.frame.width, DigitalCol.frame.height);
-		
+		digitalAMPMIndicator.frame = CGRectMake(
+			(DeviceGeneral.scrSize!.width / 2) - (31.2 * DeviceGeneral.maxScrRatioC / 2),
+			DigitalCol.frame.minY - 31 * DeviceGeneral.maxScrRatioC,
+			31.2 * DeviceGeneral.maxScrRatioC, 18 * DeviceGeneral.maxScrRatioC);
 		
 		//시계 바디 및 시침 분침 위치/크기조절
 		let clockScrX:CGFloat = CGFloat(DeviceGeneral.scrSize!.width / 2 - (CGFloat(245 * DeviceGeneral.maxScrRatioC) / 2));
@@ -756,17 +786,17 @@ class ViewController: UIViewController {
 		
 		//캐릭터 크기 및 위치조정
 		AstroCharacter.frame =
-			CGRectMake( DeviceGeneral.scrSize!.width - (100 * DeviceGeneral.maxScrRatioC),
-			            GroundObj.frame.origin.y - (151 * DeviceGeneral.maxScrRatioC) + (9 * DeviceGeneral.maxScrRatioC),
-			            60 * DeviceGeneral.maxScrRatioC,
-			            151 * DeviceGeneral.maxScrRatioC );
+			CGRectMake( DeviceGeneral.scrSize!.width - (220 * DeviceGeneral.maxScrRatioC),
+			            GroundObj.frame.origin.y - (190 * DeviceGeneral.maxScrRatioC),
+			            300 * DeviceGeneral.maxScrRatioC,
+			            300 * DeviceGeneral.maxScrRatioC );
 		GroundStatSign.frame =
 			CGRectMake( 48 * DeviceGeneral.maxScrRatioC,
 			            GroundObj.frame.origin.y - (96.95 * DeviceGeneral.maxScrRatioC) + (7 * DeviceGeneral.maxScrRatioC),
 			            101.1 * DeviceGeneral.maxScrRatioC,
 			            96.95 * DeviceGeneral.maxScrRatioC );
 		GroundStandingBox.frame =
-			CGRectMake( AstroCharacter.frame.origin.x - (75 * DeviceGeneral.maxScrRatioC),
+			CGRectMake( AstroCharacter.frame.midX - (100 * DeviceGeneral.maxScrRatioC),
 			            GroundObj.frame.origin.y - (25.4 * DeviceGeneral.maxScrRatioC) + (8 * DeviceGeneral.maxScrRatioC),
 			            36.8 * DeviceGeneral.maxScrRatioC,
 			            25.4 * DeviceGeneral.maxScrRatioC );
