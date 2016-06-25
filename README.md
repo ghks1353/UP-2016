@@ -1,4 +1,4 @@
-UP
-AVNGraphic project
+Project UP
 
-대표개객기
+Programming - ExFl(Seokhwan An)
+Graphic artist, design - Penple(Seungha Hwang)
