@@ -113,8 +113,10 @@ class ViewController: UIViewController {
 		//약간 투명하게 조정
 		SettingsImg.alpha = 0.8; AlarmListImg.alpha = 0.8;
 		
-		//toucharea imgview add
+		//toucharea view add
 		AnalogBodyToucharea.backgroundColor = UIColor.clearColor();
+		groundBoxToucharea.backgroundColor = UIColor.clearColor();
+		self.view.addSubview(groundBoxToucharea);
 		self.view.addSubview(AnalogBodyToucharea);
 		
 		//리소스 우선순위 설정
@@ -125,12 +127,14 @@ class ViewController: UIViewController {
 		
 		self.view.bringSubviewToFront(AnalogBody);
 		self.view.bringSubviewToFront(AnalogHours); self.view.bringSubviewToFront(AnalogMinutes);
-		self.view.bringSubviewToFront(AnalogBodyToucharea);
 		
 		self.view.bringSubviewToFront(GroundObj); self.view.bringSubviewToFront(AstroCharacter);
 		self.view.bringSubviewToFront(GroundStatSign);
+		self.view.bringSubviewToFront(AnalogBodyToucharea);
 		
 		self.view.bringSubviewToFront(GroundStandingBox); self.view.bringSubviewToFront(GroundFloatingBox);
+		self.view.bringSubviewToFront(groundBoxToucharea);
+		
 		
 		//디지털시계 이미지 기본 설정
 		DigitalCol.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "col.png" );
@@ -184,8 +188,8 @@ class ViewController: UIViewController {
 		
 		//게임 박스 터치시
 		tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openGamePlayView(_:)))
-		GroundStandingBox.userInteractionEnabled = true; GroundFloatingBox.userInteractionEnabled = true;
-		GroundStandingBox.addGestureRecognizer(tapGestureRecognizer); GroundFloatingBox.addGestureRecognizer(tapGestureRecognizer);
+		groundBoxToucharea.userInteractionEnabled = true;
+		groundBoxToucharea.addGestureRecognizer(tapGestureRecognizer);
 		
 		//////////////////////////////////////
 		
@@ -808,6 +812,13 @@ class ViewController: UIViewController {
 			            GroundStandingBox.frame.origin.y - (40 * DeviceGeneral.maxScrRatioC),
 			            40.9 * DeviceGeneral.maxScrRatioC,
 			            44.6 * DeviceGeneral.maxScrRatioC );
+		
+		//터치용 투명박스 조정
+		groundBoxToucharea.frame =
+			CGRectMake(
+				GroundStandingBox.frame.origin.x - (44 * DeviceGeneral.maxScrRatioC),
+				GroundStandingBox.frame.origin.y - (80 * DeviceGeneral.maxScrRatioC),
+				100 * DeviceGeneral.maxScrRatioC, 160 * DeviceGeneral.maxScrRatioC );
 		
 		//Modal view 크기 가운데로 조정. (rotation)
 		modalSettingsView.FitModalLocationToCenter( );

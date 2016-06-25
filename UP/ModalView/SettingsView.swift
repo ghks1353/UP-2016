@@ -30,6 +30,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	
 	/// InSettings Views
 	var creditsView:CreditsPopView = CreditsPopView();
+	var indieGamesView:IndieGamesView = IndieGamesView();
 	
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -72,7 +73,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
             [ /* SECTION 2*/
                 createSettingsOnlyLabel( Languages.$("settingsStartingGuide") , menuID: "startGuide")
                 , createSettingsOnlyLabel( Languages.$("settingsRatingApp") , menuID: "ratingApplication")
-                , createSettingsOnlyLabel( Languages.$("settingsShowNewgame") , menuID: "newGame")
+                , createSettingsOnlyLabel( Languages.$("settingsShowNewgame") , menuID: "indieGames")
                 , createSettingsOnlyLabel( Languages.$("settingsGotoUPProject") , menuID: "gotoUPProject")
 				, createSettingsOnlyLabel( Languages.$("settingsCredits") , menuID: "credits")
             ],
@@ -163,6 +164,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		switch (cell.cellID) {
 			case "gotoUPProject":
 				UIApplication.sharedApplication().openURL(NSURL(string: "http://up.avngraphic.kr/?l=" + Languages.currentLocaleCode)!);
+				break;
+			case "indieGames":
+				navigationCtrl.pushViewController(self.indieGamesView, animated: true);
 				break;
 			case "credits":
 				navigationCtrl.pushViewController(self.creditsView, animated: true);
@@ -331,7 +335,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		switch(menuID) { //특정 조건으로 아이콘 구분
 			case "startGuide": tIconFileStr = "comp-icons-settings-guide"; break;
 			case "ratingApplication": tIconFileStr = "comp-icons-settings-rating"; break;
-			case "newGame": tIconFileStr = "comp-icons-settings-newgames"; break;
+			case "indieGames": tIconFileStr = "comp-icons-settings-newgames"; break;
 			case "credits": tIconFileStr = "comp-icons-settings-developers"; break;
 			case "gotoUPProject": tIconFileStr = "comp-icons-settings-projectup"; break;
 			default:

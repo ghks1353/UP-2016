@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit;
-
+import WebKit;
 
 class IndieGamesView:UIViewController {
 	
 	//클래스 외부접근을 위함
 	static var selfView:IndieGamesView?;
+	
+	var wbView:WKWebView = WKWebView();
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -35,12 +37,22 @@ class IndieGamesView:UIViewController {
 		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
 		
+		wbView.frame = CGRectMake(0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height);
+		self.view.addSubview(wbView);
 		
 	}
 	
 	func popToRootAction() {
 		//Pop to root by back button
 		self.navigationController?.popViewControllerAnimated(true);
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		//load url
+		let url:String = "http://up.avngraphic.kr/indies/";
+		wbView.loadRequest(NSURLRequest( URL: NSURL( string:
+			url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet() )!
+			)!));
 	}
 	
 	override func didReceiveMemoryWarning() {
