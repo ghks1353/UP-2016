@@ -3,7 +3,7 @@
 //  	
 //
 //  Created by ExFl on 2016. 1. 30..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation;
@@ -43,6 +43,18 @@ class DataManager {
 		static let info:String = "character_info";
 	}
 	
+	//최고기록 저장 키
+	enum gamesBestKeys {
+		static let jumpup_best:String = "games_best_jumpup";
+	}
+	enum alarmsBestKeys { //(알람 모드)의 최고기록
+		static let jumpup_best:String = "alarms_best_jumpup";
+	}
+	static var bestDatasKeyCollection:Array<String> = []; //코드 간소화를 위함
+	
+	static var bestGameDatasKeyCollection:Array<String> = []; //점수가 높을수록 고득점인 경우 (일반게임)
+	static var bestAlarmDatasKeyCollection:Array<String> = []; //점수가 낮을수록 고득점인 경우 (알람게임)
+	
 	//DB Stats type
 	enum statsType {
 		static let TYPE_ALARM_START_TIME:Int = 0; //게임을 시작하기 전 까지 걸린 시간. 단위: 초
@@ -67,6 +79,30 @@ class DataManager {
 			NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DataManager.iCloudValChanged(_:)), name: NSUbiquitousKeyValueStoreDidChangeExternallyNotification, object: nsCloudDefaults);
 		}
 		
+		//전체 컬렉션
+		bestDatasKeyCollection = [
+			DataManager.gamesBestKeys.jumpup_best
+			, DataManager.alarmsBestKeys.jumpup_best
+		];
+		
+		//고득점 고랭킹 스코어
+		bestGameDatasKeyCollection = [
+			DataManager.gamesBestKeys.jumpup_best
+		];
+		
+		//저득점 고랭킹 스코어
+		bestAlarmDatasKeyCollection = [
+			DataManager.alarmsBestKeys.jumpup_best
+		];
+		
+		//베스트 기록 체크후, 없다면 0으로 설정
+		for i:Int in 0 ..< bestDatasKeyCollection.count {
+			if (DataManager.nsDefaults.objectForKey(bestDatasKeyCollection[i]) == nil) {
+				DataManager.nsDefaults.setInteger(0, forKey: bestDatasKeyCollection[i]);
+			}
+		}
+		
+		DataManager.save();
 		
 	} //end func
 	
@@ -85,6 +121,7 @@ class DataManager {
 		
 		print("Merging cloud data");
 		
+		//캐릭터 경험치 및 레벨에 대한 데이터
 		if (DataManager.nsCloudDefaults!.objectForKey( DataManager.characterInfoKeys.info ) != nil) {
 			let tmpInfo:NSData = DataManager.nsCloudDefaults!.objectForKey( DataManager.characterInfoKeys.info ) as! NSData;
 			let cloudCharacterInfo:CharacterInfo = NSKeyedUnarchiver.unarchiveObjectWithData(tmpInfo) as! CharacterInfo;
@@ -98,6 +135,27 @@ class DataManager {
 				print("Merged characterinfo data to cloud data.");
 			}
 		}
+		
+		//베스트 스코어에 대한 데이터 (고득점 고랭킹)
+		for i:Int in 0 ..< bestGameDatasKeyCollection.count {
+			if (DataManager.nsCloudDefaults!.objectForKey( bestGameDatasKeyCollection[i] ) != nil) {
+				let tmpData:Int = Int(DataManager.nsCloudDefaults!.longLongForKey( bestGameDatasKeyCollection[i] ));
+				if ( tmpData >= DataManager.nsDefaults.integerForKey(bestGameDatasKeyCollection[i])) {
+					//클라우드의 데이터가 현재 저장된 데이터보다 값이 높을 경우 로컬 데이터 덮어쓰기.
+					DataManager.nsDefaults.setInteger(tmpData, forKey: bestGameDatasKeyCollection[i]);
+				}
+			}
+		} //데이터 루프 끝
+		// 저득점 고랭킹에 대한 루프
+		for i:Int in 0 ..< bestAlarmDatasKeyCollection.count {
+			if (DataManager.nsCloudDefaults!.objectForKey( bestAlarmDatasKeyCollection[i] ) != nil) {
+				let tmpData:Int = Int(DataManager.nsCloudDefaults!.longLongForKey( bestAlarmDatasKeyCollection[i] ));
+				if ( tmpData <= DataManager.nsDefaults.integerForKey(bestAlarmDatasKeyCollection[i])) {
+					//클라우드의 데이터가 현재 저장된 데이터보다 값이 낮을 경우 로컬 데이터 덮어쓰기.
+					DataManager.nsDefaults.setInteger(tmpData, forKey: bestAlarmDatasKeyCollection[i]);
+				}
+			}
+		} //데이터 루프 끝
 		
 	}
 	
@@ -124,9 +182,15 @@ class DataManager {
 			//레벨체크를 해서 클라우드가 더 높으면 저장 안함
 			iCloudMerge();
 			
+			//클라우드에 캐릭터 정보 저장
 			DataManager.nsCloudDefaults!.setObject(NSKeyedArchiver.archivedDataWithRootObject(CharacterManager.currentCharInfo),
 			                                      forKey: DataManager.characterInfoKeys.info);
-			
+			//클라우드에 베스트 스코어들 저장
+			for i:Int in 0 ..< bestDatasKeyCollection.count {
+				DataManager.nsCloudDefaults!.setObject( DataManager.nsDefaults.integerForKey(bestDatasKeyCollection[i]) ,
+				                                       forKey: bestDatasKeyCollection[i]);
+			}
+			saveCloud(); //클라우드에 저장
 		}
 		
 		nsDefaults.synchronize();

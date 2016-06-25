@@ -3,7 +3,7 @@
 //  UP
 //
 //  Created by ExFl on 2016. 5. 29..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation;
@@ -23,6 +23,8 @@ class GameResultView:UIViewController {
 	
 	//Floating view
 	var modalView:UIView = UIView();
+	//Floating SNS
+	var modalSNSView:UIView = UIView();
 	
 	//숫자 리소스 추가
 	var blackNumbers:Array<UIImage> = [];
@@ -42,6 +44,11 @@ class GameResultView:UIViewController {
 	var resultButtonList:UIButton = UIButton();
 	var resultButtonRanking:UIButton = UIButton();
 	var resultButtonRetry:UIButton = UIButton(); //<- 일반게임 시 가운데
+	//버튼 (알람 결과창. 닫기버튼만)
+	var resultButtonClose:UIButton = UIButton();
+	
+	//버튼 활성화 여부
+	var rbuttonEnabled:Bool = false;
 	
 	//경험치, 레벨 인디케이터
 	var charLevelWrapper:UIImageView = UIImageView();
@@ -50,8 +57,18 @@ class GameResultView:UIViewController {
 	var charExpWrapper:UIImageView = UIImageView(); var charExpMaskView:UIView = UIView(); //Exp 내용물 마스크 처리를 위함
 	var charExpProgress:UIView = UIView(); var charExpProgressImageView:UIImageView = UIImageView();
 	var charExpProgressAnimationImages:Array<UIImage> = [];
+	var charCurrentCharacter:UIImageView = UIImageView();
+	
+	//number up timers
+	var numUPTimer:NSTimer?;
+	
 	//레벨 표시를 위한 인디케이터 배열
 	var charLevelDigitalArr:Array<UIImageView> = Array<UIImageView>();
+	
+	//창 타입에 따른 이미지 (타임, 스코어)
+	var imgScoreUIView:UIImageView = UIImageView(); var imgTimeUIView:UIImageView = UIImageView();
+	
+	
 	///////////////
 	
 	override func viewDidLoad() {
@@ -62,8 +79,14 @@ class GameResultView:UIViewController {
 		
 		//ModalView
 		modalView.backgroundColor = UIColor.whiteColor();
-		modalView.frame = DeviceGeneral.resultModalSizeRect;
+		modalView.frame = CGRectMake(DeviceGeneral.resultModalSizeRect.minX, DeviceGeneral.resultModalSizeRect.minY - 36 * DeviceGeneral.resultModalRatioC,
+		DeviceGeneral.resultModalSizeRect.width, DeviceGeneral.resultModalSizeRect.height);
 		self.view.addSubview(modalView);
+		//ModalView (SNS)
+		modalSNSView.backgroundColor = UIColor.whiteColor();
+		modalSNSView.frame = CGRectMake(DeviceGeneral.resultModalSizeRect.minX, modalView.frame.maxY + 18 * DeviceGeneral.resultModalRatioC,
+		                             DeviceGeneral.resultModalSizeRect.width, 72 * DeviceGeneral.resultModalRatioC);
+		self.view.addSubview(modalSNSView);
 		
 		//리소스 제작
 		for i:Int in 0 ..< 10 {
@@ -84,15 +107,19 @@ class GameResultView:UIViewController {
 		
 		///// Score 부분 만들기
 		let scoreUIView:UIView = UIView(); scoreUIView.frame = CGRectMake(scrollView.frame.width * 0, 0, scrollView.frame.width, scrollView.frame.height);
-		let scoreImgView:UIImageView = UIImageView( image: UIImage( named: "result-score.png" ));
-		scoreImgView.frame = CGRectMake((modalView.frame.width / 2) - ((118 * DeviceGeneral.resultModalRatioC) / 2), (37 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC, (118 * DeviceGeneral.resultModalRatioC), (23.75 * DeviceGeneral.resultModalRatioC));
+		imgScoreUIView = UIImageView( image: UIImage( named: "result-score.png" ));
+		imgScoreUIView.frame = CGRectMake((modalView.frame.width / 2) - ((118 * DeviceGeneral.resultModalRatioC) / 2), (37 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC, (118 * DeviceGeneral.resultModalRatioC), (23.75 * DeviceGeneral.resultModalRatioC));
 		scoreUIView.backgroundColor = UIColor.clearColor();
-		scoreUIView.addSubview(scoreImgView);
+		scoreUIView.addSubview(imgScoreUIView);
+		imgTimeUIView = UIImageView( image: UIImage( named: "result-time.png" ));
+		imgTimeUIView.frame = CGRectMake((modalView.frame.width / 2) - ((75.4 * DeviceGeneral.resultModalRatioC) / 2), (28 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC, (75.4 * DeviceGeneral.resultModalRatioC), (33 * DeviceGeneral.resultModalRatioC));
+		scoreUIView.backgroundColor = UIColor.clearColor();
+		scoreUIView.addSubview(imgTimeUIView);
 		
 		//Score에 대한 숫자 추가
 		for i:Int in 0 ..< 3 { //<-5자리면 5로 변경
 			let scoreNumber:UIImageView = UIImageView( image: blackNumbers[0] );
-			scoreNumber.frame = getNumberLocForIndex(i, yAxis: scoreImgView.frame.maxY + (8 * DeviceGeneral.resultModalRatioC));
+			scoreNumber.frame = getNumberLocForIndex(i, yAxis: imgScoreUIView.frame.maxY + (8 * DeviceGeneral.resultModalRatioC));
 			scoreUIView.addSubview(scoreNumber); scoreNumPointers += [ scoreNumber ];
 		} //숫자 표시용 디지털 숫자 노드 3개
 		
@@ -106,7 +133,7 @@ class GameResultView:UIViewController {
 		//Best에 대한 숫자 추가
 		for i:Int in 0 ..< 3 {
 			let bestNumber:UIImageView = UIImageView( image: blackNumbers[0] );
-			bestNumber.frame = getNumberLocForIndex(i, yAxis: bestImgView.frame.maxY + (6 * DeviceGeneral.resultModalRatioC));
+			bestNumber.frame = getNumberLocForIndex(i, yAxis: bestImgView.frame.maxY + (8 * DeviceGeneral.resultModalRatioC));
 			bestUIView.addSubview(bestNumber); bestNumPointers += [ bestNumber ];
 		} //숫자 표시용 디지털 숫자 노드 3개
 		
@@ -127,7 +154,9 @@ class GameResultView:UIViewController {
 		charLevelWrapper.image = UIImage( named: "characterinfo-level-wrapper.png" );
 		charLevelIndicator.image = UIImage( named: "characterinfo-level.png" );
 		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" );
+		charCurrentCharacter.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character_" + "0001" + ".png" ); //현재 캐릭터 스킨 불러오기
 		modalView.addSubview(charLevelWrapper); modalView.addSubview(charLevelIndicator); modalView.addSubview(charExpWrapper);
+		modalView.addSubview(charCurrentCharacter);
 		//마스크 레이어
 		charExpMaskView.backgroundColor = UIColor.clearColor();
 		modalView.addSubview(charExpMaskView);
@@ -141,6 +170,8 @@ class GameResultView:UIViewController {
 		//마스크용 프레임 배치
 		charExpMaskView.frame = CGRectMake((25.4 - XAXIS_PRESET_LV_PAD) * DeviceGeneral.modalRatioC, (173.5 - YAXIS_PRESET_LV_PAD) * DeviceGeneral.modalRatioC,
 		                                   80.5 * DeviceGeneral.modalRatioC, 47 * DeviceGeneral.modalRatioC);
+		charCurrentCharacter.frame = CGRectMake( 6 * DeviceGeneral.modalRatioC, resultDecorationBG.frame.maxY - 195 * DeviceGeneral.modalRatioC, 300 * DeviceGeneral.modalRatioC, 300 * DeviceGeneral.modalRatioC );
+		
 		let maskLayer:CAShapeLayer = CAShapeLayer();
 		let cMaskRect = CGRectMake(0, 0, 82 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
 		let cPath:CGPathRef = CGPathCreateWithRect(cMaskRect, nil);
@@ -175,36 +206,79 @@ class GameResultView:UIViewController {
 		resultButtonRanking.setImage(UIImage(named: "result-btn-ranking.png"), forState: .Normal);
 		resultButtonRetry.setImage(UIImage(named: "result-btn-retry.png"), forState: .Normal);
 		
+		//닫기 버튼
+		resultButtonClose.setImage(UIImage(named: "result-btn-close.png"), forState: .Normal);
+		
 		resultButtonList.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceGeneral.resultModalRatioC) * 2,
 		                                    resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC,
 		                                    62 * DeviceGeneral.resultModalRatioC, 62 * DeviceGeneral.resultModalRatioC);
-		
 		resultButtonRetry.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceGeneral.resultModalRatioC) / 2,
 		                                     resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC,
 		                                     62 * DeviceGeneral.resultModalRatioC, 62 * DeviceGeneral.resultModalRatioC);
-		
 		resultButtonRanking.frame = CGRectMake(modalView.frame.width / 2 + (62 * DeviceGeneral.resultModalRatioC),
 		                                    resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC,
 		                                    62 * DeviceGeneral.resultModalRatioC, 62 * DeviceGeneral.resultModalRatioC);
 		
+		resultButtonClose.frame = resultButtonRetry.frame;
+		
 		modalView.addSubview(resultButtonList);
 		modalView.addSubview(resultButtonRetry);
 		modalView.addSubview(resultButtonRanking);
-		
+		modalView.addSubview(resultButtonClose);
+
 		//DISABLE AUTORESIZE
 		self.view.autoresizesSubviews = false;
 		
 		//SET MASK for dot eff (result mask)
-		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask-result.png"));
-		modalMaskImageView.frame = modalView.frame;
-		modalMaskImageView.contentMode = .ScaleAspectFit; self.view.maskView = modalMaskImageView;
+		var modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask-result.png"));
+		modalMaskImageView.frame = CGRectMake(0, 0, modalView.frame.width, modalView.frame.height);
+		modalMaskImageView.contentMode = .ScaleAspectFit; modalView.maskView = modalMaskImageView;
+		modalMaskImageView = UIImageView(image: UIImage(named: "modal-mask-result-sns.png"));
+		modalMaskImageView.frame = CGRectMake(0, 0, modalSNSView.frame.width, modalSNSView.frame.height);
+		modalMaskImageView.contentMode = .ScaleAspectFit; modalSNSView.maskView = modalMaskImageView;
 		
 		FitModalLocationToCenter();
 		refreshExpLevels();
+		
+		//버튼 이벤트 바인딩
+		resultButtonClose.addTarget(self, action: #selector(GameResultView.viewCloseAction), forControlEvents: .TouchUpInside);
+		
+		// 테스트
+		showNumbersOnScore(86, autoContinueBest: true, autoContinueBestScore: 642);
+		setWindowType(0);
 	}
 	
-	func refreshExpLevels() {
+	func setWindowType(type:Int) {
+		//type 0: 알람 끝 결과창,
+		//type 1: 일반 게임 끝 결과창.
 		
+		switch(type) {
+			case 0:
+				resultButtonList.hidden = true; resultButtonRetry.hidden = true; resultButtonRanking.hidden = true;
+				resultButtonClose.hidden = false;
+				imgScoreUIView.hidden = true; imgTimeUIView.hidden = false;
+				break;
+			case 1:
+				resultButtonList.hidden = false; resultButtonRetry.hidden = false; resultButtonRanking.hidden = false;
+				resultButtonClose.hidden = true;
+				imgScoreUIView.hidden = false; imgTimeUIView.hidden = true;
+				break;
+			default: break;
+		}
+	}
+	
+	func toggleButtonStatus( status:Bool ) {
+		rbuttonEnabled = status;
+		if (rbuttonEnabled) {
+			resultButtonList.alpha = 1;
+		} else {
+			resultButtonList.alpha = 0.6;
+		}
+		resultButtonRetry.alpha = resultButtonList.alpha; resultButtonRanking.alpha = resultButtonList.alpha;
+		resultButtonClose.alpha = resultButtonList.alpha;
+	} //toggle btns
+	
+	func refreshExpLevels() {
 		//캐릭터 레벨에 대한 숫자 표시
 		let levStr = String(CharacterManager.currentCharInfo.characterLevel);
 		charLevelDigitalArr[0].alpha = levStr.characters.count < 3 ? 0.6 : 1;
@@ -244,8 +318,15 @@ class GameResultView:UIViewController {
 	////////////////
 	
 	func FitModalLocationToCenter() {
-		if (self.view.maskView != nil) {
-			self.view.maskView!.frame = DeviceGeneral.resultModalSizeRect;
+		modalView.frame = CGRectMake(DeviceGeneral.resultModalSizeRect.minX, DeviceGeneral.resultModalSizeRect.minY - 36 * DeviceGeneral.resultModalRatioC,
+		                             DeviceGeneral.resultModalSizeRect.width, DeviceGeneral.resultModalSizeRect.height);
+		modalSNSView.frame = CGRectMake(DeviceGeneral.resultModalSizeRect.minX, modalView.frame.maxY + 18 * DeviceGeneral.resultModalRatioC,
+		                                DeviceGeneral.resultModalSizeRect.width, 72 * DeviceGeneral.resultModalRatioC);
+		if (modalView.maskView != nil) {
+			modalView.maskView!.frame = CGRectMake(0, 0, modalView.frame.width, modalView.frame.height);
+		}
+		if (modalSNSView.maskView != nil) {
+			modalSNSView.maskView!.frame = CGRectMake(0, 0, modalSNSView.frame.width, modalSNSView.frame.height);
 		}
 	}
 	
@@ -256,6 +337,9 @@ class GameResultView:UIViewController {
 	
 	func viewCloseAction() {
 		//Close this view
+		if (!rbuttonEnabled) {
+			return;
+		}
 		ViewController.viewSelf!.showHideBlurview(false);
 		self.dismissViewControllerAnimated(true, completion: nil);
 	} //end func
@@ -283,5 +367,95 @@ class GameResultView:UIViewController {
 		}) { _ in
 		}
 	} ///////////////////////////////
+	
+	var tmpNumCurrent:Float = 0; var tmpNumTimeCurrent:Float = 0; var tmpNumCurrentMax:Float = 0;
+	var autoContinueToBest:Bool = false; var autoContinuedBestScore:Int = 0;
+	func showNumbersOnScore(score:Int, autoContinueBest:Bool = false, autoContinueBestScore:Int = 0) {
+		//숫자 올라가는 애니메이션과 함께 숫자 표시
+		if (numUPTimer != nil) {
+			numUPTimer!.invalidate(); numUPTimer = nil;
+		}
+		tmpNumCurrentMax = Float(score); tmpNumCurrent = 0; tmpNumTimeCurrent = 2;
+		numUPTimer = UPUtils.setInterval(0.01, block: scoreTick);
+		
+		if (autoContinueBest == true) {
+			//기존 버튼 비활성화
+			toggleButtonStatus(false);
+		}
+		
+		autoContinueToBest = autoContinueBest; autoContinuedBestScore = autoContinueBestScore;
+	}
+	
+	func showNumbersOnBest(score:Int) {
+		//숫자 올라가는 애니메이션과 함께 숫자 표시 (Best)
+		if (numUPTimer != nil) {
+			numUPTimer!.invalidate(); numUPTimer = nil;
+		}
+		tmpNumCurrentMax = Float(score); tmpNumCurrent = 0; tmpNumTimeCurrent = 2;
+		numUPTimer = UPUtils.setInterval(0.01, block: bestTick);
+		
+		autoContinueToBest = false; autoContinuedBestScore = 0;
+	}
+	
+	func tickNum() {
+		tmpNumTimeCurrent *= 1.04;
+		tmpNumCurrent = tmpNumCurrentMax - (tmpNumCurrentMax / tmpNumTimeCurrent);
+		
+		if (tmpNumCurrent >= tmpNumCurrentMax - 0.1) {
+			tmpNumCurrent = tmpNumCurrentMax;
+		}
+	}
+	func scoreTick() { //Score에 대한 틱
+		tickNum();
+		
+		//숫자 표시
+		let tmpStr:String = String(Int(round(tmpNumCurrent)));
+		for i:Int in 0 ..< scoreNumPointers.count {
+			if (tmpStr.characters.count - (i+1) < 0) {
+				scoreNumPointers[i].image = blackNumbers[0];
+				scoreNumPointers[i].alpha = 0.5;
+			} else {
+				scoreNumPointers[i].image = blackNumbers[ Int(tmpStr[tmpStr.characters.count - (i+1)])! ];
+				scoreNumPointers[i].alpha = 1;
+			}
+		}
+		
+		if (tmpNumCurrent >= tmpNumCurrentMax) {
+			numUPTimer!.invalidate(); numUPTimer = nil;
+			print("Timer end");
+			if (autoContinueToBest == true) {
+				//auto-start with delay
+				UPUtils.setTimeout(1, block: {
+					self.scrollView.setContentOffset(CGPointMake(self.modalView.frame.width, 0), animated: true);
+					self.showNumbersOnBest(self.autoContinuedBestScore);
+				});
+			} //end auto-start
+		}
+	} //end of scoretick
+	func bestTick() { //Best에 대한 틱
+		tickNum();
+		
+		//숫자 표시
+		let tmpStr:String = String(Int(round(tmpNumCurrent)));
+		for i:Int in 0 ..< bestNumPointers.count {
+			if (tmpStr.characters.count - (i+1) < 0) {
+				bestNumPointers[i].image = blackNumbers[0];
+				bestNumPointers[i].alpha = 0.5;
+			} else {
+				bestNumPointers[i].image = blackNumbers[ Int(tmpStr[tmpStr.characters.count - (i+1)])! ];
+				bestNumPointers[i].alpha = 1;
+			}
+		}
+		
+		if (tmpNumCurrent >= tmpNumCurrentMax) {
+			numUPTimer!.invalidate(); numUPTimer = nil;
+			print("Timer end (best)");
+			toggleButtonStatus(true);
+			
+		}
+	} //end of scoretick
+	
+	//////////
+	
 	
 }

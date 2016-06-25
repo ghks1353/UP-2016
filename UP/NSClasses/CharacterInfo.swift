@@ -3,7 +3,7 @@
 //  UP
 //
 //  Created by EXFl on 2016. 5. 23..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation

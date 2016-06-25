@@ -24,32 +24,36 @@
 	
     "generalSettings": "General",
 		"settingsIconBadgeSetting": "Show icon badge",
-		"settingsiCloud": "Use iCloud SYNC",
+		"settingsiCloud": "iCloud sync",
 	"generalGuide": "Help",
 		"settingsStartingGuide": "Start guide",
 		"settingsRatingApp": "Rating app",
-		"settingsShowNewgame": "New game!",
-		"settingsGotoAVN": "AVN Graphic website",
-		"settingsCredits": "Credit",
+		"settingsShowNewgame": "INDIE GAMES!",
+		"settingsGotoUPProject": "Visit Project UP",
+		"settingsCredits": "Credits",
 	
 	"alarmDeleteTitle": "Delete alarm",
 	"alarmSettings": "Alarm setting",
 	"alarmEditTitle": "Alarm edit",
 		"alarmTitle": "Alarm name",
-		"alarmMemo": "Alarm memo",
+		"alarmMemo": "Memo",
+		"alarmGameSelect": "Select game",
 		"alarmGame": "Game",
 			"alarmGameRandom": "Random",
 			"alarmGameDifficulty": "Difficulty",
 		"alarmSound": "Alarm tone",
 			"alarmSoundLevelTitle": "Sound level",
-				"alarmSoundLevelDescription": "Make sure this is your alarm sound level",
-			"alarmSoundSelection": "Alarm tone select",
+				"alarmSoundLevelDescription": "To wake up early, make sure your sound level sets higher.",
+			"alarmSoundSelection": "Alarm tones",
 		"alarmRepeat": "Alarm repeat",
 			"alarmRepeatFreqOnce": "None",
 			"alarmRepeatFreqOn": "On",
 			"alarmRepeatFreqEveryday": "Everyday",
 			"alarmRepeatFreqWeekday": "Weekday",
 			"alarmRepeatFreqWeekend": "Weekend",
+				"alarmRepeatFreqEverydayShort": "Always",
+				"alarmRepeatFreqWeekdayShort": "Mo~Fr",
+				"alarmRepeatFreqWeekendShort": "Sa,Su",
 			"alarmRepeatMon": "Monday",
 			"alarmRepeatTue": "Tuesday",
 			"alarmRepeatWed": "Wednesday",
@@ -68,10 +72,12 @@
 		"alarmDelete": "Delete",
 		"alarmDeleteSure": "Are you sure want to delete this alarm?",
 		"alarmDefaultName": "Alarm",
-	"alarmListEmpty": "No alarm on list",
+	"alarmListEmpty": "Make your first alarm!",
 		"alarmListAddWhenEmpty": "Add",
 	"alarmSlideToStartGameSuffix": "Game start",
-
+	
+	"gamePlay": "Games",
+	
 	"gameNameJumpUP": "Jump UP",
 	"gameDescriptionJumpUP": "Jump is not A only Solution\nbelieve your own sense!",
 	
@@ -81,15 +87,15 @@
 	"informationAlarmEdited": "Alarm has been edited.",
 	"informationAlarmExceed": "Cannot add more alarm.\nPlease delete existing alarm.",
 	
-	"userStatistics": "Stat",
+	"userStatistics": "Stats",
 		"statsNoDataAvailable": "There is no data to display.",
 	
-		"statsAverageFormat": "AVG $0",
+		"statsAverageFormat": "Avg. $0",
 		"statsTotalFormat": "Total $0",
 	
-		"statsWeek": "Week",
-		"statsMonth": "Month",
-		"statsYear": "Year",
+		"statsWeek": "7D",
+		"statsMonth": "30D",
+		"statsYear": "1Y",
 
 		"statsMonthJanuary": "January",
 			"statsMonthMinJanuary": "Jan",
@@ -121,31 +127,37 @@
 		"statsTimeFormatMinOnly": "$0",
 	
 		"statsTimeFormatMinPrefix": "",
-		"statsTimeFormatMinSuffix": "Min",
+		"statsTimeFormatMinSuffix": " min.",
 
 		"statsDataFormatCountsPrefix": "",
-		"statsDataFormatCountsSuffix": "Time",
-
+		"statsDataFormatCountsSuffix": " Time(s)",
+			"statsDataFormatCountsPrefixShort": "",
+			"statsDataFormatCountsSuffixShort": "",
+	
 		"statsDataFormatPercent": "%",
 
 		"statsDataGameRetired": "Retire",
 		"statsDataGameCleared": "Clear",
 	
-		"statsDataPoint": "Data point",
+		"statsDataPoint": "Data category",
 			"statsDataCategoryTime": "Alarm data",
 				"statsTitleUntilAlarmOff": "Total time",
 				"statsTitleUntilGameStart": "Alarm period",
 				"statsTitleGamePlayTime": "Play time",
 			"statsDataCategoryGame": "Play data",
-				"statsTitleGameClearPercent": "Game Clear",
+				"statsTitleGameClearPercent": "Clear rate",
 				"statsTitleTouches": "Touch count",
-				"statsTitleVaildTouchPercent": "Valid play",
+				"statsTitleVaildTouchPercent": "Valid touches",
 				"statsTitleFellAsleepCount": "Sleep count",
 	
 		"statsDetails": "Details",
 
 
-	"userCharacterInformation": "Character Info"
+	"userCharacterInformation": "Character Info",
+	
+	"achievements": "Achievements",
+		"hiddenAchieveTitle": "Hidden achievements",
+		"hiddenAchieveDescription": "Hidden goals"
 
 
 }

@@ -3,7 +3,7 @@
 //  UP
 //
 //  Created by ExFl on 2016. 3. 1..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation;
@@ -78,6 +78,8 @@ class JumpUPGame:SKScene {
 	var gameScreenShakeEventDelay:Int = 0; //화면 흔들림 효과를 위한 딜레이.
 	var gameRdmElementNum:Int = 0; //랜덤으로 나오는 장애물 고유 번호. (메모리 절약을 위해 재사용)
 	
+	var characterMinYAxis:CGFloat = 0; //캐릭터가 땅에 닿았을 때의 좌표
+	
 	//Game node arrays
 	var gameNodesArray:Array<JumpUpElements?> = [];
 	//Game elements textures (for *optimize*)
@@ -93,7 +95,8 @@ class JumpUPGame:SKScene {
 	//Character element
 	var characterElement:JumpUpElements?;// = JumpUpElements();
 	//판정 완화의 정도
-	let characterRatherbox:CGFloat = 14 * DeviceGeneral.scrRatioC;
+	let characterRatherboxX:CGFloat = 140 * DeviceGeneral.scrRatioC;
+	let characterRatherboxY:CGFloat = 125 * DeviceGeneral.scrRatioC;
 	
 	/////// 통계를 위한 데이터 변수
 	
@@ -285,17 +288,19 @@ class JumpUPGame:SKScene {
 		//기존 배열에 노드가 있을경우 삭제
 		delAllElementsFromArray();
 		
+		characterMinYAxis = gameStageYAxis - gameStageYHeight + (32 * DeviceGeneral.scrRatioC);
+		
 		//캐릭터 추가
-		characterElement = JumpUpElements();
-		characterElement!.size = CGSizeMake(60 * DeviceGeneral.scrRatioC, 70 * DeviceGeneral.scrRatioC); //Create astro size
+		characterElement = JumpUpElements(); //60, 70이 원래 크기였음
+		characterElement!.size = CGSizeMake(300 * DeviceGeneral.scrRatioC, 300 * DeviceGeneral.scrRatioC); //Create astro size
 		characterElement!.position.x = 64 * DeviceGeneral.scrRatioC; //캐릭터의 왼쪽. 초기위치 잡음
-		characterElement!.position.y = gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2); // * DeviceGeneral.scrRatioC;
+		characterElement!.position.y = characterMinYAxis; //gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2); // * DeviceGeneral.scrRatioC;
 		
 		//////// Make textures for Character (Player)
 		if (characterElement!.motions_walking.count == 0) {
 			for i:Int in 0 ..< 6 {
 				characterElement!.motions_walking += [
-					SKTexture( imageNamed: "game_jumpup_astro_move" + String(i) + ".png" )
+					SKTexture( imageNamed: "game_jumpup_astro_" + SkinManager.getSelectedSkinCharacter() + "_move_" + String(i) + ".png" )
 				]; //Character motions preload
 				(characterElement!.motions_walking[i] as SKTexture).preloadWithCompletionHandler({});
 			}
@@ -303,7 +308,7 @@ class JumpUPGame:SKScene {
 		if (characterElement!.motions_jumping.count == 0) {
 			for i:Int in 0 ..< 8 {
 				characterElement!.motions_jumping += [
-					SKTexture( imageNamed: "game_jumpup_astro_jump" + String(i) + ".png" )
+					SKTexture( imageNamed: "game_jumpup_astro_" + SkinManager.getSelectedSkinCharacter() + "_jump_" + String(i) + ".png" )
 				]; //Character motions preload
 				(characterElement!.motions_jumping[i] as SKTexture).preloadWithCompletionHandler({});
 			}
@@ -552,8 +557,8 @@ class JumpUPGame:SKScene {
 		//Character jump queue
 		characterElement!.position.y += (characterElement!.ySpeed / 2) * DeviceGeneral.scrRatioC;
 							/// 1을 더하는 이유는 기종마다 미세한 픽셀 차이로 인해 모션이 안나오는 버그가 있기 때문임
-		if (characterElement!.position.y <= 1 + gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2)) {
-			characterElement!.position.y = gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2);
+		if (characterElement!.position.y <= 1 + characterMinYAxis) {
+			characterElement!.position.y = characterMinYAxis;
 			characterElement!.ySpeed = 0;
 			characterElement!.changeMotion(0); //walking motion
 			characterElement!.jumpFlaggedCount = 0; //점프횟수 초기화
@@ -670,12 +675,14 @@ class JumpUPGame:SKScene {
 					
 					
 					if ( //캐릭터 - 적간 충돌판정 (조금 완화 함.)
-						characterElement!.containsPoint( gameNodesArray[i]!.position ) ||
-							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.size.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.size.height / 2) + characterRatherbox  ) ) ||
-							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x + gameNodesArray[i]!.size.width / 2) - characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.size.height / 2) + characterRatherbox ) ) ||
-							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.size.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y + gameNodesArray[i]!.size.height / 2) - characterRatherbox ) ) ||
-							characterElement!.containsPoint( CGPoint( x: (gameNodesArray[i]!.position.x - gameNodesArray[i]!.size.width / 2) + characterRatherbox, y: (gameNodesArray[i]!.position.y - gameNodesArray[i]!.size.height / 2) + characterRatherbox ) )
+						/*characterElement!.containsPoint( gameNodesArray[i]!.position ) ||*/
+							gameNodesArray[i]!.containsPoint( CGPoint( x: (characterElement!.position.x - characterElement!.size.width / 2) + characterRatherboxX, y: (characterElement!.position.y - characterElement!.size.height / 2) + characterRatherboxY  ) ) ||
+							gameNodesArray[i]!.containsPoint( CGPoint( x: (characterElement!.position.x + characterElement!.size.width / 2) - characterRatherboxX, y: (characterElement!.position.y - characterElement!.size.height / 2) + characterRatherboxY  ) ) ||
+							
+							gameNodesArray[i]!.containsPoint( CGPoint( x: (characterElement!.position.x - characterElement!.size.width / 2) + characterRatherboxX, y: (characterElement!.position.y + characterElement!.size.height / 2) - characterRatherboxY  ) ) ||
+							gameNodesArray[i]!.containsPoint( CGPoint( x: (characterElement!.position.x + characterElement!.size.width / 2) - characterRatherboxX, y: (characterElement!.position.y + characterElement!.size.height / 2) - characterRatherboxY  ) )
 						) {
+						
 							if (gameCharacterUnlimitedLife == 0) {
 								print("Character collision");
 								gameCharacterUnlimitedLife = 120; //무적시간 부여

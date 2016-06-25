@@ -3,7 +3,7 @@
 //  UP
 //
 //  Created by 문화창조아카데미12 on 2016. 5. 1..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation
@@ -21,6 +21,7 @@ class AnalyticsManager {
 	static let T_SCREEN_GAME_JUMPUP:String = "Screen-Game-JumpUP";
 	static let T_SCREEN_PLAYGAME:String = "Screen-GameSelect";
 	static let T_SCREEN_RESULT:String = "Screen-Result";
+	static let T_SCREEN_PLAYGAME_READY:String = "Screen-GameSelect-Ready";
 	
 	// Event category
 	static let E_CATEGORY_GAMEDATA:String = "Event-Game";

@@ -28,8 +28,8 @@
 	"generalGuide": "ガイド",
 		"settingsStartingGuide": "スタトガイド",
 		"settingsRatingApp": "アップを評価する",
-		"settingsShowNewgame": "新しいゲーム!",
-		"settingsGotoAVN": "AVN Graphic ページへ",
+		"settingsShowNewgame": "インディーゲーム!",
+		"settingsGotoUPProject": "Project UP ページへ",
 		"settingsCredits": "製作陣",
 	
 	"alarmDeleteTitle": "アラーム削除",
@@ -41,7 +41,7 @@
 		"alarmGame": "ゲーム",
 			"alarmGameRandom": "ランダム",
 			"alarmGameDifficulty": "難易度",
-		"alarmSound": "音設定",
+		"alarmSound": "おと設定",
 			"alarmSoundLevelTitle": "アラーム音量設定",
 				"alarmSoundLevelDescription": "音量が小さすぎると、起きるのが大変になるかもしれません。",
 			"alarmSoundSelection": "アラーム音の選択",
@@ -51,6 +51,9 @@
 			"alarmRepeatFreqEveryday": "毎日",
 			"alarmRepeatFreqWeekday": "平日",
 			"alarmRepeatFreqWeekend": "週末",
+				"alarmRepeatFreqEverydayShort": "毎日",
+				"alarmRepeatFreqWeekdayShort": "平日",
+				"alarmRepeatFreqWeekendShort": "週末",
 			"alarmRepeatMon": "月曜日",
 			"alarmRepeatTue": "火曜日",
 			"alarmRepeatWed": "水曜日",
@@ -90,9 +93,9 @@
 		"statsAverageFormat": "平均 $0",
 		"statsTotalFormat": "合計 $0",
 	
-		"statsWeek": "週",
-		"statsMonth": "月",
-		"statsYear": "年",
+		"statsWeek": "7日",
+		"statsMonth": "30日",
+		"statsYear": "1年",
 	
 		"statsMonthJanuary": "January",
 			"statsMonthMinJanuary": "Jan",
@@ -128,6 +131,8 @@
 	
 		"statsDataFormatCountsPrefix": "",
 		"statsDataFormatCountsSuffix": "回",
+			"statsDataFormatCountsPrefixShort": "",
+			"statsDataFormatCountsSuffixShort": "回",
 	
 		"statsDataFormatPercent": "%",
 	

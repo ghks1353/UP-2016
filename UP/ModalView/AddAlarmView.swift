@@ -3,7 +3,7 @@
 //  	
 //
 //  Created by ExFl on 2016. 1. 31..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 
@@ -501,6 +501,11 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 						break;
 					case "alarmSound":
 						tLabel.text = Languages.$("alarmSound");
+						if (DeviceGeneral.defaultModalSizeRect.width < 250) {
+							// 작은 화면에서 표시 못하는 세부설정 감춤
+							tSettingLabel.hidden = true;
+						}
+						
 						break;
 					case "alarmRepeatSetting":
 						tLabel.text = Languages.$("alarmRepeat");

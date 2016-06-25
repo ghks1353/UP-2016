@@ -3,7 +3,7 @@
 //  UP
 //
 //  Created by ExFl on 2016. 1. 20..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import UIKit;
@@ -38,6 +38,8 @@ class ViewController: UIViewController {
 	//고정 박스와 떠있는 박스 (게임쪽)
 	var GroundStandingBox:UIImageView = UIImageView(); var GroundFloatingBox:UIImageView = UIImageView();
 	
+	//고정 박스 터치에어리어
+	var groundBoxToucharea:UIView = UIView();
 	
 	///아래 애니메이션 이미지의 이미지 배열도 스킨에 따라 바뀜.
 	//스탠딩 모션
@@ -55,7 +57,8 @@ class ViewController: UIViewController {
 	var modalAlarmStatsView:StatisticsView = StatisticsView();
 	var modalCharacterInformationView:CharacterInfoView = CharacterInfoView();
 	var modalPlayGameview:GamePlayView = GamePlayView();
-	var modalGameResultView:GameResultView = GameResultView();
+	var modalGameResultView:GameResultView = GlobalSubView.alarmGameResultView;
+	var modalGamePlayWindowView:GamePlayWindowView = GlobalSubView.alarmGamePlayWindowView;
 	
 	//screen blur view
 	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark));
@@ -659,33 +662,33 @@ class ViewController: UIViewController {
 			case 0: //기본 up 스킨
 				
 				//시계
-				AnalogBody.image = UIImage( named: SkinManager.getAssetPresets() + "time_body.png" );
+				AnalogBody.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time_body.png" );
 				
-				AnalogHours.image = UIImage( named: SkinManager.getAssetPresets() + "time_hh.png" );
-				AnalogMinutes.image = UIImage( named: SkinManager.getAssetPresets() + "time_mh.png" );
+				AnalogHours.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time_hh.png" );
+				AnalogMinutes.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time_mh.png" );
 				//떠있는 버튼
-				SettingsImg.image = UIImage( named: SkinManager.getAssetPresets() + "object_st.png" );
-				AlarmListImg.image = UIImage( named: SkinManager.getAssetPresets() + "object_list.png" );
+				SettingsImg.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object_st.png" );
+				AlarmListImg.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object_list.png" );
 				
 				//땅 부분 (아스트로는 위에서 지정함) iPad의 경우 이미지를 넓은 것으로 교체할 필요가 있음
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
-					GroundObj.image = UIImage( named: SkinManager.getAssetPresets() + "ground.png" );
+					GroundObj.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "ground.png" );
 				} else {
 					//show pad ground
 					GroundObj.image = UIImage( named:
-						SkinManager.getAssetPresets() + "ground_pad" + (
+						SkinManager.getDefaultAssetPresets() + "ground_pad" + (
 						UIDevice.currentDevice().orientation.isLandscape == true || DeviceGeneral.scrSize!.width > DeviceGeneral.scrSize!.height
 							? "34" : "43") + ".png" );
 				}
 				
-				GroundStatSign.image = UIImage( named: SkinManager.getAssetPresets() + "stat_object.png" );
-				GroundStandingBox.image = UIImage( named: SkinManager.getAssetPresets() + "standing_box.png" );
-				GroundFloatingBox.image = UIImage( named: SkinManager.getAssetPresets() + "floating_box.png" );
+				GroundStatSign.image = UIImage( named: SkinManager.getAssetPresetsStatistics() + "stat_object.png" );
+				GroundStandingBox.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "standing_box.png" );
+				GroundFloatingBox.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "floating_box.png" );
 				
 				//기본 스킨 아스트로 애니메이션 (텍스쳐)
 				for i in 1...40 { //부동
 					let numberStr:String = String(i).characters.count == 1 ? "0" + String(i) : String(i);
-					let fileName:String = SkinManager.getAssetPresets() + "character_" + "00" + numberStr + ".png";
+					let fileName:String = SkinManager.getAssetPresetsCharacter() + "character_" + "00" + numberStr + ".png";
 					let fImage:UIImage = UIImage( named: fileName )!;
 					astroMotionsStanding += [fImage];
 				} /* 아직 안쓰니까 주석처리함. 쓸때 다시 주석 품,
@@ -781,7 +784,7 @@ class ViewController: UIViewController {
 			//show pad ground
 			GroundObj.frame = CGRectMake( 0, (DeviceGeneral.scrSize?.height)! - 85.6 * DeviceGeneral.maxScrRatioC, (DeviceGeneral.scrSize!.width) , 85.6 * DeviceGeneral.maxScrRatioC );
 			GroundObj.image = UIImage( named:
-				SkinManager.getAssetPresets() + "ground_pad" + ((DeviceGeneral.scrSize!.width > DeviceGeneral.scrSize!.height) ? "34" : "43") + ".png" );
+				SkinManager.getDefaultAssetPresets() + "ground_pad" + ((DeviceGeneral.scrSize!.width > DeviceGeneral.scrSize!.height) ? "34" : "43") + ".png" );
 		}
 		
 		//캐릭터 크기 및 위치조정
@@ -814,6 +817,7 @@ class ViewController: UIViewController {
 		modalCharacterInformationView.FitModalLocationToCenter( );
 		modalPlayGameview.FitModalLocationToCenter( );
 		modalGameResultView.FitModalLocationToCenter( );
+		modalGamePlayWindowView.FitModalLocationToCenter( );
 		
 		//Blur view 조절
 		scrBlurView.frame = DeviceGeneral.scrSize!;

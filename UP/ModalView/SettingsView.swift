@@ -3,7 +3,7 @@
 //  	
 //
 //  Created by ExFl on 2016. 1. 28..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation;
@@ -27,6 +27,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	var experimentLanguagesView:ExperimentsLanguagesSetupView = ExperimentsLanguagesSetupView();
 	var experimentAlarmSettingsView:ExperimentsAlarmsSetupView = ExperimentsAlarmsSetupView();
 	/////
+	
+	/// InSettings Views
+	var creditsView:CreditsPopView = CreditsPopView();
 	
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -70,7 +73,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
                 createSettingsOnlyLabel( Languages.$("settingsStartingGuide") , menuID: "startGuide")
                 , createSettingsOnlyLabel( Languages.$("settingsRatingApp") , menuID: "ratingApplication")
                 , createSettingsOnlyLabel( Languages.$("settingsShowNewgame") , menuID: "newGame")
-                , createSettingsOnlyLabel( Languages.$("settingsGotoAVN") , menuID: "gotoAVNGraphic")
+                , createSettingsOnlyLabel( Languages.$("settingsGotoUPProject") , menuID: "gotoUPProject")
 				, createSettingsOnlyLabel( Languages.$("settingsCredits") , menuID: "credits")
             ],
             [ /* SECTION 3 */
@@ -158,10 +161,13 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		//element touch handler
 		
 		switch (cell.cellID) {
-			case "gotoAVNGraphic":
-				UIApplication.sharedApplication().openURL(NSURL(string: "http://avngraphic.kr/")!);
+			case "gotoUPProject":
+				UIApplication.sharedApplication().openURL(NSURL(string: "http://up.avngraphic.kr/?l=" + Languages.currentLocaleCode)!);
 				break;
-			
+			case "credits":
+				navigationCtrl.pushViewController(self.creditsView, animated: true);
+				creditsView.creditsScrollView.setContentOffset(CGPointMake(0, 0), animated: false);
+				break;
 			////// EXPERIMENTS
 			case "experiments-forcelang":
 				navigationCtrl.pushViewController(self.experimentLanguagesView, animated: true);
@@ -327,7 +333,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			case "ratingApplication": tIconFileStr = "comp-icons-settings-rating"; break;
 			case "newGame": tIconFileStr = "comp-icons-settings-newgames"; break;
 			case "credits": tIconFileStr = "comp-icons-settings-developers"; break;
-			case "gotoAVNGraphic": tIconFileStr = "comp-icons-settings-avn"; break;
+			case "gotoUPProject": tIconFileStr = "comp-icons-settings-projectup"; break;
 			default:
 				if (menuID.rangeOfString("experiments-") != nil) {
 					//실험실 아이콘?

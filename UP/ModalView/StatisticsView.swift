@@ -3,7 +3,7 @@
 //  UP
 //
 //  Created by ExFl on 2016. 4. 1..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation;
@@ -331,7 +331,9 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 								if (previousMonth != statsDataResult![i].dateComponents!.month) {
 									previousMonth = statsDataResult![i].dateComponents!.month;
 									//Languages $0 ~ $1 되있는것 자동 변수 삽입.
-									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: statsDataResult![i].dateComponents!.month, statsDataResult![i].dateComponents!.day) ];
+									let monthStr:String = Languages.localizeMonth( String(statsDataResult![i].dateComponents!.month) );
+									
+									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: monthStr, statsDataResult![i].dateComponents!.day) ];
 								} else {
 									//일만 추가
 									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day) ];
@@ -368,8 +370,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 									resultAverage = resultAverage / Float(statsDataResult!.count);
 									break;
 								case 4, 6: //합계 ~회 표기
-									currentDataPrefix = Languages.$("statsDataFormatCountsPrefix");
-									currentDataSuffix = Languages.$("statsDataFormatCountsSuffix");
+									currentDataPrefix = Languages.$("statsDataFormatCountsPrefixShort");
+									currentDataSuffix = Languages.$("statsDataFormatCountsSuffixShort");
 									
 									//Average 구할 필요 없음
 									break;
@@ -402,7 +404,9 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 								if (previousMonth != statsDataResult![i].dateComponents!.month) {
 									previousMonth = statsDataResult![i].dateComponents!.month;
 									//Languages $0 ~ $1 되있는것 자동 변수 삽입.
-									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: statsDataResult![i].dateComponents!.month, statsDataResult![i].dateComponents!.day) ];
+									let monthStr:String = Languages.localizeMonth( String(statsDataResult![i].dateComponents!.month) );
+									
+									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: monthStr, statsDataResult![i].dateComponents!.day) ];
 								} else {
 									//일만 추가
 									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day) ];
@@ -439,8 +443,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 								resultAverage = resultAverage / Float(statsDataResult!.count);
 								break;
 							case 4, 6: //합계 ~회 표기
-								currentDataPrefix = Languages.$("statsDataFormatCountsPrefix");
-								currentDataSuffix = Languages.$("statsDataFormatCountsSuffix");
+								currentDataPrefix = Languages.$("statsDataFormatCountsPrefixShort");
+								currentDataSuffix = Languages.$("statsDataFormatCountsSuffixShort");
 								
 								//Average 구할 필요 없음
 								break;

@@ -3,7 +3,7 @@
 //  UP
 //
 //  Created by ExFl on 2016. 2. 9..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation;
@@ -714,13 +714,13 @@ class AlarmManager {
 		let shortPara:String = "Short"; //loadType == 0 ? "" : "Short";
 		
 		if (repeatCount == 7) { //everyday
-			return Languages.$("alarmRepeatFreqEveryday");
+			return Languages.$("alarmRepeatFreqEveryday" + shortPara);
 		} else if (repeatInfo[0] == false && repeatInfo[1] == true && repeatInfo[2] == true &&
 			repeatInfo[3] == true && repeatInfo[4] == true && repeatInfo[5] == true && repeatInfo[6] == false) { //weekday
-			return Languages.$("alarmRepeatFreqWeekday");
+			return Languages.$("alarmRepeatFreqWeekday" + shortPara);
 		} else if (repeatInfo[0] == true && repeatInfo[1] == false && repeatInfo[2] == false && repeatInfo[3] == false &&
 			repeatInfo[4] == false && repeatInfo[5] == false && repeatInfo[6] == true) { //weekend
-			return Languages.$("alarmRepeatFreqWeekend");
+			return Languages.$("alarmRepeatFreqWeekend" + shortPara);
 		} else if (repeatInfo[0] == false && repeatInfo[1] == false && repeatInfo[2] == false && repeatInfo[3] == false &&
 			repeatInfo[4] == false && repeatInfo[5] == false && repeatInfo[6] == false) {
 			return loadType == 0 ? Languages.$("alarmRepeatFreqOnce") : ""; //no repeats

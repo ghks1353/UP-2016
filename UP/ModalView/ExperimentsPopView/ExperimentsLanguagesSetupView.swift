@@ -3,7 +3,7 @@
 //  UP
 //
 //  Created by ExFl on 2016. 4. 27..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 
@@ -44,7 +44,7 @@ class ExperimentsLanguagesSetupView:UIViewController, UITableViewDataSource, UIT
 				, createCell("한국어", menuID: "ko")
 				, createCell("日本語", menuID: "ja")
 				, createCell("English", menuID: "en")
-				, createCell("힘쎄고 강한 왈도", menuID: "waldo")
+				/*, createCell("힘쎄고 강한 왈도", menuID: "waldo")*/
 			] ];
 		
 		tableView.delegate = self; tableView.dataSource = self;

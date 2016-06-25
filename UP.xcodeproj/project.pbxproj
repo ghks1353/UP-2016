@@ -69,6 +69,34 @@
 		032319321CFCAC170052732F /* result-btn-retry.png in Resources */ = {isa = PBXBuildFile; fileRef = 0323192F1CFCAC170052732F /* result-btn-retry.png */; };
 		0325367D1D131E43004C6293 /* skin_default_pm.png in Resources */ = {isa = PBXBuildFile; fileRef = 0325367C1D131E43004C6293 /* skin_default_pm.png */; };
 		0325367F1D131E48004C6293 /* skin_default_am.png in Resources */ = {isa = PBXBuildFile; fileRef = 0325367E1D131E48004C6293 /* skin_default_am.png */; };
+		0325369C1D1436A3004C6293 /* game_jumpup_astro_default_jump_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536941D1436A3004C6293 /* game_jumpup_astro_default_jump_0.png */; };
+		0325369D1D1436A3004C6293 /* game_jumpup_astro_default_jump_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536951D1436A3004C6293 /* game_jumpup_astro_default_jump_1.png */; };
+		0325369E1D1436A3004C6293 /* game_jumpup_astro_default_jump_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536961D1436A3004C6293 /* game_jumpup_astro_default_jump_2.png */; };
+		0325369F1D1436A3004C6293 /* game_jumpup_astro_default_jump_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536971D1436A3004C6293 /* game_jumpup_astro_default_jump_3.png */; };
+		032536A01D1436A3004C6293 /* game_jumpup_astro_default_jump_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536981D1436A3004C6293 /* game_jumpup_astro_default_jump_4.png */; };
+		032536A11D1436A3004C6293 /* game_jumpup_astro_default_jump_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536991D1436A3004C6293 /* game_jumpup_astro_default_jump_5.png */; };
+		032536A21D1436A3004C6293 /* game_jumpup_astro_default_jump_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 0325369A1D1436A3004C6293 /* game_jumpup_astro_default_jump_6.png */; };
+		032536A31D1436A3004C6293 /* game_jumpup_astro_default_jump_7.png in Resources */ = {isa = PBXBuildFile; fileRef = 0325369B1D1436A3004C6293 /* game_jumpup_astro_default_jump_7.png */; };
+		032536AA1D1436AB004C6293 /* game_jumpup_astro_default_move_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536A41D1436AB004C6293 /* game_jumpup_astro_default_move_0.png */; };
+		032536AB1D1436AB004C6293 /* game_jumpup_astro_default_move_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536A51D1436AB004C6293 /* game_jumpup_astro_default_move_1.png */; };
+		032536AC1D1436AB004C6293 /* game_jumpup_astro_default_move_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536A61D1436AB004C6293 /* game_jumpup_astro_default_move_2.png */; };
+		032536AD1D1436AB004C6293 /* game_jumpup_astro_default_move_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536A71D1436AB004C6293 /* game_jumpup_astro_default_move_3.png */; };
+		032536AE1D1436AB004C6293 /* game_jumpup_astro_default_move_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536A81D1436AB004C6293 /* game_jumpup_astro_default_move_4.png */; };
+		032536AF1D1436AB004C6293 /* game_jumpup_astro_default_move_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536A91D1436AB004C6293 /* game_jumpup_astro_default_move_5.png */; };
+		032536B11D187C19004C6293 /* GamePlayWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032536B01D187C19004C6293 /* GamePlayWindowView.swift */; };
+		032536B31D187D23004C6293 /* modal-mask-result-sns.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536B21D187D23004C6293 /* modal-mask-result-sns.png */; };
+		032536B51D1978E3004C6293 /* result-btn-close.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536B41D1978E3004C6293 /* result-btn-close.png */; };
+		032536B71D1978E7004C6293 /* result-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536B61D1978E7004C6293 /* result-time.png */; };
+		032536B91D19BA23004C6293 /* result-btn-play.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536B81D19BA23004C6293 /* result-btn-play.png */; };
+		032536BC1D1B16E3004C6293 /* game_jumpup_assets_playpreview.gif in Resources */ = {isa = PBXBuildFile; fileRef = 032536BB1D1B16E3004C6293 /* game_jumpup_assets_playpreview.gif */; };
+		032536C41D1B4174004C6293 /* GameModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032536C31D1B4174004C6293 /* GameModeView.swift */; };
+		032536C61D1B5333004C6293 /* CreditsPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032536C51D1B5333004C6293 /* CreditsPopView.swift */; };
+		032536CD1D1C4D1D004C6293 /* modal-credits-people-graphic.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536C91D1C4D1D004C6293 /* modal-credits-people-graphic.png */; };
+		032536CE1D1C4D1D004C6293 /* modal-credits-people-plan.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536CA1D1C4D1D004C6293 /* modal-credits-people-plan.png */; };
+		032536CF1D1C4D1D004C6293 /* modal-credits-people-programmer.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536CB1D1C4D1D004C6293 /* modal-credits-people-programmer.png */; };
+		032536D11D1E890C004C6293 /* modal-credits-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536D01D1E890C004C6293 /* modal-credits-logo.png */; };
+		032536D31D1E8963004C6293 /* comp-icons-settings-projectup.png in Resources */ = {isa = PBXBuildFile; fileRef = 032536D21D1E8963004C6293 /* comp-icons-settings-projectup.png */; };
+		032536D51D1ED333004C6293 /* IndieGamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032536D41D1ED333004C6293 /* IndieGamesView.swift */; };
 		03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B731CCEB2BF00243B28 /* modal-mask.png */; };
 		03425B781CCEB2E400243B28 /* modal-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B751CCEB2E400243B28 /* modal-back.png */; };
 		03425B791CCEB2E400243B28 /* modal-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425B761CCEB2E400243B28 /* modal-check.png */; };
@@ -291,12 +319,6 @@
 		77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */; };
 		77C1365B1CAE9AA300B91214 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; };
 		77C1365C1CAE9AA400B91214 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77C1365A1CAE9AA300B91214 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		77C4C0081C86B7CF00B7BB3B /* game_jumpup_astro_move0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0021C86B7CF00B7BB3B /* game_jumpup_astro_move0.png */; };
-		77C4C0091C86B7CF00B7BB3B /* game_jumpup_astro_move1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0031C86B7CF00B7BB3B /* game_jumpup_astro_move1.png */; };
-		77C4C00A1C86B7CF00B7BB3B /* game_jumpup_astro_move2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0041C86B7CF00B7BB3B /* game_jumpup_astro_move2.png */; };
-		77C4C00B1C86B7CF00B7BB3B /* game_jumpup_astro_move3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0051C86B7CF00B7BB3B /* game_jumpup_astro_move3.png */; };
-		77C4C00C1C86B7CF00B7BB3B /* game_jumpup_astro_move4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0061C86B7CF00B7BB3B /* game_jumpup_astro_move4.png */; };
-		77C4C00D1C86B7CF00B7BB3B /* game_jumpup_astro_move5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0071C86B7CF00B7BB3B /* game_jumpup_astro_move5.png */; };
 		77C4C0171C86D95800B7BB3B /* game_jumpup_ai_astro_jump0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C00F1C86D95800B7BB3B /* game_jumpup_ai_astro_jump0.png */; };
 		77C4C0181C86D95800B7BB3B /* game_jumpup_ai_astro_jump1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0101C86D95800B7BB3B /* game_jumpup_ai_astro_jump1.png */; };
 		77C4C0191C86D95800B7BB3B /* game_jumpup_ai_astro_jump2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0111C86D95800B7BB3B /* game_jumpup_ai_astro_jump2.png */; };
@@ -304,14 +326,6 @@
 		77C4C01B1C86D95800B7BB3B /* game_jumpup_ai_astro_jump4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0131C86D95800B7BB3B /* game_jumpup_ai_astro_jump4.png */; };
 		77C4C01C1C86D95800B7BB3B /* game_jumpup_ai_astro_jump5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0141C86D95800B7BB3B /* game_jumpup_ai_astro_jump5.png */; };
 		77C4C01D1C86D95800B7BB3B /* game_jumpup_ai_astro_jump6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0151C86D95800B7BB3B /* game_jumpup_ai_astro_jump6.png */; };
-		77C4C0281C86D98000B7BB3B /* game_jumpup_astro_jump0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0201C86D98000B7BB3B /* game_jumpup_astro_jump0.png */; };
-		77C4C0291C86D98000B7BB3B /* game_jumpup_astro_jump1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0211C86D98000B7BB3B /* game_jumpup_astro_jump1.png */; };
-		77C4C02A1C86D98000B7BB3B /* game_jumpup_astro_jump2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0221C86D98000B7BB3B /* game_jumpup_astro_jump2.png */; };
-		77C4C02B1C86D98000B7BB3B /* game_jumpup_astro_jump3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0231C86D98000B7BB3B /* game_jumpup_astro_jump3.png */; };
-		77C4C02C1C86D98000B7BB3B /* game_jumpup_astro_jump4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0241C86D98000B7BB3B /* game_jumpup_astro_jump4.png */; };
-		77C4C02D1C86D98000B7BB3B /* game_jumpup_astro_jump5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0251C86D98000B7BB3B /* game_jumpup_astro_jump5.png */; };
-		77C4C02E1C86D98000B7BB3B /* game_jumpup_astro_jump6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0261C86D98000B7BB3B /* game_jumpup_astro_jump6.png */; };
-		77C4C02F1C86D98000B7BB3B /* game_jumpup_astro_jump7.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C4C0271C86D98000B7BB3B /* game_jumpup_astro_jump7.png */; };
 		77CAE0A01C9079B900FBA714 /* game_jumpup_ai_astro_move0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE09A1C9079B900FBA714 /* game_jumpup_ai_astro_move0.png */; };
 		77CAE0A11C9079B900FBA714 /* game_jumpup_ai_astro_move1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE09B1C9079B900FBA714 /* game_jumpup_ai_astro_move1.png */; };
 		77CAE0A21C9079B900FBA714 /* game_jumpup_ai_astro_move2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE09C1C9079B900FBA714 /* game_jumpup_ai_astro_move2.png */; };
@@ -500,6 +514,34 @@
 		0323192F1CFCAC170052732F /* result-btn-retry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "result-btn-retry.png"; path = "ImageAssets/ModalWindows/Result/result-btn-retry.png"; sourceTree = "<group>"; };
 		0325367C1D131E43004C6293 /* skin_default_pm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_pm.png; path = ImageAssets/Skins/Default/DigitalClock/skin_default_pm.png; sourceTree = "<group>"; };
 		0325367E1D131E48004C6293 /* skin_default_am.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_am.png; path = ImageAssets/Skins/Default/DigitalClock/skin_default_am.png; sourceTree = "<group>"; };
+		032536941D1436A3004C6293 /* game_jumpup_astro_default_jump_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_jump_0.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_jump/game_jumpup_astro_default_jump_0.png; sourceTree = "<group>"; };
+		032536951D1436A3004C6293 /* game_jumpup_astro_default_jump_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_jump_1.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_jump/game_jumpup_astro_default_jump_1.png; sourceTree = "<group>"; };
+		032536961D1436A3004C6293 /* game_jumpup_astro_default_jump_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_jump_2.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_jump/game_jumpup_astro_default_jump_2.png; sourceTree = "<group>"; };
+		032536971D1436A3004C6293 /* game_jumpup_astro_default_jump_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_jump_3.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_jump/game_jumpup_astro_default_jump_3.png; sourceTree = "<group>"; };
+		032536981D1436A3004C6293 /* game_jumpup_astro_default_jump_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_jump_4.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_jump/game_jumpup_astro_default_jump_4.png; sourceTree = "<group>"; };
+		032536991D1436A3004C6293 /* game_jumpup_astro_default_jump_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_jump_5.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_jump/game_jumpup_astro_default_jump_5.png; sourceTree = "<group>"; };
+		0325369A1D1436A3004C6293 /* game_jumpup_astro_default_jump_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_jump_6.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_jump/game_jumpup_astro_default_jump_6.png; sourceTree = "<group>"; };
+		0325369B1D1436A3004C6293 /* game_jumpup_astro_default_jump_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_jump_7.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_jump/game_jumpup_astro_default_jump_7.png; sourceTree = "<group>"; };
+		032536A41D1436AB004C6293 /* game_jumpup_astro_default_move_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_move_0.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_move/game_jumpup_astro_default_move_0.png; sourceTree = "<group>"; };
+		032536A51D1436AB004C6293 /* game_jumpup_astro_default_move_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_move_1.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_move/game_jumpup_astro_default_move_1.png; sourceTree = "<group>"; };
+		032536A61D1436AB004C6293 /* game_jumpup_astro_default_move_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_move_2.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_move/game_jumpup_astro_default_move_2.png; sourceTree = "<group>"; };
+		032536A71D1436AB004C6293 /* game_jumpup_astro_default_move_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_move_3.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_move/game_jumpup_astro_default_move_3.png; sourceTree = "<group>"; };
+		032536A81D1436AB004C6293 /* game_jumpup_astro_default_move_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_move_4.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_move/game_jumpup_astro_default_move_4.png; sourceTree = "<group>"; };
+		032536A91D1436AB004C6293 /* game_jumpup_astro_default_move_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_default_move_5.png; path = ImageAssets/GameAssets/JumpUP/motions/skins/default/astro_move/game_jumpup_astro_default_move_5.png; sourceTree = "<group>"; };
+		032536B01D187C19004C6293 /* GamePlayWindowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GamePlayWindowView.swift; path = ModalView/NoNavModals/GamePlayWindowView.swift; sourceTree = "<group>"; };
+		032536B21D187D23004C6293 /* modal-mask-result-sns.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-mask-result-sns.png"; path = "ImageAssets/ModalWindows/modal-mask-result-sns.png"; sourceTree = "<group>"; };
+		032536B41D1978E3004C6293 /* result-btn-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "result-btn-close.png"; path = "ImageAssets/ModalWindows/Result/result-btn-close.png"; sourceTree = "<group>"; };
+		032536B61D1978E7004C6293 /* result-time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "result-time.png"; path = "ImageAssets/ModalWindows/Result/result-time.png"; sourceTree = "<group>"; };
+		032536B81D19BA23004C6293 /* result-btn-play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "result-btn-play.png"; path = "ImageAssets/ModalWindows/Result/result-btn-play.png"; sourceTree = "<group>"; };
+		032536BB1D1B16E3004C6293 /* game_jumpup_assets_playpreview.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = game_jumpup_assets_playpreview.gif; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_playpreview.gif; sourceTree = "<group>"; };
+		032536C31D1B4174004C6293 /* GameModeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameModeView.swift; path = Views/GameModeView.swift; sourceTree = "<group>"; };
+		032536C51D1B5333004C6293 /* CreditsPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreditsPopView.swift; path = ModalView/PopView/CreditsPopView.swift; sourceTree = "<group>"; };
+		032536C91D1C4D1D004C6293 /* modal-credits-people-graphic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-credits-people-graphic.png"; path = "ImageAssets/ModalWindows/Credits/modal-credits-people-graphic.png"; sourceTree = "<group>"; };
+		032536CA1D1C4D1D004C6293 /* modal-credits-people-plan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-credits-people-plan.png"; path = "ImageAssets/ModalWindows/Credits/modal-credits-people-plan.png"; sourceTree = "<group>"; };
+		032536CB1D1C4D1D004C6293 /* modal-credits-people-programmer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-credits-people-programmer.png"; path = "ImageAssets/ModalWindows/Credits/modal-credits-people-programmer.png"; sourceTree = "<group>"; };
+		032536D01D1E890C004C6293 /* modal-credits-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-credits-logo.png"; path = "ImageAssets/ModalWindows/Credits/modal-credits-logo.png"; sourceTree = "<group>"; };
+		032536D21D1E8963004C6293 /* comp-icons-settings-projectup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-projectup.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-projectup.png"; sourceTree = "<group>"; };
+		032536D41D1ED333004C6293 /* IndieGamesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IndieGamesView.swift; path = ModalView/PopView/IndieGamesView.swift; sourceTree = "<group>"; };
 		03425B731CCEB2BF00243B28 /* modal-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-mask.png"; path = "ImageAssets/ModalWindows/modal-mask.png"; sourceTree = "<group>"; };
 		03425B751CCEB2E400243B28 /* modal-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-back.png"; path = "ImageAssets/ModalWindows/modal-back.png"; sourceTree = "<group>"; };
 		03425B761CCEB2E400243B28 /* modal-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-check.png"; path = "ImageAssets/ModalWindows/modal-check.png"; sourceTree = "<group>"; };
@@ -725,12 +767,6 @@
 		77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsodamatsuda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsodamatsuda.aiff"; sourceTree = "<group>"; };
 		77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = UP/Framework/SQLite/SQLite.xcodeproj; sourceTree = "<group>"; };
 		77C1365A1CAE9AA300B91214 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = UP/Framework/Charts.framework; sourceTree = "<group>"; };
-		77C4C0021C86B7CF00B7BB3B /* game_jumpup_astro_move0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_move0.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_move/game_jumpup_astro_move0.png; sourceTree = "<group>"; };
-		77C4C0031C86B7CF00B7BB3B /* game_jumpup_astro_move1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_move1.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_move/game_jumpup_astro_move1.png; sourceTree = "<group>"; };
-		77C4C0041C86B7CF00B7BB3B /* game_jumpup_astro_move2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_move2.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_move/game_jumpup_astro_move2.png; sourceTree = "<group>"; };
-		77C4C0051C86B7CF00B7BB3B /* game_jumpup_astro_move3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_move3.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_move/game_jumpup_astro_move3.png; sourceTree = "<group>"; };
-		77C4C0061C86B7CF00B7BB3B /* game_jumpup_astro_move4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_move4.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_move/game_jumpup_astro_move4.png; sourceTree = "<group>"; };
-		77C4C0071C86B7CF00B7BB3B /* game_jumpup_astro_move5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_move5.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_move/game_jumpup_astro_move5.png; sourceTree = "<group>"; };
 		77C4C00F1C86D95800B7BB3B /* game_jumpup_ai_astro_jump0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_jump0.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_jump/game_jumpup_ai_astro_jump0.png; sourceTree = "<group>"; };
 		77C4C0101C86D95800B7BB3B /* game_jumpup_ai_astro_jump1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_jump1.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_jump/game_jumpup_ai_astro_jump1.png; sourceTree = "<group>"; };
 		77C4C0111C86D95800B7BB3B /* game_jumpup_ai_astro_jump2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_jump2.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_jump/game_jumpup_ai_astro_jump2.png; sourceTree = "<group>"; };
@@ -738,14 +774,6 @@
 		77C4C0131C86D95800B7BB3B /* game_jumpup_ai_astro_jump4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_jump4.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_jump/game_jumpup_ai_astro_jump4.png; sourceTree = "<group>"; };
 		77C4C0141C86D95800B7BB3B /* game_jumpup_ai_astro_jump5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_jump5.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_jump/game_jumpup_ai_astro_jump5.png; sourceTree = "<group>"; };
 		77C4C0151C86D95800B7BB3B /* game_jumpup_ai_astro_jump6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_jump6.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_jump/game_jumpup_ai_astro_jump6.png; sourceTree = "<group>"; };
-		77C4C0201C86D98000B7BB3B /* game_jumpup_astro_jump0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump0.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump0.png; sourceTree = "<group>"; };
-		77C4C0211C86D98000B7BB3B /* game_jumpup_astro_jump1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump1.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump1.png; sourceTree = "<group>"; };
-		77C4C0221C86D98000B7BB3B /* game_jumpup_astro_jump2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump2.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump2.png; sourceTree = "<group>"; };
-		77C4C0231C86D98000B7BB3B /* game_jumpup_astro_jump3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump3.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump3.png; sourceTree = "<group>"; };
-		77C4C0241C86D98000B7BB3B /* game_jumpup_astro_jump4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump4.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump4.png; sourceTree = "<group>"; };
-		77C4C0251C86D98000B7BB3B /* game_jumpup_astro_jump5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump5.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump5.png; sourceTree = "<group>"; };
-		77C4C0261C86D98000B7BB3B /* game_jumpup_astro_jump6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump6.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump6.png; sourceTree = "<group>"; };
-		77C4C0271C86D98000B7BB3B /* game_jumpup_astro_jump7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_astro_jump7.png; path = ImageAssets/GameAssets/JumpUP/motions/astro_jump/game_jumpup_astro_jump7.png; sourceTree = "<group>"; };
 		77CAE09A1C9079B900FBA714 /* game_jumpup_ai_astro_move0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_move0.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_move/game_jumpup_ai_astro_move0.png; sourceTree = "<group>"; };
 		77CAE09B1C9079B900FBA714 /* game_jumpup_ai_astro_move1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_move1.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_move/game_jumpup_ai_astro_move1.png; sourceTree = "<group>"; };
 		77CAE09C1C9079B900FBA714 /* game_jumpup_ai_astro_move2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_astro_move2.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_astro_move/game_jumpup_ai_astro_move2.png; sourceTree = "<group>"; };
@@ -837,6 +865,7 @@
 			isa = PBXGroup;
 			children = (
 				032318C81CFA4F860052732F /* GameResultView.swift */,
+				032536B01D187C19004C6293 /* GamePlayWindowView.swift */,
 			);
 			name = NoNavModals;
 			sourceTree = "<group>";
@@ -844,6 +873,9 @@
 		032318CC1CFA68680052732F /* Result */ = {
 			isa = PBXGroup;
 			children = (
+				032536B81D19BA23004C6293 /* result-btn-play.png */,
+				032536B61D1978E7004C6293 /* result-time.png */,
+				032536B41D1978E3004C6293 /* result-btn-close.png */,
 				0323192D1CFCAC170052732F /* result-btn-list.png */,
 				0323192E1CFCAC170052732F /* result-btn-ranking.png */,
 				0323192F1CFCAC170052732F /* result-btn-retry.png */,
@@ -911,9 +943,66 @@
 			name = ExpAnimation;
 			sourceTree = "<group>";
 		};
+		032536801D1435FB004C6293 /* Skins */ = {
+			isa = PBXGroup;
+			children = (
+				032536811D1435FF004C6293 /* Default */,
+			);
+			name = Skins;
+			sourceTree = "<group>";
+		};
+		032536811D1435FF004C6293 /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				032536831D143626004C6293 /* Jump */,
+				032536821D143621004C6293 /* Move */,
+			);
+			name = Default;
+			sourceTree = "<group>";
+		};
+		032536821D143621004C6293 /* Move */ = {
+			isa = PBXGroup;
+			children = (
+				032536A41D1436AB004C6293 /* game_jumpup_astro_default_move_0.png */,
+				032536A51D1436AB004C6293 /* game_jumpup_astro_default_move_1.png */,
+				032536A61D1436AB004C6293 /* game_jumpup_astro_default_move_2.png */,
+				032536A71D1436AB004C6293 /* game_jumpup_astro_default_move_3.png */,
+				032536A81D1436AB004C6293 /* game_jumpup_astro_default_move_4.png */,
+				032536A91D1436AB004C6293 /* game_jumpup_astro_default_move_5.png */,
+			);
+			name = Move;
+			sourceTree = "<group>";
+		};
+		032536831D143626004C6293 /* Jump */ = {
+			isa = PBXGroup;
+			children = (
+				032536941D1436A3004C6293 /* game_jumpup_astro_default_jump_0.png */,
+				032536951D1436A3004C6293 /* game_jumpup_astro_default_jump_1.png */,
+				032536961D1436A3004C6293 /* game_jumpup_astro_default_jump_2.png */,
+				032536971D1436A3004C6293 /* game_jumpup_astro_default_jump_3.png */,
+				032536981D1436A3004C6293 /* game_jumpup_astro_default_jump_4.png */,
+				032536991D1436A3004C6293 /* game_jumpup_astro_default_jump_5.png */,
+				0325369A1D1436A3004C6293 /* game_jumpup_astro_default_jump_6.png */,
+				0325369B1D1436A3004C6293 /* game_jumpup_astro_default_jump_7.png */,
+			);
+			name = Jump;
+			sourceTree = "<group>";
+		};
+		032536C71D1C4C41004C6293 /* Credits */ = {
+			isa = PBXGroup;
+			children = (
+				032536D01D1E890C004C6293 /* modal-credits-logo.png */,
+				032536C91D1C4D1D004C6293 /* modal-credits-people-graphic.png */,
+				032536CA1D1C4D1D004C6293 /* modal-credits-people-plan.png */,
+				032536CB1D1C4D1D004C6293 /* modal-credits-people-programmer.png */,
+			);
+			name = Credits;
+			sourceTree = "<group>";
+		};
 		03425B6A1CCEAD8500243B28 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
+				032536C71D1C4C41004C6293 /* Credits */,
 				032318CC1CFA68680052732F /* Result */,
 				032318BE1CFA1CF80052732F /* Achievements */,
 				03DDD83E1CEBA082007C026D /* CharacterInfo */,
@@ -923,6 +1012,7 @@
 				03425B761CCEB2E400243B28 /* modal-check.png */,
 				03425B771CCEB2E400243B28 /* modal-close.png */,
 				032318CA1CFA52B90052732F /* modal-mask-result.png */,
+				032536B21D187D23004C6293 /* modal-mask-result-sns.png */,
 			);
 			name = Modals;
 			sourceTree = "<group>";
@@ -966,6 +1056,8 @@
 				03DDD7DE1CEB929F007C026D /* AlarmSoundListView.swift */,
 				03DDD7DF1CEB929F007C026D /* StatisticsDataPointView.swift */,
 				0383DB7F1CF6169F0009D5DE /* CharacterAchievementsView.swift */,
+				032536C51D1B5333004C6293 /* CreditsPopView.swift */,
+				032536D41D1ED333004C6293 /* IndieGamesView.swift */,
 			);
 			name = PopView;
 			sourceTree = "<group>";
@@ -990,6 +1082,7 @@
 		03DDD82E1CEB9CEA007C026D /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				032536D21D1E8963004C6293 /* comp-icons-settings-projectup.png */,
 				03425BD21CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png */,
 				03425B9B1CD08B1C00243B28 /* comp-icons-settings-avn.png */,
 				03425B861CD0635700243B28 /* comp-icons-settings-badge.png */,
@@ -1066,6 +1159,7 @@
 				7756F9691C99D1C700675AB7 /* Effects */,
 				77F9D2481C85D94500E79CE8 /* Motions */,
 				77F9D2361C85D93F00E79CE8 /* game_jumpup_assets_time_background.png */,
+				032536BB1D1B16E3004C6293 /* game_jumpup_assets_playpreview.gif */,
 				77F9D2371C85D93F00E79CE8 /* game_jumpup_assets_time_box.png */,
 				771181DC1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png */,
 				771181DD1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png */,
@@ -1379,19 +1473,6 @@
 			name = Alarms;
 			sourceTree = "<group>";
 		};
-		77C4C0011C86B7BD00B7BB3B /* AstroMove */ = {
-			isa = PBXGroup;
-			children = (
-				77C4C0021C86B7CF00B7BB3B /* game_jumpup_astro_move0.png */,
-				77C4C0031C86B7CF00B7BB3B /* game_jumpup_astro_move1.png */,
-				77C4C0041C86B7CF00B7BB3B /* game_jumpup_astro_move2.png */,
-				77C4C0051C86B7CF00B7BB3B /* game_jumpup_astro_move3.png */,
-				77C4C0061C86B7CF00B7BB3B /* game_jumpup_astro_move4.png */,
-				77C4C0071C86B7CF00B7BB3B /* game_jumpup_astro_move5.png */,
-			);
-			name = AstroMove;
-			sourceTree = "<group>";
-		};
 		77C4C00E1C86D94B00B7BB3B /* AstroAIJump */ = {
 			isa = PBXGroup;
 			children = (
@@ -1404,21 +1485,6 @@
 				77C4C0151C86D95800B7BB3B /* game_jumpup_ai_astro_jump6.png */,
 			);
 			name = AstroAIJump;
-			sourceTree = "<group>";
-		};
-		77C4C01F1C86D97300B7BB3B /* AstroJump */ = {
-			isa = PBXGroup;
-			children = (
-				77C4C0201C86D98000B7BB3B /* game_jumpup_astro_jump0.png */,
-				77C4C0211C86D98000B7BB3B /* game_jumpup_astro_jump1.png */,
-				77C4C0221C86D98000B7BB3B /* game_jumpup_astro_jump2.png */,
-				77C4C0231C86D98000B7BB3B /* game_jumpup_astro_jump3.png */,
-				77C4C0241C86D98000B7BB3B /* game_jumpup_astro_jump4.png */,
-				77C4C0251C86D98000B7BB3B /* game_jumpup_astro_jump5.png */,
-				77C4C0261C86D98000B7BB3B /* game_jumpup_astro_jump6.png */,
-				77C4C0271C86D98000B7BB3B /* game_jumpup_astro_jump7.png */,
-			);
-			name = AstroJump;
 			sourceTree = "<group>";
 		};
 		77C54D671C9EC00D00013F9D /* Character */ = {
@@ -1550,6 +1616,7 @@
 			isa = PBXGroup;
 			children = (
 				03DDD81C1CEB99D1007C026D /* AlarmRingView.swift */,
+				032536C31D1B4174004C6293 /* GameModeView.swift */,
 				77C35C891C81CBCA002EE465 /* AlarmGamesView */,
 			);
 			name = Views;
@@ -1694,12 +1761,11 @@
 		77F9D2481C85D94500E79CE8 /* Motions */ = {
 			isa = PBXGroup;
 			children = (
+				032536801D1435FB004C6293 /* Skins */,
 				77CAE0B31C907CB800FBA714 /* AIJAstroJump */,
 				77CAE0A61C907CA000FBA714 /* AIJAstroMove */,
 				77CAE0991C90798000FBA714 /* AIAstroMove */,
-				77C4C01F1C86D97300B7BB3B /* AstroJump */,
 				77C4C00E1C86D94B00B7BB3B /* AstroAIJump */,
-				77C4C0011C86B7BD00B7BB3B /* AstroMove */,
 			);
 			name = Motions;
 			sourceTree = "<group>";
@@ -1884,6 +1950,8 @@
 				77AC4F951CABDFB10044F5C8 /* skin_default_ground_pad43.png in Resources */,
 				77CAE0B21C907CB400FBA714 /* game_jumpup_ai_j_astro_move5.png in Resources */,
 				77AC506A1CABE5D40044F5C8 /* skin_default_character_0030.png in Resources */,
+				032536A31D1436A3004C6293 /* game_jumpup_astro_default_jump_7.png in Resources */,
+				032536B31D187D23004C6293 /* modal-mask-result-sns.png in Resources */,
 				77AC50541CABE5D40044F5C8 /* skin_default_character_0008.png in Resources */,
 				7756F9BA1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect5.png in Resources */,
 				03DDD82B1CEB9A49007C026D /* ja.json in Resources */,
@@ -1895,17 +1963,17 @@
 				77AC50691CABE5D40044F5C8 /* skin_default_character_0029.png in Resources */,
 				77AC4FCD1CABE5C70044F5C8 /* skin_default_a_back_pad43.png in Resources */,
 				77AC50591CABE5D40044F5C8 /* skin_default_character_0013.png in Resources */,
-				77C4C00D1C86B7CF00B7BB3B /* game_jumpup_astro_move5.png in Resources */,
 				0323190F1CFB5C7B0052732F /* characterinfo-exp-deco-5.png in Resources */,
 				03DDD83D1CEB9D07007C026D /* comp-icons-datacategory-validratio.png in Resources */,
 				032319261CFB5C7B0052732F /* characterinfo-exp-deco-28.png in Resources */,
+				032536B51D1978E3004C6293 /* result-btn-close.png in Resources */,
 				77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */,
 				77C4C01A1C86D95800B7BB3B /* game_jumpup_ai_astro_jump3.png in Resources */,
 				03425BAF1CD391E500243B28 /* GoogleService-Info.plist in Resources */,
 				77AC50741CABE5D40044F5C8 /* skin_default_character_0040.png in Resources */,
 				77FBE6821C6DCB9F00E251A2 /* d_time_on.png in Resources */,
-				77C4C0281C86D98000B7BB3B /* game_jumpup_astro_jump0.png in Resources */,
-				77C4C02C1C86D98000B7BB3B /* game_jumpup_astro_jump4.png in Resources */,
+				032536CF1D1C4D1D004C6293 /* modal-credits-people-programmer.png in Resources */,
+				032536CD1D1C4D1D004C6293 /* modal-credits-people-graphic.png in Resources */,
 				77F9D2461C85D93F00E79CE8 /* game_jumpup_assets_time_time.png in Resources */,
 				77F9D2411C85D93F00E79CE8 /* game_jumpup_assets_time_box2.png in Resources */,
 				032318C11CFA1D010052732F /* achievements-icon-blank.png in Resources */,
@@ -1919,9 +1987,11 @@
 				03425BA41CD0A1E200243B28 /* skin_default_floating_box.png in Resources */,
 				032319321CFCAC170052732F /* result-btn-retry.png in Resources */,
 				77CAE0AF1C907CB400FBA714 /* game_jumpup_ai_j_astro_move2.png in Resources */,
+				032536A21D1436A3004C6293 /* game_jumpup_astro_default_jump_6.png in Resources */,
 				77CE3D9B1C98464900A6EA36 /* game_jumpup_assets_time_retire.png in Resources */,
 				0323190A1CFB5C7B0052732F /* characterinfo-exp-deco-0.png in Resources */,
 				032319271CFB5C7B0052732F /* characterinfo-exp-deco-29.png in Resources */,
+				032536CE1D1C4D1D004C6293 /* modal-credits-people-plan.png in Resources */,
 				77CAE0A51C9079B900FBA714 /* game_jumpup_ai_astro_move5.png in Resources */,
 				7756F9C51C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect16.png in Resources */,
 				77AC50521CABE5D40044F5C8 /* skin_default_character_0006.png in Resources */,
@@ -1933,20 +2003,21 @@
 				77802D1F1C805E1A00766DB0 /* game-thumb-random.png in Resources */,
 				03425B8D1CD0635700243B28 /* comp-icons-settings-badge.png in Resources */,
 				032319281CFB5C7B0052732F /* characterinfo-exp-deco-30.png in Resources */,
+				032536B71D1978E7004C6293 /* result-time.png in Resources */,
 				0383DB891CF617010009D5DE /* AchievementList.json in Resources */,
 				03DDD82D1CEB9A49007C026D /* waldo.json in Resources */,
 				032318E71CFB4B670052732F /* result-game-background.png in Resources */,
-				77C4C02F1C86D98000B7BB3B /* game_jumpup_astro_jump7.png in Resources */,
+				032536AC1D1436AB004C6293 /* game_jumpup_astro_default_move_2.png in Resources */,
 				77C4C0191C86D95800B7BB3B /* game_jumpup_ai_astro_jump2.png in Resources */,
 				771181DF1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png in Resources */,
 				0323191E1CFB5C7B0052732F /* characterinfo-exp-deco-20.png in Resources */,
+				0325369C1D1436A3004C6293 /* game_jumpup_astro_default_jump_0.png in Resources */,
 				032318DC1CFA91250052732F /* skin_default_black_0.png in Resources */,
 				77CAE0BD1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump2.png in Resources */,
 				77AC50631CABE5D40044F5C8 /* skin_default_character_0023.png in Resources */,
 				77AC50611CABE5D40044F5C8 /* skin_default_character_0021.png in Resources */,
 				77AC50641CABE5D40044F5C8 /* skin_default_character_0024.png in Resources */,
 				7756F9C81C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect19.png in Resources */,
-				77C4C00A1C86B7CF00B7BB3B /* game_jumpup_astro_move2.png in Resources */,
 				0323191F1CFB5C7B0052732F /* characterinfo-exp-deco-21.png in Resources */,
 				7756F9BF1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect10.png in Resources */,
 				77AC4FD01CABE5C70044F5C8 /* skin_default_b_back_pad34.png in Resources */,
@@ -1960,7 +2031,9 @@
 				77E2880A1C7334A30020B766 /* d_time_on_small.png in Resources */,
 				7756F9B61C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect1.png in Resources */,
 				77AC50561CABE5D40044F5C8 /* skin_default_character_0010.png in Resources */,
+				0325369D1D1436A3004C6293 /* game_jumpup_astro_default_jump_1.png in Resources */,
 				77AC4FB71CABE0C10044F5C8 /* skin_default_8.png in Resources */,
+				032536BC1D1B16E3004C6293 /* game_jumpup_assets_playpreview.gif in Resources */,
 				77FBE67F1C6DCB9F00E251A2 /* c_time_off.png in Resources */,
 				032319101CFB5C7B0052732F /* characterinfo-exp-deco-6.png in Resources */,
 				77FBE6801C6DCB9F00E251A2 /* c_time_on.png in Resources */,
@@ -1980,11 +2053,11 @@
 				77AC504F1CABE5D40044F5C8 /* skin_default_character_0003.png in Resources */,
 				77E288041C7334A30020B766 /* a_time_on_small.png in Resources */,
 				77AC4FD41CABE5C70044F5C8 /* skin_default_c_back_pad34.png in Resources */,
-				77C4C02D1C86D98000B7BB3B /* game_jumpup_astro_jump5.png in Resources */,
 				03DDD8371CEB9D07007C026D /* comp-icons-datacategory-alltouches.png in Resources */,
 				032319221CFB5C7B0052732F /* characterinfo-exp-deco-24.png in Resources */,
 				032318C61CFA4A4C0052732F /* achievements-item-disabled.png in Resources */,
 				77AC50601CABE5D40044F5C8 /* skin_default_character_0020.png in Resources */,
+				032536D31D1E8963004C6293 /* comp-icons-settings-projectup.png in Resources */,
 				032319151CFB5C7B0052732F /* characterinfo-exp-deco-11.png in Resources */,
 				0325367F1D131E48004C6293 /* skin_default_am.png in Resources */,
 				77AC4FCB1CABE5C70044F5C8 /* skin_default_a_back_4s.png in Resources */,
@@ -1992,6 +2065,7 @@
 				77CAE0C01C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png in Resources */,
 				032319251CFB5C7B0052732F /* characterinfo-exp-deco-27.png in Resources */,
 				03E1D1291CF0BC7000B552FC /* characterinfo-level-wrapper.png in Resources */,
+				0325369F1D1436A3004C6293 /* game_jumpup_astro_default_jump_3.png in Resources */,
 				77AC50531CABE5D40044F5C8 /* skin_default_character_0007.png in Resources */,
 				77CAE0BF1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump4.png in Resources */,
 				77E288071C7334A30020B766 /* c_time_off_small.png in Resources */,
@@ -2001,27 +2075,31 @@
 				03425BA91CD389E100243B28 /* comp-icons-settings-experiments.png in Resources */,
 				032319211CFB5C7B0052732F /* characterinfo-exp-deco-23.png in Resources */,
 				0323191B1CFB5C7B0052732F /* characterinfo-exp-deco-17.png in Resources */,
+				032536A11D1436A3004C6293 /* game_jumpup_astro_default_jump_5.png in Resources */,
 				77FBE67B1C6DCB9F00E251A2 /* a_time_off.png in Resources */,
 				77CAE0A41C9079B900FBA714 /* game_jumpup_ai_astro_move4.png in Resources */,
 				77AC505A1CABE5D40044F5C8 /* skin_default_character_0014.png in Resources */,
 				77CAE0A11C9079B900FBA714 /* game_jumpup_ai_astro_move1.png in Resources */,
 				77C4C01D1C86D95800B7BB3B /* game_jumpup_ai_astro_jump6.png in Resources */,
+				032536AF1D1436AB004C6293 /* game_jumpup_astro_default_move_5.png in Resources */,
 				7756F9B81C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect3.png in Resources */,
-				77C4C02A1C86D98000B7BB3B /* game_jumpup_astro_jump2.png in Resources */,
 				03425B911CD0635700243B28 /* comp-icons-settings-newgames.png in Resources */,
 				032319131CFB5C7B0052732F /* characterinfo-exp-deco-9.png in Resources */,
 				77AC506D1CABE5D40044F5C8 /* skin_default_character_0033.png in Resources */,
 				77AC505F1CABE5D40044F5C8 /* skin_default_character_0019.png in Resources */,
 				77CAE0BC1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump1.png in Resources */,
 				77CAE0A21C9079B900FBA714 /* game_jumpup_ai_astro_move2.png in Resources */,
+				032536A01D1436A3004C6293 /* game_jumpup_astro_default_jump_4.png in Resources */,
 				77FBE6811C6DCB9F00E251A2 /* d_time_off.png in Resources */,
 				032318E11CFA91250052732F /* skin_default_black_5.png in Resources */,
 				032319301CFCAC170052732F /* result-btn-list.png in Resources */,
 				03E1D1311CF1BCF400B552FC /* characterinfo-gamecenter.png in Resources */,
+				032536AE1D1436AB004C6293 /* game_jumpup_astro_default_move_4.png in Resources */,
 				7756F9C61C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect17.png in Resources */,
 				77AC50551CABE5D40044F5C8 /* skin_default_character_0009.png in Resources */,
 				032319171CFB5C7B0052732F /* characterinfo-exp-deco-13.png in Resources */,
 				775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */,
+				032536AD1D1436AB004C6293 /* game_jumpup_astro_default_move_3.png in Resources */,
 				77FBE67D1C6DCB9F00E251A2 /* b_time_off.png in Resources */,
 				77AC4FD11CABE5C70044F5C8 /* skin_default_b_back_pad43.png in Resources */,
 				77F9D2421C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_1.png in Resources */,
@@ -2032,7 +2110,6 @@
 				77F9D2431C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_2.png in Resources */,
 				77F9D2401C85D93F00E79CE8 /* game_jumpup_assets_time_box.png in Resources */,
 				77FBE6841C6DCBAA00E251A2 /* game-thumb-background.png in Resources */,
-				77C4C00C1C86B7CF00B7BB3B /* game_jumpup_astro_move4.png in Resources */,
 				03E1D12A1CF0BC7000B552FC /* characterinfo-level.png in Resources */,
 				7756F9BC1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect7.png in Resources */,
 				77AC4FB51CABE0C10044F5C8 /* skin_default_6.png in Resources */,
@@ -2040,6 +2117,7 @@
 				0323191C1CFB5C7B0052732F /* characterinfo-exp-deco-18.png in Resources */,
 				032318CB1CFA52B90052732F /* modal-mask-result.png in Resources */,
 				77AC4FD61CABE5C70044F5C8 /* skin_default_c_back.png in Resources */,
+				032536AA1D1436AB004C6293 /* game_jumpup_astro_default_move_0.png in Resources */,
 				03425BAB1CD38D4E00243B28 /* Podfile in Resources */,
 				7756F9C31C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect14.png in Resources */,
 				032319191CFB5C7B0052732F /* characterinfo-exp-deco-15.png in Resources */,
@@ -2057,7 +2135,6 @@
 				77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */,
 				77AC50C21CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff in Resources */,
 				77AC50721CABE5D40044F5C8 /* skin_default_character_0038.png in Resources */,
-				77C4C02E1C86D98000B7BB3B /* game_jumpup_astro_jump6.png in Resources */,
 				03DDD8401CEBA089007C026D /* modal-background-characterinfo.png in Resources */,
 				77AC506E1CABE5D40044F5C8 /* skin_default_character_0034.png in Resources */,
 				03DDD83C1CEB9D07007C026D /* comp-icons-datacategory-untilstart.png in Resources */,
@@ -2070,6 +2147,7 @@
 				77CAE0A31C9079B900FBA714 /* game_jumpup_ai_astro_move3.png in Resources */,
 				7756F9C41C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect15.png in Resources */,
 				7756F9BB1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect6.png in Resources */,
+				0325369E1D1436A3004C6293 /* game_jumpup_astro_default_jump_2.png in Resources */,
 				0323191D1CFB5C7B0052732F /* characterinfo-exp-deco-19.png in Resources */,
 				77CAE0AD1C907CB400FBA714 /* game_jumpup_ai_j_astro_move0.png in Resources */,
 				0323192C1CFB5E340052732F /* characterinfo-exp-deco-32.png in Resources */,
@@ -2084,13 +2162,16 @@
 				77AC4F961CABDFB10044F5C8 /* skin_default_ground.png in Resources */,
 				03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */,
 				03DDD8391CEB9D07007C026D /* comp-icons-datacategory-compratio.png in Resources */,
+				032536D11D1E890C004C6293 /* modal-credits-logo.png in Resources */,
 				77AC50581CABE5D40044F5C8 /* skin_default_character_0012.png in Resources */,
 				03425B811CD01A3B00243B28 /* comp-slider-track.png in Resources */,
 				032319111CFB5C7B0052732F /* characterinfo-exp-deco-7.png in Resources */,
+				032536AB1D1436AB004C6293 /* game_jumpup_astro_default_move_1.png in Resources */,
 				7756F9BD1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect8.png in Resources */,
 				032318E41CFA91250052732F /* skin_default_black_8.png in Resources */,
 				77AC50661CABE5D40044F5C8 /* skin_default_character_0026.png in Resources */,
 				77E288061C7334A30020B766 /* b_time_on_small.png in Resources */,
+				032536B91D19BA23004C6293 /* result-btn-play.png in Resources */,
 				77AC506B1CABE5D40044F5C8 /* skin_default_character_0031.png in Resources */,
 				77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */,
 				77CAE0B01C907CB400FBA714 /* game_jumpup_ai_j_astro_move3.png in Resources */,
@@ -2103,9 +2184,7 @@
 				03425B9C1CD08B1C00243B28 /* comp-icons-settings-avn.png in Resources */,
 				77C4C01C1C86D95800B7BB3B /* game_jumpup_ai_astro_jump5.png in Resources */,
 				77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */,
-				77C4C0081C86B7CF00B7BB3B /* game_jumpup_astro_move0.png in Resources */,
 				77AC4FA31CABE0290044F5C8 /* skin_default_time_mh.png in Resources */,
-				77C4C02B1C86D98000B7BB3B /* game_jumpup_astro_jump3.png in Resources */,
 				775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */,
 				03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */,
 				77AC505B1CABE5D40044F5C8 /* skin_default_character_0015.png in Resources */,
@@ -2117,7 +2196,6 @@
 				77C4C01B1C86D95800B7BB3B /* game_jumpup_ai_astro_jump4.png in Resources */,
 				77F9D2471C85D93F00E79CE8 /* game_jumpup_assets_time_trap.png in Resources */,
 				7756F9C11C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect12.png in Resources */,
-				77C4C0291C86D98000B7BB3B /* game_jumpup_astro_jump1.png in Resources */,
 				77AC50671CABE5D40044F5C8 /* skin_default_character_0027.png in Resources */,
 				77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */,
 				032319121CFB5C7B0052732F /* characterinfo-exp-deco-8.png in Resources */,
@@ -2145,9 +2223,7 @@
 				77C4C0181C86D95800B7BB3B /* game_jumpup_ai_astro_jump1.png in Resources */,
 				032318E51CFA91250052732F /* skin_default_black_9.png in Resources */,
 				03E1D11F1CEC707A00B552FC /* comp-icons-datacategory-icon.png in Resources */,
-				77C4C00B1C86B7CF00B7BB3B /* game_jumpup_astro_move3.png in Resources */,
 				77E288091C7334A30020B766 /* d_time_off_small.png in Resources */,
-				77C4C0091C86B7CF00B7BB3B /* game_jumpup_astro_move1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2219,8 +2295,10 @@
 				032318BD1CFA05BF0052732F /* GameManager.swift in Sources */,
 				03DDD7E71CEB9884007C026D /* ExperimentsLanguagesSetupView.swift in Sources */,
 				775ADBEA1C4FC4C700B52552 /* ViewController.swift in Sources */,
+				032536C61D1B5333004C6293 /* CreditsPopView.swift in Sources */,
 				03E1D1351CF32DB600B552FC /* CharacterManager.swift in Sources */,
 				03DDD8231CEB9A0F007C026D /* AlarmElements.swift in Sources */,
+				032536D51D1ED333004C6293 /* IndieGamesView.swift in Sources */,
 				03DDD7E61CEB9884007C026D /* ExperimentsAlarmsSetupView.swift in Sources */,
 				03DDD7F51CEB98D2007C026D /* SoundManager.swift in Sources */,
 				775ADBE81C4FC4C700B52552 /* AppDelegate.swift in Sources */,
@@ -2230,6 +2308,7 @@
 				03DDD8011CEB990D007C026D /* StatsDataElement.swift in Sources */,
 				77782E651C92B0B00016EE1B /* CGFloat+Extensions.swift in Sources */,
 				77782E6C1C92B0B00016EE1B /* SKNode+Extensions.swift in Sources */,
+				032536B11D187C19004C6293 /* GamePlayWindowView.swift in Sources */,
 				03DDD8001CEB990D007C026D /* SoundInfoObj.swift in Sources */,
 				03DDD8021CEB990D007C026D /* UIAlarmIDSwitch.swift in Sources */,
 				03DDD7EF1CEB98D2007C026D /* AlarmManager.swift in Sources */,
@@ -2261,6 +2340,7 @@
 				03DDD8061CEB992D007C026D /* DeviceGeneral.swift in Sources */,
 				03DDD7E11CEB929F007C026D /* AlarmRepeatSettingsView.swift in Sources */,
 				03DDD8251CEB9A2B007C026D /* TKTimingFunction.swift in Sources */,
+				032536C41D1B4174004C6293 /* GameModeView.swift in Sources */,
 				032318C91CFA4F860052732F /* GameResultView.swift in Sources */,
 				03DDD7F41CEB98D2007C026D /* SkinManager.swift in Sources */,
 				03DDD8211CEB99F0007C026D /* JumpUPGame.swift in Sources */,

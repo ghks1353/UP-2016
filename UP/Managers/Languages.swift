@@ -3,14 +3,14 @@
 //  	
 //
 //  Created by ExFl on 2016. 1. 29..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation
 
 class Languages {
 	
-    static let supportedLanguages:Array<String> = ["ko", "en", "ja", "waldo"];
+    static let supportedLanguages:Array<String> = ["ko", "en", "ja"];
     static var languageJsonFile:NSDictionary?;
 	
 	static var langInited:Bool = false;
@@ -109,5 +109,31 @@ class Languages {
 		return modifiableString;
 	} //end func
 	
+	//Localize month
+	static func localizeMonth( month:String, inShort:Bool = true ) -> String {
+		let months:Int = Int(month)!;
+		switch(currentLocaleCode) {
+			case "ko", "ja":
+				return month;
+			default: break;
+		}
+		let locPreset:String = inShort ? "statsMonthMin" : "statsMonth";
+		switch(months) {
+			case 1: return $(locPreset + "January");
+			case 2: return $(locPreset + "February");
+			case 3: return $(locPreset + "March");
+			case 4: return $(locPreset + "April");
+			case 5: return $(locPreset + "May");
+			case 6: return $(locPreset + "June");
+			case 7: return $(locPreset + "July");
+			case 8: return $(locPreset + "August");
+			case 9: return $(locPreset + "September");
+			case 10: return $(locPreset + "October");
+			case 11: return $(locPreset + "November");
+			case 12: return $(locPreset + "December");
+			default: break;
+		}
+		return month;
+	}
 	
 }

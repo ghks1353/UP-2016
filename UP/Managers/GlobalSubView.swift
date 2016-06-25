@@ -3,7 +3,7 @@
 //  UP
 //
 //  Created by ExFl on 2016. 2. 6..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation
@@ -21,4 +21,7 @@ class GlobalSubView {
 	static var alarmRingViewcontroller:AlarmRingView = AlarmRingView();
 	
 	static var alarmStatisticsDataPointView:StatisticsDataPointView = StatisticsDataPointView();
+	
+	static var alarmGameResultView:GameResultView = GameResultView();
+	static var alarmGamePlayWindowView:GamePlayWindowView = GamePlayWindowView();
 }

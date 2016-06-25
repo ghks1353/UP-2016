@@ -3,7 +3,7 @@
 //  UP
 //
 //  Created by ExFl on 2016. 5. 28..
-//  Copyright © 2016년 AVN Graphic. All rights reserved.
+//  Copyright © 2016년 Project UP. All rights reserved.
 //
 
 import Foundation;
@@ -24,6 +24,11 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	var tablesArray:Array<AnyObject> = [];
 	var alarmGameListsTableArray:Array<UPGamesListCell> = [];
 	
+	var modalGamePlayWindowView:GamePlayWindowView = GlobalSubView.alarmGamePlayWindowView; //게임하기 플레이창.
+	
+	//modal이 추가로 나올 경우 표시할 오버레이
+	var modalOverlayView:UIView = UIView();
+	
 	override func viewDidLoad() {
 		super.viewDidLoad();
 		self.view.backgroundColor = .clearColor();
@@ -33,6 +38,11 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		//ModalView
 		modalView.view.backgroundColor = UIColor.whiteColor();
 		modalView.view.frame = DeviceGeneral.defaultModalSizeRect;
+		
+		//Modal overlay view
+		modalOverlayView.backgroundColor = UIColor.blackColor();
+		modalOverlayView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		modalOverlayView.hidden = true; modalOverlayView.alpha = 0;
 		
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
@@ -54,6 +64,7 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		
 		//Add Ctrl vw
 		self.view.addSubview(navigationCtrl.view);
+		self.view.addSubview(modalOverlayView);
 		
 		//add table to modal
 		tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
@@ -74,8 +85,8 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		
 		//SET MASK for dot eff
 		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
-		modalMaskImageView.frame = modalView.view.frame;
-		modalMaskImageView.contentMode = .ScaleAspectFit; self.view.maskView = modalMaskImageView;
+		modalMaskImageView.frame = CGRectMake(0, 0, navigationCtrl.view.frame.width, navigationCtrl.view.frame.height);
+		modalMaskImageView.contentMode = .ScaleAspectFit; navigationCtrl.view.maskView = modalMaskImageView;
 		
 		FitModalLocationToCenter();
 	}
@@ -83,10 +94,11 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	////////////////
 	
 	func FitModalLocationToCenter() {
+		modalOverlayView.frame = CGRectMake( 0, 0, DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height );
 		navigationCtrl.view.frame = DeviceGeneral.defaultModalSizeRect;
 		
 		if (self.view.maskView != nil) {
-			self.view.maskView!.frame = DeviceGeneral.defaultModalSizeRect;
+			navigationCtrl.view.maskView!.frame = CGRectMake(0, 0, navigationCtrl.view.frame.width, navigationCtrl.view.frame.height);
 		}
 	}
 	
@@ -125,9 +137,37 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		}
 	} ///////////////////////////////
 	
+	func toggleOverlay( status:Bool ) {
+		var beforeAlpha:CGFloat = 0; var afterAlpha:CGFloat = 0;
+		if (status) {
+			modalOverlayView.hidden = false; beforeAlpha = 0; afterAlpha = 1; //modalOverlayView.alpha = 1;
+		} else {
+			beforeAlpha = 1; afterAlpha = 0; //modalOverlayView.alpha = 0;
+		}
+		
+		modalOverlayView.alpha = beforeAlpha;
+		UIView.animateWithDuration(0.36, delay: 0, options: .CurveLinear, animations: {
+			self.modalOverlayView.alpha = afterAlpha;
+		}) { _ in
+			if (afterAlpha == 0) {
+				self.modalOverlayView.hidden = true;
+			}
+		}
+	}
+	
 	//////////////// tables delg
 	internal func selectCell( gameID:Int ) {
+		switch( gameID ) {
+			case 0: //점프업
+				
+				break;
+			default: break;
+		}
 		
+		toggleOverlay(true);
+		modalGamePlayWindowView.modalPresentationStyle = .OverFullScreen;
+		self.presentViewController(modalGamePlayWindowView, animated: false, completion: nil);
+		modalGamePlayWindowView.setGame( gameID );
 	}
 	
 	///// for table func
