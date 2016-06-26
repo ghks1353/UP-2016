@@ -71,13 +71,17 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
             , createSettingsToggle( Languages.$("settingsiCloud") , defaultState: false, settingsID: "syncToiCloud")
             ],
             [ /* SECTION 2*/
+				createSettingsOnlyLabel( Languages.$("settingsBuyPremium") , menuID: "buyUP")
+				, createSettingsOnlyLabel( Languages.$("settingsRestoreBought") , menuID: "restorePurchases")
+			],
+            [ /* SECTION 3*/
                 createSettingsOnlyLabel( Languages.$("settingsStartingGuide") , menuID: "startGuide")
                 , createSettingsOnlyLabel( Languages.$("settingsRatingApp") , menuID: "ratingApplication")
                 , createSettingsOnlyLabel( Languages.$("settingsShowNewgame") , menuID: "indieGames")
                 , createSettingsOnlyLabel( Languages.$("settingsGotoUPProject") , menuID: "gotoUPProject")
 				, createSettingsOnlyLabel( Languages.$("settingsCredits") , menuID: "credits")
             ],
-            [ /* SECTION 3 */
+            [ /* SECTION 4 */
 				createSettingsOnlyLabel( "강제 언어 변경", menuID: "experiments-forcelang")
 				, createSettingsOnlyLabel( "비인가 설정 기능", menuID: "experiments-notallowed-alarms")
 			]
@@ -187,15 +191,17 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	} //end func
 	
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3;
+        return 4;
     }
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
             case 0:
                 return Languages.$("generalSettings");
-            case 1:
+			case 1:
+				return Languages.$("generalBuySettings");
+            case 2:
                 return Languages.$("generalGuide");
-			case 2: //DEV, TEST
+			case 3: //DEV, TEST
 				return "EXPERIMENTS";
             default:
                 return "-";
@@ -203,7 +209,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     }
 	func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch(section) {
-			case 2: //DEV, TEST
+			case 3: //DEV, TEST
 				return "주의: 실험실에 있는 내용은 소리없이 추가되거나 삭제될 수 있습니다.";
 			default:
 				return "";
