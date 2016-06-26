@@ -27,6 +27,8 @@ class JumpUPGame:SKScene {
 	//게임 실행 타입 (0= 알람, 1= 메인화면 실행)
 	var gameStartupType:Int = 0;
 	
+	var gameScoreNm:Int = 3; //스코어 자리수. (알람=3, 일반=5)
+	
 	//아래는 알람으로 게임진행 중일 때 사용하는 값임
 	var gameAlarmFirstGoalTime:Int = 40; // 처음 목표로 하는 시간
 	var gameLevelAverageTime:Int = 20; //난이도가 높아지는 시간
@@ -71,7 +73,7 @@ class JumpUPGame:SKScene {
 	let gameCloudAddDelayMAX:Int = 60; // original: 60
 	var gameCloudDecorationAddDelay:Int = 0; //구름 생성 딜레이
 	
-	let gameEnemyGenerateDelayMAX:Int = 120; // original: 120
+	var gameEnemyGenerateDelayMAX:Int = 120; // original: 120
 	var gameEnemyGenerateDelay:Int = 0; //장애물 생성 딜레이
 	
 	var gameCharacterUnlimitedLife:Int = 0; //캐릭터 무적 시간. (있을 경우)
@@ -97,6 +99,8 @@ class JumpUPGame:SKScene {
 	//판정 완화의 정도
 	let characterRatherboxX:CGFloat = 140 * DeviceManager.scrRatioC;
 	let characterRatherboxY:CGFloat = 125 * DeviceManager.scrRatioC;
+	let nodeRatherboxX:CGFloat = 3 * DeviceManager.scrRatioC;
+	let nodeRatherboxY:CGFloat = 3 * DeviceManager.scrRatioC;
 	
 	/////// 통계를 위한 데이터 변수
 	
@@ -195,7 +199,31 @@ class JumpUPGame:SKScene {
 			addCountdownTimerForAlarm();
 		} else {
 			//score
+			gameScoreTitleImageTexture = SKTexture( imageNamed: "game_jumpup_assets_time_score.png" );
+			gameScoreTitleImage = SKSpriteNode( texture: gameScoreTitleImageTexture );
 			
+			if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+				//iPhone 전용 사이즈
+				gameScoreTitleImage!.size = CGSizeMake( 135.15 * DeviceManager.scrRatioC, 27.45 * DeviceManager.scrRatioC );
+				
+				//4/4s의 경우, 세로길이가 부족하므로 기존 아이폰과 다른 y위치 지정
+				if (DeviceManager.scrSize?.height <= 480.0) {
+					//4/4s fallback
+					movPositionY = self.view!.frame.height - (63 * DeviceManager.scrRatioC);
+				} else {
+					movPositionY = self.view!.frame.height - (96 * DeviceManager.scrRatioC);
+				}
+				
+				gameScoreMovPositionY = movPositionY - (72 * DeviceManager.scrRatioC);
+			} else {
+				//iPad 전용 사이즈 (고정)
+				gameScoreTitleImage!.size = CGSizeMake( 135.15, 27.45 );
+				movPositionY = self.view!.frame.height - (52 * DeviceManager.scrRatioC);
+				gameScoreMovPositionY = movPositionY - 94;
+			}
+			
+			gameScore = 0;
+			addPlayGameTick(); //게임모드로 켰을 때.
 		}
 		
 		gameScoreTitleImage!.position.x = self.view!.frame.width / 2;
@@ -208,11 +236,13 @@ class JumpUPGame:SKScene {
 		gameScoreTitleImage!.runAction(SKAction.actionWithEffect(moveEffect));
 		
 		//time / score에 대한 데이터 처리
+		gameScoreNm = (gameStartupType == 0 ? 3 : 5);
+		
 		if (gameNumberTexturesArray.count == 0) {
 			for i:Int in 0 ..< 10 {
 				gameNumberTexturesArray += [ SKTexture( imageNamed: SkinManager.getDefaultAssetPresets() + String(i) + ".png" ) ];
 			} //0~9에 대한 숫자 데이터 텍스쳐
-			for i:Int in 0 ..< 3 {
+			for i:Int in 0 ..< gameScoreNm {
 				gameNumberSpriteNodesArray += [ SKSpriteNode( texture: gameNumberTexturesArray[0] ) ];
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) { //iPhone 전용 크기 (가변)
 					gameNumberSpriteNodesArray[i].size = CGSizeMake(50 * DeviceManager.scrRatioC , 70 * DeviceManager.scrRatioC);
@@ -223,7 +253,7 @@ class JumpUPGame:SKScene {
 				}
 				
 				gameNumberSpriteNodesArray[i].position.x =
-					self.view!.frame.width / 2 - (CGFloat(i) * (gameNumberSpriteNodesArray[i].size.width + 12 * DeviceManager.maxScrRatioC))
+					self.view!.frame.width / 2 - (CGFloat( (gameStartupType == 0 ? i : i - 1) ) * (gameNumberSpriteNodesArray[i].size.width + 12 * DeviceManager.maxScrRatioC))
 					/* align to center */
 					+ ((gameNumberSpriteNodesArray[i].size.width + 12 * DeviceManager.maxScrRatioC));
 				
@@ -238,7 +268,7 @@ class JumpUPGame:SKScene {
 				//gameNumberSpriteNodesArray[i].runAction();
 				gameNumberSpriteNodesArray[i].runAction(
 					SKAction.group( [
-						SKAction.afterDelay(Double(2-i) * 0.1, performAction: SKAction.actionWithEffect(moveEffect)),
+						SKAction.afterDelay(Double((gameStartupType == 0 ? 2 : 4) - i) * 0.1, performAction: SKAction.actionWithEffect(moveEffect)),
 						SKAction.fadeInWithDuration(0.5)
 				]));
 				
@@ -425,6 +455,10 @@ class JumpUPGame:SKScene {
 		} //end if gametype 0
 	} //end func
 	
+	func addPlayGameTick() {
+		//게임 플레이시 tick.
+		
+	}
 	
 	func addCountdownTimerForAlarm() {
 		if (gameSecondTickTimer != nil) {
@@ -466,16 +500,15 @@ class JumpUPGame:SKScene {
 		
 		//Render time(or score)
 		gameScoreStr = String(gameScore);
-		//화면에 배열된 점수 순서: --> 2 1 0
-		gameNumberSpriteNodesArray[2].alpha = gameScoreStr.characters.count < 3 ? (max(0.5, gameNumberSpriteNodesArray[2].alpha - 0.04)) : (min(1.0, gameNumberSpriteNodesArray[2].alpha + 0.04));
-		gameNumberSpriteNodesArray[1].alpha = gameScoreStr.characters.count < 2 ? (max(0.5, gameNumberSpriteNodesArray[1].alpha - 0.04)) : (min(1.0, gameNumberSpriteNodesArray[1].alpha + 0.04));
 		//Render text
-		gameNumberSpriteNodesArray[0].texture = gameNumberTexturesArray[ Int(gameScoreStr[ gameScoreStr.characters.count - 1 ])! ];
-		gameNumberSpriteNodesArray[1].texture =
-			gameScoreStr.characters.count < 2 ? gameNumberTexturesArray[0] : gameNumberTexturesArray[ Int(gameScoreStr[ gameScoreStr.characters.count - 2 ])! ];
-		gameNumberSpriteNodesArray[2].texture =
-			gameScoreStr.characters.count < 3 ? gameNumberTexturesArray[0] : gameNumberTexturesArray[ Int(gameScoreStr[ gameScoreStr.characters.count - 3 ])! ];
-		
+		for i:Int in 0 ..< gameScoreNm {
+			gameNumberSpriteNodesArray[i].texture =
+				gameScoreStr.characters.count < (i + 1) ? gameNumberTexturesArray[0] :
+					gameNumberTexturesArray[ Int(gameScoreStr[ gameScoreStr.characters.count - (i + 1) ])! ];
+			if (i > 0) { //첫번째 자리수는 무조건 알파가 1.
+				gameNumberSpriteNodesArray[i].alpha = gameScoreStr.characters.count < (i + 1) ? (max(0.5, gameNumberSpriteNodesArray[i].alpha - 0.04)) : (min(1.0, gameNumberSpriteNodesArray[i].alpha + 0.04));
+			}
+		}
 		
 		//Add decoration elements
 		if (gameCloudDecorationAddDelay <= 0) { //add queue
@@ -489,11 +522,6 @@ class JumpUPGame:SKScene {
 		
 		//Add enemy elements
 		if (gameEnemyGenerateDelay <= 0){
-			//랜덤 확률로 gen... 일단은 50% 보다 약간 낮은 확률 -> 없앰
-			//if (Double(Float(arc4random()) / Float(UINT32_MAX)) < 0.7) {
-			//장애물 소환
-			//addNodes( 1 + Int(arc4random_uniform( 3 )) );
-			
 			gameRdmElementNum = 1 + Int(arc4random_uniform( 5 )); //0번은 데코용 구름이라 제외함
 			
 			//가시나 트랩이 나올 때, 50초 미만으로 남았을 때, 알람으로 켜졌을 때, 약 40% 미만의 확률로 발동
@@ -511,17 +539,18 @@ class JumpUPGame:SKScene {
 				self.addNodes( gameRdmElementNum );
 			}
 			
-			//if (Double(Float(arc4random()) / Float(UINT32_MAX)) < 0.2) {
-				//낮은 확률로 걸어다니는 로봇 소환
-				//addNodes( 4 );
-			//}
-			//} //gen end
 			
 			//딜레이 설정
-			if (gameStartupType == 0) {
-				//딜레이 최대치를 시간이 갈때마다 줄임 (알람으로 켜졌을 때.)
-				gameEnemyGenerateDelay = gameEnemyGenerateDelayMAX - Int((gameAlarmFirstGoalTime - gameScore) / 2);
-			} //end if
+			switch(gameStartupType) {
+				case 0: //알람 게임
+					//딜레이 최대치를 시간이 갈때마다 줄임 (알람으로 켜졌을 때.)
+					gameEnemyGenerateDelay = gameEnemyGenerateDelayMAX - Int((gameAlarmFirstGoalTime - gameScore) / 2);
+					break;
+				case 1: //직접 킨 게임
+					gameEnemyGenerateDelay = gameEnemyGenerateDelayMAX; //max는 레벨 진행에 따라 자동으로 tick에서 관리.
+					break;
+				default: break;
+			} //end switch
 			
 		} else {
 			gameEnemyGenerateDelay -= 1;
@@ -672,15 +701,23 @@ class JumpUPGame:SKScene {
 						}
 					}
 					
-					
+					//판정 완화용 Rect.
+					let nodeTmpRect:CGRect = CGRect(
+						x:
+						(gameNodesArray[i]!.position.x - gameNodesArray[i]!.size.width / 2) + nodeRatherboxX ,
+						y:
+						(gameNodesArray[i]!.position.y - gameNodesArray[i]!.size.height / 2) + nodeRatherboxY ,
+						width: gameNodesArray[i]!.size.width - (nodeRatherboxX * 2),
+						height: max(6 * DeviceManager.scrRatioC, gameNodesArray[i]!.size.height - (nodeRatherboxY * 2))
+					);
 					
 					if ( //캐릭터 - 적간 충돌판정 (조금 완화 함.)
 						/*characterElement!.containsPoint( gameNodesArray[i]!.position ) ||*/
-							gameNodesArray[i]!.containsPoint( CGPoint( x: (characterElement!.position.x - characterElement!.size.width / 2) + characterRatherboxX, y: (characterElement!.position.y - characterElement!.size.height / 2) + characterRatherboxY  ) ) ||
-							gameNodesArray[i]!.containsPoint( CGPoint( x: (characterElement!.position.x + characterElement!.size.width / 2) - characterRatherboxX, y: (characterElement!.position.y - characterElement!.size.height / 2) + characterRatherboxY  ) ) ||
+							nodeTmpRect.contains( CGPoint( x: (characterElement!.position.x - characterElement!.size.width / 2) + characterRatherboxX, y: (characterElement!.position.y - characterElement!.size.height / 2) + characterRatherboxY  ) ) ||
+							nodeTmpRect.contains( CGPoint( x: (characterElement!.position.x + characterElement!.size.width / 2) - characterRatherboxX, y: (characterElement!.position.y - characterElement!.size.height / 2) + characterRatherboxY  ) ) ||
 							
-							gameNodesArray[i]!.containsPoint( CGPoint( x: (characterElement!.position.x - characterElement!.size.width / 2) + characterRatherboxX, y: (characterElement!.position.y + characterElement!.size.height / 2) - characterRatherboxY  ) ) ||
-							gameNodesArray[i]!.containsPoint( CGPoint( x: (characterElement!.position.x + characterElement!.size.width / 2) - characterRatherboxX, y: (characterElement!.position.y + characterElement!.size.height / 2) - characterRatherboxY  ) )
+							nodeTmpRect.contains( CGPoint( x: (characterElement!.position.x - characterElement!.size.width / 2) + characterRatherboxX, y: (characterElement!.position.y + characterElement!.size.height / 2) - characterRatherboxY  ) ) ||
+							nodeTmpRect.contains( CGPoint( x: (characterElement!.position.x + characterElement!.size.width / 2) - characterRatherboxX, y: (characterElement!.position.y + characterElement!.size.height / 2) - characterRatherboxY  ) )
 						) {
 						
 							if (gameCharacterUnlimitedLife == 0) {

@@ -644,11 +644,7 @@ class ViewController: UIViewController {
 			if (AlarmManager.alarmRingActivated == true) {
 				print("Alarm ring progress is already running. skipping");
 			} else {
-				modalSettingsView.dismissViewControllerAnimated(false, completion: nil);
-				modalAlarmAddView.dismissViewControllerAnimated(false, completion: nil);
-				modalAlarmListView.dismissViewControllerAnimated(false, completion: nil);
-				//Dismiss하면서 blur같은거 없애야 하는데, 일단 지금은 그게 뜨는지 체크먼저 해보고 구현 예정 ....
-				self.showHideBlurview(false);
+				closeAllModalsForce();
 				GlobalSubView.alarmRingViewcontroller.modalTransitionStyle = .CrossDissolve;
 				self.presentViewController(GlobalSubView.alarmRingViewcontroller, animated: true, completion: nil);
 				AlarmManager.alarmRingActivated = true;
@@ -658,6 +654,19 @@ class ViewController: UIViewController {
 		} //end check
 		
 	} //end if
+	
+	//모든 modal 강제로 닫기 (바로 다음 뷰를 열때 사용)
+	func closeAllModalsForce() {
+		modalSettingsView.dismissViewControllerAnimated(false, completion: nil);
+		modalAlarmAddView.dismissViewControllerAnimated(false, completion: nil);
+		modalAlarmListView.dismissViewControllerAnimated(false, completion: nil);
+		modalAlarmStatsView.dismissViewControllerAnimated(false, completion: nil);
+		modalCharacterInformationView.dismissViewControllerAnimated(false, completion: nil);
+		modalPlayGameview.dismissViewControllerAnimated(false, completion: nil);
+		modalGameResultView.dismissViewControllerAnimated(false, completion: nil);
+		modalGamePlayWindowView.dismissViewControllerAnimated(false, completion: nil);
+		self.showHideBlurview(false);
+	}
 	
 	///////// 메인 스킨 변경 (혹은 스킨 설정 )
 	func selectMainSkin(skinID:Int = 0) {
@@ -922,6 +931,14 @@ class ViewController: UIViewController {
 		});
 	} //end func
 	
+	//////
+	
+	func runGame() {
+		//게임 시작
+		closeAllModalsForce();
+		GlobalSubView.gameModePlayViewcontroller.modalTransitionStyle = .CrossDissolve;
+		self.presentViewController(GlobalSubView.gameModePlayViewcontroller, animated: true, completion: nil);
+	}
 	
 }
 

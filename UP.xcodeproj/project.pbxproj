@@ -125,6 +125,7 @@
 		03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425BD21CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png */; };
 		0383DB801CF6169F0009D5DE /* CharacterAchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383DB7F1CF6169F0009D5DE /* CharacterAchievementsView.swift */; };
 		0383DB891CF617010009D5DE /* AchievementList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0383DB881CF617010009D5DE /* AchievementList.json */; };
+		03B18E2F1D2048C300972101 /* game_jumpup_assets_time_score.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E2E1D2048C300972101 /* game_jumpup_assets_time_score.png */; };
 		03DDD7D31CEB91D4007C026D /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7D21CEB91D4007C026D /* StatisticsView.swift */; };
 		03DDD7D81CEB921E007C026D /* AddAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7D41CEB921E007C026D /* AddAlarmView.swift */; };
 		03DDD7D91CEB921E007C026D /* AlarmListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7D51CEB921E007C026D /* AlarmListView.swift */; };
@@ -569,6 +570,7 @@
 		0368399E1CEB604000204E86 /* SF-UI-Display-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Ultralight.otf"; path = "FontAssets/SF-UI-Display-Ultralight.otf"; sourceTree = "<group>"; };
 		0383DB7F1CF6169F0009D5DE /* CharacterAchievementsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterAchievementsView.swift; path = ModalView/PopView/CharacterAchievementsView.swift; sourceTree = "<group>"; };
 		0383DB881CF617010009D5DE /* AchievementList.json */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = text.json; name = AchievementList.json; path = Datas/AchievementList.json; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; wrapsLines = 1; };
+		03B18E2E1D2048C300972101 /* game_jumpup_assets_time_score.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_score.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_score.png; sourceTree = "<group>"; };
 		03DDD7D21CEB91D4007C026D /* StatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatisticsView.swift; path = ModalView/StatisticsView.swift; sourceTree = "<group>"; };
 		03DDD7D41CEB921E007C026D /* AddAlarmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddAlarmView.swift; path = ModalView/AddAlarmView.swift; sourceTree = "<group>"; };
 		03DDD7D51CEB921E007C026D /* AlarmListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmListView.swift; path = ModalView/AlarmListView.swift; sourceTree = "<group>"; };
@@ -1155,6 +1157,7 @@
 				7756F9691C99D1C700675AB7 /* Effects */,
 				77F9D2481C85D94500E79CE8 /* Motions */,
 				77F9D2361C85D93F00E79CE8 /* game_jumpup_assets_time_background.png */,
+				03B18E2E1D2048C300972101 /* game_jumpup_assets_time_score.png */,
 				032536BB1D1B16E3004C6293 /* game_jumpup_assets_playpreview.gif */,
 				77F9D2371C85D93F00E79CE8 /* game_jumpup_assets_time_box.png */,
 				771181DC1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png */,
@@ -1993,6 +1996,7 @@
 				77AC50521CABE5D40044F5C8 /* skin_default_character_0006.png in Resources */,
 				03425B791CCEB2E400243B28 /* modal-check.png in Resources */,
 				032319311CFCAC170052732F /* result-btn-ranking.png in Resources */,
+				03B18E2F1D2048C300972101 /* game_jumpup_assets_time_score.png in Resources */,
 				77C4C0171C86D95800B7BB3B /* game_jumpup_ai_astro_jump0.png in Resources */,
 				77CAE0C11C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png in Resources */,
 				77AC50681CABE5D40044F5C8 /* skin_default_character_0028.png in Resources */,

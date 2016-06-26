@@ -22,6 +22,8 @@ class GameTitleViewJumpUP:UIViewController {
 	
 	//Start button
 	var gameStartButtonImage:UIImageView = UIImageView();
+	//Auto-start in GameMode
+	var gameAutostartCountdownText:UILabel = UILabel();
 	
 	//SKView (Game view) and game scene
 	var gameView:SKView = SKView();
@@ -30,6 +32,9 @@ class GameTitleViewJumpUP:UIViewController {
 	let gameTitleLabelYAxis:CGFloat = 128 * DeviceManager.scrRatioC;
 	let gameThumbsSize:CGFloat = 180 * DeviceManager.maxScrRatioC;
 	
+	var isGameMode:Bool = false; //알람이 아닌, 스코어가 오르는 게임 모드인 경우
+	var aStartTimer:NSTimer?; //자동 게임시작 카운트다운 타이머
+	var aStartLeft:Int = 3;
 	
 	override func viewDidLoad() {
 		// view init func
@@ -78,33 +83,66 @@ class GameTitleViewJumpUP:UIViewController {
 		self.view.addSubview(gameStartButtonImage);
 		gameStartButtonImage.userInteractionEnabled = true;
 		
+		//Auto-count Add. (게임모드일때만 보임)
+		gameAutostartCountdownText.text = String(aStartLeft);
+		gameAutostartCountdownText.font = UIFont.systemFontOfSize(38);
+		gameAutostartCountdownText.frame = CGRectMake( 0,
+		                                               self.view.frame.height - (48 * DeviceManager.maxScrRatioC) - (86 * DeviceManager.maxScrRatioC)
+		                                               , self.view.frame.width, 38 );
+		gameAutostartCountdownText.textColor = UIColor.whiteColor();
+		gameAutostartCountdownText.textAlignment = .Center;
+		self.view.addSubview(gameAutostartCountdownText);
+		
+		if (isGameMode == false) {
+			gameAutostartCountdownText.hidden = true;
+		} else {
+			gameStartButtonImage.hidden = true;
+			//자동 시작해야 함
+			aStartTimer = UPUtils.setInterval(1, block: autoGameStartTimer);
+		}
+		
 		///////
 		self.gameTitleLabel.alpha = 0; self.gameTitleRedLabel.alpha = 0; self.gameTitleSkyblueLabel.alpha = 0;
 		self.gameThumbnailsBackgroundImage.alpha = 0; self.gameThumbnailsImage.alpha = 0;
-		self.gameStartButtonImage.alpha = 0;
+		self.gameStartButtonImage.alpha = 0; self.gameAutostartCountdownText.alpha = 0;
 		
 		//View fade-in effect
 		UIView.animateWithDuration(0.25, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
 			self.gameTitleLabel.alpha = 1; self.gameTitleRedLabel.alpha = 1; self.gameTitleSkyblueLabel.alpha = 1;
 			self.gameThumbnailsBackgroundImage.alpha = 1; self.gameThumbnailsImage.alpha = 1;
-			self.gameStartButtonImage.alpha = 1; 
-			
-			
+			self.gameStartButtonImage.alpha = 1;  self.gameAutostartCountdownText.alpha = 1;
 			}, completion: {_ in
 		});
 		
 		
 	} //end func
 	
-	func gameStartFuncTapHandler( recognizer: UITapGestureRecognizer ) {
+	//자동 시작 타이머
+	func autoGameStartTimer() {
+		aStartLeft -= 1;
+		gameAutostartCountdownText.text = String(aStartLeft);
+		if (aStartLeft <= 0) {
+			// 타이머 정지 및 시작
+			if (aStartTimer != nil) {
+				aStartTimer!.invalidate(); aStartTimer = nil;
+			}
+			gameStartFuncTapHandler(nil);
+		}
+	}
+	
+	func gameStartFuncTapHandler( recognizer: UITapGestureRecognizer! ) {
 		//Game start
 		print("Presenting game view");
 		jumpUPGameScene = JumpUPGame( size: CGSizeMake( self.view.frame.width, self.view.frame.height ) );
 		jumpUPGameScene!.scaleMode = SKSceneScaleMode.ResizeFill;
+		jumpUPGameScene!.gameStartupType = isGameMode ? 1 : 0;
 		
+		////////테스트 전용. 나중에 빼야함
 		gameView.showsFPS = true; //fps view
 		gameView.showsDrawCount = true;
 		gameView.showsNodeCount = true;
+		//////////////
+		
 		gameView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
 		
 		self.view.addSubview(gameView);

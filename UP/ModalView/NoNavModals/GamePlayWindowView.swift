@@ -41,7 +41,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 	//버튼 (일반 게임 결과창)
 	var resultButtonList:UIButton = UIButton();
 	var resultButtonRanking:UIButton = UIButton();
-	var resultButtonRetry:UIButton = UIButton(); //<- 일반게임 시 가운데
+	var resultButtonPlay:UIButton = UIButton(); //<- 일반게임 시 가운데
 	
 	//number up timers
 	var numUPTimer:NSTimer?;
@@ -111,13 +111,13 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		//// 버튼 추가
 		resultButtonList.setImage(UIImage(named: "result-btn-list.png"), forState: .Normal);
 		resultButtonRanking.setImage(UIImage(named: "result-btn-ranking.png"), forState: .Normal);
-		resultButtonRetry.setImage(UIImage(named: "result-btn-play.png"), forState: .Normal);
+		resultButtonPlay.setImage(UIImage(named: "result-btn-play.png"), forState: .Normal);
 		
 		resultButtonList.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) * 2,
 		                                    gamePreviewImageView!.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
 		                                    62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
 		
-		resultButtonRetry.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) / 2,
+		resultButtonPlay.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) / 2,
 		                                     gamePreviewImageView!.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
 		                                     62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
 		
@@ -126,7 +126,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		                                    62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
 		
 		modalView.addSubview(resultButtonList);
-		modalView.addSubview(resultButtonRetry);
+		modalView.addSubview(resultButtonPlay);
 		modalView.addSubview(resultButtonRanking);
 		
 		//DISABLE AUTORESIZE
@@ -142,6 +142,26 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		//버튼 이벤트 바인딩
 		resultButtonList.addTarget(self, action: #selector(GamePlayWindowView.viewCloseAction), forControlEvents: .TouchUpInside);
 		resultButtonRanking.addTarget(self, action: #selector(GamePlayWindowView.showLeaderboard), forControlEvents: .TouchUpInside);
+		resultButtonPlay.addTarget(self, action: #selector(GamePlayWindowView.startPlayGame), forControlEvents: .TouchUpInside);
+	}
+	
+	//게임 시작
+	func startPlayGame() {
+		print("Preparing to play!");
+		GameModeView.setGame( currentGameID ); //게임 id 전달
+		
+		self.view.frame = CGRectMake(0, 0,
+		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
+		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseOut, animations: {
+			self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
+				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
+		}) { _ in
+			self.dismissViewControllerAnimated(false, completion: { _ in
+				ViewController.viewSelf!.runGame(); //게임 시작 호출
+			});
+		}
+		
+		
 	}
 	
 	//리더보드 표시 함수
