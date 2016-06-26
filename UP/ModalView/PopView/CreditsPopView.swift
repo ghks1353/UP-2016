@@ -130,7 +130,7 @@ class CreditsPopView:UIViewController {
 		creditContentsLicense.textColor = UPUtils.colorWithHexString("#444444"); creditContentsLicense.textAlignment = .Center;
 		creditContentsLicense.font = UIFont.systemFontOfSize(10);
 		creditContentsLicense.text =
-			"Cryptoswift is copyrighted by Marcin Krzyżanowski, SwiftyJSON is copyrighted by Ruoyu Fu licensed under MIT, Gifu is copyrighted by Reda Lemeden licensed under MIT.\n\nCopyright (c) 2016 <Project UP> by Seokhwan An and Seungha hwang.";
+			"Cryptoswift is copyrighted by Marcin Krzyżanowski, SwiftyJSON is copyrighted by Ruoyu Fu licensed under the MIT, Gifu is copyrighted by Reda Lemeden licensed under the MIT, Charts is copyrighted by Daniel Cohen Gindi & Philipp Jahoda licensed under the Apache License 2.0\n\nCopyright (c) 2016 <Project UP> by Seokhwan An and Seungha hwang.";
 		creditContentsLicense.sizeToFit();
 		creditsScrollView.addSubview(creditContentsLicense);
 		

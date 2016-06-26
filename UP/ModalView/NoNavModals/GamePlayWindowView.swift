@@ -152,7 +152,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		
 		switch(currentGameID) {
 			case 0: //JumpUP
-				gcViewController.leaderboardIdentifier = "leaderboard_games_jumpup"; //아이튠즈 커네트에서 순위표id.
+				gcViewController.leaderboardIdentifier = "leaderboard_jumpup"; //아이튠즈 커네트에서 순위표id.
 				break;
 			default: break;
 		}
