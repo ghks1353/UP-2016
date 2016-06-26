@@ -33,7 +33,7 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		self.navigationItem.hidesBackButton = true;
 		//add table to modals
-		tableView.frame = CGRectMake(0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height);
+		tableView.frame = CGRectMake(0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height);
 		self.view.addSubview(tableView);
 		print("Adding repeat table cells");
 		

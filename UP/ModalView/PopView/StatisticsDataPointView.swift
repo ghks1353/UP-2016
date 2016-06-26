@@ -49,7 +49,7 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
 		
 		//add table to modals
-		tableView.frame = CGRectMake(0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height);
+		tableView.frame = CGRectMake(0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height);
 		self.view.addSubview(tableView);
 		
 		//add table cells (options)

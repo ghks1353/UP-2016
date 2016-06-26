@@ -79,13 +79,13 @@ class GameResultView:UIViewController {
 		
 		//ModalView
 		modalView.backgroundColor = UIColor.whiteColor();
-		modalView.frame = CGRectMake(DeviceGeneral.resultModalSizeRect.minX, DeviceGeneral.resultModalSizeRect.minY - 36 * DeviceGeneral.resultModalRatioC,
-		DeviceGeneral.resultModalSizeRect.width, DeviceGeneral.resultModalSizeRect.height);
+		modalView.frame = CGRectMake(DeviceManager.resultModalSizeRect.minX, DeviceManager.resultModalSizeRect.minY - 36 * DeviceManager.resultModalRatioC,
+		DeviceManager.resultModalSizeRect.width, DeviceManager.resultModalSizeRect.height);
 		self.view.addSubview(modalView);
 		//ModalView (SNS)
 		modalSNSView.backgroundColor = UIColor.whiteColor();
-		modalSNSView.frame = CGRectMake(DeviceGeneral.resultModalSizeRect.minX, modalView.frame.maxY + 18 * DeviceGeneral.resultModalRatioC,
-		                             DeviceGeneral.resultModalSizeRect.width, 72 * DeviceGeneral.resultModalRatioC);
+		modalSNSView.frame = CGRectMake(DeviceManager.resultModalSizeRect.minX, modalView.frame.maxY + 18 * DeviceManager.resultModalRatioC,
+		                             DeviceManager.resultModalSizeRect.width, 72 * DeviceManager.resultModalRatioC);
 		self.view.addSubview(modalSNSView);
 		
 		//리소스 제작
@@ -102,38 +102,38 @@ class GameResultView:UIViewController {
 		
 		//ScrollView create.
 		scrollView.pagingEnabled = true;
-		scrollView.frame = CGRectMake(0, 0, modalView.frame.width, 146 * DeviceGeneral.resultModalRatioC);
+		scrollView.frame = CGRectMake(0, 0, modalView.frame.width, 146 * DeviceManager.resultModalRatioC);
 		scrollView.contentSize = CGSizeMake(scrollView.frame.width * 2, scrollView.frame.height); //100은 추정치?
 		
 		///// Score 부분 만들기
 		let scoreUIView:UIView = UIView(); scoreUIView.frame = CGRectMake(scrollView.frame.width * 0, 0, scrollView.frame.width, scrollView.frame.height);
 		imgScoreUIView = UIImageView( image: UIImage( named: "result-score.png" ));
-		imgScoreUIView.frame = CGRectMake((modalView.frame.width / 2) - ((118 * DeviceGeneral.resultModalRatioC) / 2), (37 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC, (118 * DeviceGeneral.resultModalRatioC), (23.75 * DeviceGeneral.resultModalRatioC));
+		imgScoreUIView.frame = CGRectMake((modalView.frame.width / 2) - ((118 * DeviceManager.resultModalRatioC) / 2), (37 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, (118 * DeviceManager.resultModalRatioC), (23.75 * DeviceManager.resultModalRatioC));
 		scoreUIView.backgroundColor = UIColor.clearColor();
 		scoreUIView.addSubview(imgScoreUIView);
 		imgTimeUIView = UIImageView( image: UIImage( named: "result-time.png" ));
-		imgTimeUIView.frame = CGRectMake((modalView.frame.width / 2) - ((75.4 * DeviceGeneral.resultModalRatioC) / 2), (28 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC, (75.4 * DeviceGeneral.resultModalRatioC), (33 * DeviceGeneral.resultModalRatioC));
+		imgTimeUIView.frame = CGRectMake((modalView.frame.width / 2) - ((75.4 * DeviceManager.resultModalRatioC) / 2), (28 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, (75.4 * DeviceManager.resultModalRatioC), (33 * DeviceManager.resultModalRatioC));
 		scoreUIView.backgroundColor = UIColor.clearColor();
 		scoreUIView.addSubview(imgTimeUIView);
 		
 		//Score에 대한 숫자 추가
 		for i:Int in 0 ..< 3 { //<-5자리면 5로 변경
 			let scoreNumber:UIImageView = UIImageView( image: blackNumbers[0] );
-			scoreNumber.frame = getNumberLocForIndex(i, yAxis: imgScoreUIView.frame.maxY + (8 * DeviceGeneral.resultModalRatioC));
+			scoreNumber.frame = getNumberLocForIndex(i, yAxis: imgScoreUIView.frame.maxY + (8 * DeviceManager.resultModalRatioC));
 			scoreUIView.addSubview(scoreNumber); scoreNumPointers += [ scoreNumber ];
 		} //숫자 표시용 디지털 숫자 노드 3개
 		
 		///// best 부분 만들기
 		let bestUIView:UIView = UIView(); bestUIView.frame = CGRectMake(scrollView.frame.width * 1, 0, scrollView.frame.width, scrollView.frame.height);
 		let bestImgView:UIImageView = UIImageView( image: UIImage( named: "result-best.png" ));
-		bestImgView.frame = CGRectMake((modalView.frame.width / 2) - ((84 * DeviceGeneral.resultModalRatioC) / 2), (32 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC, (84 * DeviceGeneral.resultModalRatioC), (32.65 * DeviceGeneral.resultModalRatioC));
+		bestImgView.frame = CGRectMake((modalView.frame.width / 2) - ((84 * DeviceManager.resultModalRatioC) / 2), (32 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, (84 * DeviceManager.resultModalRatioC), (32.65 * DeviceManager.resultModalRatioC));
 		bestUIView.backgroundColor = UIColor.clearColor();
 		bestUIView.addSubview(bestImgView);
 		
 		//Best에 대한 숫자 추가
 		for i:Int in 0 ..< 3 {
 			let bestNumber:UIImageView = UIImageView( image: blackNumbers[0] );
-			bestNumber.frame = getNumberLocForIndex(i, yAxis: bestImgView.frame.maxY + (8 * DeviceGeneral.resultModalRatioC));
+			bestNumber.frame = getNumberLocForIndex(i, yAxis: bestImgView.frame.maxY + (8 * DeviceManager.resultModalRatioC));
 			bestUIView.addSubview(bestNumber); bestNumPointers += [ bestNumber ];
 		} //숫자 표시용 디지털 숫자 노드 3개
 		
@@ -145,7 +145,7 @@ class GameResultView:UIViewController {
 		
 		///// 배경 추가
 		resultDecorationBG.image = UIImage( named: "result-game-background.png" );
-		resultDecorationBG.frame = CGRectMake(0, scrollView.frame.maxY, modalView.frame.width, 194 * DeviceGeneral.resultModalRatioC);
+		resultDecorationBG.frame = CGRectMake(0, scrollView.frame.maxY, modalView.frame.width, 194 * DeviceManager.resultModalRatioC);
 		resultDecoBGMask.frame = resultDecorationBG.frame; resultDecoBGMask.backgroundColor = UIColor.blackColor();
 		resultDecorationBG.contentMode = .ScaleAspectFit;
 		modalView.addSubview(resultDecoBGMask); modalView.addSubview(resultDecorationBG);
@@ -161,19 +161,19 @@ class GameResultView:UIViewController {
 		charExpMaskView.backgroundColor = UIColor.clearColor();
 		modalView.addSubview(charExpMaskView);
 		//+20
-		charLevelWrapper.frame = CGRectMake( (187.5 - XAXIS_PRESET_LV_R_PAD) * DeviceGeneral.modalRatioC, (153 - YAXIS_PRESET_LV_PAD) * DeviceGeneral.modalRatioC,
-		                                     104.5 * DeviceGeneral.modalRatioC, 61.75 * DeviceGeneral.modalRatioC);
-		charLevelIndicator.frame = CGRectMake( (143.5 - XAXIS_PRESET_LV_R_PAD) * DeviceGeneral.modalRatioC, (183 - YAXIS_PRESET_LV_PAD) * DeviceGeneral.modalRatioC,
-		                                       38 * DeviceGeneral.modalRatioC, 33.25 * DeviceGeneral.modalRatioC);
-		charExpWrapper.frame = CGRectMake( (20.5 - XAXIS_PRESET_LV_PAD) * DeviceGeneral.modalRatioC, (168 - YAXIS_PRESET_LV_PAD) * DeviceGeneral.modalRatioC,
-		                                   95 * DeviceGeneral.modalRatioC, 57 * DeviceGeneral.modalRatioC);
+		charLevelWrapper.frame = CGRectMake( (187.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC, (153 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
+		                                     104.5 * DeviceManager.modalRatioC, 61.75 * DeviceManager.modalRatioC);
+		charLevelIndicator.frame = CGRectMake( (143.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC, (183 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
+		                                       38 * DeviceManager.modalRatioC, 33.25 * DeviceManager.modalRatioC);
+		charExpWrapper.frame = CGRectMake( (20.5 - XAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC, (168 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
+		                                   95 * DeviceManager.modalRatioC, 57 * DeviceManager.modalRatioC);
 		//마스크용 프레임 배치
-		charExpMaskView.frame = CGRectMake((25.4 - XAXIS_PRESET_LV_PAD) * DeviceGeneral.modalRatioC, (173.5 - YAXIS_PRESET_LV_PAD) * DeviceGeneral.modalRatioC,
-		                                   80.5 * DeviceGeneral.modalRatioC, 47 * DeviceGeneral.modalRatioC);
-		charCurrentCharacter.frame = CGRectMake( 6 * DeviceGeneral.modalRatioC, resultDecorationBG.frame.maxY - 195 * DeviceGeneral.modalRatioC, 300 * DeviceGeneral.modalRatioC, 300 * DeviceGeneral.modalRatioC );
+		charExpMaskView.frame = CGRectMake((25.4 - XAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC, (173.5 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
+		                                   80.5 * DeviceManager.modalRatioC, 47 * DeviceManager.modalRatioC);
+		charCurrentCharacter.frame = CGRectMake( 6 * DeviceManager.modalRatioC, resultDecorationBG.frame.maxY - 195 * DeviceManager.modalRatioC, 300 * DeviceManager.modalRatioC, 300 * DeviceManager.modalRatioC );
 		
 		let maskLayer:CAShapeLayer = CAShapeLayer();
-		let cMaskRect = CGRectMake(0, 0, 82 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
+		let cMaskRect = CGRectMake(0, 0, 82 * DeviceManager.modalRatioC, 49 * DeviceManager.modalRatioC);
 		let cPath:CGPathRef = CGPathCreateWithRect(cMaskRect, nil);
 		maskLayer.path = cPath;
 		charExpMaskView.layer.mask = maskLayer;
@@ -193,9 +193,9 @@ class GameResultView:UIViewController {
 		for i:Int in 0 ..< 3 {
 			let tmpView:UIImageView = UIImageView();
 			tmpView.image = UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  );
-			tmpView.frame = CGRectMake( ((205.5 - XAXIS_PRESET_LV_R_PAD) * DeviceGeneral.modalRatioC) + ((24 * CGFloat(i)) * DeviceGeneral.maxModalRatioC)
-				, (171 - YAXIS_PRESET_LV_PAD) * DeviceGeneral.modalRatioC,
-				  19.15 * DeviceGeneral.modalRatioC, 26.80 * DeviceGeneral.modalRatioC );
+			tmpView.frame = CGRectMake( ((205.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC) + ((24 * CGFloat(i)) * DeviceManager.maxModalRatioC)
+				, (171 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
+				  19.15 * DeviceManager.modalRatioC, 26.80 * DeviceManager.modalRatioC );
 			modalView.addSubview(tmpView);
 			charLevelDigitalArr += [tmpView];
 		}
@@ -209,15 +209,15 @@ class GameResultView:UIViewController {
 		//닫기 버튼
 		resultButtonClose.setImage(UIImage(named: "result-btn-close.png"), forState: .Normal);
 		
-		resultButtonList.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceGeneral.resultModalRatioC) * 2,
-		                                    resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC,
-		                                    62 * DeviceGeneral.resultModalRatioC, 62 * DeviceGeneral.resultModalRatioC);
-		resultButtonRetry.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceGeneral.resultModalRatioC) / 2,
-		                                     resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC,
-		                                     62 * DeviceGeneral.resultModalRatioC, 62 * DeviceGeneral.resultModalRatioC);
-		resultButtonRanking.frame = CGRectMake(modalView.frame.width / 2 + (62 * DeviceGeneral.resultModalRatioC),
-		                                    resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC,
-		                                    62 * DeviceGeneral.resultModalRatioC, 62 * DeviceGeneral.resultModalRatioC);
+		resultButtonList.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) * 2,
+		                                    resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
+		                                    62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
+		resultButtonRetry.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) / 2,
+		                                     resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
+		                                     62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
+		resultButtonRanking.frame = CGRectMake(modalView.frame.width / 2 + (62 * DeviceManager.resultModalRatioC),
+		                                    resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
+		                                    62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
 		
 		resultButtonClose.frame = resultButtonRetry.frame;
 		
@@ -294,34 +294,34 @@ class GameResultView:UIViewController {
 		
 		//경험치량 표시
 		//CharacterManager.currentCharInfo.characterExp = 4;
-		charExpProgress.frame = CGRectMake( (-14 * DeviceGeneral.modalRatioC), 0,
-		                                    (80.5 * DeviceGeneral.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
-			, 47 * DeviceGeneral.modalRatioC);
-		charExpProgressImageView.frame = CGRectMake(charExpProgress.frame.maxX, 0, 47 * DeviceGeneral.modalRatioC, 47 * DeviceGeneral.modalRatioC);
+		charExpProgress.frame = CGRectMake( (-14 * DeviceManager.modalRatioC), 0,
+		                                    (80.5 * DeviceManager.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
+			, 47 * DeviceManager.modalRatioC);
+		charExpProgressImageView.frame = CGRectMake(charExpProgress.frame.maxX, 0, 47 * DeviceManager.modalRatioC, 47 * DeviceManager.modalRatioC);
 		
 	}
 	
 	func getNumberLocForIndex(index:Int, yAxis:CGFloat) -> CGRect {
 		let numWidth:CGFloat = 38; let numHeight:CGFloat = 53.2;
 		return CGRectMake(
-			(modalView.frame.width / 2) - (CGFloat(index) * ((numWidth * DeviceGeneral.resultModalRatioC) + 6 * DeviceGeneral.resultMaxModalRatioC))
-				+ ((((numWidth / 2) * DeviceGeneral.resultModalRatioC) + 3 * DeviceGeneral.resultMaxModalRatioC))
+			(modalView.frame.width / 2) - (CGFloat(index) * ((numWidth * DeviceManager.resultModalRatioC) + 6 * DeviceManager.resultMaxModalRatioC))
+				+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC))
 				/*
 					5자리 숫자표시의 경우 숫자 생성시 for문을 5번 돌린 다음
-					+ ((((numWidth / 2) * DeviceGeneral.resultModalRatioC) + 3 * DeviceGeneral.resultMaxModalRatioC) * 3)
+					+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
 				
 				*/
-				+ 3 * DeviceGeneral.resultMaxModalRatioC
-			, yAxis, numWidth * DeviceGeneral.resultModalRatioC , numHeight * DeviceGeneral.resultModalRatioC);
+				+ 3 * DeviceManager.resultMaxModalRatioC
+			, yAxis, numWidth * DeviceManager.resultModalRatioC , numHeight * DeviceManager.resultModalRatioC);
 	}
 	
 	////////////////
 	
 	func FitModalLocationToCenter() {
-		modalView.frame = CGRectMake(DeviceGeneral.resultModalSizeRect.minX, DeviceGeneral.resultModalSizeRect.minY - 36 * DeviceGeneral.resultModalRatioC,
-		                             DeviceGeneral.resultModalSizeRect.width, DeviceGeneral.resultModalSizeRect.height);
-		modalSNSView.frame = CGRectMake(DeviceGeneral.resultModalSizeRect.minX, modalView.frame.maxY + 18 * DeviceGeneral.resultModalRatioC,
-		                                DeviceGeneral.resultModalSizeRect.width, 72 * DeviceGeneral.resultModalRatioC);
+		modalView.frame = CGRectMake(DeviceManager.resultModalSizeRect.minX, DeviceManager.resultModalSizeRect.minY - 36 * DeviceManager.resultModalRatioC,
+		                             DeviceManager.resultModalSizeRect.width, DeviceManager.resultModalSizeRect.height);
+		modalSNSView.frame = CGRectMake(DeviceManager.resultModalSizeRect.minX, modalView.frame.maxY + 18 * DeviceManager.resultModalRatioC,
+		                                DeviceManager.resultModalSizeRect.width, 72 * DeviceManager.resultModalRatioC);
 		if (modalView.maskView != nil) {
 			modalView.maskView!.frame = CGRectMake(0, 0, modalView.frame.width, modalView.frame.height);
 		}
@@ -358,11 +358,11 @@ class GameResultView:UIViewController {
 	
 	override func viewDidAppear(animated: Bool) {
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
-		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
+		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
 			self.view.frame = CGRectMake(0, 0,
-				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}

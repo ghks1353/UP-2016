@@ -48,7 +48,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		
 		//ModalView
 		modalView.view.backgroundColor = UIColor.whiteColor();
-		modalView.view.frame = DeviceGeneral.defaultModalSizeRect;
+		modalView.view.frame = DeviceManager.defaultModalSizeRect;
 		
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
@@ -113,23 +113,23 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 			YAXIS_PRESET_PAD = 0; //phone는 프리셋 적용 필요 없음
 		}
 		
-		charLevelWrapper.frame = CGRectMake( 195 * DeviceGeneral.modalRatioC, (66 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
-		                                     104.5 * DeviceGeneral.modalRatioC, 61.75 * DeviceGeneral.modalRatioC);
-		charLevelIndicator.frame = CGRectMake( 151 * DeviceGeneral.modalRatioC, (96 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
-		                                       38 * DeviceGeneral.modalRatioC, 33.25 * DeviceGeneral.modalRatioC);
-		charExpWrapper.frame = CGRectMake( 28 * DeviceGeneral.modalRatioC, (108 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
-		                                   95 * DeviceGeneral.modalRatioC, 57 * DeviceGeneral.modalRatioC);
-		charGameCenterIcon.frame = CGRectMake( 37 * DeviceGeneral.modalRatioC, (164.5 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
-		                                       78.5 * DeviceGeneral.modalRatioC, 130.25 * DeviceGeneral.modalRatioC);
-		charAchievementsIcon.frame = CGRectMake( 210 * DeviceGeneral.modalRatioC, (127.5 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
-		                                   70.95 * DeviceGeneral.modalRatioC, 168.6 * DeviceGeneral.modalRatioC);
-		charCurrentCharacter.frame = CGRectMake( 6 * DeviceGeneral.modalRatioC, modalView.view.frame.height - 252 * DeviceGeneral.modalRatioC, 300 * DeviceGeneral.modalRatioC, 300 * DeviceGeneral.modalRatioC );
+		charLevelWrapper.frame = CGRectMake( 195 * DeviceManager.modalRatioC, (66 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
+		                                     104.5 * DeviceManager.modalRatioC, 61.75 * DeviceManager.modalRatioC);
+		charLevelIndicator.frame = CGRectMake( 151 * DeviceManager.modalRatioC, (96 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
+		                                       38 * DeviceManager.modalRatioC, 33.25 * DeviceManager.modalRatioC);
+		charExpWrapper.frame = CGRectMake( 28 * DeviceManager.modalRatioC, (108 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
+		                                   95 * DeviceManager.modalRatioC, 57 * DeviceManager.modalRatioC);
+		charGameCenterIcon.frame = CGRectMake( 37 * DeviceManager.modalRatioC, (164.5 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
+		                                       78.5 * DeviceManager.modalRatioC, 130.25 * DeviceManager.modalRatioC);
+		charAchievementsIcon.frame = CGRectMake( 210 * DeviceManager.modalRatioC, (127.5 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
+		                                   70.95 * DeviceManager.modalRatioC, 168.6 * DeviceManager.modalRatioC);
+		charCurrentCharacter.frame = CGRectMake( 6 * DeviceManager.modalRatioC, modalView.view.frame.height - 252 * DeviceManager.modalRatioC, 300 * DeviceManager.modalRatioC, 300 * DeviceManager.modalRatioC );
 		
 		//마스크용 프레임 배치
-		charExpMaskView.frame = CGRectMake(33 * DeviceGeneral.modalRatioC, (112 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
-		                                   82 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
+		charExpMaskView.frame = CGRectMake(33 * DeviceManager.modalRatioC, (112 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
+		                                   82 * DeviceManager.modalRatioC, 49 * DeviceManager.modalRatioC);
 		let maskLayer:CAShapeLayer = CAShapeLayer();
-		let cMaskRect = CGRectMake(0, 0, 82 * DeviceGeneral.modalRatioC, 49 * DeviceGeneral.modalRatioC);
+		let cMaskRect = CGRectMake(0, 0, 82 * DeviceManager.modalRatioC, 49 * DeviceManager.modalRatioC);
 		let cPath:CGPathRef = CGPathCreateWithRect(cMaskRect, nil);
 		maskLayer.path = cPath;
 		charExpMaskView.layer.mask = maskLayer;
@@ -150,9 +150,9 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		for i:Int in 0 ..< 3 {
 			let tmpView:UIImageView = UIImageView();
 			tmpView.image = UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  );
-			tmpView.frame = CGRectMake( (213 * DeviceGeneral.modalRatioC) + ((24 * CGFloat(i)) * DeviceGeneral.maxModalRatioC)
-				, (84 - YAXIS_PRESET_PAD) * DeviceGeneral.modalRatioC,
-					19.15 * DeviceGeneral.modalRatioC, 26.80 * DeviceGeneral.modalRatioC );
+			tmpView.frame = CGRectMake( (213 * DeviceManager.modalRatioC) + ((24 * CGFloat(i)) * DeviceManager.maxModalRatioC)
+				, (84 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
+					19.15 * DeviceManager.modalRatioC, 26.80 * DeviceManager.modalRatioC );
 			modalView.view.addSubview(tmpView);
 			charLevelDigitalArr += [tmpView];
 		}
@@ -214,10 +214,10 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		
 		//경험치량 표시
 		//CharacterManager.currentCharInfo.characterExp = 4;
-		charExpProgress.frame = CGRectMake( (-14 * DeviceGeneral.modalRatioC), 0,
-		                                   (82 * DeviceGeneral.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
-			, 49 * DeviceGeneral.modalRatioC);
-		charExpProgressImageView.frame = CGRectMake(charExpProgress.frame.maxX, 49 * DeviceGeneral.modalRatioC - 47.5 * DeviceGeneral.modalRatioC, 47.5 * DeviceGeneral.modalRatioC, 47.5 * DeviceGeneral.modalRatioC);
+		charExpProgress.frame = CGRectMake( (-14 * DeviceManager.modalRatioC), 0,
+		                                   (82 * DeviceManager.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
+			, 49 * DeviceManager.modalRatioC);
+		charExpProgressImageView.frame = CGRectMake(charExpProgress.frame.maxX, 49 * DeviceManager.modalRatioC - 47.5 * DeviceManager.modalRatioC, 47.5 * DeviceManager.modalRatioC, 47.5 * DeviceManager.modalRatioC);
 		
 		//Tracking by google analytics
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_CHARACTERINFO);
@@ -229,11 +229,11 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	
 	override func viewDidAppear(animated: Bool) {
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
-		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
+		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
 			self.view.frame = CGRectMake(0, 0,
-				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}
@@ -243,10 +243,10 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	////////////////
 	
 	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame = DeviceGeneral.defaultModalSizeRect;
+		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
 		
 		if (self.view.maskView != nil) {
-			self.view.maskView!.frame = DeviceGeneral.defaultModalSizeRect;
+			self.view.maskView!.frame = DeviceManager.defaultModalSizeRect;
 		}
 	}
 	

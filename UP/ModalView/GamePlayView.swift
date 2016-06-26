@@ -37,11 +37,11 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		
 		//ModalView
 		modalView.view.backgroundColor = UIColor.whiteColor();
-		modalView.view.frame = DeviceGeneral.defaultModalSizeRect;
+		modalView.view.frame = DeviceManager.defaultModalSizeRect;
 		
 		//Modal overlay view
 		modalOverlayView.backgroundColor = UIColor.blackColor();
-		modalOverlayView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		modalOverlayView.frame = CGRectMake(0, 0, DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 		modalOverlayView.hidden = true; modalOverlayView.alpha = 0;
 		
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
@@ -94,8 +94,8 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	////////////////
 	
 	func FitModalLocationToCenter() {
-		modalOverlayView.frame = CGRectMake( 0, 0, DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height );
-		navigationCtrl.view.frame = DeviceGeneral.defaultModalSizeRect;
+		modalOverlayView.frame = CGRectMake( 0, 0, DeviceManager.scrSize!.width, DeviceManager.scrSize!.height );
+		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
 		
 		if (self.view.maskView != nil) {
 			navigationCtrl.view.maskView!.frame = CGRectMake(0, 0, navigationCtrl.view.frame.width, navigationCtrl.view.frame.height);
@@ -127,11 +127,11 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	
 	override func viewDidAppear(animated: Bool) {
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
-		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
+		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
 			self.view.frame = CGRectMake(0, 0,
-				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}

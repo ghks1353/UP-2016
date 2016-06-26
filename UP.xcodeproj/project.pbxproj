@@ -149,7 +149,7 @@
 		03DDD8001CEB990D007C026D /* SoundInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7F91CEB990D007C026D /* SoundInfoObj.swift */; };
 		03DDD8011CEB990D007C026D /* StatsDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */; };
 		03DDD8021CEB990D007C026D /* UIAlarmIDSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */; };
-		03DDD8061CEB992D007C026D /* DeviceGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8041CEB992D007C026D /* DeviceGeneral.swift */; };
+		03DDD8061CEB992D007C026D /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8041CEB992D007C026D /* DeviceManager.swift */; };
 		03DDD8071CEB992D007C026D /* UPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8051CEB992D007C026D /* UPUtils.swift */; };
 		03DDD8091CEB9952007C026D /* UITableDottedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8081CEB9952007C026D /* UITableDottedCell.swift */; };
 		03DDD80E1CEB9990007C026D /* CustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD80A1CEB9990007C026D /* CustomTableCell.swift */; };
@@ -593,7 +593,7 @@
 		03DDD7F91CEB990D007C026D /* SoundInfoObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundInfoObj.swift; path = Classes/SoundInfoObj.swift; sourceTree = "<group>"; };
 		03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatsDataElement.swift; path = Classes/StatsDataElement.swift; sourceTree = "<group>"; };
 		03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIAlarmIDSwitch.swift; path = Classes/UIAlarmIDSwitch.swift; sourceTree = "<group>"; };
-		03DDD8041CEB992D007C026D /* DeviceGeneral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceGeneral.swift; path = Utils/DeviceGeneral.swift; sourceTree = "<group>"; };
+		03DDD8041CEB992D007C026D /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceManager.swift; path = Utils/DeviceManager.swift; sourceTree = "<group>"; };
 		03DDD8051CEB992D007C026D /* UPUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UPUtils.swift; path = Utils/UPUtils.swift; sourceTree = "<group>"; };
 		03DDD8081CEB9952007C026D /* UITableDottedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableDottedCell.swift; path = Cells/Components/UITableDottedCell.swift; sourceTree = "<group>"; };
 		03DDD80A1CEB9990007C026D /* CustomTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTableCell.swift; path = Cells/CustomTableCell.swift; sourceTree = "<group>"; };
@@ -1669,6 +1669,7 @@
 		77E23BFD1C6996EE005F0B03 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				03DDD8041CEB992D007C026D /* DeviceManager.swift */,
 				032318B81CF8BA6A0052732F /* AchievementManager.swift */,
 				03DDD7E81CEB98D2007C026D /* AlarmManager.swift */,
 				03DDD7E91CEB98D2007C026D /* AnalyticsManager.swift */,
@@ -1686,7 +1687,6 @@
 		77E23C021C6A0804005F0B03 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				03DDD8041CEB992D007C026D /* DeviceGeneral.swift */,
 				03DDD8051CEB992D007C026D /* UPUtils.swift */,
 			);
 			name = Utils;
@@ -2333,7 +2333,7 @@
 				03DDD7F01CEB98D2007C026D /* AnalyticsManager.swift in Sources */,
 				03DDD7F11CEB98D2007C026D /* DataManager.swift in Sources */,
 				03DDD7DA1CEB921E007C026D /* CharacterInfoView.swift in Sources */,
-				03DDD8061CEB992D007C026D /* DeviceGeneral.swift in Sources */,
+				03DDD8061CEB992D007C026D /* DeviceManager.swift in Sources */,
 				03DDD7E11CEB929F007C026D /* AlarmRepeatSettingsView.swift in Sources */,
 				03DDD8251CEB9A2B007C026D /* TKTimingFunction.swift in Sources */,
 				032536C41D1B4174004C6293 /* GameModeView.swift in Sources */,

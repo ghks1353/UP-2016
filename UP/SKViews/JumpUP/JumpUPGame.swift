@@ -95,8 +95,8 @@ class JumpUPGame:SKScene {
 	//Character element
 	var characterElement:JumpUpElements?;// = JumpUpElements();
 	//판정 완화의 정도
-	let characterRatherboxX:CGFloat = 140 * DeviceGeneral.scrRatioC;
-	let characterRatherboxY:CGFloat = 125 * DeviceGeneral.scrRatioC;
+	let characterRatherboxX:CGFloat = 140 * DeviceManager.scrRatioC;
+	let characterRatherboxY:CGFloat = 125 * DeviceManager.scrRatioC;
 	
 	/////// 통계를 위한 데이터 변수
 	
@@ -130,7 +130,7 @@ class JumpUPGame:SKScene {
 		
 		//게임 백그라운드 화면 추가
 		backgroundCoverImage = SKSpriteNode( texture: backgroundCoverImageTexture );
-		backgroundCoverImage!.size = CGSizeMake( self.view!.frame.width, 226.95 * DeviceGeneral.scrRatioC );
+		backgroundCoverImage!.size = CGSizeMake( self.view!.frame.width, 226.95 * DeviceManager.scrRatioC );
 		backgroundCoverImage!.position.x = self.view!.frame.width / 2; backgroundCoverImage!.position.y = self.view!.frame.height / 2;
 		self.addChild(backgroundCoverImage!);
 		
@@ -141,10 +141,10 @@ class JumpUPGame:SKScene {
 		//게임 팁 표시할 텍스트 추가
 		gameTipTextField.textColor = UIColor.whiteColor();
 		gameTipTextField.frame = CGRectMake(
-			12 * DeviceGeneral.scrRatioC,
-			gameStageYAxis + (48 * DeviceGeneral.scrRatioC),
-			self.view!.frame.width - (12 * DeviceGeneral.scrRatioC),
-			24 * DeviceGeneral.scrRatioC
+			12 * DeviceManager.scrRatioC,
+			gameStageYAxis + (48 * DeviceManager.scrRatioC),
+			self.view!.frame.width - (12 * DeviceManager.scrRatioC),
+			24 * DeviceManager.scrRatioC
 		);
 		gameTipTextField.text = "테스트 텍스트";
 		gameTipTextField.textAlignment = .Center;
@@ -173,21 +173,21 @@ class JumpUPGame:SKScene {
 			
 			if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 				//iPhone 전용 사이즈
-				gameScoreTitleImage!.size = CGSizeMake( 87.65 * DeviceGeneral.scrRatioC, 38.35 * DeviceGeneral.scrRatioC );
+				gameScoreTitleImage!.size = CGSizeMake( 87.65 * DeviceManager.scrRatioC, 38.35 * DeviceManager.scrRatioC );
 				
 				//4/4s의 경우, 세로길이가 부족하므로 기존 아이폰과 다른 y위치 지정
-				if (DeviceGeneral.scrSize?.height <= 480.0) {
+				if (DeviceManager.scrSize?.height <= 480.0) {
 					//4/4s fallback
-					movPositionY = self.view!.frame.height - (63 * DeviceGeneral.scrRatioC);
+					movPositionY = self.view!.frame.height - (63 * DeviceManager.scrRatioC);
 				} else {
-					movPositionY = self.view!.frame.height - (96 * DeviceGeneral.scrRatioC);
+					movPositionY = self.view!.frame.height - (96 * DeviceManager.scrRatioC);
 				}
 				
-				gameScoreMovPositionY = movPositionY - (72 * DeviceGeneral.scrRatioC);
+				gameScoreMovPositionY = movPositionY - (72 * DeviceManager.scrRatioC);
 			} else {
 				//iPad 전용 사이즈 (고정)
 				gameScoreTitleImage!.size = CGSizeMake( 122.15, 53.35 );
-				movPositionY = self.view!.frame.height - (52 * DeviceGeneral.scrRatioC);
+				movPositionY = self.view!.frame.height - (52 * DeviceManager.scrRatioC);
 				gameScoreMovPositionY = movPositionY - 94;
 			}
 			
@@ -215,24 +215,24 @@ class JumpUPGame:SKScene {
 			for i:Int in 0 ..< 3 {
 				gameNumberSpriteNodesArray += [ SKSpriteNode( texture: gameNumberTexturesArray[0] ) ];
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) { //iPhone 전용 크기 (가변)
-					gameNumberSpriteNodesArray[i].size = CGSizeMake(50 * DeviceGeneral.scrRatioC , 70 * DeviceGeneral.scrRatioC);
-					gameNumberSpriteNodesArray[i].position.y = movPositionY - (120 * DeviceGeneral.scrRatioC);
+					gameNumberSpriteNodesArray[i].size = CGSizeMake(50 * DeviceManager.scrRatioC , 70 * DeviceManager.scrRatioC);
+					gameNumberSpriteNodesArray[i].position.y = movPositionY - (120 * DeviceManager.scrRatioC);
 				} else { //iPad 전용 크기 (고정)
 					gameNumberSpriteNodesArray[i].size = CGSizeMake(69.7, 97.4);
 					gameNumberSpriteNodesArray[i].position.y = movPositionY - 120;
 				}
 				
 				gameNumberSpriteNodesArray[i].position.x =
-					self.view!.frame.width / 2 - (CGFloat(i) * (gameNumberSpriteNodesArray[i].size.width + 12 * DeviceGeneral.maxScrRatioC))
+					self.view!.frame.width / 2 - (CGFloat(i) * (gameNumberSpriteNodesArray[i].size.width + 12 * DeviceManager.maxScrRatioC))
 					/* align to center */
-					+ ((gameNumberSpriteNodesArray[i].size.width + 12 * DeviceGeneral.maxScrRatioC));
+					+ ((gameNumberSpriteNodesArray[i].size.width + 12 * DeviceManager.maxScrRatioC));
 				
 				self.addChild( gameNumberSpriteNodesArray[i] );
 				
 				//숫자 밑에서 위로 올라오는 효과 주기
 				gameNumberSpriteNodesArray[i].alpha = 0;
 				let moveEffect = SKTMoveEffect(node: gameNumberSpriteNodesArray[i], duration: 0.5 ,
-					startPosition: CGPointMake( gameNumberSpriteNodesArray[i].position.x, movPositionY - (120 * DeviceGeneral.scrRatioC)),
+					startPosition: CGPointMake( gameNumberSpriteNodesArray[i].position.x, movPositionY - (120 * DeviceManager.scrRatioC)),
 					endPosition: CGPointMake( gameNumberSpriteNodesArray[i].position.x, gameScoreMovPositionY));
 				moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
 				//gameNumberSpriteNodesArray[i].runAction();
@@ -288,13 +288,13 @@ class JumpUPGame:SKScene {
 		//기존 배열에 노드가 있을경우 삭제
 		delAllElementsFromArray();
 		
-		characterMinYAxis = gameStageYAxis - gameStageYHeight + (32 * DeviceGeneral.scrRatioC);
+		characterMinYAxis = gameStageYAxis - gameStageYHeight + (32 * DeviceManager.scrRatioC);
 		
 		//캐릭터 추가
 		characterElement = JumpUpElements(); //60, 70이 원래 크기였음
-		characterElement!.size = CGSizeMake(300 * DeviceGeneral.scrRatioC, 300 * DeviceGeneral.scrRatioC); //Create astro size
-		characterElement!.position.x = 64 * DeviceGeneral.scrRatioC; //캐릭터의 왼쪽. 초기위치 잡음
-		characterElement!.position.y = characterMinYAxis; //gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2); // * DeviceGeneral.scrRatioC;
+		characterElement!.size = CGSizeMake(300 * DeviceManager.scrRatioC, 300 * DeviceManager.scrRatioC); //Create astro size
+		characterElement!.position.x = 64 * DeviceManager.scrRatioC; //캐릭터의 왼쪽. 초기위치 잡음
+		characterElement!.position.y = characterMinYAxis; //gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2); // * DeviceManager.scrRatioC;
 		
 		//////// Make textures for Character (Player)
 		if (characterElement!.motions_walking.count == 0) {
@@ -354,11 +354,11 @@ class JumpUPGame:SKScene {
 		//버튼 배치
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 			//아이폰 (상대크기)
-			buttonRetireSprite.size = CGSizeMake( 242.05 * DeviceGeneral.scrRatioC, 70.75 * DeviceGeneral.scrRatioC );
-			if (DeviceGeneral.scrSize!.height > 480.0) { //iPhone 4, 4s 이외
-				buttonYAxis = gameStageYAxis - gameStageYHeight - (128 * DeviceGeneral.scrRatioC);
+			buttonRetireSprite.size = CGSizeMake( 242.05 * DeviceManager.scrRatioC, 70.75 * DeviceManager.scrRatioC );
+			if (DeviceManager.scrSize!.height > 480.0) { //iPhone 4, 4s 이외
+				buttonYAxis = gameStageYAxis - gameStageYHeight - (128 * DeviceManager.scrRatioC);
 			} else { //iPhone 4시리즈
-				buttonYAxis = gameStageYAxis - gameStageYHeight - (86 * DeviceGeneral.scrRatioC);
+				buttonYAxis = gameStageYAxis - gameStageYHeight - (86 * DeviceManager.scrRatioC);
 			}
 		} else { //아이패드 (절대크기)
 			buttonRetireSprite.size = CGSizeMake( 336.75, 98.45 );
@@ -456,7 +456,7 @@ class JumpUPGame:SKScene {
 			
 			if (gameScreenShakeEventDelay % 3 == 0) {
 				self.view?.frame.origin.x =
-					( self.view?.frame.origin.x < 0 ? (12 * (CGFloat(gameScreenShakeEventDelay) / 60)) : -(12 * (CGFloat(gameScreenShakeEventDelay) / 60)) ) * DeviceGeneral.scrRatioC;
+					( self.view?.frame.origin.x < 0 ? (12 * (CGFloat(gameScreenShakeEventDelay) / 60)) : -(12 * (CGFloat(gameScreenShakeEventDelay) / 60)) ) * DeviceManager.scrRatioC;
 			}
 			gameScreenShakeEventDelay -= 1;
 		} else {
@@ -555,7 +555,7 @@ class JumpUPGame:SKScene {
 		}
 		
 		//Character jump queue
-		characterElement!.position.y += (characterElement!.ySpeed / 2) * DeviceGeneral.scrRatioC;
+		characterElement!.position.y += (characterElement!.ySpeed / 2) * DeviceManager.scrRatioC;
 							/// 1을 더하는 이유는 기종마다 미세한 픽셀 차이로 인해 모션이 안나오는 버그가 있기 때문임
 		if (characterElement!.position.y <= 1 + characterMinYAxis) {
 			characterElement!.position.y = characterMinYAxis;
@@ -660,7 +660,7 @@ class JumpUPGame:SKScene {
 					
 					//적 점프 queue
 					if (gameNodesArray[i]!.elementFlag != 2) { //고정형 장애물은 물리 무시
-						gameNodesArray[i]!.position.y += (gameNodesArray[i]!.ySpeed / 2) * DeviceGeneral.scrRatioC;
+						gameNodesArray[i]!.position.y += (gameNodesArray[i]!.ySpeed / 2) * DeviceManager.scrRatioC;
 						if (gameNodesArray[i]!.position.y <= 1 + gameStageYAxis - gameStageYHeight + (gameNodesArray[i]!.size.height / 2)) {
 							gameNodesArray[i]!.position.y = gameStageYAxis - gameStageYHeight + (gameNodesArray[i]!.size.height / 2);
 							gameNodesArray[i]!.ySpeed = 0;
@@ -713,11 +713,11 @@ class JumpUPGame:SKScene {
 			//특수한 적의 경우 특별한 경우 점프를 하도록 만듬. 아래 적은 점프하느 ㄴ적의 경우.
 			//점프할거라는 신호를 먼저 주고 점프해야 함. addNodes( 10000 );
 			if (gameNodesArray[i]!.elementFlag == 1 && gameNodesArray[i]!.elementTickFlag == 0
-				&& gameNodesArray[i]!.position.x < 260 * DeviceGeneral.scrRatioC ) {
+				&& gameNodesArray[i]!.position.x < 260 * DeviceManager.scrRatioC ) {
 				addNodes( 10000, posX: gameNodesArray[i]!.position.x, posY: gameNodesArray[i]!.position.y, targetElement: gameNodesArray[i] );
 				gameNodesArray[i]!.elementTickFlag = 1;
 			} else if (gameNodesArray[i]!.elementFlag == 1 && gameNodesArray[i]!.elementTickFlag == 1
-				&& gameNodesArray[i]!.position.x < 160 * DeviceGeneral.scrRatioC ) {
+				&& gameNodesArray[i]!.position.x < 160 * DeviceManager.scrRatioC ) {
 				gameNodesArray[i]!.ySpeed = 14;
 				gameNodesArray[i]!.elementTickFlag = 2;
 			}
@@ -735,10 +735,10 @@ class JumpUPGame:SKScene {
 			case 0: //0 - Cloud for decoration
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[0] );
 				toAddelement!.elementType = JumpUpElements.TYPE_DECORATION;
-				toAddelement!.size = CGSizeMake( 94.05 * DeviceGeneral.scrRatioC , 24.4 * DeviceGeneral.scrRatioC );
+				toAddelement!.size = CGSizeMake( 94.05 * DeviceManager.scrRatioC , 24.4 * DeviceManager.scrRatioC );
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) - (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 56) * DeviceGeneral.scrRatioC);
+					(gameStageYAxis - toAddelement!.size.height) - (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 56) * DeviceManager.scrRatioC);
 				//구름 종류 증식 (찌그러짐 ^^)
 				toAddelement!.yScale = 1.0 - CGFloat(Float(arc4random()) / Float(UINT32_MAX)) / 3;
 				
@@ -756,13 +756,13 @@ class JumpUPGame:SKScene {
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[elementType] );
 				switch(elementType) {
 					case 1:
-						toAddelement!.size = CGSizeMake( 39.4 * DeviceGeneral.scrRatioC , 9.2 * DeviceGeneral.scrRatioC );
+						toAddelement!.size = CGSizeMake( 39.4 * DeviceManager.scrRatioC , 9.2 * DeviceManager.scrRatioC );
 						break;
 					case 2:
-						toAddelement!.size = CGSizeMake( 18.4 * DeviceGeneral.scrRatioC , 16.2 * DeviceGeneral.scrRatioC );
+						toAddelement!.size = CGSizeMake( 18.4 * DeviceManager.scrRatioC , 16.2 * DeviceManager.scrRatioC );
 						break;
 					case 3:
-						toAddelement!.size = CGSizeMake( 34.75 * DeviceGeneral.scrRatioC , 60.35 * DeviceGeneral.scrRatioC );
+						toAddelement!.size = CGSizeMake( 34.75 * DeviceManager.scrRatioC , 60.35 * DeviceManager.scrRatioC );
 						break;
 					default: break;
 				}
@@ -778,7 +778,7 @@ class JumpUPGame:SKScene {
 			case 4:
 				//AI Astro (점프 안하고 걸어오는)
 				toAddelement = JumpUpElements(); //텍스쳐는 모션으로 정할 것임.
-				toAddelement!.size = CGSizeMake( 60 * DeviceGeneral.scrRatioC , 70 * DeviceGeneral.scrRatioC );
+				toAddelement!.size = CGSizeMake( 60 * DeviceManager.scrRatioC , 70 * DeviceManager.scrRatioC );
 				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				/* y fit to bottom of stage */
@@ -793,7 +793,7 @@ class JumpUPGame:SKScene {
 			case 5:
 				//AI Astro (점프)
 				toAddelement = JumpUpElements(); //텍스쳐는 모션으로 정할 것임.
-				toAddelement!.size = CGSizeMake( 60 * DeviceGeneral.scrRatioC , 70 * DeviceGeneral.scrRatioC );
+				toAddelement!.size = CGSizeMake( 60 * DeviceManager.scrRatioC , 70 * DeviceManager.scrRatioC );
 				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				/* y fit to bottom of stage */
@@ -812,10 +812,10 @@ class JumpUPGame:SKScene {
 				//페이크 구름
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[6] );
 				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
-				toAddelement!.size = CGSizeMake( 94.05 * DeviceGeneral.scrRatioC , 24.4 * DeviceGeneral.scrRatioC );
+				toAddelement!.size = CGSizeMake( 94.05 * DeviceManager.scrRatioC , 24.4 * DeviceManager.scrRatioC );
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) - (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 56) * DeviceGeneral.scrRatioC);
+					(gameStageYAxis - toAddelement!.size.height) - (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 56) * DeviceManager.scrRatioC);
 				//구름 종류 증식 (찌그러짐 ^^)
 				toAddelement!.yScale = 1.0 - CGFloat(Float(arc4random()) / Float(UINT32_MAX)) / 3;
 				
@@ -828,11 +828,11 @@ class JumpUPGame:SKScene {
 				//AI 폭발 효과
 				toAddelement = JumpUpElements();
 				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
-				toAddelement!.size = CGSizeMake( 150 * DeviceGeneral.scrRatioC , 150 * DeviceGeneral.scrRatioC );
+				toAddelement!.size = CGSizeMake( 150 * DeviceManager.scrRatioC , 150 * DeviceManager.scrRatioC );
 				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
 				
 				//약간의 위치조정.
-				toAddelement!.elementTargetPosFix = CGSizeMake( 0, 10 * DeviceGeneral.scrRatioC );
+				toAddelement!.elementTargetPosFix = CGSizeMake( 0, 10 * DeviceManager.scrRatioC );
 				toAddelement!.elementTargetElement = targetElement;
 				
 				if (targetElement == nil) {
@@ -860,7 +860,7 @@ class JumpUPGame:SKScene {
 	func updateWithSeconds() {
 		//알람 게임으로 실행되었을 때, 1초마다 주기적으로 실행되는 함수 (시간 체크시만 사용함)
 		//이 함수의 문제점: *앱이 백그라운드에 돌아가도 작동함!!*
-		/*if (DeviceGeneral.appIsBackground == true) {
+		/*if (DeviceManager.appIsBackground == true) {
 			return;
 		} *///앱이 백그라운드에 있으면 함수 진행 자체를 캔슬함.
 		

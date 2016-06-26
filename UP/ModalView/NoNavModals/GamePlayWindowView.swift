@@ -62,7 +62,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		
 		//ModalView
 		modalView.backgroundColor = UIColor.whiteColor();
-		modalView.frame = DeviceGeneral.resultModalSizeRect;
+		modalView.frame = DeviceManager.resultModalSizeRect;
 		self.view.addSubview(modalView);
 		
 		//리소스 제작
@@ -79,20 +79,20 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		
 		//ScrollView create.
 		scrollView.pagingEnabled = true;
-		scrollView.frame = CGRectMake(0, 0, modalView.frame.width, 146 * DeviceGeneral.resultModalRatioC);
+		scrollView.frame = CGRectMake(0, 0, modalView.frame.width, 146 * DeviceManager.resultModalRatioC);
 		scrollView.contentSize = CGSizeMake(scrollView.frame.width * 1, scrollView.frame.height);
 		
 		///// best 부분 만들기
 		let bestUIView:UIView = UIView(); bestUIView.frame = CGRectMake(scrollView.frame.width * 0, 0, scrollView.frame.width, scrollView.frame.height);
 		let bestImgView:UIImageView = UIImageView( image: UIImage( named: "result-best.png" ));
-		bestImgView.frame = CGRectMake((modalView.frame.width / 2) - ((84 * DeviceGeneral.resultModalRatioC) / 2), (32 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC, (84 * DeviceGeneral.resultModalRatioC), (32.65 * DeviceGeneral.resultModalRatioC));
+		bestImgView.frame = CGRectMake((modalView.frame.width / 2) - ((84 * DeviceManager.resultModalRatioC) / 2), (32 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, (84 * DeviceManager.resultModalRatioC), (32.65 * DeviceManager.resultModalRatioC));
 		bestUIView.backgroundColor = UIColor.clearColor();
 		bestUIView.addSubview(bestImgView);
 		
 		//Best에 대한 숫자 추가
 		for i:Int in 0 ..< 5 {
 			let bestNumber:UIImageView = UIImageView( image: blackNumbers[0] );
-			bestNumber.frame = getNumberLocForIndex(i, yAxis: bestImgView.frame.maxY + (8 * DeviceGeneral.resultModalRatioC));
+			bestNumber.frame = getNumberLocForIndex(i, yAxis: bestImgView.frame.maxY + (8 * DeviceManager.resultModalRatioC));
 			bestUIView.addSubview(bestNumber); bestNumPointers += [ bestNumber ];
 		} //숫자 표시용 디지털 숫자 노드 3개
 		
@@ -101,7 +101,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		modalView.addSubview(scrollView);
 		
 		///// 배경 추가
-		gamePreviewImageView = AnimatableImageView(frame: CGRectMake(0, scrollView.frame.maxY, modalView.frame.width, 194 * DeviceGeneral.resultModalRatioC) );
+		gamePreviewImageView = AnimatableImageView(frame: CGRectMake(0, scrollView.frame.maxY, modalView.frame.width, 194 * DeviceManager.resultModalRatioC) );
 		resultDecoBGMask.frame = gamePreviewImageView!.frame; resultDecoBGMask.backgroundColor = UIColor.blackColor();
 		modalView.addSubview(resultDecoBGMask);
 		modalView.addSubview(gamePreviewImageView!);
@@ -113,17 +113,17 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		resultButtonRanking.setImage(UIImage(named: "result-btn-ranking.png"), forState: .Normal);
 		resultButtonRetry.setImage(UIImage(named: "result-btn-play.png"), forState: .Normal);
 		
-		resultButtonList.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceGeneral.resultModalRatioC) * 2,
-		                                    gamePreviewImageView!.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC,
-		                                    62 * DeviceGeneral.resultModalRatioC, 62 * DeviceGeneral.resultModalRatioC);
+		resultButtonList.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) * 2,
+		                                    gamePreviewImageView!.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
+		                                    62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
 		
-		resultButtonRetry.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceGeneral.resultModalRatioC) / 2,
-		                                     gamePreviewImageView!.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC,
-		                                     62 * DeviceGeneral.resultModalRatioC, 62 * DeviceGeneral.resultModalRatioC);
+		resultButtonRetry.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) / 2,
+		                                     gamePreviewImageView!.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
+		                                     62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
 		
-		resultButtonRanking.frame = CGRectMake(modalView.frame.width / 2 + (62 * DeviceGeneral.resultModalRatioC),
-		                                    gamePreviewImageView!.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceGeneral.resultModalRatioC,
-		                                    62 * DeviceGeneral.resultModalRatioC, 62 * DeviceGeneral.resultModalRatioC);
+		resultButtonRanking.frame = CGRectMake(modalView.frame.width / 2 + (62 * DeviceManager.resultModalRatioC),
+		                                    gamePreviewImageView!.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
+		                                    62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
 		
 		modalView.addSubview(resultButtonList);
 		modalView.addSubview(resultButtonRetry);
@@ -174,21 +174,21 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 	func getNumberLocForIndex(index:Int, yAxis:CGFloat) -> CGRect {
 		let numWidth:CGFloat = 38; let numHeight:CGFloat = 53.2;
 		return CGRectMake(
-			(modalView.frame.width / 2) - (CGFloat(index) * ((numWidth * DeviceGeneral.resultModalRatioC) + 6 * DeviceGeneral.resultMaxModalRatioC))
-				+ ((((numWidth / 2) * DeviceGeneral.resultModalRatioC) + 3 * DeviceGeneral.resultMaxModalRatioC) * 3)
+			(modalView.frame.width / 2) - (CGFloat(index) * ((numWidth * DeviceManager.resultModalRatioC) + 6 * DeviceManager.resultMaxModalRatioC))
+				+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
 				/*
 					5자리 숫자표시의 경우 숫자 생성시 for문을 5번 돌린 다음
-					+ ((((numWidth / 2) * DeviceGeneral.resultModalRatioC) + 3 * DeviceGeneral.resultMaxModalRatioC) * 3)
+					+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
 				
 				*/
-				+ 3 * DeviceGeneral.resultMaxModalRatioC
-			, yAxis, numWidth * DeviceGeneral.resultModalRatioC , numHeight * DeviceGeneral.resultModalRatioC);
+				+ 3 * DeviceManager.resultMaxModalRatioC
+			, yAxis, numWidth * DeviceManager.resultModalRatioC , numHeight * DeviceManager.resultModalRatioC);
 	}
 	
 	////////////////
 	
 	func FitModalLocationToCenter() {
-		modalView.frame = DeviceGeneral.resultModalSizeRect;
+		modalView.frame = DeviceManager.resultModalSizeRect;
 		if (modalView.maskView != nil) {
 			modalView.maskView!.frame = CGRectMake(0, 0, modalView.frame.width, modalView.frame.height);
 		}
@@ -233,11 +233,11 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		showNumbersOnScore(16827);
 		
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
-		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
+		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
 			self.view.frame = CGRectMake(0, 0,
-				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}

@@ -41,11 +41,11 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 		
 		//background add
 		let achievementBackground:UIImageView = UIImageView( image: UIImage( named: "modal-background-characterinfo-blank.png" ));
-		achievementBackground.frame = CGRectMake( 0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height );
+		achievementBackground.frame = CGRectMake( 0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height );
 		//self.view.addSubview(achievementBackground);
 		
 		//add table to modals
-		tableView.frame = CGRectMake(0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height);
+		tableView.frame = CGRectMake(0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height);
 		tableView.backgroundView = achievementBackground;
 		self.view.addSubview(tableView);
 		

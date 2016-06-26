@@ -55,7 +55,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		
 		//ModalView
 		modalView.view.backgroundColor = UIColor.whiteColor();
-		modalView.view.frame = DeviceGeneral.defaultModalSizeRect;
+		modalView.view.frame = DeviceManager.defaultModalSizeRect;
 		
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
@@ -133,11 +133,11 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	internal func setSubviewSize() {
 		alarmSoundListView.view.frame = CGRectMake(
-			0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height );
+			0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height );
 		alarmGameListView.view.frame = CGRectMake(
-			0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height );
+			0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height );
 		alarmRepeatSelectListView.view.frame = CGRectMake(
-			0, 0, DeviceGeneral.defaultModalSizeRect.width, DeviceGeneral.defaultModalSizeRect.height );
+			0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height );
 	}
 	
 	
@@ -168,11 +168,11 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	override func viewDidAppear(animated: Bool) {
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
-		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
+		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
 			self.view.frame = CGRectMake(0, 0,
-				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}
@@ -272,10 +272,10 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	
 	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame = DeviceGeneral.defaultModalSizeRect;
+		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
 		
 		if (self.view.maskView != nil) {
-			self.view.maskView!.frame = DeviceGeneral.defaultModalSizeRect;
+			self.view.maskView!.frame = DeviceManager.defaultModalSizeRect;
 		}
 	}
 	
@@ -501,7 +501,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 						break;
 					case "alarmSound":
 						tLabel.text = Languages.$("alarmSound");
-						if (DeviceGeneral.defaultModalSizeRect.width < 250) {
+						if (DeviceManager.defaultModalSizeRect.width < 250) {
 							// 작은 화면에서 표시 못하는 세부설정 감춤
 							tSettingLabel.hidden = true;
 						}

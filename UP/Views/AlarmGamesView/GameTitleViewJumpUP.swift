@@ -27,8 +27,8 @@ class GameTitleViewJumpUP:UIViewController {
 	var gameView:SKView = SKView();
 	var jumpUPGameScene:JumpUPGame?;
 	
-	let gameTitleLabelYAxis:CGFloat = 128 * DeviceGeneral.scrRatioC;
-	let gameThumbsSize:CGFloat = 180 * DeviceGeneral.maxScrRatioC;
+	let gameTitleLabelYAxis:CGFloat = 128 * DeviceManager.scrRatioC;
+	let gameThumbsSize:CGFloat = 180 * DeviceManager.maxScrRatioC;
 	
 	
 	override func viewDidLoad() {
@@ -69,7 +69,7 @@ class GameTitleViewJumpUP:UIViewController {
 		
 		//start btn add.
 		gameStartButtonImage.image = UIImage( named: "game-start-button.png" );
-		gameStartButtonImage.frame = CGRectMake( self.view.frame.width / 2 - (242.05 * DeviceGeneral.maxScrRatioC) / 2, self.view.frame.height - (70.75 * DeviceGeneral.maxScrRatioC) - (86 * DeviceGeneral.maxScrRatioC), 242.05 * DeviceGeneral.maxScrRatioC, 70.75 * DeviceGeneral.maxScrRatioC );
+		gameStartButtonImage.frame = CGRectMake( self.view.frame.width / 2 - (242.05 * DeviceManager.maxScrRatioC) / 2, self.view.frame.height - (70.75 * DeviceManager.maxScrRatioC) - (86 * DeviceManager.maxScrRatioC), 242.05 * DeviceManager.maxScrRatioC, 70.75 * DeviceManager.maxScrRatioC );
 		
 		let gameStartGesture:UITapGestureRecognizer = UITapGestureRecognizer();
 		gameStartGesture.addTarget(self, action: #selector(GameTitleViewJumpUP.gameStartFuncTapHandler(_:)));

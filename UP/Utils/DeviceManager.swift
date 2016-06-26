@@ -1,5 +1,5 @@
 //
-//  DeviceGeneral.swift
+//  DeviceManager.swift
 //  	
 //
 //  Created by ExFl on 2016. 1. 30..
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit;
 
-class DeviceGeneral {
+class DeviceManager {
     
     //기기 해상도 bounds
 	static var scrSize:CGRect?; static var scrSizeForCalcuate:CGRect?;
@@ -92,13 +92,13 @@ class DeviceGeneral {
 			resultMaxModalRatioC = min(1, resultModalRatioC);
 		} else {
 			//기타 (폰)의 경우
-			defaultModalSizeRect = CGRectMake(50 * DeviceGeneral.scrRatioC , (scrSizeForCalcuate!.height - (480 * DeviceGeneral.scrRatioC)) / 2 , scrSizeForCalcuate!.width - (100 * DeviceGeneral.scrRatioC), (480 * DeviceGeneral.scrRatioC));
-			resultModalSizeRect = CGRectMake(50 * DeviceGeneral.scrRatioC , (scrSizeForCalcuate!.height - (460 * DeviceGeneral.scrRatioC)) / 2 , scrSizeForCalcuate!.width - (100 * DeviceGeneral.scrRatioC), (460 * DeviceGeneral.scrRatioC));
+			defaultModalSizeRect = CGRectMake(50 * DeviceManager.scrRatioC , (scrSizeForCalcuate!.height - (480 * DeviceManager.scrRatioC)) / 2 , scrSizeForCalcuate!.width - (100 * DeviceManager.scrRatioC), (480 * DeviceManager.scrRatioC));
+			resultModalSizeRect = CGRectMake(50 * DeviceManager.scrRatioC , (scrSizeForCalcuate!.height - (460 * DeviceManager.scrRatioC)) / 2 , scrSizeForCalcuate!.width - (100 * DeviceManager.scrRatioC), (460 * DeviceManager.scrRatioC));
 			
-			modalRatioC = DeviceGeneral.scrRatioC;
+			modalRatioC = DeviceManager.scrRatioC;
 			maxModalRatioC = min(1, modalRatioC);
 			
-			resultModalRatioC = DeviceGeneral.scrRatioC;
+			resultModalRatioC = DeviceManager.scrRatioC;
 			resultMaxModalRatioC = min(1, resultModalRatioC);
 		}
 		

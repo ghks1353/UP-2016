@@ -52,7 +52,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
         //ModalView
         modalView.view.backgroundColor = UIColor.whiteColor();
-		modalView.view.frame = DeviceGeneral.defaultModalSizeRect;
+		modalView.view.frame = DeviceManager.defaultModalSizeRect;
 		
 		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
@@ -155,8 +155,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		upAlarmMessageText.text = "";
 		upAlarmMessageText.textAlignment = .Center;
-		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, 48);
-		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceGeneral.scrSize!.width, 24);
+		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceManager.scrSize!.width, 48);
+		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceManager.scrSize!.width, 24);
 		upAlarmMessageText.font = UIFont.systemFontOfSize(16);
 		upAlarmMessageView.addSubview(upAlarmMessageText);
 		
@@ -245,11 +245,11 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	override func viewDidAppear(animated: Bool) {
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceGeneral.scrSize!.height,
-		                             DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
+		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
 			self.view.frame = CGRectMake(0, 0,
-				DeviceGeneral.scrSize!.width, DeviceGeneral.scrSize!.height);
+				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}
@@ -381,16 +381,16 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     ////////////////
 	
 	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame = DeviceGeneral.defaultModalSizeRect;
+		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
 		
 		if (self.view.maskView != nil) {
-			self.view.maskView!.frame = DeviceGeneral.defaultModalSizeRect;
+			self.view.maskView!.frame = DeviceManager.defaultModalSizeRect;
 		}
 		
 		//알람 텍스트 및 배경의 조절
 		upAlarmMessageText.textAlignment = .Center;
-		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceGeneral.scrSize!.width, 48);
-		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceGeneral.scrSize!.width, 24);
+		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceManager.scrSize!.width, 48);
+		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceManager.scrSize!.width, 24);
 	}
 	
     override func didReceiveMemoryWarning() {
@@ -472,7 +472,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 				
 				let bgFileName:String = getBackgroundFileNameFromTime(alarmsCell[i].timeHour);
 				let bgFileState:String = targetElement.on == true ? "on" : "off";
-				let fileUsesSmallPrefix:String = DeviceGeneral.usesLowQualityImage == true ? "_small" : "";
+				let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "_small" : "";
 				tImage = bgFileName + "_time_" + bgFileState + fileUsesSmallPrefix + ".png";
 				//alarmsCell[i].backgroundImage!.image = UIImage(named: bgFileName + "_time_" + bgFileState + fileUsesSmallPrefix + ".png");
 				
@@ -561,14 +561,14 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		let tTimeImgName:String = defaultState == true ? "on" : "off";
 		let bgFileName:String = getBackgroundFileNameFromTime(timeHour);
-		let fileUsesSmallPrefix:String = DeviceGeneral.usesLowQualityImage == true ? "_small" : "";
+		let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "_small" : "";
 		tTimeBackground.image = UIImage(named: bgFileName + "_time_" + tTimeImgName + fileUsesSmallPrefix + ".png");
 		
 		tLabel.frame = CGRectMake(15, 50, self.modalView.view.frame.width * 0.7, 24); //알람 이름
 		tLabelTime.frame = CGRectMake(12, 4, 0, 0); //현재 시간
 		tLabel.textAlignment = .Left;
 		
-		if (DeviceGeneral.is24HourMode == false) {
+		if (DeviceManager.is24HourMode == false) {
 			//오전 오후 모드면
 			timeHour = timeHour > 12 ? timeHour - 12 : (timeHour == 0 ? 12 : timeHour);
 			tAMPMLabel.hidden = false;

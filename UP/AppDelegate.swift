@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 		print("App is now running to background");
-		DeviceGeneral.appIsBackground = true;
+		DeviceManager.appIsBackground = true;
 		AlarmManager.mergeAlarm();
 		if (AlarmListView.alarmListInited) {
 			AlarmListView.selfView!.createTableList(); //refresh alarm-list
@@ -115,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.alarmBackgroundTaskPlayer!.prepareToPlay();
 			//self.alarmBackgroundTaskPlayer!.play();
 
-			while(DeviceGeneral.appIsBackground) {
+			while(DeviceManager.appIsBackground) {
 				let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds();
 				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(NSDate().timeIntervalSince1970));
 				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm();
@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				//사운드 울리는 타이밍의 어긋남을 줄여야함.
 				
 				//1. 알람이 울리는 중일 경우, 2. 백그라운드에 앱이 있을 경우.
-				if (ringingAlarm != nil && DeviceGeneral.appIsBackground == true) {
+				if (ringingAlarm != nil && DeviceManager.appIsBackground == true) {
 					AlarmManager.ringSoundAlarm( ringingAlarm! );
 					AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate));
 					//print("Alarm ringing");
@@ -142,7 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 					print("background thread - sound play");
 				}
 				
-				if (ringingAlarm != nil && DeviceGeneral.appIsBackground == true) {
+				if (ringingAlarm != nil && DeviceManager.appIsBackground == true) {
 					NSThread.sleepForTimeInterval(1); //1초 주기 실행
 				} else {
 					//남은 시간 비례하여 쓰레드 주기를 좁혀, 보다 정확한 시간에 알람이 울리게 함.
@@ -184,7 +184,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-		DeviceGeneral.appIsBackground = false;
+		DeviceManager.appIsBackground = false;
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
