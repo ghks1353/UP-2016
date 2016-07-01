@@ -29,9 +29,11 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 	var guideExitInformationLabel:UILabel = UILabel();
 	
 	var guideUIPageControl:UIPageControl = UIPageControl();
+	var viewLoaded:Bool = false;
 	
 	override func viewDidLoad() {
 		// view init func
+		viewLoaded = true;
 		self.view.backgroundColor = UIColor.whiteColor();
 		StartGuideView.selfView = self;
 		
@@ -182,7 +184,9 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 	
 	func fitView(size: CGSize) {
 		//Fit start-guide elements
-		
+		if (!viewLoaded) {
+			return;
+		}
 		//self.view.frame = CGRectMake(0, 0, size.width, size.height);
 		startingGuideBackgroundGradient.frame = CGRectMake(0, 0, size.width, size.height);
 		guideScrollView.frame = CGRectMake(0, 0, size.width, size.height);
