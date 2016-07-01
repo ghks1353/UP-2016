@@ -16,6 +16,7 @@ class JumpUpElements:SKSpriteNode {
 	static let TYPE_STATIC_ENEMY:Int = 1;
 	static let TYPE_DYNAMIC_ENEMY:Int = 2;
 	static let TYPE_EFFECT:Int = 3;
+	static let TYPE_SHADOW:Int = 4;
 	
 	/////////
 	internal var elementType:Int = 0; //default is decoration
@@ -37,6 +38,13 @@ class JumpUpElements:SKSpriteNode {
 	internal var motions_effect:Array<SKTexture> = [];
 	internal var motions_walking:Array<SKTexture> = [];
 	internal var motions_jumping:Array<SKTexture> = [];
+	
+	//Shadow Motions
+	internal var shadow_on_air:Bool = false; //체공 중 그림자 효과 표시
+	internal var shadow_on_frame:Int = 0; //일정 프레임동안 shadow 표시
+	
+	internal var shadow_per_frame:Int = 6; //특정 주기로 그림자 표시
+	internal var shadow_per_frame_current:Int = 0; //주기로 그림자 표시 딜레이.
 	
 	//물리 영향을 미치는 부분
 	internal var ySpeed:CGFloat = 0; //값에 따라 위/아래의 가속도로 작용함. 항상 뺌.

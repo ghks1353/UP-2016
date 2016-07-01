@@ -44,6 +44,8 @@ class GameTitleViewJumpUP:UIViewController {
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		print("JumpUP gameview appear event");
+		
 		//View load func
 		gameTitleLabel.text = Languages.$("gameNameJumpUP");
 		gameTitleLabel.font = UIFont.systemFontOfSize(38);

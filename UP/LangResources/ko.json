@@ -160,7 +160,51 @@
 	
 	"achievements": "도전과제",
 		"hiddenAchieveTitle": "숨겨진 도전과제",
-		"hiddenAchieveDescription": "숨겨진 목표"
+		"hiddenAchieveDescription": "숨겨진 목표",
+	
+	"startGuide-0-A": "<UP:색다른 알람>에 오신 것을 환영합니다",
+	"startGuide-0-B": "왼쪽으로 화면을 밀어 시작합니다.",
+	
+	"startGuide-1-A": "화면 가운데 시계를 터치하면",
+	"startGuide-1-B": "",
+	
+	"startGuide-2-A": "새로운 알람을 만들 수 있습니다.",
+	"startGuide-2-B": "",
+	
+	"startGuide-3-A": "오른쪽 목록 아이콘을 터치하면",
+	"startGuide-3-B": "",
+	
+	"startGuide-4-A": "알람 목록을 볼 수 있습니다.",
+	"startGuide-4-B": "",
+	
+	"startGuide-5-A": "터치하면 수정, 밀면 삭제됩니다.",
+	"startGuide-5-B": "",
+	
+	"startGuide-6-A": "그래프 표지판을 터치하면",
+	"startGuide-6-B": "",
+	
+	"startGuide-7-A": "<알람 습관 데이터>를 볼 수 있습니다.",
+	"startGuide-7-B": "",
+	
+	"startGuide-8-A": "게임 상자 아이콘을 터치하면",
+	"startGuide-8-B": "",
+	
+	"startGuide-9-A": "UP의 게임을 즐기실 수 있으며,",
+	"startGuide-9-B": "점수 기록 및 경쟁이 가능합니다.",
+	
+	"startGuide-10-A": "화면의 캐릭터를 터치하면",
+	"startGuide-10-B": "캐릭터 정보를 볼 수 있습니다.",
+	
+	"startGuide-11-A": "이 화면에서 도전과제 확인과",
+	"startGuide-11-B": "UP의 스킨을 변경할 수 있습니다.",
+	
+	"startGuide-12-A": "<UP:색다른 알람>과 함께 게임으로",
+	"startGuide-12-B": "새로운 아침을 만들어 보세요!",
+	
+	"startGuide-13-A": "아참! 짜증난다고 던지시면 안됩니다!",
+	"startGuide-13-B": "위험해요!!",
+	
+	"startGuideExitWithSwipe": "왼쪽으로 한번 더 밀어서 가이드 종료"
 	
 	
 }

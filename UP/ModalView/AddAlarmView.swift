@@ -102,13 +102,13 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				createCell(0, cellID: "alarmMemo")
 			],
 			[ /* section 3 */
-				createCell(1, cellID: "alarmDatePicker")
-			],
-			[ /* section 4 */
-				//createCell(2, cellID: "alarmGame"),
 				createCell(2, cellID: "alarmSound"),
 				createCell(2, cellID: "alarmRepeatSetting")
+			],
+			[ /* section 4 */
+				createCell(1, cellID: "alarmDatePicker")
 			]
+			
 		];
 		
 		
@@ -333,7 +333,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		switch(indexPath.section){
 			case 0:
 				return 95;
-			case 2:
+			case 3:
 				return 200;
 			default:
 				break;

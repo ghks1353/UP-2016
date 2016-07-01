@@ -310,10 +310,10 @@ class ViewController: UIViewController {
 		//Check alarms
 		checkToCallAlarmRingingView();
 		
-		//gameresulttest
-		//modalGameResultView.modalPresentationStyle = .OverFullScreen;
-		//showHideBlurview(true);
-		//self.presentViewController(modalGameResultView, animated: false, completion: nil);
+		//스타트가이드를 안 보았으면 강제로 보여주기
+		if (DataManager.nsDefaults.boolForKey(DataManager.settingsKeys.startGuideFlag) == false) {
+			self.presentViewController(GlobalSubView.startingGuideView, animated: true, completion: nil);
+		}
 	}
 	
 	func showHideBlurview( show:Bool ) {
@@ -394,7 +394,7 @@ class ViewController: UIViewController {
 		self.presentViewController(modalCharacterInformationView, animated: false, completion: nil);
 	}
 	
-	func openGamePlayView(gestureRecognizer: UITapGestureRecognizer) {
+	func openGamePlayView(gestureRecognizer: UITapGestureRecognizer!) {
 		//GamePlay View 열기
 		modalPlayGameview.modalPresentationStyle = .OverFullScreen;
 		showHideBlurview(true);
@@ -818,9 +818,9 @@ class ViewController: UIViewController {
 			            25.4 * DeviceManager.maxScrRatioC );
 		GroundFloatingBox.frame =
 			CGRectMake( GroundStandingBox.frame.origin.x,
-			            GroundStandingBox.frame.origin.y - (40 * DeviceManager.maxScrRatioC),
-			            40.9 * DeviceManager.maxScrRatioC,
-			            44.6 * DeviceManager.maxScrRatioC );
+			            GroundStandingBox.frame.origin.y - (54 * DeviceManager.maxScrRatioC),
+			            54.15 * DeviceManager.maxScrRatioC,
+			            67.9 * DeviceManager.maxScrRatioC );
 		
 		//터치용 투명박스 조정
 		groundBoxToucharea.frame =
@@ -894,6 +894,8 @@ class ViewController: UIViewController {
 		DeviceManager.changeDeviceSizeWith(size);
 		//Fit elements again
 		fitViewControllerElementsToScreen( true );
+		//Fit views to startguide
+		GlobalSubView.startingGuideView.fitView( size );
 	}
 	
 	////////////////////////////
@@ -935,9 +937,25 @@ class ViewController: UIViewController {
 	
 	func runGame() {
 		//게임 시작
+		print("ViewController: rungame started");
+		GameModeView.isGameExiting = false;
 		closeAllModalsForce();
 		GlobalSubView.gameModePlayViewcontroller.modalTransitionStyle = .CrossDissolve;
 		self.presentViewController(GlobalSubView.gameModePlayViewcontroller, animated: true, completion: nil);
+	}
+	
+	/////////// 게임 결과 호출 창
+	func showGameResult( gameID:Int, type:Int, score:Int, best:Int ) {
+		//Score 및 best는 보여주기용이며, 저장은 각 게임 혹은 이 함수 호출 전에 알아서.
+		//Type 0: alarm, 1: game
+		
+		modalGameResultView.setVariables(gameID, windowType: type, showingScore: score, showingBest: best);
+		
+		modalGameResultView.modalPresentationStyle = .OverFullScreen;
+		showHideBlurview(true);
+		self.presentViewController(modalGameResultView, animated: false, completion: nil);
+		
+		
 	}
 	
 }

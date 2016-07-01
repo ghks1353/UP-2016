@@ -8,8 +8,9 @@
 
 import Foundation;
 import UIKit;
+import GameKit;
 
-class GameResultView:UIViewController {
+class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	
 	var XAXIS_PRESET_PAD:CGFloat = 0;
 	var YAXIS_PRESET_PAD:CGFloat = 6;
@@ -68,6 +69,12 @@ class GameResultView:UIViewController {
 	//창 타입에 따른 이미지 (타임, 스코어)
 	var imgScoreUIView:UIImageView = UIImageView(); var imgTimeUIView:UIImageView = UIImageView();
 	
+	//보여줄 점수
+	var currentType:Int = 0;
+	var gameScore:Int = 0; var gameBestScore:Int = 0;
+	
+	//목록, 다시하기, 랭킹에 대해 작동하려면 게임 ID가 입력되어 있어야함
+	var currentGameID:Int = 0;
 	
 	///////////////
 	
@@ -113,11 +120,10 @@ class GameResultView:UIViewController {
 		scoreUIView.addSubview(imgScoreUIView);
 		imgTimeUIView = UIImageView( image: UIImage( named: "result-time.png" ));
 		imgTimeUIView.frame = CGRectMake((modalView.frame.width / 2) - ((75.4 * DeviceManager.resultModalRatioC) / 2), (28 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, (75.4 * DeviceManager.resultModalRatioC), (33 * DeviceManager.resultModalRatioC));
-		scoreUIView.backgroundColor = UIColor.clearColor();
 		scoreUIView.addSubview(imgTimeUIView);
 		
 		//Score에 대한 숫자 추가
-		for i:Int in 0 ..< 3 { //<-5자리면 5로 변경
+		for i:Int in 0 ..< 5 { //<-5자리면 5로 변경
 			let scoreNumber:UIImageView = UIImageView( image: blackNumbers[0] );
 			scoreNumber.frame = getNumberLocForIndex(i, yAxis: imgScoreUIView.frame.maxY + (8 * DeviceManager.resultModalRatioC));
 			scoreUIView.addSubview(scoreNumber); scoreNumPointers += [ scoreNumber ];
@@ -131,7 +137,7 @@ class GameResultView:UIViewController {
 		bestUIView.addSubview(bestImgView);
 		
 		//Best에 대한 숫자 추가
-		for i:Int in 0 ..< 3 {
+		for i:Int in 0 ..< 5 {
 			let bestNumber:UIImageView = UIImageView( image: blackNumbers[0] );
 			bestNumber.frame = getNumberLocForIndex(i, yAxis: bestImgView.frame.maxY + (8 * DeviceManager.resultModalRatioC));
 			bestUIView.addSubview(bestNumber); bestNumPointers += [ bestNumber ];
@@ -238,33 +244,23 @@ class GameResultView:UIViewController {
 		modalMaskImageView.contentMode = .ScaleAspectFit; modalSNSView.maskView = modalMaskImageView;
 		
 		FitModalLocationToCenter();
-		refreshExpLevels();
 		
 		//버튼 이벤트 바인딩
 		resultButtonClose.addTarget(self, action: #selector(GameResultView.viewCloseAction), forControlEvents: .TouchUpInside);
 		
-		// 테스트
-		showNumbersOnScore(86, autoContinueBest: true, autoContinueBestScore: 642);
-		setWindowType(0);
+		//이쪽은 게임으로 실행된 경우 버튼들
+		resultButtonList.addTarget(self, action: #selector(GameResultView.goToGameMain), forControlEvents: .TouchUpInside);
+		resultButtonRetry.addTarget(self, action: #selector(GameResultView.goRetryGame), forControlEvents: .TouchUpInside);
+		resultButtonRanking.addTarget(self, action: #selector(GameResultView.showRankingGameCenter), forControlEvents: .TouchUpInside);
 	}
 	
-	func setWindowType(type:Int) {
-		//type 0: 알람 끝 결과창,
-		//type 1: 일반 게임 끝 결과창.
+	func setVariables( gameID:Int = 0, windowType:Int = 0, showingScore:Int = 0, showingBest:Int = 0 ) {
+		//Set variables
+		currentGameID = gameID;
 		
-		switch(type) {
-			case 0:
-				resultButtonList.hidden = true; resultButtonRetry.hidden = true; resultButtonRanking.hidden = true;
-				resultButtonClose.hidden = false;
-				imgScoreUIView.hidden = true; imgTimeUIView.hidden = false;
-				break;
-			case 1:
-				resultButtonList.hidden = false; resultButtonRetry.hidden = false; resultButtonRanking.hidden = false;
-				resultButtonClose.hidden = true;
-				imgScoreUIView.hidden = false; imgTimeUIView.hidden = true;
-				break;
-			default: break;
-		}
+		gameScore = showingScore;
+		gameBestScore = showingBest;
+		currentType = windowType;
 	}
 	
 	func toggleButtonStatus( status:Bool ) {
@@ -305,7 +301,8 @@ class GameResultView:UIViewController {
 		let numWidth:CGFloat = 38; let numHeight:CGFloat = 53.2;
 		return CGRectMake(
 			(modalView.frame.width / 2) - (CGFloat(index) * ((numWidth * DeviceManager.resultModalRatioC) + 6 * DeviceManager.resultMaxModalRatioC))
-				+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC))
+				+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
+
 				/*
 					5자리 숫자표시의 경우 숫자 생성시 for문을 5번 돌린 다음
 					+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
@@ -366,6 +363,28 @@ class GameResultView:UIViewController {
 			self.view.alpha = 1;
 		}) { _ in
 		}
+		
+		//베스트 쪽 스크롤 초기화
+		self.scrollView.setContentOffset(CGPointMake(0, 0), animated: false);
+		
+		switch(currentType) {
+			case 0:
+				resultButtonList.hidden = true; resultButtonRetry.hidden = true; resultButtonRanking.hidden = true;
+				resultButtonClose.hidden = false;
+				imgScoreUIView.hidden = true; imgTimeUIView.hidden = false;
+				break;
+			case 1:
+				resultButtonList.hidden = false; resultButtonRetry.hidden = false; resultButtonRanking.hidden = false;
+				resultButtonClose.hidden = true;
+				imgScoreUIView.hidden = false; imgTimeUIView.hidden = true;
+				break;
+			default: break;
+		}
+		
+		//점수 및 베스트 표시
+		refreshExpLevels(); //경험치 변동 있을경우 새로 표시해야 하기에
+		showNumbersOnScore(gameScore, autoContinueBest: true, autoContinueBestScore: gameBestScore);
+		
 	} ///////////////////////////////
 	
 	var tmpNumCurrent:Float = 0; var tmpNumTimeCurrent:Float = 0; var tmpNumCurrentMax:Float = 0;
@@ -457,5 +476,46 @@ class GameResultView:UIViewController {
 	
 	//////////
 	
+	func goToGameMain() {
+		//게임의 메인화면으로 돌아감
+		if (!rbuttonEnabled) {
+			return;
+		}
+		self.dismissViewControllerAnimated(true, completion: { _ in
+			
+			ViewController.viewSelf!.openGamePlayView(nil);
+			GamePlayView.selfView!.selectCell( self.currentGameID );
+			
+		});
+	}
+	func goRetryGame() {
+		//게임 재시작
+		if (!rbuttonEnabled) {
+			return;
+		}
+		self.dismissViewControllerAnimated(true, completion: { _ in
+			print("Game retry!");
+			GameModeView.setGame( self.currentGameID ); //게임 id 전달
+			ViewController.viewSelf!.runGame();
+		});
+	}
+	func showRankingGameCenter() {
+		//게임센터 랭킹 표시
+		
+		let gcViewController: GKGameCenterViewController = GKGameCenterViewController();
+		gcViewController.gameCenterDelegate = self;
+		gcViewController.viewState = GKGameCenterViewControllerState.Leaderboards;
+		
+		//아이튠즈 커네트에서 순위표id.
+		gcViewController.leaderboardIdentifier = GameManager.getLeadboardIDWithGameID( currentGameID );
+		
+		self.showViewController(gcViewController, sender: self);
+		self.presentViewController(gcViewController, animated: true, completion: nil);
+	}
+	
+	//////////////
+	func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
+		gameCenterViewController.dismissViewControllerAnimated(true, completion: nil);
+	}
 	
 }

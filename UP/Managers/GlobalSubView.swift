@@ -29,4 +29,8 @@ class GlobalSubView {
 	//No nav modals
 	static var alarmGameResultView:GameResultView = GameResultView();
 	static var alarmGamePlayWindowView:GamePlayWindowView = GamePlayWindowView();
+	
+	//Start guide
+	static var startingGuideView:StartGuideView = StartGuideView();
+	
 }

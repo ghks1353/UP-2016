@@ -35,8 +35,11 @@ class DataManager {
         static let showBadge:String = "settings_showbadge";
         static let syncToiCloud:String = "settings_synctoicloud";
 		
-		//아이클라우드 동기화 시, 자신 폰 데이터와 비교하여 높은 쪽을 유지함.
+		//아이클라우드 동기화 시, 자신 폰 데이터와 비교하여 높은 쪽을 유지함. ... 는 안쓰는듯. 싱크일만 기록함
 		static let lastSyncDate:String = "settings_data_lastSync";
+		
+		//스타트가이드를 보았는가
+		static let startGuideFlag:String = "settings_startguide_flag";
     }
 	
 	enum characterInfoKeys {
@@ -101,6 +104,12 @@ class DataManager {
 				DataManager.nsDefaults.setInteger(0, forKey: bestDatasKeyCollection[i]);
 			}
 		}
+		
+		//StartGuide 봄 여부에 대해
+		if (DataManager.nsDefaults.objectForKey(DataManager.settingsKeys.startGuideFlag) == nil) {
+			DataManager.nsDefaults.setBool(false, forKey: DataManager.settingsKeys.startGuideFlag);
+		}
+		
 		
 		DataManager.save();
 		

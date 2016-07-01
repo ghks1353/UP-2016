@@ -159,6 +159,50 @@
 	
 	"achievements": "アチーブメント",
 		"hiddenAchieveTitle": "隠れたアチーブメント",
-		"hiddenAchieveDescription": "隠れた目標"
+		"hiddenAchieveDescription": "隠れた目標",
+	
+	"startGuide-0-A": "<UP:ゲーム&アラーム>へようこそ！",
+	"startGuide-0-B": "左に画面をスワイプしてスタート",
+	
+	"startGuide-1-A": "時計アイコンをタップして",
+	"startGuide-1-B": "",
+	
+	"startGuide-2-A": "新しいアラームを設定します。",
+	"startGuide-2-B": "",
+	
+	"startGuide-3-A": "右のリストアイコンをタップして",
+	"startGuide-3-B": "",
+	
+	"startGuide-4-A": "アラームリストを表示します。",
+	"startGuide-4-B": "",
+	
+	"startGuide-5-A": "タップしてエディット",
+	"startGuide-5-B": "スワイプして削除します。",
+	
+	"startGuide-6-A": "グラフ標識をタップして",
+	"startGuide-6-B": "",
+	
+	"startGuide-7-A": "アラーム習慣データを表示します。",
+	"startGuide-7-B": "",
+	
+	"startGuide-8-A": "ゲーム箱アイコンをタップして",
+	"startGuide-8-B": "",
+	
+	"startGuide-9-A": "UPのゲームをプレイして",
+	"startGuide-9-B": "スコアの記録と競争ができます。",
+	
+	"startGuide-10-A": "キャラクターをタップして",
+	"startGuide-10-B": "キャラクターの情報を表示します。",
+	
+	"startGuide-11-A": "この画面では、アチーブメント確認と",
+	"startGuide-11-B": "UPのテーマを変更することができます。",
+	
+	"startGuide-12-A": "<UP:ゲーム&アラーム>と一緒にゲームで",
+	"startGuide-12-B": "新しい朝を作りましょう！",
+	
+	"startGuide-13-A": "あっ！ちょっと待って！！",
+	"startGuide-13-B": "投げるのは危険です！！",
+	
+	"startGuideExitWithSwipe": "左にもう一度スワイプしてガイド終了"
 	
 }

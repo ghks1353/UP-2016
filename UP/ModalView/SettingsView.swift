@@ -166,6 +166,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		//element touch handler
 		
 		switch (cell.cellID) {
+			case "startGuide":
+				self.presentViewController(GlobalSubView.startingGuideView, animated: true, completion: nil);
+				break;
 			case "gotoUPProject":
 				UIApplication.sharedApplication().openURL(NSURL(string: "http://up.avngraphic.kr/?l=" + Languages.currentLocaleCode)!);
 				break;
@@ -344,6 +347,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			case "indieGames": tIconFileStr = "comp-icons-settings-newgames"; break;
 			case "credits": tIconFileStr = "comp-icons-settings-developers"; break;
 			case "gotoUPProject": tIconFileStr = "comp-icons-settings-projectup"; break;
+			
+			case "buyUP": tIconFileStr = "comp-icons-shop-buy"; break;
+			case "restorePurchases": tIconFileStr = "comp-icons-shop-restore"; break;
 			default:
 				if (menuID.rangeOfString("experiments-") != nil) {
 					//실험실 아이콘?

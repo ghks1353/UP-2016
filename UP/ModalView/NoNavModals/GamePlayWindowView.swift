@@ -170,12 +170,8 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		gcViewController.gameCenterDelegate = self;
 		gcViewController.viewState = GKGameCenterViewControllerState.Leaderboards;
 		
-		switch(currentGameID) {
-			case 0: //JumpUP
-				gcViewController.leaderboardIdentifier = "leaderboard_jumpup"; //아이튠즈 커네트에서 순위표id.
-				break;
-			default: break;
-		}
+		//아이튠즈 커네트에서 순위표id.
+		gcViewController.leaderboardIdentifier = GameManager.getLeadboardIDWithGameID( currentGameID );
 		
 		self.showViewController(gcViewController, sender: self);
 		self.presentViewController(gcViewController, animated: true, completion: nil);
@@ -249,8 +245,12 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 	
 	override func viewDidAppear(animated: Bool) {
 		gamePreviewImageView!.startAnimatingGIF();
+		
 		//이 곳에 점수 애니메이션
-		showNumbersOnScore(16827);
+		showNumbersOnScore( GameManager.loadBestScore( currentGameID ) );
+		
+		//베스트 쪽 스크롤 초기화
+		self.scrollView.setContentOffset(CGPointMake(0, 0), animated: false);
 		
 		//queue bounce animation
 		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,

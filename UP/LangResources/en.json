@@ -160,7 +160,51 @@
 	
 	"achievements": "Achievements",
 		"hiddenAchieveTitle": "Hidden achievements",
-		"hiddenAchieveDescription": "Hidden goals"
+		"hiddenAchieveDescription": "Hidden goals",
+	
+	"startGuide-0-A": "Welcome to UP!",
+	"startGuide-0-B": "Swipe left to start",
+	
+	"startGuide-1-A": "You can create a new alarm with",
+	"startGuide-1-B": "",
+	
+	"startGuide-2-A": "touching clock icon.",
+	"startGuide-2-B": "",
+	
+	"startGuide-3-A": "To view your alarm list,",
+	"startGuide-3-B": "",
+	
+	"startGuide-4-A": "Touch list icon on right.",
+	"startGuide-4-B": "",
+	
+	"startGuide-5-A": "You can modify it by touch, or remove it",
+	"startGuide-5-B": "by swiping to left.",
+	
+	"startGuide-6-A": "You can see your <Rising Habit Data> with",
+	"startGuide-6-B": "",
+	
+	"startGuide-7-A": "touching graph sign icon.",
+	"startGuide-7-B": "",
+	
+	"startGuide-8-A": "You can play UP games",
+	"startGuide-8-B": "",
+	
+	"startGuide-9-A": "with touching game box icon.",
+	"startGuide-9-B": "Also it support ranking!",
+	
+	"startGuide-10-A": "You can see your character information",
+	"startGuide-10-B": "with touching character.",
+	
+	"startGuide-11-A": "You can check achievements and",
+	"startGuide-11-B": "you can change theme as you want.",
+	
+	"startGuide-12-A": "Make your fresh day with",
+	"startGuide-12-B": "<UP: A NEW WAY TO WAKE UP>",
+	
+	"startGuide-13-A": "Don't throw your device!",
+	"startGuide-13-B": "It's dangerous!",
+	
+	"startGuideExitWithSwipe": "Exit guide with swipe to left"
 
 
 }

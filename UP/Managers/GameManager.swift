@@ -39,4 +39,45 @@ class GameManager {
 		return "game-thumb-sample.png";
 	}
 	
+	//GameID => LeaderboardID
+	static func getLeadboardIDWithGameID(gameID:Int) -> String {
+		switch(gameID) {
+			case 0:
+				return "leaderboard_jumpup";
+			default: break;
+		}
+		return "";
+	}
+	
+	
+	////// Save game's bestscore to store, and save // ** GAME MODE, NOT ALARM **
+	static func saveBestScore( gameID:Int, score:Int ) {
+		let gameStoreKey:String = getStoreKeyWithGameID( gameID );
+		
+		let gameScore:Int = DataManager.nsDefaults.integerForKey(gameStoreKey);
+		if (gameScore < score) {
+			//기존 기록이 현재 기록보다 적으면, 최고기록 달성으로 치고 데이터를 저장함.
+			DataManager.nsDefaults.setValue(score, forKey: gameStoreKey);
+		}
+		// 저장. (겸사겸사 클라우드로도 연동됨)
+		DataManager.save();
+	}
+	
+	// 위와는 반대로, 베스트스코어를 불러오는 일만 함
+	static func loadBestScore( gameID:Int ) -> Int {
+		let gameStoreKey:String = getStoreKeyWithGameID( gameID );
+		return DataManager.nsDefaults.integerForKey(gameStoreKey);
+	}
+	
+	//GameID => DataManager NSDefaults Key
+	static func getStoreKeyWithGameID( gameID:Int ) -> String {
+		switch (gameID) {
+			case 0: // JumpUP
+				return DataManager.gamesBestKeys.jumpup_best;
+				break;
+			default: break;
+		}
+		return "";
+	}
+	
 }

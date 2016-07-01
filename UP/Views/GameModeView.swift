@@ -19,6 +19,9 @@ class GameModeView:UIViewController {
 	//선택된 게임 번호
 	static var gameSelectedNumber:Int = 0;
 	
+	//게임 종료 모드시, viewdidappear부분에 대한 실행을 안 함
+	static var isGameExiting:Bool = false;
+	
 	override func viewDidLoad() {
 		// view init func
 		self.view.backgroundColor = UIColor.blackColor();
@@ -26,6 +29,10 @@ class GameModeView:UIViewController {
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		if (GameModeView.isGameExiting == true) {
+			return;
+		}
+		
 		let sel:Int = GameModeView.gameSelectedNumber; //선택된 게임 번호
 		
 		switch(sel) {
@@ -83,6 +90,7 @@ class GameModeView:UIViewController {
 	static func setGame(gameID:Int) {
 		//외부에서 게임 정하고 들어옴. 게임시작뷰에서 어디로부터 시작됐는지도 알아야하는데.
 		gameSelectedNumber = gameID;
+		isGameExiting = false;
 	}
 	
 }

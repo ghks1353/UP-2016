@@ -157,17 +157,11 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	
 	//////////////// tables delg
 	internal func selectCell( gameID:Int ) {
-		switch( gameID ) {
-			case 0: //점프업
-				
-				break;
-			default: break;
-		}
-		
 		toggleOverlay(true);
 		modalGamePlayWindowView.modalPresentationStyle = .OverFullScreen;
 		self.presentViewController(modalGamePlayWindowView, animated: false, completion: nil);
 		modalGamePlayWindowView.setGame( gameID );
+		
 	}
 	
 	///// for table func
