@@ -74,7 +74,6 @@ class GameManager {
 		switch (gameID) {
 			case 0: // JumpUP
 				return DataManager.gamesBestKeys.jumpup_best;
-				break;
 			default: break;
 		}
 		return "";
