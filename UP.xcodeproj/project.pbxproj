@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030BBEEB1D37DDB30045F68B /* SKProductExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030BBEEA1D37DDB30045F68B /* SKProductExtension.swift */; };
 		032318AF1CF8BA4D0052732F /* AchievementElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318AE1CF8BA4D0052732F /* AchievementElement.swift */; };
 		032318B71CF8BA540052732F /* UPAchievementsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318B61CF8BA540052732F /* UPAchievementsCell.swift */; };
 		032318B91CF8BA6A0052732F /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032318B81CF8BA6A0052732F /* AchievementManager.swift */; };
@@ -123,6 +124,7 @@
 		03425BC21CD5294B00243B28 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03425BC11CD5294B00243B28 /* AdSupport.framework */; };
 		03425BC51CD52A1200243B28 /* libAdIdAccessLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03425BC41CD52A1200243B28 /* libAdIdAccessLibrary.a */; };
 		03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */ = {isa = PBXBuildFile; fileRef = 03425BD21CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png */; };
+		035BAAC81D34F3D700B4D43F /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035BAAC71D34F3D700B4D43F /* PurchaseManager.swift */; };
 		0383DB801CF6169F0009D5DE /* CharacterAchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383DB7F1CF6169F0009D5DE /* CharacterAchievementsView.swift */; };
 		0383DB891CF617010009D5DE /* AchievementList.json in Resources */ = {isa = PBXBuildFile; fileRef = 0383DB881CF617010009D5DE /* AchievementList.json */; };
 		0391ABC41D2582750051F3A6 /* game_jumpup_assets_life_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 0391ABC21D2582750051F3A6 /* game_jumpup_assets_life_off.png */; };
@@ -518,6 +520,7 @@
 
 /* Begin PBXFileReference section */
 		00ED694697C8597AD6EC7CA2 /* Pods-UP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UP.release.xcconfig"; path = "Pods/Target Support Files/Pods-UP/Pods-UP.release.xcconfig"; sourceTree = "<group>"; };
+		030BBEEA1D37DDB30045F68B /* SKProductExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKProductExtension.swift; path = SKUtils/SKProductExtension.swift; sourceTree = "<group>"; };
 		032318AE1CF8BA4D0052732F /* AchievementElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AchievementElement.swift; path = Classes/AchievementElement.swift; sourceTree = "<group>"; };
 		032318B61CF8BA540052732F /* UPAchievementsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UPAchievementsCell.swift; path = Cells/UPAchievementsCell.swift; sourceTree = "<group>"; };
 		032318B81CF8BA6A0052732F /* AchievementManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AchievementManager.swift; path = Managers/AchievementManager.swift; sourceTree = "<group>"; };
@@ -634,6 +637,7 @@
 		03425BC11CD5294B00243B28 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		03425BC41CD52A1200243B28 /* libAdIdAccessLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdIdAccessLibrary.a; path = Pods/GoogleIDFASupport/Libraries/libAdIdAccessLibrary.a; sourceTree = "<group>"; };
 		03425BD21CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-experiments-alarm.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-experiments-alarm.png"; sourceTree = "<group>"; };
+		035BAAC71D34F3D700B4D43F /* PurchaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PurchaseManager.swift; path = Managers/PurchaseManager.swift; sourceTree = "<group>"; };
 		0368399E1CEB604000204E86 /* SF-UI-Display-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Ultralight.otf"; path = "FontAssets/SF-UI-Display-Ultralight.otf"; sourceTree = "<group>"; };
 		0383DB7F1CF6169F0009D5DE /* CharacterAchievementsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterAchievementsView.swift; path = ModalView/PopView/CharacterAchievementsView.swift; sourceTree = "<group>"; };
 		0383DB881CF617010009D5DE /* AchievementList.json */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = text.json; name = AchievementList.json; path = Datas/AchievementList.json; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; wrapsLines = 1; };
@@ -975,6 +979,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		030BBEE91D37DD9E0045F68B /* SKUtils */ = {
+			isa = PBXGroup;
+			children = (
+				030BBEEA1D37DDB30045F68B /* SKProductExtension.swift */,
+			);
+			name = SKUtils;
+			sourceTree = "<group>";
+		};
 		030D38DE1CCD4612002D1025 /* TKTUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -1586,6 +1598,7 @@
 		775ADBE61C4FC4C700B52552 /* UP */ = {
 			isa = PBXGroup;
 			children = (
+				030BBEE91D37DD9E0045F68B /* SKUtils */,
 				77DDF35F1CAFAC6C00C8E5F0 /* NSClasses */,
 				030D38DE1CCD4612002D1025 /* TKTUtils */,
 				77782E581C92B0A50016EE1B /* SKTUtils */,
@@ -1922,6 +1935,7 @@
 				03DDD7EE1CEB98D2007C026D /* SoundManager.swift */,
 				03E1D1341CF32DB600B552FC /* CharacterManager.swift */,
 				032318BC1CFA05BF0052732F /* GameManager.swift */,
+				035BAAC71D34F3D700B4D43F /* PurchaseManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -2628,6 +2642,7 @@
 				032318B71CF8BA540052732F /* UPAchievementsCell.swift in Sources */,
 				77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */,
 				03DDD7E01CEB929F007C026D /* AlarmGameListView.swift in Sources */,
+				030BBEEB1D37DDB30045F68B /* SKProductExtension.swift in Sources */,
 				03DDD8111CEB9990007C026D /* UPGamesListCell.swift in Sources */,
 				03DDD8161CEB9999007C026D /* AlarmListCell.swift in Sources */,
 				03DDD7F31CEB98D2007C026D /* Languages.swift in Sources */,
@@ -2647,6 +2662,7 @@
 				03DDD7DA1CEB921E007C026D /* CharacterInfoView.swift in Sources */,
 				03DDD8061CEB992D007C026D /* DeviceManager.swift in Sources */,
 				03DDD7E11CEB929F007C026D /* AlarmRepeatSettingsView.swift in Sources */,
+				035BAAC81D34F3D700B4D43F /* PurchaseManager.swift in Sources */,
 				03DDD8251CEB9A2B007C026D /* TKTimingFunction.swift in Sources */,
 				032536C41D1B4174004C6293 /* GameModeView.swift in Sources */,
 				032318C91CFA4F860052732F /* GameResultView.swift in Sources */,

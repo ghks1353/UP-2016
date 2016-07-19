@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		AlarmManager.mergeAlarm();
 		//achievementmanager init
 		AchievementManager.initManager();
+		//purchase init
+		PurchaseManager.initInstance();
 		
 		//Gogle Analytics active
 		AnalyticsManager.initGoogleAnalytics();
