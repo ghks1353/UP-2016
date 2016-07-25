@@ -26,10 +26,10 @@ class Languages {
 		//init lang.
 		if (ignoreForceLang == false) {
 			DataManager.initDefaults();
-			if (DataManager.nsDefaults.objectForKey(DataManager.EXPERIMENTS_FORCE_LANGUAGES_KEY) == nil) {
+			if (DataManager.nsDefaults.objectForKey(DataManager.settingsKeys.language) == nil) {
 				//not force. because there is no key
 			} else {
-				let forceLang:String = DataManager.nsDefaults.objectForKey(DataManager.EXPERIMENTS_FORCE_LANGUAGES_KEY) as! String;
+				let forceLang:String = DataManager.nsDefaults.objectForKey(DataManager.settingsKeys.language) as! String;
 				if (forceLang != "") {
 					//apply language FORCE
 					print("Applying force language.");

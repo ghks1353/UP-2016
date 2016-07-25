@@ -54,7 +54,7 @@ class DeviceManager {
 		maxScrRatio = min(1, scrRatio); maxScrRatioC = CGFloat(maxScrRatio);
 		
 		//저퀄리티 사진사용 체크
-		usesLowQualityImage = Double(scrSizeForCalcuate!.width) <= 500 ? true : false;
+		usesLowQualityImage = Double(scrSizeForCalcuate!.height) <= 500 ? true : false;
 		
 		print("Checking user interface ipad is", UIDevice.currentDevice().userInterfaceIdiom == .Pad);
 		changeModalSize();

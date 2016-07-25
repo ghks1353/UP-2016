@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UP/ViewController.swift"
-            timestampString = "481898280.946494"
+            timestampString = "490719721.33895"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "732"
-            endingLineNumber = "732"
-            landmarkName = "viewWillTransitionToSize(_:withTransitionCoordinator:)"
+            startingLineNumber = "754"
+            endingLineNumber = "754"
+            landmarkName = "fitViewControllerElementsToScreen(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -33,22 +33,6 @@
             endingLineNumber = "200"
             landmarkName = "AlarmListView"
             landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UP/ViewController.swift"
-            timestampString = "481898280.946494"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

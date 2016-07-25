@@ -24,13 +24,13 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     var tablesArray:Array<AnyObject> = [];
 	
 	///////// Test experiments views
-	var experimentLanguagesView:ExperimentsLanguagesSetupView = ExperimentsLanguagesSetupView();
 	var experimentAlarmSettingsView:ExperimentsAlarmsSetupView = ExperimentsAlarmsSetupView();
 	/////
 	
 	/// InSettings Views
 	var creditsView:CreditsPopView = CreditsPopView();
 	var indieGamesView:IndieGamesView = IndieGamesView();
+	var languagesView:LanguageSetupView = LanguageSetupView();
 	
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -67,8 +67,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         //add table cells (options)
         tablesArray = [
             [ /* SECTION 1 */
-             createSettingsToggle( Languages.$("settingsIconBadgeSetting") , defaultState: false, settingsID: "showIconBadge")
-            , createSettingsToggle( Languages.$("settingsiCloud") , defaultState: false, settingsID: "syncToiCloud")
+				createSettingsToggle( Languages.$("settingsIconBadgeSetting"), defaultState: false, settingsID: "showIconBadge")
+				, createSettingsToggle( Languages.$("settingsiCloud"), defaultState: false, settingsID: "syncToiCloud")
+				, createSettingsOnlyLabel( Languages.$("settingsChangeLanguage"), menuID: "languageChange")
             ],
             [ /* SECTION 2*/
 				createSettingsOnlyLabel( Languages.$("settingsBuyPremium") , menuID: "buyUP")
@@ -82,8 +83,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				, createSettingsOnlyLabel( Languages.$("settingsCredits") , menuID: "credits")
             ],
             [ /* SECTION 4 */
-				createSettingsOnlyLabel( "강제 언어 변경", menuID: "experiments-forcelang")
-				, createSettingsOnlyLabel( "비인가 설정 기능", menuID: "experiments-notallowed-alarms")
+				createSettingsOnlyLabel( "비인가 설정 기능", menuID: "experiments-notallowed-alarms")
 			]
             
         ];
@@ -166,11 +166,23 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		//element touch handler
 		
 		switch (cell.cellID) {
+			case "buyUP":
+				if (PurchaseManager.checkIsAvailableProduct( PurchaseManager.productIDs.PREMIUM ) == false ) {
+					print("Buy up is not available");
+					showProductNotAvailable();
+				} else {
+					PurchaseManager.requestBuyProduct( PurchaseManager.productIDs.PREMIUM );
+				}
+				
+				break;
 			case "startGuide":
 				self.presentViewController(GlobalSubView.startingGuideView, animated: true, completion: nil);
 				break;
 			case "gotoUPProject":
 				UIApplication.sharedApplication().openURL(NSURL(string: "http://up.avngraphic.kr/?l=" + Languages.currentLocaleCode)!);
+				break;
+			case "languageChange":
+				navigationCtrl.pushViewController(self.languagesView, animated: true);
 				break;
 			case "indieGames":
 				navigationCtrl.pushViewController(self.indieGamesView, animated: true);
@@ -180,9 +192,6 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				creditsView.creditsScrollView.setContentOffset(CGPointMake(0, 0), animated: false);
 				break;
 			////// EXPERIMENTS
-			case "experiments-forcelang":
-				navigationCtrl.pushViewController(self.experimentLanguagesView, animated: true);
-				break;
 			case "experiments-notallowed-alarms":
 				navigationCtrl.pushViewController(self.experimentAlarmSettingsView, animated: true);
 				break;
@@ -192,6 +201,8 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		
 		tableView.deselectRowAtIndexPath(indexPath, animated: true);
 	} //end func
+	
+	/////////////////
 	
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 4;
@@ -384,5 +395,15 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         
         return tCell;
     }
+	
+	////////////////
+	
+	func showProductNotAvailable() {
+		let alertWindow:UIAlertController = UIAlertController(title: Languages.$("generalAlert"), message: Languages.$("storeBuyNotAvailable"), preferredStyle: UIAlertControllerStyle.Alert);
+		alertWindow.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
+		}));
+		presentViewController(alertWindow, animated: true, completion: nil);
+		
+	} //end function
 	
 }

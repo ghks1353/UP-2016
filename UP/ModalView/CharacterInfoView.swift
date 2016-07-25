@@ -17,6 +17,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	
 	//Pop views
 	var achievementsView:CharacterAchievementsView = CharacterAchievementsView();
+	var themeMainView:CharacterSkinMainView = CharacterSkinMainView();
 	
 	//Inner-modal view
 	var modalView:UIViewController = UIViewController();
@@ -108,31 +109,37 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		modalView.view.addSubview(charExpMaskView);
 		
 		//Pad는 세로위치에 약간 차이가 있어서 적용함
+		//var mRatioC:CGFloat = DeviceManager.modalRatioC;
 		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 			XAXIS_PRESET_PAD = 0;
 			YAXIS_PRESET_PAD = 0; //phone는 프리셋 적용 필요 없음
+			//mRatioC = 1;
 		}
+		YAXIS_PRESET_PAD = 0;
+		//print("devhei:", heightRatio);
 		
-		charLevelWrapper.frame = CGRectMake( 195 * DeviceManager.modalRatioC, (66 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
-		                                     104.5 * DeviceManager.modalRatioC, 61.75 * DeviceManager.modalRatioC);
-		charLevelIndicator.frame = CGRectMake( 151 * DeviceManager.modalRatioC, (96 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
-		                                       38 * DeviceManager.modalRatioC, 33.25 * DeviceManager.modalRatioC);
-		charExpWrapper.frame = CGRectMake( 28 * DeviceManager.modalRatioC, (108 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
-		                                   95 * DeviceManager.modalRatioC, 57 * DeviceManager.modalRatioC);
-		charGameCenterIcon.frame = CGRectMake( 37 * DeviceManager.modalRatioC, (164.5 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
-		                                       78.5 * DeviceManager.modalRatioC, 130.25 * DeviceManager.modalRatioC);
-		charAchievementsIcon.frame = CGRectMake( 210 * DeviceManager.modalRatioC, (127.5 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
-		                                   70.95 * DeviceManager.modalRatioC, 168.6 * DeviceManager.modalRatioC);
+		charLevelWrapper.frame = CGRectMake( 194.5 * DeviceManager.modalRatioC,
+		                                     charInfoBGView.frame.minY + 12 * DeviceManager.modalRatioC
+		                                     , 105.65 * DeviceManager.modalRatioC, 63.65 * DeviceManager.modalRatioC);
+		charLevelIndicator.frame = CGRectMake( 142 * DeviceManager.modalRatioC,
+		                                        charInfoBGView.frame.minY + 42 * DeviceManager.modalRatioC
+		                                       , 43.85 * DeviceManager.modalRatioC, 33.9 * DeviceManager.modalRatioC);
+		charExpWrapper.frame = CGRectMake( 26 * DeviceManager.modalRatioC,
+		                                   charInfoBGView.frame.minY + 54.5 * DeviceManager.modalRatioC
+		                                   ,93.7 * DeviceManager.modalRatioC, 55.8 * DeviceManager.modalRatioC);
+		charGameCenterIcon.frame = CGRectMake( 40 * DeviceManager.modalRatioC, modalView.view.frame.height / 2 - 4 * DeviceManager.modalRatioC, 75.8 * DeviceManager.modalRatioC, 75.75 * DeviceManager.modalRatioC);
+		charAchievementsIcon.frame = CGRectMake( 200 * DeviceManager.modalRatioC, charGameCenterIcon.frame.minY, 75.8 * DeviceManager.modalRatioC, 75.75 * DeviceManager.modalRatioC);
 		charCurrentCharacter.frame = CGRectMake( 6 * DeviceManager.modalRatioC, modalView.view.frame.height - 252 * DeviceManager.modalRatioC, 300 * DeviceManager.modalRatioC, 300 * DeviceManager.modalRatioC );
 		
 		//마스크용 프레임 배치
-		charExpMaskView.frame = CGRectMake(33 * DeviceManager.modalRatioC, (112 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
-		                                   82 * DeviceManager.modalRatioC, 49 * DeviceManager.modalRatioC);
+		charExpMaskView.frame = CGRectMake(30.5 * DeviceManager.modalRatioC, charExpWrapper.frame.minY + 3 * DeviceManager.modalRatioC,
+		                                   82 * DeviceManager.modalRatioC, 48 * DeviceManager.modalRatioC);
 		let maskLayer:CAShapeLayer = CAShapeLayer();
 		let cMaskRect = CGRectMake(0, 0, 82 * DeviceManager.modalRatioC, 49 * DeviceManager.modalRatioC);
 		let cPath:CGPathRef = CGPathCreateWithRect(cMaskRect, nil);
 		maskLayer.path = cPath;
 		charExpMaskView.layer.mask = maskLayer;
+		//charExpMaskView.backgroundColor = UIColor.whiteColor();
 		//경험치 막대
 		charExpProgress.backgroundColor = UPUtils.colorWithHexString("#00CC33");
 		//경험치 막대 옆에 붙는 데코
@@ -150,8 +157,8 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		for i:Int in 0 ..< 3 {
 			let tmpView:UIImageView = UIImageView();
 			tmpView.image = UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  );
-			tmpView.frame = CGRectMake( (213 * DeviceManager.modalRatioC) + ((24 * CGFloat(i)) * DeviceManager.maxModalRatioC)
-				, (84 - YAXIS_PRESET_PAD) * DeviceManager.modalRatioC,
+			tmpView.frame = CGRectMake( (215 * DeviceManager.modalRatioC) + ((24 * CGFloat(i)) * DeviceManager.maxModalRatioC)
+				, charLevelWrapper.frame.minY + 19 * DeviceManager.modalRatioC,
 					19.15 * DeviceManager.modalRatioC, 26.80 * DeviceManager.modalRatioC );
 			modalView.view.addSubview(tmpView);
 			charLevelDigitalArr += [tmpView];
@@ -166,12 +173,24 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		tapGestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.showAchievements(_:)))
 		charAchievementsIcon.userInteractionEnabled = true; charAchievementsIcon.addGestureRecognizer(tapGestureRecognizer);
 		
+		tapGestureRecognizer = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.popToCharacterThemeSel(_:)))
+		charCurrentCharacter.userInteractionEnabled = true; charCurrentCharacter.addGestureRecognizer(tapGestureRecognizer);
 		
+		
+		//캐릭터 터치 (스킨선택화면으로)
+		
+		//themeMainView
 		FitModalLocationToCenter();
 	}
 	
 	func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
 		gameCenterViewController.dismissViewControllerAnimated(true, completion: nil);
+	}
+	
+	//스킨 선택으로 팝
+	func popToCharacterThemeSel(gestureRecognizer: UITapGestureRecognizer) {
+		navigationCtrl.pushViewController(self.themeMainView, animated: true);
+		
 	}
 	
 	//게임센터 창 띄우기
@@ -248,6 +267,8 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		if (self.view.maskView != nil) {
 			self.view.maskView!.frame = DeviceManager.defaultModalSizeRect;
 		}
+		
+		
 	}
 	
 	override func didReceiveMemoryWarning() {

@@ -202,7 +202,7 @@
 		03DDD7E21CEB929F007C026D /* AlarmSoundListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7DE1CEB929F007C026D /* AlarmSoundListView.swift */; };
 		03DDD7E31CEB929F007C026D /* StatisticsDataPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7DF1CEB929F007C026D /* StatisticsDataPointView.swift */; };
 		03DDD7E61CEB9884007C026D /* ExperimentsAlarmsSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7E41CEB9884007C026D /* ExperimentsAlarmsSetupView.swift */; };
-		03DDD7E71CEB9884007C026D /* ExperimentsLanguagesSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7E51CEB9884007C026D /* ExperimentsLanguagesSetupView.swift */; };
+		03DDD7E71CEB9884007C026D /* LanguageSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7E51CEB9884007C026D /* LanguageSetupView.swift */; };
 		03DDD7EF1CEB98D2007C026D /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7E81CEB98D2007C026D /* AlarmManager.swift */; };
 		03DDD7F01CEB98D2007C026D /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7E91CEB98D2007C026D /* AnalyticsManager.swift */; };
 		03DDD7F11CEB98D2007C026D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7EA1CEB98D2007C026D /* DataManager.swift */; };
@@ -262,6 +262,25 @@
 		03E1D1351CF32DB600B552FC /* CharacterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E1D1341CF32DB600B552FC /* CharacterManager.swift */; };
 		771181DE1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 771181DC1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png */; };
 		771181DF1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 771181DD1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png */; };
+		771ABC411D45DE8700938D1B /* CharacterSkinMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */; };
+		771ABC4A1D45DFDB00938D1B /* themes-main-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC491D45DFDB00938D1B /* themes-main-background.png */; };
+		771ABC541D46127D00938D1B /* a_time_off_pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC4C1D46127D00938D1B /* a_time_off_pad.png */; };
+		771ABC551D46127D00938D1B /* a_time_on_pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC4D1D46127D00938D1B /* a_time_on_pad.png */; };
+		771ABC561D46127D00938D1B /* b_time_off_pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC4E1D46127D00938D1B /* b_time_off_pad.png */; };
+		771ABC571D46127D00938D1B /* b_time_on_pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC4F1D46127D00938D1B /* b_time_on_pad.png */; };
+		771ABC581D46127D00938D1B /* c_time_off_pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC501D46127D00938D1B /* c_time_off_pad.png */; };
+		771ABC591D46127D00938D1B /* c_time_on_pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC511D46127D00938D1B /* c_time_on_pad.png */; };
+		771ABC5A1D46127D00938D1B /* d_time_off_pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC521D46127D00938D1B /* d_time_off_pad.png */; };
+		771ABC5B1D46127D00938D1B /* d_time_on_pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC531D46127D00938D1B /* d_time_on_pad.png */; };
+		771ABC5D1D46283B00938D1B /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC5C1D46283B00938D1B /* UnityAds.framework */; };
+		771ABC5F1D46285900938D1B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC5E1D46285900938D1B /* AVFoundation.framework */; };
+		771ABC611D46286300938D1B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC601D46286300938D1B /* CFNetwork.framework */; };
+		771ABC631D46286A00938D1B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC621D46286A00938D1B /* CoreFoundation.framework */; };
+		771ABC651D46287200938D1B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC641D46287200938D1B /* CoreMedia.framework */; };
+		771ABC671D46287C00938D1B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC661D46287C00938D1B /* CoreTelephony.framework */; };
+		771ABC691D46288700938D1B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC681D46288700938D1B /* SystemConfiguration.framework */; };
+		771ABC6B1D4628DD00938D1B /* UnityAdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771ABC6A1D4628DD00938D1B /* UnityAdsManager.swift */; };
+		771ABC6D1D466D5500938D1B /* GeneralMenuUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771ABC6C1D466D5500938D1B /* GeneralMenuUI.swift */; };
 		77232C921C848CCA006E221A /* game-start-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 77232C911C848CCA006E221A /* game-start-button.png */; };
 		7756F9B51C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect0.png in Resources */ = {isa = PBXBuildFile; fileRef = 7756F99F1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect0.png */; };
 		7756F9B61C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7756F9A01C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect1.png */; };
@@ -306,9 +325,6 @@
 		77A890B81CB58665009171F9 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BA6EC71CB0FF800053115A /* SQLite.framework */; };
 		77A890B91CB58665009171F9 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77BA6EC71CB0FF800053115A /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */; };
-		77AC4F941CABDFB10044F5C8 /* skin_default_ground_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77AC4F901CABDFB10044F5C8 /* skin_default_ground_pad34.png */; };
-		77AC4F951CABDFB10044F5C8 /* skin_default_ground_pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77AC4F911CABDFB10044F5C8 /* skin_default_ground_pad43.png */; };
-		77AC4F961CABDFB10044F5C8 /* skin_default_ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 77AC4F921CABDFB10044F5C8 /* skin_default_ground.png */; };
 		77AC4F971CABDFB10044F5C8 /* skin_default_stat_object.png in Resources */ = {isa = PBXBuildFile; fileRef = 77AC4F931CABDFB10044F5C8 /* skin_default_stat_object.png */; };
 		77AC4F9E1CABE0290044F5C8 /* skin_default_object_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 77AC4F981CABE0290044F5C8 /* skin_default_object_list.png */; };
 		77AC4F9F1CABE0290044F5C8 /* skin_default_object_st.png in Resources */ = {isa = PBXBuildFile; fileRef = 77AC4F991CABE0290044F5C8 /* skin_default_object_st.png */; };
@@ -414,6 +430,20 @@
 		77CAE0C01C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE0B91C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png */; };
 		77CAE0C11C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CAE0BA1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png */; };
 		77CE3D9B1C98464900A6EA36 /* game_jumpup_assets_time_retire.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CE3D9A1C98464900A6EA36 /* game_jumpup_assets_time_retire.png */; };
+		77DF5F141D3F9FAA008871B3 /* skin_default_ground_a_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F081D3F9FAA008871B3 /* skin_default_ground_a_pad34.png */; };
+		77DF5F151D3F9FAA008871B3 /* skin_default_ground_a_pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F091D3F9FAA008871B3 /* skin_default_ground_a_pad43.png */; };
+		77DF5F161D3F9FAA008871B3 /* skin_default_ground_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F0A1D3F9FAA008871B3 /* skin_default_ground_a.png */; };
+		77DF5F171D3F9FAA008871B3 /* skin_default_ground_b_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F0B1D3F9FAA008871B3 /* skin_default_ground_b_pad34.png */; };
+		77DF5F181D3F9FAA008871B3 /* skin_default_ground_b_pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F0C1D3F9FAA008871B3 /* skin_default_ground_b_pad43.png */; };
+		77DF5F191D3F9FAA008871B3 /* skin_default_ground_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F0D1D3F9FAA008871B3 /* skin_default_ground_b.png */; };
+		77DF5F1A1D3F9FAA008871B3 /* skin_default_ground_c_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F0E1D3F9FAA008871B3 /* skin_default_ground_c_pad34.png */; };
+		77DF5F1B1D3F9FAA008871B3 /* skin_default_ground_c_pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F0F1D3F9FAA008871B3 /* skin_default_ground_c_pad43.png */; };
+		77DF5F1C1D3F9FAA008871B3 /* skin_default_ground_c.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F101D3F9FAA008871B3 /* skin_default_ground_c.png */; };
+		77DF5F1D1D3F9FAA008871B3 /* skin_default_ground_d_pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F111D3F9FAA008871B3 /* skin_default_ground_d_pad34.png */; };
+		77DF5F1E1D3F9FAA008871B3 /* skin_default_ground_d_pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F121D3F9FAA008871B3 /* skin_default_ground_d_pad43.png */; };
+		77DF5F1F1D3F9FAA008871B3 /* skin_default_ground_d.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F131D3F9FAA008871B3 /* skin_default_ground_d.png */; };
+		77DF5F211D3FBB9A008871B3 /* skin_default_time_ch.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F201D3FBB9A008871B3 /* skin_default_time_ch.png */; };
+		77DF5F231D3FBB9F008871B3 /* skin_default_time_sh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DF5F221D3FBB9F008871B3 /* skin_default_time_sh.png */; };
 		77E288031C7334A30020B766 /* a_time_off_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E287FB1C7334A30020B766 /* a_time_off_small.png */; };
 		77E288041C7334A30020B766 /* a_time_on_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E287FC1C7334A30020B766 /* a_time_on_small.png */; };
 		77E288051C7334A30020B766 /* b_time_off_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E287FD1C7334A30020B766 /* b_time_off_small.png */; };
@@ -716,7 +746,7 @@
 		03DDD7DE1CEB929F007C026D /* AlarmSoundListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmSoundListView.swift; path = ModalView/PopView/AlarmSoundListView.swift; sourceTree = "<group>"; };
 		03DDD7DF1CEB929F007C026D /* StatisticsDataPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatisticsDataPointView.swift; path = ModalView/PopView/StatisticsDataPointView.swift; sourceTree = "<group>"; };
 		03DDD7E41CEB9884007C026D /* ExperimentsAlarmsSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExperimentsAlarmsSetupView.swift; path = ModalView/ExperimentsPopView/ExperimentsAlarmsSetupView.swift; sourceTree = "<group>"; };
-		03DDD7E51CEB9884007C026D /* ExperimentsLanguagesSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExperimentsLanguagesSetupView.swift; path = ModalView/ExperimentsPopView/ExperimentsLanguagesSetupView.swift; sourceTree = "<group>"; };
+		03DDD7E51CEB9884007C026D /* LanguageSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageSetupView.swift; path = ModalView/ExperimentsPopView/LanguageSetupView.swift; sourceTree = "<group>"; };
 		03DDD7E81CEB98D2007C026D /* AlarmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmManager.swift; path = Managers/AlarmManager.swift; sourceTree = "<group>"; };
 		03DDD7E91CEB98D2007C026D /* AnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnalyticsManager.swift; path = Managers/AnalyticsManager.swift; sourceTree = "<group>"; };
 		03DDD7EA1CEB98D2007C026D /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Managers/DataManager.swift; sourceTree = "<group>"; };
@@ -776,6 +806,25 @@
 		3446BCAF72D11C596079B5EB /* Pods_UP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		771181DC1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_alram_off.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_alram_off.png; sourceTree = "<group>"; };
 		771181DD1C8C967000763E4F /* game_jumpup_assets_time_alram_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_alram_reset.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_alram_reset.png; sourceTree = "<group>"; };
+		771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSkinMainView.swift; path = ModalView/CharacterSkinMainView.swift; sourceTree = "<group>"; };
+		771ABC491D45DFDB00938D1B /* themes-main-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-main-background.png"; path = "ImageAssets/ModalWindows/Themes/themes-main-background.png"; sourceTree = "<group>"; };
+		771ABC4C1D46127D00938D1B /* a_time_off_pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_time_off_pad.png; path = ImageAssets/TimeListAssets/Pad/a_time_off_pad.png; sourceTree = "<group>"; };
+		771ABC4D1D46127D00938D1B /* a_time_on_pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_time_on_pad.png; path = ImageAssets/TimeListAssets/Pad/a_time_on_pad.png; sourceTree = "<group>"; };
+		771ABC4E1D46127D00938D1B /* b_time_off_pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = b_time_off_pad.png; path = ImageAssets/TimeListAssets/Pad/b_time_off_pad.png; sourceTree = "<group>"; };
+		771ABC4F1D46127D00938D1B /* b_time_on_pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = b_time_on_pad.png; path = ImageAssets/TimeListAssets/Pad/b_time_on_pad.png; sourceTree = "<group>"; };
+		771ABC501D46127D00938D1B /* c_time_off_pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = c_time_off_pad.png; path = ImageAssets/TimeListAssets/Pad/c_time_off_pad.png; sourceTree = "<group>"; };
+		771ABC511D46127D00938D1B /* c_time_on_pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = c_time_on_pad.png; path = ImageAssets/TimeListAssets/Pad/c_time_on_pad.png; sourceTree = "<group>"; };
+		771ABC521D46127D00938D1B /* d_time_off_pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_time_off_pad.png; path = ImageAssets/TimeListAssets/Pad/d_time_off_pad.png; sourceTree = "<group>"; };
+		771ABC531D46127D00938D1B /* d_time_on_pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d_time_on_pad.png; path = ImageAssets/TimeListAssets/Pad/d_time_on_pad.png; sourceTree = "<group>"; };
+		771ABC5C1D46283B00938D1B /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UnityAds.framework; sourceTree = "<group>"; };
+		771ABC5E1D46285900938D1B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		771ABC601D46286300938D1B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		771ABC621D46286A00938D1B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		771ABC641D46287200938D1B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		771ABC661D46287C00938D1B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		771ABC681D46288700938D1B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		771ABC6A1D4628DD00938D1B /* UnityAdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnityAdsManager.swift; path = Managers/UnityAdsManager.swift; sourceTree = "<group>"; };
+		771ABC6C1D466D5500938D1B /* GeneralMenuUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeneralMenuUI.swift; path = Views/GeneralMenuUI.swift; sourceTree = "<group>"; };
 		77232C911C848CCA006E221A /* game-start-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-start-button.png"; path = "GameAssets/JumpUP/StartupView/game-start-button.png"; sourceTree = "<group>"; };
 		7756F99F1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_ai_j_astro_effect0.png; path = ImageAssets/GameAssets/JumpUP/effects/ai_j_astro_effect/game_jumpup_assets_time_ai_j_astro_effect0.png; sourceTree = "<group>"; };
 		7756F9A01C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_ai_j_astro_effect1.png; path = ImageAssets/GameAssets/JumpUP/effects/ai_j_astro_effect/game_jumpup_assets_time_ai_j_astro_effect1.png; sourceTree = "<group>"; };
@@ -821,9 +870,6 @@
 		77802D1D1C805E1A00766DB0 /* game-thumb-random.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-random.png"; path = "ImageAssets/GameThumbs/game-thumb-random.png"; sourceTree = "<group>"; };
 		779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = up_background_task_alarm.mp3; path = SoundAssets/SystemSounds/up_background_task_alarm.mp3; sourceTree = "<group>"; };
 		77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		77AC4F901CABDFB10044F5C8 /* skin_default_ground_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_pad34.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_pad34.png; sourceTree = "<group>"; };
-		77AC4F911CABDFB10044F5C8 /* skin_default_ground_pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_pad43.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_pad43.png; sourceTree = "<group>"; };
-		77AC4F921CABDFB10044F5C8 /* skin_default_ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground.png; sourceTree = "<group>"; };
 		77AC4F931CABDFB10044F5C8 /* skin_default_stat_object.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_stat_object.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_stat_object.png; sourceTree = "<group>"; };
 		77AC4F981CABE0290044F5C8 /* skin_default_object_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_object_list.png; path = ImageAssets/Skins/Default/AnalogClock/skin_default_object_list.png; sourceTree = "<group>"; };
 		77AC4F991CABE0290044F5C8 /* skin_default_object_st.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_object_st.png; path = ImageAssets/Skins/Default/AnalogClock/skin_default_object_st.png; sourceTree = "<group>"; };
@@ -930,6 +976,20 @@
 		77CAE0B91C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_j_astro_jump5.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_j_astro_jump/game_jumpup_ai_j_astro_jump5.png; sourceTree = "<group>"; };
 		77CAE0BA1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_ai_j_astro_jump6.png; path = ImageAssets/GameAssets/JumpUP/motions/ai_j_astro_jump/game_jumpup_ai_j_astro_jump6.png; sourceTree = "<group>"; };
 		77CE3D9A1C98464900A6EA36 /* game_jumpup_assets_time_retire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_retire.png; path = ImageAssets/GameAssets/JumpUP/game_jumpup_assets_time_retire.png; sourceTree = "<group>"; };
+		77DF5F081D3F9FAA008871B3 /* skin_default_ground_a_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_a_pad34.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_a_pad34.png; sourceTree = "<group>"; };
+		77DF5F091D3F9FAA008871B3 /* skin_default_ground_a_pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_a_pad43.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_a_pad43.png; sourceTree = "<group>"; };
+		77DF5F0A1D3F9FAA008871B3 /* skin_default_ground_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_a.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_a.png; sourceTree = "<group>"; };
+		77DF5F0B1D3F9FAA008871B3 /* skin_default_ground_b_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_b_pad34.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_b_pad34.png; sourceTree = "<group>"; };
+		77DF5F0C1D3F9FAA008871B3 /* skin_default_ground_b_pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_b_pad43.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_b_pad43.png; sourceTree = "<group>"; };
+		77DF5F0D1D3F9FAA008871B3 /* skin_default_ground_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_b.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_b.png; sourceTree = "<group>"; };
+		77DF5F0E1D3F9FAA008871B3 /* skin_default_ground_c_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_c_pad34.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_c_pad34.png; sourceTree = "<group>"; };
+		77DF5F0F1D3F9FAA008871B3 /* skin_default_ground_c_pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_c_pad43.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_c_pad43.png; sourceTree = "<group>"; };
+		77DF5F101D3F9FAA008871B3 /* skin_default_ground_c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_c.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_c.png; sourceTree = "<group>"; };
+		77DF5F111D3F9FAA008871B3 /* skin_default_ground_d_pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_d_pad34.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_d_pad34.png; sourceTree = "<group>"; };
+		77DF5F121D3F9FAA008871B3 /* skin_default_ground_d_pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_d_pad43.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_d_pad43.png; sourceTree = "<group>"; };
+		77DF5F131D3F9FAA008871B3 /* skin_default_ground_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_ground_d.png; path = ImageAssets/Skins/Default/GroundAssets/skin_default_ground_d.png; sourceTree = "<group>"; };
+		77DF5F201D3FBB9A008871B3 /* skin_default_time_ch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_time_ch.png; path = ImageAssets/Skins/Default/AnalogClock/skin_default_time_ch.png; sourceTree = "<group>"; };
+		77DF5F221D3FBB9F008871B3 /* skin_default_time_sh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skin_default_time_sh.png; path = ImageAssets/Skins/Default/AnalogClock/skin_default_time_sh.png; sourceTree = "<group>"; };
 		77E287FB1C7334A30020B766 /* a_time_off_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_time_off_small.png; path = ImageAssets/TimeListAssets/LQ/a_time_off_small.png; sourceTree = "<group>"; };
 		77E287FC1C7334A30020B766 /* a_time_on_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_time_on_small.png; path = ImageAssets/TimeListAssets/LQ/a_time_on_small.png; sourceTree = "<group>"; };
 		77E287FD1C7334A30020B766 /* b_time_off_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = b_time_off_small.png; path = ImageAssets/TimeListAssets/LQ/b_time_off_small.png; sourceTree = "<group>"; };
@@ -967,8 +1027,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				771ABC691D46288700938D1B /* SystemConfiguration.framework in Frameworks */,
+				771ABC671D46287C00938D1B /* CoreTelephony.framework in Frameworks */,
+				771ABC651D46287200938D1B /* CoreMedia.framework in Frameworks */,
+				771ABC631D46286A00938D1B /* CoreFoundation.framework in Frameworks */,
+				771ABC611D46286300938D1B /* CFNetwork.framework in Frameworks */,
+				771ABC5F1D46285900938D1B /* AVFoundation.framework in Frameworks */,
 				03425BC51CD52A1200243B28 /* libAdIdAccessLibrary.a in Frameworks */,
 				03425BC21CD5294B00243B28 /* AdSupport.framework in Frameworks */,
+				771ABC5D1D46283B00938D1B /* UnityAds.framework in Frameworks */,
 				77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */,
 				77A890B81CB58665009171F9 /* SQLite.framework in Frameworks */,
 				03425B7E1CCFC49200243B28 /* GameKit.framework in Frameworks */,
@@ -1146,6 +1213,7 @@
 		03425B6A1CCEAD8500243B28 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
+				771ABC481D45DFD000938D1B /* Themes */,
 				032536C71D1C4C41004C6293 /* Credits */,
 				032318CC1CFA68680052732F /* Result */,
 				032318BE1CFA1CF80052732F /* Achievements */,
@@ -1195,6 +1263,7 @@
 		03425B9A1CD082B200243B28 /* PopView */ = {
 			isa = PBXGroup;
 			children = (
+				03DDD7E51CEB9884007C026D /* LanguageSetupView.swift */,
 				03DDD7DC1CEB929F007C026D /* AlarmGameListView.swift */,
 				03DDD7DD1CEB929F007C026D /* AlarmRepeatSettingsView.swift */,
 				03DDD7DE1CEB929F007C026D /* AlarmSoundListView.swift */,
@@ -1202,6 +1271,7 @@
 				0383DB7F1CF6169F0009D5DE /* CharacterAchievementsView.swift */,
 				032536C51D1B5333004C6293 /* CreditsPopView.swift */,
 				032536D41D1ED333004C6293 /* IndieGamesView.swift */,
+				771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */,
 			);
 			name = PopView;
 			sourceTree = "<group>";
@@ -1210,7 +1280,6 @@
 			isa = PBXGroup;
 			children = (
 				03DDD7E41CEB9884007C026D /* ExperimentsAlarmsSetupView.swift */,
-				03DDD7E51CEB9884007C026D /* ExperimentsLanguagesSetupView.swift */,
 			);
 			name = ExperimentsPopView;
 			sourceTree = "<group>";
@@ -1384,6 +1453,29 @@
 				00ED694697C8597AD6EC7CA2 /* Pods-UP.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		771ABC481D45DFD000938D1B /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				771ABC491D45DFDB00938D1B /* themes-main-background.png */,
+			);
+			name = Themes;
+			sourceTree = "<group>";
+		};
+		771ABC4B1D46127500938D1B /* Pad */ = {
+			isa = PBXGroup;
+			children = (
+				771ABC4C1D46127D00938D1B /* a_time_off_pad.png */,
+				771ABC4D1D46127D00938D1B /* a_time_on_pad.png */,
+				771ABC4E1D46127D00938D1B /* b_time_off_pad.png */,
+				771ABC4F1D46127D00938D1B /* b_time_on_pad.png */,
+				771ABC501D46127D00938D1B /* c_time_off_pad.png */,
+				771ABC511D46127D00938D1B /* c_time_on_pad.png */,
+				771ABC521D46127D00938D1B /* d_time_off_pad.png */,
+				771ABC531D46127D00938D1B /* d_time_on_pad.png */,
+			);
+			name = Pad;
 			sourceTree = "<group>";
 		};
 		77232C8F1C848CAB006E221A /* GameAssets */ = {
@@ -1576,6 +1668,7 @@
 		775ADBDB1C4FC4C700B52552 = {
 			isa = PBXGroup;
 			children = (
+				771ABC5C1D46283B00938D1B /* UnityAds.framework */,
 				03425B7D1CCFC49200243B28 /* GameKit.framework */,
 				77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */,
 				775ADBE61C4FC4C700B52552 /* UP */,
@@ -1706,6 +1799,7 @@
 			isa = PBXGroup;
 			children = (
 				03DDD81A1CEB99C9007C026D /* GameTitleViewJumpUP.swift */,
+				771ABC6C1D466D5500938D1B /* GeneralMenuUI.swift */,
 			);
 			name = AlarmGamesView;
 			sourceTree = "<group>";
@@ -1818,11 +1912,20 @@
 		77C54E541C9EC05900013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
+				77DF5F081D3F9FAA008871B3 /* skin_default_ground_a_pad34.png */,
+				77DF5F091D3F9FAA008871B3 /* skin_default_ground_a_pad43.png */,
+				77DF5F0A1D3F9FAA008871B3 /* skin_default_ground_a.png */,
+				77DF5F0B1D3F9FAA008871B3 /* skin_default_ground_b_pad34.png */,
+				77DF5F0C1D3F9FAA008871B3 /* skin_default_ground_b_pad43.png */,
+				77DF5F0D1D3F9FAA008871B3 /* skin_default_ground_b.png */,
+				77DF5F0E1D3F9FAA008871B3 /* skin_default_ground_c_pad34.png */,
+				77DF5F0F1D3F9FAA008871B3 /* skin_default_ground_c_pad43.png */,
+				77DF5F101D3F9FAA008871B3 /* skin_default_ground_c.png */,
+				77DF5F111D3F9FAA008871B3 /* skin_default_ground_d_pad34.png */,
+				77DF5F121D3F9FAA008871B3 /* skin_default_ground_d_pad43.png */,
+				77DF5F131D3F9FAA008871B3 /* skin_default_ground_d.png */,
 				03425BA21CD0A1E200243B28 /* skin_default_floating_box.png */,
 				03425BA31CD0A1E200243B28 /* skin_default_standing_box.png */,
-				77AC4F901CABDFB10044F5C8 /* skin_default_ground_pad34.png */,
-				77AC4F911CABDFB10044F5C8 /* skin_default_ground_pad43.png */,
-				77AC4F921CABDFB10044F5C8 /* skin_default_ground.png */,
 				77AC4F931CABDFB10044F5C8 /* skin_default_stat_object.png */,
 			);
 			name = Default;
@@ -1831,6 +1934,8 @@
 		77C54E551C9EC07500013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
+				77DF5F221D3FBB9F008871B3 /* skin_default_time_sh.png */,
+				77DF5F201D3FBB9A008871B3 /* skin_default_time_ch.png */,
 				77AC4F981CABE0290044F5C8 /* skin_default_object_list.png */,
 				77AC4F991CABE0290044F5C8 /* skin_default_object_st.png */,
 				77AC4F9B1CABE0290044F5C8 /* skin_default_time_body.png */,
@@ -1936,6 +2041,7 @@
 				03E1D1341CF32DB600B552FC /* CharacterManager.swift */,
 				032318BC1CFA05BF0052732F /* GameManager.swift */,
 				035BAAC71D34F3D700B4D43F /* PurchaseManager.swift */,
+				771ABC6A1D4628DD00938D1B /* UnityAdsManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -2026,6 +2132,7 @@
 		77FBE6721C6DCB8F00E251A2 /* TimeListAssets */ = {
 			isa = PBXGroup;
 			children = (
+				771ABC4B1D46127500938D1B /* Pad */,
 				77E287FA1C73349B0020B766 /* LQ */,
 				77FBE6731C6DCB9F00E251A2 /* a_time_off.png */,
 				77FBE6741C6DCB9F00E251A2 /* a_time_on.png */,
@@ -2042,6 +2149,12 @@
 		EF890AADCE69D30C316D9266 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				771ABC681D46288700938D1B /* SystemConfiguration.framework */,
+				771ABC661D46287C00938D1B /* CoreTelephony.framework */,
+				771ABC641D46287200938D1B /* CoreMedia.framework */,
+				771ABC621D46286A00938D1B /* CoreFoundation.framework */,
+				771ABC601D46286300938D1B /* CFNetwork.framework */,
+				771ABC5E1D46285900938D1B /* AVFoundation.framework */,
 				03425BC41CD52A1200243B28 /* libAdIdAccessLibrary.a */,
 				03425BC11CD5294B00243B28 /* AdSupport.framework */,
 				AF85DD684EBE41304B410A97 /* Pods.framework */,
@@ -2197,6 +2310,7 @@
 				03425BA51CD0A1E200243B28 /* skin_default_standing_box.png in Resources */,
 				03E1D1241CEC70A600B552FC /* comp-icons-alarm-repeat.png in Resources */,
 				0391ABC41D2582750051F3A6 /* game_jumpup_assets_life_off.png in Resources */,
+				77DF5F1D1D3F9FAA008871B3 /* skin_default_ground_d_pad34.png in Resources */,
 				032319161CFB5C7B0052732F /* characterinfo-exp-deco-12.png in Resources */,
 				03B18E781D22CC3200972101 /* game-general-menu-soundon.png in Resources */,
 				77AC4FB81CABE0C10044F5C8 /* skin_default_9.png in Resources */,
@@ -2204,7 +2318,6 @@
 				03E1D12E1CF1BCF000B552FC /* characterinfo-achievements.png in Resources */,
 				03DDD82C1CEB9A49007C026D /* ko.json in Resources */,
 				032319181CFB5C7B0052732F /* characterinfo-exp-deco-14.png in Resources */,
-				77AC4F951CABDFB10044F5C8 /* skin_default_ground_pad43.png in Resources */,
 				77CAE0B21C907CB400FBA714 /* game_jumpup_ai_j_astro_move5.png in Resources */,
 				77AC506A1CABE5D40044F5C8 /* skin_default_character_0030.png in Resources */,
 				03B18E5F1D20DB5800972101 /* modal-guide-images-ko-2-general.png in Resources */,
@@ -2238,6 +2351,7 @@
 				032536CD1D1C4D1D004C6293 /* modal-credits-people-graphic.png in Resources */,
 				77F9D2461C85D93F00E79CE8 /* game_jumpup_assets_time_time.png in Resources */,
 				03B18E901D22CCCA00972101 /* game_jump_ai_astro_fly1.png in Resources */,
+				771ABC581D46127D00938D1B /* c_time_off_pad.png in Resources */,
 				77F9D2411C85D93F00E79CE8 /* game_jumpup_assets_time_box2.png in Resources */,
 				032318C11CFA1D010052732F /* achievements-icon-blank.png in Resources */,
 				77E288081C7334A30020B766 /* c_time_on_small.png in Resources */,
@@ -2254,6 +2368,7 @@
 				77CAE0AF1C907CB400FBA714 /* game_jumpup_ai_j_astro_move2.png in Resources */,
 				032536A21D1436A3004C6293 /* game_jumpup_astro_default_jump_6.png in Resources */,
 				03C14D0F1D2539D60078D10C /* game-general-window-exit.png in Resources */,
+				771ABC5A1D46127D00938D1B /* d_time_off_pad.png in Resources */,
 				77CE3D9B1C98464900A6EA36 /* game_jumpup_assets_time_retire.png in Resources */,
 				03B18E691D22C54600972101 /* comp-icons-shop-restore.png in Resources */,
 				0323190A1CFB5C7B0052732F /* characterinfo-exp-deco-0.png in Resources */,
@@ -2272,6 +2387,7 @@
 				77802D1F1C805E1A00766DB0 /* game-thumb-random.png in Resources */,
 				03B18E571D20DB5800972101 /* modal-guide-images-en-9-general.png in Resources */,
 				03425B8D1CD0635700243B28 /* comp-icons-settings-badge.png in Resources */,
+				771ABC4A1D45DFDB00938D1B /* themes-main-background.png in Resources */,
 				032319281CFB5C7B0052732F /* characterinfo-exp-deco-30.png in Resources */,
 				032536B71D1978E7004C6293 /* result-time.png in Resources */,
 				0383DB891CF617010009D5DE /* AchievementList.json in Resources */,
@@ -2296,6 +2412,7 @@
 				77AC4FD01CABE5C70044F5C8 /* skin_default_b_back_pad34.png in Resources */,
 				77AC50571CABE5D40044F5C8 /* skin_default_character_0011.png in Resources */,
 				77AC505C1CABE5D40044F5C8 /* skin_default_character_0016.png in Resources */,
+				77DF5F171D3F9FAA008871B3 /* skin_default_ground_b_pad34.png in Resources */,
 				77AC4FD71CABE5C70044F5C8 /* skin_default_d_back_4s.png in Resources */,
 				77CAE0BB1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump0.png in Resources */,
 				77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */,
@@ -2319,13 +2436,16 @@
 				77AC4FAF1CABE0C10044F5C8 /* skin_default_0.png in Resources */,
 				03B18E511D20DB5800972101 /* modal-guide-images-all-12-general.png in Resources */,
 				0323191A1CFB5C7B0052732F /* characterinfo-exp-deco-16.png in Resources */,
+				77DF5F1F1D3F9FAA008871B3 /* skin_default_ground_d.png in Resources */,
 				77AC506F1CABE5D40044F5C8 /* skin_default_character_0035.png in Resources */,
 				03B18E771D22CC3200972101 /* game-general-menu-soundoff.png in Resources */,
 				77AC4FB11CABE0C10044F5C8 /* skin_default_2.png in Resources */,
 				7756F9C71C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect18.png in Resources */,
 				0323190C1CFB5C7B0052732F /* characterinfo-exp-deco-2.png in Resources */,
+				77DF5F231D3FBB9F008871B3 /* skin_default_time_sh.png in Resources */,
 				77AC4FB91CABE0C10044F5C8 /* skin_default_col.png in Resources */,
 				77AC4FB21CABE0C10044F5C8 /* skin_default_3.png in Resources */,
+				771ABC551D46127D00938D1B /* a_time_on_pad.png in Resources */,
 				77AC4FB41CABE0C10044F5C8 /* skin_default_5.png in Resources */,
 				77AC504F1CABE5D40044F5C8 /* skin_default_character_0003.png in Resources */,
 				77E288041C7334A30020B766 /* a_time_on_small.png in Resources */,
@@ -2353,6 +2473,7 @@
 				77F9D2451C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_4.png in Resources */,
 				7756F9CA1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect21.png in Resources */,
 				77CAE0BE1C907F9E00FBA714 /* game_jumpup_ai_j_astro_jump3.png in Resources */,
+				77DF5F181D3F9FAA008871B3 /* skin_default_ground_b_pad43.png in Resources */,
 				03425BA91CD389E100243B28 /* comp-icons-settings-experiments.png in Resources */,
 				032319211CFB5C7B0052732F /* characterinfo-exp-deco-23.png in Resources */,
 				0323191B1CFB5C7B0052732F /* characterinfo-exp-deco-17.png in Resources */,
@@ -2377,6 +2498,7 @@
 				0391ABD41D25B5570051F3A6 /* game_jumpup_assets_guide_1.png in Resources */,
 				032536A01D1436A3004C6293 /* game_jumpup_astro_default_jump_4.png in Resources */,
 				77FBE6811C6DCB9F00E251A2 /* d_time_off.png in Resources */,
+				771ABC571D46127D00938D1B /* b_time_on_pad.png in Resources */,
 				03C14D111D2539D60078D10C /* game-general-window-mask.png in Resources */,
 				032318E11CFA91250052732F /* skin_default_black_5.png in Resources */,
 				03B18E761D22CC3200972101 /* game-general-menu-retry.png in Resources */,
@@ -2407,8 +2529,11 @@
 				77AC4FB51CABE0C10044F5C8 /* skin_default_6.png in Resources */,
 				77AC50731CABE5D40044F5C8 /* skin_default_character_0039.png in Resources */,
 				0323191C1CFB5C7B0052732F /* characterinfo-exp-deco-18.png in Resources */,
+				77DF5F161D3F9FAA008871B3 /* skin_default_ground_a.png in Resources */,
 				032318CB1CFA52B90052732F /* modal-mask-result.png in Resources */,
 				77AC4FD61CABE5C70044F5C8 /* skin_default_c_back.png in Resources */,
+				77DF5F151D3F9FAA008871B3 /* skin_default_ground_a_pad43.png in Resources */,
+				77DF5F1B1D3F9FAA008871B3 /* skin_default_ground_c_pad43.png in Resources */,
 				032536AA1D1436AB004C6293 /* game_jumpup_astro_default_move_0.png in Resources */,
 				03425BAB1CD38D4E00243B28 /* Podfile in Resources */,
 				7756F9C31C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect14.png in Resources */,
@@ -2437,6 +2562,7 @@
 				03B18E4D1D20DB5800972101 /* modal-guide-images-all-3-general.png in Resources */,
 				032318E21CFA91250052732F /* skin_default_black_6.png in Resources */,
 				77AC505D1CABE5D40044F5C8 /* skin_default_character_0017.png in Resources */,
+				77DF5F191D3F9FAA008871B3 /* skin_default_ground_b.png in Resources */,
 				03B18E4E1D20DB5800972101 /* modal-guide-images-all-6-general.png in Resources */,
 				771181DE1C8C967000763E4F /* game_jumpup_assets_time_alram_off.png in Resources */,
 				77CAE0A31C9079B900FBA714 /* game_jumpup_ai_astro_move3.png in Resources */,
@@ -2451,6 +2577,7 @@
 				03B18EA21D24515C00972101 /* game_jumpup_assets_warning.png in Resources */,
 				0323192C1CFB5E340052732F /* characterinfo-exp-deco-32.png in Resources */,
 				77AC50711CABE5D40044F5C8 /* skin_default_character_0037.png in Resources */,
+				77DF5F141D3F9FAA008871B3 /* skin_default_ground_a_pad34.png in Resources */,
 				03425B8C1CD0635700243B28 /* comp-icons-blank.png in Resources */,
 				77AC4FB61CABE0C10044F5C8 /* skin_default_7.png in Resources */,
 				03DDD8381CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png in Resources */,
@@ -2459,7 +2586,6 @@
 				77AC4FD91CABE5C70044F5C8 /* skin_default_d_back_pad43.png in Resources */,
 				03B18E5D1D20DB5800972101 /* modal-guide-images-ja-9-general.png in Resources */,
 				7756F9C91C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect20.png in Resources */,
-				77AC4F961CABDFB10044F5C8 /* skin_default_ground.png in Resources */,
 				03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */,
 				03DDD8391CEB9D07007C026D /* comp-icons-datacategory-compratio.png in Resources */,
 				032536D11D1E890C004C6293 /* modal-credits-logo.png in Resources */,
@@ -2473,10 +2599,13 @@
 				7756F9BD1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect8.png in Resources */,
 				032318E41CFA91250052732F /* skin_default_black_8.png in Resources */,
 				77AC50661CABE5D40044F5C8 /* skin_default_character_0026.png in Resources */,
+				771ABC561D46127D00938D1B /* b_time_off_pad.png in Resources */,
 				77E288061C7334A30020B766 /* b_time_on_small.png in Resources */,
+				77DF5F1E1D3F9FAA008871B3 /* skin_default_ground_d_pad43.png in Resources */,
 				03B18E601D20DB5800972101 /* modal-guide-images-ko-4-general.png in Resources */,
 				032536B91D19BA23004C6293 /* result-btn-play.png in Resources */,
 				03C14D0C1D2539D60078D10C /* game-general-window-btn-cancel.png in Resources */,
+				77DF5F1C1D3F9FAA008871B3 /* skin_default_ground_c.png in Resources */,
 				77AC506B1CABE5D40044F5C8 /* skin_default_character_0031.png in Resources */,
 				77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */,
 				03C14D0D1D2539D60078D10C /* game-general-window-btn-ok.png in Resources */,
@@ -2484,7 +2613,6 @@
 				77AC4FD31CABE5C70044F5C8 /* skin_default_c_back_4s.png in Resources */,
 				032318C21CFA1D010052732F /* achievements-item.png in Resources */,
 				77F9D2441C85D93F00E79CE8 /* game_jumpup_assets_time_cloud_3.png in Resources */,
-				77AC4F941CABDFB10044F5C8 /* skin_default_ground_pad34.png in Resources */,
 				03E1D1231CEC70A600B552FC /* comp-icons-alarm-music.png in Resources */,
 				7756F9BE1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect9.png in Resources */,
 				03425B9C1CD08B1C00243B28 /* comp-icons-settings-avn.png in Resources */,
@@ -2506,14 +2634,18 @@
 				77AC50701CABE5D40044F5C8 /* skin_default_character_0036.png in Resources */,
 				77C4C01B1C86D95800B7BB3B /* game_jumpup_ai_astro_jump4.png in Resources */,
 				77F9D2471C85D93F00E79CE8 /* game_jumpup_assets_time_trap.png in Resources */,
+				771ABC541D46127D00938D1B /* a_time_off_pad.png in Resources */,
 				7756F9C11C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect12.png in Resources */,
 				77AC50671CABE5D40044F5C8 /* skin_default_character_0027.png in Resources */,
 				77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */,
+				77DF5F1A1D3F9FAA008871B3 /* skin_default_ground_c_pad34.png in Resources */,
 				032319121CFB5C7B0052732F /* characterinfo-exp-deco-8.png in Resources */,
 				77F9D23F1C85D93F00E79CE8 /* game_jumpup_assets_time_background.png in Resources */,
 				03B18E741D22CC3200972101 /* game-general-menu-pause.png in Resources */,
+				771ABC5B1D46127D00938D1B /* d_time_on_pad.png in Resources */,
 				03425B8F1CD0635700243B28 /* comp-icons-settings-guide.png in Resources */,
 				03B18E9F1D22CCD100972101 /* game_jump_ai_j_astro_fly4.png in Resources */,
+				771ABC591D46127D00938D1B /* c_time_on_pad.png in Resources */,
 				77CAE0B11C907CB400FBA714 /* game_jumpup_ai_j_astro_move4.png in Resources */,
 				03B18E941D22CCCA00972101 /* game_jump_ai_astro_fly5.png in Resources */,
 				03B18E7A1D22CC8D00972101 /* game_jumpup_assets_time_trap_2.png in Resources */,
@@ -2525,6 +2657,7 @@
 				77AC4FA21CABE0290044F5C8 /* skin_default_time_hh.png in Resources */,
 				03425B8E1CD0635700243B28 /* comp-icons-settings-developers.png in Resources */,
 				03B18E9C1D22CCD100972101 /* game_jump_ai_j_astro_fly1.png in Resources */,
+				77DF5F211D3FBB9A008871B3 /* skin_default_time_ch.png in Resources */,
 				03425B981CD0670800243B28 /* comp-cell-arrow.png in Resources */,
 				77CAE0AE1C907CB400FBA714 /* game_jumpup_ai_j_astro_move1.png in Resources */,
 				03B18E541D20DB5800972101 /* modal-guide-images-en-4-general.png in Resources */,
@@ -2614,7 +2747,7 @@
 				03DDD7FE1CEB990D007C026D /* GameInfoObj.swift in Sources */,
 				03DDD7F21CEB98D2007C026D /* GlobalSubView.swift in Sources */,
 				032318BD1CFA05BF0052732F /* GameManager.swift in Sources */,
-				03DDD7E71CEB9884007C026D /* ExperimentsLanguagesSetupView.swift in Sources */,
+				03DDD7E71CEB9884007C026D /* LanguageSetupView.swift in Sources */,
 				775ADBEA1C4FC4C700B52552 /* ViewController.swift in Sources */,
 				032536C61D1B5333004C6293 /* CreditsPopView.swift in Sources */,
 				03E1D1351CF32DB600B552FC /* CharacterManager.swift in Sources */,
@@ -2630,6 +2763,7 @@
 				77782E651C92B0B00016EE1B /* CGFloat+Extensions.swift in Sources */,
 				77782E6C1C92B0B00016EE1B /* SKNode+Extensions.swift in Sources */,
 				032536B11D187C19004C6293 /* GamePlayWindowView.swift in Sources */,
+				771ABC411D45DE8700938D1B /* CharacterSkinMainView.swift in Sources */,
 				03DDD8001CEB990D007C026D /* SoundInfoObj.swift in Sources */,
 				03DDD8021CEB990D007C026D /* UIAlarmIDSwitch.swift in Sources */,
 				03DDD7EF1CEB98D2007C026D /* AlarmManager.swift in Sources */,
@@ -2652,8 +2786,10 @@
 				03DDD80E1CEB9990007C026D /* CustomTableCell.swift in Sources */,
 				77782E6E1C92B0B00016EE1B /* SKTEffects.swift in Sources */,
 				032318AF1CF8BA4D0052732F /* AchievementElement.swift in Sources */,
+				771ABC6D1D466D5500938D1B /* GeneralMenuUI.swift in Sources */,
 				03DDD8181CEB9999007C026D /* AlarmSettingsCell.swift in Sources */,
 				03DDD7E31CEB929F007C026D /* StatisticsDataPointView.swift in Sources */,
+				771ABC6B1D4628DD00938D1B /* UnityAdsManager.swift in Sources */,
 				77782E6B1C92B0B00016EE1B /* SKColor+Extensions.swift in Sources */,
 				032318BB1CF9BABC0052732F /* GamePlayView.swift in Sources */,
 				03DDD7F01CEB98D2007C026D /* AnalyticsManager.swift in Sources */,
@@ -2794,6 +2930,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UP/Framework",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = UP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -2822,6 +2959,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UP/Framework",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = UP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

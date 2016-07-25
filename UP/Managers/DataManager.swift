@@ -27,7 +27,6 @@ import SQLite;
 class DataManager {
 	
 	//Experiments keys
-	static let EXPERIMENTS_FORCE_LANGUAGES_KEY:String = "experiments-force-lang";
 	static let EXPERIMENTS_USE_MEMO_KEY:String = "experiments-alarm-memo";
 	
 	//환경설정 저장값 key
@@ -40,6 +39,9 @@ class DataManager {
 		
 		//스타트가이드를 보았는가
 		static let startGuideFlag:String = "settings_startguide_flag";
+		
+		//언어 저장 키
+		static let language:String = "settings_language";
     }
 	
 	enum characterInfoKeys {
