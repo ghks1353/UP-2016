@@ -25,6 +25,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	
 	///////// Test experiments views
 	var experimentAlarmSettingsView:ExperimentsAlarmsSetupView = ExperimentsAlarmsSetupView();
+	var experimentTestingInfoView:ExperimentsTestInfo = ExperimentsTestInfo();
 	/////
 	
 	/// InSettings Views
@@ -83,7 +84,8 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				, createSettingsOnlyLabel( Languages.$("settingsCredits") , menuID: "credits")
             ],
             [ /* SECTION 4 */
-				createSettingsOnlyLabel( "비인가 설정 기능", menuID: "experiments-notallowed-alarms")
+				createSettingsOnlyLabel( "Additional settings", menuID: "experiments-notallowed-alarms"),
+				createSettingsOnlyLabel( "Testing information", menuID: "experiments-test-info")
 			]
             
         ];
@@ -194,6 +196,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			////// EXPERIMENTS
 			case "experiments-notallowed-alarms":
 				navigationCtrl.pushViewController(self.experimentAlarmSettingsView, animated: true);
+				break;
+			case "experiments-test-info":
+				navigationCtrl.pushViewController(self.experimentTestingInfoView, animated: true);
 				break;
 			////////
 			default: break;

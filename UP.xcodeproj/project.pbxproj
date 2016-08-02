@@ -391,6 +391,7 @@
 		77561EAE1D50CAB9002EB26B /* skin-default-time-hh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA51D50CAB9002EB26B /* skin-default-time-hh.png */; };
 		77561EAF1D50CAB9002EB26B /* skin-default-time-mh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA61D50CAB9002EB26B /* skin-default-time-mh.png */; };
 		77561EB01D50CAB9002EB26B /* skin-default-time-sh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA71D50CAB9002EB26B /* skin-default-time-sh.png */; };
+		77561EB21D50E741002EB26B /* ExperimentsTestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77561EB11D50E741002EB26B /* ExperimentsTestInfo.swift */; };
 		7756F9B51C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect0.png in Resources */ = {isa = PBXBuildFile; fileRef = 7756F99F1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect0.png */; };
 		7756F9B61C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7756F9A01C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect1.png */; };
 		7756F9B71C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7756F9A11C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect2.png */; };
@@ -941,6 +942,7 @@
 		77561EA51D50CAB9002EB26B /* skin-default-time-hh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-time-hh.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-time-hh.png"; sourceTree = "<group>"; };
 		77561EA61D50CAB9002EB26B /* skin-default-time-mh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-time-mh.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-time-mh.png"; sourceTree = "<group>"; };
 		77561EA71D50CAB9002EB26B /* skin-default-time-sh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-time-sh.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-time-sh.png"; sourceTree = "<group>"; };
+		77561EB11D50E741002EB26B /* ExperimentsTestInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExperimentsTestInfo.swift; path = ModalView/ExperimentsTestInfo.swift; sourceTree = "<group>"; };
 		7756F99F1C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_ai_j_astro_effect0.png; path = ImageAssets/GameAssets/JumpUP/effects/ai_j_astro_effect/game_jumpup_assets_time_ai_j_astro_effect0.png; sourceTree = "<group>"; };
 		7756F9A01C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_ai_j_astro_effect1.png; path = ImageAssets/GameAssets/JumpUP/effects/ai_j_astro_effect/game_jumpup_assets_time_ai_j_astro_effect1.png; sourceTree = "<group>"; };
 		7756F9A11C99D5CD00675AB7 /* game_jumpup_assets_time_ai_j_astro_effect2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_jumpup_assets_time_ai_j_astro_effect2.png; path = ImageAssets/GameAssets/JumpUP/effects/ai_j_astro_effect/game_jumpup_assets_time_ai_j_astro_effect2.png; sourceTree = "<group>"; };
@@ -1292,6 +1294,7 @@
 			isa = PBXGroup;
 			children = (
 				03DDD7E41CEB9884007C026D /* ExperimentsAlarmsSetupView.swift */,
+				77561EB11D50E741002EB26B /* ExperimentsTestInfo.swift */,
 			);
 			name = ExperimentsPopView;
 			sourceTree = "<group>";
@@ -2780,6 +2783,7 @@
 				03DDD7F21CEB98D2007C026D /* GlobalSubView.swift in Sources */,
 				032318BD1CFA05BF0052732F /* GameManager.swift in Sources */,
 				03DDD7E71CEB9884007C026D /* LanguageSetupView.swift in Sources */,
+				77561EB21D50E741002EB26B /* ExperimentsTestInfo.swift in Sources */,
 				775ADBEA1C4FC4C700B52552 /* ViewController.swift in Sources */,
 				032536C61D1B5333004C6293 /* CreditsPopView.swift in Sources */,
 				03E1D1351CF32DB600B552FC /* CharacterManager.swift in Sources */,

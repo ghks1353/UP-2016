@@ -160,7 +160,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		charLevelWrapper.image = UIImage( named: "characterinfo-level-wrapper.png" );
 		charLevelIndicator.image = UIImage( named: "characterinfo-level.png" );
 		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" );
-		charCurrentCharacter.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character_" + "0001" + ".png" ); //현재 캐릭터 스킨 불러오기
+		charCurrentCharacter.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character-" + "0001" + ".png" ); //현재 캐릭터 스킨 불러오기
 		modalView.addSubview(charLevelWrapper); modalView.addSubview(charLevelIndicator); modalView.addSubview(charExpWrapper);
 		modalView.addSubview(charCurrentCharacter);
 		//마스크 레이어
