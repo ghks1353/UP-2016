@@ -77,6 +77,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	var gameEnemyGenerateDelay:Int = 0; //장애물 생성 딜레이
 	
 	var gameCharacterUnlimitedLife:Int = 0; //캐릭터 무적 시간. (있을 경우)
+	var gameCharacterRetryADScoreTerm:Int = 0; //이 시간동안은 점수가 올라가지 않음
 	var gameScreenShakeEventDelay:Int = 0; //화면 흔들림 효과를 위한 딜레이.
 	var gameRdmElementNum:Int = 0; //랜덤으로 나오는 장애물 고유 번호. (메모리 절약을 위해 재사용)
 	
@@ -265,7 +266,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			
 			gameScore = 0; maxScoreGameLife = 3; //기본 최대 라이프
 			scoreGameLife = maxScoreGameLife;
-			externalLifeLeft = 1; //연장 1회
+			externalLifeLeft = 2; //연장 1회
 			
 			//// 라이프 구성
 			for i:Int in 0 ..< maxScoreGameLife {
@@ -515,6 +516,8 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			uiContents!.gameForceStopCallback = gameForceStopCallb;
 			uiContents!.gameOverCallback = gameOverCallb;
 			uiContents!.restartCallback = gameRestartCallb;
+			
+			uiContents!.gameShowADCallback = gameADWatchCallb;
 		}
 		
 		
@@ -526,19 +529,22 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	
 	func appEnteredToBackground() {
 		//App -> Background
-		
 		if (gameStartupType == 0) {
 			//알람으로 게임이 켜졌을 때 **타이머 종료 **
 			if (gameSecondTickTimer != nil) {
 				gameSecondTickTimer!.invalidate();
 				gameSecondTickTimer = nil;
 			}
+		} else {
+			//Queue pause
+			if ( isGamePaused == false ) {
+				togglePause();
+			}
 		}
 	} //end func
 	
 	func appEnteredToForeground() {
 		//App -> Foreground
-		
 		if (gameStartupType == 0 && gameFinishedBool == false) {
 			//알람으로 게임이 켜졌을 때, 졸거나 하는 등으로 화면이 꺼지거나 백그라운드로 나갔다 오면 시간은 리셋.
 			gameScore = max(gameAlarmFirstGoalTime, gameScore); //남은 시간이 더 크면 유지
@@ -563,7 +569,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			addCountdownTimerForAlarm(); //타이머 재시작
 		} //end if gametype 0
 	} //end func
-
+	
 	
 	func addCountdownTimerForAlarm() {
 		if (gameSecondTickTimer != nil) {
@@ -698,47 +704,53 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				}
 			} //헬모드 효과 끝
 			
-			if (scoreUPDelayCurrent <= 0) {
-				scoreUPDelayCurrent = Int(round(scoreUPDelayMax));
-				
-				if (scoreUPLevel > 10) {
-					gameScore += min(9, Int(round(scoreUPLevel / 5)));
-				} else {
-					gameScore += 1;
-				}
-				
-				if (gameScore >= 10000 && hellMode == false) {
-					//헬모드 트리거 조건: 게임 점수 1만점 이상
-					hellMode = true;
-				} else {
-					//헬모드 중일 때
-					if (gameScore >= 50000 && backgroundCoverImage!.alpha >= 1) {
-						//가운데도 없애버려.
-						backgroundCoverImage!.alpha = 0.05; //알파를 뼈대로 남김
+			if (gameCharacterRetryADScoreTerm <= 0) {
+				if (scoreUPDelayCurrent <= 0) {
+					scoreUPDelayCurrent = Int(round(scoreUPDelayMax));
+					
+					if (scoreUPLevel > 10) {
+						gameScore += min(9, Int(round(scoreUPLevel / 5)));
+					} else {
+						gameScore += 1;
 					}
+					
+					if (gameScore >= 10000 && hellMode == false) {
+						//헬모드 트리거 조건: 게임 점수 1만점 이상
+						hellMode = true;
+					} else {
+						//헬모드 중일 때
+						if (gameScore >= 50000 && backgroundCoverImage!.alpha >= 1) {
+							//가운데도 없애버려.
+							backgroundCoverImage!.alpha = 0.05; //알파를 뼈대로 남김
+						}
+					}
+					
+					scoreUPDelayMax -= 0.5;
+					scoreUPDelayMax = max(max(0, 10 - scoreUPLevel), scoreUPDelayMax);
+					
+					print("Current level:", scoreUPLevel, ",Scroll (x):", additionalGameScrollSpeed, ", Max delay:",
+						  max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 12))));
+					
+				} else {
+					scoreUPDelayCurrent -= 1;
 				}
-				
-				scoreUPDelayMax -= 0.5;
-				scoreUPDelayMax = max(max(0, 10 - scoreUPLevel), scoreUPDelayMax);
-				
-				print("Current level:", scoreUPLevel, ",Scroll (x):", additionalGameScrollSpeed, ", Max delay:",
-				      max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 12))));
-				
+				//레벨을 일정 주기로 높임
+				scoreUPLevel += 0.0007;
+				//스크롤 속도 높임
+				if (hellMode == true) {
+					additionalGameScrollSpeed = 3.2; //헬모드 속도 고정
+				} else if ( additionalGameScrollSpeed < 2.5) { //조금 빠르게 올림
+					additionalGameScrollSpeed = min(3, 1.2 + (scoreUPLevel / 4));
+				} else { //천천히 올림
+					additionalGameScrollSpeed = min(3, additionalGameScrollSpeed + 0.0001 );
+				}
+				//약간씩 중력 늘림 (스크롤 속도 비례)
+				gameGravity = max(1, additionalGameScrollSpeed / 2);
 			} else {
-				scoreUPDelayCurrent -= 1;
+				gameCharacterRetryADScoreTerm -= 1;
 			}
-			//레벨을 일정 주기로 높임
-			scoreUPLevel += 0.0007;
-			//스크롤 속도 높임
-			if (hellMode == true) {
-				additionalGameScrollSpeed = 3.2; //헬모드 속도 고정
-			} else if ( additionalGameScrollSpeed < 2.5) { //조금 빠르게 올림
-				additionalGameScrollSpeed = min(3, 1.2 + (scoreUPLevel / 4));
-			} else { //천천히 올림
-				additionalGameScrollSpeed = min(3, additionalGameScrollSpeed + 0.0001 );
-			}
-			//약간씩 중력 늘림 (스크롤 속도 비례)
-			gameGravity = max(1, additionalGameScrollSpeed / 2);
+			
+			
 		} // 스코어 관련 끝
 		
 		//Render time(or score)
@@ -1433,6 +1445,17 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	
 	/////////////
 	
+	func gameRestartWithAD() {
+		//광고가 캐릭터를 살린 경우
+		uiContents!.hideUISelectionWindow();
+		uiContents!.toggleMenu(false);
+		
+		gameFinishedBool = false;
+		scoreGameLife = maxScoreGameLife - 1;
+		gameCharacterUnlimitedLife = 300; //부활 무적시간
+		gameCharacterRetryADScoreTerm = 300; //이 무적시간동안은 스코어 증가 없음
+	}
+	
 	func gameOverRutine() {
 		//게임오버 처리 *use only UI available*
 		
@@ -1454,7 +1477,6 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		}
 		
 	} ////// 끝
-	
 	
 	/////////////
 	func updateWithSeconds() {
@@ -1571,35 +1593,14 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	}
 	
 	
-	/////////// UI Touch Interactions
-	/*func menuTouchesPauseResume() {
-		// 일시정지 / 계속 기능
-		togglePause();
-	}
-	func menuTouchesGuide() {
-		// 가이드
-		showGameGuideUI();
-	}
-	func menuTouchesSound() {
-		// 음소거
-		
-	}
-	func menuTouchesRestart() {
-		// 게임 재시작
-		showUISelectionWindow(1);
-	}
-	func menuTouchesStop() {
-		// 게임 정지
-		showUISelectionWindow(0);
-		
-	}*/
-	
 	//////////////////////////////////
 	
 	//일시정지 기능
 	func togglePause() {
 		isGamePaused = !isGamePaused;
 		uiContents!.toggleMenu( isGamePaused );
+		self.paused = false;
+		self.view!.paused = false;
 	}
 	func gameForceStopCallb() {
 		//강제 게임 정지의 경우 result 없이 바로 메인으로
@@ -1612,6 +1613,15 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	}
 	func gameRestartCallb() {
 		restartGame();
+	}
+	func gameADWatchCallb() {
+		//광고 보고 게임 이어하기 기능
+		UnityAdsManager.showUnityAD(GameModeView.jumpUPStartupViewController!, placementID: UnityAdsManager.PLACEMENT_GAMECONTINUE, callbackFunction: gameADWatchFinishedCallback);
+	}
+	func gameADWatchFinishedCallback() {
+		print("AD Finished");
+		
+		gameRestartWithAD();
 	}
 	
 	

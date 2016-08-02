@@ -358,6 +358,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			case "indieGames": tIconFileStr = "comp-icons-settings-newgames"; break;
 			case "credits": tIconFileStr = "comp-icons-settings-developers"; break;
 			case "gotoUPProject": tIconFileStr = "comp-icons-settings-projectup"; break;
+			case "languageChange": tIconFileStr = "comp-icons-settings-language"; break;
 			
 			case "buyUP": tIconFileStr = "comp-icons-shop-buy"; break;
 			case "restorePurchases": tIconFileStr = "comp-icons-shop-restore"; break;

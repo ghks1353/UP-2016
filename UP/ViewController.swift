@@ -531,11 +531,11 @@ class ViewController: UIViewController {
 			currentGroundImage = getBackgroundFileNameFromTime(components.hour);
 			if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 				GroundObj.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + "ground_" + currentGroundImage + ".png" );
+					SkinManager.getDefaultAssetPresets() + "ground-" + currentGroundImage + ".png" );
 			} else {
 				GroundObj.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + "ground_" + currentBackgroundImage + (
-						(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "_pad43" : "_pad34"
+					SkinManager.getDefaultAssetPresets() + "ground-" + currentBackgroundImage + (
+						(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 					) );
 			}
 		} else {
@@ -545,11 +545,11 @@ class ViewController: UIViewController {
 				currentGroundImage = getBackgroundFileNameFromTime(components.hour); //시간대 이미지 변경
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 					GroundObj.image = UIImage( named:
-						SkinManager.getDefaultAssetPresets() + "ground_" + currentGroundImage + ".png" );
+						SkinManager.getDefaultAssetPresets() + "ground-" + currentGroundImage + ".png" );
 				} else {
 					GroundObj.image = UIImage( named:
-						SkinManager.getDefaultAssetPresets() + "ground_" + currentBackgroundImage + (
-							(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "_pad43" : "_pad34"
+						SkinManager.getDefaultAssetPresets() + "ground-" + currentBackgroundImage + (
+							(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 						) );
 				}
 			}
@@ -563,27 +563,27 @@ class ViewController: UIViewController {
 			if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 				print("showing phone bg");
 				backgroundImageView.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
-					DeviceManager.scrSize!.height <= 480.0 ? "_4s" : ""
+					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "-back" + (
+					DeviceManager.scrSize!.height <= 480.0 ? "-4s" : ""
 					) );
 				backgroundImageFadeView.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
-					DeviceManager.scrSize!.height <= 480.0 ? "_4s" : ""
+					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "-back" + (
+					DeviceManager.scrSize!.height <= 480.0 ? "-4s" : ""
 					) );
 			} else {
 				print("showing pad bg");
 				backgroundImageView.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
-					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "_pad43" : "_pad34"
+					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "-back" + (
+					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 					) );
 				backgroundImageFadeView.image = UIImage( named:
 					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
-					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "_pad43" : "_pad34"
+					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 					) );
 			}
 			
 			backgroundImageFadeView.alpha = 0;
-			print("Scrsize",DeviceManager.scrSize?.height, (DeviceManager.scrSize?.height <= 480.0 ? "_4s" : ""));
+			print("Scrsize",DeviceManager.scrSize?.height, (DeviceManager.scrSize?.height <= 480.0 ? "-4s" : ""));
 		} else {
 			//이미지가 있을 경우, 시간대가 바뀌는 경우 바꾸고 페이드
 			if (currentBackgroundImage != getBackgroundFileNameFromTime(components.hour)) {
@@ -592,13 +592,13 @@ class ViewController: UIViewController {
 				backgroundImageFadeView.alpha = 1;
 				if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 					backgroundImageView.image = UIImage( named:
-						SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
-						DeviceManager.scrSize!.height <= 480.0 ? "_4s" : ""
+						SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "-back" + (
+						DeviceManager.scrSize!.height <= 480.0 ? "-4s" : ""
 						) );
 				} else {
 					backgroundImageView.image = UIImage( named:
-						SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
-						(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "_pad43" : "_pad34"
+						SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "-back" + (
+						(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 						) );
 				}
 				
@@ -608,13 +608,13 @@ class ViewController: UIViewController {
 						
 						if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
 							self.backgroundImageFadeView.image = UIImage( named:
-								SkinManager.getDefaultAssetPresets() + self.currentBackgroundImage + "_back" + (
-								DeviceManager.scrSize!.height <= 480.0 ? "_4s" : ""
+								SkinManager.getDefaultAssetPresets() + self.currentBackgroundImage + "-back" + (
+								DeviceManager.scrSize!.height <= 480.0 ? "-4s" : ""
 								) );
 						} else {
 							self.backgroundImageFadeView.image = UIImage( named:
-								SkinManager.getDefaultAssetPresets() + self.currentBackgroundImage + "_back" + (
-								(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "_pad43" : "_pad34"
+								SkinManager.getDefaultAssetPresets() + self.currentBackgroundImage + "-back" + (
+								(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 								) );
 						}
 						
@@ -705,25 +705,25 @@ class ViewController: UIViewController {
 			case 0: //기본 up 스킨
 				
 				//시계
-				AnalogBody.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time_body.png" );
+				AnalogBody.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-body.png" );
 				
-				AnalogHours.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time_hh.png" );
-				AnalogMinutes.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time_mh.png" );
-				AnalogSeconds.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time_sh.png" );
-				AnalogCenter.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time_ch.png" );
+				AnalogHours.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-hh.png" );
+				AnalogMinutes.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-mh.png" );
+				AnalogSeconds.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-sh.png" );
+				AnalogCenter.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-ch.png" );
 				
 				//떠있는 버튼
-				SettingsImg.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object_st.png" );
-				AlarmListImg.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object_list.png" );
+				SettingsImg.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object-st.png" );
+				AlarmListImg.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object-list.png" );
 				
-				GroundStatSign.image = UIImage( named: SkinManager.getAssetPresetsStatistics() + "stat_object.png" );
-				GroundStandingBox.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "standing_box.png" );
-				GroundFloatingBox.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "floating_box.png" );
+				GroundStatSign.image = UIImage( named: SkinManager.getAssetPresetsStatistics() + "stat-object.png" );
+				GroundStandingBox.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "standing-box.png" );
+				GroundFloatingBox.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "floating-box.png" );
 				
 				//기본 스킨 아스트로 애니메이션 (텍스쳐)
 				for i in 1...40 { //부동
 					let numberStr:String = String(i).characters.count == 1 ? "0" + String(i) : String(i);
-					let fileName:String = SkinManager.getAssetPresetsCharacter() + "character_" + "00" + numberStr + ".png";
+					let fileName:String = SkinManager.getAssetPresetsCharacter() + "character-" + "00" + numberStr + ".png";
 					let fImage:UIImage = UIImage( named: fileName )!;
 					astroMotionsStanding += [fImage];
 				} /* 아직 안쓰니까 주석처리함. 쓸때 다시 주석 품,
@@ -786,7 +786,7 @@ class ViewController: UIViewController {
 		//시계 바디 및 시침 분침 위치/크기조절
 		let clockScrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 - (CGFloat(240 * DeviceManager.maxScrRatioC) / 2));
 		let clockRightScrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 + (CGFloat(240 * DeviceManager.maxScrRatioC) / 2));
-		var clockScrY:CGFloat = CGFloat(DeviceManager.scrSize!.height / 2 - (CGFloat(240 * DeviceManager.maxScrRatio) / 2));
+		let clockScrY:CGFloat = CGFloat(DeviceManager.scrSize!.height / 2 - (CGFloat(240 * DeviceManager.maxScrRatio) / 2));
 		//clockScrY += 10 * DeviceManager.maxScrRatioC;
 		
 		AnalogHours.transform = CGAffineTransformIdentity; AnalogMinutes.transform = CGAffineTransformIdentity;
@@ -822,7 +822,7 @@ class ViewController: UIViewController {
 			//show pad ground
 			GroundObj.frame = CGRectMake( 0, (DeviceManager.scrSize?.height)! - 86 * DeviceManager.maxScrRatioC, (DeviceManager.scrSize!.width) , 86 * DeviceManager.maxScrRatioC );
 			GroundObj.image = UIImage( named:
-				SkinManager.getDefaultAssetPresets() + "ground_pad" + ((DeviceManager.scrSize!.width > DeviceManager.scrSize!.height) ? "34" : "43") + ".png" );
+				SkinManager.getDefaultAssetPresets() + "ground-pad" + ((DeviceManager.scrSize!.width > DeviceManager.scrSize!.height) ? "34" : "43") + ".png" );
 		}
 		
 		//캐릭터 크기 및 위치조정
@@ -891,8 +891,8 @@ class ViewController: UIViewController {
 			//배경의 자연스러운 변경 연출을 위한 애니메이션 효과 적용
 			currentBackgroundImage = getBackgroundFileNameFromTime(components.hour);
 			backgroundImageFadeView.image = backgroundImageView.image;
-			backgroundImageView.image = UIImage( named: currentBackgroundImage + "_back" + (
-				(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "_pad43" : "_pad34"
+			backgroundImageView.image = UIImage( named: currentBackgroundImage + "-back" + (
+				(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 				));
 			backgroundImageFadeView.alpha = 1;
 			backgroundImageView.alpha = 0;

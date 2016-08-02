@@ -309,9 +309,9 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 			case 1: //재시작
 				hideUISelectionWindow();
 				break;
-			case 2: //컨티뉴
-				if (gameShowADCallback != nil) {
-					gameShowADCallback!();
+			case 2: //컨티뉴de kyanseru osita bai
+				if (gameOverCallback != nil) {
+					gameOverCallback!();
 				}
 				//forceExitGame( true );
 				break;

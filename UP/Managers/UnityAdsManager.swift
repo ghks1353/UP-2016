@@ -24,8 +24,12 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 	}
 	
 	static func showUnityAD( viewController:UIViewController, placementID:String, callbackFunction:(() -> Void) ) {
-		UnityAds.show(viewController, placementId: placementID);
-		callbackFunc = callbackFunction;
+		if (UnityAds.isReady(placementID) == true) {
+			UnityAds.show(viewController, placementId: placementID);
+			callbackFunc = callbackFunction;
+		} else {
+			print("UnityAds " + placementID + " not ready");
+		}
 	}
 	
 	///////////////// instance functions

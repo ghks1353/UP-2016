@@ -40,6 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		//Gogle Analytics active
 		AnalyticsManager.initGoogleAnalytics();
 		
+		//Unityads init
+		UnityAdsManager.initManager();
+		
 		//로컬알림 (등)으로인해 앱실행된경우.
 		if let options = launchOptions {
 			if let notification = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {

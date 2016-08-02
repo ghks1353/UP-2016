@@ -20,7 +20,7 @@ class SkinManager {
 	static var selectedSkin_Character:String = "default";
 	
 	//스킨 접두어.
-	static var skinPresetStr:String = "skin_";
+	static var skinPresetStr:String = "skin-";
 	
 	// 시스템 스킨 종류 일람 /////
 	static var skins_Menus:Array<String> = [
@@ -37,16 +37,16 @@ class SkinManager {
 	]; /////////////////////
 	
 	static func getAssetPresetsMenus() -> String { //현재 선택된 메인 스킨에 대한 경로
-		return skinPresetStr + selectedSkin_Menus + "_";
+		return skinPresetStr + selectedSkin_Menus + "-";
 	}
 	static func getAssetPresetsStatistics() -> String { //통계 스킨
-		return skinPresetStr + selectedSkin_Statistics + "_";
+		return skinPresetStr + selectedSkin_Statistics + "-";
 	}
 	static func getAssetPresetsPlay() -> String { //게임하기 스킨
-		return skinPresetStr + selectedSkin_Play + "_";
+		return skinPresetStr + selectedSkin_Play + "-";
 	}
 	static func getAssetPresetsCharacter() -> String { //캐릭터 스킨
-		return skinPresetStr + selectedSkin_Character + "_";
+		return skinPresetStr + selectedSkin_Character + "-";
 	}
 	
 	//스킨명만 얻기
@@ -56,7 +56,7 @@ class SkinManager {
 	
 	static func getDefaultAssetPresets() -> String { //기본 스킨 디렉터리에서 불러와서 쓰는 것들만 해당
 		//Default 고정
-		return skinPresetStr + "default" + "_";
+		return skinPresetStr + "default" + "-";
 	}
 	
 }

@@ -471,9 +471,9 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 				alarmsCell[i].alarmToggled = targetElement.on; // on = true / off = false
 				
 				let bgFileName:String = getBackgroundFileNameFromTime(alarmsCell[i].timeHour);
-				let bgFileState:String = targetElement.on == true ? "on" : "off";
-				let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "_small" : "";
-				tImage = bgFileName + "_time_" + bgFileState + fileUsesSmallPrefix + ".png";
+				let bgFileState:String = (targetElement.on == true ? "on" : "off") + (UIDevice.currentDevice().userInterfaceIdiom == .Pad ? "-pad" : "");
+				let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "-small" : "";
+				tImage = bgFileName + "-time-" + bgFileState + fileUsesSmallPrefix + ".png";
 				//alarmsCell[i].backgroundImage!.image = UIImage(named: bgFileName + "_time_" + bgFileState + fileUsesSmallPrefix + ".png");
 				
 				//alarmsCell[i].alarmName!.textColor = alarmsCell[i].alarmToggled ? UIColor.whiteColor() : UIColor.blackColor();
@@ -559,10 +559,11 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tCell.alarmToggled = defaultState;
 		tSwitch.elementID = uuid;
 		
-		let tTimeImgName:String = defaultState == true ? "on" : "off";
+		let tTimeImgName:String = (defaultState == true ? "on" : "off") + (UIDevice.currentDevice().userInterfaceIdiom == .Pad ? "-pad" : "");
+		print("lis timgname is => " + tTimeImgName);
 		let bgFileName:String = getBackgroundFileNameFromTime(timeHour);
-		let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "_small" : "";
-		tTimeBackground.image = UIImage(named: bgFileName + "_time_" + tTimeImgName + fileUsesSmallPrefix + ".png");
+		let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "-small" : "";
+		tTimeBackground.image = UIImage(named: bgFileName + "-time-" + tTimeImgName + fileUsesSmallPrefix + ".png");
 		
 		tLabel.frame = CGRectMake(15, 50, self.modalView.view.frame.width * 0.7, 24); //알람 이름
 		tLabelTime.frame = CGRectMake(12, 4, 0, 0); //현재 시간
@@ -594,16 +595,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		tLabelTime.numberOfLines = 0;
 		tLabelTime.textAlignment = .Center;
-		/*
-		if #available(iOS 9.0, *) {
-			tLabelTime.font = UIFont.systemFontOfSize(44, weight: UIFontWeightThin); //iOS9 uses San fransisco font
-		} else {
-			tLabelTime.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 44);
-		}*/
 		
 		tLabelTime.font = UIFont(name: "SFUIDisplay-Ultralight", size: 41);
-		
-		
 		
 		tLabelTime.adjustsFontSizeToFitWidth = true;
 		tLabelTime.sizeToFit();
@@ -632,30 +625,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tSwitch.on = defaultState; tCell.addSubview(tSwitch);
 		
 		tCell.addSubview(tLabel); tCell.addSubview(tLabelTime); tCell.addSubview(tAMPMLabel); tCell.addSubview(tRepeatLabel);
-		
-		//이미지는 게임마다 따로분류
-		/*tGameImageBackground.image = UIImage(named: "game-thumb-background.png");
-		switch(selectedGame) {
-			case -1:
-				tGameImage.setImage(UIImage(named: "game-thumb-random.png"), forState: .Normal);
-				break;
-			case 0:
-				tGameImage.setImage(UIImage(named: "game-thumb-jumpup.png"), forState: .Normal);
-				break;
-			default:
-				tGameImage.setImage(UIImage(named: "game-thumb-sample.png"), forState: .Normal);
-				break;
-		}
-		
-		//오른쪽에 정렬
-		tGameImage.frame = CGRectMake(self.modalView.view.frame.width - 12 - 56, 12, 56, 56);
-		tGameImageBackground.frame = tGameImage.frame;
-		tCell.addSubview(tGameImageBackground); tCell.addSubview(tGameImage);
-		
-		tGameImage.tag = uuid; //UUID로 리스트 찾기를 위함
-		
-		//스위치 변경 이벤트
-		tGameImage.addTarget(self, action: #selector(AlarmListView.alarmSwitchChangedEventHandler(_:)), forControlEvents: UIControlEvents.TouchUpInside);*/
 		
 		//스위치 변경 이벤트
 		tSwitch.addTarget(self, action: #selector(AlarmListView.alarmSwitchChangedEventHandler(_:)), forControlEvents: UIControlEvents.ValueChanged);

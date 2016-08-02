@@ -70,7 +70,7 @@ class AlarmRingView:UIViewController {
 			} //end switch
 			
 			//게임 중간에 조는 것 관련한 핸들링
-			UPUtils.setInterval(1, block: asleepTimeCheckFunc);
+			asleepTimer = UPUtils.setInterval(1, block: asleepTimeCheckFunc);
 			
 		} //end element chk
 		

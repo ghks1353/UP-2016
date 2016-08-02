@@ -129,13 +129,18 @@ class LanguageSetupView:UIViewController, UITableViewDataSource, UITableViewDele
 	
 	func createCell( name:String, menuID:String ) -> CustomTableCell {
 		let tCell:CustomTableCell = CustomTableCell();
-		let tLabel:UILabel = UILabel();
+		let tLabel:UILabel = UILabel(); var tIconFileStr:String = "";
 		
+		switch(menuID) {
+			case "default": tIconFileStr = "comp-icons-settings-language"; break;
+			case "ko", "ja", "en": tIconFileStr = "comp-icons-settings-language-" + menuID; break;
+			default: tIconFileStr = "comp-icons-settings-experiments"; break;
+		}
 		tCell.cellID = menuID;
 		
-		let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
+		let tIconImg:UIImageView = UIImageView(); var tIconWPadding:CGFloat = 0;
 		tIconImg.frame = CGRectMake(12, 6, 31.3, 31.3);
-		tIconFileStr = "comp-icons-settings-experiments";
+		
 		tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8;
 		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
 		

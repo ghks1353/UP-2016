@@ -44,6 +44,10 @@ class GameTitleViewJumpUP:UIViewController {
 	}
 	
 	override func viewDidAppear(animated: Bool) {
+		if (jumpUPGameScene != nil) {
+			return;
+		}
+		
 		print("JumpUP gameview appear event");
 		
 		//View load func
