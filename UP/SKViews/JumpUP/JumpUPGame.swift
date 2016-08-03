@@ -127,14 +127,14 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	
 	//Life nodes
 	var gameLifeNodesArray:Array<SKSpriteNode> = []; // 생성해놓고 상태 변화에 따라 그림의 변경을 줌.
-	var gameLifeOnTexture:SKTexture = SKTexture(imageNamed: "game_jumpup_assets_life_on.png");
-	var gameLifeOffTexture:SKTexture = SKTexture(imageNamed: "game_jumpup_assets_life_off.png");
+	var gameLifeOnTexture:SKTexture = SKTexture(imageNamed: "game-jumpup-assets-life-on.png");
+	var gameLifeOffTexture:SKTexture = SKTexture(imageNamed: "game-jumpup-assets-life-off.png");
 	
 	//Character element
 	var characterElement:JumpUpElements?;// = JumpUpElements();
 	
 	//캐릭터 경고등
-	var characterWarningSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_warning.png" ) );
+	var characterWarningSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-warning.png" ) );
 	
 	//판정 완화의 정도
 	let characterRatherboxX:CGFloat = 140 * DeviceManager.scrRatioC;
@@ -214,7 +214,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		
 		if (gameStartupType == 0) {
 			//time
-			gameScoreTitleImageTexture = SKTexture( imageNamed: "game_jumpup_assets_time_time.png" );
+			gameScoreTitleImageTexture = SKTexture( imageNamed: "game-jumpup-assets-time.png" );
 			gameScoreTitleImage = SKSpriteNode( texture: gameScoreTitleImageTexture );
 			
 			if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
@@ -241,7 +241,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			addCountdownTimerForAlarm();
 		} else {
 			//score
-			gameScoreTitleImageTexture = SKTexture( imageNamed: "game_jumpup_assets_time_score.png" );
+			gameScoreTitleImageTexture = SKTexture( imageNamed: "game-jumpup-assets-score.png" );
 			gameScoreTitleImage = SKSpriteNode( texture: gameScoreTitleImageTexture );
 			
 			if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
@@ -346,14 +346,14 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 					6 - fucking cloud
 					7 - trap (fly)
 				*/
-				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_1.png" ),
-				SKTexture( imageNamed: "game_jumpup_assets_time_trap.png" ),
-				SKTexture( imageNamed: "game_jumpup_assets_time_box.png" ),
-				SKTexture( imageNamed: "game_jumpup_assets_time_box2.png" ),
-				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_2.png" ),
-				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_3.png" ),
-				SKTexture( imageNamed: "game_jumpup_assets_time_cloud_4.png" ),
-				SKTexture( imageNamed: "game_jumpup_assets_time_trap_2.png" )
+				SKTexture( imageNamed: "game-jumpup-assets-cloud_1.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-trap.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-box.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-box2.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-cloud_2.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-cloud_3.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-cloud_4.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-trap_2.png" )
 			];
 			
 			//Preload textures
@@ -368,7 +368,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			gameTexturesAIEffectsArray += [ Array<SKTexture>() ]; //빈 텍스쳐 배열을 만들고 그 안에 텍스쳐들 넣음.
 			for i in 0 ..< 22 {
 				gameTexturesAIEffectsArray[0] += [
-					SKTexture( imageNamed: "game_jumpup_assets_time_ai_j_astro_effect" + String(i) + ".png")
+					SKTexture( imageNamed: "game-jumpup-assets-ai-j-astro-effect" + String(i) + ".png")
 				];
 				// Preload texture (reduce fps drop)
 				(gameTexturesAIEffectsArray[0][i] as SKTexture).preloadWithCompletionHandler({});
@@ -396,7 +396,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		if (characterElement!.motions_walking.count == 0) {
 			for i:Int in 0 ..< 6 {
 				characterElement!.motions_walking += [
-					SKTexture( imageNamed: "game_jumpup_astro_" + SkinManager.getSelectedSkinCharacter() + "_move_" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jumpup-astro-" + SkinManager.getSelectedSkinCharacter() + "-move-" + String(i) + ".png" )
 				]; //Character motions preload
 				(characterElement!.motions_walking[i] as SKTexture).preloadWithCompletionHandler({});
 			}
@@ -404,7 +404,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		if (characterElement!.motions_jumping.count == 0) {
 			for i:Int in 0 ..< 8 {
 				characterElement!.motions_jumping += [
-					SKTexture( imageNamed: "game_jumpup_astro_" + SkinManager.getSelectedSkinCharacter() + "_jump_" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jumpup-astro-" + SkinManager.getSelectedSkinCharacter() + "-jump-" + String(i) + ".png" )
 				]; //Character motions preload
 				(characterElement!.motions_jumping[i] as SKTexture).preloadWithCompletionHandler({});
 			}
@@ -414,7 +414,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		if (gameTexturesAIMoveTexturesArray.count == 0) {
 			for i:Int in 0 ..< 6 {
 				gameTexturesAIMoveTexturesArray += [
-					SKTexture( imageNamed: "game_jumpup_ai_astro_move" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jumpup-ai-astro-move" + String(i) + ".png" )
 				];
 				(gameTexturesAIMoveTexturesArray[i] as SKTexture).preloadWithCompletionHandler({});
 			}
@@ -422,7 +422,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		if (gameTexturesAIJMoveTexturesArray.count == 0) {
 			for i:Int in 0 ..< 6 {
 				gameTexturesAIJMoveTexturesArray += [
-					SKTexture( imageNamed: "game_jumpup_ai_j_astro_move" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jumpup-ai-j-astro-move" + String(i) + ".png" )
 				];
 				(gameTexturesAIJMoveTexturesArray[i] as SKTexture).preloadWithCompletionHandler({});
 			}
@@ -430,7 +430,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		if (gameTexturesAIJJumpTexturesArray.count == 0) {
 			for i:Int in 0 ..< 7 {
 				gameTexturesAIJJumpTexturesArray += [
-					SKTexture( imageNamed: "game_jumpup_ai_j_astro_jump" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jumpup-ai-j-astro-jump" + String(i) + ".png" )
 				];
 				(gameTexturesAIJJumpTexturesArray[i] as SKTexture).preloadWithCompletionHandler({});
 			}
@@ -438,7 +438,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		if (gameTexturesAIFlyTexturesArray.count == 0) {
 			for i:Int in 0 ..< 6 {
 				gameTexturesAIFlyTexturesArray += [
-					SKTexture( imageNamed: "game_jump_ai_astro_fly" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jump-ai-astro-fly" + String(i) + ".png" )
 				];
 				(gameTexturesAIFlyTexturesArray[i] as SKTexture).preloadWithCompletionHandler({});
 			}
@@ -446,7 +446,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		if (gameTexturesAIJFlyTexturesArray.count == 0) {
 			for i:Int in 0 ..< 6 {
 				gameTexturesAIJFlyTexturesArray += [
-					SKTexture( imageNamed: "game_jump_ai_j_astro_fly" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jump-ai-j-astro-fly" + String(i) + ".png" )
 				];
 				(gameTexturesAIJFlyTexturesArray[i] as SKTexture).preloadWithCompletionHandler({});
 			}

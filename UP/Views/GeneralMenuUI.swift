@@ -73,7 +73,7 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 	func setGame( gameID:Int ) {
 		switch(gameID) {
 			case 0: //jumpup
-				windowGuidesNamePreset = "game_jumpup_assets_guide_";
+				windowGuidesNamePreset = "game-jumpup-assets-guide-";
 				windowGuidesLength = 4;
 				break;
 			default: break;

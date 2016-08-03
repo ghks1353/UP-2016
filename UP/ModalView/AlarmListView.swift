@@ -494,6 +494,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		if (statusChanged == true) {
 			var tChangeBG:UIImageView? = UIImageView( image: targetCell!.backgroundImage!.image );
 			tChangeBG!.frame = targetCell!.backgroundImage!.frame;
+			tChangeBG!.contentMode = .ScaleAspectFill;
 			targetCell!.addSubview(tChangeBG!); targetCell!.sendSubviewToBack(tChangeBG!);
 			targetCell!.backgroundImage!.frame = CGRectMake(0, 80 /* 초기값 위로 */, self.modalView.view.frame.width, 80);
 			targetCell!.backgroundImage!.image = UIImage( named: tImage ); //new img
@@ -564,6 +565,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		let bgFileName:String = getBackgroundFileNameFromTime(timeHour);
 		let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "-small" : "";
 		tTimeBackground.image = UIImage(named: bgFileName + "-time-" + tTimeImgName + fileUsesSmallPrefix + ".png");
+		tTimeBackground.contentMode = .ScaleAspectFill;
 		
 		tLabel.frame = CGRectMake(15, 50, self.modalView.view.frame.width * 0.7, 24); //알람 이름
 		tLabelTime.frame = CGRectMake(12, 4, 0, 0); //현재 시간
