@@ -18,10 +18,15 @@ class JumpUpElements:SKSpriteNode {
 	static let TYPE_EFFECT:Int = 3;
 	static let TYPE_SHADOW:Int = 4;
 	
+	static let STYLE_NORMAL:String = "normal";
+	static let STYLE_AI:String = "ai"; //for graphic fix
+	
 	/////////
 	internal var elementType:Int = 0; //default is decoration
 	internal var elementSpeed:Double = 1; //default is scroll speed (or 1)
 	internal var elementFlag:Int = 0; //게임 틱 시 특별한 유닛 구분을 위함
+	
+	internal var elementStyleType:String = "normal"; //일부 위치 픽스를 위한 값
 	
 	//element vars flag
 	internal var elementTickFlag:Int = 0; //점프 비헤이비어 등의 flag를 위함
