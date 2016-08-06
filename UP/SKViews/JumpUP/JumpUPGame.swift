@@ -30,16 +30,14 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	
 	var gameFinishedBool:Bool = false; // 게임이 완전히 끝나면 타이머 다시 늘어나는 등의 동작 없음
 	
-	//뒤 배경 (Fallback code)
-	//var backgroundCoverImageTexture:SKTexture = SKTexture(imageNamed: "game-jumpup-assets-time-background.png");
-	//var backgroundCoverImage:SKSpriteNode?;
+	//움직이는 뒷 배경
+	var repeatBackgroundTexture:SKTexture = SKTexture( imageNamed: "game-jumpup-assets-background.png" );
+	var repeatBackgroundNodes:Array<SKSpriteNode> = [];
+	var repeatBackgroundContainer:SKNode = SKNode();
 	
 	//게임 끝나거나 포기 버튼
 	var buttonRetireSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-retire.png" ) );
 	var buttonAlarmOffSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-alram-off.png" ) );
-	//var buttonAlarmOnSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game_jumpup_assets_time_alram_reset.png" ) );
-	
-	//var gameTipTextField:UILabel = UILabel();
 	
 	//게임 종료 / 포기 버튼이 생기는 Y위치
 	var buttonYAxis:CGFloat = 0;
@@ -65,8 +63,9 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	var mapObject:SKNode = SKNode(); //효과, 흔들림 등으로 쓸 맵 오브젝트
 	
 	var gameStageYAxis:CGFloat = 0; var gameStageYHeight:CGFloat = 0;
+	var gameStageYFoot:CGFloat = 0; //gravity 0 position
 	var gameScrollSpeed:Double = 1; //왼쪽으로 흘러가는 게임 스크롤 스피드.
-	var additionalGameScrollSpeed:Double = 1; //추가 게임 스크롤 스피드
+	var additionalGameScrollSpeed:Double = 1.2; //추가 게임 스크롤 스피드
 	
 	var gameGravity:Double = 1; //추가 게임 중력.
 	
@@ -141,8 +140,8 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	let characterRatherboxY:CGFloat = 125 * DeviceManager.scrRatioC;
 	let nodeRatherboxX:CGFloat = 4 * DeviceManager.scrRatioC;
 	let nodeRatherboxY:CGFloat = 4 * DeviceManager.scrRatioC;
-	let aiRatherboxX:CGFloat = 12 * DeviceManager.scrRatioC;
-	let aiRatherboxY:CGFloat = 12 * DeviceManager.scrRatioC;
+	let aiRatherboxX:CGFloat = 16 * DeviceManager.scrRatioC;
+	let aiRatherboxY:CGFloat = 16 * DeviceManager.scrRatioC;
 	
 	
 	/////// 통계를 위한 데이터 변수
@@ -181,15 +180,18 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		//맵오브젝트 생성
 		mapObject.position = CGPointMake(0, 0);
 		self.addChild(mapObject);
+		mapObject.addChild(repeatBackgroundContainer);
 		
-		//게임 백그라운드 화면 추가
-		/*
-		backgroundCoverImage = SKSpriteNode( texture: backgroundCoverImageTexture );
-		backgroundCoverImage!.size = CGSizeMake( self.view!.frame.width, 226.95 * DeviceManager.scrRatioC );
-		backgroundCoverImage!.position.x = self.view!.frame.width / 2; backgroundCoverImage!.position.y = self.view!.frame.height / 2;
-		mapObject.addChild(backgroundCoverImage!);
-		backgroundCoverImage!.hidden = true;
-		*/
+		//게임 스크롤 뒷 배경 추가 (스크롤은 업데이트에서)
+		for i:Int in 0 ..< 2 {
+			//add 2 nodes
+			let nBackground:SKSpriteNode = SKSpriteNode( texture: repeatBackgroundTexture );
+			nBackground.size = CGSizeMake( self.view!.frame.width, 226.95 * DeviceManager.scrRatioC );
+			nBackground.position = CGPointMake( CGFloat(i) * self.view!.frame.width + (self.view!.frame.width / 2), self.view!.frame.height / 2 );
+			
+			repeatBackgroundNodes += [nBackground];
+			repeatBackgroundContainer.addChild(nBackground);
+		}
 		
 		let bgPositionRect:CGRect = CGRectMake( self.view!.frame.width / 2, self.view!.frame.height / 2,
 		self.view!.frame.width, 226.95 * DeviceManager.scrRatioC );
@@ -197,22 +199,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		//실제 게임 스테이지 y값
 		gameStageYAxis = bgPositionRect.minY + (bgPositionRect.height / 2);
 		gameStageYHeight = bgPositionRect.height;
-		
-		//게임 팁 표시할 텍스트 추가
-		/*gameTipTextField.textColor = UIColor.whiteColor();
-		gameTipTextField.frame = CGRectMake(
-			12 * DeviceManager.scrRatioC,
-			gameStageYAxis + (48 * DeviceManager.scrRatioC),
-			self.view!.frame.width - (12 * DeviceManager.scrRatioC),
-			24 * DeviceManager.scrRatioC
-		);
-		gameTipTextField.text = "테스트 텍스트";
-		gameTipTextField.textAlignment = .Center;
-		gameTipTextField.font = UIFont.systemFontOfSize(18); //절대 크기로 사용
-		self.view!.addSubview(gameTipTextField);
-		
-		//영상을 위해 잠시 가림
-		gameTipTextField.hidden = true;*/
+		gameStageYFoot = gameStageYAxis - gameStageYHeight / 2 - (32 * DeviceManager.scrRatioC);
 		
 		//time 혹은 score 추가 (실행 타입에 따라 바뀜)
 		gameScoreStr = "";
@@ -354,15 +341,25 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 					5 - more smile cloud
 					6 - fucking cloud
 					7 - trap (fly)
+					8, 9 - normal cloud (another design)
+				
+					10, 11, 12 - tiny / small / big shadows
 				*/
-				SKTexture( imageNamed: "game-jumpup-assets-cloud-1.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-cloud-2.png" ),
 				SKTexture( imageNamed: "game-jumpup-assets-trap.png" ),
 				SKTexture( imageNamed: "game-jumpup-assets-box.png" ),
 				SKTexture( imageNamed: "game-jumpup-assets-box2.png" ),
-				SKTexture( imageNamed: "game-jumpup-assets-cloud-2.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-cloud-1.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-cloud-5.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-cloud-6.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-trap-2.png" ),
 				SKTexture( imageNamed: "game-jumpup-assets-cloud-3.png" ),
 				SKTexture( imageNamed: "game-jumpup-assets-cloud-4.png" ),
-				SKTexture( imageNamed: "game-jumpup-assets-trap-2.png" )
+				
+				SKTexture( imageNamed: "game-jumpup-assets-shadow-tiny.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-shadow-small.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-shadow-big.png" )
+				
 			];
 			
 			//Preload textures
@@ -388,7 +385,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		//기존 배열에 노드가 있을경우 삭제
 		delAllElementsFromArray();
 		
-		characterMinYAxis = gameStageYAxis - gameStageYHeight + (32 * DeviceManager.scrRatioC);
+		characterMinYAxis = gameStageYFoot + (32 * DeviceManager.scrRatioC);
 		
 		//캐릭터 추가
 		characterElement = JumpUpElements(); //60, 70이 원래 크기였음
@@ -647,6 +644,16 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			}
 		} //////// 제스처 처리 끝
 		
+		//백그라운드 흐름 효과
+		for bgi:Int in 0 ..< repeatBackgroundNodes.count {
+			repeatBackgroundNodes[bgi].position.x -= CGFloat(additionalGameScrollSpeed);
+			if (repeatBackgroundNodes[bgi].position.x < -repeatBackgroundNodes[bgi].size.width / 2) {
+				repeatBackgroundNodes[bgi].position.x =
+					(bgi == repeatBackgroundNodes.count - 1 ? repeatBackgroundNodes[0].position.x : repeatBackgroundNodes[bgi + 1].position.x)
+				+ self.view!.frame.width - (2 * DeviceManager.scrRatioC);
+			}
+		}
+		
 		//화면 흔들림 효과
 		let defWid:CGFloat = (mapObject.zRotation / MATHPI) * (self.view!.frame.width);
 		if (gameScreenShakeEventDelay > 0) {
@@ -746,7 +753,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				if (hellMode == true) {
 					additionalGameScrollSpeed = 3.2; //헬모드 속도 고정
 				} else if ( additionalGameScrollSpeed < 2.5) { //조금 빠르게 올림
-					additionalGameScrollSpeed = min(3, 1.2 + (scoreUPLevel / 4));
+					additionalGameScrollSpeed = min(3, 1.24 + (scoreUPLevel / 4));
 				} else { //천천히 올림
 					additionalGameScrollSpeed = min(3, additionalGameScrollSpeed + 0.0001 );
 				}
@@ -1010,10 +1017,20 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 					break;
 				case JumpUpElements.TYPE_EFFECT:
 					//print("Effect status", gameNodesArray[i]!.elementTargetElement);
-					if (gameNodesArray[i]!.elementTargetElement != nil) {
-						gameNodesArray[i]!.position.x = gameNodesArray[i]!.elementTargetElement!.position.x + gameNodesArray[i]!.elementTargetPosFix!.width;
-						gameNodesArray[i]!.position.y = gameNodesArray[i]!.elementTargetElement!.position.y + gameNodesArray[i]!.elementTargetPosFix!.height;
+					if (gameNodesArray[i]!.elementTargetElement != nil && gameNodesArray[i]!.elementTargetElement!.parent != nil) {
+						switch(gameNodesArray[i]!.elementStyleType) {
+							case JumpUpElements.STYLE_SHADOW:
+								gameNodesArray[i]!.position.x = gameNodesArray[i]!.elementTargetElement!.position.x + gameNodesArray[i]!.elementTargetPosFix!.width;
+								gameNodesArray[i]!.position.y = gameStageYFoot + gameNodesArray[i]!.elementTargetPosFix!.height;
+								break;
+							default:
+								gameNodesArray[i]!.position.x = gameNodesArray[i]!.elementTargetElement!.position.x + gameNodesArray[i]!.elementTargetPosFix!.width;
+								gameNodesArray[i]!.position.y = gameNodesArray[i]!.elementTargetElement!.position.y + gameNodesArray[i]!.elementTargetPosFix!.height;
+								break;
+						}
 						//print("Moving effect to target.");
+					} else {
+						gameNodesArray[i]!.position.x -= CGFloat(gameScrollSpeed * gameNodesArray[i]!.elementSpeed * additionalGameScrollSpeed) * DeviceManager.scrRatioC;
 					}
 					
 					break;
@@ -1034,6 +1051,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 					break;
 				default: //화면 왼쪽에서 없어짐
 					if (gameNodesArray[i]!.position.x < -gameNodesArray[i]!.size.width / 2) { //remove
+						//print("Disposing type " + String(gameNodesArray[i]!.elementType));
 						gameNodesArray[i]!.removeFromParent(); gameNodesArray[i] = nil;
 						gameNodesArray.removeAtIndex(i);
 						continue;
@@ -1063,7 +1081,6 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 								}
 								break;
 							case 1: //Jump motion
-								//print("idx:" + String(i) + ", jump total " + String(gameNodesArray[i]!.motions_jumping.count) + ", idx: " + String(gameNodesArray[i]!.motions_current_frame));
 								gameNodesArray[i]!.texture = gameNodesArray[i]!.motions_jumping[gameNodesArray[i]!.motions_current_frame];
 								gameNodesArray[i]!.motions_frame_delay_left = 5; //per 5f
 								if (gameNodesArray[i]!.motions_current_frame >= gameNodesArray[i]!.motions_jumping.count - 1) {
@@ -1118,8 +1135,8 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 							}
 							
 							gameNodesArray[i]!.position.y += (gameNodesArray[i]!.ySpeed / 2) * DeviceManager.scrRatioC;
-							if (gameNodesArray[i]!.position.y <= 1 + gameStageYAxis - gameStageYHeight + additionalYFixAxis + (gameNodesArray[i]!.size.height / 2)) {
-								gameNodesArray[i]!.position.y = gameStageYAxis - gameStageYHeight + additionalYFixAxis + (gameNodesArray[i]!.size.height / 2);
+							if (gameNodesArray[i]!.position.y <= 1 + gameStageYFoot + additionalYFixAxis + (gameNodesArray[i]!.size.height / 2)) {
+								gameNodesArray[i]!.position.y = gameStageYFoot + additionalYFixAxis + (gameNodesArray[i]!.size.height / 2);
 								gameNodesArray[i]!.ySpeed = 0;
 								gameNodesArray[i]!.changeMotion(0); //walking motion
 								gameNodesArray[i]!.jumpFlaggedCount = 0; //점프횟수 초기화
@@ -1211,7 +1228,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 						gameNodesArray[i]!.elementTickFlag = 1;
 					} else if (gameNodesArray[i]!.elementTickFlag == 1
 						&& gameNodesArray[i]!.position.x < (160 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.85))) * DeviceManager.scrRatioC ) {
-						gameNodesArray[i]!.ySpeed = 14 * max(1, CGFloat(gameGravity / 1.3));
+						gameNodesArray[i]!.ySpeed = 14 * max(1, CGFloat(gameGravity / 1.1));
 						gameNodesArray[i]!.elementTickFlag = 2;
 					}
 					break;
@@ -1257,40 +1274,59 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	} //end of tick
 	
 	//node add func
-	func addNodes( elementType:Int, posX:CGFloat = 0, posY:CGFloat = 0, targetElement:SKSpriteNode? = nil ) {
+	func addNodes( elementType:Int, posX:CGFloat = 0, posY:CGFloat = 0, targetElement:JumpUpElements? = nil ) {
 		var toAddelement:JumpUpElements?; // = JumpUpElements();
+		var addTargetChild:Bool = false;
+		
 		switch(elementType){
 			case 0: //0 - Cloud for decoration
-				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[0] );
+				
+				//랜덤으로 구름의 종류 (3가지) 중 하나로 결정
+				switch( Int(arc4random_uniform( 3 )) ) {
+					case 0:
+						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[0] );
+						toAddelement!.size = CGSizeMake( 132.65 * DeviceManager.scrRatioC , 32.15 * DeviceManager.scrRatioC );
+						break;
+					case 1:
+						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[8] );
+						toAddelement!.size = CGSizeMake( 100.5 * DeviceManager.scrRatioC , 24.1 * DeviceManager.scrRatioC );
+						break;
+					case 2:
+						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[9] );
+						toAddelement!.size = CGSizeMake( 100.45 * DeviceManager.scrRatioC , 24.1 * DeviceManager.scrRatioC );
+						break;
+					default:
+						
+						break;
+				}
+				
+				
 				toAddelement!.elementType = JumpUpElements.TYPE_DECORATION;
-				toAddelement!.size = CGSizeMake( 94.05 * DeviceManager.scrRatioC , 24.4 * DeviceManager.scrRatioC );
+				
+				toAddelement!.elementTargetPosFix = CGSizeMake( 0, (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 52) * DeviceManager.scrRatioC) );
+				
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) - (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 56) * DeviceManager.scrRatioC);
-				//구름 종류 증식 (찌그러짐 ^^)
-				toAddelement!.yScale = 1.0 - CGFloat(Float(arc4random()) / Float(UINT32_MAX)) / 3;
+					(gameStageYAxis - toAddelement!.size.height) + toAddelement!.elementTargetPosFix!.height;
+				toAddelement!.alpha = 0.8;
 				
-				toAddelement!.elementSpeed = 1.1 + Double(Float(arc4random()) / Float(UINT32_MAX)) / 9;
+				toAddelement!.elementSpeed = 1.1 + Double(Float(arc4random()) / Float(UINT32_MAX)) / 7;
 				break;
 			case 1, 2, 3:
 				/* 1 - fuc**ng trap
 					2 - **cking box
 					3 - triple-fu**ing box */
-				/*
-				game_jumpup_assets_time_box: 24.8 X 21.8
-				game_jumpup_assets_time_box2: 34.75 X 60.35
-				*/
 				
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[elementType] );
 				switch(elementType) {
 					case 1:
-						toAddelement!.size = CGSizeMake( 39.4 * DeviceManager.scrRatioC , 9.2 * DeviceManager.scrRatioC );
+						toAddelement!.size = CGSizeMake( 52.25 * DeviceManager.scrRatioC , 20.1 * DeviceManager.scrRatioC );
 						break;
 					case 2:
-						toAddelement!.size = CGSizeMake( 18.4 * DeviceManager.scrRatioC , 16.2 * DeviceManager.scrRatioC );
+						toAddelement!.size = CGSizeMake( 28.15 * DeviceManager.scrRatioC , 24.1 * DeviceManager.scrRatioC );
 						break;
 					case 3:
-						toAddelement!.size = CGSizeMake( 34.75 * DeviceManager.scrRatioC , 60.35 * DeviceManager.scrRatioC );
+						toAddelement!.size = CGSizeMake( 40.2 * DeviceManager.scrRatioC , 56.25 * DeviceManager.scrRatioC );
 						break;
 					default: break;
 				}
@@ -1298,7 +1334,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 											/* y fit to bottom of stage */
-				toAddelement!.position.y = gameStageYAxis - gameStageYHeight + (toAddelement!.size.height / 2);
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2);
 				toAddelement!.elementSpeed = 1.8; //속도.
 				
 				break;
@@ -1310,7 +1346,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				/* y fit to bottom of stage */
-				toAddelement!.position.y = gameStageYAxis - gameStageYHeight + (toAddelement!.size.height / 2);
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2);
 				
 				if (gameStartupType == 1) {
 					toAddelement!.elementSpeed = 2.2; //일반게임은 속도를 좀 줄임
@@ -1333,7 +1369,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				/* y fit to bottom of stage */
-				toAddelement!.position.y = gameStageYAxis - gameStageYHeight + (toAddelement!.size.height / 2);
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2);
 				if (gameStartupType == 1) {
 					toAddelement!.elementSpeed = 2.2; //일반게임은 속도를 좀 줄임
 				} else {
@@ -1385,7 +1421,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				
 				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
-				toAddelement!.position.y = gameStageYAxis - gameStageYHeight + (toAddelement!.size.height / 2);
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2);
 				toAddelement!.elementSpeed = 1.8; //속도.
 				toAddelement!.elementFlag = 4; //빠르게 위로 솟구치는 장애물.
 				break;
@@ -1397,7 +1433,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				/* fly */
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) - (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 24) * DeviceManager.scrRatioC);
+					(gameStageYAxis - toAddelement!.size.height) + (CGFloat(60 + Double(Float(arc4random()) / Float(UINT32_MAX)) * 38) * DeviceManager.scrRatioC);
 				
 				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI;
 				
@@ -1415,7 +1451,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				/* fly */
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) - (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 24) * DeviceManager.scrRatioC);
+					(gameStageYAxis - toAddelement!.size.height) + (CGFloat(60 + Double(Float(arc4random()) / Float(UINT32_MAX)) * 38) * DeviceManager.scrRatioC);
 				
 				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI;
 				
@@ -1432,7 +1468,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
 				toAddelement!.position.x = -toAddelement!.size.width / 2; //왼쪽에서 시작
 				/* y fit to bottom of stage */
-				toAddelement!.position.y = gameStageYAxis - gameStageYHeight + (toAddelement!.size.height / 2) + (48 * DeviceManager.scrRatioC);
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2) + (48 * DeviceManager.scrRatioC);
 				toAddelement!.elementSpeed = -1.6; //속도. -로하면 반대로 감
 				toAddelement!.xScale = -1;
 				toAddelement!.ySpeed = 10 * max(1, CGFloat(gameGravity / 1.3)); //약간 점프한 상태
@@ -1457,7 +1493,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				toAddelement!.elementTargetElement = targetElement;
 				
 				if (targetElement == nil) {
-					print("boom effect target is null.");
+					print("effect target is null.");
 				}
 				
 				toAddelement!.elementSpeed = 0; //타겟이 정해져있는경우 타겟에 맞춰서 움직일테니.
@@ -1476,15 +1512,110 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				toAddelement!.motions_current = -1; //모션없음
 				toAddelement!.texture = targetElement!.texture; //그 순간의 모션이기 때문에 텍스쳐 박제
 				break;
+			case 10002:
+				//작은(tiny) 그림자
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[10] );
+				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
+				toAddelement!.size = CGSizeMake( 76.35 * DeviceManager.scrRatioC, 32.15 * DeviceManager.scrRatioC );
+				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
+				
+				//약간의 위치조정.
+				toAddelement!.elementTargetPosFix = CGSizeMake( 0, 0 );
+				// - 2 * DeviceManager.scrRatioC
+				toAddelement!.elementTargetElement = targetElement;
+				
+				if (targetElement == nil) {
+					print("effect target is null.");
+				}
+				
+				toAddelement!.elementSpeed = targetElement!.elementSpeed; //follow original target element speed
+				toAddelement!.motions_current = -1; //그림자는 모션없음
+				toAddelement!.elementFlag = 0;
+				
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW;
+				targetElement!.removeFromParent();
+				addTargetChild = true;
+				break;
+			case 10003:
+				//캐릭터 전용(tiny) 그림자
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[10] );
+				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
+				toAddelement!.size = CGSizeMake( 76.35 * DeviceManager.scrRatioC, 32.15 * DeviceManager.scrRatioC );
+				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
+				
+				//약간의 위치조정.
+				toAddelement!.elementTargetPosFix = CGSizeMake( 0, 4 * DeviceManager.scrRatioC );
+				// - 2 * DeviceManager.scrRatioC
+				toAddelement!.elementTargetElement = targetElement;
+				
+				if (targetElement == nil) {
+					print("effect target is null.");
+				}
+				
+				toAddelement!.elementSpeed = targetElement!.elementSpeed; //follow original target element speed
+				toAddelement!.motions_current = -1; //그림자는 모션없음
+				toAddelement!.elementFlag = 0;
+				
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW;
+				targetElement!.removeFromParent();
+				addTargetChild = true;
+				break;
+			case 10004:
+				//큰 그림자 (주로 구름 밑)
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[12] );
+				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
+				toAddelement!.size = CGSizeMake( 168.8 * DeviceManager.scrRatioC, 56.25 * DeviceManager.scrRatioC );
+				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
+				
+				//약간의 위치조정.
+				toAddelement!.elementTargetPosFix = CGSizeMake( 0, targetElement!.elementTargetPosFix!.height / 2 );
+				
+				toAddelement!.elementTargetElement = targetElement;
+				
+				if (targetElement == nil) {
+					print("effect target is null.");
+				}
+				
+				toAddelement!.elementSpeed = targetElement!.elementSpeed; //follow original target element speed
+				toAddelement!.motions_current = -1; //그림자는 모션없음
+				toAddelement!.elementFlag = 0;
+				
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW;
+				targetElement!.removeFromParent();
+				addTargetChild = true;
+				
+				break;
 			
 			default: break;
 		}
 		
 		toAddelement!.zPosition = 1; //behind of character
 		mapObject.addChild(toAddelement!);
+		
+		if (addTargetChild) {
+			mapObject.addChild(targetElement!);
+		}
+		
 		gameNodesArray += [toAddelement];
 		
+		//그림자 생성 할 물건이 있으면 함
 		
+		switch(elementType){
+			case 0: //cloud
+				addNodes( 10004, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+				break;
+			case 1,2,3: //trap, box, box2
+				
+				addNodes( 10002, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+
+				break;
+			case 4,5: //shadow for chars
+				
+				addNodes( 10003, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+				
+				break;
+			default: break;
+		}
 	}
 	
 	/////////////

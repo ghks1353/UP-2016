@@ -20,6 +20,7 @@ class JumpUpElements:SKSpriteNode {
 	
 	static let STYLE_NORMAL:String = "normal";
 	static let STYLE_AI:String = "ai"; //for graphic fix
+	static let STYLE_SHADOW:String = "shadow";
 	
 	/////////
 	internal var elementType:Int = 0; //default is decoration

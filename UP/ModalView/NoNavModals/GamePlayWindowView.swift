@@ -181,7 +181,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		currentGameID = gameID;
 		switch ( gameID ) {
 			case 0:
-				gamePreviewImageView!.animateWithImage(named: "game_jumpup_assets_playpreview.gif");
+				gamePreviewImageView!.animateWithImage(named: "game-jumpup-assets-playpreview.gif");
 				break;
 			default: break;
 		}

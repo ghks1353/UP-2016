@@ -186,7 +186,6 @@
 		03DDD82A1CEB9A49007C026D /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8261CEB9A49007C026D /* en.json */; };
 		03DDD82B1CEB9A49007C026D /* ja.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8271CEB9A49007C026D /* ja.json */; };
 		03DDD82C1CEB9A49007C026D /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8281CEB9A49007C026D /* ko.json */; };
-		03DDD82D1CEB9A49007C026D /* waldo.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8291CEB9A49007C026D /* waldo.json */; };
 		03DDD8371CEB9D07007C026D /* comp-icons-datacategory-alltouches.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8301CEB9D07007C026D /* comp-icons-datacategory-alltouches.png */; };
 		03DDD8381CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8311CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png */; };
 		03DDD8391CEB9D07007C026D /* comp-icons-datacategory-compratio.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8321CEB9D07007C026D /* comp-icons-datacategory-compratio.png */; };
@@ -360,7 +359,6 @@
 		775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBEE1C4FC4C700B52552 /* Assets.xcassets */; };
 		775EAF981D51E2EF00BE8C4A /* game-jumpup-assets-alram-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF861D51E2EF00BE8C4A /* game-jumpup-assets-alram-off.png */; };
 		775EAF991D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF871D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png */; };
-		775EAF9A1D51E2EF00BE8C4A /* game-jumpup-assets-bigshadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF881D51E2EF00BE8C4A /* game-jumpup-assets-bigshadow.png */; };
 		775EAF9B1D51E2EF00BE8C4A /* game-jumpup-assets-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF891D51E2EF00BE8C4A /* game-jumpup-assets-box.png */; };
 		775EAF9C1D51E2EF00BE8C4A /* game-jumpup-assets-box2.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF8A1D51E2EF00BE8C4A /* game-jumpup-assets-box2.png */; };
 		775EAF9D1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF8B1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-1.png */; };
@@ -369,10 +367,8 @@
 		775EAFA01D51E2EF00BE8C4A /* game-jumpup-assets-cloud-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF8E1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-4.png */; };
 		775EAFA11D51E2EF00BE8C4A /* game-jumpup-assets-cloud-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF8F1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-5.png */; };
 		775EAFA21D51E2EF00BE8C4A /* game-jumpup-assets-cloud-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF901D51E2EF00BE8C4A /* game-jumpup-assets-cloud-6.png */; };
-		775EAFA31D51E2EF00BE8C4A /* game-jumpup-assets-object-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF911D51E2EF00BE8C4A /* game-jumpup-assets-object-shadow.png */; };
 		775EAFA41D51E2EF00BE8C4A /* game-jumpup-assets-retire.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF921D51E2EF00BE8C4A /* game-jumpup-assets-retire.png */; };
 		775EAFA51D51E2EF00BE8C4A /* game-jumpup-assets-score.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF931D51E2EF00BE8C4A /* game-jumpup-assets-score.png */; };
-		775EAFA61D51E2EF00BE8C4A /* game-jumpup-assets-small-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF941D51E2EF00BE8C4A /* game-jumpup-assets-small-shadow.png */; };
 		775EAFA71D51E2EF00BE8C4A /* game-jumpup-assets-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF951D51E2EF00BE8C4A /* game-jumpup-assets-time.png */; };
 		775EAFA81D51E2EF00BE8C4A /* game-jumpup-assets-trap-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF961D51E2EF00BE8C4A /* game-jumpup-assets-trap-2.png */; };
 		775EAFA91D51E2EF00BE8C4A /* game-jumpup-assets-trap.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF971D51E2EF00BE8C4A /* game-jumpup-assets-trap.png */; };
@@ -441,6 +437,11 @@
 		775EB05B1D524C7800BE8C4A /* game-jumpup-assets-warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EB05A1D524C7800BE8C4A /* game-jumpup-assets-warning.png */; };
 		775EB05D1D52544900BE8C4A /* game-jumpup-assets-life-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EB05C1D52544900BE8C4A /* game-jumpup-assets-life-on.png */; };
 		775EB05F1D5255DC00BE8C4A /* game-jumpup-assets-life-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EB05E1D5255DC00BE8C4A /* game-jumpup-assets-life-off.png */; };
+		776FF7BC1D545C0800E88B1A /* game-jumpup-assets-playpreview.gif in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7BB1D545C0700E88B1A /* game-jumpup-assets-playpreview.gif */; };
+		776FF7BE1D55B15600E88B1A /* game-jumpup-assets-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7BD1D55B15600E88B1A /* game-jumpup-assets-background.png */; };
+		776FF7C21D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7BF1D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png */; };
+		776FF7C31D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7C01D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png */; };
+		776FF7C41D55B15D00E88B1A /* game-jumpup-assets-shadow-tiny.png in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7C11D55B15D00E88B1A /* game-jumpup-assets-shadow-tiny.png */; };
 		77782E651C92B0B00016EE1B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E591C92B0B00016EE1B /* CGFloat+Extensions.swift */; };
 		77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5A1C92B0B00016EE1B /* CGPoint+Extensions.swift */; };
 		77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5B1C92B0B00016EE1B /* CGVector+Extensions.swift */; };
@@ -724,7 +725,6 @@
 		03DDD8261CEB9A49007C026D /* en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = en.json; path = LangResources/en.json; sourceTree = "<group>"; };
 		03DDD8271CEB9A49007C026D /* ja.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ja.json; path = LangResources/ja.json; sourceTree = "<group>"; };
 		03DDD8281CEB9A49007C026D /* ko.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ko.json; path = LangResources/ko.json; sourceTree = "<group>"; };
-		03DDD8291CEB9A49007C026D /* waldo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = waldo.json; path = LangResources/waldo.json; sourceTree = "<group>"; };
 		03DDD8301CEB9D07007C026D /* comp-icons-datacategory-alltouches.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-datacategory-alltouches.png"; path = "ImageAssets/Components/Icons/comp-icons-datacategory-alltouches.png"; sourceTree = "<group>"; };
 		03DDD8311CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-datacategory-asleepcount.png"; path = "ImageAssets/Components/Icons/comp-icons-datacategory-asleepcount.png"; sourceTree = "<group>"; };
 		03DDD8321CEB9D07007C026D /* comp-icons-datacategory-compratio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-datacategory-compratio.png"; path = "ImageAssets/Components/Icons/comp-icons-datacategory-compratio.png"; sourceTree = "<group>"; };
@@ -901,7 +901,6 @@
 		775ADBF91C4FC78100B52552 /* UP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UP.entitlements; sourceTree = "<group>"; };
 		775EAF861D51E2EF00BE8C4A /* game-jumpup-assets-alram-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-alram-off.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-alram-off.png"; sourceTree = "<group>"; };
 		775EAF871D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-alram-reset.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-alram-reset.png"; sourceTree = "<group>"; };
-		775EAF881D51E2EF00BE8C4A /* game-jumpup-assets-bigshadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-bigshadow.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-bigshadow.png"; sourceTree = "<group>"; };
 		775EAF891D51E2EF00BE8C4A /* game-jumpup-assets-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-box.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-box.png"; sourceTree = "<group>"; };
 		775EAF8A1D51E2EF00BE8C4A /* game-jumpup-assets-box2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-box2.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-box2.png"; sourceTree = "<group>"; };
 		775EAF8B1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-cloud-1.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-cloud-1.png"; sourceTree = "<group>"; };
@@ -910,10 +909,8 @@
 		775EAF8E1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-cloud-4.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-cloud-4.png"; sourceTree = "<group>"; };
 		775EAF8F1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-cloud-5.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-cloud-5.png"; sourceTree = "<group>"; };
 		775EAF901D51E2EF00BE8C4A /* game-jumpup-assets-cloud-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-cloud-6.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-cloud-6.png"; sourceTree = "<group>"; };
-		775EAF911D51E2EF00BE8C4A /* game-jumpup-assets-object-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-object-shadow.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-object-shadow.png"; sourceTree = "<group>"; };
 		775EAF921D51E2EF00BE8C4A /* game-jumpup-assets-retire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-retire.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-retire.png"; sourceTree = "<group>"; };
 		775EAF931D51E2EF00BE8C4A /* game-jumpup-assets-score.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-score.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-score.png"; sourceTree = "<group>"; };
-		775EAF941D51E2EF00BE8C4A /* game-jumpup-assets-small-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-small-shadow.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-small-shadow.png"; sourceTree = "<group>"; };
 		775EAF951D51E2EF00BE8C4A /* game-jumpup-assets-time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-time.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-time.png"; sourceTree = "<group>"; };
 		775EAF961D51E2EF00BE8C4A /* game-jumpup-assets-trap-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-trap-2.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-trap-2.png"; sourceTree = "<group>"; };
 		775EAF971D51E2EF00BE8C4A /* game-jumpup-assets-trap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-trap.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-trap.png"; sourceTree = "<group>"; };
@@ -982,6 +979,11 @@
 		775EB05A1D524C7800BE8C4A /* game-jumpup-assets-warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-warning.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-warning.png"; sourceTree = "<group>"; };
 		775EB05C1D52544900BE8C4A /* game-jumpup-assets-life-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-life-on.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-life-on.png"; sourceTree = "<group>"; };
 		775EB05E1D5255DC00BE8C4A /* game-jumpup-assets-life-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-life-off.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-life-off.png"; sourceTree = "<group>"; };
+		776FF7BB1D545C0700E88B1A /* game-jumpup-assets-playpreview.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "game-jumpup-assets-playpreview.gif"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-playpreview.gif"; sourceTree = "<group>"; };
+		776FF7BD1D55B15600E88B1A /* game-jumpup-assets-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-background.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-background.png"; sourceTree = "<group>"; };
+		776FF7BF1D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-big.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-big.png"; sourceTree = "<group>"; };
+		776FF7C01D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-small.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-small.png"; sourceTree = "<group>"; };
+		776FF7C11D55B15D00E88B1A /* game-jumpup-assets-shadow-tiny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny.png"; sourceTree = "<group>"; };
 		77782E591C92B0B00016EE1B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGFloat+Extensions.swift"; path = "SKTUtils/CGFloat+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		77782E5A1C92B0B00016EE1B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGPoint+Extensions.swift"; path = "SKTUtils/CGPoint+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		77782E5B1C92B0B00016EE1B /* CGVector+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGVector+Extensions.swift"; path = "SKTUtils/CGVector+Extensions.swift"; sourceTree = SOURCE_ROOT; };
@@ -1480,7 +1482,6 @@
 				77232C911C848CCA006E221A /* game-start-button.png */,
 				775EAF861D51E2EF00BE8C4A /* game-jumpup-assets-alram-off.png */,
 				775EAF871D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png */,
-				775EAF881D51E2EF00BE8C4A /* game-jumpup-assets-bigshadow.png */,
 				775EAF891D51E2EF00BE8C4A /* game-jumpup-assets-box.png */,
 				775EAF8A1D51E2EF00BE8C4A /* game-jumpup-assets-box2.png */,
 				775EAF8B1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-1.png */,
@@ -1489,16 +1490,19 @@
 				775EAF8E1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-4.png */,
 				775EAF8F1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-5.png */,
 				775EAF901D51E2EF00BE8C4A /* game-jumpup-assets-cloud-6.png */,
-				775EAF911D51E2EF00BE8C4A /* game-jumpup-assets-object-shadow.png */,
 				775EAF921D51E2EF00BE8C4A /* game-jumpup-assets-retire.png */,
 				775EAF931D51E2EF00BE8C4A /* game-jumpup-assets-score.png */,
-				775EAF941D51E2EF00BE8C4A /* game-jumpup-assets-small-shadow.png */,
 				775EAF951D51E2EF00BE8C4A /* game-jumpup-assets-time.png */,
 				775EAF961D51E2EF00BE8C4A /* game-jumpup-assets-trap-2.png */,
 				775EAF971D51E2EF00BE8C4A /* game-jumpup-assets-trap.png */,
 				775EB05A1D524C7800BE8C4A /* game-jumpup-assets-warning.png */,
 				775EB05C1D52544900BE8C4A /* game-jumpup-assets-life-on.png */,
 				775EB05E1D5255DC00BE8C4A /* game-jumpup-assets-life-off.png */,
+				776FF7BB1D545C0700E88B1A /* game-jumpup-assets-playpreview.gif */,
+				776FF7BD1D55B15600E88B1A /* game-jumpup-assets-background.png */,
+				776FF7BF1D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png */,
+				776FF7C01D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png */,
+				776FF7C11D55B15D00E88B1A /* game-jumpup-assets-shadow-tiny.png */,
 			);
 			name = JumpUP;
 			sourceTree = "<group>";
@@ -1540,7 +1544,6 @@
 				03DDD8261CEB9A49007C026D /* en.json */,
 				03DDD8271CEB9A49007C026D /* ja.json */,
 				03DDD8281CEB9A49007C026D /* ko.json */,
-				03DDD8291CEB9A49007C026D /* waldo.json */,
 			);
 			name = Languages;
 			sourceTree = "<group>";
@@ -2310,6 +2313,7 @@
 				032536B31D187D23004C6293 /* modal-mask-result-sns.png in Resources */,
 				77561E981D50C884002EB26B /* a-time-on-small.png in Resources */,
 				77561E8D1D50C86B002EB26B /* d-time-off-pad.png in Resources */,
+				776FF7BE1D55B15600E88B1A /* game-jumpup-assets-background.png in Resources */,
 				77561E0F1D50C21A002EB26B /* skin-default-character-0021.png in Resources */,
 				77561E7E1D50C85D002EB26B /* d-time-on.png in Resources */,
 				03DDD82B1CEB9A49007C026D /* ja.json in Resources */,
@@ -2382,7 +2386,6 @@
 				775EAFA01D51E2EF00BE8C4A /* game-jumpup-assets-cloud-4.png in Resources */,
 				032536B71D1978E7004C6293 /* result-time.png in Resources */,
 				0383DB891CF617010009D5DE /* AchievementList.json in Resources */,
-				03DDD82D1CEB9A49007C026D /* waldo.json in Resources */,
 				032318E71CFB4B670052732F /* result-game-background.png in Resources */,
 				77561E971D50C884002EB26B /* a-time-off-small.png in Resources */,
 				775EAFA91D51E2EF00BE8C4A /* game-jumpup-assets-trap.png in Resources */,
@@ -2399,12 +2402,12 @@
 				775EB05B1D524C7800BE8C4A /* game-jumpup-assets-warning.png in Resources */,
 				77561EAC1D50CAB9002EB26B /* skin-default-time-body.png in Resources */,
 				03B18E561D20DB5800972101 /* modal-guide-images-en-7-general.png in Resources */,
-				775EAFA31D51E2EF00BE8C4A /* game-jumpup-assets-object-shadow.png in Resources */,
 				775EB0561D51E64F00BE8C4A /* game-jumpup-assets-guide-0.png in Resources */,
 				775EAFB31D51E3B900BE8C4A /* game-jumpup-astro-default-jump-4.png in Resources */,
 				779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */,
 				775EB0241D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect0.png in Resources */,
 				77561E031D50C21A002EB26B /* skin-default-character-0009.png in Resources */,
+				776FF7C31D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png in Resources */,
 				77561E081D50C21A002EB26B /* skin-default-character-0014.png in Resources */,
 				77561E8E1D50C86B002EB26B /* d-time-on-pad.png in Resources */,
 				775EB0301D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect12.png in Resources */,
@@ -2490,6 +2493,7 @@
 				03B18E5A1D20DB5800972101 /* modal-guide-images-ja-4-general.png in Resources */,
 				775EB0381D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect20.png in Resources */,
 				77FBE6841C6DCBAA00E251A2 /* game-thumb-background.png in Resources */,
+				776FF7C41D55B15D00E88B1A /* game-jumpup-assets-shadow-tiny.png in Resources */,
 				775EB02A1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect6.png in Resources */,
 				03E1D12A1CF0BC7000B552FC /* characterinfo-level.png in Resources */,
 				77561E051D50C21A002EB26B /* skin-default-character-0011.png in Resources */,
@@ -2521,7 +2525,6 @@
 				77561E201D50C21A002EB26B /* skin-default-character-0038.png in Resources */,
 				775EAFD41D51E40F00BE8C4A /* game-jumpup-ai-j-astro-move2.png in Resources */,
 				77561E4B1D50C2F2002EB26B /* skin-default-black-4.png in Resources */,
-				775EAFA61D51E2EF00BE8C4A /* game-jumpup-assets-small-shadow.png in Resources */,
 				77561EB01D50CAB9002EB26B /* skin-default-time-sh.png in Resources */,
 				77561E1D1D50C21A002EB26B /* skin-default-character-0035.png in Resources */,
 				032318CF1CFA686E0052732F /* result-best.png in Resources */,
@@ -2579,7 +2582,6 @@
 				77561EAF1D50CAB9002EB26B /* skin-default-time-mh.png in Resources */,
 				77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */,
 				03C14D0D1D2539D60078D10C /* game-general-window-btn-ok.png in Resources */,
-				775EAF9A1D51E2EF00BE8C4A /* game-jumpup-assets-bigshadow.png in Resources */,
 				77561E151D50C21A002EB26B /* skin-default-character-0027.png in Resources */,
 				775EB0421D51E61F00BE8C4A /* game-jump-ai-j-astro-fly2.png in Resources */,
 				032318C21CFA1D010052732F /* achievements-item.png in Resources */,
@@ -2593,7 +2595,9 @@
 				775EAFA51D51E2EF00BE8C4A /* game-jumpup-assets-score.png in Resources */,
 				77561E7A1D50C85D002EB26B /* b-time-on.png in Resources */,
 				775EB0591D51E64F00BE8C4A /* game-jumpup-assets-guide-3.png in Resources */,
+				776FF7BC1D545C0800E88B1A /* game-jumpup-assets-playpreview.gif in Resources */,
 				77561E7D1D50C85D002EB26B /* d-time-off.png in Resources */,
+				776FF7C21D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png in Resources */,
 				77561DCD1D50C1BF002EB26B /* skin-default-c-back-pad43.png in Resources */,
 				77561E641D50C354002EB26B /* skin-default-ground-b-pad34.png in Resources */,
 				03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */,
