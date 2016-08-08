@@ -462,6 +462,10 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		characterElement!.zPosition = 2;
 		mapObject.addChild(characterElement!);
 		
+		//make character's shadow
+		addNodes( 10003, posX: characterElement!.position.x, posY: characterElement!.position.y, targetElement: characterElement! );
+		
+		
 		// 일시정지 / 재생 혹은 버그 (나와도 타이머 흐름) 방지를 위한 코드
 		let nCenter = NSNotificationCenter.defaultCenter();
 		nCenter.addObserver(self, selector: #selector(JumpUPGame.appEnteredToBackground), name: UIApplicationDidEnterBackgroundNotification, object: nil);
@@ -718,6 +722,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				} else {
 					hellModeBackgroundCurrentDelay -= 1;
 				}
+				repeatBackgroundContainer.alpha = repeatBackgroundContainer.alpha > 0 ? repeatBackgroundContainer.alpha - 0.01 : 0;
 			} //헬모드 효과 끝
 			
 			if (gameCharacterRetryADScoreTerm <= 0) {
@@ -742,20 +747,20 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 					scoreUPDelayMax = max(max(0, 10 - scoreUPLevel), scoreUPDelayMax);
 					
 					print("Current level:", scoreUPLevel, ",Scroll (x):", additionalGameScrollSpeed, ", Max delay:",
-						  max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 12))));
+						  max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 10))));
 					
 				} else {
 					scoreUPDelayCurrent -= 1;
 				}
 				//레벨을 일정 주기로 높임
-				scoreUPLevel += 0.0007;
+				scoreUPLevel += 0.0009;
 				//스크롤 속도 높임
 				if (hellMode == true) {
-					additionalGameScrollSpeed = 3.2; //헬모드 속도 고정
+					additionalGameScrollSpeed = 3.5; //헬모드 속도 고정
 				} else if ( additionalGameScrollSpeed < 2.5) { //조금 빠르게 올림
-					additionalGameScrollSpeed = min(3, 1.24 + (scoreUPLevel / 4));
+					additionalGameScrollSpeed = min(3.25, 1.24 + (scoreUPLevel / 4));
 				} else { //천천히 올림
-					additionalGameScrollSpeed = min(3, additionalGameScrollSpeed + 0.0001 );
+					additionalGameScrollSpeed = min(3.25, additionalGameScrollSpeed + 0.0002 );
 				}
 				//약간씩 중력 늘림 (스크롤 속도 비례)
 				gameGravity = max(1, additionalGameScrollSpeed / 2);
@@ -914,7 +919,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 						self.addNodes( gameRdmElementNum );
 					}
 					
-					gameEnemyGenerateDelay = max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 12)));
+					gameEnemyGenerateDelay = max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 10)));
 					//스코어 레벨에 따라 관리
 					//해보니까 빠른속도에 50이하로 내려가긴 힘듬
 					
@@ -1277,6 +1282,10 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	func addNodes( elementType:Int, posX:CGFloat = 0, posY:CGFloat = 0, targetElement:JumpUpElements? = nil ) {
 		var toAddelement:JumpUpElements?; // = JumpUpElements();
 		var addTargetChild:Bool = false;
+		var ignoresForceZPosition:Bool = false;
+		
+		//shadow flags
+		var shadowFlags:Int = -1;
 		
 		switch(elementType){
 			case 0: //0 - Cloud for decoration
@@ -1290,19 +1299,21 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 					case 1:
 						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[8] );
 						toAddelement!.size = CGSizeMake( 100.5 * DeviceManager.scrRatioC , 24.1 * DeviceManager.scrRatioC );
+						shadowFlags = 0;
 						break;
 					case 2:
 						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[9] );
 						toAddelement!.size = CGSizeMake( 100.45 * DeviceManager.scrRatioC , 24.1 * DeviceManager.scrRatioC );
+						shadowFlags = 0;
 						break;
 					default:
 						
 						break;
 				}
 				
+				ignoresForceZPosition = true;
 				
 				toAddelement!.elementType = JumpUpElements.TYPE_DECORATION;
-				
 				toAddelement!.elementTargetPosFix = CGSizeMake( 0, (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 52) * DeviceManager.scrRatioC) );
 				
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
@@ -1390,34 +1401,41 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				//페이크 구름
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[6] );
 				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
-				toAddelement!.size = CGSizeMake( 94.05 * DeviceManager.scrRatioC , 24.4 * DeviceManager.scrRatioC );
+				toAddelement!.size = CGSizeMake( 92.3 * DeviceManager.scrRatioC , 25.15 * DeviceManager.scrRatioC );
+				
+				toAddelement!.elementTargetPosFix = CGSizeMake( 0, 48 + (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 12) * DeviceManager.scrRatioC) );
+				
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) - (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 56) * DeviceManager.scrRatioC);
-				//구름 종류 증식 (찌그러짐 ^^)
-				toAddelement!.yScale = 1.0 - CGFloat(Float(arc4random()) / Float(UINT32_MAX)) / 3;
+					(gameStageYAxis - toAddelement!.size.height) + toAddelement!.elementTargetPosFix!.height;
 				
 				toAddelement!.elementSpeed = 1.8; // + Double(Float(arc4random()) / Float(UINT32_MAX)) / 9;
 				toAddelement!.elementFlag = 2; //고정형 (물리 안받음)
 				
+				ignoresForceZPosition = true;
 				break;
 			case 7:
 				//페이크 구름 2. (떨어지는 구름)
-				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[4] );
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[5] );
 				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY; //static이지만 나중에 dynamic으로 바뀜.
-				toAddelement!.size = CGSizeMake( 94.05 * DeviceManager.scrRatioC , 24.4 * DeviceManager.scrRatioC );
+				toAddelement!.size = CGSizeMake( 92.3 * DeviceManager.scrRatioC , 25.95 * DeviceManager.scrRatioC );
+				
+				toAddelement!.elementTargetPosFix = CGSizeMake( 0, 0 );
+				
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width / 2;
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) - (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 32) * DeviceManager.scrRatioC);
+					(gameStageYAxis - toAddelement!.size.height) + (48 + (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 12) * DeviceManager.scrRatioC));
 				
 				toAddelement!.motions_current = -1;
 				toAddelement!.elementFlag = 3; //고정형 (물리 안받음), 그리고 중간에 형태 변경
 				toAddelement!.elementSpeed = 1.8;
+				
+				ignoresForceZPosition = true;
 				break;
 			case 8:
 				//솟구치는 가시 (...)
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[7] );
-				toAddelement!.size = CGSizeMake( 54.15 * DeviceManager.scrRatioC , 20.7 * DeviceManager.scrRatioC );
+				toAddelement!.size = CGSizeMake( 52.25 * DeviceManager.scrRatioC , 20.1 * DeviceManager.scrRatioC );
 				
 				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
@@ -1433,7 +1451,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				/* fly */
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) + (CGFloat(60 + Double(Float(arc4random()) / Float(UINT32_MAX)) * 38) * DeviceManager.scrRatioC);
+					(gameStageYAxis - toAddelement!.size.height) + (CGFloat(80 + Double(Float(arc4random()) / Float(UINT32_MAX)) * 18) * DeviceManager.scrRatioC);
 				
 				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI;
 				
@@ -1451,7 +1469,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				/* fly */
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) + (CGFloat(60 + Double(Float(arc4random()) / Float(UINT32_MAX)) * 38) * DeviceManager.scrRatioC);
+					(gameStageYAxis - toAddelement!.size.height) + (CGFloat(80 + Double(Float(arc4random()) / Float(UINT32_MAX)) * 18) * DeviceManager.scrRatioC);
 				
 				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI;
 				
@@ -1585,11 +1603,40 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				addTargetChild = true;
 				
 				break;
+			case 10005:
+				//Shadow (small)
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[12] );
+				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
+				toAddelement!.size = CGSizeMake( 104.5 * DeviceManager.scrRatioC, 36.15 * DeviceManager.scrRatioC );
+				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
+				
+				//약간의 위치조정.
+				toAddelement!.elementTargetPosFix = CGSizeMake( 0, targetElement!.elementTargetPosFix!.height / 2 );
+				toAddelement!.elementTargetElement = targetElement;
+				
+				if (targetElement == nil) {
+					print("effect target is null.");
+				}
+				
+				toAddelement!.elementSpeed = targetElement!.elementSpeed; //follow original target element speed
+				toAddelement!.motions_current = -1; //그림자는 모션없음
+				toAddelement!.elementFlag = 0;
+				
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW;
+				targetElement!.removeFromParent();
+				addTargetChild = true;
+				break;
+				
 			
 			default: break;
 		}
 		
-		toAddelement!.zPosition = 1; //behind of character
+		if (ignoresForceZPosition == false) {
+			toAddelement!.zPosition = 1; //behind of character
+		} else {
+			toAddelement!.zPosition = 3; //front of character
+		}
+		
 		mapObject.addChild(toAddelement!);
 		
 		if (addTargetChild) {
@@ -1602,16 +1649,26 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		
 		switch(elementType){
 			case 0: //cloud
-				addNodes( 10004, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+				if(shadowFlags == 0) {
+					//Add normal size shadows
+					addNodes( 10005, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+				} else {
+					//Add big shadows
+					addNodes( 10004, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+				}
 				break;
-			case 1,2,3: //trap, box, box2
+			case 1,2,3,8: //trap, box, box2
 				
 				addNodes( 10002, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
 
 				break;
-			case 4,5: //shadow for chars
+			case 4,5,9,10,11: //shadow for chars
 				
 				addNodes( 10003, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+				
+				break;
+			case 6,7: //shadow for trap clouds.
+				addNodes( 10005, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
 				
 				break;
 			default: break;
