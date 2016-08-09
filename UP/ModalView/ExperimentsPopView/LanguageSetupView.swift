@@ -124,7 +124,7 @@ class LanguageSetupView:UIViewController, UITableViewDataSource, UITableViewDele
 		return 38;
 	}
 	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 48;
+		return 52;
 	}
 	
 	func createCell( name:String, menuID:String ) -> CustomTableCell {

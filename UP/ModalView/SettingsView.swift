@@ -85,7 +85,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
             ],
             [ /* SECTION 4 */
 				createSettingsOnlyLabel( "Additional settings", menuID: "experiments-notallowed-alarms"),
-				createSettingsOnlyLabel( "Testing information", menuID: "experiments-test-info")
+				createSettingsOnlyLabel( "Technical info", menuID: "experiments-test-info")
 			]
             
         ];

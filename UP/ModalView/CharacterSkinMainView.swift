@@ -15,6 +15,21 @@ class CharacterSkinMainView:UIViewController {
 	//클래스 외부접근을 위함
 	static var selfView:CharacterSkinMainView?;
 	
+	//스킨 종류들 이미지.
+	var analogClockImageView:UIImageView = UIImageView();
+	var analogClockHoursImageView:UIImageView = UIImageView();
+	var analogClockMinutesImageView:UIImageView = UIImageView();
+	var analogClockSecondsImageView:UIImageView = UIImageView();
+	var analogClockCenterImageView:UIImageView = UIImageView();
+	
+	var menuSettingsImageView:UIImageView = UIImageView();
+	var menuListImageView:UIImageView = UIImageView();
+	
+	var groundStatisticsImageView:UIImageView = UIImageView();
+	var groundGamesStandingImageView:UIImageView = UIImageView();
+	var groundGamesFloatingImageView:UIImageView = UIImageView();
+	var groundCharacterImageView:UIImageView = UIImageView();
+	
 	override func viewDidLoad() {
 		super.viewDidLoad();
 		CharacterSkinMainView.selfView = self;
@@ -41,6 +56,31 @@ class CharacterSkinMainView:UIViewController {
 		
 		self.view.addSubview(skinBackground); //subview for background
 		
+	}
+	
+	func setImagesToCurrentSkin() {
+		
+		analogClockImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-body.png" );
+		
+		analogClockHoursImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-hh.png" );
+		analogClockMinutesImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-mh.png" );
+		analogClockSecondsImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-sh.png" );
+		analogClockCenterImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-ch.png" );
+		
+		//떠있는 버튼
+		menuSettingsImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object-st.png" );
+		menuListImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object-list.png" );
+		
+		groundStatisticsImageView.image = UIImage( named: SkinManager.getAssetPresetsStatistics() + "stat-object.png" );
+		groundGamesStandingImageView.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "standing-box.png" );
+		groundGamesFloatingImageView.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "floating-box.png" );
+		
+		groundCharacterImageView.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character-" + "0001" + ".png" );
+		
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		setImagesToCurrentSkin();
 	}
 	
 	func popToRootAction() {

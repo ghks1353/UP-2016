@@ -304,7 +304,7 @@ class DataManager {
 	
 	//// 타임스탬프를 계산하여 연, 월, 일을 나누고 같은 날은 평균으로 계산한다.
 	static func getAlarmGraphData( daysCategory:Int = 0, dataPointSelection:Int = 0 ) -> Array<StatsDataElement>? {
-		//daysCategory 0 - 주, 1 - 월, 2 - 년
+		//daysCategory 0 - 주, 1 - 월, 2 - 년, 3 - All
 		//id가 큰것 하나만 얻어서 (id desc limit 1), 해당 날짜를 구한 다음, 해당 날짜의 타임스탬프 첫 시작일을 구함
 		//그 다음, 거기서 카테고리에 따라 3600 * 일 만큼 뺀 부분부터 데이터 집계를 시작하면 됨.
 		//그 다음 모은 데이터들을 for돌리면서 날짜를 구한다음(아마 숫자로도 할수있을듯), 같은 날짜의 경우 평균을 구함
@@ -323,7 +323,7 @@ class DataManager {
 		var toReturnDatasArray:Array<StatsDataElement>?;
 		var seekTablePointer:Table?;
 		
-		var goalToFetchDataDays:Int = 0;
+		var goalToFetchDataDays:Int = -1;
 		switch(daysCategory) {
 			case 0:
 				goalToFetchDataDays = 7; //일주일 데이터
@@ -333,6 +333,9 @@ class DataManager {
 				break;
 			case 2:
 				goalToFetchDataDays = 365; //1년치 데이터.
+				break;
+			case 3:
+				goalToFetchDataDays = -1;
 				break;
 			default: break;
 		}
@@ -371,7 +374,11 @@ class DataManager {
 				targetDate = NSCalendar.currentCalendar().dateFromComponents(components)!;
 				
 				//1일치 시간 * (구할 시간 - 1) + 23시간 59분 59초치 시간
-				dataSeekStartTimeStamp = Int(targetDate.timeIntervalSince1970) - (86400 * goalToFetchDataDays);
+				if (goalToFetchDataDays == -1) {
+					dataSeekStartTimeStamp = 0;
+				} else {
+					dataSeekStartTimeStamp = Int(targetDate.timeIntervalSince1970) - (86400 * goalToFetchDataDays);
+				}
 				print( "Latest id:", dbResult[ Expression<Int64>("id") ], ", time:", dbResult[ Expression<Int64>("date") ], "days start:", targetDate.timeIntervalSince1970 );
 				print(" Data time seek start is:", dataSeekStartTimeStamp);
 			} //end for
@@ -551,7 +558,9 @@ class DataManager {
 			//빈 배열 리턴
 		} else {
 			//데이터값 일수에 맞게 자르기
-			toReturnDatasArray = Array(toReturnDatasArray![ max(0,toReturnDatasArray!.count-goalToFetchDataDays)...(toReturnDatasArray!.count-1) ]);
+			if (goalToFetchDataDays != -1) {
+				toReturnDatasArray = Array(toReturnDatasArray![ max(0,toReturnDatasArray!.count-goalToFetchDataDays)...(toReturnDatasArray!.count-1) ]);
+			}
 		}
 		
 		//통계 데이터값 return
