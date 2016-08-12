@@ -56,6 +56,70 @@ class CharacterSkinMainView:UIViewController {
 		
 		self.view.addSubview(skinBackground); //subview for background
 		
+		
+		//Set size
+		let clockScrX:CGFloat = CGFloat(DeviceManager.defaultModalSizeRect.width / 2 - (CGFloat(202.1 * DeviceManager.modalRatioC) / 2));
+		let clockRightScrX:CGFloat = CGFloat(DeviceManager.defaultModalSizeRect.width / 2 + (CGFloat(202.1 * DeviceManager.modalRatioC) / 2));
+		let clockScrY:CGFloat = self.navigationController!.navigationBar.frame.size.height +
+			CGFloat(skinBackground.frame.height / 2 - (CGFloat(350 * DeviceManager.modalRatioC) / 2));
+		//let clockScrY:CGFloat = CGFloat(skinBackground.frame.height / 2 - 110);
+		
+		//clockScrY += 10 * DeviceManager.modalRatioC;
+		
+		analogClockHoursImageView.transform = CGAffineTransformIdentity; analogClockMinutesImageView.transform = CGAffineTransformIdentity;
+		analogClockSecondsImageView.transform = CGAffineTransformIdentity;
+		
+		analogClockImageView.frame = CGRectMake( clockScrX, clockScrY, 202.1 * DeviceManager.modalRatioC, 202.1 * DeviceManager.modalRatioC );
+		
+		
+		analogClockHoursImageView.frame = CGRectMake( clockScrX, clockScrY, analogClockImageView.frame.width, analogClockImageView.frame.height );
+		analogClockMinutesImageView.frame = CGRectMake( clockScrX, clockScrY, analogClockImageView.frame.width, analogClockImageView.frame.height );
+		analogClockSecondsImageView.frame = CGRectMake( clockScrX, clockScrY, analogClockImageView.frame.width, analogClockImageView.frame.height );
+		analogClockCenterImageView.frame = CGRectMake( clockScrX, clockScrY, analogClockImageView.frame.width, analogClockImageView.frame.height );
+		
+		menuSettingsImageView.frame = CGRectMake( clockScrX - ((86 * DeviceManager.modalRatioC) / 2), clockScrY + (100 * DeviceManager.modalRatioC) , (109.5 * DeviceManager.modalRatioC), (109.5 * DeviceManager.modalRatioC) );
+		menuListImageView.frame = CGRectMake( clockRightScrX - ((86 * DeviceManager.modalRatioC) / 2), menuSettingsImageView.frame.minY, (74.05 * DeviceManager.modalRatioC), (105.5 * DeviceManager.modalRatioC) );
+		
+		let groundMinY:CGFloat = self.navigationController!.navigationBar.frame.size.height + skinBackground.frame.height; // - 13; // * DeviceManager.modalRatioC;
+		
+		groundCharacterImageView.frame =
+			CGRectMake( DeviceManager.defaultModalSizeRect.width - (200 * DeviceManager.modalRatioC),
+			            groundMinY - (254 * DeviceManager.modalRatioC),
+			            300 * DeviceManager.modalRatioC,
+			            300 * DeviceManager.modalRatioC );
+		groundStatisticsImageView.frame =
+			CGRectMake( 18 * DeviceManager.modalRatioC,
+			            groundMinY - (159 * DeviceManager.modalRatioC),
+			            102 * DeviceManager.modalRatioC,
+			            102 * DeviceManager.modalRatioC );
+		groundGamesStandingImageView.frame =
+			CGRectMake( groundCharacterImageView.frame.midX - (120 * DeviceManager.modalRatioC),
+			            groundMinY - (74 * DeviceManager.modalRatioC),
+			            72 * DeviceManager.modalRatioC,
+			            18 * DeviceManager.modalRatioC );
+		groundGamesFloatingImageView.frame =
+			CGRectMake( groundGamesStandingImageView.frame.origin.x + (16 * DeviceManager.modalRatioC),
+			            groundMinY - (130 * DeviceManager.modalRatioC),
+			            40 * DeviceManager.modalRatioC,
+			            44 * DeviceManager.modalRatioC );
+		
+		
+		self.view.addSubview(analogClockImageView);
+		
+		self.view.addSubview(analogClockHoursImageView);
+		self.view.addSubview(analogClockMinutesImageView);
+		self.view.addSubview(analogClockSecondsImageView);
+		self.view.addSubview(analogClockCenterImageView);
+		
+		self.view.addSubview(menuSettingsImageView);
+		self.view.addSubview(menuListImageView);
+		
+		self.view.addSubview(groundStatisticsImageView);
+		self.view.addSubview(groundGamesStandingImageView);
+		self.view.addSubview(groundGamesFloatingImageView);
+		self.view.addSubview(groundCharacterImageView);
+		
+		
 	}
 	
 	func setImagesToCurrentSkin() {
