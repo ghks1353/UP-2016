@@ -127,8 +127,10 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		charExpWrapper.frame = CGRectMake( 26 * DeviceManager.modalRatioC,
 		                                   charInfoBGView.frame.minY + 54.5 * DeviceManager.modalRatioC
 		                                   ,93.7 * DeviceManager.modalRatioC, 55.8 * DeviceManager.modalRatioC);
-		charGameCenterIcon.frame = CGRectMake( 40 * DeviceManager.modalRatioC, modalView.view.frame.height / 2 - 4 * DeviceManager.modalRatioC, 75.8 * DeviceManager.modalRatioC, 75.75 * DeviceManager.modalRatioC);
-		charAchievementsIcon.frame = CGRectMake( 200 * DeviceManager.modalRatioC, charGameCenterIcon.frame.minY, 75.8 * DeviceManager.modalRatioC, 75.75 * DeviceManager.modalRatioC);
+		
+		charGameCenterIcon.frame = CGRectMake( 40 * DeviceManager.modalRatioC, navigationCtrl.navigationBar.frame.size.height + 188 * DeviceManager.modalRatioC, 75.8 * DeviceManager.modalRatioC, 75.75 * DeviceManager.modalRatioC);
+		charAchievementsIcon.frame = CGRectMake( 198.5 * DeviceManager.modalRatioC, charGameCenterIcon.frame.minY, 75.8 * DeviceManager.modalRatioC, 75.75 * DeviceManager.modalRatioC);
+		
 		charCurrentCharacter.frame = CGRectMake( 6 * DeviceManager.modalRatioC, modalView.view.frame.height - 252 * DeviceManager.modalRatioC, 300 * DeviceManager.modalRatioC, 300 * DeviceManager.modalRatioC );
 		
 		//마스크용 프레임 배치

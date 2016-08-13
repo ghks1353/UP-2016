@@ -75,6 +75,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
             [ /* SECTION 2*/
 				createSettingsOnlyLabel( Languages.$("settingsBuyPremium") , menuID: "buyUP")
 				, createSettingsOnlyLabel( Languages.$("settingsRestoreBought") , menuID: "restorePurchases")
+				, createSettingsOnlyLabel( Languages.$("settingsCoupon") , menuID: "useCoupon")
 			],
             [ /* SECTION 3*/
                 createSettingsOnlyLabel( Languages.$("settingsStartingGuide") , menuID: "startGuide")
