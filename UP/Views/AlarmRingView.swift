@@ -6,8 +6,9 @@
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
-import Foundation
+import Foundation;
 import UIKit;
+import CoreMotion;
 
 class AlarmRingView:UIViewController {
 	
@@ -26,8 +27,12 @@ class AlarmRingView:UIViewController {
 	internal var currentAlarmElement:AlarmElements?;
 	var gameSelectedNumber:Int = 0;
 	
+	//Asleep func
 	var lastActivatedTimeAfter:Int = 0;
 	var asleepTimer:NSTimer?;
+	
+	//가속도센서를 이용해서 누워있는 경우 플레이할 수 없게
+	var cMotionManager:CMMotionManager?;
 	
 	override func viewDidLoad() {
 		// view init func
@@ -43,6 +48,10 @@ class AlarmRingView:UIViewController {
 			asleepTimer!.invalidate();
 			asleepTimer = nil;
 		}
+		if (cMotionManager != nil) {
+			cMotionManager!.stopAccelerometerUpdates();
+			cMotionManager = nil;
+		}
 		
 		if (currentAlarmElement != nil) {
 			//게임을 분류하여 각각 맞는 view를 present
@@ -52,6 +61,9 @@ class AlarmRingView:UIViewController {
 			
 			//알람 사운드 울림중일때 끔
 			AlarmManager.stopSoundAlarm();
+			//가속도 센서를 이용한 잠듦 경고 등
+			cMotionManager = CMMotionManager();
+			cMotionManager!.startAccelerometerUpdates();
 			
 			print("selected ->", gameSelectedNumber);
 			switch( gameSelectedNumber ) {
@@ -69,19 +81,24 @@ class AlarmRingView:UIViewController {
 					break;
 			} //end switch
 			
-			//게임 중간에 조는 것 관련한 핸들링
+			//게임 중간에 조는 것 + 가속도센서 체크 관련한 핸들링
 			asleepTimer = UPUtils.setInterval(1, block: asleepTimeCheckFunc);
-			
 		} //end element chk
 		
 	} //end func
 	
 	
-	override func viewWillDisappear(animated: Bool) {
+	//override func viewWillDisappear(animated: Bool) {
+	func disposeView() {
 		//view disappear event handler
+		print("AlarmRingView disposing");
 		if (asleepTimer != nil) {
 			asleepTimer!.invalidate();
 			asleepTimer = nil;
+		}
+		if (cMotionManager != nil) {
+			cMotionManager!.stopAccelerometerUpdates();
+			cMotionManager = nil;
 		}
 	}
 	
@@ -128,8 +145,9 @@ class AlarmRingView:UIViewController {
 		lastActivatedTimeAfter = 0;
 	}
 	
-	//Check if asleep or not
+	//Check if asleep or not + acc check
 	func asleepTimeCheckFunc() {
+		print("Asleep check process is running");
 		if (currentAlarmElement == nil) {
 			//remove it
 			if (asleepTimer != nil) {
@@ -138,10 +156,16 @@ class AlarmRingView:UIViewController {
 			}
 			return;
 		}
+		/////////////////////////////////////
 		lastActivatedTimeAfter += 1;
 		if (lastActivatedTimeAfter > 60) {
 			AlarmManager.ringSoundAlarm(currentAlarmElement);
 		}
+		/////////////////////// Accel check
+		print("Acc: ",
+		      cMotionManager!.accelerometerData!.acceleration.x,
+		      cMotionManager!.accelerometerData!.acceleration.y,
+		      cMotionManager!.accelerometerData!.acceleration.z);
 	}
 	
 	

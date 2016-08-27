@@ -519,13 +519,13 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	//get str from time
 	func getBackgroundFileNameFromTime(timeHour:Int)->String {
-		if (timeHour >= 0 && timeHour < 6) {
+		if (timeHour >= 22 || timeHour < 6) {
 			return "d";
-		} else if (timeHour >= 6 && timeHour < 12) {
+		} else if (timeHour >= 6 && timeHour < 11) {
 			return "a";
-		} else if (timeHour >= 12 && timeHour < 18) {
+		} else if (timeHour >= 11 && timeHour < 18) {
 			return "b";
-		} else if (timeHour >= 18 && timeHour <= 23) {
+		} else if (timeHour >= 18 && timeHour <= 21) {
 			return "c";
 		}
 		return "a";

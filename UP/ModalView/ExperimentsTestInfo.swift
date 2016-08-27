@@ -19,6 +19,8 @@ class ExperimentsTestInfo:UIViewController {
 	var infoScrollView:UIScrollView = UIScrollView();
 	
 	var infoLabel:UILabel = UILabel();
+	var infoCopyButton:UIButton = UIButton();
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -49,6 +51,13 @@ class ExperimentsTestInfo:UIViewController {
 		infoLabel.text = "";
 		
 		infoScrollView.addSubview(infoLabel);
+		infoScrollView.addSubview(infoCopyButton);
+		
+		infoCopyButton.setTitle("Copy to clipboard", forState: .Normal);
+		infoCopyButton.setTitleColor(UPUtils.colorWithHexString("#2994FF"), forState: .Normal);
+		infoCopyButton.setTitleColor(UPUtils.colorWithHexString("#0057AD"), forState: .Highlighted);
+		infoCopyButton.titleLabel!.font = UIFont.systemFontOfSize(16);
+		infoCopyButton.addTarget(self, action: #selector(ExperimentsTestInfo.copyInformationFunc), forControlEvents: .TouchUpInside);
 		
 		self.view.addSubview(infoScrollView);
 		
@@ -105,9 +114,10 @@ class ExperimentsTestInfo:UIViewController {
 		infoLabel.text = informationStr;
 		infoLabel.sizeToFit();
 		
-		//컨텐츠 크기 설정
-		infoScrollView.contentSize = CGSizeMake(DeviceManager.defaultModalSizeRect.width, max(DeviceManager.defaultModalSizeRect.height - (self.navigationController?.navigationBar.frame.size.height)!, infoLabel.frame.maxY + 20));
+		infoCopyButton.frame = CGRectMake(0, infoLabel.frame.maxY, DeviceManager.defaultModalSizeRect.width, 42 );
 		
+		//컨텐츠 크기 설정
+		infoScrollView.contentSize = CGSizeMake(DeviceManager.defaultModalSizeRect.width, max(DeviceManager.defaultModalSizeRect.height - (self.navigationController?.navigationBar.frame.size.height)!, infoCopyButton.frame.maxY + 20));
 		
 	}
 	
@@ -124,5 +134,18 @@ class ExperimentsTestInfo:UIViewController {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
+	
+	////////////////
+	
+	func copyInformationFunc() {
+		UIPasteboard.generalPasteboard().string = infoLabel.text;
+		
+		let aCtrl = UIAlertController(title: Languages.$("generalAlert"), message: "Copied!", preferredStyle: UIAlertControllerStyle.Alert);
+		aCtrl.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
+		}));
+		presentViewController(aCtrl, animated: true, completion: nil);
+	}
+	
+	
 	
 }

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UP/ViewController.swift"
-            timestampString = "490719721.33895"
+            timestampString = "493637617.922196"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "754"
-            endingLineNumber = "754"
+            startingLineNumber = "742"
+            endingLineNumber = "742"
             landmarkName = "fitViewControllerElementsToScreen(_:)"
             landmarkType = "5">
          </BreakpointContent>

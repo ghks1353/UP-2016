@@ -154,7 +154,6 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	var stats_gameIsFailed:Bool = false; //리타이어한 경우
 	var stats_gameTouchCount:Int = 0; //전체 터치 횟수
 	var stats_gameValidTouchCount:Int = 0; //유효 터치 횟수
-	//var stats_gameToBackgroundCount:Int = 0; //게임 중 백그라운드로 간 횟수
 	
 	//////////////////////////UI Menu
 	var uiContents:GeneralMenuUI?;
@@ -560,7 +559,6 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			gameScore = max(gameAlarmFirstGoalTime, gameScore); //남은 시간이 더 크면 유지
 			gameRetireTimeCount = gameRetireTimeCount / 2; //리타이어 수작일수도 있으니 이거도 조절함
 			AlarmRingView.selfView!.userAsleepCount += 1;
-			//stats_gameToBackgroundCount += 1;
 			
 			//리타이어 버튼이 이미 나와있는 경우, 다시 없앰
 			if (buttonRetireSprite.alpha == 1) {
@@ -1179,7 +1177,6 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 					
 					
 					if ( //캐릭터 - 적간 충돌판정 (조금 완화 함.)
-						/*characterElement!.containsPoint( gameNodesArray[i]!.position ) ||*/
 							nodeTmpRect!.contains( CGPoint( x: (characterElement!.position.x - characterElement!.size.width / 2) + characterRatherboxX, y: (characterElement!.position.y - characterElement!.size.height / 2) + characterRatherboxY  ) ) ||
 							nodeTmpRect!.contains( CGPoint( x: (characterElement!.position.x + characterElement!.size.width / 2) - characterRatherboxX, y: (characterElement!.position.y - characterElement!.size.height / 2) + characterRatherboxY  ) ) ||
 							
@@ -1202,9 +1199,9 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 								switch(gameStartupType) {
 									case 0: //알람으로 켜진 경우, 최대 설정된 시간까지 커지도록 시간 추가
 										if (gameScore <= gameLevelAverageTime) {
-											gameScore = min( gameScore + 4, gameTimerMaxTime);
+											gameScore = min( gameScore + 5, gameTimerMaxTime);
 										} else {
-											gameScore = min( gameScore + 6, gameTimerMaxTime);
+											gameScore = min( gameScore + 7, gameTimerMaxTime);
 										}
 										break;
 									case 1: //게임 모드로 켜짐

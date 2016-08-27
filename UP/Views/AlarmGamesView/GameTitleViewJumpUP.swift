@@ -172,7 +172,11 @@ class GameTitleViewJumpUP:UIViewController {
 	
 	override func viewWillDisappear(animated: Bool) {
 		//UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent;
-		
+		//disposeView
+		print("viewwilldisappear.");
+		if (isGameMode == false) {
+			AlarmRingView.selfView!.disposeView();
+		}
 	}
 		
 	override func didReceiveMemoryWarning() {

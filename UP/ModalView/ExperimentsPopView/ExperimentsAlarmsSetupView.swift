@@ -21,7 +21,7 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 		self.view.backgroundColor = .clearColor();
 		//ModalView
 		self.view.backgroundColor = UIColor.whiteColor();
-		self.title = "비인가 설정 기능";
+		self.title = Languages.$("settingsExperimentsAlarm");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
@@ -39,7 +39,8 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 		
 		tablesArray = [
 			[ /* sec 1 */
-				createSettingsToggle( "알람 메모 사용", defaultState: false, settingsID: "useAlarmMemo")
+				createSettingsToggle( Languages.$("settingsAlarmMemo"), defaultState: false, settingsID: "useAlarmMemo"),
+				createSettingsToggle( Languages.$("settingsNoLieDown"), defaultState: false, settingsID: "usNoLieDown")
 			] ];
 		
 		tableView.delegate = self; tableView.dataSource = self;
@@ -59,9 +60,15 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 	override func viewWillAppear(animated: Bool) {
 		//get data from local
 		DataManager.initDefaults();
-		let tmpOption:Bool = DataManager.nsDefaults.boolForKey(DataManager.EXPERIMENTS_USE_MEMO_KEY);
+		var tmpOption:Bool = DataManager.nsDefaults.boolForKey(DataManager.EXPERIMENTS_USE_MEMO_KEY);
 		if (tmpOption == true) { /* badge option is true? */
 			setSwitchData("useAlarmMemo", value: true);
+		}
+		
+		//alarm liedown func
+		tmpOption = DataManager.nsDefaults.boolForKey(DataManager.EXPERIMENTS_USE_NOLIEDOWN_KEY);
+		if (tmpOption == true) {
+			setSwitchData("usNoLieDown", value: true);
 		}
 	}
 	
@@ -81,13 +88,13 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
 		case 0:
-			return "알람 기능";
+			return Languages.$("settingsExperimentsAlarm");
 		default:
 			return "";
 		}
 	}
 	func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		return "이 목록에 있는 기능들은 소리없이 추가되거나 삭제될 수 있습니다.";
+		return "";
 	}
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -104,7 +111,7 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 		return 38;
 	}
 	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 52;
+		return 20;
 	}
 	
 	func createCell( name:String, menuID:String ) -> CustomTableCell {
@@ -146,6 +153,9 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 			switch(settingsArray[i].settingsID) {
 				case "useAlarmMemo":
 					DataManager.nsDefaults.setBool((settingsArray[i].settingsElement as! UISwitch).on, forKey: DataManager.EXPERIMENTS_USE_MEMO_KEY);
+					break;
+				case "usNoLieDown":
+					DataManager.nsDefaults.setBool((settingsArray[i].settingsElement as! UISwitch).on, forKey: DataManager.EXPERIMENTS_USE_NOLIEDOWN_KEY);
 					break;
 				default:
 					break;

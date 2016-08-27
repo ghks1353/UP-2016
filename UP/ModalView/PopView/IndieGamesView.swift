@@ -49,7 +49,7 @@ class IndieGamesView:UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		//load url
-		let url:String = "http://up.avngraphic.kr/indies/";
+		let url:String = "https://up.avngraphic.kr/indies/";
 		wbView.loadRequest(NSURLRequest( URL: NSURL( string:
 			url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet() )!
 			)!));

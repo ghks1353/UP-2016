@@ -85,7 +85,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				, createSettingsOnlyLabel( Languages.$("settingsCredits") , menuID: "credits")
             ],
             [ /* SECTION 4 */
-				createSettingsOnlyLabel( "Additional settings", menuID: "experiments-notallowed-alarms"),
+				createSettingsOnlyLabel( Languages.$("settingsExperimentsAlarm"), menuID: "experiments-notallowed-alarms"),
 				createSettingsOnlyLabel( "Technical info", menuID: "experiments-test-info")
 			]
             
@@ -182,7 +182,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				self.presentViewController(GlobalSubView.startingGuideView, animated: true, completion: nil);
 				break;
 			case "gotoUPProject":
-				UIApplication.sharedApplication().openURL(NSURL(string: "http://up.avngraphic.kr/?l=" + Languages.currentLocaleCode)!);
+				UIApplication.sharedApplication().openURL(NSURL(string: "https://up.avngraphic.kr/?l=" + Languages.currentLocaleCode)!);
 				break;
 			case "languageChange":
 				navigationCtrl.pushViewController(self.languagesView, animated: true);
@@ -222,15 +222,15 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
             case 2:
                 return Languages.$("generalGuide");
 			case 3: //DEV, TEST
-				return "EXPERIMENTS";
+				return Languages.$("settingsExperiments");
             default:
                 return "-";
         }
     }
 	func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch(section) {
-			case 3: //DEV, TEST
-				return "주의: 실험실에 있는 내용은 소리없이 추가되거나 삭제될 수 있습니다.";
+			//case 3: //DEV, TEST
+			//	return "주의: 실험실에 있는 내용은 소리없이 추가되거나 삭제될 수 있습니다.";
 			default:
 				return "";
 		}

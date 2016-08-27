@@ -640,13 +640,13 @@ class ViewController: UIViewController {
 	
 	//get str from time
 	func getBackgroundFileNameFromTime(timeHour:Int)->String {
-		if (timeHour >= 0 && timeHour < 6) {
+		if (timeHour >= 22 || timeHour < 6) {
 			return "d";
-		} else if (timeHour >= 6 && timeHour < 12) {
+		} else if (timeHour >= 6 && timeHour < 11) {
 			return "a";
-		} else if (timeHour >= 12 && timeHour < 18) {
+		} else if (timeHour >= 11 && timeHour < 18) {
 			return "b";
-		} else if (timeHour >= 18 && timeHour <= 23) {
+		} else if (timeHour >= 18 && timeHour <= 21) {
 			return "c";
 		}
 		return "a";
@@ -726,19 +726,7 @@ class ViewController: UIViewController {
 					let fileName:String = SkinManager.getAssetPresetsCharacter() + "character-" + "00" + numberStr + ".png";
 					let fImage:UIImage = UIImage( named: fileName )!;
 					astroMotionsStanding += [fImage];
-				} /* 아직 안쓰니까 주석처리함. 쓸때 다시 주석 품,
-				for i in 41...70 { //달리기(걷기)
-				let numberStr:String = String(i);
-				let fileName:String = "astro" + "0" + numberStr + ".png";
-				let fImage:UIImage = UIImage( named: fileName )!;
-				astroMotionsRunning += [fImage];
 				}
-				for i in 71...113 { //점프밎착지
-				let numberStr:String = String(i);
-				let fileName:String = "astro" + "0" + numberStr + ".png";
-				let fImage:UIImage = UIImage( named: fileName )!;
-				astroMotionsJumping += [fImage];
-				} */
 
 				
 				break;

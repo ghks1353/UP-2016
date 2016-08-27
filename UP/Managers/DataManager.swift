@@ -28,6 +28,7 @@ class DataManager {
 	
 	//Experiments keys
 	static let EXPERIMENTS_USE_MEMO_KEY:String = "experiments-alarm-memo";
+	static let EXPERIMENTS_USE_NOLIEDOWN_KEY:String = "experiments-alarm-noliedown";
 	
 	//환경설정 저장값 key
     enum settingsKeys {
