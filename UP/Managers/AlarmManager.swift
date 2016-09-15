@@ -59,8 +59,12 @@ class AlarmManager {
 	
 	
 	//알람 울림 (미디어)
-	static func ringSoundAlarm(targetAlarmElement:AlarmElements?) {
+	static func ringSoundAlarm(targetAlarmElement:AlarmElements?, useVibrate:Bool = false) {
 		//alarmSoundPlaying
+		if (useVibrate) {
+			AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate));
+		}
+		
 		if (alarmSoundPlaying == true) {
 			if (alarmAudioPlayer != nil) {
 				//진짜로 울리는 중이면 강제로 볼륨을 위로 설정

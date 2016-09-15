@@ -14,6 +14,9 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 	static var instance:PurchaseManager?;
 	static var isInited:Bool = false;
 	
+	//Callback
+	static var callbackFunc:((SKPaymentTransactionState) -> Void)? = nil;
+	
 	enum productIDs {
 		static let PREMIUM:String = "unlock_features";
 	}
@@ -22,6 +25,7 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 	
 	//상품 ID배열
 	var productIDsArray:Array<String> = [];
+	
 	
 	static func initInstance() { //Protocol을 static쪽에 물리기가 힘들어서, 인스턴스로 만들고 static 비슷하게 사용함
 		PurchaseManager.instance = PurchaseManager();
@@ -44,7 +48,7 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 		productIDsArray += [ PurchaseManager.productIDs.PREMIUM ]; //정식버전
 		
 		SKPaymentQueue.defaultQueue().addTransactionObserver(self);
-		
+		//SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
 		if (SKPaymentQueue.canMakePayments()) {
 			//결제 가능한 상태에서만 정보 요청
 			let pRequest:SKProductsRequest = SKProductsRequest(productIdentifiers: Set( productIDsArray ));
@@ -104,15 +108,21 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 						print(t.transactionIdentifier, "=> Trans unknown state");
 						break;
 				} //end switch states
-				
+				if (PurchaseManager.callbackFunc != nil) {
+					PurchaseManager.callbackFunc!(t.transactionState);
+				}
 			} //end if
 		} //end for
 		
-		
+		PurchaseManager.callbackFunc = nil;
 	}
 	
 	///////////// static functions
 	static func checkIsAvailableProduct( productID:String ) -> Bool {
+		/////////// TEST
+		//ALWAYS RETURN FALSE. 20160917 for BETA 0.0.3
+		return false;
+		
 		if (PurchaseManager.isInited == false) {
 			return false;
 		}
@@ -152,13 +162,15 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 	}
 	
 	////// 상품 복원 / 복구
-	static func requestRestoreProducts() -> Bool {
+	static func requestRestoreProducts( callback:((SKPaymentTransactionState) -> Void)? = nil ) -> Bool {
 		if (PurchaseManager.isInited == false) {
 			return false;
 		}
 		if (PurchaseManager.instance == nil) {
 			return false; //not inited
 		}
+		
+		PurchaseManager.callbackFunc = callback;
 		
 		SKPaymentQueue.defaultQueue().restoreCompletedTransactions();
 		

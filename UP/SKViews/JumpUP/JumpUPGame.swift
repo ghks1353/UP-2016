@@ -1753,7 +1753,14 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			//exitJumpUPGame();
 			
 		} else {
-			gameScore -= 1;
+			if (AlarmManager.alarmSoundPlaying == true) {
+				//오히려 남은시간을 올려버리게 하자
+				gameScore = min( gameScore + 1, gameTimerMaxTime);
+				gameScoreTitleImage!.alpha = 0.5;
+			} else {
+				gameScoreTitleImage!.alpha = 1;
+				gameScore -= 1;
+			}
 			gameRetireTimeCount = min(gameRetireTimeCount + 1, gameRetireTime); //포기 버튼을 띄워야 할 때 필요
 		}
 		

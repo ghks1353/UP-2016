@@ -466,6 +466,10 @@
 		77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */; };
 		77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */; };
 		77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */; };
+		77F948721D80ADEE00B33F5F /* comp-icons-settings-memo.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F948711D80ADEE00B33F5F /* comp-icons-settings-memo.png */; };
+		77F9487A1D80ADFD00B33F5F /* comp-icons-shop-code.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F948791D80ADFD00B33F5F /* comp-icons-shop-code.png */; };
+		77F9487C1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9487B1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png */; };
+		77F9487E1D8585DE00B33F5F /* TestersWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F9487D1D8585DE00B33F5F /* TestersWebView.swift */; };
 		77FBE6841C6DCBAA00E251A2 /* game-thumb-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FBE6831C6DCBAA00E251A2 /* game-thumb-background.png */; };
 		D3FB78436114E2B84BE8F05B /* Pods_UP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3446BCAF72D11C596079B5EB /* Pods_UP.framework */; };
 /* End PBXBuildFile section */
@@ -1007,6 +1011,10 @@
 		77BA6EBC1CB0FF7F0053115A /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = UP/Framework/SQLite/SQLite.xcodeproj; sourceTree = "<group>"; };
 		77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumbs-check.png"; path = "ImageAssets/game-thumbs-check.png"; sourceTree = "<group>"; };
 		77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-sample.png"; path = "ImageAssets/GameThumbs/game-thumb-sample.png"; sourceTree = "<group>"; };
+		77F948711D80ADEE00B33F5F /* comp-icons-settings-memo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-memo.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-memo.png"; sourceTree = "<group>"; };
+		77F948791D80ADFD00B33F5F /* comp-icons-shop-code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-shop-code.png"; path = "ImageAssets/Components/Icons/comp-icons-shop-code.png"; sourceTree = "<group>"; };
+		77F9487B1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-special-testers.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-special-testers.png"; sourceTree = "<group>"; };
+		77F9487D1D8585DE00B33F5F /* TestersWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestersWebView.swift; path = ModalView/PopView/TestersWebView.swift; sourceTree = "<group>"; };
 		77FBE6831C6DCBAA00E251A2 /* game-thumb-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-background.png"; path = "ImageAssets/GameThumbs/game-thumb-background.png"; sourceTree = "<group>"; };
 		AF85DD684EBE41304B410A97 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3593EDC2DD14FA5F20D9055 /* Pods-UP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UP/Pods-UP.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1259,6 +1267,7 @@
 				032536C51D1B5333004C6293 /* CreditsPopView.swift */,
 				032536D41D1ED333004C6293 /* IndieGamesView.swift */,
 				771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */,
+				77F9487D1D8585DE00B33F5F /* TestersWebView.swift */,
 			);
 			name = PopView;
 			sourceTree = "<group>";
@@ -1376,10 +1385,12 @@
 			children = (
 				77561DA41D5066C8002EB26B /* Languages */,
 				03B18E661D22C54600972101 /* comp-icons-shop-buy.png */,
+				77F948711D80ADEE00B33F5F /* comp-icons-settings-memo.png */,
 				03B18E671D22C54600972101 /* comp-icons-shop-restore.png */,
 				77561DB11D5066DA002EB26B /* comp-icons-settings-language.png */,
 				032536D21D1E8963004C6293 /* comp-icons-settings-projectup.png */,
 				03425BD21CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png */,
+				77F948791D80ADFD00B33F5F /* comp-icons-shop-code.png */,
 				03425B9B1CD08B1C00243B28 /* comp-icons-settings-avn.png */,
 				03425B861CD0635700243B28 /* comp-icons-settings-badge.png */,
 				03425B871CD0635700243B28 /* comp-icons-settings-developers.png */,
@@ -1388,6 +1399,7 @@
 				03425B8A1CD0635700243B28 /* comp-icons-settings-newgames.png */,
 				03425B8B1CD0635700243B28 /* comp-icons-settings-rating.png */,
 				03425BA81CD389E100243B28 /* comp-icons-settings-experiments.png */,
+				77F9487B1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -2401,6 +2413,7 @@
 				77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */,
 				775EB05B1D524C7800BE8C4A /* game-jumpup-assets-warning.png in Resources */,
 				77561EAC1D50CAB9002EB26B /* skin-default-time-body.png in Resources */,
+				77F9487C1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png in Resources */,
 				03B18E561D20DB5800972101 /* modal-guide-images-en-7-general.png in Resources */,
 				775EB0561D51E64F00BE8C4A /* game-jumpup-assets-guide-0.png in Resources */,
 				775EAFB31D51E3B900BE8C4A /* game-jumpup-astro-default-jump-4.png in Resources */,
@@ -2576,6 +2589,7 @@
 				77561E631D50C354002EB26B /* skin-default-ground-a.png in Resources */,
 				03B18E601D20DB5800972101 /* modal-guide-images-ko-4-general.png in Resources */,
 				032536B91D19BA23004C6293 /* result-btn-play.png in Resources */,
+				77F948721D80ADEE00B33F5F /* comp-icons-settings-memo.png in Resources */,
 				03C14D0C1D2539D60078D10C /* game-general-window-btn-cancel.png in Resources */,
 				77561E7B1D50C85D002EB26B /* c-time-off.png in Resources */,
 				775EAFD71D51E40F00BE8C4A /* game-jumpup-ai-j-astro-move5.png in Resources */,
@@ -2588,6 +2602,7 @@
 				03E1D1231CEC70A600B552FC /* comp-icons-alarm-music.png in Resources */,
 				03425B9C1CD08B1C00243B28 /* comp-icons-settings-avn.png in Resources */,
 				77561E651D50C354002EB26B /* skin-default-ground-b-pad43.png in Resources */,
+				77F9487A1D80ADFD00B33F5F /* comp-icons-shop-code.png in Resources */,
 				77561DCA1D50C1BF002EB26B /* skin-default-b-back.png in Resources */,
 				77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */,
 				775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */,
@@ -2737,6 +2752,7 @@
 				03DDD7F51CEB98D2007C026D /* SoundManager.swift in Sources */,
 				775ADBE81C4FC4C700B52552 /* AppDelegate.swift in Sources */,
 				03DDD7FF1CEB990D007C026D /* SettingsElement.swift in Sources */,
+				77F9487E1D8585DE00B33F5F /* TestersWebView.swift in Sources */,
 				77782E681C92B0B00016EE1B /* Int+Extensions.swift in Sources */,
 				03DDD7DB1CEB921E007C026D /* SettingsView.swift in Sources */,
 				03DDD8011CEB990D007C026D /* StatsDataElement.swift in Sources */,

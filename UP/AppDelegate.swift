@@ -133,8 +133,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				
 				//1. 알람이 울리는 중일 경우, 2. 백그라운드에 앱이 있을 경우.
 				if (ringingAlarm != nil && DeviceManager.appIsBackground == true) {
-					AlarmManager.ringSoundAlarm( ringingAlarm! );
-					AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate));
+					AlarmManager.ringSoundAlarm( ringingAlarm!, useVibrate: true );
+					//vibrate to ringsoundalarm
 					//print("Alarm ringing");
 				} else {
 					//울리고 있는 알람이 없는데 굳이 울려야 겠음?

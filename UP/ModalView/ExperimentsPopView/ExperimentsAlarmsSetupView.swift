@@ -117,12 +117,17 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 	func createCell( name:String, menuID:String ) -> CustomTableCell {
 		let tCell:CustomTableCell = CustomTableCell();
 		let tLabel:UILabel = UILabel();
+		var tIconFileStr:String = "";
 		
 		tCell.cellID = menuID;
+		switch(menuID) {
+			case "useAlarmMemo": tIconFileStr = "comp-icons-settings-memo"; break;
+			default: tIconFileStr = "comp-icons-settings-experiments"; break;
+			break;
+		};
 		
-		let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
+		let tIconImg:UIImageView = UIImageView(); var tIconWPadding:CGFloat = 0;
 		tIconImg.frame = CGRectMake(12, 6, 31.3, 31.3);
-		tIconFileStr = "comp-icons-settings-experiments";
 		tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8;
 		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
 		
@@ -178,7 +183,12 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 		//아이콘 표시 관련
 		let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
 		tIconImg.frame = CGRectMake(12, 6, 31.3, 31.3);
-		tIconFileStr = "comp-icons-settings-experiments";
+		
+		switch(settingsID) {
+			case "useAlarmMemo": tIconFileStr = "comp-icons-settings-memo"; break;
+			default: tIconFileStr = "comp-icons-settings-experiments"; break;
+		};
+		
 		tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8;
 		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
 		

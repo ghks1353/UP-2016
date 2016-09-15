@@ -9,6 +9,7 @@
 import Foundation;
 import UIKit;
 import QuartzCore;
+import StoreKit;
 
 class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
@@ -32,6 +33,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	var creditsView:CreditsPopView = CreditsPopView();
 	var indieGamesView:IndieGamesView = IndieGamesView();
 	var languagesView:LanguageSetupView = LanguageSetupView();
+	
+	//// Testers view
+	var testersWebView:TestersWebView = TestersWebView();
 	
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -85,8 +89,11 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				, createSettingsOnlyLabel( Languages.$("settingsCredits") , menuID: "credits")
             ],
             [ /* SECTION 4 */
-				createSettingsOnlyLabel( Languages.$("settingsExperimentsAlarm"), menuID: "experiments-notallowed-alarms"),
-				createSettingsOnlyLabel( "Technical info", menuID: "experiments-test-info")
+				createSettingsOnlyLabel( Languages.$("settingsExperimentsAlarm"), menuID: "experiments-notallowed-alarms")
+			],
+			[ /* section 5 */
+				createSettingsOnlyLabel( "Technical info", menuID: "experiments-test-info"),
+				createSettingsOnlyLabel( "Notice for testers", menuID: "notice-fortesters")
 			]
             
         ];
@@ -178,6 +185,17 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				}
 				
 				break;
+			case "restorePurchases":
+				let restoreResult:Bool = PurchaseManager.requestRestoreProducts( restoreCallback );
+				if (restoreResult == false) {
+					//show failed restore
+					showRestoreFailed();
+				} else {
+					//wait for reply from server
+					
+				}
+				//requestRestoreProducts
+				break;
 			case "startGuide":
 				self.presentViewController(GlobalSubView.startingGuideView, animated: true, completion: nil);
 				break;
@@ -202,6 +220,11 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				navigationCtrl.pushViewController(self.experimentTestingInfoView, animated: true);
 				break;
 			////////
+			/// Testers menu
+			case "notice-fortesters":
+				navigationCtrl.pushViewController(self.testersWebView, animated: true);
+				break;
+			//////////////////////
 			default: break;
 		}
 		
@@ -211,7 +234,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	/////////////////
 	
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4;
+        return 5; //최대 섹션보다 적게하면 그 섹션이 안보임.
     }
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
@@ -368,12 +391,13 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			
 			case "buyUP": tIconFileStr = "comp-icons-shop-buy"; break;
 			case "restorePurchases": tIconFileStr = "comp-icons-shop-restore"; break;
+			case "useCoupon": tIconFileStr = "comp-icons-shop-code"; break;
 			default:
 				if (menuID.rangeOfString("experiments-") != nil) {
 					//실험실 아이콘?
 					
 					switch(menuID) {
-						case "experiments-notallowed-alarms": tIconFileStr = "comp-icons-settings-experiments-alarm"; break;
+						//case "experiments-notallowed-alarms": tIconFileStr = "comp-icons-settings-experiments"; break;
 						default: tIconFileStr = "comp-icons-settings-experiments"; break;
 					}
 				} else {
@@ -410,7 +434,30 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		alertWindow.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
 		}));
 		presentViewController(alertWindow, animated: true, completion: nil);
-		
 	} //end function
+	func showRestoreFailed() {
+		let alertWindow:UIAlertController = UIAlertController(title: Languages.$("generalAlert"), message: Languages.$("storeRestoreFailed"), preferredStyle: UIAlertControllerStyle.Alert);
+		alertWindow.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
+		}));
+		presentViewController(alertWindow, animated: true, completion: nil);
+	}
+	func showRestoreSucceed() {
+		let alertWindow:UIAlertController = UIAlertController(title: Languages.$("generalAlert"), message: Languages.$("storeRestoreSuccess"), preferredStyle: UIAlertControllerStyle.Alert);
+		alertWindow.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
+		}));
+		presentViewController(alertWindow, animated: true, completion: nil);
+	}
+	
+	//// shop callbacks
+	func restoreCallback(paymentInfo:SKPaymentTransactionState) {
+		switch(paymentInfo) {
+			case .Restored:
+				showRestoreSucceed();
+				break;
+			default:
+				showRestoreFailed();
+				break;
+		}
+	}
 	
 }

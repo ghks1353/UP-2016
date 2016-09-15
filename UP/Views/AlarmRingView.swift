@@ -33,6 +33,9 @@ class AlarmRingView:UIViewController {
 	
 	//가속도센서를 이용해서 누워있는 경우 플레이할 수 없게
 	var cMotionManager:CMMotionManager?;
+	var accelSensorWorks:Bool = false;
+	var isLied:Bool = false;
+	var liePhoneDownCount:Int = 0; //자이로 움직임을 판단해서 터치를 해도 누워있다고 판단하는 카운트
 	
 	override func viewDidLoad() {
 		// view init func
@@ -50,6 +53,7 @@ class AlarmRingView:UIViewController {
 		}
 		if (cMotionManager != nil) {
 			cMotionManager!.stopAccelerometerUpdates();
+			cMotionManager!.stopGyroUpdates();
 			cMotionManager = nil;
 		}
 		
@@ -62,8 +66,12 @@ class AlarmRingView:UIViewController {
 			//알람 사운드 울림중일때 끔
 			AlarmManager.stopSoundAlarm();
 			//가속도 센서를 이용한 잠듦 경고 등
-			cMotionManager = CMMotionManager();
-			cMotionManager!.startAccelerometerUpdates();
+			accelSensorWorks = DataManager.nsDefaults.boolForKey(DataManager.EXPERIMENTS_USE_NOLIEDOWN_KEY);
+			if (accelSensorWorks) {
+				cMotionManager = CMMotionManager();
+				cMotionManager!.startAccelerometerUpdates();
+				cMotionManager!.startGyroUpdates();
+			}
 			
 			print("selected ->", gameSelectedNumber);
 			switch( gameSelectedNumber ) {
@@ -82,7 +90,7 @@ class AlarmRingView:UIViewController {
 			} //end switch
 			
 			//게임 중간에 조는 것 + 가속도센서 체크 관련한 핸들링
-			asleepTimer = UPUtils.setInterval(1, block: asleepTimeCheckFunc);
+			asleepTimer = UPUtils.setInterval(0.5, block: asleepTimeCheckFunc);
 		} //end element chk
 		
 	} //end func
@@ -98,6 +106,7 @@ class AlarmRingView:UIViewController {
 		}
 		if (cMotionManager != nil) {
 			cMotionManager!.stopAccelerometerUpdates();
+			cMotionManager!.stopGyroUpdates();
 			cMotionManager = nil;
 		}
 	}
@@ -136,18 +145,20 @@ class AlarmRingView:UIViewController {
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		print("In alarm, Touched!");
 		
-		if (lastActivatedTimeAfter > 60) {
+		if (lastActivatedTimeAfter > 120) {
 			//한번 졸았다고 체크함
 			userAsleepCount += 1;
 		}
+		if (isLied == false && liePhoneDownCount <= 14) {
+			AlarmManager.stopSoundAlarm(); //터치시에만 꺼지게..
+		}
 		
-		AlarmManager.stopSoundAlarm(); //터치시에만 꺼지게..
 		lastActivatedTimeAfter = 0;
 	}
 	
 	//Check if asleep or not + acc check
 	func asleepTimeCheckFunc() {
-		print("Asleep check process is running");
+		//print("Asleep check process is running");
 		if (currentAlarmElement == nil) {
 			//remove it
 			if (asleepTimer != nil) {
@@ -158,14 +169,45 @@ class AlarmRingView:UIViewController {
 		}
 		/////////////////////////////////////
 		lastActivatedTimeAfter += 1;
-		if (lastActivatedTimeAfter > 60) {
-			AlarmManager.ringSoundAlarm(currentAlarmElement);
+		if (lastActivatedTimeAfter > 120 || liePhoneDownCount > 14) {
+			AlarmManager.ringSoundAlarm(currentAlarmElement, useVibrate: true);
 		}
 		/////////////////////// Accel check
-		print("Acc: ",
-		      cMotionManager!.accelerometerData!.acceleration.x,
-		      cMotionManager!.accelerometerData!.acceleration.y,
-		      cMotionManager!.accelerometerData!.acceleration.z);
+		if (accelSensorWorks) {
+			if (cMotionManager!.accelerometerData!.acceleration.z >= 0.5
+				|| abs(cMotionManager!.accelerometerData!.acceleration.x) >= 0.85) {
+				print ("LIE");
+				isLied = true;
+				//ring alarm when lie user
+				AlarmManager.ringSoundAlarm(currentAlarmElement, useVibrate: true);
+				
+			} else {
+				isLied = false;
+				//alarm stops only touch screen.
+				/*if (lastActivatedTimeAfter <= 60) {
+					//stops alarm less than 1min afk
+					AlarmManager.stopSoundAlarm();
+				}*/
+				
+			}
+			if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+				//Gyro ignore on Pad series
+				liePhoneDownCount = 0;
+			} else {
+				//Gyro check works only Phone/Pod
+				if (abs(cMotionManager!.gyroData!.rotationRate.x) + abs(cMotionManager!.gyroData!.rotationRate.y) + abs(cMotionManager!.gyroData!.rotationRate.z) < 0.05) {
+					print("Not moving");
+					liePhoneDownCount += 1;
+				} else {
+					//print("moving");
+					liePhoneDownCount = 0;
+				}
+			}
+			/*print("Gyro: ",
+				  cMotionManager!.gyroData!.rotationRate.x,
+				  cMotionManager!.gyroData!.rotationRate.y,
+				  cMotionManager!.gyroData!.rotationRate.z);*/
+		}
 	}
 	
 	
