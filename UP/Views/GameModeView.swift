@@ -24,11 +24,11 @@ class GameModeView:UIViewController {
 	
 	override func viewDidLoad() {
 		// view init func
-		self.view.backgroundColor = UIColor.blackColor();
+		self.view.backgroundColor = UIColor.black;
 		GameModeView.selfView = self;
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		if (GameModeView.isGameExiting == true) {
 			return;
 		}
@@ -43,7 +43,7 @@ class GameModeView:UIViewController {
 				GameModeView.jumpUPStartupViewController = GameTitleViewJumpUP();
 				GameModeView.jumpUPStartupViewController!.isGameMode = true;
 				
-				presentViewController(GameModeView.jumpUPStartupViewController!, animated: false, completion: nil);
+				present(GameModeView.jumpUPStartupViewController!, animated: false, completion: nil);
 				break;
 			default: break;
 		}
@@ -58,7 +58,7 @@ class GameModeView:UIViewController {
 	} //end func
 	
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		//view disappear event handler
 		
 	}
@@ -69,25 +69,25 @@ class GameModeView:UIViewController {
 	}
 	
 	//Rotation set
-	func changeRotation(rotationNum:Int) {
+	func changeRotation(_ rotationNum:Int) {
 		//세로로 화면 돌림
-		let portraitOriention = UIInterfaceOrientation.Portrait.rawValue;
-		let landscapeOriention = UIInterfaceOrientation.LandscapeRight.rawValue;
+		let portraitOriention = UIInterfaceOrientation.portrait.rawValue;
+		let landscapeOriention = UIInterfaceOrientation.landscapeRight.rawValue;
 		
 		if (rotationNum == 0) { // 0 - 세로, 1 - 가로
-			UIDevice.currentDevice().setValue(portraitOriention, forKey: "orientation");
+			UIDevice.current.setValue(portraitOriention, forKey: "orientation");
 		} else {
-			UIDevice.currentDevice().setValue(landscapeOriention, forKey: "orientation");
+			UIDevice.current.setValue(landscapeOriention, forKey: "orientation");
 		}
 	}
 	
 	// Lock rotation and fix
-	override func shouldAutorotate() -> Bool {
+	override var shouldAutorotate : Bool {
 		return false; //Lock autorotate in this view
 	}
 	
 	//Set game!
-	static func setGame(gameID:Int) {
+	static func setGame(_ gameID:Int) {
 		//외부에서 게임 정하고 들어옴. 게임시작뷰에서 어디로부터 시작됐는지도 알아야하는데.
 		gameSelectedNumber = gameID;
 		isGameExiting = false;

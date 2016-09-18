@@ -11,7 +11,7 @@ import UIKit;
 
 class UITableDottedCell:UITableViewCell {
 	
-	var currentAccessory:UITableViewCellAccessoryType = .None;
+	var currentAccessory:UITableViewCellAccessoryType = .none;
 	
 	//its override accessory
 	var dottedArrowAccessory:UIImageView = UIImageView(image: UIImage( named: "comp-cell-arrow.png" ));
@@ -25,7 +25,7 @@ class UITableDottedCell:UITableViewCell {
 		
 		//init
 		self.addSubview(dottedArrowAccessory); self.addSubview(dottedCheckAccessory);
-		dottedArrowAccessory.hidden = true; dottedCheckAccessory.hidden = true;
+		dottedArrowAccessory.isHidden = true; dottedCheckAccessory.isHidden = true;
 	}
 	
 	
@@ -38,20 +38,20 @@ class UITableDottedCell:UITableViewCell {
 			
 			//set frame of accessory
 			dottedArrowAccessory.frame =
-				CGRectMake( self.frame.width - (5.05 * 0.8) - 18, (self.frame.height / 2) - ((15.3 * 0.8) / 2), 10.1 * 0.8, 15.3 * 0.8 );
+				CGRect( x: self.frame.width - (5.05 * 0.8) - 18, y: (self.frame.height / 2) - ((15.3 * 0.8) / 2), width: 10.1 * 0.8, height: 15.3 * 0.8 );
 			dottedCheckAccessory.frame =
-				CGRectMake( self.frame.width - (10.1 * 0.8) - 24, dottedArrowAccessory.frame.minY, 20.2 * 0.8, 15.3 * 0.8 );
+				CGRect( x: self.frame.width - (10.1 * 0.8) - 24, y: dottedArrowAccessory.frame.minY, width: 20.2 * 0.8, height: 15.3 * 0.8 );
 			
-			dottedArrowAccessory.hidden = true; dottedCheckAccessory.hidden = true;
+			dottedArrowAccessory.isHidden = true; dottedCheckAccessory.isHidden = true;
 			//update img
 			switch(newValue) {
-				case .DisclosureIndicator:
-					dottedArrowAccessory.hidden = false;
+				case .disclosureIndicator:
+					dottedArrowAccessory.isHidden = false;
 					break;
-				case .Checkmark:
-					dottedCheckAccessory.hidden = false;
+				case .checkmark:
+					dottedCheckAccessory.isHidden = false;
 					break;
-				case .None: break;
+				case .none: break;
 				default: break;
 			} //end switch
 		} //end set

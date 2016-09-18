@@ -10,7 +10,7 @@ import Foundation
 
 class StatsDataElement {
 	
-	var dateComponents:NSDateComponents?;
+	var dateComponents:DateComponents?;
 	
 	var numberData:Float = 0.0;
 	var numberDataArray:Array<Float>?;// = Array<Float>(); //단순 평균 계산용이며 안 쓸수도 있음

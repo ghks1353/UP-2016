@@ -20,7 +20,7 @@ class SoundManager {
 	];
 	
 	//사운드 이름에 대한 실제 사운드 오브젝트 반환
-	static func findSoundObjectWithFileName(soundFileName:String) -> SoundInfoObj? {
+	static func findSoundObjectWithFileName(_ soundFileName:String) -> SoundInfoObj? {
 		for i:Int in 0 ..< list.count {
 			if (list[i].soundFileName == soundFileName) {
 				return list[i];

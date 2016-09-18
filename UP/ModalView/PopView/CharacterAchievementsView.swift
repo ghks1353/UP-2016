@@ -15,7 +15,7 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 	static var selfView:CharacterAchievementsView?;
 	
 	//Table for view
-	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Plain);
+	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.plain);
 	var tablesArray:Array<AnyObject> = [];
 	var achievementsCell:Array<UPAchievementsCell> = [];
 	
@@ -23,29 +23,29 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 		super.viewDidLoad();
 		CharacterAchievementsView.selfView = self;
 		
-		self.view.backgroundColor = .clearColor();
+		self.view.backgroundColor = .clear();
 		
 		//ModalView
-		self.view.backgroundColor = UIColor.whiteColor();
+		self.view.backgroundColor = UIColor.white;
 		self.title = Languages.$("achievements");
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-back"), forState: .Normal);
-		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(CharacterAchievementsView.popToRootAction), forControlEvents: .TouchUpInside);
+		navCloseButton.setImage( UIImage(named: "modal-back"), for: UIControlState());
+		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(CharacterAchievementsView.popToRootAction), for: .touchUpInside);
 		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
 		
 		//background add
 		let achievementBackground:UIImageView = UIImageView( image: UIImage( named: "modal-background-characterinfo-blank.png" ));
-		achievementBackground.frame = CGRectMake( 0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height );
+		achievementBackground.frame = CGRect( x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height );
 		//self.view.addSubview(achievementBackground);
 		
 		//add table to modals
-		tableView.frame = CGRectMake(0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height);
+		tableView.frame = CGRect(x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height);
 		tableView.backgroundView = achievementBackground;
 		self.view.addSubview(tableView);
 		
@@ -54,16 +54,16 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 			achievementsCell += [ createAchievementCell(i) ];
 		}
 		
-		tablesArray = [ achievementsCell ];
+		tablesArray = [ achievementsCell as AnyObject ];
 		
-		tableView.separatorStyle = .None;
+		tableView.separatorStyle = .none;
 		tableView.delegate = self; tableView.dataSource = self;
-		tableView.backgroundColor = UIColor.clearColor();
+		tableView.backgroundColor = UIColor.clear;
 	}
 	
 	func popToRootAction() {
 		//Pop to root by back button
-		self.navigationController?.popViewControllerAnimated(true);
+		self.navigationController?.popViewController(animated: true);
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -72,43 +72,43 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 	}
 	
 	///// for table func
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		//table sel evt
 		//let currCell:UPAchievementsCell = tableView.cellForRowAtIndexPath(indexPath) as! UPAchievementsCell;
 		
 		
-		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+		tableView.deselectRow(at: indexPath, animated: true);
 	}
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1;
 	}
 	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (tablesArray[section] as! Array<AnyObject>).count;
 	}
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 86.4 + 8;
 	}
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell;
 		return cell;
 	}
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 4;
 	}
-	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return 0;
 	}
-	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 0));
-		headerView.backgroundColor = UIColor.clearColor()
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0));
+		headerView.backgroundColor = UIColor.clear
 		return headerView
 	}
 	
 	//////////////////////////
-	func createAchievementCell( achievementIndex:Int ) -> UPAchievementsCell {
+	func createAchievementCell( _ achievementIndex:Int ) -> UPAchievementsCell {
 		let achievementCell:UPAchievementsCell = UPAchievementsCell();
-		achievementCell.backgroundColor = UIColor.clearColor();
+		achievementCell.backgroundColor = UIColor.clear;
 		
 		//BG
 		let achievementItemBackground:UIImageView = UIImageView();
@@ -120,27 +120,27 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 			achievementItemBackground.image = UIImage( named: "achievements-item-disabled.png" );
 		}
 		
-		achievementItemBackground.frame = CGRectMake( 9, 4, tableView.frame.width - 18, 86.4 /* <- 조정 필요할수도 있음 */ );
+		achievementItemBackground.frame = CGRect( x: 9, y: 4, width: tableView.frame.width - 18, height: 86.4 /* <- 조정 필요할수도 있음 */ );
 		//Icon
 		let achievementItemIcon:UIImageView = UIImageView();
 		achievementItemIcon.image = UIImage( named: AchievementManager.getIconNameFromID( AchievementManager.achievementList[achievementIndex].id ) );
-		achievementItemIcon.frame = CGRectMake( 9 + 8, (86.4 - 66.66) / 2 + 4, 66.6, 66.6 );
+		achievementItemIcon.frame = CGRect( x: 9 + 8, y: (86.4 - 66.66) / 2 + 4, width: 66.6, height: 66.6 );
 		
 		//Achievement Text
 		let aText:UILabel = UILabel();
 		let aDescription:UILabel = UILabel();
 		
-		aText.frame = CGRectMake(achievementItemIcon.frame.maxX + 8, achievementItemIcon.frame.minY + 4,
-		                         achievementItemBackground.frame.width - (achievementItemIcon.frame.maxX + 8), 24);
-		aText.font = UIFont.systemFontOfSize(20); aDescription.font = UIFont.systemFontOfSize(14);
+		aText.frame = CGRect(x: achievementItemIcon.frame.maxX + 8, y: achievementItemIcon.frame.minY + 4,
+		                         width: achievementItemBackground.frame.width - (achievementItemIcon.frame.maxX + 8), height: 24);
+		aText.font = UIFont.systemFont(ofSize: 20); aDescription.font = UIFont.systemFont(ofSize: 14);
 		
-		aText.textColor = UIColor.whiteColor();
-		aDescription.textColor = UIColor.whiteColor();
+		aText.textColor = UIColor.white;
+		aDescription.textColor = UIColor.white;
 		
-		aDescription.frame = CGRectMake(aText.frame.minX, aText.frame.maxY,
-		                         aText.frame.width, 40);
+		aDescription.frame = CGRect(x: aText.frame.minX, y: aText.frame.maxY,
+		                         width: aText.frame.width, height: 40);
 		
-		aDescription.lineBreakMode = .ByCharWrapping;
+		aDescription.lineBreakMode = .byCharWrapping;
 		aDescription.numberOfLines = 0;
 		
 		

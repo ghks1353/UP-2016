@@ -17,7 +17,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	static var selfView:AlarmRepeatSettingsView?;
 	
 	//Table for view
-	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
+	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped);
 	var tablesArray:Array<AnyObject> = [];
 	
 	//주중 평일 주말 3세그먼트
@@ -27,24 +27,24 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		super.viewDidLoad();
 		AlarmRepeatSettingsView.selfView = self;
 		
-		self.view.backgroundColor = .clearColor();
+		self.view.backgroundColor = .clear();
 		
 		//ModalView
-		self.view.backgroundColor = UIColor.whiteColor();
+		self.view.backgroundColor = UIColor.white;
 		self.title = Languages.$("alarmRepeat");
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-back"), forState: .Normal);
-		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(AlarmGameListView.popToRootAction), forControlEvents: .TouchUpInside);
+		navCloseButton.setImage( UIImage(named: "modal-back"), for: UIControlState());
+		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(AlarmGameListView.popToRootAction), for: .touchUpInside);
 		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
 		
 		//add table to modals
-		tableView.frame = CGRectMake(0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height);
+		tableView.frame = CGRect(x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height);
 		self.view.addSubview(tableView);
 		
 		print("Adding repeat table cells");
@@ -60,7 +60,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		for i in 0...6 {
 			alarmSoundListsTableArr += [ createCell(i) ];
 		} //end for
-		tablesArray = [ alarmSoundListsTableArr ];
+		tablesArray = [ alarmSoundListsTableArr as AnyObject ];
 		
 		tableView.delegate = self; tableView.dataSource = self;
 		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
@@ -68,7 +68,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	
 	func popToRootAction() {
 		//Pop to root by back button
-		self.navigationController?.popViewControllerAnimated(true);
+		self.navigationController?.popViewController(animated: true);
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -76,11 +76,11 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		// Dispose of any resources that can be recreated.
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		//돌아가기 직전에 설정값을 parent view에 저장해야 함.
 		var tmpRepeatArr:Array<Bool> = [false, false, false, false, false, false, false];
 		for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
-			tmpRepeatArr[i - 1] = (tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .Checkmark;
+			tmpRepeatArr[i - 1] = (tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .checkmark;
 		}
 		
 		AddAlarmView.selfView!.autoSelectRepeatElement( tmpRepeatArr );
@@ -89,7 +89,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	}
 	
 	//// SegmentedControl func
-	func segmentIdxChanged(target: UISegmentedControl) {
+	func segmentIdxChanged(_ target: UISegmentedControl) {
 		//segment에 따라 리스트 자동선택
 		var listPresetArray:Array<Bool> = [ false, false, false, false, false, false, false ];
 		switch(target.selectedSegmentIndex) {
@@ -107,7 +107,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		
 		//auto-selection
 		for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
-			(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType = listPresetArray[i - 1] == true ? .Checkmark : .None;
+			(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType = listPresetArray[i - 1] == true ? .checkmark : .none;
 		}
 	} //end func
 	//Check auto segment status.
@@ -115,7 +115,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		
 		var repeatInfo:Array<Bool> = Array<Bool>();
 		for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
-			repeatInfo += [(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .Checkmark ? true : false];
+			repeatInfo += [(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .checkmark ? true : false];
 		}
 		
 		if (repeatInfo[0] == true && repeatInfo[1] == true && repeatInfo[2] == true &&
@@ -136,66 +136,66 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	}
 	
 	///// for table func
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cellObj:AlarmRepeatDayCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmRepeatDayCell;
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let cellObj:AlarmRepeatDayCell = tableView.cellForRow(at: indexPath) as! AlarmRepeatDayCell;
 		if (cellObj.dayID == -1) {
-			tableView.deselectRowAtIndexPath(indexPath, animated: true);
+			tableView.deselectRow(at: indexPath, animated: true);
 			return; //선택 불가능 예외
 		}
 		
 		//Check toggle
-		cellObj.accessoryType = cellObj.accessoryType == .Checkmark ? .None : .Checkmark;
+		cellObj.accessoryType = cellObj.accessoryType == .checkmark ? .none : .checkmark;
 		checkAutoSegmentStatus();
 		
-		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+		tableView.deselectRow(at: indexPath, animated: true);
 	}
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1;
 	}
-	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
 		default:
 			return "";
 		}
 	}
 	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (tablesArray[section] as! Array<AnyObject>).count;
 	}
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		switch(indexPath.section){
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		switch((indexPath as NSIndexPath).section){
 			default:
 				break;
 		}
 		
-		if (indexPath.row == 0) {
+		if ((indexPath as NSIndexPath).row == 0) {
 			return 54;
 		}
 		return UITableViewAutomaticDimension;
 	}
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell;
 		return cell;
 	}
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 0.0001;
 	}
-	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return 12;
 	}
 	
 	//Tableview group-selection cell create
 	func createDaysGroupSelectCell() -> AlarmRepeatDayCell {
 		let tCell:AlarmRepeatDayCell = AlarmRepeatDayCell();
-		tCell.backgroundColor = UIColor.whiteColor();
-		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 54); //기본 셀 사이즈보다 조금 큰 정도
+		tCell.backgroundColor = UIColor.white;
+		tCell.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 54); //기본 셀 사이즈보다 조금 큰 정도
 		tCell.dayID = -1; //selection 예외처리
 		
 		let tSelection:UISegmentedControl
 			= UISegmentedControl( items: [ Languages.$("alarmRepeatFreqEveryday"), Languages.$("alarmRepeatFreqWeekday"), Languages.$("alarmRepeatFreqWeekend") ] );
-		tSelection.frame = CGRectMake( (tableView.frame.width / 2) - (190 / 2), 12, 190, 30 );
+		tSelection.frame = CGRect( x: (tableView.frame.width / 2) - (190 / 2), y: 12, width: 190, height: 30 );
 		tSelection.selectedSegmentIndex = -1; //default selected index
-		tSelection.addTarget(self, action: #selector(AlarmRepeatSettingsView.segmentIdxChanged(_:)), forControlEvents: .ValueChanged);
+		tSelection.addTarget(self, action: #selector(AlarmRepeatSettingsView.segmentIdxChanged(_:)), for: .valueChanged);
 		
 		selSegmetDaysGroup = tSelection;
 		
@@ -204,19 +204,19 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	}
 	
 	//Tableview cell view create
-	func createCell( dayID:Int ) -> AlarmRepeatDayCell {
+	func createCell( _ dayID:Int ) -> AlarmRepeatDayCell {
 		let tCell:AlarmRepeatDayCell = AlarmRepeatDayCell();
-		tCell.backgroundColor = UIColor.whiteColor();
-		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 45); //default cell size
+		tCell.backgroundColor = UIColor.white;
+		tCell.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 45); //default cell size
 		
 		let tLabel:UILabel = UILabel();
-		tLabel.frame = CGRectMake(16, 0, tableView.frame.width * 0.85, 45);
-		tLabel.font = UIFont.systemFontOfSize(16);
+		tLabel.frame = CGRect(x: 16, y: 0, width: tableView.frame.width * 0.85, height: 45);
+		tLabel.font = UIFont.systemFont(ofSize: 16);
 		
 		switch( dayID ) { //0 = 일요일
 			case 0:
 				tLabel.text = Languages.$("alarmRepeatSun");
-				tLabel.textColor = UIColor.redColor();
+				tLabel.textColor = UIColor.red;
 				break;
 			case 1:
 				tLabel.text = Languages.$("alarmRepeatMon"); break;
@@ -234,7 +234,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 			default: break;
 		}
 		
-		tCell.accessoryType = UITableViewCellAccessoryType.None;
+		tCell.accessoryType = UITableViewCellAccessoryType.none;
 		tCell.dayID = dayID;
 		tCell.addSubview(tLabel);
 		
@@ -242,12 +242,12 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	}
 	
 	//Set selected style from other view (accessable)
-	internal func setSelectedCell( repeatArr:Array<Bool> ) {
+	internal func setSelectedCell( _ repeatArr:Array<Bool> ) {
 		for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
 			if (repeatArr[i - 1] == true) {
-				(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType = .Checkmark;
+				(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType = .checkmark;
 			} else {
-				(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType = .None;
+				(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType = .none;
 			}
 		}
 		
@@ -257,7 +257,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 	
 	
 	//UITextfield del
-	func textFieldShouldReturn(textField: UITextField) -> Bool { //Returnkey to hide
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool { //Returnkey to hide
 		self.view.endEditing(true);
 		return false;
 	}

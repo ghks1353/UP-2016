@@ -21,7 +21,7 @@ class CharacterManager {
 		return Float(currentCharInfo.characterExp) / maxEXPLevelIn;
 	}
 	
-	static func giveEXP(amount:Int = 0) {
+	static func giveEXP(_ amount:Int = 0) {
 		//exp 채움. 
 		
 		//해당 레벨의 최대 경험치 추산:
@@ -45,7 +45,7 @@ class CharacterManager {
 	}
 	
 	//현 캐릭터info 객체를 다른 쪽으로 카피. (정확히는 데이터만 덮어쓰기)
-	static func setDataTo( infoObject:CharacterInfo ) {
+	static func setDataTo( _ infoObject:CharacterInfo ) {
 		currentCharInfo.characterLevel = infoObject.characterLevel;
 		currentCharInfo.characterExp = infoObject.characterExp;
 		
@@ -57,9 +57,9 @@ class CharacterManager {
 	static func merge() {
 		//로드와 동시에 체크섬 검사하여 이상하면 레벨 1, exp 0으로 롤백. (처음 init과정이기도.)
 		
-		if (DataManager.nsDefaults.objectForKey( DataManager.characterInfoKeys.info ) != nil) {
-			let tmpInfo:NSData = DataManager.nsDefaults.objectForKey( DataManager.characterInfoKeys.info ) as! NSData;
-			currentCharInfo = NSKeyedUnarchiver.unarchiveObjectWithData(tmpInfo) as! CharacterInfo;
+		if (DataManager.nsDefaults.object( forKey: DataManager.characterInfoKeys.info ) != nil) {
+			let tmpInfo:Data = DataManager.nsDefaults.object( forKey: DataManager.characterInfoKeys.info ) as! Data;
+			currentCharInfo = NSKeyedUnarchiver.unarchiveObject(with: tmpInfo) as! CharacterInfo;
 		} else {
 			//아래 과정에서 다 알아서 해줌
 		}
@@ -77,16 +77,16 @@ class CharacterManager {
 		save(); //저장
 	}
 	
-	static func makeLvChecksum(level:Int) -> String {
+	static func makeLvChecksum(_ level:Int) -> String {
 		return UPUtils.SHA256( String(level) + "lvsalt" + String(level * 2) );
 	}
-	static func makeExpChecksum(exp:Int) -> String {
+	static func makeExpChecksum(_ exp:Int) -> String {
 		return UPUtils.SHA256( String(exp) + "exsalt" + String(exp * 4) );
 	}
 	
 	static func save() {
 		//DataManager를 통해 저장
-		DataManager.nsDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(currentCharInfo), forKey: DataManager.characterInfoKeys.info);
+		DataManager.nsDefaults.set(NSKeyedArchiver.archivedData(withRootObject: currentCharInfo), forKey: DataManager.characterInfoKeys.info);
 		DataManager.save();
 	}
 	

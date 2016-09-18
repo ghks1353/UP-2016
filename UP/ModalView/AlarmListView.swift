@@ -27,7 +27,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	var alarmAddIfEmptyButton:UIButton = UIButton();
 	
     //Table for menu
-    internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Plain);
+    internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.plain);
     var tablesArray:Array<AnyObject> = [];
 	var alarmsCell:Array<AlarmListCell> = [];
 	
@@ -37,7 +37,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	//List delete confirm alert
 	var listConfirmAction:UIAlertController = UIAlertController();
 	var alarmTargetID:Int = 0; //target del id(tmp)
-	var alarmTargetIndexPath:NSIndexPath?; // = NSIndexPath(); //to delete animation/optimization
+	var alarmTargetIndexPath:IndexPath?; // = NSIndexPath(); //to delete animation/optimization
 	
 	internal var modalAddViewCalled:Bool = false;
 	
@@ -46,15 +46,15 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
     override func viewDidLoad() {
         super.viewDidLoad();
-		self.view.backgroundColor = .clearColor();
+		self.view.backgroundColor = .clear();
 		
 		AlarmListView.selfView = self;
 		
         //ModalView
-        modalView.view.backgroundColor = UIColor.whiteColor();
+        modalView.view.backgroundColor = UIColor.white;
 		modalView.view.frame = DeviceManager.defaultModalSizeRect;
 		
-		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
+		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#535B66");
@@ -62,21 +62,21 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		modalView.title = Languages.$("alarmList");
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-close"), forState: .Normal);
-		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(AlarmListView.viewCloseAction), forControlEvents: .TouchUpInside);
+		navCloseButton.setImage( UIImage(named: "modal-close"), for: UIControlState());
+		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(AlarmListView.viewCloseAction), for: .touchUpInside);
 		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		
 		//add right items
-		let navRightPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navRightPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navRightPadding.width = -12; //Button right padding
 		let navFuncButton:UIButton = UIButton(); //Add image into UIButton
-		navFuncButton.setImage( UIImage(named: "modal-add"), forState: .Normal);
-		navFuncButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navFuncButton.addTarget(self, action: #selector(AlarmListView.alarmAddAction), forControlEvents: .TouchUpInside);
+		navFuncButton.setImage( UIImage(named: "modal-add"), for: UIControlState());
+		navFuncButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navFuncButton.addTarget(self, action: #selector(AlarmListView.alarmAddAction), for: .touchUpInside);
 		modalView.navigationItem.rightBarButtonItems = [ navRightPadding, UIBarButtonItem(customView: navFuncButton) ];
 		///////// Nav items fin
 		
@@ -84,46 +84,46 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		self.view.addSubview(navigationCtrl.view);
 		
 		//add table to modal
-        tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
-		tableView.separatorStyle = .None;
+        tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height);
+		tableView.separatorStyle = .none;
         modalView.view.addSubview(tableView);
 		
 		//알람이 없을 경우 나타나는 메시지에 대한 뷰
 		alarmAddGuideImageView = UIImageView( image: UIImage( named: "comp-alarm-notfound.png" ) );
-		alarmAddGuideImageView.frame = CGRectMake(
-			modalView.view.frame.width / 2 - (102.7 / 2) /* 착시 fix */ + (3.5),
-			modalView.view.frame.height / 2 - 48,
-			102.7, 59.6
+		alarmAddGuideImageView.frame = CGRect(
+			x: modalView.view.frame.width / 2 - (102.7 / 2) /* 착시 fix */ + (3.5),
+			y: modalView.view.frame.height / 2 - 48,
+			width: 102.7, height: 59.6
 		);
 		modalView.view.addSubview(alarmAddGuideImageView);
 		
 		//텍스트
-		alarmAddGuideText.textColor = UIColor.grayColor();
-		alarmAddGuideText.textAlignment = .Center;
-		alarmAddGuideText.frame = CGRectMake(
-			0, modalView.view.frame.height / 2 + 18,
-			modalView.view.frame.width, 24
+		alarmAddGuideText.textColor = UIColor.gray;
+		alarmAddGuideText.textAlignment = .center;
+		alarmAddGuideText.frame = CGRect(
+			x: 0, y: modalView.view.frame.height / 2 + 18,
+			width: modalView.view.frame.width, height: 24
 		);
-		alarmAddGuideText.font = UIFont.systemFontOfSize(18);
+		alarmAddGuideText.font = UIFont.systemFont(ofSize: 18);
 		alarmAddGuideText.text = Languages.$("alarmListEmpty");
 		modalView.view.addSubview(alarmAddGuideText);
 		
 		//추가 버튼
 		alarmAddIfEmptyButton = UIButton();
-		alarmAddIfEmptyButton.titleLabel!.font = UIFont.systemFontOfSize(14);
-		alarmAddIfEmptyButton.setTitleColor(UPUtils.colorWithHexString("#BBBBBB"), forState: .Normal);
-		alarmAddIfEmptyButton.setTitle(Languages.$("alarmListAddWhenEmpty"), forState: .Normal);
-		alarmAddIfEmptyButton.frame = CGRectMake(
-			modalView.view.frame.width / 2 - (80 / 2),
-			modalView.view.frame.height / 2 + 64,
-			80, 28
+		alarmAddIfEmptyButton.titleLabel!.font = UIFont.systemFont(ofSize: 14);
+		alarmAddIfEmptyButton.setTitleColor(UPUtils.colorWithHexString("#BBBBBB"), for: UIControlState());
+		alarmAddIfEmptyButton.setTitle(Languages.$("alarmListAddWhenEmpty"), for: UIControlState());
+		alarmAddIfEmptyButton.frame = CGRect(
+			x: modalView.view.frame.width / 2 - (80 / 2),
+			y: modalView.view.frame.height / 2 + 64,
+			width: 80, height: 28
 		);
-		alarmAddIfEmptyButton.backgroundColor = UIColor.clearColor();
+		alarmAddIfEmptyButton.backgroundColor = UIColor.clear;
 		alarmAddIfEmptyButton.layer.borderWidth = 1;
-		alarmAddIfEmptyButton.layer.borderColor = UPUtils.colorWithHexString("#BBBBBB").CGColor;
+		alarmAddIfEmptyButton.layer.borderColor = UPUtils.colorWithHexString("#BBBBBB").cgColor;
 		modalView.view.addSubview(alarmAddIfEmptyButton);
 		
-		alarmAddIfEmptyButton.addTarget(self, action: #selector(AlarmListView.alarmAddAction), forControlEvents: .TouchUpInside);
+		alarmAddIfEmptyButton.addTarget(self, action: #selector(AlarmListView.alarmAddAction), for: .touchUpInside);
 		/////////////////////
 		
         //add alarm-list
@@ -133,12 +133,12 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 		
 		//Document상에서는 iOS 8부터임
-		listConfirmAction = UIAlertController(title: Languages.$("alarmDeleteTitle"), message: Languages.$("alarmDeleteSure"), preferredStyle: .ActionSheet);
+		listConfirmAction = UIAlertController(title: Languages.$("alarmDeleteTitle"), message: Languages.$("alarmDeleteSure"), preferredStyle: .actionSheet);
 		//add menus
-		let cancelAct:UIAlertAction = UIAlertAction(title: Languages.$("generalCancel"), style: .Cancel) { action -> Void in
+		let cancelAct:UIAlertAction = UIAlertAction(title: Languages.$("generalCancel"), style: .cancel) { action -> Void in
 			//Cancel just dismiss it
 		};
-		let deleteSureAct:UIAlertAction = UIAlertAction(title: Languages.$("alarmDelete"), style: .Destructive) { action -> Void in
+		let deleteSureAct:UIAlertAction = UIAlertAction(title: Languages.$("alarmDelete"), style: .destructive) { action -> Void in
 			//delete it
 			self.deleteAlarmConfirm();
 			
@@ -150,18 +150,18 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		///////
 		//Upside message initial
-		upAlarmMessageView.backgroundColor = UIColor.whiteColor(); //color initial
-		upAlarmMessageText.textColor = UIColor.blackColor();
+		upAlarmMessageView.backgroundColor = UIColor.white; //color initial
+		upAlarmMessageText.textColor = UIColor.black;
 		
 		upAlarmMessageText.text = "";
-		upAlarmMessageText.textAlignment = .Center;
-		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceManager.scrSize!.width, 48);
-		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceManager.scrSize!.width, 24);
-		upAlarmMessageText.font = UIFont.systemFontOfSize(16);
+		upAlarmMessageText.textAlignment = .center;
+		upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: 48);
+		upAlarmMessageText.frame = CGRect(x: 0, y: 12, width: DeviceManager.scrSize!.width, height: 24);
+		upAlarmMessageText.font = UIFont.systemFont(ofSize: 16);
 		upAlarmMessageView.addSubview(upAlarmMessageText);
 		
 		self.view.addSubview( upAlarmMessageView );
-		upAlarmMessageView.hidden = true;
+		upAlarmMessageView.isHidden = true;
 		///// upside message inital
 		
 		//DISABLE AUTORESIZE
@@ -170,7 +170,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//SET MASK for dot eff
 		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
 		modalMaskImageView.frame = modalView.view.frame;
-		modalMaskImageView.contentMode = .ScaleAspectFit; self.view.maskView = modalMaskImageView;
+		modalMaskImageView.contentMode = .scaleAspectFit; self.view.mask = modalMaskImageView;
 		
 		FitModalLocationToCenter();
     }
@@ -181,8 +181,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		print("del start of", self.alarmTargetID);
 		AlarmManager.removeAlarm(self.alarmTargetID);
 		//Update table with animation
-		self.alarmsCell.removeAtIndex(self.alarmTargetIndexPath!.row); self.tablesArray = [self.alarmsCell];
-		self.tableView.deleteRowsAtIndexPaths([self.alarmTargetIndexPath!], withRowAnimation: UITableViewRowAnimation.Top);
+		self.alarmsCell.remove(at: (self.alarmTargetIndexPath! as NSIndexPath).row); self.tablesArray = [self.alarmsCell as AnyObject];
+		self.tableView.deleteRows(at: [self.alarmTargetIndexPath!], with: UITableViewRowAnimation.top);
 		
 		//chk alarm make available
 		checkAlarmLimitExceed();
@@ -191,21 +191,21 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	//iPad Alarm Delete Question
 	func showAlarmDelAlert() {
-		let alarmDelAlertController = UIAlertController(title: Languages.$("alarmDelete"), message: Languages.$("alarmDeleteSure"), preferredStyle: UIAlertControllerStyle.Alert);
-		alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
+		let alarmDelAlertController = UIAlertController(title: Languages.$("alarmDelete"), message: Languages.$("alarmDeleteSure"), preferredStyle: UIAlertControllerStyle.alert);
+		alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 			//Alarm delete
 			self.deleteAlarmConfirm();
 		}));
 		
-		alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalCancel"), style: .Default, handler: { (action: UIAlertAction!) in
+		alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalCancel"), style: .default, handler: { (action: UIAlertAction!) in
 			//Cancel
 		}));
-		presentViewController(alarmDelAlertController, animated: true, completion: nil);
+		present(alarmDelAlertController, animated: true, completion: nil);
 		
 	} //end function
 	
 	//iOS7 & iPad Alert fallback
-	func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+	func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
 		if (buttonIndex == alertView.cancelButtonIndex) { //cancel
 			print("ios7 fallback - alarm del canceled");
 		} else { //ok confirm
@@ -214,7 +214,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 	
 	//iOS7 actionsheet handler
-	func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+	func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
 		print("actionidx", buttonIndex);
 		switch(buttonIndex){
 			case 0:
@@ -227,7 +227,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 	
 	/////// View transition animation
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		//setup bounce animation
 		self.view.alpha = 0;
 		
@@ -239,17 +239,17 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		checkAlarmIsEmpty();
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
-		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
-		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
-			self.view.frame = CGRectMake(0, 0,
-				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
+		self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
+		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
+		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
+			self.view.frame = CGRect(x: 0, y: 0,
+				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}
@@ -262,18 +262,18 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		}
 		alarmsCell.removeAll();
 		
-		var tmpComponentPointer:NSDateComponents;
+		var tmpComponentPointer:DateComponents;
 		for i:Int in 0 ..< AlarmManager.alarmsArray.count {
-			tmpComponentPointer = NSCalendar.currentCalendar().components([.Hour, .Minute], fromDate: AlarmManager.alarmsArray[i].alarmFireDate);
+			tmpComponentPointer = (Calendar.current as NSCalendar).components([.hour, .minute], from: AlarmManager.alarmsArray[i].alarmFireDate as Date);
 			print("Alarm adding:", AlarmManager.alarmsArray[i].alarmID,
-			     ( AlarmManager.alarmsArray[i].alarmFireDate as NSDate).timeIntervalSince1970 ,
+			     ( AlarmManager.alarmsArray[i].alarmFireDate as Date).timeIntervalSince1970 ,
 			      AlarmManager.alarmsArray[i].alarmToggle, "repeat", AlarmManager.alarmsArray[i].alarmRepeat);
 			alarmsCell += [
 				createAlarmList(AlarmManager.alarmsArray[i].alarmName,
 					alarmMemo: AlarmManager.alarmsArray[i].alarmMemo,
 					defaultState: AlarmManager.alarmsArray[i].alarmToggle,
-					funcTimeHour: tmpComponentPointer.hour,
-					funcTimeMin: tmpComponentPointer.minute,
+					funcTimeHour: tmpComponentPointer.hour!,
+					funcTimeMin: tmpComponentPointer.minute!,
 					selectedGame: AlarmManager.alarmsArray[i].gameSelected,
 					repeatSettings: AlarmManager.alarmsArray[i].alarmRepeat,
 					uuid: AlarmManager.alarmsArray[i].alarmID)
@@ -282,7 +282,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tablesArray.removeAll();
 		tablesArray = [
 			/*section 1*/
-			alarmsCell
+			alarmsCell as AnyObject
 		];
 		
 		tableView.reloadData();
@@ -291,34 +291,34 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		//DISABLE AUTORESIZE
 		self.view.autoresizesSubviews = false;
-		self.view.autoresizingMask = .None;
+		self.view.autoresizingMask = UIViewAutoresizing();
 		
 	}
 	
 	
     /// table setup
 	
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
 			default:
 				return "";
         }
     }
 	
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cell:AlarmListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmListCell;
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let cell:AlarmListCell = tableView.cellForRow(at: indexPath) as! AlarmListCell;
 		//Show alarm edit view
 		
 		modalAlarmAddView.showBlur = false;
-		modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
+		modalAlarmAddView.modalPresentationStyle = .overFullScreen;
 		
 		//find alarm object from array
 		let targetAlarm:AlarmElements = AlarmManager.getAlarm(cell.alarmID)!;
 		
-		self.presentViewController(modalAlarmAddView, animated: false, completion: nil);
+		self.present(modalAlarmAddView, animated: false, completion: nil);
 		
 		print("Modifing", targetAlarm.alarmName, targetAlarm.alarmID);
 		modalAlarmAddView.fillComponentsWithEditMode(cell.alarmID,
@@ -331,46 +331,46 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			repeatInfo: targetAlarm.alarmRepeat,
 			alarmDefaultToggle: targetAlarm.alarmToggle);
 		
-		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+		tableView.deselectRow(at: indexPath, animated: true);
 
 		
 	}
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (tablesArray[section] as! Array<AnyObject>).count;
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 80; //UITableViewAutomaticDimension;
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell;
         return cell;
     }
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0;
     }
 	
 	//Fallback function. DO NOT REMOVE
-	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 	} //end func
 	
-	func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 		//get row
 		//let cell:AlarmListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmListCell;
 		
-		let deleteRow:UITableViewRowAction = UITableViewRowAction(style: .Default, title: Languages.$("alarmDelete")) {
-			(action:UITableViewRowAction!, childIndexPath:NSIndexPath!) -> Void in
+		let deleteRow:UITableViewRowAction = UITableViewRowAction(style: .default, title: Languages.$("alarmDelete")) {
+			(action:UITableViewRowAction!, childIndexPath:IndexPath!) -> Void in
 			
-			let cell:AlarmListCell = tableView.cellForRowAtIndexPath(childIndexPath) as! AlarmListCell;
+			let cell:AlarmListCell = tableView.cellForRow(at: childIndexPath) as! AlarmListCell;
 			print("cell delete alarm", cell.alarmID);
 			self.alarmTargetID = cell.alarmID;
 			self.alarmTargetIndexPath = childIndexPath;
 			
-			if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+			if (UIDevice.current.userInterfaceIdiom == .pad) {
 				//패드일 땐 그냥 alert로 띄움
 				self.showAlarmDelAlert();
 			} else {
 				//폰일 때
-				self.presentViewController(self.listConfirmAction, animated: true, completion: nil); //show menu
+				self.present(self.listConfirmAction, animated: true, completion: nil); //show menu
 			} //end chk phone or not
 			
 		} //end if
@@ -383,14 +383,14 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	func FitModalLocationToCenter() {
 		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
 		
-		if (self.view.maskView != nil) {
-			self.view.maskView!.frame = DeviceManager.defaultModalSizeRect;
+		if (self.view.mask != nil) {
+			self.view.mask!.frame = DeviceManager.defaultModalSizeRect;
 		}
 		
 		//알람 텍스트 및 배경의 조절
-		upAlarmMessageText.textAlignment = .Center;
-		upAlarmMessageView.frame = CGRectMake(0, 0, DeviceManager.scrSize!.width, 48);
-		upAlarmMessageText.frame = CGRectMake(0, 12, DeviceManager.scrSize!.width, 24);
+		upAlarmMessageText.textAlignment = .center;
+		upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: 48);
+		upAlarmMessageText.frame = CGRect(x: 0, y: 12, width: DeviceManager.scrSize!.width, height: 24);
 	}
 	
     override func didReceiveMemoryWarning() {
@@ -402,20 +402,20 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
         //Show alarm-add view
 		//뷰는 단 하나의 추가 뷰만 present가 가능한 관계로..
 		modalAlarmAddView.showBlur = false;
-		modalAlarmAddView.modalPresentationStyle = .OverFullScreen;
+		modalAlarmAddView.modalPresentationStyle = .overFullScreen;
 		
 		modalAlarmAddView.FitModalLocationToCenter();
-		self.presentViewController(modalAlarmAddView, animated: false, completion: nil);
+		self.present(modalAlarmAddView, animated: false, completion: nil);
 		modalAlarmAddView.clearComponents();
 		
     }
     
     func viewCloseAction() {
         //Close this view
-		if (upAlarmMessageView.hidden == false) {
+		if (upAlarmMessageView.isHidden == false) {
 			//가리면서 사라지게
 			self.upAlarmMessageView.alpha = 1;
-			UIView.animateWithDuration(0.12, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+			UIView.animate(withDuration: 0.12, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
 				self.upAlarmMessageView.alpha = 0;
 				}, completion: {_ in
 			});
@@ -423,16 +423,16 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		modalAddViewCalled = false;
 		ViewController.viewSelf!.showHideBlurview(false);
-        self.dismissViewControllerAnimated(true, completion: nil);
+        self.dismiss(animated: true, completion: nil);
     } //end func
 	
 	func checkAlarmLimitExceed() {
 		//informationAlarmExceed
 		if ( AlarmManager.alarmsArray.count >= AlarmManager.alarmMaxRegisterCount ) {
 			print("Alarm over", AlarmManager.alarmMaxRegisterCount, "(current ", AlarmManager.alarmsArray.count ,")");
-			modalView.navigationItem.rightBarButtonItem!.enabled = false;
+			modalView.navigationItem.rightBarButtonItem!.isEnabled = false;
 		} else {
-			modalView.navigationItem.rightBarButtonItem!.enabled = true;
+			modalView.navigationItem.rightBarButtonItem!.isEnabled = true;
 		}
 		
 	} //end chk limit func
@@ -441,22 +441,22 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//알람이 비어있는 경우 비어있으니 추가해달라는 메시지 표시.
 		if ( AlarmManager.alarmsArray.count == 0 ) {
 			//뷰 표시
-			alarmAddGuideText.hidden = false;
-			alarmAddGuideImageView.hidden = false;
-			alarmAddIfEmptyButton.hidden = false;
+			alarmAddGuideText.isHidden = false;
+			alarmAddGuideImageView.isHidden = false;
+			alarmAddIfEmptyButton.isHidden = false;
 		} else {
 			//메시지 삭제
-			alarmAddGuideText.hidden = true;
-			alarmAddGuideImageView.hidden = true;
-			alarmAddIfEmptyButton.hidden = true;
+			alarmAddGuideText.isHidden = true;
+			alarmAddGuideImageView.isHidden = true;
+			alarmAddIfEmptyButton.isHidden = true;
 		}
 		
 		
 	} //end func
 	
 	//Switch changed-event
-	func alarmSwitchChangedEventHandler(targetElement:UIAlarmIDSwitch) {
-		AlarmManager.toggleAlarm(targetElement.elementID, alarmStatus: targetElement.on, isListOn: true);
+	func alarmSwitchChangedEventHandler(_ targetElement:UIAlarmIDSwitch) {
+		AlarmManager.toggleAlarm(targetElement.elementID, alarmStatus: targetElement.isOn, isListOn: true);
 		var statusChanged:Bool = false;
 		
 		//리스트 갱신
@@ -465,24 +465,24 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			if (alarmsCell[i].alarmID == targetElement.elementID) {
 				targetCell = alarmsCell[i];
 				
-				if ( alarmsCell[i].alarmToggled != targetElement.on) {
+				if ( alarmsCell[i].alarmToggled != targetElement.isOn) {
 					statusChanged = true;
 				}
-				alarmsCell[i].alarmToggled = targetElement.on; // on = true / off = false
+				alarmsCell[i].alarmToggled = targetElement.isOn; // on = true / off = false
 				
 				let bgFileName:String = getBackgroundFileNameFromTime(alarmsCell[i].timeHour);
-				let bgFileState:String = (targetElement.on == true ? "on" : "off") + (UIDevice.currentDevice().userInterfaceIdiom == .Pad ? "-pad" : "");
+				let bgFileState:String = (targetElement.isOn == true ? "on" : "off") + (UIDevice.current.userInterfaceIdiom == .pad ? "-pad" : "");
 				let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "-small" : "";
 				tImage = bgFileName + "-time-" + bgFileState + fileUsesSmallPrefix + ".png";
 				//alarmsCell[i].backgroundImage!.image = UIImage(named: bgFileName + "_time_" + bgFileState + fileUsesSmallPrefix + ".png");
 				
 				//alarmsCell[i].alarmName!.textColor = alarmsCell[i].alarmToggled ? UIColor.whiteColor() : UIColor.blackColor();
-				alarmsCell[i].alarmName!.alpha = targetElement.on ? 1 : 0.8;
+				alarmsCell[i].alarmName!.alpha = targetElement.isOn ? 1 : 0.8;
 				alarmsCell[i].timeText!.alpha = alarmsCell[i].alarmName!.alpha;
 				alarmsCell[i].timeAMPM!.alpha = alarmsCell[i].alarmName!.alpha;
 				alarmsCell[i].timeRepeat!.alpha = alarmsCell[i].alarmName!.alpha;
 				
-				alarmsCell[i].alarmName!.textColor = targetElement.on ? UIColor.whiteColor() : UPUtils.colorWithHexString("#878787");
+				alarmsCell[i].alarmName!.textColor = targetElement.isOn ? UIColor.white : UPUtils.colorWithHexString("#878787");
 				alarmsCell[i].timeText!.textColor = alarmsCell[i].alarmName!.textColor;
 				alarmsCell[i].timeAMPM!.textColor = alarmsCell[i].alarmName!.textColor;
 				alarmsCell[i].timeRepeat!.textColor = alarmsCell[i].alarmName!.textColor;
@@ -494,17 +494,17 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		if (statusChanged == true) {
 			var tChangeBG:UIImageView? = UIImageView( image: targetCell!.backgroundImage!.image );
 			tChangeBG!.frame = targetCell!.backgroundImage!.frame;
-			tChangeBG!.contentMode = .ScaleAspectFill;
-			targetCell!.addSubview(tChangeBG!); targetCell!.sendSubviewToBack(tChangeBG!);
-			targetCell!.backgroundImage!.frame = CGRectMake(0, 80 /* 초기값 위로 */, self.modalView.view.frame.width, 80);
+			tChangeBG!.contentMode = .scaleAspectFill;
+			targetCell!.addSubview(tChangeBG!); targetCell!.sendSubview(toBack: tChangeBG!);
+			targetCell!.backgroundImage!.frame = CGRect(x: 0, y: 80 /* 초기값 위로 */, width: self.modalView.view.frame.width, height: 80);
 			targetCell!.backgroundImage!.image = UIImage( named: tImage ); //new img
 			//구조: 애니메이션용 프레임이 기존 위치에서 위로 올라감, 기존 프레임이 아래에서 올라옴
 			
-			UIView.animateWithDuration(0.56, delay: 0,
+			UIView.animate(withDuration: 0.56, delay: 0,
 									   usingSpringWithDamping: 1, initialSpringVelocity: 1,
-									   options: .CurveEaseIn, animations: {
-				tChangeBG!.frame = CGRectMake(0, -80 /* 아래로 */, self.modalView.view.frame.width, 80);
-				targetCell!.backgroundImage!.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 80);
+									   options: .curveEaseIn, animations: {
+				tChangeBG!.frame = CGRect(x: 0, y: -80 /* 아래로 */, width: self.modalView.view.frame.width, height: 80);
+				targetCell!.backgroundImage!.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 80);
 										
 				
 			}) { _ in
@@ -518,7 +518,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 	
 	//get str from time
-	func getBackgroundFileNameFromTime(timeHour:Int)->String {
+	func getBackgroundFileNameFromTime(_ timeHour:Int)->String {
 		if (timeHour >= 22 || timeHour < 6) {
 			return "d";
 		} else if (timeHour >= 6 && timeHour < 11) {
@@ -532,7 +532,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 	
 	//Tableview cell view create
-	func createAlarmList(name:String, alarmMemo:String, defaultState:Bool, funcTimeHour:Int, funcTimeMin:Int, selectedGame:Int, repeatSettings:Array<Bool>, uuid:Int ) -> AlarmListCell {
+	func createAlarmList(_ name:String, alarmMemo:String, defaultState:Bool, funcTimeHour:Int, funcTimeMin:Int, selectedGame:Int, repeatSettings:Array<Bool>, uuid:Int ) -> AlarmListCell {
 		var timeHour:Int = funcTimeHour;
 		let timeMin:Int = funcTimeMin;
 		
@@ -540,15 +540,15 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		let tLabel:UILabel = UILabel(); let tLabelTime:UILabel = UILabel();
 		let tTimeBackground:UIImageView = UIImageView();
 		
-		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 80 );
-		tCell.backgroundColor = UIColor.whiteColor();
-		tTimeBackground.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 80);
+		tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 80 );
+		tCell.backgroundColor = UIColor.white;
+		tTimeBackground.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 80);
 		tCell.addSubview(tTimeBackground);
 		
 		//온오프 시 애니메이션 효과를 주기 위해 마스크를 씌울거임.
 		let maskLayer:CAShapeLayer = CAShapeLayer();
-		let maskRect:CGRect = CGRectMake(0, 0, self.modalView.view.frame.width * 2, 80 ); //삭제버튼까지 나와야하므로 마스크 2배
-		let path:CGPathRef = CGPathCreateWithRect(maskRect, nil);
+		let maskRect:CGRect = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width * 2, height: 80 ); //삭제버튼까지 나와야하므로 마스크 2배
+		let path:CGPath = CGPath(rect: maskRect, transform: nil);
 		maskLayer.path = path;
 		tCell.layer.mask = maskLayer;
 		
@@ -560,24 +560,24 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tCell.alarmToggled = defaultState;
 		tSwitch.elementID = uuid;
 		
-		let tTimeImgName:String = (defaultState == true ? "on" : "off") + (UIDevice.currentDevice().userInterfaceIdiom == .Pad ? "-pad" : "");
+		let tTimeImgName:String = (defaultState == true ? "on" : "off") + (UIDevice.current.userInterfaceIdiom == .pad ? "-pad" : "");
 		print("lis timgname is => " + tTimeImgName);
 		let bgFileName:String = getBackgroundFileNameFromTime(timeHour);
 		let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "-small" : "";
 		tTimeBackground.image = UIImage(named: bgFileName + "-time-" + tTimeImgName + fileUsesSmallPrefix + ".png");
-		tTimeBackground.contentMode = .ScaleAspectFill;
+		tTimeBackground.contentMode = .scaleAspectFill;
 		
-		tLabel.frame = CGRectMake(15, 50, self.modalView.view.frame.width * 0.7, 24); //알람 이름
-		tLabelTime.frame = CGRectMake(12, 4, 0, 0); //현재 시간
-		tLabel.textAlignment = .Left;
+		tLabel.frame = CGRect(x: 15, y: 50, width: self.modalView.view.frame.width * 0.7, height: 24); //알람 이름
+		tLabelTime.frame = CGRect(x: 12, y: 4, width: 0, height: 0); //현재 시간
+		tLabel.textAlignment = .left;
 		
 		if (DeviceManager.is24HourMode == false) {
 			//오전 오후 모드면
 			timeHour = timeHour > 12 ? timeHour - 12 : (timeHour == 0 ? 12 : timeHour);
-			tAMPMLabel.hidden = false;
+			tAMPMLabel.isHidden = false;
 		} else {
 			//24시 모드면
-			tAMPMLabel.hidden = true;
+			tAMPMLabel.isHidden = true;
 		}
 		
 		var timeHourStr:String = String(timeHour);
@@ -596,25 +596,25 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tRepeatLabel.text = AlarmManager.fetchRepeatLabel(repeatSettings, loadType: 1);
 		
 		tLabelTime.numberOfLines = 0;
-		tLabelTime.textAlignment = .Center;
+		tLabelTime.textAlignment = .center;
 		
 		tLabelTime.font = UIFont(name: "SFUIDisplay-Ultralight", size: 41);
 		
 		tLabelTime.adjustsFontSizeToFitWidth = true;
 		tLabelTime.sizeToFit();
 		
-		tAMPMLabel.frame = CGRectMake(  tLabelTime.frame.width + 16, 8, 60, 24 ); //오전 오후 인디케이터. (12시간만 해당)
-		tRepeatLabel.frame = CGRectMake(  tLabelTime.frame.width + 16, 25, 60, 24 ); //반복 인디케이터.
-		tAMPMLabel.textAlignment = .Left; tRepeatLabel.textAlignment = .Left;
+		tAMPMLabel.frame = CGRect(  x: tLabelTime.frame.width + 16, y: 8, width: 60, height: 24 ); //오전 오후 인디케이터. (12시간만 해당)
+		tRepeatLabel.frame = CGRect(  x: tLabelTime.frame.width + 16, y: 25, width: 60, height: 24 ); //반복 인디케이터.
+		tAMPMLabel.textAlignment = .left; tRepeatLabel.textAlignment = .left;
 		
 		//알람명 표시.
 		tLabel.text = name;
 		
-		tLabel.font = UIFont.systemFontOfSize(16);
-		tAMPMLabel.font = UIFont.boldSystemFontOfSize(15); tRepeatLabel.font = UIFont.systemFontOfSize(15);
+		tLabel.font = UIFont.systemFont(ofSize: 16);
+		tAMPMLabel.font = UIFont.boldSystemFont(ofSize: 15); tRepeatLabel.font = UIFont.systemFont(ofSize: 15);
 		
 		//On일때 알파 1
-		tLabel.textColor = defaultState ? UIColor.whiteColor() : UPUtils.colorWithHexString("#878787");
+		tLabel.textColor = defaultState ? UIColor.white : UPUtils.colorWithHexString("#878787");
 		tLabel.alpha = defaultState ? 1 : 0.8; tLabelTime.alpha = tLabel.alpha;
 		tAMPMLabel.alpha = tLabel.alpha; tRepeatLabel.alpha = tLabel.alpha;
 		
@@ -624,12 +624,12 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		tSwitch.frame.origin.x = self.modalView.view.frame.width - tSwitch.frame.width - CGFloat(16);
 		tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2;
-		tSwitch.on = defaultState; tCell.addSubview(tSwitch);
+		tSwitch.isOn = defaultState; tCell.addSubview(tSwitch);
 		
 		tCell.addSubview(tLabel); tCell.addSubview(tLabelTime); tCell.addSubview(tAMPMLabel); tCell.addSubview(tRepeatLabel);
 		
 		//스위치 변경 이벤트
-		tSwitch.addTarget(self, action: #selector(AlarmListView.alarmSwitchChangedEventHandler(_:)), forControlEvents: UIControlEvents.ValueChanged);
+		tSwitch.addTarget(self, action: #selector(AlarmListView.alarmSwitchChangedEventHandler(_:)), for: UIControlEvents.valueChanged);
 		
 		
 		tCell.backgroundImage = tTimeBackground;
@@ -641,8 +641,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	////////////////////////////
 	//notify on scr
-	func showMessageOnView( message:String, backgroundColorHex:String, textColorHex:String ) {
-		if (upAlarmMessageView.hidden == false) {
+	func showMessageOnView( _ message:String, backgroundColorHex:String, textColorHex:String ) {
+		if (upAlarmMessageView.isHidden == false) {
 			//몇초 뒤 나타나게 함.
 			UPUtils.setTimeout(2.5, block: {_ in
 				self.showMessageOnView( message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex );
@@ -655,27 +655,27 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		self.upAlarmMessageView.alpha = 1;
 		
-		self.view.bringSubviewToFront(upAlarmMessageView);
-		upAlarmMessageView.hidden = false;
+		self.view.bringSubview(toFront: upAlarmMessageView);
+		upAlarmMessageView.isHidden = false;
 		upAlarmMessageView.backgroundColor = UPUtils.colorWithHexString(backgroundColorHex);
 		upAlarmMessageText.textColor = UPUtils.colorWithHexString(textColorHex)
 		upAlarmMessageText.text = message;
 		
-		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade); //statusbar hidden
-		self.upAlarmMessageView.frame = CGRectMake(0, -self.upAlarmMessageView.frame.height, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
+		UIApplication.shared.setStatusBarHidden(true, with: .fade); //statusbar hidden
+		self.upAlarmMessageView.frame = CGRect(x: 0, y: -self.upAlarmMessageView.frame.height, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height);
 		
 		//Message animation
-		UIView.animateWithDuration(0.32, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-			self.upAlarmMessageView.frame = CGRectMake(0, 0, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
+		UIView.animate(withDuration: 0.32, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+			self.upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height);
 			}, completion: {_ in
 		});
 		
 		//animation fin.
-		UIView.animateWithDuration(0.32, delay: 1, options: UIViewAnimationOptions.CurveEaseIn, animations: {
-			self.upAlarmMessageView.frame = CGRectMake(0, -self.upAlarmMessageView.frame.height, self.upAlarmMessageView.frame.width, self.upAlarmMessageView.frame.height);
+		UIView.animate(withDuration: 0.32, delay: 1, options: UIViewAnimationOptions.curveEaseIn, animations: {
+			self.upAlarmMessageView.frame = CGRect(x: 0, y: -self.upAlarmMessageView.frame.height, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height);
 			}, completion: {_ in
-				self.upAlarmMessageView.hidden = true;
-				UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Fade);
+				self.upAlarmMessageView.isHidden = true;
+				UIApplication.shared.setStatusBarHidden(false, with: .fade);
 		});
 	} //end func
 	

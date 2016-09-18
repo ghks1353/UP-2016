@@ -55,11 +55,11 @@ class AnalyticsManager {
 	}
 	
 	/// Tracking usage by google analytics
-	static func trackScreen( screenName:String, registerToArray:Bool = true ) {
+	static func trackScreen( _ screenName:String, registerToArray:Bool = true ) {
 		let tracker = GAI.sharedInstance().defaultTracker; tracker.allowIDFACollection = true;
 		tracker.set(kGAIScreenName, value: screenName);
 		let builder = GAIDictionaryBuilder.createScreenView();
-		tracker.send(builder.build() as [NSObject : AnyObject]);
+		tracker.send(builder.build() as [AnyHashable: Any]);
 		
 		print("Tracking", screenName);
 		if (registerToArray) {
@@ -78,11 +78,11 @@ class AnalyticsManager {
 	}
 	
 	///// Make events
-	static func makeEvent( eventCategory:String, action:String, label:String, value:NSNumber ) {
+	static func makeEvent( _ eventCategory:String, action:String, label:String, value:NSNumber ) {
 		let tracker = GAI.sharedInstance().defaultTracker; tracker.allowIDFACollection = true;
 		tracker.send(
 			GAIDictionaryBuilder.createEventWithCategory(eventCategory, action: action, label: label, value: value).build()
-			 as [NSObject : AnyObject]
+			 as [AnyHashable: Any]
 		);
 		
 	}

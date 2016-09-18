@@ -20,7 +20,7 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	var navigationCtrl:UINavigationController = UINavigationController();
 	
 	//Table for menu
-	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Plain);
+	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.plain);
 	var tablesArray:Array<AnyObject> = [];
 	var alarmGameListsTableArray:Array<UPGamesListCell> = [];
 	
@@ -31,20 +31,20 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
-		self.view.backgroundColor = .clearColor();
+		self.view.backgroundColor = .clear();
 		
 		GamePlayView.selfView = self;
 		
 		//ModalView
-		modalView.view.backgroundColor = UIColor.whiteColor();
+		modalView.view.backgroundColor = UIColor.white;
 		modalView.view.frame = DeviceManager.defaultModalSizeRect;
 		
 		//Modal overlay view
-		modalOverlayView.backgroundColor = UIColor.blackColor();
-		modalOverlayView.frame = CGRectMake(0, 0, DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
-		modalOverlayView.hidden = true; modalOverlayView.alpha = 0;
+		modalOverlayView.backgroundColor = UIColor.black;
+		modalOverlayView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
+		modalOverlayView.isHidden = true; modalOverlayView.alpha = 0;
 		
-		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
+		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#333333");
@@ -52,12 +52,12 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		modalView.title = Languages.$("gamePlay");
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-close"), forState: .Normal);
-		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(GamePlayView.viewCloseAction), forControlEvents: .TouchUpInside);
+		navCloseButton.setImage( UIImage(named: "modal-close"), for: UIControlState());
+		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(GamePlayView.viewCloseAction), for: .touchUpInside);
 		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		
 		///////// Nav items fin
@@ -67,15 +67,15 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		self.view.addSubview(modalOverlayView);
 		
 		//add table to modal
-		tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
-		tableView.separatorStyle = .None;
+		tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height);
+		tableView.separatorStyle = .none;
 		modalView.view.addSubview(tableView);
 		
 		//add game cell
 		for i:Int in 0 ..< GameManager.list.count {
 			alarmGameListsTableArray += [ createCell(GameManager.list[i]) ];
 		}
-		tablesArray = [ alarmGameListsTableArray ];
+		tablesArray = [ alarmGameListsTableArray as AnyObject ];
 		
 		tableView.delegate = self; tableView.dataSource = self;
 		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
@@ -85,8 +85,8 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		
 		//SET MASK for dot eff
 		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
-		modalMaskImageView.frame = CGRectMake(0, 0, navigationCtrl.view.frame.width, navigationCtrl.view.frame.height);
-		modalMaskImageView.contentMode = .ScaleAspectFit; navigationCtrl.view.maskView = modalMaskImageView;
+		modalMaskImageView.frame = CGRect(x: 0, y: 0, width: navigationCtrl.view.frame.width, height: navigationCtrl.view.frame.height);
+		modalMaskImageView.contentMode = .scaleAspectFit; navigationCtrl.view.mask = modalMaskImageView;
 		
 		FitModalLocationToCenter();
 	}
@@ -94,11 +94,11 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	////////////////
 	
 	func FitModalLocationToCenter() {
-		modalOverlayView.frame = CGRectMake( 0, 0, DeviceManager.scrSize!.width, DeviceManager.scrSize!.height );
+		modalOverlayView.frame = CGRect( x: 0, y: 0, width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height );
 		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
 		
-		if (self.view.maskView != nil) {
-			navigationCtrl.view.maskView!.frame = CGRectMake(0, 0, navigationCtrl.view.frame.width, navigationCtrl.view.frame.height);
+		if (self.view.mask != nil) {
+			navigationCtrl.view.mask!.frame = CGRect(x: 0, y: 0, width: navigationCtrl.view.frame.width, height: navigationCtrl.view.frame.height);
 		}
 	}
 	
@@ -110,10 +110,10 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	func viewCloseAction() {
 		//Close this view
 		ViewController.viewSelf!.showHideBlurview(false);
-		self.dismissViewControllerAnimated(true, completion: nil);
+		self.dismiss(animated: true, completion: nil);
 	} //end func
 	
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		//setup bounce animation
 		self.view.alpha = 0;
 		
@@ -121,89 +121,89 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_PLAYGAME);
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
-		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
-		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
-			self.view.frame = CGRectMake(0, 0,
-				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
+		self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
+		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
+		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
+			self.view.frame = CGRect(x: 0, y: 0,
+				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}
 	} ///////////////////////////////
 	
-	func toggleOverlay( status:Bool ) {
+	func toggleOverlay( _ status:Bool ) {
 		var beforeAlpha:CGFloat = 0; var afterAlpha:CGFloat = 0;
 		if (status) {
-			modalOverlayView.hidden = false; beforeAlpha = 0; afterAlpha = 1; //modalOverlayView.alpha = 1;
+			modalOverlayView.isHidden = false; beforeAlpha = 0; afterAlpha = 1; //modalOverlayView.alpha = 1;
 		} else {
 			beforeAlpha = 1; afterAlpha = 0; //modalOverlayView.alpha = 0;
 		}
 		
 		modalOverlayView.alpha = beforeAlpha;
-		UIView.animateWithDuration(0.36, delay: 0, options: .CurveLinear, animations: {
+		UIView.animate(withDuration: 0.36, delay: 0, options: .curveLinear, animations: {
 			self.modalOverlayView.alpha = afterAlpha;
 		}) { _ in
 			if (afterAlpha == 0) {
-				self.modalOverlayView.hidden = true;
+				self.modalOverlayView.isHidden = true;
 			}
 		}
 	}
 	
 	//////////////// tables delg
-	internal func selectCell( gameID:Int ) {
+	internal func selectCell( _ gameID:Int ) {
 		toggleOverlay(true);
-		modalGamePlayWindowView.modalPresentationStyle = .OverFullScreen;
-		self.presentViewController(modalGamePlayWindowView, animated: false, completion: nil);
+		modalGamePlayWindowView.modalPresentationStyle = .overFullScreen;
+		self.present(modalGamePlayWindowView, animated: false, completion: nil);
 		modalGamePlayWindowView.setGame( gameID );
 		
 	}
 	
 	///// for table func
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		//table sel evt
-		let currCell:UPGamesListCell = tableView.cellForRowAtIndexPath(indexPath) as! UPGamesListCell;
+		let currCell:UPGamesListCell = tableView.cellForRow(at: indexPath) as! UPGamesListCell;
 		
 		selectCell( currCell.gameID );
-		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+		tableView.deselectRow(at: indexPath, animated: true);
 	}
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1;
 	}
 	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (tablesArray[section] as! Array<AnyObject>).count;
 	}
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {		
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {		
 		return 140;
 	}
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell;
 		return cell;
 	}
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 0;
 	}
-	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return 0;
 	}
 	
 	
 	//Tableview cell view create
-	func createCell( gameObj:GameInfoObj ) -> UPGamesListCell {
+	func createCell( _ gameObj:GameInfoObj ) -> UPGamesListCell {
 		let tCell:UPGamesListCell = UPGamesListCell();
 		tCell.backgroundColor = gameObj.gameBackgroundUIColor;
-		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 140); //default cell size
+		tCell.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 140); //default cell size
 		
 		let gameID:Int = GameManager.getGameIDWithObject(gameObj);
 		var gameImgName:String = ""; //var gameBackgroundImageName:String = "";
 		let tGameThumbnailsPictureBackground:UIImageView = UIImageView(image: UIImage(named: "game-thumb-background.png"));
-		tGameThumbnailsPictureBackground.frame = CGRectMake(14, 14, 66, 66);
+		tGameThumbnailsPictureBackground.frame = CGRect(x: 14, y: 14, width: 66, height: 66);
 		tCell.addSubview(tGameThumbnailsPictureBackground);
 		
 		//Get thumb from manager
@@ -215,13 +215,13 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		
 		///////
 		let tGameSubjectLabel:UILabel = UILabel(); //게임 제목
-		tGameSubjectLabel.frame = CGRectMake(92, 12, tableView.frame.width * 0.6, 28);
-		tGameSubjectLabel.font = UIFont.systemFontOfSize(22);
+		tGameSubjectLabel.frame = CGRect(x: 92, y: 12, width: tableView.frame.width * 0.6, height: 28);
+		tGameSubjectLabel.font = UIFont.systemFont(ofSize: 22);
 		tGameSubjectLabel.text = gameObj.gameLangName;
 		tGameSubjectLabel.textColor = gameObj.gameTextUIColor;
 		let tGameGenreLabel:UILabel = UILabel(); //게임 장르
-		tGameGenreLabel.frame = CGRectMake(92, 39, tableView.frame.width * 0.6, 20);
-		tGameGenreLabel.font = UIFont.systemFontOfSize(14);
+		tGameGenreLabel.frame = CGRect(x: 92, y: 39, width: tableView.frame.width * 0.6, height: 20);
+		tGameGenreLabel.font = UIFont.systemFont(ofSize: 14);
 		tGameGenreLabel.text = "# " + gameObj.gameLangGenre;
 		tGameGenreLabel.textColor = gameObj.gameTextUIColor;
 		
@@ -231,15 +231,15 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		}
 		
 		let tGameDifficultyLabel:UILabel = UILabel(); //게임 난이도
-		tGameDifficultyLabel.frame = CGRectMake(92, 58, tableView.frame.width * 0.6, 20);
-		tGameDifficultyLabel.font = UIFont.systemFontOfSize(14);
+		tGameDifficultyLabel.frame = CGRect(x: 92, y: 58, width: tableView.frame.width * 0.6, height: 20);
+		tGameDifficultyLabel.font = UIFont.systemFont(ofSize: 14);
 		tGameDifficultyLabel.text = Languages.$("alarmGameDifficulty") + " " + gameDifficultyLevelStr;
 		tGameDifficultyLabel.textColor = gameObj.gameTextUIColor;
 		
 		let tGameDescriptionLabel:UILabel = UILabel();
-		tGameDescriptionLabel.frame = CGRectMake(14, 86, tableView.frame.width - 28, 42);
-		tGameDescriptionLabel.font = UIFont.systemFontOfSize(14);
-		tGameDescriptionLabel.lineBreakMode = .ByCharWrapping;
+		tGameDescriptionLabel.frame = CGRect(x: 14, y: 86, width: tableView.frame.width - 28, height: 42);
+		tGameDescriptionLabel.font = UIFont.systemFont(ofSize: 14);
+		tGameDescriptionLabel.lineBreakMode = .byCharWrapping;
 		tGameDescriptionLabel.numberOfLines = 0;
 		tGameDescriptionLabel.text = gameObj.gameLangDescription;
 		tGameDescriptionLabel.textColor = gameObj.gameTextUIColor;

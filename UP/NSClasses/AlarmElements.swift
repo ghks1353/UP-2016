@@ -20,7 +20,7 @@ class AlarmElements:NSObject {
 	internal var alarmSound:String = "";
 	internal var alarmSoundLevel:Int = 100; //added. 0~100.
 	
-	internal var alarmFireDate:NSDate = NSDate();
+	internal var alarmFireDate:Date = Date();
 	
 	//alarm on-off toggle
 	internal var alarmToggle:Bool = false;
@@ -29,60 +29,60 @@ class AlarmElements:NSObject {
 	internal var alarmCleared:Bool = false; //false인 경우, merge 대상에서 빠짐.
 	
 	//Class to NSData
-	func encodeWithCoder(aCoder: NSCoder!) {
-		aCoder.encodeObject(alarmName, forKey: "alarmName");
-		aCoder.encodeObject(alarmMemo, forKey: "alarmMemo");
+	func encodeWithCoder(_ aCoder: NSCoder!) {
+		aCoder.encode(alarmName, forKey: "alarmName");
+		aCoder.encode(alarmMemo, forKey: "alarmMemo");
 		
-		aCoder.encodeInteger(gameSelected, forKey: "gameSelected");
-		aCoder.encodeInteger(alarmID, forKey: "alarmID");
+		aCoder.encode(gameSelected, forKey: "gameSelected");
+		aCoder.encode(alarmID, forKey: "alarmID");
 		for i:Int in 0 ..< alarmRepeat.count {
-			aCoder.encodeBool(alarmRepeat[i], forKey: "alarmRepeat-" + String(i));
+			aCoder.encode(alarmRepeat[i], forKey: "alarmRepeat-" + String(i));
 		}
 		
-		aCoder.encodeInteger(alarmSoundLevel, forKey: "alarmSoundLevel");
-		aCoder.encodeObject(alarmSound, forKey: "alarmSound");
-		aCoder.encodeInteger(Int(alarmFireDate.timeIntervalSince1970), forKey: "alarmFireDate");
+		aCoder.encode(alarmSoundLevel, forKey: "alarmSoundLevel");
+		aCoder.encode(alarmSound, forKey: "alarmSound");
+		aCoder.encode(Int(alarmFireDate.timeIntervalSince1970), forKey: "alarmFireDate");
 		
 		//toggle
-		aCoder.encodeBool(alarmToggle, forKey: "alarmToggle");
+		aCoder.encode(alarmToggle, forKey: "alarmToggle");
 		//game clear toggle
-		aCoder.encodeBool(alarmCleared, forKey: "alarmCleared");
+		aCoder.encode(alarmCleared, forKey: "alarmCleared");
 	}
 	
 	//Decode from NSData to class
 	init(coder aDecoder: NSCoder!) {
-		alarmName = aDecoder.decodeObjectForKey("alarmName") as! String;
+		alarmName = aDecoder.decodeObject(forKey: "alarmName") as! String;
 		
-		if (aDecoder.containsValueForKey("alarmMemo")) {
-			alarmMemo = aDecoder.decodeObjectForKey("alarmMemo") as! String;
+		if (aDecoder.containsValue(forKey: "alarmMemo")) {
+			alarmMemo = aDecoder.decodeObject(forKey: "alarmMemo") as! String;
 		} else { //memo not exists fallback
 			alarmMemo = ""; //default empty.
 		}
 		
-		gameSelected = aDecoder.decodeIntegerForKey("gameSelected");
-		alarmID = aDecoder.decodeIntegerForKey("alarmID");
+		gameSelected = aDecoder.decodeInteger(forKey: "gameSelected");
+		alarmID = aDecoder.decodeInteger(forKey: "alarmID");
 		for i:Int in 0 ..< alarmRepeat.count {
-			alarmRepeat[i] = aDecoder.decodeBoolForKey("alarmRepeat-" + String(i));
+			alarmRepeat[i] = aDecoder.decodeBool(forKey: "alarmRepeat-" + String(i));
 		}
 		
-		if (aDecoder.containsValueForKey("alarmSoundLevel")) {
-			alarmSoundLevel = aDecoder.decodeIntegerForKey("alarmSoundLevel");
+		if (aDecoder.containsValue(forKey: "alarmSoundLevel")) {
+			alarmSoundLevel = aDecoder.decodeInteger(forKey: "alarmSoundLevel");
 		} else { //sound not exists fallback
 			alarmSoundLevel = 80; //default 80%
 		}
-		alarmSound = aDecoder.decodeObjectForKey("alarmSound") as! String;
-		alarmFireDate = NSDate(timeIntervalSince1970: NSTimeInterval(aDecoder.decodeIntegerForKey("alarmFireDate")));
+		alarmSound = aDecoder.decodeObject(forKey: "alarmSound") as! String;
+		alarmFireDate = Date(timeIntervalSince1970: TimeInterval(aDecoder.decodeInteger(forKey: "alarmFireDate")));
 		
 		//toggle
-		alarmToggle = aDecoder.decodeBoolForKey("alarmToggle");
+		alarmToggle = aDecoder.decodeBool(forKey: "alarmToggle");
 		//game clear toggle
-		alarmCleared = aDecoder.decodeBoolForKey("alarmCleared");
+		alarmCleared = aDecoder.decodeBool(forKey: "alarmCleared");
 	}
 	
 	override init() {
 	}
 	
-	internal func initObject(name:String, memo:String, game:Int, repeats:Array<Bool>, soundSize:Int, sound:String, alarmDate:NSDate, alarmTool:Bool, id:Int) {
+	internal func initObject(_ name:String, memo:String, game:Int, repeats:Array<Bool>, soundSize:Int, sound:String, alarmDate:Date, alarmTool:Bool, id:Int) {
 		alarmName = name; alarmMemo = memo;
 		gameSelected = game; alarmRepeat = repeats;
 		

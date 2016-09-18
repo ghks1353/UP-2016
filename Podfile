@@ -6,7 +6,7 @@ target "UP" do
 	pod 'Google'
 	pod 'Google/Analytics'
 	pod 'GoogleIDFASupport'
-	pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+	pod 'SwiftyJSON', :git => 'https://github.com/appsailor/SwiftyJSON.git', :branch => 'swift3'
 	pod 'Gifu'
 	pod 'Charts/Realm'
     pod 'SQLite.swift', :git => 'https://github.com/stephencelis/SQLite.swift.git', :branch => 'swift3-mariotaku'

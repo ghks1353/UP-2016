@@ -20,28 +20,28 @@ class CharacterInfo:NSObject {
 	internal var characterExpChecksum:String = "";
 	
 	//Class to NSData
-	func encodeWithCoder(aCoder: NSCoder!) {
-		aCoder.encodeInteger(characterLevel, forKey: "characterLevel");
-		aCoder.encodeInteger(characterExp, forKey: "characterExp");
+	func encodeWithCoder(_ aCoder: NSCoder!) {
+		aCoder.encode(characterLevel, forKey: "characterLevel");
+		aCoder.encode(characterExp, forKey: "characterExp");
 		
-		aCoder.encodeObject(characterLevelChecksum, forKey: "characterLevelChecksum");
-		aCoder.encodeObject(characterExpChecksum, forKey: "characterExpChecksum");
+		aCoder.encode(characterLevelChecksum, forKey: "characterLevelChecksum");
+		aCoder.encode(characterExpChecksum, forKey: "characterExpChecksum");
 		
 	}
 	
 	//Decode from NSData to class
 	init(coder aDecoder: NSCoder!) {
-		characterLevel = aDecoder.decodeIntegerForKey("characterLevel");
-		characterExp = aDecoder.decodeIntegerForKey("characterExp");
+		characterLevel = aDecoder.decodeInteger(forKey: "characterLevel");
+		characterExp = aDecoder.decodeInteger(forKey: "characterExp");
 		
-		characterLevelChecksum = aDecoder.decodeObjectForKey("characterLevelChecksum") as! String;
-		characterExpChecksum = aDecoder.decodeObjectForKey("characterExpChecksum") as! String;
+		characterLevelChecksum = aDecoder.decodeObject(forKey: "characterLevelChecksum") as! String;
+		characterExpChecksum = aDecoder.decodeObject(forKey: "characterExpChecksum") as! String;
 	}
 	
 	override init() {
 	}
 	
-	internal func initObject( lv:Int = 0, Exp:Int = 0 ) {
+	internal func initObject( _ lv:Int = 0, Exp:Int = 0 ) {
 		characterLevel = lv; characterExp = Exp;
 	}
 	

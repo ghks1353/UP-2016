@@ -15,8 +15,8 @@ class UPGamesListCell:UITableViewCell {
 	internal var gameCheckImageView:UIImageView?;
 	internal var gameInfoObj:GameInfoObj?;
 	
-	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesBegan(touches, withEvent: event);
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesBegan(touches, with: event);
 	}
 	
 }

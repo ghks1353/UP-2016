@@ -61,7 +61,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	var charCurrentCharacter:UIImageView = UIImageView();
 	
 	//number up timers
-	var numUPTimer:NSTimer?;
+	var numUPTimer:Timer?;
 	
 	//레벨 표시를 위한 인디케이터 배열
 	var charLevelDigitalArr:Array<UIImageView> = Array<UIImageView>();
@@ -80,19 +80,19 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
-		self.view.backgroundColor = .clearColor();
+		self.view.backgroundColor = .clear();
 		
 		GameResultView.selfView = self;
 		
 		//ModalView
-		modalView.backgroundColor = UIColor.whiteColor();
-		modalView.frame = CGRectMake(DeviceManager.resultModalSizeRect.minX, DeviceManager.resultModalSizeRect.minY - 36 * DeviceManager.resultModalRatioC,
-		DeviceManager.resultModalSizeRect.width, DeviceManager.resultModalSizeRect.height);
+		modalView.backgroundColor = UIColor.white;
+		modalView.frame = CGRect(x: DeviceManager.resultModalSizeRect.minX, y: DeviceManager.resultModalSizeRect.minY - 36 * DeviceManager.resultModalRatioC,
+		width: DeviceManager.resultModalSizeRect.width, height: DeviceManager.resultModalSizeRect.height);
 		self.view.addSubview(modalView);
 		//ModalView (SNS)
-		modalSNSView.backgroundColor = UIColor.whiteColor();
-		modalSNSView.frame = CGRectMake(DeviceManager.resultModalSizeRect.minX, modalView.frame.maxY + 18 * DeviceManager.resultModalRatioC,
-		                             DeviceManager.resultModalSizeRect.width, 72 * DeviceManager.resultModalRatioC);
+		modalSNSView.backgroundColor = UIColor.white;
+		modalSNSView.frame = CGRect(x: DeviceManager.resultModalSizeRect.minX, y: modalView.frame.maxY + 18 * DeviceManager.resultModalRatioC,
+		                             width: DeviceManager.resultModalSizeRect.width, height: 72 * DeviceManager.resultModalRatioC);
 		self.view.addSubview(modalSNSView);
 		
 		//리소스 제작
@@ -101,25 +101,25 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		}
 		
 		// ** 레이아웃들 패드의 경우 특수처리 필요 **
-		if (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
+		if (UIDevice.current.userInterfaceIdiom == .phone) {
 			XAXIS_PRESET_PAD = 0; YAXIS_PRESET_PAD = 0;
 			XAXIS_PRESET_LV_PAD = 0; YAXIS_PRESET_LV_PAD = 0;
 			XAXIS_PRESET_LV_R_PAD = 0;
 		}
 		
 		//ScrollView create.
-		scrollView.pagingEnabled = true;
-		scrollView.frame = CGRectMake(0, 0, modalView.frame.width, 146 * DeviceManager.resultModalRatioC);
-		scrollView.contentSize = CGSizeMake(scrollView.frame.width * 2, scrollView.frame.height); //100은 추정치?
+		scrollView.isPagingEnabled = true;
+		scrollView.frame = CGRect(x: 0, y: 0, width: modalView.frame.width, height: 146 * DeviceManager.resultModalRatioC);
+		scrollView.contentSize = CGSize(width: scrollView.frame.width * 2, height: scrollView.frame.height); //100은 추정치?
 		
 		///// Score 부분 만들기
-		let scoreUIView:UIView = UIView(); scoreUIView.frame = CGRectMake(scrollView.frame.width * 0, 0, scrollView.frame.width, scrollView.frame.height);
+		let scoreUIView:UIView = UIView(); scoreUIView.frame = CGRect(x: scrollView.frame.width * 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.height);
 		imgScoreUIView = UIImageView( image: UIImage( named: "result-score.png" ));
-		imgScoreUIView.frame = CGRectMake((modalView.frame.width / 2) - ((118 * DeviceManager.resultModalRatioC) / 2), (37 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, (118 * DeviceManager.resultModalRatioC), (23.75 * DeviceManager.resultModalRatioC));
-		scoreUIView.backgroundColor = UIColor.clearColor();
+		imgScoreUIView.frame = CGRect(x: (modalView.frame.width / 2) - ((118 * DeviceManager.resultModalRatioC) / 2), y: (37 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, width: (118 * DeviceManager.resultModalRatioC), height: (23.75 * DeviceManager.resultModalRatioC));
+		scoreUIView.backgroundColor = UIColor.clear;
 		scoreUIView.addSubview(imgScoreUIView);
 		imgTimeUIView = UIImageView( image: UIImage( named: "result-time.png" ));
-		imgTimeUIView.frame = CGRectMake((modalView.frame.width / 2) - ((75.4 * DeviceManager.resultModalRatioC) / 2), (28 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, (75.4 * DeviceManager.resultModalRatioC), (33 * DeviceManager.resultModalRatioC));
+		imgTimeUIView.frame = CGRect(x: (modalView.frame.width / 2) - ((75.4 * DeviceManager.resultModalRatioC) / 2), y: (28 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, width: (75.4 * DeviceManager.resultModalRatioC), height: (33 * DeviceManager.resultModalRatioC));
 		scoreUIView.addSubview(imgTimeUIView);
 		
 		//Score에 대한 숫자 추가
@@ -130,10 +130,10 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		} //숫자 표시용 디지털 숫자 노드 3개
 		
 		///// best 부분 만들기
-		let bestUIView:UIView = UIView(); bestUIView.frame = CGRectMake(scrollView.frame.width * 1, 0, scrollView.frame.width, scrollView.frame.height);
+		let bestUIView:UIView = UIView(); bestUIView.frame = CGRect(x: scrollView.frame.width * 1, y: 0, width: scrollView.frame.width, height: scrollView.frame.height);
 		let bestImgView:UIImageView = UIImageView( image: UIImage( named: "result-best.png" ));
-		bestImgView.frame = CGRectMake((modalView.frame.width / 2) - ((84 * DeviceManager.resultModalRatioC) / 2), (32 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, (84 * DeviceManager.resultModalRatioC), (32.65 * DeviceManager.resultModalRatioC));
-		bestUIView.backgroundColor = UIColor.clearColor();
+		bestImgView.frame = CGRect(x: (modalView.frame.width / 2) - ((84 * DeviceManager.resultModalRatioC) / 2), y: (32 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC, width: (84 * DeviceManager.resultModalRatioC), height: (32.65 * DeviceManager.resultModalRatioC));
+		bestUIView.backgroundColor = UIColor.clear;
 		bestUIView.addSubview(bestImgView);
 		
 		//Best에 대한 숫자 추가
@@ -151,9 +151,9 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		
 		///// 배경 추가
 		resultDecorationBG.image = UIImage( named: "result-game-background.png" );
-		resultDecorationBG.frame = CGRectMake(0, scrollView.frame.maxY, modalView.frame.width, 194 * DeviceManager.resultModalRatioC);
-		resultDecoBGMask.frame = resultDecorationBG.frame; resultDecoBGMask.backgroundColor = UIColor.blackColor();
-		resultDecorationBG.contentMode = .ScaleAspectFit;
+		resultDecorationBG.frame = CGRect(x: 0, y: scrollView.frame.maxY, width: modalView.frame.width, height: 194 * DeviceManager.resultModalRatioC);
+		resultDecoBGMask.frame = resultDecorationBG.frame; resultDecoBGMask.backgroundColor = UIColor.black;
+		resultDecorationBG.contentMode = .scaleAspectFit;
 		modalView.addSubview(resultDecoBGMask); modalView.addSubview(resultDecorationBG);
 		
 		///// 배경 위의 레벨 등 컴포넌트
@@ -164,23 +164,23 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		modalView.addSubview(charLevelWrapper); modalView.addSubview(charLevelIndicator); modalView.addSubview(charExpWrapper);
 		modalView.addSubview(charCurrentCharacter);
 		//마스크 레이어
-		charExpMaskView.backgroundColor = UIColor.clearColor();
+		charExpMaskView.backgroundColor = UIColor.clear;
 		modalView.addSubview(charExpMaskView);
 		//+20
-		charLevelWrapper.frame = CGRectMake( (187.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC, (153 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
-		                                     104.5 * DeviceManager.modalRatioC, 61.75 * DeviceManager.modalRatioC);
-		charLevelIndicator.frame = CGRectMake( (143.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC, (183 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
-		                                       38 * DeviceManager.modalRatioC, 33.25 * DeviceManager.modalRatioC);
-		charExpWrapper.frame = CGRectMake( (20.5 - XAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC, (168 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
-		                                   95 * DeviceManager.modalRatioC, 57 * DeviceManager.modalRatioC);
+		charLevelWrapper.frame = CGRect( x: (187.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC, y: (153 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
+		                                     width: 104.5 * DeviceManager.modalRatioC, height: 61.75 * DeviceManager.modalRatioC);
+		charLevelIndicator.frame = CGRect( x: (143.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC, y: (183 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
+		                                       width: 38 * DeviceManager.modalRatioC, height: 33.25 * DeviceManager.modalRatioC);
+		charExpWrapper.frame = CGRect( x: (20.5 - XAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC, y: (168 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
+		                                   width: 95 * DeviceManager.modalRatioC, height: 57 * DeviceManager.modalRatioC);
 		//마스크용 프레임 배치
-		charExpMaskView.frame = CGRectMake((25.4 - XAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC, (173.5 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
-		                                   80.5 * DeviceManager.modalRatioC, 47 * DeviceManager.modalRatioC);
-		charCurrentCharacter.frame = CGRectMake( 6 * DeviceManager.modalRatioC, resultDecorationBG.frame.maxY - 195 * DeviceManager.modalRatioC, 300 * DeviceManager.modalRatioC, 300 * DeviceManager.modalRatioC );
+		charExpMaskView.frame = CGRect(x: (25.4 - XAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC, y: (173.5 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
+		                                   width: 80.5 * DeviceManager.modalRatioC, height: 47 * DeviceManager.modalRatioC);
+		charCurrentCharacter.frame = CGRect( x: 6 * DeviceManager.modalRatioC, y: resultDecorationBG.frame.maxY - 195 * DeviceManager.modalRatioC, width: 300 * DeviceManager.modalRatioC, height: 300 * DeviceManager.modalRatioC );
 		
 		let maskLayer:CAShapeLayer = CAShapeLayer();
-		let cMaskRect = CGRectMake(0, 0, 82 * DeviceManager.modalRatioC, 49 * DeviceManager.modalRatioC);
-		let cPath:CGPathRef = CGPathCreateWithRect(cMaskRect, nil);
+		let cMaskRect = CGRect(x: 0, y: 0, width: 82 * DeviceManager.modalRatioC, height: 49 * DeviceManager.modalRatioC);
+		let cPath:CGPath = CGPath(rect: cMaskRect, transform: nil);
 		maskLayer.path = cPath;
 		charExpMaskView.layer.mask = maskLayer;
 		//charExpMaskView.backgroundColor = UIColor.whiteColor();
@@ -199,31 +199,31 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		for i:Int in 0 ..< 3 {
 			let tmpView:UIImageView = UIImageView();
 			tmpView.image = UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  );
-			tmpView.frame = CGRectMake( ((205.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC) + ((24 * CGFloat(i)) * DeviceManager.maxModalRatioC)
-				, (171 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
-				  19.15 * DeviceManager.modalRatioC, 26.80 * DeviceManager.modalRatioC );
+			tmpView.frame = CGRect( x: ((205.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC) + ((24 * CGFloat(i)) * DeviceManager.maxModalRatioC)
+				, y: (171 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
+				  width: 19.15 * DeviceManager.modalRatioC, height: 26.80 * DeviceManager.modalRatioC );
 			modalView.addSubview(tmpView);
 			charLevelDigitalArr += [tmpView];
 		}
 		/////////////////
 		
 		//// 버튼 추가
-		resultButtonList.setImage(UIImage(named: "result-btn-list.png"), forState: .Normal);
-		resultButtonRanking.setImage(UIImage(named: "result-btn-ranking.png"), forState: .Normal);
-		resultButtonRetry.setImage(UIImage(named: "result-btn-retry.png"), forState: .Normal);
+		resultButtonList.setImage(UIImage(named: "result-btn-list.png"), for: UIControlState());
+		resultButtonRanking.setImage(UIImage(named: "result-btn-ranking.png"), for: UIControlState());
+		resultButtonRetry.setImage(UIImage(named: "result-btn-retry.png"), for: UIControlState());
 		
 		//닫기 버튼
-		resultButtonClose.setImage(UIImage(named: "result-btn-close.png"), forState: .Normal);
+		resultButtonClose.setImage(UIImage(named: "result-btn-close.png"), for: UIControlState());
 		
-		resultButtonList.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) * 2,
-		                                    resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
-		                                    62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
-		resultButtonRetry.frame = CGRectMake(modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) / 2,
-		                                     resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
-		                                     62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
-		resultButtonRanking.frame = CGRectMake(modalView.frame.width / 2 + (62 * DeviceManager.resultModalRatioC),
-		                                    resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
-		                                    62 * DeviceManager.resultModalRatioC, 62 * DeviceManager.resultModalRatioC);
+		resultButtonList.frame = CGRect(x: modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) * 2,
+		                                    y: resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
+		                                    width: 62 * DeviceManager.resultModalRatioC, height: 62 * DeviceManager.resultModalRatioC);
+		resultButtonRetry.frame = CGRect(x: modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) / 2,
+		                                     y: resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
+		                                     width: 62 * DeviceManager.resultModalRatioC, height: 62 * DeviceManager.resultModalRatioC);
+		resultButtonRanking.frame = CGRect(x: modalView.frame.width / 2 + (62 * DeviceManager.resultModalRatioC),
+		                                    y: resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
+		                                    width: 62 * DeviceManager.resultModalRatioC, height: 62 * DeviceManager.resultModalRatioC);
 		
 		resultButtonClose.frame = resultButtonRetry.frame;
 		
@@ -237,24 +237,24 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		
 		//SET MASK for dot eff (result mask)
 		var modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask-result.png"));
-		modalMaskImageView.frame = CGRectMake(0, 0, modalView.frame.width, modalView.frame.height);
-		modalMaskImageView.contentMode = .ScaleAspectFit; modalView.maskView = modalMaskImageView;
+		modalMaskImageView.frame = CGRect(x: 0, y: 0, width: modalView.frame.width, height: modalView.frame.height);
+		modalMaskImageView.contentMode = .scaleAspectFit; modalView.mask = modalMaskImageView;
 		modalMaskImageView = UIImageView(image: UIImage(named: "modal-mask-result-sns.png"));
-		modalMaskImageView.frame = CGRectMake(0, 0, modalSNSView.frame.width, modalSNSView.frame.height);
-		modalMaskImageView.contentMode = .ScaleAspectFit; modalSNSView.maskView = modalMaskImageView;
+		modalMaskImageView.frame = CGRect(x: 0, y: 0, width: modalSNSView.frame.width, height: modalSNSView.frame.height);
+		modalMaskImageView.contentMode = .scaleAspectFit; modalSNSView.mask = modalMaskImageView;
 		
 		FitModalLocationToCenter();
 		
 		//버튼 이벤트 바인딩
-		resultButtonClose.addTarget(self, action: #selector(GameResultView.viewCloseAction), forControlEvents: .TouchUpInside);
+		resultButtonClose.addTarget(self, action: #selector(GameResultView.viewCloseAction), for: .touchUpInside);
 		
 		//이쪽은 게임으로 실행된 경우 버튼들
-		resultButtonList.addTarget(self, action: #selector(GameResultView.goToGameMain), forControlEvents: .TouchUpInside);
-		resultButtonRetry.addTarget(self, action: #selector(GameResultView.goRetryGame), forControlEvents: .TouchUpInside);
-		resultButtonRanking.addTarget(self, action: #selector(GameResultView.showRankingGameCenter), forControlEvents: .TouchUpInside);
+		resultButtonList.addTarget(self, action: #selector(GameResultView.goToGameMain), for: .touchUpInside);
+		resultButtonRetry.addTarget(self, action: #selector(GameResultView.goRetryGame), for: .touchUpInside);
+		resultButtonRanking.addTarget(self, action: #selector(GameResultView.showRankingGameCenter), for: .touchUpInside);
 	}
 	
-	func setVariables( gameID:Int = 0, windowType:Int = 0, showingScore:Int = 0, showingBest:Int = 0 ) {
+	func setVariables( _ gameID:Int = 0, windowType:Int = 0, showingScore:Int = 0, showingBest:Int = 0 ) {
 		//Set variables
 		currentGameID = gameID;
 		
@@ -263,7 +263,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		currentType = windowType;
 	}
 	
-	func toggleButtonStatus( status:Bool ) {
+	func toggleButtonStatus( _ status:Bool ) {
 		rbuttonEnabled = status;
 		if (rbuttonEnabled) {
 			resultButtonList.alpha = 1;
@@ -280,27 +280,27 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		charLevelDigitalArr[0].alpha = levStr.characters.count < 3 ? 0.6 : 1;
 		charLevelDigitalArr[1].alpha = levStr.characters.count < 2 ? 0.6 : 1;
 		//Render text
-		charLevelDigitalArr[2].image = UIImage(named: SkinManager.getDefaultAssetPresets() + String(UTF8String: levStr[ levStr.characters.count - 1 ])! + ".png" );
+		charLevelDigitalArr[2].image = UIImage(named: SkinManager.getDefaultAssetPresets() + String(validatingUTF8: levStr[ levStr.characters.count - 1 ])! + ".png" );
 		charLevelDigitalArr[1].image =
 			levStr.characters.count < 2 ? UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  )
-			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(UTF8String: levStr[ levStr.characters.count - 2 ])! + ".png" )
+			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(validatingUTF8: levStr[ levStr.characters.count - 2 ])! + ".png" )
 		charLevelDigitalArr[0].image =
 			levStr.characters.count < 3 ? UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  )
-			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(UTF8String: levStr[ levStr.characters.count - 3 ])! + ".png" )
+			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(validatingUTF8: levStr[ levStr.characters.count - 3 ])! + ".png" )
 		
 		//경험치량 표시
 		//CharacterManager.currentCharInfo.characterExp = 4;
-		charExpProgress.frame = CGRectMake( (-14 * DeviceManager.modalRatioC), 0,
-		                                    (80.5 * DeviceManager.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
-			, 47 * DeviceManager.modalRatioC);
-		charExpProgressImageView.frame = CGRectMake(charExpProgress.frame.maxX, 0, 47 * DeviceManager.modalRatioC, 47 * DeviceManager.modalRatioC);
+		charExpProgress.frame = CGRect( x: (-14 * DeviceManager.modalRatioC), y: 0,
+		                                    width: (80.5 * DeviceManager.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
+			, height: 47 * DeviceManager.modalRatioC);
+		charExpProgressImageView.frame = CGRect(x: charExpProgress.frame.maxX, y: 0, width: 47 * DeviceManager.modalRatioC, height: 47 * DeviceManager.modalRatioC);
 		
 	}
 	
-	func getNumberLocForIndex(index:Int, yAxis:CGFloat) -> CGRect {
+	func getNumberLocForIndex(_ index:Int, yAxis:CGFloat) -> CGRect {
 		let numWidth:CGFloat = 38; let numHeight:CGFloat = 53.2;
-		return CGRectMake(
-			(modalView.frame.width / 2) - (CGFloat(index) * ((numWidth * DeviceManager.resultModalRatioC) + 6 * DeviceManager.resultMaxModalRatioC))
+		return CGRect(
+			x: (modalView.frame.width / 2) - (CGFloat(index) * ((numWidth * DeviceManager.resultModalRatioC) + 6 * DeviceManager.resultMaxModalRatioC))
 				+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
 
 				/*
@@ -309,21 +309,21 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 				
 				*/
 				+ 3 * DeviceManager.resultMaxModalRatioC
-			, yAxis, numWidth * DeviceManager.resultModalRatioC , numHeight * DeviceManager.resultModalRatioC);
+			, y: yAxis, width: numWidth * DeviceManager.resultModalRatioC , height: numHeight * DeviceManager.resultModalRatioC);
 	}
 	
 	////////////////
 	
 	func FitModalLocationToCenter() {
-		modalView.frame = CGRectMake(DeviceManager.resultModalSizeRect.minX, DeviceManager.resultModalSizeRect.minY - 36 * DeviceManager.resultModalRatioC,
-		                             DeviceManager.resultModalSizeRect.width, DeviceManager.resultModalSizeRect.height);
-		modalSNSView.frame = CGRectMake(DeviceManager.resultModalSizeRect.minX, modalView.frame.maxY + 18 * DeviceManager.resultModalRatioC,
-		                                DeviceManager.resultModalSizeRect.width, 72 * DeviceManager.resultModalRatioC);
-		if (modalView.maskView != nil) {
-			modalView.maskView!.frame = CGRectMake(0, 0, modalView.frame.width, modalView.frame.height);
+		modalView.frame = CGRect(x: DeviceManager.resultModalSizeRect.minX, y: DeviceManager.resultModalSizeRect.minY - 36 * DeviceManager.resultModalRatioC,
+		                             width: DeviceManager.resultModalSizeRect.width, height: DeviceManager.resultModalSizeRect.height);
+		modalSNSView.frame = CGRect(x: DeviceManager.resultModalSizeRect.minX, y: modalView.frame.maxY + 18 * DeviceManager.resultModalRatioC,
+		                                width: DeviceManager.resultModalSizeRect.width, height: 72 * DeviceManager.resultModalRatioC);
+		if (modalView.mask != nil) {
+			modalView.mask!.frame = CGRect(x: 0, y: 0, width: modalView.frame.width, height: modalView.frame.height);
 		}
-		if (modalSNSView.maskView != nil) {
-			modalSNSView.maskView!.frame = CGRectMake(0, 0, modalSNSView.frame.width, modalSNSView.frame.height);
+		if (modalSNSView.mask != nil) {
+			modalSNSView.mask!.frame = CGRect(x: 0, y: 0, width: modalSNSView.frame.width, height: modalSNSView.frame.height);
 		}
 	}
 	
@@ -338,10 +338,10 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 			return;
 		}
 		ViewController.viewSelf!.showHideBlurview(false);
-		self.dismissViewControllerAnimated(true, completion: nil);
+		self.dismiss(animated: true, completion: nil);
 	} //end func
 	
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		//setup bounce animation
 		self.view.alpha = 0;
 		
@@ -349,34 +349,34 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_RESULT);
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
-		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
-		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
-			self.view.frame = CGRectMake(0, 0,
-				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
+		self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
+		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
+		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
+			self.view.frame = CGRect(x: 0, y: 0,
+				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}
 		
 		//베스트 쪽 스크롤 초기화
-		self.scrollView.setContentOffset(CGPointMake(0, 0), animated: false);
+		self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
 		
 		switch(currentType) {
 			case 0:
-				resultButtonList.hidden = true; resultButtonRetry.hidden = true; resultButtonRanking.hidden = true;
-				resultButtonClose.hidden = false;
-				imgScoreUIView.hidden = true; imgTimeUIView.hidden = false;
+				resultButtonList.isHidden = true; resultButtonRetry.isHidden = true; resultButtonRanking.isHidden = true;
+				resultButtonClose.isHidden = false;
+				imgScoreUIView.isHidden = true; imgTimeUIView.isHidden = false;
 				break;
 			case 1:
-				resultButtonList.hidden = false; resultButtonRetry.hidden = false; resultButtonRanking.hidden = false;
-				resultButtonClose.hidden = true;
-				imgScoreUIView.hidden = false; imgTimeUIView.hidden = true;
+				resultButtonList.isHidden = false; resultButtonRetry.isHidden = false; resultButtonRanking.isHidden = false;
+				resultButtonClose.isHidden = true;
+				imgScoreUIView.isHidden = false; imgTimeUIView.isHidden = true;
 				break;
 			default: break;
 		}
@@ -389,7 +389,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	
 	var tmpNumCurrent:Float = 0; var tmpNumTimeCurrent:Float = 0; var tmpNumCurrentMax:Float = 0;
 	var autoContinueToBest:Bool = false; var autoContinuedBestScore:Int = 0;
-	func showNumbersOnScore(score:Int, autoContinueBest:Bool = false, autoContinueBestScore:Int = 0) {
+	func showNumbersOnScore(_ score:Int, autoContinueBest:Bool = false, autoContinueBestScore:Int = 0) {
 		//숫자 올라가는 애니메이션과 함께 숫자 표시
 		if (numUPTimer != nil) {
 			numUPTimer!.invalidate(); numUPTimer = nil;
@@ -405,7 +405,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		autoContinueToBest = autoContinueBest; autoContinuedBestScore = autoContinueBestScore;
 	}
 	
-	func showNumbersOnBest(score:Int) {
+	func showNumbersOnBest(_ score:Int) {
 		//숫자 올라가는 애니메이션과 함께 숫자 표시 (Best)
 		if (numUPTimer != nil) {
 			numUPTimer!.invalidate(); numUPTimer = nil;
@@ -445,7 +445,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 			if (autoContinueToBest == true) {
 				//auto-start with delay
 				UPUtils.setTimeout(1, block: {
-					self.scrollView.setContentOffset(CGPointMake(self.modalView.frame.width, 0), animated: true);
+					self.scrollView.setContentOffset(CGPoint(x: self.modalView.frame.width, y: 0), animated: true);
 					self.showNumbersOnBest(self.autoContinuedBestScore);
 				});
 			} //end auto-start
@@ -481,7 +481,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		if (!rbuttonEnabled) {
 			return;
 		}
-		self.dismissViewControllerAnimated(true, completion: { _ in
+		self.dismiss(animated: true, completion: { _ in
 			
 			ViewController.viewSelf!.openGamePlayView(nil);
 			GamePlayView.selfView!.selectCell( self.currentGameID );
@@ -493,7 +493,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		if (!rbuttonEnabled) {
 			return;
 		}
-		self.dismissViewControllerAnimated(true, completion: { _ in
+		self.dismiss(animated: true, completion: { _ in
 			print("Game retry!");
 			GameModeView.setGame( self.currentGameID ); //게임 id 전달
 			ViewController.viewSelf!.runGame();
@@ -504,18 +504,18 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		
 		let gcViewController: GKGameCenterViewController = GKGameCenterViewController();
 		gcViewController.gameCenterDelegate = self;
-		gcViewController.viewState = GKGameCenterViewControllerState.Leaderboards;
+		gcViewController.viewState = GKGameCenterViewControllerState.leaderboards;
 		
 		//아이튠즈 커네트에서 순위표id.
 		gcViewController.leaderboardIdentifier = GameManager.getLeadboardIDWithGameID( currentGameID );
 		
-		self.showViewController(gcViewController, sender: self);
-		self.presentViewController(gcViewController, animated: true, completion: nil);
+		self.show(gcViewController, sender: self);
+		self.present(gcViewController, animated: true, completion: nil);
 	}
 	
 	//////////////
-	func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
-		gameCenterViewController.dismissViewControllerAnimated(true, completion: nil);
+	func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+		gameCenterViewController.dismiss(animated: true, completion: nil);
 	}
 	
 }

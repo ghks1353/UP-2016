@@ -47,7 +47,7 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 		//상품 ID 넣기
 		productIDsArray += [ PurchaseManager.productIDs.PREMIUM ]; //정식버전
 		
-		SKPaymentQueue.defaultQueue().addTransactionObserver(self);
+		SKPaymentQueue.default().add(self);
 		//SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
 		if (SKPaymentQueue.canMakePayments()) {
 			//결제 가능한 상태에서만 정보 요청
@@ -60,7 +60,7 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 		
 	}
 	
-	@objc func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
+	@objc func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
 		productsArray = response.products;
 		if (productsArray!.count <= 0) {
 			print("Products not found");
@@ -71,38 +71,38 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 		for i:Int in 0 ..< productsArray!.count {
 			print("-------------Prod " + String(i));
 			print("NAME: " + productsArray![i].localizedTitle );
-			print("PRICE: " + String(productsArray![i].price) );
+			print("PRICE: " + String(describing: productsArray![i].price) );
 			print("LPRICE: " + String(productsArray![i].localizedPrice()) );
 			
 		}
 		//response.products[0].
 	}
 	
-	@objc func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+	@objc func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
 		print("Receiving payment trans");
 		for trans:AnyObject in transactions {
 			if let t:SKPaymentTransaction = trans as? SKPaymentTransaction {
 				//Valid transcation
 				print("ID:",t.payment.productIdentifier, t.transactionDate);
 				switch (t.transactionState) {
-					case .Purchasing: //Purchasing status
+					case .purchasing: //Purchasing status
 						print("Purchase: ongoing");
 						
 						break;
-					case .Purchased: //Purchase done / purchased
+					case .purchased: //Purchase done / purchased
 						print(t.transactionIdentifier, "=> Purchase: OK");
 						
-						SKPaymentQueue.defaultQueue().finishTransaction(t);
+						SKPaymentQueue.default().finishTransaction(t);
 						break;
-					case .Restored: //Restored item
+					case .restored: //Restored item
 						print(t.transactionIdentifier, "=> Purchase: restored");
 						
-						SKPaymentQueue.defaultQueue().finishTransaction(t);
+						SKPaymentQueue.default().finishTransaction(t);
 						break;
-					case .Failed: //Purchase (pay) failed
+					case .failed: //Purchase (pay) failed
 						print(t.transactionIdentifier, "=> Purchase: failed");
 						
-						SKPaymentQueue.defaultQueue().finishTransaction(t);
+						SKPaymentQueue.default().finishTransaction(t);
 						break;
 					default:
 						print(t.transactionIdentifier, "=> Trans unknown state");
@@ -118,7 +118,7 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 	}
 	
 	///////////// static functions
-	static func checkIsAvailableProduct( productID:String ) -> Bool {
+	static func checkIsAvailableProduct( _ productID:String ) -> Bool {
 		/////////// TEST
 		//ALWAYS RETURN FALSE. 20160917 for BETA 0.0.3
 		return false;
@@ -138,7 +138,7 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 		
 		return false; //not found
 	}
-	static func getProductObjectWithID( productID:String ) -> SKProduct? {
+	static func getProductObjectWithID( _ productID:String ) -> SKProduct? {
 		for i:Int in 0 ..< PurchaseManager.instance!.productsArray!.count {
 			if (PurchaseManager.instance!.productsArray![i].productIdentifier == productID) {
 				return PurchaseManager.instance!.productsArray![i]; //found
@@ -149,20 +149,20 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 	}
 	
 	/// 상품이 사용 가능한 상태인지 체크한 후 진행
-	static func requestBuyProduct( productID:String ) -> Bool {
+	static func requestBuyProduct( _ productID:String ) -> Bool {
 		let prod:SKProduct? = getProductObjectWithID( productID );
 		if (prod == nil) {
 			return false;
 		}
 		
 		let payment:SKPayment = SKPayment(product: prod!);
-		SKPaymentQueue.defaultQueue().addPayment(payment); //request payment
+		SKPaymentQueue.default().add(payment); //request payment
 		
 		return true;
 	}
 	
 	////// 상품 복원 / 복구
-	static func requestRestoreProducts( callback:((SKPaymentTransactionState) -> Void)? = nil ) -> Bool {
+	static func requestRestoreProducts( _ callback:((SKPaymentTransactionState) -> Void)? = nil ) -> Bool {
 		if (PurchaseManager.isInited == false) {
 			return false;
 		}
@@ -172,7 +172,7 @@ class PurchaseManager:NSObject, SKPaymentTransactionObserver, SKProductsRequestD
 		
 		PurchaseManager.callbackFunc = callback;
 		
-		SKPaymentQueue.defaultQueue().restoreCompletedTransactions();
+		SKPaymentQueue.default().restoreCompletedTransactions();
 		
 		return true;
 	}

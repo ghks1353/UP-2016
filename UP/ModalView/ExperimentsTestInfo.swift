@@ -26,38 +26,38 @@ class ExperimentsTestInfo:UIViewController {
 		super.viewDidLoad();
 		ExperimentsTestInfo.selfView = self;
 		
-		self.view.backgroundColor = .clearColor();
+		self.view.backgroundColor = .clear();
 		
 		//ModalView
-		self.view.backgroundColor = UIColor.whiteColor();
+		self.view.backgroundColor = UIColor.white;
 		self.title = "Technical info";
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-back"), forState: .Normal);
-		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(ExperimentsTestInfo.popToRootAction), forControlEvents: .TouchUpInside);
+		navCloseButton.setImage( UIImage(named: "modal-back"), for: UIControlState());
+		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(ExperimentsTestInfo.popToRootAction), for: .touchUpInside);
 		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
 		
-		infoScrollView.frame = CGRectMake(0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height);
+		infoScrollView.frame = CGRect(x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height);
 		
-		infoLabel.frame = CGRectMake(12, 8, infoScrollView.frame.width - 24, 0);
-		infoLabel.numberOfLines = 0; infoLabel.lineBreakMode = .ByWordWrapping;
-		infoLabel.textColor = UPUtils.colorWithHexString("#000000"); infoLabel.textAlignment = .Left;
-		infoLabel.font = UIFont.systemFontOfSize(10);
+		infoLabel.frame = CGRect(x: 12, y: 8, width: infoScrollView.frame.width - 24, height: 0);
+		infoLabel.numberOfLines = 0; infoLabel.lineBreakMode = .byWordWrapping;
+		infoLabel.textColor = UPUtils.colorWithHexString("#000000"); infoLabel.textAlignment = .left;
+		infoLabel.font = UIFont.systemFont(ofSize: 10);
 		infoLabel.text = "";
 		
 		infoScrollView.addSubview(infoLabel);
 		infoScrollView.addSubview(infoCopyButton);
 		
-		infoCopyButton.setTitle("Copy to clipboard", forState: .Normal);
-		infoCopyButton.setTitleColor(UPUtils.colorWithHexString("#2994FF"), forState: .Normal);
-		infoCopyButton.setTitleColor(UPUtils.colorWithHexString("#0057AD"), forState: .Highlighted);
-		infoCopyButton.titleLabel!.font = UIFont.systemFontOfSize(16);
-		infoCopyButton.addTarget(self, action: #selector(ExperimentsTestInfo.copyInformationFunc), forControlEvents: .TouchUpInside);
+		infoCopyButton.setTitle("Copy to clipboard", for: UIControlState());
+		infoCopyButton.setTitleColor(UPUtils.colorWithHexString("#2994FF"), for: UIControlState());
+		infoCopyButton.setTitleColor(UPUtils.colorWithHexString("#0057AD"), for: .highlighted);
+		infoCopyButton.titleLabel!.font = UIFont.systemFont(ofSize: 16);
+		infoCopyButton.addTarget(self, action: #selector(ExperimentsTestInfo.copyInformationFunc), for: .touchUpInside);
 		
 		self.view.addSubview(infoScrollView);
 		
@@ -69,20 +69,20 @@ class ExperimentsTestInfo:UIViewController {
 		//info fill
 		var informationStr:String = "";
 		informationStr += "System\n";
-		informationStr += "OS: iOS " + String(UIDevice.currentDevice().systemVersion) + "\n";
-		informationStr += "Device: " + String( UIDevice.currentDevice().model ) + "\n";
+		informationStr += "OS: iOS " + String(UIDevice.current.systemVersion) + "\n";
+		informationStr += "Device: " + String( UIDevice.current.model ) + "\n";
 		
 		informationStr += "App Lang: " + String(Languages.currentLocaleCode) + "\n";
-		informationStr += "Sys Lang: " + String(NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode)!) + "\n";
+		informationStr += "Sys Lang: " + String(describing: (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode)!) + "\n";
 		
-		informationStr += "App version: " + String((NSBundle.mainBundle().infoDictionary?["CFBundleVersion"])! as! String) + "\n";
+		informationStr += "App version: " + String((Bundle.main.infoDictionary?["CFBundleVersion"])! as! String) + "\n";
 		
 		informationStr += "\nAlarms\n";
 		informationStr += "Current alarm len: " + String(AlarmManager.alarmsArray.count) + "\n";
 		informationStr += "Sys max alarm len: " + String(AlarmManager.alarmMaxRegisterCount) + "\n";
 		
 		let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds();
-		let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(NSDate().timeIntervalSince1970));
+		let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970));
 		
 		informationStr += "Next alarm in: " + String(nextAlarmLeft) + "s\n";
 		informationStr += "Alarms list start::\n";
@@ -92,7 +92,7 @@ class ExperimentsTestInfo:UIViewController {
 			for j:Int in 0 ..< AlarmManager.alarmsArray[i].alarmRepeat.count {
 				repeatinfo += AlarmManager.alarmsArray[i].alarmRepeat[j] == false ? "0" : "1";
 			}
-			informationStr += String(AlarmManager.alarmsArray[i].alarmID) + "(" + AlarmManager.alarmsArray[i].alarmName + "): FIRE " + String(AlarmManager.alarmsArray[i].alarmFireDate) + ", REPEAT " + repeatinfo + ", SOUND " + String(AlarmManager.alarmsArray[i].alarmSoundLevel) + ", STAT: " + String(AlarmManager.alarmsArray[i].alarmToggle) + "\n";
+			informationStr += String(AlarmManager.alarmsArray[i].alarmID) + "(" + AlarmManager.alarmsArray[i].alarmName + "): FIRE " + String(describing: AlarmManager.alarmsArray[i].alarmFireDate) + ", REPEAT " + repeatinfo + ", SOUND " + String(AlarmManager.alarmsArray[i].alarmSoundLevel) + ", STAT: " + String(AlarmManager.alarmsArray[i].alarmToggle) + "\n";
 		}
 		informationStr += "Alarms list end::\n";
 		
@@ -105,7 +105,7 @@ class ExperimentsTestInfo:UIViewController {
 		informationStr += "Games data len: " + String(gamesDataLen) + "\n";
 		
 		informationStr += "\nAdvertisement\n";
-		informationStr += "ADID: " + ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString + "\n";
+		informationStr += "ADID: " + ASIdentifierManager.shared().advertisingIdentifier.uuidString + "\n";
 		informationStr += "UnityAds version: " + String(UnityAds.getVersion()) + "\n";
 		informationStr += "UnityAds inited: " + String(UnityAds.isInitialized()) + "\n";
 		informationStr += "UnityAds testmode: " + String(UnityAds.getDebugMode()) + "\n";
@@ -114,20 +114,20 @@ class ExperimentsTestInfo:UIViewController {
 		infoLabel.text = informationStr;
 		infoLabel.sizeToFit();
 		
-		infoCopyButton.frame = CGRectMake(0, infoLabel.frame.maxY, DeviceManager.defaultModalSizeRect.width, 42 );
+		infoCopyButton.frame = CGRect(x: 0, y: infoLabel.frame.maxY, width: DeviceManager.defaultModalSizeRect.width, height: 42 );
 		
 		//컨텐츠 크기 설정
-		infoScrollView.contentSize = CGSizeMake(DeviceManager.defaultModalSizeRect.width, max(DeviceManager.defaultModalSizeRect.height - (self.navigationController?.navigationBar.frame.size.height)!, infoCopyButton.frame.maxY + 20));
+		infoScrollView.contentSize = CGSize(width: DeviceManager.defaultModalSizeRect.width, height: max(DeviceManager.defaultModalSizeRect.height - (self.navigationController?.navigationBar.frame.size.height)!, infoCopyButton.frame.maxY + 20));
 		
 	}
 	
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		refreshInformationStatus();
 	}
 	
 	func popToRootAction() {
 		//Pop to root by back button
-		self.navigationController?.popViewControllerAnimated(true);
+		self.navigationController?.popViewController(animated: true);
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -138,12 +138,12 @@ class ExperimentsTestInfo:UIViewController {
 	////////////////
 	
 	func copyInformationFunc() {
-		UIPasteboard.generalPasteboard().string = infoLabel.text;
+		UIPasteboard.general.string = infoLabel.text;
 		
-		let aCtrl = UIAlertController(title: Languages.$("generalAlert"), message: "Copied!", preferredStyle: UIAlertControllerStyle.Alert);
-		aCtrl.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
+		let aCtrl = UIAlertController(title: Languages.$("generalAlert"), message: "Copied!", preferredStyle: UIAlertControllerStyle.alert);
+		aCtrl.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 		}));
-		presentViewController(aCtrl, animated: true, completion: nil);
+		present(aCtrl, animated: true, completion: nil);
 	}
 	
 	

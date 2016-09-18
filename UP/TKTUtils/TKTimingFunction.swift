@@ -37,30 +37,30 @@ class TKTimingFunction {
 		self.mY2 = c2y
 	}
 	
-	func get(aX: CGFloat) -> CGFloat {
+	func get(_ aX: CGFloat) -> CGFloat {
 		if (mX1 == mY1 && mX2 == mY2) { return aX }// linear
 		return calcBezier(getTForX(aX), mY1, mY2)
 	}
 	
-	func get(t: Float) -> Float {
+	func get(_ t: Float) -> Float {
 		return Float(self.get(CGFloat(t)))
 	}
 	
-	func A(aA1: CGFloat, _ aA2: CGFloat) -> CGFloat { return 1.0 - 3.0 * aA2 + 3.0 * aA1 }
-	func B(aA1: CGFloat, _ aA2: CGFloat) -> CGFloat { return 3.0 * aA2 - 6.0 * aA1 }
-	func C(aA1: CGFloat)               -> CGFloat { return 3.0 * aA1 }
+	func A(_ aA1: CGFloat, _ aA2: CGFloat) -> CGFloat { return 1.0 - 3.0 * aA2 + 3.0 * aA1 }
+	func B(_ aA1: CGFloat, _ aA2: CGFloat) -> CGFloat { return 3.0 * aA2 - 6.0 * aA1 }
+	func C(_ aA1: CGFloat)               -> CGFloat { return 3.0 * aA1 }
 	
 	// Returns x(t) given t, x1, and x2, or y(t) given t, y1, and y2.
-	func calcBezier(aT: CGFloat, _ aA1: CGFloat, _ aA2: CGFloat) -> CGFloat {
+	func calcBezier(_ aT: CGFloat, _ aA1: CGFloat, _ aA2: CGFloat) -> CGFloat {
 		return ((A(aA1, aA2)*aT + B(aA1, aA2))*aT + C(aA1))*aT
 	}
 	
 	// Returns dx/dt given t, x1, and x2, or dy/dt given t, y1, and y2.
-	func getSlope(aT: CGFloat, _ aA1: CGFloat, _ aA2: CGFloat) -> CGFloat {
+	func getSlope(_ aT: CGFloat, _ aA1: CGFloat, _ aA2: CGFloat) -> CGFloat {
 		return 3.0 * A(aA1, aA2)*aT*aT + 2.0 * B(aA1, aA2) * aT + C(aA1)
 	}
 	
-	func getTForX(aX: CGFloat) -> CGFloat {
+	func getTForX(_ aX: CGFloat) -> CGFloat {
 		// Newton raphson iteration
 		var aGuessT = aX
 		for _ in 0 ..< 4 {

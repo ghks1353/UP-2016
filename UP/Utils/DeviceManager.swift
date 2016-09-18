@@ -37,12 +37,12 @@ class DeviceManager {
 	
     static func initialDeviceSize() {
         //화면 사이즈를 얻어옴.
-        scrSize = UIScreen.mainScreen().bounds;
+        scrSize = UIScreen.main.bounds;
 		scrSizeForCalcuate = scrSize;
 		//가로로 init되는 경우, 세로로init되게 함. (왜냐면 디자인은 다 세로의 배율 기준이기 때문임)
 		//print("Initing device. state landscape is ", UIDevice.currentDevice().orientation.isLandscape == true);
-		if (UIDevice.currentDevice().orientation.isLandscape == true || scrSize!.width > scrSize!.height) {
-			scrSizeForCalcuate = CGRectMake( 0, 0, scrSize!.height, scrSize!.width );
+		if (UIDevice.current.orientation.isLandscape == true || scrSize!.width > scrSize!.height) {
+			scrSizeForCalcuate = CGRect( x: 0, y: 0, width: scrSize!.height, height: scrSize!.width );
 		}
 		
 		scrRatio = Double((scrSizeForCalcuate!.width) / workSize.width);
@@ -56,21 +56,21 @@ class DeviceManager {
 		//저퀄리티 사진사용 체크
 		usesLowQualityImage = Double(scrSizeForCalcuate!.height) <= 500 ? true : false;
 		
-		print("Checking user interface ipad is", UIDevice.currentDevice().userInterfaceIdiom == .Pad);
+		print("Checking user interface ipad is", UIDevice.current.userInterfaceIdiom == .pad);
 		changeModalSize();
 		
 		//오전/오후 체크
-		let formatString:NSString = NSDateFormatter.dateFormatFromTemplate("j", options: 0, locale: NSLocale.currentLocale())!;
-		is24HourMode = !formatString.containsString("a"); // true - 24시모드 / false - 12시모드
+		let formatString:NSString = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as NSString;
+		is24HourMode = !formatString.contains("a"); // true - 24시모드 / false - 12시모드
 		
     }
 	
-	static func changeDeviceSizeWith( size:CGSize ) {
-		scrSize = CGRectMake(0, 0, size.width, size.height);
+	static func changeDeviceSizeWith( _ size:CGSize ) {
+		scrSize = CGRect(x: 0, y: 0, width: size.width, height: size.height);
 		
-		print("Initing device. state landscape is ", UIDevice.currentDevice().orientation.isLandscape == true);
-		if (UIDevice.currentDevice().orientation.isLandscape == true) {
-			scrSizeForCalcuate = CGRectMake( 0, 0, scrSize!.height, scrSize!.width );
+		print("Initing device. state landscape is ", UIDevice.current.orientation.isLandscape == true);
+		if (UIDevice.current.orientation.isLandscape == true) {
+			scrSizeForCalcuate = CGRect( x: 0, y: 0, width: scrSize!.height, height: scrSize!.width );
 		}
 		changeModalSize();
 		
@@ -80,10 +80,10 @@ class DeviceManager {
 	
 	static func changeModalSize() {
 		
-		if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+		if (UIDevice.current.userInterfaceIdiom == .pad) {
 			//패드의 경우, 크기를 미리 지정해줌
-			defaultModalSizeRect = CGRectMake(((scrSize!.width) - 320) / 2, ((scrSize!.height) - 480) / 2 , 320, 480);
-			resultModalSizeRect = CGRectMake(((scrSize!.width) - 334) / 2, ((scrSize!.height) - 460) / 2 , 334, 460);
+			defaultModalSizeRect = CGRect(x: ((scrSize!.width) - 320) / 2, y: ((scrSize!.height) - 480) / 2 , width: 320, height: 480);
+			resultModalSizeRect = CGRect(x: ((scrSize!.width) - 334) / 2, y: ((scrSize!.height) - 460) / 2 , width: 334, height: 460);
 			
 			modalRatioC = CGFloat(defaultModalSizeRect.width / (workSize.width - 100));
 			maxModalRatioC = min(1, modalRatioC);
@@ -92,8 +92,8 @@ class DeviceManager {
 			resultMaxModalRatioC = min(1, resultModalRatioC);
 		} else {
 			//기타 (폰)의 경우
-			defaultModalSizeRect = CGRectMake(50 * DeviceManager.scrRatioC , (scrSizeForCalcuate!.height - (480 * DeviceManager.scrRatioC)) / 2 , scrSizeForCalcuate!.width - (100 * DeviceManager.scrRatioC), (480 * DeviceManager.scrRatioC));
-			resultModalSizeRect = CGRectMake(50 * DeviceManager.scrRatioC , (scrSizeForCalcuate!.height - (460 * DeviceManager.scrRatioC)) / 2 , scrSizeForCalcuate!.width - (100 * DeviceManager.scrRatioC), (460 * DeviceManager.scrRatioC));
+			defaultModalSizeRect = CGRect(x: 50 * DeviceManager.scrRatioC , y: (scrSizeForCalcuate!.height - (480 * DeviceManager.scrRatioC)) / 2 , width: scrSizeForCalcuate!.width - (100 * DeviceManager.scrRatioC), height: (480 * DeviceManager.scrRatioC));
+			resultModalSizeRect = CGRect(x: 50 * DeviceManager.scrRatioC , y: (scrSizeForCalcuate!.height - (460 * DeviceManager.scrRatioC)) / 2 , width: scrSizeForCalcuate!.width - (100 * DeviceManager.scrRatioC), height: (460 * DeviceManager.scrRatioC));
 			
 			modalRatioC = DeviceManager.scrRatioC;
 			maxModalRatioC = min(1, modalRatioC);

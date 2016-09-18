@@ -14,9 +14,9 @@ class AlarmSoundListCell:UITableDottedCell {
 	internal var cellID:String = "";
 	internal var soundInfoObject:SoundInfoObj?;
 	
-	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		//AlarmSoundListView.selfView!.cellFunc(self.soundInfoObject!);
-		super.touchesBegan(touches, withEvent: event);
+		super.touchesBegan(touches, with: event);
 	}
 	
 }

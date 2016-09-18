@@ -25,7 +25,7 @@ class AnimatedImg {
 		movRdmFactor = defaultMovRandomFactor;
 	}
 	
-	func movY( factor:Float ) {
+	func movY( _ factor:Float ) {
 		if (self.target == nil) {
 			return;
 		}

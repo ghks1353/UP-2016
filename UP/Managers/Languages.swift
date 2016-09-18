@@ -16,7 +16,7 @@ class Languages {
 	static var langInited:Bool = false;
 	static var currentLocaleCode:String = "en";
 	
-	static func initLanugages( funcLocaleCode:String, ignoreForceLang:Bool = false ) -> Void {
+	static func initLanugages( _ funcLocaleCode:String, ignoreForceLang:Bool = false ) -> Void {
 		var localeCode:String = funcLocaleCode;
 		if (langInited == true) {
 			print("Lang already inited. ignoring");
@@ -26,10 +26,10 @@ class Languages {
 		//init lang.
 		if (ignoreForceLang == false) {
 			DataManager.initDefaults();
-			if (DataManager.nsDefaults.objectForKey(DataManager.settingsKeys.language) == nil) {
+			if (DataManager.nsDefaults.object(forKey: DataManager.settingsKeys.language) == nil) {
 				//not force. because there is no key
 			} else {
-				let forceLang:String = DataManager.nsDefaults.objectForKey(DataManager.settingsKeys.language) as! String;
+				let forceLang:String = DataManager.nsDefaults.object(forKey: DataManager.settingsKeys.language) as! String;
 				if (forceLang != "") {
 					//apply language FORCE
 					print("Applying force language.");
@@ -51,11 +51,11 @@ class Languages {
 		}
 		
         print("Initing with language", localeCode);
-        if let path = NSBundle.mainBundle().pathForResource("" + localeCode, ofType: "json") {
+        if let path = Bundle.main.path(forResource: "" + localeCode, ofType: "json") {
             
             do {
-                let jsonData = try NSData(contentsOfFile: path, options: NSDataReadingOptions.DataReadingMappedIfSafe);
-                let jsonResult:NSDictionary = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary;
+                let jsonData = try Data(contentsOf: URL(fileURLWithPath: path), options: NSData.ReadingOptions.mappedIfSafe);
+                let jsonResult:NSDictionary = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary;
                 languageJsonFile = jsonResult;
                 print("File loaded");
 				
@@ -74,13 +74,13 @@ class Languages {
     } //end init
 	
 	//Get language result from json file
-    static func $(subject:String) -> String {
+    static func $(_ subject:String) -> String {
 		if (languageJsonFile == nil) {
-			initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
+			initLanugages( (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String );
 		}
 		var translatedStr:String = "";
-		if (languageJsonFile?.objectForKey( subject ) != nil) {
-			translatedStr = (languageJsonFile?.objectForKey( subject ))! as! String;
+		if (languageJsonFile?.object( forKey: subject ) != nil) {
+			translatedStr = (languageJsonFile?.object( forKey: subject ))! as! String;
 		} else {
 			print("Cannot find subject",subject);
 		 	translatedStr = "ERR:" + subject; //cannot find subject
@@ -90,7 +90,7 @@ class Languages {
 	
 	//Parse special characters to variable
 	//Ported from AvoidTap Reborn, AS3
-	static func parseStr(str:String, args:AnyObject...) -> String {
+	static func parseStr(_ str:String, args:AnyObject...) -> String {
 		if (str == "") {
 			return "";
 		}
@@ -104,13 +104,13 @@ class Languages {
 		
 		var modifiableString:String = str;
 		for i:Int in 0 ..< args.count {
-			modifiableString = modifiableString.stringByReplacingOccurrencesOfString("$" + String(i), withString: String(args[i]));
+			modifiableString = modifiableString.replacingOccurrences(of: "$" + String(i), with: String(describing: args[i]));
 		}
 		return modifiableString;
 	} //end func
 	
 	//Localize month
-	static func localizeMonth( month:String, inShort:Bool = true ) -> String {
+	static func localizeMonth( _ month:String, inShort:Bool = true ) -> String {
 		let months:Int = Int(month)!;
 		switch(currentLocaleCode) {
 			case "ko", "ja":

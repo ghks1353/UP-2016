@@ -25,7 +25,7 @@ class AchievementManager {
 		
 		print("Initing achievements");
 		var jStr:String = "";
-		if let Path = NSBundle.mainBundle().pathForResource("AchievementList", ofType: "json") {
+		if let Path = Bundle.main.path(forResource: "AchievementList", ofType: "json") {
 			do {
 				jStr = try NSString(contentsOfFile: Path, usedEncoding: nil) as String
 			} catch {
@@ -61,7 +61,7 @@ class AchievementManager {
 	} //end init.
 	
 	//ID로 아이콘 가져오기
-	static func getIconNameFromID(achievementID:String) -> String {
+	static func getIconNameFromID(_ achievementID:String) -> String {
 		switch(achievementID) { //ID에 따라 준비된 아이콘들 표시
 			default: break;
 		}

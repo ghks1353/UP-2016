@@ -73,16 +73,16 @@ class DataManager {
 	
 	//////////////////////
 	
-	static var nsDefaults = NSUserDefaults.standardUserDefaults();
+	static var nsDefaults = UserDefaults.standard;
 	static var nsCloudDefaults:NSUbiquitousKeyValueStore? = nil;
 	static func initDefaults() {
-		nsDefaults = NSUserDefaults.standardUserDefaults();
+		nsDefaults = UserDefaults.standard;
 		
 		if (isICloudContainerAvailable() == true && iCloudAvailable == false) {
 			print("iCloudAvailable. activiting");
 			iCloudAvailable = true;
-			nsCloudDefaults = NSUbiquitousKeyValueStore.defaultStore();
-			NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DataManager.iCloudValChanged(_:)), name: NSUbiquitousKeyValueStoreDidChangeExternallyNotification, object: nsCloudDefaults);
+			nsCloudDefaults = NSUbiquitousKeyValueStore.default();
+			NotificationCenter.default.addObserver(self, selector: #selector(DataManager.iCloudValChanged(_:)), name: NSUbiquitousKeyValueStore.didChangeExternallyNotification, object: nsCloudDefaults);
 		}
 		
 		//전체 컬렉션
@@ -103,14 +103,14 @@ class DataManager {
 		
 		//베스트 기록 체크후, 없다면 0으로 설정
 		for i:Int in 0 ..< bestDatasKeyCollection.count {
-			if (DataManager.nsDefaults.objectForKey(bestDatasKeyCollection[i]) == nil) {
-				DataManager.nsDefaults.setInteger(0, forKey: bestDatasKeyCollection[i]);
+			if (DataManager.nsDefaults.object(forKey: bestDatasKeyCollection[i]) == nil) {
+				DataManager.nsDefaults.set(0, forKey: bestDatasKeyCollection[i]);
 			}
 		}
 		
 		//StartGuide 봄 여부에 대해
-		if (DataManager.nsDefaults.objectForKey(DataManager.settingsKeys.startGuideFlag) == nil) {
-			DataManager.nsDefaults.setBool(false, forKey: DataManager.settingsKeys.startGuideFlag);
+		if (DataManager.nsDefaults.object(forKey: DataManager.settingsKeys.startGuideFlag) == nil) {
+			DataManager.nsDefaults.set(false, forKey: DataManager.settingsKeys.startGuideFlag);
 		}
 		
 		
@@ -120,7 +120,7 @@ class DataManager {
 	
 	static func loadiCloudDefaults() {
 		print("Loading iCloud defaults.");
-		nsCloudDefaults = NSUbiquitousKeyValueStore.defaultStore();
+		nsCloudDefaults = NSUbiquitousKeyValueStore.default();
 		DataManager.nsCloudDefaults!.synchronize(); //Receive data
 		iCloudMerge();
 	}
@@ -134,9 +134,9 @@ class DataManager {
 		print("Merging cloud data");
 		
 		//캐릭터 경험치 및 레벨에 대한 데이터
-		if (DataManager.nsCloudDefaults!.objectForKey( DataManager.characterInfoKeys.info ) != nil) {
-			let tmpInfo:NSData = DataManager.nsCloudDefaults!.objectForKey( DataManager.characterInfoKeys.info ) as! NSData;
-			let cloudCharacterInfo:CharacterInfo = NSKeyedUnarchiver.unarchiveObjectWithData(tmpInfo) as! CharacterInfo;
+		if (DataManager.nsCloudDefaults!.object( forKey: DataManager.characterInfoKeys.info ) != nil) {
+			let tmpInfo:Data = DataManager.nsCloudDefaults!.object( forKey: DataManager.characterInfoKeys.info ) as! Data;
+			let cloudCharacterInfo:CharacterInfo = NSKeyedUnarchiver.unarchiveObject(with: tmpInfo) as! CharacterInfo;
 			
 			if (CharacterManager.currentCharInfo.characterLevel < cloudCharacterInfo.characterLevel ||
 				(CharacterManager.currentCharInfo.characterExp < cloudCharacterInfo.characterExp &&
@@ -150,21 +150,21 @@ class DataManager {
 		
 		//베스트 스코어에 대한 데이터 (고득점 고랭킹)
 		for i:Int in 0 ..< bestGameDatasKeyCollection.count {
-			if (DataManager.nsCloudDefaults!.objectForKey( bestGameDatasKeyCollection[i] ) != nil) {
-				let tmpData:Int = Int(DataManager.nsCloudDefaults!.longLongForKey( bestGameDatasKeyCollection[i] ));
-				if ( tmpData >= DataManager.nsDefaults.integerForKey(bestGameDatasKeyCollection[i])) {
+			if (DataManager.nsCloudDefaults!.object( forKey: bestGameDatasKeyCollection[i] ) != nil) {
+				let tmpData:Int = Int(DataManager.nsCloudDefaults!.longLong( forKey: bestGameDatasKeyCollection[i] ));
+				if ( tmpData >= DataManager.nsDefaults.integer(forKey: bestGameDatasKeyCollection[i])) {
 					//클라우드의 데이터가 현재 저장된 데이터보다 값이 높을 경우 로컬 데이터 덮어쓰기.
-					DataManager.nsDefaults.setInteger(tmpData, forKey: bestGameDatasKeyCollection[i]);
+					DataManager.nsDefaults.set(tmpData, forKey: bestGameDatasKeyCollection[i]);
 				}
 			}
 		} //데이터 루프 끝
 		// 저득점 고랭킹에 대한 루프
 		for i:Int in 0 ..< bestAlarmDatasKeyCollection.count {
-			if (DataManager.nsCloudDefaults!.objectForKey( bestAlarmDatasKeyCollection[i] ) != nil) {
-				let tmpData:Int = Int(DataManager.nsCloudDefaults!.longLongForKey( bestAlarmDatasKeyCollection[i] ));
-				if ( tmpData <= DataManager.nsDefaults.integerForKey(bestAlarmDatasKeyCollection[i])) {
+			if (DataManager.nsCloudDefaults!.object( forKey: bestAlarmDatasKeyCollection[i] ) != nil) {
+				let tmpData:Int = Int(DataManager.nsCloudDefaults!.longLong( forKey: bestAlarmDatasKeyCollection[i] ));
+				if ( tmpData <= DataManager.nsDefaults.integer(forKey: bestAlarmDatasKeyCollection[i])) {
 					//클라우드의 데이터가 현재 저장된 데이터보다 값이 낮을 경우 로컬 데이터 덮어쓰기.
-					DataManager.nsDefaults.setInteger(tmpData, forKey: bestAlarmDatasKeyCollection[i]);
+					DataManager.nsDefaults.set(tmpData, forKey: bestAlarmDatasKeyCollection[i]);
 				}
 			}
 		} //데이터 루프 끝
@@ -172,7 +172,7 @@ class DataManager {
 	}
 	
 	//iCloud 값 변경시
-	@objc static func iCloudValChanged(sender:NSNotification) {
+	@objc static func iCloudValChanged(_ sender:Notification) {
 		//현재 캐릭터 정보와 비교후 클라우드쪽이 높을 경우 반영
 		print("iCloud val changed disp");
 		CharacterManager.merge();
@@ -184,9 +184,9 @@ class DataManager {
 	static func save() {
 		//save를 이쪽으로 돌려야 하는 이유: icloud.
 		//lastSyncDate
-		let isSync = DataManager.nsDefaults.boolForKey(DataManager.settingsKeys.syncToiCloud);
+		let isSync = DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.syncToiCloud);
 		if (isSync == true) { //iCloud sync의 경우 데이터 갱신일 지정
-			DataManager.nsDefaults.setInteger(Int(NSDate().timeIntervalSince1970), forKey: DataManager.settingsKeys.lastSyncDate);
+			DataManager.nsDefaults.set(Int(Date().timeIntervalSince1970), forKey: DataManager.settingsKeys.lastSyncDate);
 			
 			//일단 환경설정과 알람 목록 제외하고 캐릭터 정보만 저장 및 로드를 해봅시다
 			//여긴 저장이니까 저장을 해야겠지 음 그래 저장
@@ -195,11 +195,11 @@ class DataManager {
 			iCloudMerge();
 			
 			//클라우드에 캐릭터 정보 저장
-			DataManager.nsCloudDefaults!.setObject(NSKeyedArchiver.archivedDataWithRootObject(CharacterManager.currentCharInfo),
+			DataManager.nsCloudDefaults!.set(NSKeyedArchiver.archivedData(withRootObject: CharacterManager.currentCharInfo),
 			                                      forKey: DataManager.characterInfoKeys.info);
 			//클라우드에 베스트 스코어들 저장
 			for i:Int in 0 ..< bestDatasKeyCollection.count {
-				DataManager.nsCloudDefaults!.setObject( DataManager.nsDefaults.integerForKey(bestDatasKeyCollection[i]) ,
+				DataManager.nsCloudDefaults!.set( DataManager.nsDefaults.integer(forKey: bestDatasKeyCollection[i]) ,
 				                                       forKey: bestDatasKeyCollection[i]);
 			}
 			saveCloud(); //클라우드에 저장
@@ -222,7 +222,7 @@ class DataManager {
 	//// Utils
 	
 	static func isICloudContainerAvailable()->Bool {
-		if NSFileManager.defaultManager().ubiquityIdentityToken != nil {
+		if FileManager.default.ubiquityIdentityToken != nil {
 			return true;
 		} else {
 			return false;
@@ -238,7 +238,7 @@ class DataManager {
 	
 	//DataManager init (nsDefault의 init와는 다르게 작동함)
 	static func initDataManager() {
-		let libPathArr:NSArray = NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true);
+		let libPathArr:NSArray = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true) as NSArray;
 		
 		print("Database init works started");
 		do {
@@ -291,7 +291,7 @@ class DataManager {
 	
 	
 	///// utils: int to str arr (,)
-	static func covertToStringArray(intObj:Array<Int>) -> String {
+	static func covertToStringArray(_ intObj:Array<Int>) -> String {
 		var tmpStr:String = "";
 		for i:Int in 0 ..< intObj.count {
 			tmpStr += String(intObj[i]);
@@ -304,7 +304,7 @@ class DataManager {
 	} //end func
 	
 	//// 타임스탬프를 계산하여 연, 월, 일을 나누고 같은 날은 평균으로 계산한다.
-	static func getAlarmGraphData( daysCategory:Int = 0, dataPointSelection:Int = 0 ) -> Array<StatsDataElement>? {
+	static func getAlarmGraphData( _ daysCategory:Int = 0, dataPointSelection:Int = 0 ) -> Array<StatsDataElement>? {
 		//daysCategory 0 - 주, 1 - 월, 2 - 년, 3 - All
 		//id가 큰것 하나만 얻어서 (id desc limit 1), 해당 날짜를 구한 다음, 해당 날짜의 타임스탬프 첫 시작일을 구함
 		//그 다음, 거기서 카테고리에 따라 3600 * 일 만큼 뺀 부분부터 데이터 집계를 시작하면 됨.

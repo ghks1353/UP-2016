@@ -56,7 +56,7 @@ class JumpUpElements:SKSpriteNode {
 	internal var ySpeed:CGFloat = 0; //값에 따라 위/아래의 가속도로 작용함. 항상 뺌.
 	internal var jumpFlaggedCount:Int = 0; //n단점프까지만 허용하게 설정
 	
-	internal func changeMotion( motionNumber:Int ) {
+	internal func changeMotion( _ motionNumber:Int ) {
 		//이렇게 해 주는 이유는 프레임의 초기화를 위해서임 !!!
 		if (motions_current != motionNumber) {
 			motions_current_frame = 0;

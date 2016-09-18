@@ -34,19 +34,19 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 	override func viewDidLoad() {
 		// view init func
 		viewLoaded = true;
-		self.view.backgroundColor = UIColor.whiteColor();
+		self.view.backgroundColor = UIColor.white;
 		StartGuideView.selfView = self;
 		
 		//gradient background
-		startingGuideBackgroundGradient.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
-		startingGuideBackgroundGradient.colors = [ UPUtils.colorWithHexString("CBFFDC").CGColor , UPUtils.colorWithHexString("FFC9C9").CGColor ];
-		self.view.layer.insertSublayer(startingGuideBackgroundGradient, atIndex: 0);
+		startingGuideBackgroundGradient.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height);
+		startingGuideBackgroundGradient.colors = [ UPUtils.colorWithHexString("CBFFDC").cgColor , UPUtils.colorWithHexString("FFC9C9").cgColor ];
+		self.view.layer.insertSublayer(startingGuideBackgroundGradient, at: 0);
 		////////////////
 		
 		guideScrollView.delegate = self;
-		guideScrollView.pagingEnabled = true;
-		guideScrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height);
-		guideScrollView.contentSize = CGSizeMake( self.view.frame.width * CGFloat(guidePages), self.view.frame.height );
+		guideScrollView.isPagingEnabled = true;
+		guideScrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height);
+		guideScrollView.contentSize = CGSize( width: self.view.frame.width * CGFloat(guidePages), height: self.view.frame.height );
 		guideScrollView.showsVerticalScrollIndicator = false;
 		guideScrollView.showsHorizontalScrollIndicator = false;
 		self.view.addSubview(guideScrollView);
@@ -78,23 +78,23 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			}
 			
 			//이미지는 정중앙이 아니라, 살짝 위로 올라가있음
-			tmpImage.frame = CGRectMake(self.view.frame.width / 2 - (255.6 * DeviceManager.maxScrRatioC) / 2
-				, (self.view.frame.height / 2 - (454.4 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC)
-				, 255.6 * DeviceManager.maxScrRatioC, 454.4 * DeviceManager.maxScrRatioC);
+			tmpImage.frame = CGRect(x: self.view.frame.width / 2 - (255.6 * DeviceManager.maxScrRatioC) / 2
+				, y: (self.view.frame.height / 2 - (454.4 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC)
+				, width: 255.6 * DeviceManager.maxScrRatioC, height: 454.4 * DeviceManager.maxScrRatioC);
 			tmpScreenUIView.addSubview(tmpImage);
 			
 			//가이드 화면 위치 조정
-			tmpScreenUIView.frame = CGRectMake(self.view.frame.width * CGFloat(i), 0, self.view.frame.width, self.view.frame.height);
+			tmpScreenUIView.frame = CGRect(x: self.view.frame.width * CGFloat(i), y: 0, width: self.view.frame.width, height: self.view.frame.height);
 			guideScrollView.addSubview(tmpScreenUIView);
 			
 			/// 텍스트 생성
-			tmpTitleUILabel.frame = CGRectMake(tmpScreenUIView.frame.minX, tmpImage.frame.maxY + (48 * DeviceManager.maxScrRatioC), self.view.frame.width, 18);
-			tmpDesUILabel.frame = CGRectMake(tmpScreenUIView.frame.minX, tmpTitleUILabel.frame.maxY + (12 * DeviceManager.maxScrRatioC), self.view.frame.width, 18);
+			tmpTitleUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpImage.frame.maxY + (48 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
+			tmpDesUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpTitleUILabel.frame.maxY + (12 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
 			
 			tmpTitleUILabel.textColor = UPUtils.colorWithHexString("#461515");
 			tmpDesUILabel.textColor = tmpTitleUILabel.textColor;
-			tmpTitleUILabel.textAlignment = .Center; tmpTitleUILabel.font = i == 0 ? UIFont.boldSystemFontOfSize(16) : UIFont.systemFontOfSize(16);
-			tmpDesUILabel.textAlignment = .Center; tmpDesUILabel.font = UIFont.systemFontOfSize(16);
+			tmpTitleUILabel.textAlignment = .center; tmpTitleUILabel.font = i == 0 ? UIFont.boldSystemFont(ofSize: 16) : UIFont.systemFont(ofSize: 16);
+			tmpDesUILabel.textAlignment = .center; tmpDesUILabel.font = UIFont.systemFont(ofSize: 16);
 			
 			tmpTitleUILabel.text = Languages.$("startGuide-" + String(i) + "-A");
 			tmpDesUILabel.text = Languages.$("startGuide-" + String(i) + "-B");
@@ -109,17 +109,17 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 		} //end for
 		
 		//페이지컨트롤 추가
-		guideUIPageControl.frame = CGRectMake(0, self.view.frame.height - 48, self.view.frame.width, 48);
+		guideUIPageControl.frame = CGRect(x: 0, y: self.view.frame.height - 48, width: self.view.frame.width, height: 48);
 		self.view.addSubview(guideUIPageControl);
 		
 		guideUIPageControl.numberOfPages = guidePages;
 		guideUIPageControl.currentPage = 0;
 		
 		//밀어서 종료 안내문
-		guideExitInformationLabel.frame = CGRectMake(0, self.view.frame.height - 16 - 18, self.view.frame.width, 16);
+		guideExitInformationLabel.frame = CGRect(x: 0, y: self.view.frame.height - 16 - 18, width: self.view.frame.width, height: 16);
 		guideExitInformationLabel.textColor = UPUtils.colorWithHexString("#461515");
-		guideExitInformationLabel.textAlignment = .Center;
-		guideExitInformationLabel.font = UIFont.boldSystemFontOfSize(14);
+		guideExitInformationLabel.textAlignment = .center;
+		guideExitInformationLabel.font = UIFont.boldSystemFont(ofSize: 14);
 		guideExitInformationLabel.text = Languages.$("startGuideExitWithSwipe");
 		
 		self.view.addSubview(guideExitInformationLabel);
@@ -128,21 +128,21 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 	}
 	
 	//왼쪽으로 한번 더 밀어 종료하는 기능
-	func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+	func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 		if ((scrollView.contentOffset.x / scrollView.frame.size.width) - CGFloat(guidePages-1) > 0.1) {
 			//창 종료시 Startguide 봤다고 저장
-			DataManager.nsDefaults.setBool(true, forKey: DataManager.settingsKeys.startGuideFlag);
+			DataManager.nsDefaults.set(true, forKey: DataManager.settingsKeys.startGuideFlag);
 			
 			//이 창 종료
-			self.dismissViewControllerAnimated(true, completion: nil);
+			self.dismiss(animated: true, completion: nil);
 		}
 	}
 	
 	//페이징 및 안내문 관련
-	func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
+	func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
 		scrollViewDidEndDecelerating(scrollView);
 	}
-	func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 		let pageNumber:Int = Int(round(scrollView.contentOffset.x / scrollView.frame.size.width));
 		latestPage = pageNumber;
 		guideUIPageControl.currentPage = pageNumber;
@@ -156,7 +156,7 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 		}
 		
 		if (guideExitInformationLabel.alpha != goalAlpha ) {
-			UIView.animateWithDuration(0.4, delay: 0, options: .CurveEaseOut, animations: {
+			UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
 				self.guideExitInformationLabel.alpha = goalAlpha;
 				self.guideUIPageControl.alpha = goalAlpha == 1 ? 0 : 1;
 			}) { _ in
@@ -165,49 +165,49 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 		
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		
 	} //end func
 	
-	override func viewWillAppear(animated: Bool) {
-		UIApplication.sharedApplication().statusBarStyle = .Default;
+	override func viewWillAppear(_ animated: Bool) {
+		UIApplication.shared.statusBarStyle = .default;
 		
 		//스크롤뷰 제자리로
-		self.guideScrollView.setContentOffset(CGPointMake(0, 0), animated: false);
+		self.guideScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
 		scrollViewDidEndDecelerating( guideScrollView );
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		//view disappear event handler
-		UIApplication.sharedApplication().statusBarStyle = .LightContent;
+		UIApplication.shared.statusBarStyle = .lightContent;
 	}
 	
-	func fitView(size: CGSize) {
+	func fitView(_ size: CGSize) {
 		//Fit start-guide elements
 		if (!viewLoaded) {
 			return;
 		}
 		//self.view.frame = CGRectMake(0, 0, size.width, size.height);
-		startingGuideBackgroundGradient.frame = CGRectMake(0, 0, size.width, size.height);
-		guideScrollView.frame = CGRectMake(0, 0, size.width, size.height);
-		guideScrollView.contentSize = CGSizeMake( size.width * CGFloat(guidePages), size.height );
+		startingGuideBackgroundGradient.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height);
+		guideScrollView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height);
+		guideScrollView.contentSize = CGSize( width: size.width * CGFloat(guidePages), height: size.height );
 		
 		//컴포넌트들 재정렬
 		for i:Int in 0 ..< guidePages {
-			guideUIViews[i].frame = CGRectMake(size.width * CGFloat(i), 0, size.width, size.height);
+			guideUIViews[i].frame = CGRect(x: size.width * CGFloat(i), y: 0, width: size.width, height: size.height);
 			guideImagesArray[i].frame =
-				CGRectMake(size.width / 2 - (255.6 * DeviceManager.maxScrRatioC) / 2
-					, (size.height / 2 - (454.4 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC)
-					, 255.6 * DeviceManager.maxScrRatioC, 454.4 * DeviceManager.maxScrRatioC);
-			guideTitleUILabelsArray[i].frame = CGRectMake(guideUIViews[i].frame.minX, guideImagesArray[i].frame.maxY + (48 * DeviceManager.maxScrRatioC), size.width, 18);
-			guideDescriptionUILabelsArray[i].frame = CGRectMake(guideUIViews[i].frame.minX, guideTitleUILabelsArray[i].frame.maxY + (12 * DeviceManager.maxScrRatioC), size.width, 18);
+				CGRect(x: size.width / 2 - (255.6 * DeviceManager.maxScrRatioC) / 2
+					, y: (size.height / 2 - (454.4 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC)
+					, width: 255.6 * DeviceManager.maxScrRatioC, height: 454.4 * DeviceManager.maxScrRatioC);
+			guideTitleUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideImagesArray[i].frame.maxY + (48 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
+			guideDescriptionUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideTitleUILabelsArray[i].frame.maxY + (12 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
 		}
 		
 		//재정렬되었으니 화면 오프셋도 같이.
-		self.guideScrollView.setContentOffset(CGPointMake(size.width * CGFloat(latestPage), 0), animated: false);
+		self.guideScrollView.setContentOffset(CGPoint(x: size.width * CGFloat(latestPage), y: 0), animated: false);
 		
-		guideUIPageControl.frame = CGRectMake(0, size.height - 48, self.view.frame.width, 48);
-		guideExitInformationLabel.frame = CGRectMake(0, size.height - 16 - 18, size.width, 16);
+		guideUIPageControl.frame = CGRect(x: 0, y: size.height - 48, width: self.view.frame.width, height: 48);
+		guideExitInformationLabel.frame = CGRect(x: 0, y: size.height - 16 - 18, width: size.width, height: 16);
 	}
 	
 	override func didReceiveMemoryWarning() {

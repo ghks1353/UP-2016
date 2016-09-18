@@ -25,31 +25,31 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 	static var selfView:StatisticsDataPointView?;
 	
 	//Table for view
-	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
+	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped);
 	var tablesArray:Array<AnyObject> = [];
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
 		StatisticsDataPointView.selfView = self;
 		
-		self.view.backgroundColor = .clearColor();
+		self.view.backgroundColor = .clear();
 		
 		//ModalView
-		self.view.backgroundColor = UIColor.whiteColor();
+		self.view.backgroundColor = UIColor.white;
 		self.title = Languages.$("statsDataPoint");
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-back"), forState: .Normal);
-		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(AlarmSoundListView.popToRootAction), forControlEvents: .TouchUpInside);
+		navCloseButton.setImage( UIImage(named: "modal-back"), for: UIControlState());
+		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(AlarmSoundListView.popToRootAction), for: .touchUpInside);
 		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
 		
 		//add table to modals
-		tableView.frame = CGRectMake(0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height);
+		tableView.frame = CGRect(x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height);
 		self.view.addSubview(tableView);
 		
 		//add table cells (options)
@@ -73,7 +73,7 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 	
 	func popToRootAction() {
 		//Pop to root by back button
-		self.navigationController?.popViewControllerAnimated(true);
+		self.navigationController?.popViewController(animated: true);
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -81,30 +81,30 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 		// Dispose of any resources that can be recreated.
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		StatisticsView.selfView!.drawMainGraph(); //설정이 바뀌었으니, 그래프를 다시 그림
 	}
 	
 	///// for table func
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cellObj:CustomTableCell = tableView.cellForRowAtIndexPath(indexPath) as! CustomTableCell;
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let cellObj:CustomTableCell = tableView.cellForRow(at: indexPath) as! CustomTableCell;
 		
 		for j:Int in 0 ..< tablesArray.count {
 			for i:Int in 0 ..< (tablesArray[j] as! Array<CustomTableCell>).count {
-				(tablesArray[j] as! Array<CustomTableCell>)[i].accessoryType = .None;
+				(tablesArray[j] as! Array<CustomTableCell>)[i].accessoryType = .none;
 			}
 		}
-		cellObj.accessoryType = .Checkmark;
+		cellObj.accessoryType = .checkmark;
 		
 		//Sel to root
 		StatisticsView.selfView!.rootSelectedCurrentDataPoint = cellObj.cellID;
 		
-		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+		tableView.deselectRow(at: indexPath, animated: true);
 	}
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return 2;
 	}
-	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
 			case 0:
 				return Languages.$("statsDataCategoryTime");
@@ -116,38 +116,38 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 		}
 	}
 	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (tablesArray[section] as! Array<AnyObject>).count;
 	}
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		switch(indexPath.section){
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		switch((indexPath as NSIndexPath).section){
 		default:
 			break;
 		}
 		
 		return UITableViewAutomaticDimension;
 	}
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell;
 		return cell;
 	}
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 28; //0.0001;
 	}
-	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return 8;
 	}
 	
 	
 	//Tableview cell view create
-	func createCell( cellName:String, cellID:String ) -> CustomTableCell {
+	func createCell( _ cellName:String, cellID:String ) -> CustomTableCell {
 		let tCell:CustomTableCell = CustomTableCell();
-		tCell.backgroundColor = UIColor.whiteColor();
-		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 45); //default cell size
+		tCell.backgroundColor = UIColor.white;
+		tCell.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 45); //default cell size
 		
 		//아이콘 표시 관련
 		let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
-		tIconImg.frame = CGRectMake(12, 6, 31.3, 31.3);
+		tIconImg.frame = CGRect(x: 12, y: 6, width: 31.3, height: 31.3);
 		switch(cellID) { //특정 조건으로 아이콘 구분
 			case StatisticsDataPointView.POINT_UNTIL_OFF: tIconFileStr = "comp-icons-datacategory-untiloff"; break;
 			case StatisticsDataPointView.POINT_UNTIL_START: tIconFileStr = "comp-icons-datacategory-untilstart"; break;
@@ -163,11 +163,11 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
 		
 		let tLabel:UILabel = UILabel();
-		tLabel.frame = CGRectMake(tIconWPadding, 0, tableView.frame.width * 0.85, 45);
-		tLabel.font = UIFont.systemFontOfSize(16);
+		tLabel.frame = CGRect(x: tIconWPadding, y: 0, width: tableView.frame.width * 0.85, height: 45);
+		tLabel.font = UIFont.systemFont(ofSize: 16);
 		tLabel.text = cellName;
 		
-		tCell.accessoryType = UITableViewCellAccessoryType.None;
+		tCell.accessoryType = UITableViewCellAccessoryType.none;
 		tCell.cellID = cellID; //for sel evt
 		
 		tCell.addSubview(tLabel);
@@ -175,7 +175,7 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 	}
 	
 	//Set selected style from other view (accessable)
-	func setSelectedCell(cellID:String) {
+	func setSelectedCell(_ cellID:String) {
 		if (tablesArray.count == 0) {
 			return;
 		}
@@ -183,9 +183,9 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 		for j:Int in 0 ..< tablesArray.count {
 			for i:Int in 0 ..< (tablesArray[j] as! Array<CustomTableCell>).count {
 				if ((tablesArray[j] as! Array<CustomTableCell>)[i].cellID == cellID) {
-					(tablesArray[j] as! Array<CustomTableCell>)[i].accessoryType = .Checkmark;
+					(tablesArray[j] as! Array<CustomTableCell>)[i].accessoryType = .checkmark;
 				} else {
-					(tablesArray[j] as! Array<CustomTableCell>)[i].accessoryType = .None;
+					(tablesArray[j] as! Array<CustomTableCell>)[i].accessoryType = .none;
 				}
 			}
 		}

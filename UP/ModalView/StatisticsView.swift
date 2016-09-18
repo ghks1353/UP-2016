@@ -21,7 +21,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	var navigationCtrl:UINavigationController = UINavigationController();
 	
 	//Table for menu
-	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
+	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped);
 	var tablesArray:Array<Array<CustomTableCell>> = [];
 	
 	//Main charts pointer
@@ -45,16 +45,16 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
-		self.view.backgroundColor = .clearColor()
+		self.view.backgroundColor = .clear()
 		
 		StatisticsView.selfView = self;
 		print("initing view.");
 		
 		//ModalView
-		modalView.view.backgroundColor = UIColor.whiteColor();
+		modalView.view.backgroundColor = UIColor.white;
 		modalView.view.frame = DeviceManager.defaultModalSizeRect;
 		
-		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
+		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#174468");
@@ -62,12 +62,12 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		modalView.title = Languages.$("userStatistics");
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-close"), forState: .Normal);
-		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(StatisticsView.viewCloseAction), forControlEvents: .TouchUpInside);
+		navCloseButton.setImage( UIImage(named: "modal-close"), for: UIControlState());
+		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(StatisticsView.viewCloseAction), for: .touchUpInside);
 		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		///////// Nav items fin
 		
@@ -75,7 +75,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		self.view.addSubview(navigationCtrl.view);
 		
 		//add table to modal
-		tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
+		tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height);
 		modalView.view.addSubview(tableView);
 		
 		print("Adding table.");
@@ -99,13 +99,13 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		//SET MASK for dot eff
 		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
 		modalMaskImageView.frame = modalView.view.frame;
-		modalMaskImageView.contentMode = .ScaleAspectFit; self.view.maskView = modalMaskImageView;
+		modalMaskImageView.contentMode = .scaleAspectFit; self.view.mask = modalMaskImageView;
 		
 		FitModalLocationToCenter();
 	}
 	
 	/////// View transition animation
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		//setup bounce animation
 		self.view.alpha = 0;
 		
@@ -120,17 +120,17 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		drawMainGraph();
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
-		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
-		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
-			self.view.frame = CGRectMake(0, 0,
-				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
+		self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
+		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
+		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
+			self.view.frame = CGRect(x: 0, y: 0,
+				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}
@@ -176,8 +176,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		}
 		
 		//Default hidden
-		rootViewRightLFirstTitle!.hidden = true; rootViewRightLFirstValue!.hidden = true;
-		rootViewRightLSecondTitle!.hidden = true; rootViewRightLSecondValue!.hidden = true;
+		rootViewRightLFirstTitle!.isHidden = true; rootViewRightLFirstValue!.isHidden = true;
+		rootViewRightLSecondTitle!.isHidden = true; rootViewRightLSecondValue!.isHidden = true;
 		
 		//Data fetch from datamanager
 		let statsDataResult:Array<StatsDataElement>? = DataManager.getAlarmGraphData( rootViewChartSelectedCategory, dataPointSelection: selDataPointInt );
@@ -201,11 +201,11 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 				case 3,4,5,6: //게임 데이터 그래프 색
 					switch(rootViewChartSelectedCategory) { //주 월 년?
 						case 0: //보라 계열 그래디언트 색 설정
-							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("7E49B3").CGColor , UPUtils.colorWithHexString("532185").CGColor ];
+							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("7E49B3").cgColor , UPUtils.colorWithHexString("532185").cgColor ];
 							currentBGColor = "7E49B3";
 							break;
 						case 1, 2: //초록 계열 그래디언트 색 설정
-							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("50B354").CGColor , UPUtils.colorWithHexString("218524").CGColor ];
+							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("50B354").cgColor , UPUtils.colorWithHexString("218524").cgColor ];
 							currentBGColor = "50B354";
 							break;
 						default: break;
@@ -214,10 +214,10 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 				default: //기본 그래프 색
 					switch(rootViewChartSelectedCategory) { //주 월 년?
 						case 0: //파랑 계열 그래디언트 색 설정
-							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("0082ED").CGColor , UPUtils.colorWithHexString("005396").CGColor ];
+							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("0082ED").cgColor , UPUtils.colorWithHexString("005396").cgColor ];
 							break;
 						case 1, 2: //주황 계열 그래디언트 색 설정
-							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("FFCE08").CGColor , UPUtils.colorWithHexString("FF7300").CGColor ];
+							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("FFCE08").cgColor , UPUtils.colorWithHexString("FF7300").cgColor ];
 							break;
 						default: break;
 					}
@@ -227,10 +227,10 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 			if (statsDataResult!.count == 0) {
 				//데이터 없음 fallback
 				rootViewChartSubtitle!.text = "-";
-				rootViewChartNodataUILabel!.hidden = false;
+				rootViewChartNodataUILabel!.isHidden = false;
 				return;
 			}
-			rootViewChartNodataUILabel!.hidden = true;
+			rootViewChartNodataUILabel!.isHidden = true;
 			
 			//데이터 구축
 			var tDataEntries:Array<BarChartDataEntry> = []; //data entries array
@@ -301,8 +301,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
 					
 					//Show pie titles
-					rootViewRightLFirstTitle!.hidden = false; rootViewRightLFirstValue!.hidden = false;
-					rootViewRightLSecondTitle!.hidden = false; rootViewRightLSecondValue!.hidden = false;
+					rootViewRightLFirstTitle!.isHidden = false; rootViewRightLFirstValue!.isHidden = false;
+					rootViewRightLSecondTitle!.isHidden = false; rootViewRightLSecondValue!.isHidden = false;
 					
 					/*rootViewRightLFirstValue!.text =
 						String(round(successPercent)) + currentDataSuffix + " (" +
@@ -503,24 +503,24 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	
 	
 	/// table setup
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1;
 	}
-	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
 			default:
 				return "";
 		}
 	} //end func
 	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (tablesArray[section]).count;
 	}
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		//return UITableViewAutomaticDimension;
-		switch(indexPath.section) {
+		switch((indexPath as NSIndexPath).section) {
 			case 0:
-				if (indexPath.row == 0) {
+				if ((indexPath as NSIndexPath).row == 0) {
 					return 180 + 48 + 6;
 				} else {
 					return 45;
@@ -529,11 +529,11 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 				return UITableViewAutomaticDimension;
 		}
 	}
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell:UITableViewCell = (tablesArray[indexPath.section])[indexPath.row] as UITableViewCell;
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section])[(indexPath as NSIndexPath).row] as UITableViewCell;
 		return cell;
 	}
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		switch( section ) {
 			case 0:
 				return 0.0001;
@@ -542,8 +542,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		}
 		
 	}
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cellID:String = (tableView.cellForRowAtIndexPath(indexPath) as! CustomTableCell).cellID;
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let cellID:String = (tableView.cellForRow(at: indexPath) as! CustomTableCell).cellID;
 		switch(cellID) {
 			case "dataPoint":
 				//open datapoint view
@@ -556,21 +556,21 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		}
 		
 		
-		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+		tableView.deselectRow(at: indexPath, animated: true);
 	}
 	
 	////////////////
 	
 	internal func setSubviewSize() {
-		statsDataPointView.view.frame = CGRectMake(
-			0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height );
+		statsDataPointView.view.frame = CGRect(
+			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height );
 	}
 	
 	func FitModalLocationToCenter() {
 		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
 		
-		if (self.view.maskView != nil) {
-			self.view.maskView!.frame = DeviceManager.defaultModalSizeRect;
+		if (self.view.mask != nil) {
+			self.view.mask!.frame = DeviceManager.defaultModalSizeRect;
 		}
 	}
 	
@@ -582,7 +582,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	func viewCloseAction() {
 		
 		ViewController.viewSelf!.showHideBlurview(false);
-		self.dismissViewControllerAnimated(true, completion: nil);
+		self.dismiss(animated: true, completion: nil);
 	} //end close func
 	
 	///// 초기 화면 그래프 (segment) 표시
@@ -590,52 +590,52 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		let tCell:CustomTableCell = CustomTableCell();
 		
 		//셀 크기 지정
-		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 180 + 48 + 18);
+		tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 180 + 48 + 18);
 		
 		//create 3-seg sel
 		let tSelection:UISegmentedControl
 			= UISegmentedControl( items: [ Languages.$("statsWeek"), Languages.$("statsMonth"), Languages.$("statsYear") ] );
-		tSelection.frame = CGRectMake( (self.modalView.view.frame.width / 2) - (190 / 2), 12, 190, 30 );
+		tSelection.frame = CGRect( x: (self.modalView.view.frame.width / 2) - (190 / 2), y: 12, width: 190, height: 30 );
 		tSelection.selectedSegmentIndex = 0; //default selected index
-		tSelection.addTarget(self, action: #selector(StatisticsView.segmentIdxChanged(_:)), forControlEvents: .ValueChanged);
+		tSelection.addTarget(self, action: #selector(StatisticsView.segmentIdxChanged(_:)), for: .valueChanged);
 		
 		//create chart table
 		let tChartTableWrapper:UIView = createBarChartTableCell();
-		tChartTableWrapper.frame = CGRectMake( 0, 54, self.modalView.view.frame.width, 180 );
+		tChartTableWrapper.frame = CGRect( x: 0, y: 54, width: self.modalView.view.frame.width, height: 180 );
 		let tChartNodataUILabel:UILabel = UILabel();
-		tChartNodataUILabel.textAlignment = .Center;
-		tChartNodataUILabel.font = UIFont.systemFontOfSize(14);
-		tChartNodataUILabel.textColor = UIColor.whiteColor();
-		tChartNodataUILabel.frame = CGRectMake( 0, 140, self.modalView.view.frame.width, 24 );
+		tChartNodataUILabel.textAlignment = .center;
+		tChartNodataUILabel.font = UIFont.systemFont(ofSize: 14);
+		tChartNodataUILabel.textColor = UIColor.white;
+		tChartNodataUILabel.frame = CGRect( x: 0, y: 140, width: self.modalView.view.frame.width, height: 24 );
 		tChartNodataUILabel.text = Languages.$("statsNoDataAvailable");
 		
 		//// 아래 4개 라벨은 파이차트용
 		let tChartRightFirstLabelTitle:UILabel = UILabel();
-		tChartRightFirstLabelTitle.textAlignment = .Right;
-		tChartRightFirstLabelTitle.font = UIFont.boldSystemFontOfSize(22);
-		tChartRightFirstLabelTitle.textColor = UIColor.whiteColor();
-		tChartRightFirstLabelTitle.frame = CGRectMake( 0, 110, self.modalView.view.frame.width - 24, 24 );
+		tChartRightFirstLabelTitle.textAlignment = .right;
+		tChartRightFirstLabelTitle.font = UIFont.boldSystemFont(ofSize: 22);
+		tChartRightFirstLabelTitle.textColor = UIColor.white;
+		tChartRightFirstLabelTitle.frame = CGRect( x: 0, y: 110, width: self.modalView.view.frame.width - 24, height: 24 );
 		tChartRightFirstLabelTitle.text = Languages.$("statsDataGameCleared");
 		
 		let tChartRightFirstLabelValue:UILabel = UILabel();
-		tChartRightFirstLabelValue.textAlignment = .Right;
-		tChartRightFirstLabelValue.font = UIFont.systemFontOfSize(14);
-		tChartRightFirstLabelValue.textColor = UIColor.whiteColor();
-		tChartRightFirstLabelValue.frame = CGRectMake( 0, 132, self.modalView.view.frame.width - 24, 24 );
+		tChartRightFirstLabelValue.textAlignment = .right;
+		tChartRightFirstLabelValue.font = UIFont.systemFont(ofSize: 14);
+		tChartRightFirstLabelValue.textColor = UIColor.white;
+		tChartRightFirstLabelValue.frame = CGRect( x: 0, y: 132, width: self.modalView.view.frame.width - 24, height: 24 );
 		tChartRightFirstLabelValue.text = "100%";
 		
 		let tChartRightSecondLabelTitle:UILabel = UILabel();
-		tChartRightSecondLabelTitle.textAlignment = .Right;
-		tChartRightSecondLabelTitle.font = UIFont.boldSystemFontOfSize(22);
-		tChartRightSecondLabelTitle.textColor = UIColor.whiteColor();
-		tChartRightSecondLabelTitle.frame = CGRectMake( 0, 164, self.modalView.view.frame.width - 24, 24 );
+		tChartRightSecondLabelTitle.textAlignment = .right;
+		tChartRightSecondLabelTitle.font = UIFont.boldSystemFont(ofSize: 22);
+		tChartRightSecondLabelTitle.textColor = UIColor.white;
+		tChartRightSecondLabelTitle.frame = CGRect( x: 0, y: 164, width: self.modalView.view.frame.width - 24, height: 24 );
 		tChartRightSecondLabelTitle.text = Languages.$("statsDataGameRetired");
 		
 		let tChartRightSecondLabelValue:UILabel = UILabel();
-		tChartRightSecondLabelValue.textAlignment = .Right;
-		tChartRightSecondLabelValue.font = UIFont.systemFontOfSize(14);
-		tChartRightSecondLabelValue.textColor = UIColor.whiteColor();
-		tChartRightSecondLabelValue.frame = CGRectMake( 0, 186, self.modalView.view.frame.width - 24, 24 );
+		tChartRightSecondLabelValue.textAlignment = .right;
+		tChartRightSecondLabelValue.font = UIFont.systemFont(ofSize: 14);
+		tChartRightSecondLabelValue.textColor = UIColor.white;
+		tChartRightSecondLabelValue.frame = CGRect( x: 0, y: 186, width: self.modalView.view.frame.width - 24, height: 24 );
 		tChartRightSecondLabelValue.text = "100%";
 
 		rootViewChartWrapperCellPointer = tChartTableWrapper; //set pointer
@@ -656,7 +656,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	} //end func
 	
 	//// SegmentedControl func
-	func segmentIdxChanged(target: UISegmentedControl) {
+	func segmentIdxChanged(_ target: UISegmentedControl) {
 		if (target.selectedSegmentIndex == rootViewChartSelectedCategory || target.selectedSegmentIndex == -1) {
 			return; //같은걸 선택했으면 새로 안 그림
 		}
@@ -673,30 +673,30 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		//Chart title
 		let tChartTitleLabel:UILabel = UILabel();
 		tChartTitleLabel.text = Languages.$("statsTitleUntilAlarmOff"); // title text.
-		tChartTitleLabel.font = UIFont.systemFontOfSize(17);
-		tChartTitleLabel.frame = CGRectMake(16, 10, self.modalView.view.frame.width / 1.25, 24);
-		tChartTitleLabel.textColor = UIColor.whiteColor();
+		tChartTitleLabel.font = UIFont.systemFont(ofSize: 17);
+		tChartTitleLabel.frame = CGRect(x: 16, y: 10, width: self.modalView.view.frame.width / 1.25, height: 24);
+		tChartTitleLabel.textColor = UIColor.white;
 		
 		//Chart subtitle
 		let tChartSubtitleLabel:UILabel = UILabel();
 		tChartSubtitleLabel.text = ""; //Subtitle.
-		tChartSubtitleLabel.font = UIFont.systemFontOfSize(13);
-		tChartSubtitleLabel.frame = CGRectMake(self.modalView.view.frame.width / 2 - 6, 13, self.modalView.view.frame.width / 2 - 6, 24);
-		tChartSubtitleLabel.textAlignment = .Right;
-		tChartSubtitleLabel.textColor = UIColor.whiteColor();
+		tChartSubtitleLabel.font = UIFont.systemFont(ofSize: 13);
+		tChartSubtitleLabel.frame = CGRect(x: self.modalView.view.frame.width / 2 - 6, y: 13, width: self.modalView.view.frame.width / 2 - 6, height: 24);
+		tChartSubtitleLabel.textAlignment = .right;
+		tChartSubtitleLabel.textColor = UIColor.white;
 		
 		//Add to cell view
 		tCell.addSubview(tChartTitleLabel); tCell.addSubview(tChartSubtitleLabel);
 		
         //gradient background
         let gradient:CAGradientLayer = CAGradientLayer();
-        gradient.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 180);
+        gradient.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 180);
 		// 그래디언트 시작컬러, 끝컬러 지정
-        gradient.colors = [ UPUtils.colorWithHexString("0082ED").CGColor , UPUtils.colorWithHexString("005396").CGColor ];
-        tCell.layer.insertSublayer(gradient, atIndex: 0); // 셀 레이어로 추가
+        gradient.colors = [ UPUtils.colorWithHexString("0082ED").cgColor , UPUtils.colorWithHexString("005396").cgColor ];
+        tCell.layer.insertSublayer(gradient, at: 0); // 셀 레이어로 추가
 		
 		//셀 크기 지정
-		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 180);
+		tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 180);
 		
 		//후에 차트 조정을 위한 포인터 지정
 		rootViewChartTitle = tChartTitleLabel;
@@ -711,7 +711,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		
 		//차트 크기 지정
 		//파이차트는 반만 그리고, 남는 우측에 %를 크게 씁시다
-		tMultipleChart.frame = CGRectMake(0, 34, self.modalView.view.frame.width / 1.75, 140);
+		tMultipleChart.frame = CGRect(x: 0, y: 34, width: self.modalView.view.frame.width / 1.75, height: 140);
 		
 		//User-interaction 해제 부분
 		tMultipleChart.legend.enabled = false;
@@ -728,13 +728,13 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	
 	func createPredesignedBarChart() -> BarChartView {
 		let tMultipleChart:BarChartView = BarChartView(); //차트 뷰
-		let yAxisNumberFormatter:NSNumberFormatter = NSNumberFormatter();
-		yAxisNumberFormatter.numberStyle = .NoStyle; //숫자 표현 방법. NoStyle이면 포맷 안함
+		let yAxisNumberFormatter:NumberFormatter = NumberFormatter();
+		yAxisNumberFormatter.numberStyle = .none; //숫자 표현 방법. NoStyle이면 포맷 안함
 		yAxisNumberFormatter.positivePrefix = Languages.$("statsTimeFormatMinPrefix"); //숫자 앞
 		yAxisNumberFormatter.positiveSuffix = Languages.$("statsTimeFormatMinSuffix"); //positiveSuffix -> 숫자 뒤에 붙는 문자
 		
 		//차트 크기 지정
-		tMultipleChart.frame = CGRectMake(0, 28, self.modalView.view.frame.width, 140);
+		tMultipleChart.frame = CGRect(x: 0, y: 28, width: self.modalView.view.frame.width, height: 140);
 		
 		//User-interaction 해제 부분
 		tMultipleChart.pinchZoomEnabled = false;
@@ -796,30 +796,30 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		//Chart title
 		let tChartTitleLabel:UILabel = UILabel();
 		tChartTitleLabel.text = Languages.$("statsTitleUntilAlarmOff"); // title text.
-		tChartTitleLabel.font = UIFont.systemFontOfSize(17);
-		tChartTitleLabel.frame = CGRectMake(16, 10, self.modalView.view.frame.width / 1.25, 24);
-		tChartTitleLabel.textColor = UIColor.whiteColor();
+		tChartTitleLabel.font = UIFont.systemFont(ofSize: 17);
+		tChartTitleLabel.frame = CGRect(x: 16, y: 10, width: self.modalView.view.frame.width / 1.25, height: 24);
+		tChartTitleLabel.textColor = UIColor.white;
 		
 		//Chart subtitle
 		let tChartSubtitleLabel:UILabel = UILabel();
 		tChartSubtitleLabel.text = ""; //Subtitle.
-		tChartSubtitleLabel.font = UIFont.systemFontOfSize(13);
-		tChartSubtitleLabel.frame = CGRectMake(self.modalView.view.frame.width / 2 - 6, 13, self.modalView.view.frame.width / 2 - 6, 24);
-		tChartSubtitleLabel.textAlignment = .Right;
-		tChartSubtitleLabel.textColor = UIColor.whiteColor();
+		tChartSubtitleLabel.font = UIFont.systemFont(ofSize: 13);
+		tChartSubtitleLabel.frame = CGRect(x: self.modalView.view.frame.width / 2 - 6, y: 13, width: self.modalView.view.frame.width / 2 - 6, height: 24);
+		tChartSubtitleLabel.textAlignment = .right;
+		tChartSubtitleLabel.textColor = UIColor.white;
 		
 		//Add to cell view
 		tCell.addSubview(tChartTitleLabel); tCell.addSubview(tChartSubtitleLabel);
 		
 		//gradient background
 		let gradient:CAGradientLayer = CAGradientLayer();
-		gradient.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 180);
+		gradient.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 180);
 		// 그래디언트 시작컬러, 끝컬러 지정
-		gradient.colors = [ UPUtils.colorWithHexString("FFCE08").CGColor , UPUtils.colorWithHexString("FF7300").CGColor ];
-		tCell.layer.insertSublayer(gradient, atIndex: 0); // 셀 레이어로 추가
+		gradient.colors = [ UPUtils.colorWithHexString("FFCE08").cgColor , UPUtils.colorWithHexString("FF7300").cgColor ];
+		tCell.layer.insertSublayer(gradient, at: 0); // 셀 레이어로 추가
 		
 		//셀 크기 지정
-		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 180);
+		tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 180);
 		
 		
 		//후에 차트 조정을 위한 포인터 지정
@@ -831,13 +831,13 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	
 	func createPredesignedLineChart() -> LineChartView {
 		let tMultipleChart:LineChartView = LineChartView(); //차트 뷰
-		let yAxisNumberFormatter:NSNumberFormatter = NSNumberFormatter();
-		yAxisNumberFormatter.numberStyle = .NoStyle; //숫자 표현 방법. NoStyle이면 포맷 안함
+		let yAxisNumberFormatter:NumberFormatter = NumberFormatter();
+		yAxisNumberFormatter.numberStyle = .none; //숫자 표현 방법. NoStyle이면 포맷 안함
 		yAxisNumberFormatter.positivePrefix = Languages.$("statsTimeFormatMinPrefix"); //숫자 앞
 		yAxisNumberFormatter.positiveSuffix = Languages.$("statsTimeFormatMinSuffix"); //positiveSuffix -> 숫자 뒤에 붙는 문자
 		
 		//차트 크기 지정
-		tMultipleChart.frame = CGRectMake(0, 28, self.modalView.view.frame.width, 140);
+		tMultipleChart.frame = CGRect(x: 0, y: 28, width: self.modalView.view.frame.width, height: 140);
 		
 		//User-interaction 해제 부분
 		tMultipleChart.pinchZoomEnabled = false;
@@ -893,13 +893,13 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	}
 	
 	
-	func createCellWithNextArrow( name:String, menuID:String ) -> CustomTableCell {
+	func createCellWithNextArrow( _ name:String, menuID:String ) -> CustomTableCell {
 		let tCell:CustomTableCell = CustomTableCell();
 		let tLabel:UILabel = UILabel();
 		
 		//아이콘 표시 관련
 		let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
-		tIconImg.frame = CGRectMake(12, 6, 31.3, 31.3);
+		tIconImg.frame = CGRect(x: 12, y: 6, width: 31.3, height: 31.3);
 		switch(menuID) { //특정 조건으로 아이콘 구분
 			case "dataPoint": tIconFileStr = "comp-icons-datacategory-icon"; break;
 			default:
@@ -909,15 +909,15 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
 		
 		//해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
-		tLabel.frame = CGRectMake(tIconWPadding, 0, self.modalView.view.frame.width, 45);
-		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 45);
-		tCell.backgroundColor = UIColor.whiteColor();
+		tLabel.frame = CGRect(x: tIconWPadding, y: 0, width: self.modalView.view.frame.width, height: 45);
+		tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 45);
+		tCell.backgroundColor = UIColor.white;
 		
 		tCell.addSubview(tLabel);
 		tLabel.text = name;
 		
-		tCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator;
-		tLabel.font = UIFont.systemFontOfSize(16);
+		tCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
+		tLabel.font = UIFont.systemFont(ofSize: 16);
 		
 		tCell.cellID = menuID;
 		

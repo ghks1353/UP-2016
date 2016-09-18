@@ -16,11 +16,11 @@ class GameManager {
 			gameIDf: "jumpup", /* <- 게임 ID 식별자 */
 			gameName: "gameNameJumpUP", gameGenre: "gameGenreJumpAction", gameDifficultyLevel: 3,
 			gameDescription: "gameDescriptionJumpUP", gameFileName: "game-thumb-jumpup",
-			gameColor: UPUtils.colorWithHexString("FF9933"), textColor: UIColor.whiteColor())
+			gameColor: UPUtils.colorWithHexString("FF9933"), textColor: UIColor.white)
 	];
 	
 	//GameID => Index
-	static func getGameIDWithObject(gameObj:GameInfoObj) -> Int {
+	static func getGameIDWithObject(_ gameObj:GameInfoObj) -> Int {
 		for i:Int in 0 ..< list.count {
 			if(list[i].gameLangName == gameObj.gameLangName && list[i].gameLangGenre == gameObj.gameLangGenre && list[i].gameDifficulty == gameObj.gameDifficulty) {
 				return i;
@@ -30,7 +30,7 @@ class GameManager {
 	}
 	
 	//GameID => Thumbnail
-	static func getThumbnailWithGameID(gameID:Int) -> String {
+	static func getThumbnailWithGameID(_ gameID:Int) -> String {
 		switch(gameID) { //gameid thumbnail show
 			case 0:
 				return "game-thumb-jumpup.png";
@@ -40,7 +40,7 @@ class GameManager {
 	}
 	
 	//GameID => LeaderboardID
-	static func getLeadboardIDWithGameID(gameID:Int) -> String {
+	static func getLeadboardIDWithGameID(_ gameID:Int) -> String {
 		switch(gameID) {
 			case 0:
 				return "leaderboard_jumpup";
@@ -51,10 +51,10 @@ class GameManager {
 	
 	
 	////// Save game's bestscore to store, and save // ** GAME MODE, NOT ALARM **
-	static func saveBestScore( gameID:Int, score:Int ) {
+	static func saveBestScore( _ gameID:Int, score:Int ) {
 		let gameStoreKey:String = getStoreKeyWithGameID( gameID );
 		
-		let gameScore:Int = DataManager.nsDefaults.integerForKey(gameStoreKey);
+		let gameScore:Int = DataManager.nsDefaults.integer(forKey: gameStoreKey);
 		if (gameScore < score) {
 			//기존 기록이 현재 기록보다 적으면, 최고기록 달성으로 치고 데이터를 저장함.
 			DataManager.nsDefaults.setValue(score, forKey: gameStoreKey);
@@ -64,13 +64,13 @@ class GameManager {
 	}
 	
 	// 위와는 반대로, 베스트스코어를 불러오는 일만 함
-	static func loadBestScore( gameID:Int ) -> Int {
+	static func loadBestScore( _ gameID:Int ) -> Int {
 		let gameStoreKey:String = getStoreKeyWithGameID( gameID );
-		return DataManager.nsDefaults.integerForKey(gameStoreKey);
+		return DataManager.nsDefaults.integer(forKey: gameStoreKey);
 	}
 	
 	//GameID => DataManager NSDefaults Key
-	static func getStoreKeyWithGameID( gameID:Int ) -> String {
+	static func getStoreKeyWithGameID( _ gameID:Int ) -> String {
 		switch (gameID) {
 			case 0: // JumpUP
 				return DataManager.gamesBestKeys.jumpup_best;

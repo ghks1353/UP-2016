@@ -16,45 +16,45 @@ class TestersWebView:UIViewController {
 	static var selfView:TestersWebView?;
 	
 	var wbView:WKWebView = WKWebView();
-	var wbProgress:UIProgressView = UIProgressView( progressViewStyle: .Default );
+	var wbProgress:UIProgressView = UIProgressView( progressViewStyle: .default );
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
 		TestersWebView.selfView = self;
 		
-		self.view.backgroundColor = .clearColor();
+		self.view.backgroundColor = .clear();
 		
 		//ModalView
-		self.view.backgroundColor = UIColor.whiteColor();
+		self.view.backgroundColor = UIColor.white;
 		self.title = "BetaTest notice";
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-back"), forState: .Normal);
-		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(TestersWebView.popToRootAction), forControlEvents: .TouchUpInside);
+		navCloseButton.setImage( UIImage(named: "modal-back"), for: UIControlState());
+		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(TestersWebView.popToRootAction), for: .touchUpInside);
 		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
 		
-		wbView.frame = CGRectMake(0, 0,
-			DeviceManager.defaultModalSizeRect.width,
-			DeviceManager.defaultModalSizeRect.height);
+		wbView.frame = CGRect(x: 0, y: 0,
+			width: DeviceManager.defaultModalSizeRect.width,
+			height: DeviceManager.defaultModalSizeRect.height);
 		self.view.addSubview(wbView);
 		
 	}
 	
 	func popToRootAction() {
 		//Pop to root by back button
-		self.navigationController?.popViewControllerAnimated(true);
+		self.navigationController?.popViewController(animated: true);
 	}
 	
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		//load url
 		let url:String = "https://up.avngraphic.kr/inapp/testers/";
-		wbView.loadRequest(NSURLRequest( URL: NSURL( string:
-			url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet() )!
+		wbView.load(URLRequest( url: URL( string:
+			url.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed )!
 			)!));
 	}
 	

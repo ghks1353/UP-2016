@@ -22,10 +22,10 @@ class AlarmListCell:UITableViewCell {
 	
 	internal var alarmToggled:Bool = false;
 	
-	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		//AddAlarmView.selfView!.cellFunc(self.cellID);
 		
-		super.touchesBegan(touches, withEvent: event);
+		super.touchesBegan(touches, with: event);
 	}
 	
 }

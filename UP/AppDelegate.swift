@@ -20,12 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var alarmBackgroundTaskPlayer:AVAudioPlayer?;
 	
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		//앱 실행시
 		
 		//Startup language initial
-		print("Pref lang", NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
-		Languages.initLanugages( NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String );
+		print("Pref lang", (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String );
+		Languages.initLanugages( (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String );
 		//Init DataManager
 		DataManager.initDataManager();
 		//Init CharacterMgr
@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		//로컬알림 (등)으로인해 앱실행된경우.
 		if let options = launchOptions {
-			if let notification = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
+			if let notification = options[UIApplicationLaunchOptionsKey.localNotification] as? UILocalNotification {
 				//queue with launchopt
 				print("Launched with options.");
 				AlarmManager.mergeAlarm();
@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			player.authenticateHandler = {(viewController, error) -> Void in
 				if ((viewController) != nil) {
 					// Login phase start
-					targetVC.presentViewController(viewController!, animated: true, completion: nil);
+					targetVC.present(viewController!, animated: true, completion: nil);
 				} else {
 					if (error == nil){
 						print("Authentication: OK")
@@ -81,12 +81,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true;
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 	
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 		print("App is now running to background");
@@ -97,20 +97,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		//// Background thread
-		backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
-			UIApplication.sharedApplication().endBackgroundTask(self.backgroundTaskIdentifier!);
+		backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+			UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!);
 		});
 		
 		//DISPATCH_QUEUE_PRIORITY_DEFAULT
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
+		DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.high).async(execute: { () -> Void in
 			if (self.alarmBackgroundTaskPlayer != nil) {
 				self.alarmBackgroundTaskPlayer!.stop();
 				self.alarmBackgroundTaskPlayer = nil;
 			}
 			
-			let nsURL:NSURL = NSBundle.mainBundle().URLForResource( "up_background_task_alarm" , withExtension: "mp3")!;
+			let nsURL:URL = Bundle.main.url( forResource: "up_background_task_alarm" , withExtension: "mp3")!;
 			do { self.alarmBackgroundTaskPlayer = try AVAudioPlayer(
-				contentsOfURL: nsURL,
+				contentsOf: nsURL,
 				fileTypeHint: nil
 				);
 			} catch let error as NSError {
@@ -122,10 +122,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 			while(DeviceManager.appIsBackground) {
 				let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds();
-				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(NSDate().timeIntervalSince1970));
+				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970));
 				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm();
 				
-				print( "thread remaining:", UIApplication.sharedApplication().backgroundTimeRemaining, ", remaining next alarm:", nextAlarmLeft );
+				print( "thread remaining:", UIApplication.shared.backgroundTimeRemaining, ", remaining next alarm:", nextAlarmLeft );
 				
 				//이부분 수정해야함 - 켜져있는 알람 중 타임스탬프를 빼서 곧 울릴것 같은 알람을 알람매니저측에서 구현한 다음
 				//만약 곧 울릴거 같다라고 판단되면 엄청 빠르게 백그라운드 태스크를 그때만 순간적으로 돌려서
@@ -141,32 +141,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 					AlarmManager.stopSoundAlarm();
 				}
 				
-				if (UIApplication.sharedApplication().backgroundTimeRemaining < 60) {
+				if (UIApplication.shared.backgroundTimeRemaining < 60) {
 					self.alarmBackgroundTaskPlayer!.stop();
 					self.alarmBackgroundTaskPlayer!.play();
 					print("background thread - sound play");
 				}
 				
 				if (ringingAlarm != nil && DeviceManager.appIsBackground == true) {
-					NSThread.sleepForTimeInterval(1); //1초 주기 실행
+					Thread.sleep(forTimeInterval: 1); //1초 주기 실행
 				} else {
 					//남은 시간 비례하여 쓰레드 주기를 좁혀, 보다 정확한 시간에 알람이 울리게 함.
 					if (nextAlarmLeft >= 0) {
 						if (nextAlarmLeft > 90) {
-							NSThread.sleepForTimeInterval(30); //30초 주기 실행
+							Thread.sleep(forTimeInterval: 30); //30초 주기 실행
 						} else if (nextAlarmLeft > 30) {
-							NSThread.sleepForTimeInterval(10); //10
+							Thread.sleep(forTimeInterval: 10); //10
 						} else if (nextAlarmLeft > 20) {
-							NSThread.sleepForTimeInterval(5); //5
+							Thread.sleep(forTimeInterval: 5); //5
 						} else if (nextAlarmLeft > 3) {
-							NSThread.sleepForTimeInterval(1); //1
+							Thread.sleep(forTimeInterval: 1); //1
 						} else if (nextAlarmLeft > 1) {
-							NSThread.sleepForTimeInterval(0.5); //0.5
+							Thread.sleep(forTimeInterval: 0.5); //0.5
 						} else {
-							NSThread.sleepForTimeInterval(0.25); //0.25
+							Thread.sleep(forTimeInterval: 0.25); //0.25
 						} //end if
 					} else {
-						NSThread.sleepForTimeInterval(30); //30초 주기 실행
+						Thread.sleep(forTimeInterval: 30); //30초 주기 실행
 					} //end if
 					
 				} //end chk alarm vaild
@@ -177,7 +177,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				self.alarmBackgroundTaskPlayer!.stop();
 				self.alarmBackgroundTaskPlayer = nil;
 			}
-			UIApplication.sharedApplication().endBackgroundTask(self.backgroundTaskIdentifier!);
+			UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!);
 			
 		});
 		
@@ -187,12 +187,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 		DeviceManager.appIsBackground = false;
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 		print("App is active now");
 		AlarmManager.mergeAlarm();
@@ -213,7 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 

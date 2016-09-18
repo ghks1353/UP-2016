@@ -14,8 +14,8 @@ class AlarmRepeatDayCell:UITableDottedCell {
 	internal var cellID:String = "";
 	internal var dayID:Int = 0;
 	
-	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesBegan(touches, withEvent: event);
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesBegan(touches, with: event);
 	}
 	
 }

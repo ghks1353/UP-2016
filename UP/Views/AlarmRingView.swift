@@ -29,7 +29,7 @@ class AlarmRingView:UIViewController {
 	
 	//Asleep func
 	var lastActivatedTimeAfter:Int = 0;
-	var asleepTimer:NSTimer?;
+	var asleepTimer:Timer?;
 	
 	//가속도센서를 이용해서 누워있는 경우 플레이할 수 없게
 	var cMotionManager:CMMotionManager?;
@@ -39,12 +39,12 @@ class AlarmRingView:UIViewController {
 	
 	override func viewDidLoad() {
 		// view init func
-		self.view.backgroundColor = UIColor.blackColor();
+		self.view.backgroundColor = UIColor.black;
 		AlarmRingView.selfView = self;
 		
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		currentAlarmElement = AlarmManager.getRingingAlarm();
 		userAsleepCount = 0;
 		if (asleepTimer != nil) {
@@ -66,7 +66,7 @@ class AlarmRingView:UIViewController {
 			//알람 사운드 울림중일때 끔
 			AlarmManager.stopSoundAlarm();
 			//가속도 센서를 이용한 잠듦 경고 등
-			accelSensorWorks = DataManager.nsDefaults.boolForKey(DataManager.EXPERIMENTS_USE_NOLIEDOWN_KEY);
+			accelSensorWorks = DataManager.nsDefaults.bool(forKey: DataManager.EXPERIMENTS_USE_NOLIEDOWN_KEY);
 			if (accelSensorWorks) {
 				cMotionManager = CMMotionManager();
 				cMotionManager!.startAccelerometerUpdates();
@@ -81,7 +81,7 @@ class AlarmRingView:UIViewController {
 					AlarmRingView.jumpUPStartupViewController = nil;
 					AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP(); //게임 강제 초기화. (TitleView)
 					
-					presentViewController(AlarmRingView.jumpUPStartupViewController!, animated: false, completion: nil);
+					present(AlarmRingView.jumpUPStartupViewController!, animated: false, completion: nil);
 					break;
 					
 				default:
@@ -117,18 +117,18 @@ class AlarmRingView:UIViewController {
 	}
 	
 	//Rotation set
-	func changeRotation(rotationNum:Int) {
+	func changeRotation(_ rotationNum:Int) {
 		
 		//세로로 화면 돌림
 		
 		//Rotate this view to portrait
-		let portraitOriention = UIInterfaceOrientation.Portrait.rawValue;
-		let landscapeOriention = UIInterfaceOrientation.LandscapeRight.rawValue;
+		let portraitOriention = UIInterfaceOrientation.portrait.rawValue;
+		let landscapeOriention = UIInterfaceOrientation.landscapeRight.rawValue;
 		
 		if (rotationNum == 0) { // 0 - 세로, 1 - 가로
-			UIDevice.currentDevice().setValue(portraitOriention, forKey: "orientation");
+			UIDevice.current.setValue(portraitOriention, forKey: "orientation");
 		} else {
-			UIDevice.currentDevice().setValue(landscapeOriention, forKey: "orientation");
+			UIDevice.current.setValue(landscapeOriention, forKey: "orientation");
 		}
 		
 		//PS: this is unsecure use of APIs
@@ -137,12 +137,12 @@ class AlarmRingView:UIViewController {
 	
 	
 	// Lock rotation and fix
-	override func shouldAutorotate() -> Bool {
+	override var shouldAutorotate : Bool {
 		return false; //Lock autorotate in this view
 	}
 	
 	//Check last touch
-	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		print("In alarm, Touched!");
 		
 		if (lastActivatedTimeAfter > 120) {
@@ -190,7 +190,7 @@ class AlarmRingView:UIViewController {
 				}*/
 				
 			}
-			if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+			if (UIDevice.current.userInterfaceIdiom == .pad) {
 				//Gyro ignore on Pad series
 				liePhoneDownCount = 0;
 			} else {

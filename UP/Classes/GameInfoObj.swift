@@ -30,7 +30,7 @@ class GameInfoObj {
 	internal var gameDifficulty:Int = 0; //Level 0~5
 	internal var gameLangDescription:String = "";
 	internal var gameThumbFileName:String = "";
-	internal var gameBackgroundUIColor:UIColor = UIColor.whiteColor();
-	internal var gameTextUIColor:UIColor = UIColor.blackColor();
+	internal var gameBackgroundUIColor:UIColor = UIColor.white;
+	internal var gameTextUIColor:UIColor = UIColor.black;
 	
 }

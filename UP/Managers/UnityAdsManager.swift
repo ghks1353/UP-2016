@@ -23,7 +23,7 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 		instance!.initInstance();
 	}
 	
-	static func showUnityAD( viewController:UIViewController, placementID:String, callbackFunction:(() -> Void) ) {
+	static func showUnityAD( _ viewController:UIViewController, placementID:String, callbackFunction:@escaping (() -> Void) ) {
 		if (UnityAds.isReady(placementID) == true) {
 			UnityAds.show(viewController, placementId: placementID);
 			callbackFunc = callbackFunction;
@@ -38,21 +38,21 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 		UnityAds.initialize("1085659", delegate: self, testMode: UnityAdsManager.IS_TEST_MODE);
 	}
 	
-	@objc func unityAdsReady(placementId: String) {
+	@objc func unityAdsReady(_ placementId: String) {
 		print("UnityAds is READY");
 		
 	}
-	@objc func unityAdsDidStart(placementId: String) {
+	@objc func unityAdsDidStart(_ placementId: String) {
 		print("UnityAds started");
 		
 	}
-	@objc func unityAdsDidError(error: UnityAdsError, withMessage message: String) {
+	@objc func unityAdsDidError(_ error: UnityAdsError, withMessage message: String) {
 		print("UnityAds error with message: " + message);
 		
 		
 		
 	}
-	@objc func unityAdsDidFinish(placementId: String, withFinishState state: UnityAdsFinishState) {
+	@objc func unityAdsDidFinish(_ placementId: String, with state: UnityAdsFinishState) {
 		print("UnityAds finished advertising: " + placementId);
 		
 		switch(placementId) {

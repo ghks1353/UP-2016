@@ -21,7 +21,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	var navigationCtrl:UINavigationController = UINavigationController();
 	
 	//Table for view
-	internal var tableView:UITableView = UITableView(frame: CGRectMake(0, 0, 0, 42), style: UITableViewStyle.Grouped);
+	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped);
 	var tablesArray:Array<AnyObject> = [];
 	var tableCells:Array<AlarmSettingsCell> = [];
 	
@@ -49,39 +49,39 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
-		self.view.backgroundColor = .clearColor();
+		self.view.backgroundColor = .clear();
 		
 		AddAlarmView.selfView = self;
 		
 		//ModalView
-		modalView.view.backgroundColor = UIColor.whiteColor();
+		modalView.view.backgroundColor = UIColor.white;
 		modalView.view.frame = DeviceManager.defaultModalSizeRect;
 		
-		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.whiteColor()];
+		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white];
 		navigationCtrl = UINavigationController.init(rootViewController: modalView);
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#4F3317");
-		navigationCtrl.navigationBar.tintColor = UIColor.whiteColor();
+		navigationCtrl.navigationBar.tintColor = UIColor.white;
 		navigationCtrl.view.frame = modalView.view.frame;
 		
 		modalView.title = Languages.$("alarmSettings");
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-close"), forState: .Normal);
-		navCloseButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(AddAlarmView.viewCloseAction), forControlEvents: .TouchUpInside);
+		navCloseButton.setImage( UIImage(named: "modal-close"), for: UIControlState());
+		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navCloseButton.addTarget(self, action: #selector(AddAlarmView.viewCloseAction), for: .touchUpInside);
 		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		
 		//add right items
-		let navRightPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
+		let navRightPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
 		navRightPadding.width = -12; //Button right padding
 		let navFuncButton:UIButton = UIButton(); //Add image into UIButton
-		navFuncButton.setImage( UIImage(named: "modal-check"), forState: .Normal);
-		navFuncButton.frame = CGRectMake(0, 0, 45, 45); //Image frame size
-		navFuncButton.addTarget(self, action: #selector(AddAlarmView.addAlarmToDevice), forControlEvents: .TouchUpInside);
+		navFuncButton.setImage( UIImage(named: "modal-check"), for: UIControlState());
+		navFuncButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
+		navFuncButton.addTarget(self, action: #selector(AddAlarmView.addAlarmToDevice), for: .touchUpInside);
 		modalView.navigationItem.rightBarButtonItems = [ navRightPadding, UIBarButtonItem(customView: navFuncButton) ];
 		///////// Nav items fin
 		
@@ -89,7 +89,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		self.view.addSubview(navigationCtrl.view);
 		
 		//add table to modals
-		tableView.frame = CGRectMake(0, 0, modalView.view.frame.width, modalView.view.frame.height);
+		tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height);
 		modalView.view.addSubview(tableView);
 		
 		//add table cells (options)
@@ -125,36 +125,36 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		//SET MASK for dot eff
 		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
 		modalMaskImageView.frame = modalView.view.frame;
-		modalMaskImageView.contentMode = .ScaleAspectFit; self.view.maskView = modalMaskImageView;
+		modalMaskImageView.contentMode = .scaleAspectFit; self.view.mask = modalMaskImageView;
 		
 		FitModalLocationToCenter();
 	}
 	
 	
 	internal func setSubviewSize() {
-		alarmSoundListView.view.frame = CGRectMake(
-			0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height );
-		alarmGameListView.view.frame = CGRectMake(
-			0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height );
-		alarmRepeatSelectListView.view.frame = CGRectMake(
-			0, 0, DeviceManager.defaultModalSizeRect.width, DeviceManager.defaultModalSizeRect.height );
+		alarmSoundListView.view.frame = CGRect(
+			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height );
+		alarmGameListView.view.frame = CGRect(
+			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height );
+		alarmRepeatSelectListView.view.frame = CGRect(
+			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height );
 	}
 	
 	
 	/////// View transition animation
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		//setup bounce animation
 		self.view.alpha = 0;
 		
 		//알람 메모 사용기능 시 사용 (실험실)
 		//이건 단순히 hidden 상태만 조정하는거임
 		DataManager.initDefaults();
-		let tmpOption:Bool = DataManager.nsDefaults.boolForKey(DataManager.EXPERIMENTS_USE_MEMO_KEY);
+		let tmpOption:Bool = DataManager.nsDefaults.bool(forKey: DataManager.EXPERIMENTS_USE_MEMO_KEY);
 		let alarmsCellArr:Array<AlarmSettingsCell> = tablesArray[1] as! Array<AlarmSettingsCell>;
 		if (tmpOption == true) { /* 메모 사용 시 */
-			alarmsCellArr[1].hidden = false;
+			alarmsCellArr[1].isHidden = false;
 		} else { //메모 사용 안함.
-			alarmsCellArr[1].hidden = true;
+			alarmsCellArr[1].isHidden = true;
 		}
 		tableView.reloadData();
 		
@@ -162,17 +162,17 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_ALARMADD);
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		//queue bounce animation
-		self.view.frame = CGRectMake(0, DeviceManager.scrSize!.height,
-		                             DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
-		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
-			self.view.frame = CGRectMake(0, 0,
-				DeviceManager.scrSize!.width, DeviceManager.scrSize!.height);
+		self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
+		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
+		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
+			self.view.frame = CGRect(x: 0, y: 0,
+				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
 		}
@@ -180,13 +180,13 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	
 	//set sound element from other view
-	internal func setSoundElement(sInfo:SoundInfoObj) {
+	internal func setSoundElement(_ sInfo:SoundInfoObj) {
 		(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundLangName;
 		alarmSoundSelectedObj = sInfo;
 	}
 	
 	//set game id from other view
-	internal func setGameElement(gameID:Int) {
+	internal func setGameElement(_ gameID:Int) {
 		var gameName:String = "";
 		let tArray:Array<AlarmSettingsCell> = tablesArray[0] as! Array<AlarmSettingsCell>;
 		//cellImageViewElement
@@ -250,7 +250,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	}
 	
 	//for default setting at view opening
-	internal func getElementFromTable(cellID:String, isSubElement:Bool = false)->AnyObject? {
+	internal func getElementFromTable(_ cellID:String, isSubElement:Bool = false)->AnyObject? {
 		//let anyobjectOfTable:AnyObject?;
 		for i:Int in 0 ..< tableCells.count {
 			if (tableCells[i].cellID == cellID) {
@@ -261,7 +261,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	}
 	
 	//위 함수의 이미지 버전
-	internal func getImageViewFromTable(cellID:String)->UIImageView? {
+	internal func getImageViewFromTable(_ cellID:String)->UIImageView? {
 		for i:Int in 0 ..< tableCells.count {
 			if (tableCells[i].cellID == cellID) {
 				return tableCells[i].cellImageViewElement!;
@@ -274,8 +274,8 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	func FitModalLocationToCenter() {
 		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
 		
-		if (self.view.maskView != nil) {
-			self.view.maskView!.frame = DeviceManager.defaultModalSizeRect;
+		if (self.view.mask != nil) {
+			self.view.mask!.frame = DeviceManager.defaultModalSizeRect;
 		}
 	}
 	
@@ -310,27 +310,27 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			
 		} //end if
 		
-		self.dismissViewControllerAnimated(true, completion: nil);
+		self.dismiss(animated: true, completion: nil);
 	}
 	
 	///// for table func
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return 4;
 	}
-	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
 			default:
 				return "";
 		}
 	}
 	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return (tablesArray[section] as! Array<AnyObject>).count;
 		
 	}
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		//print("progressing section", indexPath.section);
-		switch(indexPath.section){
+		switch((indexPath as NSIndexPath).section){
 			case 0:
 				return 95;
 			case 3:
@@ -339,20 +339,20 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				break;
 		}
 		
-		let cellArr:Array<AlarmSettingsCell> = tablesArray[indexPath.section] as! Array<AlarmSettingsCell>;
-		let cell:AlarmSettingsCell = cellArr[indexPath.row];
+		let cellArr:Array<AlarmSettingsCell> = tablesArray[(indexPath as NSIndexPath).section] as! Array<AlarmSettingsCell>;
+		let cell:AlarmSettingsCell = cellArr[(indexPath as NSIndexPath).row];
 		
-		if (cell.hidden == true) {
+		if (cell.isHidden == true) {
 			return 0;
 		}
 		
 		return UITableViewAutomaticDimension;
 	}
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell:UITableViewCell = (tablesArray[indexPath.section] as! Array<AnyObject>)[indexPath.row] as! UITableViewCell;
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell;
 		return cell;
 	}
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		switch(section){
 			case 0:
 				return 0.00001;
@@ -361,12 +361,12 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		}
 		return 8;
 	}
-	func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return 4;
 	}
 	
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cellID:String = (tableView.cellForRowAtIndexPath(indexPath) as! AlarmSettingsCell).cellID;
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let cellID:String = (tableView.cellForRow(at: indexPath) as! AlarmSettingsCell).cellID;
 		switch(cellID) {
 			case "alarmGame": //게임 선택 뷰
 				self.alarmGameListView.selectCell( gameSelectedID );
@@ -386,19 +386,19 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			default: break;
 		} //end switch
 		
-		tableView.deselectRowAtIndexPath(indexPath, animated: true);
+		tableView.deselectRow(at: indexPath, animated: true);
 	}
 	
 	//Create cell, game selection
 	func createGameSelectionCell() -> AlarmSettingsCell {
 		let tCell:AlarmSettingsCell = AlarmSettingsCell();
 		tCell.backgroundColor = UPUtils.colorWithHexString("#333333");
-		tCell.frame = CGRectMake(0, 0, tableView.frame.width, 95);
+		tCell.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 95);
 		
 		//Random game
 		//let gameImgName:String = "game-thumb-random.png";
 		let tGameThumbnailsPictureBackground:UIImageView = UIImageView(image: UIImage(named: "game-thumb-background.png"));
-		tGameThumbnailsPictureBackground.frame = CGRectMake(14, 14, 66, 66);
+		tGameThumbnailsPictureBackground.frame = CGRect(x: 14, y: 14, width: 66, height: 66);
 		tCell.addSubview(tGameThumbnailsPictureBackground);
 		
 		let tGameThumbnailsPicture:UIImageView = UIImageView(); //UIImageView(image: UIImage(named: gameImgName));
@@ -406,23 +406,23 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		
 		///////
 		let tGameSubjectLabel:UILabel = UILabel(); //게임 제목
-		tGameSubjectLabel.frame = CGRectMake(92, 22, tableView.frame.width * 0.6, 28);
-		tGameSubjectLabel.font = UIFont.systemFontOfSize(22);
+		tGameSubjectLabel.frame = CGRect(x: 92, y: 22, width: tableView.frame.width * 0.6, height: 28);
+		tGameSubjectLabel.font = UIFont.systemFont(ofSize: 22);
 		tGameSubjectLabel.text = ""; //Languages.$("alarmGameRandom"); //Random
-		tGameSubjectLabel.textColor = UIColor.whiteColor();
+		tGameSubjectLabel.textColor = UIColor.white;
 		
 		let tGameGenreLabel:UILabel = UILabel(); //게임 장르
-		tGameGenreLabel.frame = CGRectMake(92, 49, tableView.frame.width * 0.6, 20);
-		tGameGenreLabel.font = UIFont.systemFontOfSize(14);
+		tGameGenreLabel.frame = CGRect(x: 92, y: 49, width: tableView.frame.width * 0.6, height: 20);
+		tGameGenreLabel.font = UIFont.systemFont(ofSize: 14);
 		tGameGenreLabel.text = "";
-		tGameGenreLabel.textColor = UIColor.whiteColor();
+		tGameGenreLabel.textColor = UIColor.white;
 		
 		tCell.cellElement = tGameSubjectLabel; tCell.cellSubElement = tGameGenreLabel;
 		tCell.cellImageViewElement = tGameThumbnailsPicture;
 		
 		tCell.cellID = "alarmGame";
 		
-		tCell.accessoryType = .DisclosureIndicator;
+		tCell.accessoryType = .disclosureIndicator;
 		tCell.addSubview(tGameSubjectLabel); tCell.addSubview(tGameGenreLabel);
 		
 		tableCells += [tCell];
@@ -431,11 +431,11 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	
 	//Tableview cell view create
-	func createCell( cellType:Int, cellID:String ) -> AlarmSettingsCell {
+	func createCell( _ cellType:Int, cellID:String ) -> AlarmSettingsCell {
 		let tCell:AlarmSettingsCell = AlarmSettingsCell();
 		tCell.cellID = cellID;
-		tCell.backgroundColor = UIColor.whiteColor();
-		tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 45); //default cell size
+		tCell.backgroundColor = UIColor.white;
+		tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 45); //default cell size
 		
 		switch( cellType ) {
 			case 0: //Inputtext cell
@@ -453,24 +453,24 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 						break;
 				} //end switch
 				
-				alarmNameInput.borderStyle = UITextBorderStyle.None;
-				alarmNameInput.autocorrectionType = UITextAutocorrectionType.No;
-				alarmNameInput.keyboardType = UIKeyboardType.Default;
-				alarmNameInput.returnKeyType = UIReturnKeyType.Done;
-				alarmNameInput.clearButtonMode = UITextFieldViewMode.Never;
-				alarmNameInput.contentVerticalAlignment = UIControlContentVerticalAlignment.Center;
-				alarmNameInput.textAlignment = .Center;
+				alarmNameInput.borderStyle = UITextBorderStyle.none;
+				alarmNameInput.autocorrectionType = UITextAutocorrectionType.no;
+				alarmNameInput.keyboardType = UIKeyboardType.default;
+				alarmNameInput.returnKeyType = UIReturnKeyType.done;
+				alarmNameInput.clearButtonMode = UITextFieldViewMode.never;
+				alarmNameInput.contentVerticalAlignment = UIControlContentVerticalAlignment.center;
+				alarmNameInput.textAlignment = .center;
 				alarmNameInput.delegate = self;
 				
 				tCell.cellElement = alarmNameInput;
 				tCell.addSubview(alarmNameInput);
 				break;
 			case 1: //DatePicker cell
-				tCell.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 200); //cell size to datepicker size fit
+				tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 200); //cell size to datepicker size fit
 				let alarmTimePicker:UIDatePicker = UIDatePicker(frame: tCell.frame);
-				alarmTimePicker.frame = CGRectMake(0, 0, self.modalView.view.frame.width, 200);
-				alarmTimePicker.datePickerMode = UIDatePickerMode.Time;
-				alarmTimePicker.date = NSDate(); //default => current
+				alarmTimePicker.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 200);
+				alarmTimePicker.datePickerMode = UIDatePickerMode.time;
+				alarmTimePicker.date = Date(); //default => current
 				//alarmTimePicker.fr
 				tCell.cellElement = alarmTimePicker;
 				tCell.addSubview(alarmTimePicker);
@@ -478,14 +478,14 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			
 			case 2: //Option sel label cell
 				let tLabel:UILabel = UILabel(); let tSettingLabel:UILabel = UILabel();
-				tSettingLabel.frame = CGRectMake(self.modalView.view.frame.width - self.modalView.view.frame.width * 0.4 - 32, 0, self.modalView.view.frame.width * 0.4, 45);
-				tSettingLabel.textAlignment = .Right;
-				tLabel.font = UIFont.systemFontOfSize(16); tSettingLabel.font = tLabel.font;
+				tSettingLabel.frame = CGRect(x: self.modalView.view.frame.width - self.modalView.view.frame.width * 0.4 - 32, y: 0, width: self.modalView.view.frame.width * 0.4, height: 45);
+				tSettingLabel.textAlignment = .right;
+				tLabel.font = UIFont.systemFont(ofSize: 16); tSettingLabel.font = tLabel.font;
 				tSettingLabel.textColor = UPUtils.colorWithHexString("#999999");
 				
 				//아이콘 표시 관련
 				let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
-				tIconImg.frame = CGRectMake(12, 6, 31.3, 31.3);
+				tIconImg.frame = CGRect(x: 12, y: 6, width: 31.3, height: 31.3);
 				switch(cellID) { //특정 조건으로 아이콘 구분
 					case "alarmGame": tIconFileStr = "comp-icons-settings-newgames"; break;
 					case "alarmSound": tIconFileStr = "comp-icons-alarm-music"; break;
@@ -503,7 +503,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 						tLabel.text = Languages.$("alarmSound");
 						if (DeviceManager.defaultModalSizeRect.width < 250) {
 							// 작은 화면에서 표시 못하는 세부설정 감춤
-							tSettingLabel.hidden = true;
+							tSettingLabel.isHidden = true;
 						}
 						
 						break;
@@ -513,9 +513,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 					default: break;
 				}
 				
-				tLabel.frame = CGRectMake(tIconWPadding, 0, self.modalView.view.frame.width * 0.4, 45);
+				tLabel.frame = CGRect(x: tIconWPadding, y: 0, width: self.modalView.view.frame.width * 0.4, height: 45);
 				
-				tCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator;
+				tCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
 				
 				tCell.cellElement = tSettingLabel;
 				tSettingLabel.text = Languages.$("generalDefault");
@@ -532,14 +532,14 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	}
 	
 	
-	internal func autoSelectRepeatElement( repeatInfo:Array<Bool> ) {
+	internal func autoSelectRepeatElement( _ repeatInfo:Array<Bool> ) {
 		let settingsLabelPointer:UILabel = getElementFromTable("alarmRepeatSetting") as! UILabel;
 		settingsLabelPointer.text = AlarmManager.fetchRepeatLabel(repeatInfo, loadType: 0);
 	}
 	
 	//clear all components
 	internal func clearComponents() {
-		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = NSDate(); //date to current
+		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = Date(); //date to current
 		(self.getElementFromTable("alarmName") as! UITextField).text = ""; //empty alarm name
 		(self.getElementFromTable("alarmMemo") as! UITextField).text = ""; //empty alarm memo
 		self.setSoundElement(SoundManager.list[0]); //default - first element of soundlist
@@ -561,7 +561,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	}
 	
 	//components fill for modify alarm
-	internal func fillComponentsWithEditMode( alarmID:Int, alarmName:String, alarmMemo:String, alarmFireDate:NSDate, selectedGameID:Int, scaledSoundLevel:Int, selectedSoundFileName:String, repeatInfo:Array<Bool>, alarmDefaultToggle:Bool) {
+	internal func fillComponentsWithEditMode( _ alarmID:Int, alarmName:String, alarmMemo:String, alarmFireDate:Date, selectedGameID:Int, scaledSoundLevel:Int, selectedSoundFileName:String, repeatInfo:Array<Bool>, alarmDefaultToggle:Bool) {
 		//set alarm name
 		(self.getElementFromTable("alarmName") as! UITextField).text = alarmName;
 		(self.getElementFromTable("alarmMemo") as! UITextField).text = alarmMemo;
@@ -592,7 +592,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	}
 	
 	//UITextfield del
-	func textFieldShouldReturn(textField: UITextField) -> Bool { //Returnkey to hide
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool { //Returnkey to hide
 		self.view.endEditing(true);
 		return false;
 	}

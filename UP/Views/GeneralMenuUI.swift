@@ -70,7 +70,7 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 	
 	var selectedGameID:Int = 0;
 	
-	func setGame( gameID:Int ) {
+	func setGame( _ gameID:Int ) {
 		switch(gameID) {
 			case 0: //jumpup
 				windowGuidesNamePreset = "game-jumpup-assets-guide-";
@@ -80,58 +80,58 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 		}
 	}
 	
-	func initUI( frame:CGRect ) { //frame -> screen size
+	func initUI( _ frame:CGRect ) { //frame -> screen size
 		selfFrame = frame;
 		
 		//버튼 이미지 설정
-		menuPauseResume.setImage(menuPauseButtonUIImage, forState: .Normal);
-		menuGameStop.setImage(UIImage(named: "game-general-menu-list.png"), forState: .Normal);
-		menuGameRestart.setImage(UIImage(named: "game-general-menu-retry.png"), forState: .Normal);
-		menuSoundControl.setImage(UIImage(named: "game-general-menu-soundon.png"), forState: .Normal);
-		menuGameGuide.setImage(UIImage(named: "game-general-menu-info.png"), forState: .Normal);
+		menuPauseResume.setImage(menuPauseButtonUIImage, for: UIControlState());
+		menuGameStop.setImage(UIImage(named: "game-general-menu-list.png"), for: UIControlState());
+		menuGameRestart.setImage(UIImage(named: "game-general-menu-retry.png"), for: UIControlState());
+		menuSoundControl.setImage(UIImage(named: "game-general-menu-soundon.png"), for: UIControlState());
+		menuGameGuide.setImage(UIImage(named: "game-general-menu-info.png"), for: UIControlState());
 		
-		menuPauseResume.frame = CGRectMake( 24, selfFrame!.height - 24 - (61.6 * DeviceManager.maxScrRatioC), 61.6 * DeviceManager.maxScrRatioC, 61.6 * DeviceManager.maxScrRatioC );
+		menuPauseResume.frame = CGRect( x: 24, y: selfFrame!.height - 24 - (61.6 * DeviceManager.maxScrRatioC), width: 61.6 * DeviceManager.maxScrRatioC, height: 61.6 * DeviceManager.maxScrRatioC );
 		
-		menuGameGuide.frame = CGRectMake( menuPauseResume.frame.minX, menuPauseResume.frame.minY - 12 - menuPauseResume.frame.width, menuPauseResume.frame.width, menuPauseResume.frame.height );
-		menuSoundControl.frame = CGRectMake( menuPauseResume.frame.minX, menuGameGuide.frame.minY - 12 - menuPauseResume.frame.width, menuPauseResume.frame.width, menuPauseResume.frame.height );
-		menuGameRestart.frame = CGRectMake( menuPauseResume.frame.minX, menuSoundControl.frame.minY - 12 - menuPauseResume.frame.width, menuPauseResume.frame.width, menuPauseResume.frame.height );
-		menuGameStop.frame = CGRectMake( menuPauseResume.frame.minX, menuGameRestart.frame.minY - 12 - menuPauseResume.frame.width, menuPauseResume.frame.width, menuPauseResume.frame.height );
+		menuGameGuide.frame = CGRect( x: menuPauseResume.frame.minX, y: menuPauseResume.frame.minY - 12 - menuPauseResume.frame.width, width: menuPauseResume.frame.width, height: menuPauseResume.frame.height );
+		menuSoundControl.frame = CGRect( x: menuPauseResume.frame.minX, y: menuGameGuide.frame.minY - 12 - menuPauseResume.frame.width, width: menuPauseResume.frame.width, height: menuPauseResume.frame.height );
+		menuGameRestart.frame = CGRect( x: menuPauseResume.frame.minX, y: menuSoundControl.frame.minY - 12 - menuPauseResume.frame.width, width: menuPauseResume.frame.width, height: menuPauseResume.frame.height );
+		menuGameStop.frame = CGRect( x: menuPauseResume.frame.minX, y: menuGameRestart.frame.minY - 12 - menuPauseResume.frame.width, width: menuPauseResume.frame.width, height: menuPauseResume.frame.height );
 		
 		//오버레이 생성
-		menuPausedOverlay.frame = CGRectMake(0, 0, selfFrame!.width, selfFrame!.height);
-		menuPausedOverlay.backgroundColor = UIColor.blackColor();
+		menuPausedOverlay.frame = CGRect(x: 0, y: 0, width: selfFrame!.width, height: selfFrame!.height);
+		menuPausedOverlay.backgroundColor = UIColor.black;
 		menuPausedOverlay.alpha = 0.65;
 		
-		self.addSubview(menuPausedOverlay); menuPausedOverlay.hidden = true;
+		self.addSubview(menuPausedOverlay); menuPausedOverlay.isHidden = true;
 		self.addSubview(menuPauseResume);
-		self.addSubview(menuGameStop); menuGameStop.hidden = true;
-		self.addSubview(menuGameRestart); menuGameRestart.hidden = true;
-		self.addSubview(menuSoundControl); menuSoundControl.hidden = true;
-		self.addSubview(menuGameGuide); menuGameGuide.hidden = true;
+		self.addSubview(menuGameStop); menuGameStop.isHidden = true;
+		self.addSubview(menuGameRestart); menuGameRestart.isHidden = true;
+		self.addSubview(menuSoundControl); menuSoundControl.isHidden = true;
+		self.addSubview(menuGameGuide); menuGameGuide.isHidden = true;
 		
 		//버튼 이벤트 생성
-		menuPauseResume.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackMenuToggle), forControlEvents: .TouchUpInside);
-		menuGameGuide.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackGuide), forControlEvents: .TouchUpInside);
-		menuSoundControl.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackSoundToggle), forControlEvents: .TouchUpInside);
-		menuGameRestart.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackRestart), forControlEvents: .TouchUpInside);
-		menuGameStop.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackStopGame), forControlEvents: .TouchUpInside);
+		menuPauseResume.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackMenuToggle), for: .touchUpInside);
+		menuGameGuide.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackGuide), for: .touchUpInside);
+		menuSoundControl.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackSoundToggle), for: .touchUpInside);
+		menuGameRestart.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackRestart), for: .touchUpInside);
+		menuGameStop.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackStopGame), for: .touchUpInside);
 		
 		//// 윈도우 구성. 크기는 패드에서 안 커지게
-		windowBackgroundImage.frame = CGRectMake( 0, 0, 257.75 * DeviceManager.maxScrRatioC, 176.5 * DeviceManager.maxScrRatioC );
+		windowBackgroundImage.frame = CGRect( x: 0, y: 0, width: 257.75 * DeviceManager.maxScrRatioC, height: 176.5 * DeviceManager.maxScrRatioC );
 		windowBackgroundImage.image = UIImage( named: "game-general-window-mask.png" );
 		
-		windowTitleContinue.frame = CGRectMake(
-			windowBackgroundImage.frame.width / 2 - (203.9 * DeviceManager.maxScrRatioC) / 2
-			, 24 * DeviceManager.maxScrRatioC, 203.9 * DeviceManager.maxScrRatioC, 26.95 * DeviceManager.maxScrRatioC );
-		windowTitleGameOver.frame = CGRectMake(
-			windowBackgroundImage.frame.width / 2 - (198.6 * DeviceManager.maxScrRatioC) / 2
-			, windowTitleContinue.frame.minY, 198.6 * DeviceManager.maxScrRatioC, 28.35 * DeviceManager.maxScrRatioC );
-		windowTitleRetry.frame = CGRectMake(
-			windowBackgroundImage.frame.width / 2 - (134.65 * DeviceManager.maxScrRatioC) / 2
-			, windowTitleContinue.frame.minY, 134.65 * DeviceManager.maxScrRatioC, 26.95 * DeviceManager.maxScrRatioC );
-		windowTitleExit.frame = CGRectMake(
-			windowBackgroundImage.frame.width / 2 - (110.95 * DeviceManager.maxScrRatioC) / 2
-			, windowTitleContinue.frame.minY, 110.95 * DeviceManager.maxScrRatioC, 26.95 * DeviceManager.maxScrRatioC );
+		windowTitleContinue.frame = CGRect(
+			x: windowBackgroundImage.frame.width / 2 - (203.9 * DeviceManager.maxScrRatioC) / 2
+			, y: 24 * DeviceManager.maxScrRatioC, width: 203.9 * DeviceManager.maxScrRatioC, height: 26.95 * DeviceManager.maxScrRatioC );
+		windowTitleGameOver.frame = CGRect(
+			x: windowBackgroundImage.frame.width / 2 - (198.6 * DeviceManager.maxScrRatioC) / 2
+			, y: windowTitleContinue.frame.minY, width: 198.6 * DeviceManager.maxScrRatioC, height: 28.35 * DeviceManager.maxScrRatioC );
+		windowTitleRetry.frame = CGRect(
+			x: windowBackgroundImage.frame.width / 2 - (134.65 * DeviceManager.maxScrRatioC) / 2
+			, y: windowTitleContinue.frame.minY, width: 134.65 * DeviceManager.maxScrRatioC, height: 26.95 * DeviceManager.maxScrRatioC );
+		windowTitleExit.frame = CGRect(
+			x: windowBackgroundImage.frame.width / 2 - (110.95 * DeviceManager.maxScrRatioC) / 2
+			, y: windowTitleContinue.frame.minY, width: 110.95 * DeviceManager.maxScrRatioC, height: 26.95 * DeviceManager.maxScrRatioC );
 		
 		windowTitleContinue.image = UIImage( named: "game-general-window-continue.png" );
 		windowTitleGameOver.image = UIImage( named: "game-general-window-gameover.png" );
@@ -139,19 +139,19 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 		windowTitleExit.image = UIImage( named: "game-general-window-exit.png" );
 		
 		///  이쪽은 버튼
-		windowButtonAD.frame = CGRectMake(
-			28 * DeviceManager.maxScrRatioC
-			, windowTitleContinue.frame.maxY + 32 * DeviceManager.maxScrRatioC, 89.8 * DeviceManager.maxScrRatioC, 65.5 * DeviceManager.maxScrRatioC );
-		windowButtonOK.frame = CGRectMake(
-			windowButtonAD.frame.minX
-			, windowButtonAD.frame.minY, windowButtonAD.frame.width, windowButtonAD.frame.height );
-		windowButtonCancel.frame = CGRectMake(
-			windowBackgroundImage.frame.width - windowButtonAD.frame.width - windowButtonAD.frame.minX
-			, windowButtonAD.frame.minY, windowButtonAD.frame.width, windowButtonAD.frame.height );
+		windowButtonAD.frame = CGRect(
+			x: 28 * DeviceManager.maxScrRatioC
+			, y: windowTitleContinue.frame.maxY + 32 * DeviceManager.maxScrRatioC, width: 89.8 * DeviceManager.maxScrRatioC, height: 65.5 * DeviceManager.maxScrRatioC );
+		windowButtonOK.frame = CGRect(
+			x: windowButtonAD.frame.minX
+			, y: windowButtonAD.frame.minY, width: windowButtonAD.frame.width, height: windowButtonAD.frame.height );
+		windowButtonCancel.frame = CGRect(
+			x: windowBackgroundImage.frame.width - windowButtonAD.frame.width - windowButtonAD.frame.minX
+			, y: windowButtonAD.frame.minY, width: windowButtonAD.frame.width, height: windowButtonAD.frame.height );
 		
-		windowButtonAD.setImage(UIImage( named: "game-general-window-btn-ads.png" ), forState: .Normal);
-		windowButtonOK.setImage(UIImage( named: "game-general-window-btn-ok.png" ), forState: .Normal);
-		windowButtonCancel.setImage(UIImage( named: "game-general-window-btn-cancel.png" ), forState: .Normal);
+		windowButtonAD.setImage(UIImage( named: "game-general-window-btn-ads.png" ), for: UIControlState());
+		windowButtonOK.setImage(UIImage( named: "game-general-window-btn-ok.png" ), for: UIControlState());
+		windowButtonCancel.setImage(UIImage( named: "game-general-window-btn-cancel.png" ), for: UIControlState());
 		
 		//배경 사진부터 깔고
 		windowUIView.addSubview(windowBackgroundImage);
@@ -164,45 +164,45 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 		windowUIView.addSubview(windowButtonCancel);
 		
 		//폼 설정
-		windowUIView.frame = CGRectMake(
-			selfFrame!.width / 2 - windowBackgroundImage.frame.width / 2
-			, selfFrame!.height / 2 - windowBackgroundImage.frame.height / 2
-			, windowBackgroundImage.frame.width
-			, windowBackgroundImage.frame.height
+		windowUIView.frame = CGRect(
+			x: selfFrame!.width / 2 - windowBackgroundImage.frame.width / 2
+			, y: selfFrame!.height / 2 - windowBackgroundImage.frame.height / 2
+			, width: windowBackgroundImage.frame.width
+			, height: windowBackgroundImage.frame.height
 		);
 		
 		self.addSubview(windowUIView);
 		
 		//버튼 리스너 설정
-		windowButtonAD.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackAD), forControlEvents: .TouchUpInside);
-		windowButtonOK.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackOK), forControlEvents: .TouchUpInside);
-		windowButtonCancel.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackCancel), forControlEvents: .TouchUpInside);
+		windowButtonAD.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackAD), for: .touchUpInside);
+		windowButtonOK.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackOK), for: .touchUpInside);
+		windowButtonCancel.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackCancel), for: .touchUpInside);
 		
 		hideUISelectionWindow();
 		
 		////// 가이드 폼 만들기
-		windowGuideScrollView.frame = CGRectMake(
-			0
-			, selfFrame!.height / 2 - ( 176.5 * DeviceManager.maxScrRatioC ) / 2
-			, selfFrame!.width
-			, 176.5 * DeviceManager.maxScrRatioC
+		windowGuideScrollView.frame = CGRect(
+			x: 0
+			, y: selfFrame!.height / 2 - ( 176.5 * DeviceManager.maxScrRatioC ) / 2
+			, width: selfFrame!.width
+			, height: 176.5 * DeviceManager.maxScrRatioC
 		);
-		windowGuideScrollView.contentSize = CGSizeMake(
+		windowGuideScrollView.contentSize = CGSize(
 			/* 24 24 lr margin -> content 4x */
-			selfFrame!.width * CGFloat(windowGuidesLength)
-			, ( 176.5 * DeviceManager.maxScrRatioC )
+			width: selfFrame!.width * CGFloat(windowGuidesLength)
+			, height: ( 176.5 * DeviceManager.maxScrRatioC )
 		);
 		for i:Int in 0 ..< windowGuidesLength {
 			//loop for content sizes
 			let tmpUIView:UIView = UIView(frame:
-				CGRectMake( (windowGuideScrollView.contentSize.width / CGFloat(windowGuidesLength) ) * CGFloat(i)
-					, 0, (windowGuideScrollView.contentSize.width / CGFloat(windowGuidesLength) )
-					, windowGuideScrollView.contentSize.height
+				CGRect( x: (windowGuideScrollView.contentSize.width / CGFloat(windowGuidesLength) ) * CGFloat(i)
+					, y: 0, width: (windowGuideScrollView.contentSize.width / CGFloat(windowGuidesLength) )
+					, height: windowGuideScrollView.contentSize.height
 				));
 			let tmpGuideImg:UIImageView = UIImageView( image: UIImage( named: windowGuidesNamePreset + String(i) + ".png" ) );
-			tmpGuideImg.frame = CGRectMake( (selfFrame!.width - (257.75 * DeviceManager.maxScrRatioC)) / 2 //Margin
-				, 0, 257.75 * DeviceManager.maxScrRatioC
-				, windowGuideScrollView.contentSize.height
+			tmpGuideImg.frame = CGRect( x: (selfFrame!.width - (257.75 * DeviceManager.maxScrRatioC)) / 2 //Margin
+				, y: 0, width: 257.75 * DeviceManager.maxScrRatioC
+				, height: windowGuideScrollView.contentSize.height
 			);
 			tmpUIView.addSubview(tmpGuideImg);
 			windowGuideScrollView.addSubview(tmpUIView);
@@ -213,21 +213,21 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 		
 		//가이드 슬라이더 추가
 		self.addSubview(windowGuideScrollView);
-		windowGuideScrollView.pagingEnabled = true;
+		windowGuideScrollView.isPagingEnabled = true;
 		
 		//가이드 버튼 추가
-		windowGuideCloseButton.frame = CGRectMake(
-			selfFrame!.width / 2 - menuPauseResume.frame.width / 2,
-			windowGuideScrollView.frame.maxY + 100 * DeviceManager.scrRatioC,
+		windowGuideCloseButton.frame = CGRect(
+			x: selfFrame!.width / 2 - menuPauseResume.frame.width / 2,
+			y: windowGuideScrollView.frame.maxY + 100 * DeviceManager.scrRatioC,
 			/* same with 61.6 x 61.6 */
-			menuPauseResume.frame.width, menuPauseResume.frame.height
+			width: menuPauseResume.frame.width, height: menuPauseResume.frame.height
 		)
-		windowGuideCloseButton.setImage( UIImage( named: "game-general-window-btn-close.png" ) , forState: .Normal);
+		windowGuideCloseButton.setImage( UIImage( named: "game-general-window-btn-close.png" ) , for: UIControlState());
 		self.addSubview(windowGuideCloseButton);
 		
 		//기본 가이드 상태: 가림
-		windowGuideScrollView.hidden = true;
-		windowGuideCloseButton.hidden = true;
+		windowGuideScrollView.isHidden = true;
+		windowGuideCloseButton.isHidden = true;
 		
 		windowGuideScrollView.delegate = self;
 		
@@ -235,24 +235,24 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 		windowGuideLeftIndicator.image = UIImage( named: "game-general-guide-left.png" );
 		windowGuideRightIndicator.image = UIImage( named: "game-general-guide-right.png" );
 		
-		windowGuideLeftIndicator.frame = CGRectMake(
-			selfFrame!.width / 2 - ((257.75 * DeviceManager.maxScrRatioC) / 2) - (18 * DeviceManager.maxScrRatioC)
+		windowGuideLeftIndicator.frame = CGRect(
+			x: selfFrame!.width / 2 - ((257.75 * DeviceManager.maxScrRatioC) / 2) - (18 * DeviceManager.maxScrRatioC)
 				- (20.4 * DeviceManager.maxScrRatioC)
-			, selfFrame!.height / 2 - ((40.8 * DeviceManager.maxScrRatioC) / 2),
-			  20.4 * DeviceManager.maxScrRatioC
-			, 40.8 * DeviceManager.maxScrRatioC
+			, y: selfFrame!.height / 2 - ((40.8 * DeviceManager.maxScrRatioC) / 2),
+			  width: 20.4 * DeviceManager.maxScrRatioC
+			, height: 40.8 * DeviceManager.maxScrRatioC
 		);
-		windowGuideRightIndicator.frame = CGRectMake(
-			selfFrame!.width / 2 + ((257.75 * DeviceManager.maxScrRatioC) / 2) + (18 * DeviceManager.maxScrRatioC)
-			, windowGuideLeftIndicator.frame.minY
-			, windowGuideLeftIndicator.frame.width
-			, windowGuideLeftIndicator.frame.height
+		windowGuideRightIndicator.frame = CGRect(
+			x: selfFrame!.width / 2 + ((257.75 * DeviceManager.maxScrRatioC) / 2) + (18 * DeviceManager.maxScrRatioC)
+			, y: windowGuideLeftIndicator.frame.minY
+			, width: windowGuideLeftIndicator.frame.width
+			, height: windowGuideLeftIndicator.frame.height
 		);
 		self.addSubview(windowGuideLeftIndicator); self.addSubview(windowGuideRightIndicator);
-		windowGuideLeftIndicator.hidden = true; windowGuideRightIndicator.hidden = true;
+		windowGuideLeftIndicator.isHidden = true; windowGuideRightIndicator.isHidden = true;
 		
 		//가이드 터치 리스너 추가
-		windowGuideCloseButton.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackCloseGuide), forControlEvents: .TouchUpInside);
+		windowGuideCloseButton.addTarget(self, action: #selector(GeneralMenuUI.innerCallbackCloseGuide), for: .touchUpInside);
 	}
 	
 	//////////////////////////
@@ -350,58 +350,58 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 	}
 	
 	////////////////////// Show or hide menu
-	func toggleMenu( status:Bool ) {
+	func toggleMenu( _ status:Bool ) {
 		//true: pause, show
 		//false: resume, hide
 		
 		if (status) {
 			//일시정지 됨
-			menuPauseResume.setImage(menuResumeButtonUIImage, forState: .Normal);
+			menuPauseResume.setImage(menuResumeButtonUIImage, for: UIControlState());
 		} else {
 			//재개됨
-			menuPauseResume.setImage(menuPauseButtonUIImage, forState: .Normal);
+			menuPauseResume.setImage(menuPauseButtonUIImage, for: UIControlState());
 		}
 		
-		menuPausedOverlay.hidden = !status;
-		menuGameStop.hidden = !status;
-		menuGameRestart.hidden = !status;
-		menuSoundControl.hidden = !status;
-		menuGameGuide.hidden = !status;
+		menuPausedOverlay.isHidden = !status;
+		menuGameStop.isHidden = !status;
+		menuGameRestart.isHidden = !status;
+		menuSoundControl.isHidden = !status;
+		menuGameGuide.isHidden = !status;
 		
 	}
 	
 	///////////////////////// window interactions
 	//물음을 묻는 메뉴 띄우기
-	func showUISelectionWindow( windowTypeNum:Int ) {
+	func showUISelectionWindow( _ windowTypeNum:Int ) {
 		//windowTypeNum으로 게임오버, 컨티뉴, 그만두기, 재시작 구분
 		
-		windowUIView.hidden = false;
+		windowUIView.isHidden = false;
 		
 		//우선 윈도우를 띄우면 메뉴는 가림
 		isMenuVisible = false;
 		
-		windowTitleContinue.hidden = true; windowTitleGameOver.hidden = true;
-		windowTitleRetry.hidden = true; windowTitleExit.hidden = true;
-		windowButtonAD.hidden = true; windowButtonOK.hidden = true;
-		windowButtonCancel.hidden = true;
+		windowTitleContinue.isHidden = true; windowTitleGameOver.isHidden = true;
+		windowTitleRetry.isHidden = true; windowTitleExit.isHidden = true;
+		windowButtonAD.isHidden = true; windowButtonOK.isHidden = true;
+		windowButtonCancel.isHidden = true;
 		windowButtonAD.alpha = 1;
 		
 		switch(windowTypeNum) {
 			case 0: //그만두고 메뉴로 나가기
-				windowTitleExit.hidden = false;
-				windowButtonOK.hidden = false; windowButtonCancel.hidden = false;
+				windowTitleExit.isHidden = false;
+				windowButtonOK.isHidden = false; windowButtonCancel.isHidden = false;
 				break;
 			case 1: //재시작
-				windowTitleRetry.hidden = false;
-				windowButtonOK.hidden = false; windowButtonCancel.hidden = false;
+				windowTitleRetry.isHidden = false;
+				windowButtonOK.isHidden = false; windowButtonCancel.isHidden = false;
 				break;
 			case 2: //게임 오버 (재시작 가능)
-				windowTitleContinue.hidden = false;
-				windowButtonAD.hidden = false; windowButtonCancel.hidden = false;
+				windowTitleContinue.isHidden = false;
+				windowButtonAD.isHidden = false; windowButtonCancel.isHidden = false;
 				break;
 			case 3: //완전 게임오버
-				windowTitleGameOver.hidden = false;
-				windowButtonAD.hidden = false; windowButtonCancel.hidden = false;
+				windowTitleGameOver.isHidden = false;
+				windowButtonAD.isHidden = false; windowButtonCancel.isHidden = false;
 				windowButtonAD.alpha = 0.4;
 				break;
 			default: break;
@@ -410,18 +410,18 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 		
 		// 열기 애니메이션
 		self.windowUIView.alpha = 1;
-		self.windowUIView.frame = CGRectMake(
-			DeviceManager.scrSize!.width / 2 - self.windowBackgroundImage.frame.width / 2
-			, DeviceManager.scrSize!.height
-			, self.windowBackgroundImage.frame.width
-			, self.windowBackgroundImage.frame.height
+		self.windowUIView.frame = CGRect(
+			x: DeviceManager.scrSize!.width / 2 - self.windowBackgroundImage.frame.width / 2
+			, y: DeviceManager.scrSize!.height
+			, width: self.windowBackgroundImage.frame.width
+			, height: self.windowBackgroundImage.frame.height
 		);
-		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
-			self.windowUIView.frame = CGRectMake(
-				DeviceManager.scrSize!.width / 2 - self.windowBackgroundImage.frame.width / 2
-				, DeviceManager.scrSize!.height / 2 - self.windowBackgroundImage.frame.height / 2
-				, self.windowBackgroundImage.frame.width
-				, self.windowBackgroundImage.frame.height
+		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
+			self.windowUIView.frame = CGRect(
+				x: DeviceManager.scrSize!.width / 2 - self.windowBackgroundImage.frame.width / 2
+				, y: DeviceManager.scrSize!.height / 2 - self.windowBackgroundImage.frame.height / 2
+				, width: self.windowBackgroundImage.frame.width
+				, height: self.windowBackgroundImage.frame.height
 			);
 		}) { _ in
 		}
@@ -429,58 +429,58 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 	}
 	func hideUISelectionWindow() {
 		//윈도우 가림, 다시 메뉴 표시. 뭐였냐에 따라 컴포넌트 표시 등이 달라질듯
-		UIView.animateWithDuration(0.2, delay: 0, options: .CurveLinear, animations: {
+		UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
 			self.windowUIView.alpha = 0;
 		}) { _ in
-			self.windowUIView.hidden = true;
+			self.windowUIView.isHidden = true;
 		}
 		
 		switch(openedWindowType) {
 			case -1: //초기화 시 일시정지 버튼만 남김
 				isMenuVisible = true;
-				menuPauseResume.hidden = false; menuGameStop.hidden = true;
+				menuPauseResume.isHidden = false; menuGameStop.isHidden = true;
 				
 				break;
 			case 3: //완전 게임오버시 모든 메뉴를 가림
 				isMenuVisible = false;
-				menuPauseResume.hidden = false; menuGameStop.hidden = false;
+				menuPauseResume.isHidden = false; menuGameStop.isHidden = false;
 				
 				break;
 			default: //메뉴 다시 표시
 				isMenuVisible = true;
-				menuPauseResume.hidden = false; menuGameStop.hidden = false;
+				menuPauseResume.isHidden = false; menuGameStop.isHidden = false;
 				break;
 		}
 		
-		menuGameRestart.hidden = menuGameStop.hidden;
-		menuSoundControl.hidden = menuGameStop.hidden; menuGameGuide.hidden = menuGameStop.hidden;
+		menuGameRestart.isHidden = menuGameStop.isHidden;
+		menuSoundControl.isHidden = menuGameStop.isHidden; menuGameGuide.isHidden = menuGameStop.isHidden;
 		
 		menuAnimationQueue();
 	}
 	
 	/////////// 가이드 보기 / 숨기기
 	func showGameGuideUI() {
-		windowGuideScrollView.hidden = false;
-		windowGuideCloseButton.hidden = false;
-		windowGuideLeftIndicator.hidden = false; windowGuideRightIndicator.hidden = false;
+		windowGuideScrollView.isHidden = false;
+		windowGuideCloseButton.isHidden = false;
+		windowGuideLeftIndicator.isHidden = false; windowGuideRightIndicator.isHidden = false;
 		
 		isMenuVisible = false; //메뉴 감춤
 		
 		//가이드 스크롤 오프셋을 0으로 초기화
-		self.windowGuideScrollView.setContentOffset(CGPointMake(0, 0), animated: false);
+		self.windowGuideScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
 		
 		// 열기 애니메이션
 		windowGuideScrollView.alpha = 1;
 		windowGuideCloseButton.alpha = 0; windowGuideLeftIndicator.alpha = 0; windowGuideRightIndicator.alpha = 0;
-		windowGuideScrollView.frame = CGRectMake(
-			0, selfFrame!.height, selfFrame!.width, 176.5 * DeviceManager.maxScrRatioC
+		windowGuideScrollView.frame = CGRect(
+			x: 0, y: selfFrame!.height, width: selfFrame!.width, height: 176.5 * DeviceManager.maxScrRatioC
 		);
-		UIView.animateWithDuration(0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .CurveEaseIn, animations: {
-			self.windowGuideScrollView.frame = CGRectMake(
-				0
-				, self.selfFrame!.height / 2 - ( 176.5 * DeviceManager.maxScrRatioC ) / 2
-				, self.selfFrame!.width
-				, 176.5 * DeviceManager.maxScrRatioC
+		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
+			self.windowGuideScrollView.frame = CGRect(
+				x: 0
+				, y: self.selfFrame!.height / 2 - ( 176.5 * DeviceManager.maxScrRatioC ) / 2
+				, width: self.selfFrame!.width
+				, height: 176.5 * DeviceManager.maxScrRatioC
 			);
 			self.windowGuideCloseButton.alpha = 1;
 			self.windowGuideLeftIndicator.alpha = 1; self.windowGuideRightIndicator.alpha = 1;
@@ -498,21 +498,21 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 		isMenuVisible = true; // 메뉴 표시
 		
 		//가이드 UI가림. 메뉴 표시.
-		UIView.animateWithDuration(0.2, delay: 0, options: .CurveLinear, animations: {
+		UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
 			self.windowGuideScrollView.alpha = 0;
 			self.windowGuideCloseButton.alpha = 0;
 			self.windowGuideLeftIndicator.alpha = 0; self.windowGuideRightIndicator.alpha = 0;
 		}) { _ in
-			self.windowGuideScrollView.hidden = true;
-			self.windowGuideCloseButton.hidden = true;
-			self.windowGuideLeftIndicator.hidden = true; self.windowGuideRightIndicator.hidden = true;
+			self.windowGuideScrollView.isHidden = true;
+			self.windowGuideCloseButton.isHidden = true;
+			self.windowGuideLeftIndicator.isHidden = true; self.windowGuideRightIndicator.isHidden = true;
 		}
 		
 		menuAnimationQueue();
 	}
 	
 	//가이드 페이지에 따른 왼/오 화살표 알파값 조절
-	func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 		let page:Int = Int(scrollView.contentOffset.x / scrollView.frame.width);
 		
 		if ( page == 0 ) {
@@ -547,7 +547,7 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 		menuGameStop.alpha = menuPauseResume.alpha; menuGameRestart.alpha = menuPauseResume.alpha;
 		menuSoundControl.alpha = menuPauseResume.alpha; menuGameGuide.alpha = menuPauseResume.alpha;
 		
-		UIView.animateWithDuration(0.6, delay: 0, options: .CurveLinear, animations: {
+		UIView.animate(withDuration: 0.6, delay: 0, options: .curveLinear, animations: {
 			self.menuPauseResume.alpha = endAlpha;
 			self.menuGameStop.alpha = self.menuPauseResume.alpha; self.menuGameRestart.alpha = self.menuPauseResume.alpha;
 			self.menuSoundControl.alpha = self.menuPauseResume.alpha; self.menuGameGuide.alpha = self.menuPauseResume.alpha;
