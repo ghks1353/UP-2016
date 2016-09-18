@@ -15,8 +15,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "742"
             endingLineNumber = "742"
-            landmarkName = "fitViewControllerElementsToScreen(_:)"
-            landmarkType = "5">
+            landmarkName = "fitViewControllerElementsToScreen(animated:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
