@@ -30,6 +30,9 @@ PODS:
   - Realm/Headers (0.103.2)
   - RealmSwift (0.103.2):
     - Realm (= 0.103.2)
+  - SQLite.swift (0.10.1):
+    - SQLite.swift/standard (= 0.10.1)
+  - SQLite.swift/standard (0.10.1)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -39,13 +42,20 @@ DEPENDENCIES:
   - Google
   - Google/Analytics
   - GoogleIDFASupport
+  - SQLite.swift (from `https://github.com/stephencelis/SQLite.swift.git`, branch `swift3-mariotaku`)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
+  SQLite.swift:
+    :branch: swift3-mariotaku
+    :git: https://github.com/stephencelis/SQLite.swift.git
   SwiftyJSON:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  SQLite.swift:
+    :commit: 8f08796afc608322797a3b699e7d2abcc3e26c0f
+    :git: https://github.com/stephencelis/SQLite.swift.git
   SwiftyJSON:
     :commit: 73670b94292b8d8496c398a973f56ac67789ba9f
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
@@ -64,8 +74,9 @@ SPEC CHECKSUMS:
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
   Realm: 448f0416079fe5b0ed947e7d86f3c4e1c75826cb
   RealmSwift: 8a45cc8f02dfac093b72a3b5a01d567e27e15891
+  SQLite.swift: c54b2cb32c2ec77cd52bc7442d05dd51b0623861
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 6674c5f7a1e0e150116a7bf51ae8b48f10fc72a1
+PODFILE CHECKSUM: ae03f3c370b00a00fa61bcad05029197c75a7720
 
 COCOAPODS: 1.0.1
