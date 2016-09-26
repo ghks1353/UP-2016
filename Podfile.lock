@@ -1,8 +1,8 @@
 PODS:
-  - Charts/Core (2.2.5)
-  - Charts/Realm (2.2.5):
+  - Charts/Core (2.3.0)
+  - Charts/Realm (2.3.0):
     - Charts/Core
-    - RealmSwift (~> 0.97)
+    - RealmSwift (~> 1.1)
   - CryptoSwift (0.6.0)
   - FirebaseAnalytics (3.4.2):
     - FirebaseInstanceID (~> 1.0)
@@ -25,11 +25,11 @@ PODS:
   - GoogleSymbolUtilities (1.1.1)
   - GoogleUtilities (1.3.1):
     - GoogleSymbolUtilities (~> 1.0)
-  - Realm (0.103.2):
-    - Realm/Headers (= 0.103.2)
-  - Realm/Headers (0.103.2)
-  - RealmSwift (0.103.2):
-    - Realm (= 0.103.2)
+  - Realm (1.1.0):
+    - Realm/Headers (= 1.1.0)
+  - Realm/Headers (1.1.0)
+  - RealmSwift (1.1.0):
+    - Realm (= 1.1.0)
   - SQLite.swift (0.10.1):
     - SQLite.swift/standard (= 0.10.1)
   - SQLite.swift/standard (0.10.1)
@@ -38,7 +38,7 @@ PODS:
 DEPENDENCIES:
   - Charts/Realm
   - CryptoSwift
-  - Gifu
+  - Gifu (from `https://github.com/kaishin/Gifu.git`, branch `swift3`)
   - Google
   - Google/Analytics
   - GoogleIDFASupport
@@ -46,6 +46,9 @@ DEPENDENCIES:
   - SwiftyJSON (from `https://github.com/appsailor/SwiftyJSON.git`, branch `swift3`)
 
 EXTERNAL SOURCES:
+  Gifu:
+    :branch: swift3
+    :git: https://github.com/kaishin/Gifu.git
   SQLite.swift:
     :branch: swift3-mariotaku
     :git: https://github.com/stephencelis/SQLite.swift.git
@@ -54,15 +57,18 @@ EXTERNAL SOURCES:
     :git: https://github.com/appsailor/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  Gifu:
+    :commit: f76b72582b9bbb996367657c8e30c5767aec957d
+    :git: https://github.com/kaishin/Gifu.git
   SQLite.swift:
-    :commit: 8f08796afc608322797a3b699e7d2abcc3e26c0f
+    :commit: 1ae7acbcb1b59877cf2e034f72f3d411287a4119
     :git: https://github.com/stephencelis/SQLite.swift.git
   SwiftyJSON:
-    :commit: 2571377e49e6c653a92d993a2bff7a9ca2d71591
+    :commit: de73429b38b8994f614fb27c5ec094bb8a4833f2
     :git: https://github.com/appsailor/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Charts: b48fcc8d7190de910ff9e9748f5360c8ea7856e5
+  Charts: 55d7fd9af175b500208601bea872f0fc72c1d19e
   CryptoSwift: 4a599b7241b8d3b857d6e2c28867d0bd5d1aae24
   FirebaseAnalytics: 3f5358d9104adf159cc8d99b7b501e50099a39ad
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
@@ -73,11 +79,11 @@ SPEC CHECKSUMS:
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
-  Realm: 448f0416079fe5b0ed947e7d86f3c4e1c75826cb
-  RealmSwift: 8a45cc8f02dfac093b72a3b5a01d567e27e15891
+  Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
+  RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
   SQLite.swift: c54b2cb32c2ec77cd52bc7442d05dd51b0623861
   SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
 
-PODFILE CHECKSUM: d3d9be1905fb297f05268ef303c2ee60e1182448
+PODFILE CHECKSUM: 415e91fdfe9f1dee4af1e1ebf23f6eb0e4eedc91
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.2

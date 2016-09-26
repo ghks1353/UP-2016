@@ -1007,7 +1007,7 @@ extension String {
     
     subscript (r: Range<Int>) -> String {
         let start = characters.index(startIndex, offsetBy: r.lowerBound)
-        let end = <#T##String.CharacterView corresponding to `start`##String.CharacterView#>.index(start, offsetBy: r.upperBound - r.lowerBound)
+        let end = String.CharacterView.index(start, offsetBy: r.upperBound - r.lowerBound)
         //return self[Range(start: start, end: end)]
 		return self[start..<end]
     }
