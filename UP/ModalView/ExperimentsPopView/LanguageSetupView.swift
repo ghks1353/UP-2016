@@ -14,12 +14,12 @@ import UIKit
 class LanguageSetupView:UIViewController, UITableViewDataSource, UITableViewDelegate {
 	static var selfView:LanguageSetupView?;
 	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped);
-	var tablesArray:Array<AnyObject> = [];
+	var tablesArray:Array<Array<AnyObject>> = [];
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
 		LanguageSetupView.selfView = self;
-		self.view.backgroundColor = .clear();
+		self.view.backgroundColor = UIColor.clear;
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
 		self.title = Languages.$("settingsChangeLanguage");
@@ -51,7 +51,7 @@ class LanguageSetupView:UIViewController, UITableViewDataSource, UITableViewDele
 	
 	func popToRootAction() {
 		//Pop to root by back button
-		self.navigationController?.popViewController(animated: true);
+		_ = self.navigationController?.popViewController(animated: true);
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -111,13 +111,13 @@ class LanguageSetupView:UIViewController, UITableViewDataSource, UITableViewDele
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return (tablesArray[section] as! Array<AnyObject>).count;
+		return (tablesArray[section] ).count;
 	}
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 45;
 	}
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell;
+		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] )[(indexPath as NSIndexPath).row] as! UITableViewCell;
 		return cell;
 	}
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

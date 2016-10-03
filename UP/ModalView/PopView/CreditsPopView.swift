@@ -34,7 +34,7 @@ class CreditsPopView:UIViewController {
 		super.viewDidLoad();
 		CreditsPopView.selfView = self;
 		
-		self.view.backgroundColor = .clear();
+		self.view.backgroundColor = UIColor.clear;
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
@@ -142,7 +142,7 @@ class CreditsPopView:UIViewController {
 	
 	func popToRootAction() {
 		//Pop to root by back button
-		self.navigationController?.popViewController(animated: true);
+		_ = self.navigationController?.popViewController(animated: true);
 	}
 	
 	override func didReceiveMemoryWarning() {

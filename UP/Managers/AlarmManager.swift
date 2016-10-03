@@ -304,7 +304,7 @@ class AlarmManager {
 					
 					//add new push for next alarm
 					var dateForRepeat:Date = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
-					var tmpNSComp:DateComponents = (Calendar.current as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
+					var tmpNSComp:DateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
 					tmpNSComp.second = 0;
 					dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
 					
@@ -312,7 +312,7 @@ class AlarmManager {
 						soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
 					//add 30sec needed
 					dateForRepeat = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
-					tmpNSComp = (Calendar.current as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
+					tmpNSComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
 					tmpNSComp.second = 30;
 					dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
 					addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
@@ -405,8 +405,8 @@ class AlarmManager {
 					//알람 켜기 (addalarm 재탕)
 					let tmpsInfoObj = SoundInfoObj(soundName: "", fileName: alarmsArray[i].alarmSound);
 					let tmpNSDate:Date = Date();
-					var tmpNSComp:DateComponents = (Calendar.current as NSCalendar).components([.year, .month, .day], from: tmpNSDate);
-					let tComp:DateComponents = (Calendar.current as NSCalendar).components([.hour, .minute], from: alarmsArray[i].alarmFireDate as Date);
+					var tmpNSComp:DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: tmpNSDate);
+					let tComp:DateComponents = Calendar.current.dateComponents([.hour, .minute], from: alarmsArray[i].alarmFireDate as Date);
 					tmpNSComp.hour = tComp.hour;
 					tmpNSComp.minute = tComp.minute;
 					tmpNSComp.second = 0;
@@ -494,8 +494,8 @@ class AlarmManager {
 		
 		//modify date to today
 		let tmpNSDate:Date = Date();
-		var tmpNSComp:DateComponents = (Calendar.current as NSCalendar).components([.year, .month, .day], from: tmpNSDate);
-		let tComp:DateComponents = (Calendar.current as NSCalendar).components([.hour, .minute], from: date);
+		var tmpNSComp:DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: tmpNSDate);
+		let tComp:DateComponents = Calendar.current.dateComponents([.hour, .minute], from: date);
 		tmpNSComp.hour = tComp.hour; tmpNSComp.minute = tComp.minute; tmpNSComp.second = 0;
 		date = Calendar.current.date(from: tmpNSComp)!;
 		
@@ -521,7 +521,7 @@ class AlarmManager {
 		//TODO 1 -> 테스트가 필요하지만, 일단 했음.
 		//repeat이 있는 경우, 현재일이 아닌 다른일에 알람이 추가된경우 현재일에 울리지 않게 함.
 		//해결방안- firedate를 해당 다른일부터 시작하게 만들면 되지 않을까?
-		let todayDate:DateComponents = (Calendar.current as NSCalendar).components( .weekday, from: Date());
+		let todayDate:DateComponents = Calendar.current.dateComponents( [Calendar.Component.weekday], from: Date());
 		var fireOnce:Int = -1; /* 반복요일 설정이 없는경우 1회성으로 판단하고 date 변화 없음) */
 		var fireNextDay:Int = -1; /* 반복이 여러개인 경우, 과거 알람 설정 때 판단을 위한 다음 반복 날짜 구함 */
 		var fireSearched:Bool = false; var fireNextdaySearched:Bool = false;
@@ -637,7 +637,7 @@ class AlarmManager {
 		let alarmUUID:Int = alarmID == -1 ? Int(Date().timeIntervalSince1970) : alarmID;
 		
 		//초단위 제거
-		var tmpNSComp:DateComponents = (Calendar.current as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: date);
+		var tmpNSComp:DateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date);
 		tmpNSComp.second = 0;
 		date = Calendar.current.date(from: tmpNSComp)!;
 		

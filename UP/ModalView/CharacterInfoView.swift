@@ -45,7 +45,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
-		self.view.backgroundColor = .clear()
+		self.view.backgroundColor = UIColor.clear;
 		
 		//ModalView
 		modalView.view.backgroundColor = UIColor.white;
@@ -245,7 +245,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		AnalyticsManager.untrackScreen(); //untrack to previous screen
+		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

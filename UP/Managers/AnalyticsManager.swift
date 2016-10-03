@@ -44,7 +44,7 @@ class AnalyticsManager {
 	//init google analytics
 	static func initGoogleAnalytics() {
 		// Configure tracker from GoogleService-Info.plist.
-		var configureError:NSError?
+		/*var configureError:NSError?
 		GGLContext.sharedInstance().configureWithError(&configureError)
 		assert(configureError == nil, "Error configuring Google services: \(configureError)")
 		
@@ -52,16 +52,17 @@ class AnalyticsManager {
 		let gai = GAI.sharedInstance()
 		gai.trackUncaughtExceptions = true  // report uncaught exceptions
 		//gai.logger.logLevel = GAILogLevel.Warning;  // remove before app release
+		*/
 	}
 	
 	/// Tracking usage by google analytics
 	static func trackScreen( _ screenName:String, registerToArray:Bool = true ) {
-		let tracker = GAI.sharedInstance().defaultTracker; tracker.allowIDFACollection = true;
+		/*let tracker = GAI.sharedInstance().defaultTracker; tracker.allowIDFACollection = true;
 		tracker.set(kGAIScreenName, value: screenName);
 		let builder = GAIDictionaryBuilder.createScreenView();
 		tracker.send(builder.build() as [AnyHashable: Any]);
 		
-		print("Tracking", screenName);
+		print("Tracking", screenName);*/
 		if (registerToArray) {
 			trackingArray += [screenName];
 		}
@@ -70,7 +71,7 @@ class AnalyticsManager {
 		if (trackingArray.count > 1) { //적어도 두개여야함
 			print("Untracking screen");
 			trackingArray.removeLast();
-			trackScreen( trackingArray[ trackingArray.count - 1], registerToArray: false);
+			//trackScreen( trackingArray[ trackingArray.count - 1], registerToArray: false);
 			return true;
 		}
 		print("Untracking failed");
@@ -79,12 +80,12 @@ class AnalyticsManager {
 	
 	///// Make events
 	static func makeEvent( _ eventCategory:String, action:String, label:String, value:NSNumber ) {
-		let tracker = GAI.sharedInstance().defaultTracker; tracker.allowIDFACollection = true;
+		/*let tracker = GAI.sharedInstance().defaultTracker; tracker.allowIDFACollection = true;
 		tracker.send(
 			GAIDictionaryBuilder.createEventWithCategory(eventCategory, action: action, label: label, value: value).build()
 			 as [AnyHashable: Any]
 		);
-		
+		*/
 	}
 	
 }

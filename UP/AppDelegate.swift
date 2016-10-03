@@ -69,7 +69,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 						print("Authentication: OK")
 					} else {
 						print("Authentication: Error")
-						print("Error message:" + error!.description);
 					}
 				}
 			}
@@ -102,7 +101,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		});
 		
 		//DISPATCH_QUEUE_PRIORITY_DEFAULT
-		DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.high).async(execute: { () -> Void in
+		DispatchQueue.global(qos: .background).async {
+		//DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.high).async(execute: { () -> Void in
 			if (self.alarmBackgroundTaskPlayer != nil) {
 				self.alarmBackgroundTaskPlayer!.stop();
 				self.alarmBackgroundTaskPlayer = nil;
@@ -179,7 +179,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			}
 			UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!);
 			
-		});
+		};
 		
 		
 		

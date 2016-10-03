@@ -235,16 +235,24 @@ class GeneralMenuUI:UIView, UIScrollViewDelegate {
 		windowGuideLeftIndicator.image = UIImage( named: "game-general-guide-left.png" );
 		windowGuideRightIndicator.image = UIImage( named: "game-general-guide-right.png" );
 		
+		var guideLeftCGPoint:CGPoint = CGPoint();
+		var guideRightCGPoint:CGPoint = CGPoint();
+		
+		guideLeftCGPoint.x = selfFrame!.width / 2 - ((257.75 * DeviceManager.maxScrRatioC) / 2) - (18 * DeviceManager.maxScrRatioC);
+		guideLeftCGPoint.x = guideLeftCGPoint.x - (20.4 * DeviceManager.maxScrRatioC);
+		guideLeftCGPoint.y = selfFrame!.height / 2 - ((40.8 * DeviceManager.maxScrRatioC) / 2);
 		windowGuideLeftIndicator.frame = CGRect(
-			x: selfFrame!.width / 2 - ((257.75 * DeviceManager.maxScrRatioC) / 2) - (18 * DeviceManager.maxScrRatioC)
-				- (20.4 * DeviceManager.maxScrRatioC)
-			, y: selfFrame!.height / 2 - ((40.8 * DeviceManager.maxScrRatioC) / 2),
+			x: guideLeftCGPoint.x
+			, y: guideLeftCGPoint.y,
 			  width: 20.4 * DeviceManager.maxScrRatioC
 			, height: 40.8 * DeviceManager.maxScrRatioC
 		);
+		
+		guideRightCGPoint.x = selfFrame!.width / 2 + ((257.75 * DeviceManager.maxScrRatioC) / 2) + (18 * DeviceManager.maxScrRatioC);
+		guideRightCGPoint.y = windowGuideLeftIndicator.frame.minY;
 		windowGuideRightIndicator.frame = CGRect(
-			x: selfFrame!.width / 2 + ((257.75 * DeviceManager.maxScrRatioC) / 2) + (18 * DeviceManager.maxScrRatioC)
-			, y: windowGuideLeftIndicator.frame.minY
+			x: guideRightCGPoint.x
+			, y: guideRightCGPoint.y
 			, width: windowGuideLeftIndicator.frame.width
 			, height: windowGuideLeftIndicator.frame.height
 		);

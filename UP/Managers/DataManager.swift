@@ -243,10 +243,10 @@ class DataManager {
 		print("Database init works started");
 		do {
 			//DB 연결
-			upDatabaseConnection = try Connection( libPathArr.objectAtIndex(0) as! String + "/db.sqlite3" );
+			upDatabaseConnection = try Connection( libPathArr.object(at: 0) as! String + "/db.sqlite3" );
 			//Type 0,1을 위한 테이블 생성 (없을 경우)
-			try upDatabaseConnection!.run(upDBTableStats.create(ifNotExists: true) { t in
-				t.column( Expression<Int64>("id") , primaryKey: .Autoincrement) //자동증가 ID
+			try _ = upDatabaseConnection!.run(upDBTableStats.create(ifNotExists: true) { t in
+				t.column( Expression<Int64>("id") , primaryKey: PrimaryKey.autoincrement) //자동증가 ID
 				t.column( Expression<Int64>("type")) //통계 타입
 				t.column( Expression<Int64>("date")) //통계 저장 날짜
 				t.column( Expression<Int64?>("statsDataInt")) //Int형 저장 데이터
@@ -257,8 +257,8 @@ class DataManager {
 			});
 			
 			//게임 성과 저장을 위한 테이블 생성
-			try upDatabaseConnection!.run(upDBTableGameResults.create(ifNotExists: true) { t in
-				t.column( Expression<Int64>("id") , primaryKey: .Autoincrement) //uid.
+			try _ = upDatabaseConnection!.run(upDBTableGameResults.create(ifNotExists: true) { t in
+				t.column( Expression<Int64>("id") , primaryKey: PrimaryKey.autoincrement) //uid.
 				t.column( Expression<Int64>("gameid")) //게임 ID
 				t.column( Expression<Int64>("date")) //통계 저장 날짜
 				t.column( Expression<Int64>("gameCleared")) //게임 클리어 여부. 0 = 클리어 못함, 1 = 클리어함
@@ -369,10 +369,10 @@ class DataManager {
 					.order( Expression<Int64>("id").desc )
 					.limit( 1, offset: 1 )
 			) {
-				var targetDate:NSDate = NSDate(timeIntervalSince1970: NSTimeInterval(dbResult[ Expression<Int64>("date") ]) );
-				let components = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: targetDate);
+				var targetDate:Date = Date(timeIntervalSince1970: TimeInterval(dbResult[ Expression<Int64>("date") ]) );
+				var components = Calendar.current.dateComponents([Calendar.Component.year, Calendar.Component.month, Calendar.Component.day, Calendar.Component.hour, Calendar.Component.minute, Calendar.Component.second], from: targetDate as Date);
 				components.hour = 0; components.minute = 0; components.second = 0;
-				targetDate = NSCalendar.currentCalendar().dateFromComponents(components)!;
+				targetDate = Calendar.current.date(from: components)!;
 				
 				//1일치 시간 * (구할 시간 - 1) + 23시간 59분 59초치 시간
 				if (goalToFetchDataDays == -1) {
@@ -404,8 +404,8 @@ class DataManager {
 					dbResult[ Expression<Int64>("type") ] == 0 ? dataBeforeStartArray : dataClearReducedArray
 				);
 				
-				let dateComp:NSDateComponents = NSCalendar.currentCalendar().components([.Year, .Month, .Day, .Hour, .Minute, .Second],
-				                                                       fromDate: NSDate( timeIntervalSince1970: NSTimeInterval(dbResult[ Expression<Int64>("date") ]) ) );
+				let dateComp:DateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
+				                                                       from: Date( timeIntervalSince1970: TimeInterval(dbResult[ Expression<Int64>("date") ]) ) );
 				
 				let tmpDataElements:StatsDataElement = StatsDataElement();
 				var tmpDataResult:Float = 0;
@@ -433,7 +433,7 @@ class DataManager {
 				tmpDataElements.dataType = isGameTable ? 0 : Int( dbResult[ Expression<Int64>("type") ] );
 				tmpDataElements.dataID = Int( dbResult[ Expression<Int64>("id") ] ); //같은 ID끼리 취합할때 사용
 				
-				tmpDataElements.dateComponents = dateComp;
+				tmpDataElements.dateComponents = dateComp as DateComponents;
 				tmpDataElements.numberData = tmpDataResult;
 				
 				//날짜 중복 방지를 위한 계산
@@ -447,7 +447,8 @@ class DataManager {
 						dataClearReducedArray += [tmpDataElements];
 					}
 				} else {
-					let toCompareComp:NSDateComponents = targetArrayPointer[targetArrayPointer.count - 1].dateComponents!;
+					let tmpCount:Int = targetArrayPointer.count - 1;
+					let toCompareComp:DateComponents = targetArrayPointer[tmpCount].dateComponents!;
 					
 					if ( /* 이전 항목과 날짜가 일치하는지를 검사함. 전 element 참고를 위해 1 뺌. (2를 안 빼는 이유는 배열에 추가 안했거든.) */
 						toCompareComp.year == dateComp.year && toCompareComp.month == dateComp.month && toCompareComp.day == dateComp.day ) {

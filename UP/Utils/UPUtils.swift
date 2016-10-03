@@ -25,7 +25,7 @@ class UPUtils {
 	}
 	
 	static func colorWithHexString (_ hex:String) -> UIColor {
-		var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).uppercased()
+		var cString:String = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
 		
 		if (cString.hasPrefix("#")) {
 			cString = (cString as NSString).substring(from: 1)

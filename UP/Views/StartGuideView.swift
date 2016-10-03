@@ -29,11 +29,11 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 	var guideExitInformationLabel:UILabel = UILabel();
 	
 	var guideUIPageControl:UIPageControl = UIPageControl();
-	var viewLoaded:Bool = false;
+	var gameGuideViewLoaded:Bool = false;
 	
 	override func viewDidLoad() {
 		// view init func
-		viewLoaded = true;
+		gameGuideViewLoaded = true;
 		self.view.backgroundColor = UIColor.white;
 		StartGuideView.selfView = self;
 		
@@ -184,7 +184,7 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 	
 	func fitView(_ size: CGSize) {
 		//Fit start-guide elements
-		if (!viewLoaded) {
+		if (!gameGuideViewLoaded) {
 			return;
 		}
 		//self.view.frame = CGRectMake(0, 0, size.width, size.height);
@@ -195,9 +195,13 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 		//컴포넌트들 재정렬
 		for i:Int in 0 ..< guidePages {
 			guideUIViews[i].frame = CGRect(x: size.width * CGFloat(i), y: 0, width: size.width, height: size.height);
+			var arrPoint:CGPoint = CGPoint();
+			arrPoint.x = size.width / 2 - (255.6 * DeviceManager.maxScrRatioC) / 2;
+			arrPoint.y = (size.height / 2 - (454.4 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC);
+			
 			guideImagesArray[i].frame =
-				CGRect(x: size.width / 2 - (255.6 * DeviceManager.maxScrRatioC) / 2
-					, y: (size.height / 2 - (454.4 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC)
+				CGRect(x: arrPoint.x
+					, y: arrPoint.y
 					, width: 255.6 * DeviceManager.maxScrRatioC, height: 454.4 * DeviceManager.maxScrRatioC);
 			guideTitleUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideImagesArray[i].frame.maxY + (48 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
 			guideDescriptionUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideTitleUILabelsArray[i].frame.maxY + (12 * DeviceManager.maxScrRatioC), width: size.width, height: 18);

@@ -629,40 +629,42 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		}
 		
 		//제스처 처리
-		if (abs(swipeGestureMoved) > 0 && gameStartupType == 1) {
-			if (abs(swipeGestureMoved) > swipeGestureValid) {
-				if (swipeGestureMoved > 0) {
-					// 아래로 스와이프
-					
-					//급강하 (체공 중일때만 가능)
-					if (characterElement!.jumpFlaggedCount != 0 && !characterElement!.shadow_on_air) {
-						characterElement!.ySpeed = -20;
-						// 그림자 효과
-						characterElement!.shadow_on_air = true;
-						characterElement!.shadow_on_frame = 0;
-						characterElement!.shadow_per_frame_current = 0;
-					}
-					
-				} else {
-					//위로 스와이프
-					
-					//슈퍼점프 (스와이프로)
-					if (characterElement!.jumpFlaggedCount < 2) { //점프 가능 횟수가 남아있을 경우
-						characterElement!.ySpeed = 16 * max(1, CGFloat(gameGravity / 1.25));
-						characterElement!.jumpFlaggedCount += 2;
+		if (abs(swipeGestureMoved) > 0) {
+			if (gameStartupType == 1) {
+				if (abs(swipeGestureMoved) > swipeGestureValid) {
+					if (swipeGestureMoved > 0) {
+						// 아래로 스와이프
 						
-						// 체공중 그림자 효과
-						characterElement!.shadow_on_air = false;
-						characterElement!.shadow_on_frame = 30;
-						characterElement!.shadow_per_frame_current = 0;
+						//급강하 (체공 중일때만 가능)
+						if (characterElement!.jumpFlaggedCount != 0 && !characterElement!.shadow_on_air) {
+							characterElement!.ySpeed = -20;
+							// 그림자 효과
+							characterElement!.shadow_on_air = true;
+							characterElement!.shadow_on_frame = 0;
+							characterElement!.shadow_per_frame_current = 0;
+						}
+						
+					} else {
+						//위로 스와이프
+						
+						//슈퍼점프 (스와이프로)
+						if (characterElement!.jumpFlaggedCount < 2) { //점프 가능 횟수가 남아있을 경우
+							characterElement!.ySpeed = 16 * max(1, CGFloat(gameGravity / 1.25));
+							characterElement!.jumpFlaggedCount += 2;
+							
+							// 체공중 그림자 효과
+							characterElement!.shadow_on_air = false;
+							characterElement!.shadow_on_frame = 30;
+							characterElement!.shadow_per_frame_current = 0;
+						}
+						
 					}
-					
 				}
-			}
-			
-			swipeGestureMoved *= 0.75;
-			if (abs(swipeGestureMoved) < 0.1) {
-				swipeGestureMoved = 0;
+				
+				swipeGestureMoved *= 0.75;
+				if (abs(swipeGestureMoved) < 0.1) {
+					swipeGestureMoved = 0;
+				}
 			}
 		} //////// 제스처 처리 끝
 		
@@ -682,7 +684,8 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			if (gameScreenShakeEventDelay % 2 == 0) {
 				
 				mapObject.position.x =
-					( mapObject.position.x < defWid ? (12 * (CGFloat(gameScreenShakeEventDelay) / 60)) : -(12 * (CGFloat(gameScreenShakeEventDelay) / 60)) ) * DeviceManager.scrRatioC;
+					( mapObject.position.x < defWid ? (12 * (CGFloat(gameScreenShakeEventDelay) / 60)) : (-12 * (CGFloat(gameScreenShakeEventDelay) / 60)) );
+				mapObject.position.x = mapObject.position.x * DeviceManager.scrRatioC;
 				mapObject.position.x += defWid;
 			}
 			gameScreenShakeEventDelay -= 1;
@@ -1244,12 +1247,13 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			//점프할거라는 신호를 먼저 주고 점프해야 함. addNodes( 10000 );
 			switch(gameNodesArray[i]!.elementFlag) {
 				case 1: //점프하는 적
-					if (gameNodesArray[i]!.elementTickFlag == 0
-						&& gameNodesArray[i]!.position.x < (260 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.65))) * DeviceManager.scrRatioC ) {
+					let distanceFlagZero:CGFloat = (260 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.65))) * DeviceManager.scrRatioC;
+					let distanceFlagOne:CGFloat = (160 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.85))) * DeviceManager.scrRatioC;
+					
+					if (gameNodesArray[i]!.elementTickFlag == 0 && gameNodesArray[i]!.position.x < distanceFlagZero ) {
 						addNodes( 10000, posX: gameNodesArray[i]!.position.x, posY: gameNodesArray[i]!.position.y, targetElement: gameNodesArray[i] );
 						gameNodesArray[i]!.elementTickFlag = 1;
-					} else if (gameNodesArray[i]!.elementTickFlag == 1
-						&& gameNodesArray[i]!.position.x < (160 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.85))) * DeviceManager.scrRatioC ) {
+					} else if (gameNodesArray[i]!.elementTickFlag == 1 && gameNodesArray[i]!.position.x < distanceFlagOne ) {
 						gameNodesArray[i]!.ySpeed = 14 * max(1, CGFloat(gameGravity / 1.1));
 						gameNodesArray[i]!.elementTickFlag = 2;
 					}
@@ -1785,16 +1789,18 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		}
 		
 		//포기 버튼을 띄워야하면 띄움. 점프횟수가 60번을 넘어야함
-		if (gameRetireTimeCount >= gameRetireTime && buttonRetireSprite.alpha == 0 && gameUserJumpCount > 60) {
-			print("Showing retire button");
-			buttonRetireSprite.alpha = 1;
-			let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
-				startPosition: CGPoint( x: buttonRetireSprite.position.x, y: buttonRetireSprite.position.y ),
-				endPosition: CGPoint( x: buttonRetireSprite.position.x, y: buttonYAxis)
-				);
-			moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
-			buttonRetireSprite.run(
-				SKAction.actionWithEffect(moveEffect));
+		if (gameRetireTimeCount >= gameRetireTime && buttonRetireSprite.alpha == 0) {
+			if (gameUserJumpCount > 60) {
+				print("Showing retire button");
+				buttonRetireSprite.alpha = 1;
+				let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
+					startPosition: CGPoint( x: buttonRetireSprite.position.x, y: buttonRetireSprite.position.y ),
+					endPosition: CGPoint( x: buttonRetireSprite.position.x, y: buttonYAxis)
+					);
+				moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
+				buttonRetireSprite.run(
+					SKAction.actionWithEffect(moveEffect));
+			}
 		}
 		
 	}
@@ -1890,7 +1896,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		print("Game exiting");
 		gameFinishedBool = true;
 		
-		AnalyticsManager.untrackScreen(); //untrack to previous screen
+		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 		
 		GameModeView.isGameExiting = true; //재시작시엔 이게 false이면, 다시 appear가 발동함
 		GameModeView.selfView!.dismiss(animated: false, completion: nil);
@@ -1917,7 +1923,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	func restartGame() {
 		print("Game restarting");
 		gameFinishedBool = true;
-		AnalyticsManager.untrackScreen(); //untrack to previous screen
+		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 		GameModeView.isGameExiting = false;
 		GameModeView.jumpUPStartupViewController!.dismiss(animated: false, completion: nil);
 	}
@@ -1930,21 +1936,21 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		let currentDateTimeStamp:Int64 = Int64(Date().timeIntervalSince1970);
 		stats_gameFinishedTimeStamp = Int(currentDateTimeStamp);
 		
-		AnalyticsManager.untrackScreen(); //untrack to previous screen
+		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 		
 		/// .. and send result for tracking.
 		AnalyticsManager.makeEvent(
 			AnalyticsManager.E_CATEGORY_GAMEDATA,
 			action: AnalyticsManager.E_ACTION_GAME_JUMPUP,
 			label: AnalyticsManager.E_LABEL_JUMPUP_PLAYTIME,
-			value: stats_gameFinishedTimeStamp - stats_gameStartedTimeStamp);
+			value: NSNumber(value: stats_gameFinishedTimeStamp - stats_gameStartedTimeStamp));
 		
 		
 		//// 알람으로 켜진 경우에만 로그를 남김
 		if (gameStartupType == 0) {
 			do {
 				//DB -> 알람 기록 저장 (게임 시작 전까지 걸린 시간)
-				try DataManager.db()!.run(
+				try _ = DataManager.db()!.run(
 					DataManager.statsTable().insert(
 						//type -> 게임 로그 데이터 저장
 						Expression<Int64>("type") <- Int64(DataManager.statsType.TYPE_ALARM_START_TIME),
@@ -1956,7 +1962,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				); //end try
 				
 				//DB -> 알람 기록 저장 (게임 플레이 시간)
-				try DataManager.db()!.run(
+				try _ = DataManager.db()!.run(
 					DataManager.statsTable().insert(
 						//type -> 게임 로그 데이터 저장
 						Expression<Int64>("type") <- Int64(DataManager.statsType.TYPE_ALARM_CLEAR_TIME),
@@ -1968,7 +1974,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				); //end try
 				
 				//DB -> 게임 기록 저장
-				try DataManager.db()!.run(
+				try _ = DataManager.db()!.run(
 					DataManager.gameResultTable().insert(
 						//통계 저장 날짜 저장 (timestamp)
 						Expression<Int64>("date") <- currentDateTimeStamp, /* 데이터 기록 타임스탬프 */

@@ -21,7 +21,7 @@ class IndieGamesView:UIViewController {
 		super.viewDidLoad();
 		IndieGamesView.selfView = self;
 		
-		self.view.backgroundColor = .clear();
+		self.view.backgroundColor = UIColor.clear;
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
@@ -44,7 +44,7 @@ class IndieGamesView:UIViewController {
 	
 	func popToRootAction() {
 		//Pop to root by back button
-		self.navigationController?.popViewController(animated: true);
+		_ = self.navigationController?.popViewController(animated: true);
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

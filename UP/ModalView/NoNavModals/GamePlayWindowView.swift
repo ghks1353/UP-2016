@@ -56,7 +56,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
-		self.view.backgroundColor = .clear();
+		self.view.backgroundColor = UIColor.clear;
 		
 		GamePlayWindowView.selfView = self;
 		
@@ -106,7 +106,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		modalView.addSubview(resultDecoBGMask);
 		modalView.addSubview(gamePreviewImageView!);
 		
-		gamePreviewImageView!.contentMode = .ScaleAspectFit;
+		gamePreviewImageView!.contentMode = .scaleAspectFit;
 		
 		//// 버튼 추가
 		resultButtonList.setImage(UIImage(named: "result-btn-list.png"), for: UIControlState());
@@ -181,7 +181,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		currentGameID = gameID;
 		switch ( gameID ) {
 			case 0:
-				gamePreviewImageView!.animateWithImage(named: "game-jumpup-assets-playpreview.gif");
+				gamePreviewImageView!.animate(withGIFNamed: "game-jumpup-assets-playpreview.gif");
 				break;
 			default: break;
 		}
@@ -189,15 +189,19 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 	
 	func getNumberLocForIndex(_ index:Int, yAxis:CGFloat) -> CGRect {
 		let numWidth:CGFloat = 38; let numHeight:CGFloat = 53.2;
+		var cgrPoint:CGPoint = CGPoint();
+		cgrPoint.x = (modalView.frame.width / 2);
+		cgrPoint.x = cgrPoint.x - (CGFloat(index) * ((numWidth * DeviceManager.resultModalRatioC) + 6 * DeviceManager.resultMaxModalRatioC));
+		cgrPoint.x = cgrPoint.x + ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3);
+		cgrPoint.x = cgrPoint.x + 3 * DeviceManager.resultMaxModalRatioC;
+		
 		return CGRect(
-			x: (modalView.frame.width / 2) - (CGFloat(index) * ((numWidth * DeviceManager.resultModalRatioC) + 6 * DeviceManager.resultMaxModalRatioC))
-				+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
+			x: cgrPoint.x
 				/*
 					5자리 숫자표시의 경우 숫자 생성시 for문을 5번 돌린 다음
 					+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
 				
 				*/
-				+ 3 * DeviceManager.resultMaxModalRatioC
 			, y: yAxis, width: numWidth * DeviceManager.resultModalRatioC , height: numHeight * DeviceManager.resultModalRatioC);
 	}
 	
@@ -240,7 +244,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		AnalyticsManager.untrackScreen(); //untrack to previous screen
+		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

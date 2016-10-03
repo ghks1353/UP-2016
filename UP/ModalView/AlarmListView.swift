@@ -46,7 +46,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
     override func viewDidLoad() {
         super.viewDidLoad();
-		self.view.backgroundColor = .clear();
+		self.view.backgroundColor = UIColor.clear;
 		
 		AlarmListView.selfView = self;
 		
@@ -240,7 +240,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		AnalyticsManager.untrackScreen(); //untrack to previous screen
+		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -644,7 +644,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	func showMessageOnView( _ message:String, backgroundColorHex:String, textColorHex:String ) {
 		if (upAlarmMessageView.isHidden == false) {
 			//몇초 뒤 나타나게 함.
-			UPUtils.setTimeout(2.5, block: {_ in
+			_ = UPUtils.setTimeout(2.5, block: {_ in
 				self.showMessageOnView( message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex );
 			});
 			return;

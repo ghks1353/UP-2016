@@ -80,7 +80,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
-		self.view.backgroundColor = .clear();
+		self.view.backgroundColor = UIColor.clear;
 		
 		GameResultView.selfView = self;
 		
@@ -299,16 +299,19 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	
 	func getNumberLocForIndex(_ index:Int, yAxis:CGFloat) -> CGRect {
 		let numWidth:CGFloat = 38; let numHeight:CGFloat = 53.2;
+		var cgrPoint:CGPoint = CGPoint();
+		cgrPoint.x = (modalView.frame.width / 2);
+		cgrPoint.x = cgrPoint.x - (CGFloat(index) * ((numWidth * DeviceManager.resultModalRatioC) + 6 * DeviceManager.resultMaxModalRatioC));
+		cgrPoint.x = cgrPoint.x + ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
+		cgrPoint.x = cgrPoint.x + 3 * DeviceManager.resultMaxModalRatioC;
 		return CGRect(
-			x: (modalView.frame.width / 2) - (CGFloat(index) * ((numWidth * DeviceManager.resultModalRatioC) + 6 * DeviceManager.resultMaxModalRatioC))
-				+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
+			x: cgrPoint.x
 
 				/*
 					5자리 숫자표시의 경우 숫자 생성시 for문을 5번 돌린 다음
 					+ ((((numWidth / 2) * DeviceManager.resultModalRatioC) + 3 * DeviceManager.resultMaxModalRatioC) * 3)
 				
 				*/
-				+ 3 * DeviceManager.resultMaxModalRatioC
 			, y: yAxis, width: numWidth * DeviceManager.resultModalRatioC , height: numHeight * DeviceManager.resultModalRatioC);
 	}
 	
@@ -350,7 +353,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		AnalyticsManager.untrackScreen(); //untrack to previous screen
+		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -444,7 +447,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 			print("Timer end");
 			if (autoContinueToBest == true) {
 				//auto-start with delay
-				UPUtils.setTimeout(1, block: {
+				_ = UPUtils.setTimeout(1, block: {
 					self.scrollView.setContentOffset(CGPoint(x: self.modalView.frame.width, y: 0), animated: true);
 					self.showNumbersOnBest(self.autoContinuedBestScore);
 				});

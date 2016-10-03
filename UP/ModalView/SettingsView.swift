@@ -22,7 +22,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped);
     
     var settingsArray:Array<SettingsElement> = [];
-    var tablesArray:Array<AnyObject> = [];
+    var tablesArray:Array<Array<AnyObject>> = [];
 	
 	///////// Test experiments views
 	var experimentAlarmSettingsView:ExperimentsAlarmsSetupView = ExperimentsAlarmsSetupView();
@@ -39,7 +39,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.view.backgroundColor = .clear()
+		self.view.backgroundColor = UIColor.clear;
 		
 		//ModalView
         modalView.view.backgroundColor = UIColor.white;
@@ -136,7 +136,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		AnalyticsManager.untrackScreen(); //untrack to previous screen
+		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -181,7 +181,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 					print("Buy up is not available");
 					showProductNotAvailable();
 				} else {
-					PurchaseManager.requestBuyProduct( PurchaseManager.productIDs.PREMIUM );
+					_ = PurchaseManager.requestBuyProduct( PurchaseManager.productIDs.PREMIUM );
 				}
 				
 				break;
@@ -260,7 +260,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	}
 	
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (tablesArray[section] as! Array<AnyObject>).count;
+        return (tablesArray[section] ).count;
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -269,7 +269,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell;
+        let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] )[(indexPath as NSIndexPath).row] as! UITableViewCell;
         return cell;
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

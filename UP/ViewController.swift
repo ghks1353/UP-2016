@@ -310,7 +310,7 @@ class ViewController: UIViewController {
 		
 		///////// start update task
 		updateTimeAnimation(); //first call
-		UPUtils.setInterval(0.5, block: updateTimeAnimation);
+		_ = UPUtils.setInterval(0.5, block: updateTimeAnimation);
 		
 		
 		//test
@@ -430,14 +430,13 @@ class ViewController: UIViewController {
         
         //get time and calcuate
         let date = Date(); let calendar = Calendar.current
-        let components = (calendar as NSCalendar).components([ .hour, .minute, .second], from: date);
+        let components = calendar.dateComponents([ .hour, .minute, .second], from: date);
         
 		var hourString:String = ""; var minString:String = "";
-		minString = String(describing: components.minute);
-		
+		minString = String(describing: components.minute!);
 		if (DeviceManager.is24HourMode == true) {
 			//24시간 시, 문자 그대로 표시
-			hourString = String(describing: components.hour);
+			hourString = String(describing: components.hour!);
 		} else {
 			//12시간 시, 12만큼 짜름
 			hourString = String(components.hour! > 12 ? components.hour! - 12 : (components.hour! == 0 ? 12 : components.hour)!);
@@ -495,6 +494,7 @@ class ViewController: UIViewController {
         } //end of hour str
 		
 		//min str
+		
         if (minString.characters.count == 1) {
             DigitalNum2.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
             DigitalNum3.image = UIImage( named: SkinManager.getDefaultAssetPresets() + minString[0] + ".png" );
@@ -533,7 +533,7 @@ class ViewController: UIViewController {
             }
             
         } //end of min str
-		
+
 		//col animation
         if (DigitalCol.isHidden) {
             //1초주기 실행
@@ -937,7 +937,7 @@ class ViewController: UIViewController {
 	func showMessageOnView( _ message:String, backgroundColorHex:String, textColorHex:String ) {
 		if (upAlarmMessageView.isHidden == false) {
 			//몇초 뒤 나타나게 함.
-			UPUtils.setTimeout(2.5, block: {_ in
+			_ = UPUtils.setTimeout(2.5, block: {_ in
 				self.showMessageOnView( message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex );
 				});
 			return;
@@ -996,21 +996,17 @@ class ViewController: UIViewController {
 
 
 extension String {
-    
-    subscript (i: Int) -> Character {
-        return self[self.characters.index(self.startIndex, offsetBy: i)]
-    }
-    
-    subscript (i: Int) -> String {
-        return String(self[i] as Character)
-    }
-    
-    subscript (r: Range<Int>) -> String {
-        let start = characters.index(startIndex, offsetBy: r.lowerBound)
-        let end = String.CharacterView.index(start, offsetBy: r.upperBound - r.lowerBound)
-        //return self[Range(start: start, end: end)]
-		return self[start..<end]
-    }
+	subscript(i: Int) -> String {
+		guard i >= 0 && i < characters.count else { return "" }
+		return String(self[index(startIndex, offsetBy: i)])
+	}
+	subscript(range: Range<Int>) -> String {
+		let lowerIndex = index(startIndex, offsetBy: max(0,range.lowerBound), limitedBy: endIndex) ?? endIndex
+		return substring(with: lowerIndex..<(index(lowerIndex, offsetBy: range.upperBound - range.lowerBound, limitedBy: endIndex) ?? endIndex))
+	}
+	subscript(range: ClosedRange<Int>) -> String {
+		let lowerIndex = index(startIndex, offsetBy: max(0,range.lowerBound), limitedBy: endIndex) ?? endIndex
+		return substring(with: lowerIndex..<(index(lowerIndex, offsetBy: range.upperBound - range.lowerBound + 1, limitedBy: endIndex) ?? endIndex))
+	}
 }
-
 
