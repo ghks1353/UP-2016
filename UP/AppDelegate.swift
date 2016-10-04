@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UnityAdsManager.initManager();
 		
 		//로컬알림 (등)으로인해 앱실행된경우.
-		if let options = launchOptions {
+		/*if let options = launchOptions {
 			if let notification = options[UIApplicationLaunchOptionsKey.localNotification] as? UILocalNotification {
 				//queue with launchopt
 				print("Launched with options.");
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				
 			}
 		}
-		
+		*/
 		//게임센터 초기화 및 뷰 표시
 		if let presentVC = window?.rootViewController {
 			let targetVC = presentVC;

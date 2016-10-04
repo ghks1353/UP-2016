@@ -10,6 +10,7 @@ import Foundation;
 import UIKit;
 import AVFoundation;
 import MediaPlayer;
+import UserNotifications;
 
 class AlarmManager {
 	/*
@@ -190,6 +191,18 @@ class AlarmManager {
 			scdAlarm = alarmsArray; //this is pointer of alarmsArray.
 		}
 		
+		if #available(iOS 10.0, *) {
+			//ios10: uilocalnotification 쓰지 않고 unnotificationcenter사용
+			var unUserNotifyCenter = UNUserNotificationCenter.current();
+			var unNotifications:Array<UNNotificationRequest>?;
+			unUserNotifyCenter.getPendingNotificationRequests(completionHandler: { requests in
+				unNotifications = requests;
+				
+			});
+			
+		} else {
+			
+		}
 		var scdNotifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!;
 		
 		//앱을 삭제한 후 설치하거나, 데이터가 없는 경우에도 로컬알람이 울릴 수 있음.

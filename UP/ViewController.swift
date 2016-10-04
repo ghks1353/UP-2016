@@ -9,6 +9,7 @@
 import UIKit;
 import AVFoundation;
 import AudioToolbox;
+import UserNotifications;
 
 import SQLite
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -110,9 +111,21 @@ class ViewController: UIViewController {
 		
 		//클래스 외부접근
 		ViewController.viewSelf = self;
+		
 		//Startup permission request
-		let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-		UIApplication.shared.registerUserNotificationSettings(notificationSettings);
+		if #available(iOS 10.0, *) {
+			UNUserNotificationCenter.current().requestAuthorization(
+				options: [.alert,.sound,.badge],
+				completionHandler: { (granted,error) in
+					//self.isGrantedNotificationAccess = granted
+				}
+			)
+		} else {
+			// Fallback on earlier versions
+			let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+			UIApplication.shared.registerUserNotificationSettings(notificationSettings);
+		};
+		
 		
 		//Background image add.
 		self.view.addSubview(backgroundImageView); self.view.addSubview(backgroundImageFadeView);
