@@ -179,7 +179,7 @@ class AlarmManager {
 		return false;
 	}
 	
-	static func mergeAlarm() {
+	static func mergeAlarm(_ mergeProcess:Int = 0, notificationsArray:Array<AnyObject>? = nil ) {
 		//스케줄된 알람들 가져와서 지난것들 merge하고, 발생할 수 있는 오류에 대해서 체크함
 		DataManager.initDefaults();
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true;
@@ -191,33 +191,51 @@ class AlarmManager {
 			scdAlarm = alarmsArray; //this is pointer of alarmsArray.
 		}
 		
-		if #available(iOS 10.0, *) {
-			//ios10: uilocalnotification 쓰지 않고 unnotificationcenter사용
-			var unUserNotifyCenter = UNUserNotificationCenter.current();
-			var unNotifications:Array<UNNotificationRequest>?;
-			unUserNotifyCenter.getPendingNotificationRequests(completionHandler: { requests in
-				unNotifications = requests;
+		if (mergeProcess == 0) {
+			if #available(iOS 10.0, *) {
+				//ios10: uilocalnotification 쓰지 않고 unnotificationcenter사용
+				let unUserNotifyCenter = UNUserNotificationCenter.current();
+				var unNotifications:Array<UNNotificationRequest>?;
+				unUserNotifyCenter.getPendingNotificationRequests(completionHandler: { requests in
+					unNotifications = requests;
+					print("[iOS10] Merging nil alarms");
+					var removedCount = 0;
+					for it:Int in 0 ..< (unNotifications!.count) {
+						let alarmTmpID:Int = unNotifications![it - removedCount].content.userInfo["id"] as! Int;
+						if (AlarmManager.getAlarm(alarmTmpID) == nil) {
+							//REMOVE LocalNotification
+							
+							//unschedule
+							unUserNotifyCenter.removePendingNotificationRequests(withIdentifiers: [unNotifications![it - removedCount].identifier]);
+							unNotifications!.remove(at: it);
+							removedCount += 1;
+							print("[iOS10] Removed nil alarm ID:", alarmTmpID);
+						}
+					}
+					mergeAlarm(1, notificationsArray: unNotifications);
+					/////////////
+				});
 				
-			});
-			
-		} else {
-			
-		}
-		var scdNotifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!;
-		
-		//앱을 삭제한 후 설치하거나, 데이터가 없는 경우에도 로컬알람이 울릴 수 있음.
-		//이 경우, Merge했을 때 지워지게 해야함.
-		print("Merging nil alarms");
-		for it:Int in 0 ..< scdNotifications.count {
-			let alarmTmpID:Int = scdNotifications[it].userInfo!["id"] as! Int;
-			if (AlarmManager.getAlarm(alarmTmpID) == nil) {
-				//REMOVE LocalNotification
-				UIApplication.shared.cancelLocalNotification(scdNotifications[it]);
-				print("Removed nil alarm ID:", alarmTmpID);
+			} else { ///fallback ios8~9 code.
+				var ios9notifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!;
+				
+				//앱을 삭제한 후 설치하거나, 데이터가 없는 경우에도 로컬알람이 울릴 수 있음.
+				//이 경우, Merge했을 때 지워지게 해야함.
+				print("Merging nil alarms");
+				for it:Int in 0 ..< ios9notifications.count {
+					let alarmTmpID:Int = ios9notifications[it].userInfo!["id"] as! Int;
+					if (AlarmManager.getAlarm(alarmTmpID) == nil) {
+						//REMOVE LocalNotification
+						UIApplication.shared.cancelLocalNotification(ios9notifications[it]);
+						print("Removed nil alarm ID:", alarmTmpID);
+					}
+				}
+				//Re-load list
+				ios9notifications = UIApplication.shared.scheduledLocalNotifications!;
+				mergeAlarm(1, notificationsArray: ios9notifications);
 			}
+			return;
 		}
-		//Re-load list
-		scdNotifications = UIApplication.shared.scheduledLocalNotifications!;
 		
 		print("Scheduled alarm count", scdAlarm.count);
 		for i:Int in 0 ..< scdAlarm.count {
@@ -228,11 +246,31 @@ class AlarmManager {
 				scdAlarm[i].alarmSound = SoundManager.list[0].soundFileName;
 				if (scdAlarm[i].alarmToggle == true) {
 					//Toggle 상태면 기존 Notification을 삭제하고 새로 바꿈
-					for j:Int in 0 ..< scdNotifications.count {
-						if (scdNotifications[j].userInfo!["id"] as! Int == scdAlarm[i].alarmID) {
-							UIApplication.shared.cancelLocalNotification(scdNotifications[j]);
+					if #available(iOS 10.0, *) {
+						for j:Int in 0 ..< (notificationsArray!.count) {
+							let arrTmpID:Int = (notificationsArray![j] as! UNNotificationRequest).content.userInfo["id"] as! Int;
+							if ( arrTmpID == scdAlarm[i].alarmID) {
+								UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [(notificationsArray![j] as! UNNotificationRequest).identifier]);
+							}
+							
 						}
-					} //end for
+						
+						//iOS10은 하나만 해도 됨
+						/*let tmpContent:UNNotificationContent = UNNotificationContent();
+						tmpContent.title =
+						let tmpRequest:UNNotificationRequest = UNNotificationRequest(identifier: String(scdAlarm[i].alarmID), content: tmpContent, trigger: nil);*/
+						
+					} else {
+						for j:Int in 0 ..< notificationsArray!.count {
+							if ((notificationsArray![j] as! UILocalNotification).userInfo!["id"] as! Int == scdAlarm[i].alarmID) {
+								UIApplication.shared.cancelLocalNotification(notificationsArray![j] as! UILocalNotification);
+							}
+						} //end for
+						
+					}
+					print("Removed schedlued alarm in merge");
+					
+					//iOS8~9는 30초, 1분 간격으로 추가해야하므로 아래 과정
 					if ((scdAlarm[i].alarmFireDate.timeIntervalSince1970 <= Date().timeIntervalSince1970
 						&& scdAlarm[i].alarmCleared == true) == false) { //말 그대로, Merge대상에 포함이 안되었을 경우만 다시 추가함
 						print("Adding to schedule alarm", scdAlarm[i].alarmID);
@@ -245,15 +283,20 @@ class AlarmManager {
 						
 						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
 						                     soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
-						//add 30sec needed
-						dateForRepeat = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
-						tmpNSComp = (Calendar.current as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
-						tmpNSComp.second = 30;
-						dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
-						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
-						                     soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
-						//Add end..
+						if #available(iOS 10.0, *) {
+						} else {
+							//add 30sec needed
+							dateForRepeat = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
+							tmpNSComp = (Calendar.current as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
+							tmpNSComp.second = 30;
+							dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
+							addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
+												 soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
+							//Add end..
+						}
 					}
+					
+					
 				}
 			} //end if
 			
@@ -267,13 +310,25 @@ class AlarmManager {
 			if (scdAlarm[i].alarmFireDate.timeIntervalSince1970 <= Date().timeIntervalSince1970
 				&& scdAlarm[i].alarmCleared == true ) { /* 시간이 지났어도, 게임을 클리어 해야됨. 게임 클리어시 true로 설정후 merge 한번더 하면됨 */
 					print("Merge start:", scdAlarm[i].alarmID);
-				//알람 merge 대상. 우선 일치하는 ID의 알람을 스케줄에서 삭제함
-				for j:Int in 0 ..< scdNotifications.count {
-					if (scdNotifications[j].userInfo!["id"] as! Int == scdAlarm[i].alarmID) {
-						UIApplication.shared.cancelLocalNotification(scdNotifications[j]);
+					//알람 merge 대상. 우선 일치하는 ID의 알람을 스케줄에서 삭제함
+					if #available(iOS 10.0, *) {
+						for j:Int in 0 ..< (notificationsArray!.count) {
+							let arrTmpID:Int = (notificationsArray![j] as! UNNotificationRequest).content.userInfo["id"] as! Int;
+							if ( arrTmpID == scdAlarm[i].alarmID) {
+								UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [(notificationsArray![j] as! UNNotificationRequest).identifier]);
+							}
+							
+						}
+						
+					} else {
+						for j:Int in 0 ..< notificationsArray!.count {
+							if ((notificationsArray![j] as! UILocalNotification).userInfo!["id"] as! Int == scdAlarm[i].alarmID) {
+								UIApplication.shared.cancelLocalNotification(notificationsArray![j] as! UILocalNotification);
+							}
+						} //end for
+						
 					}
-				} //end for
-				
+			
 				//다음 Repeat 대상이 있는지 체크
 				let todayDate:DateComponents = (Calendar.current as NSCalendar).components( .weekday, from: Date());
 				//TODO - 1. 오늘의 요일을 얻어옴. 2. 다음 날짜 알람 체크. 3. 날짜만큼 더함.
@@ -697,19 +752,41 @@ class AlarmManager {
 	static func addLocalNotification(_ aBody:String, aFireDate:Date, gameID:Int, soundFile:String, repeatInfo:Array<Bool>, alarmID:Int) {
 		
 		//Add to system
-		let notification = UILocalNotification();
-		notification.alertBody = aBody;
-		notification.alertAction = Languages.$("alarmSlideToStartGameSuffix"); //'밀어서' 고정 아시발.
-		notification.fireDate = aFireDate;
-		notification.soundName = soundFile;
-		notification.userInfo = [
-			"id": alarmID,
-			"soundFile": soundFile,
-			"gameCategory": gameID,
-			"repeat": repeatInfo
-		];
-		notification.repeatInterval = .minute; //30초 간격 (1분 ~ 30초)
-		UIApplication.shared.scheduleLocalNotification(notification);
+		if #available(iOS 10.0, *) {
+			//iOS 10
+			let notifiContent:UNMutableNotificationContent = UNMutableNotificationContent();
+			notifiContent.title = aBody;
+			notifiContent.body = "aa";
+			notifiContent.sound = UNNotificationSound(named: soundFile);
+			notifiContent.userInfo = [
+				"id": alarmID,
+				"soundFile": soundFile,
+				"gameCategory": gameID,
+				"repeat": repeatInfo
+			];
+			let dateComp:DateComponents = Calendar.current.dateComponents([.calendar, .year, .month, .day, .hour, .minute, .second], from: aFireDate);
+			let notifiTrigger = UNCalendarNotificationTrigger.init(dateMatching: dateComp, repeats: false);
+			let notifiRequest:UNNotificationRequest = UNNotificationRequest.init(identifier: String(alarmID), content: notifiContent, trigger: notifiTrigger);
+			UNUserNotificationCenter.current().add(notifiRequest);
+			
+			
+		} else {
+			//iOS 8-9 callback
+			let notification = UILocalNotification();
+			notification.alertBody = aBody;
+			notification.alertAction = Languages.$("alarmSlideToStartGameSuffix"); //'밀어서' 고정 아시발.
+			notification.fireDate = aFireDate;
+			notification.soundName = soundFile;
+			notification.userInfo = [
+				"id": alarmID,
+				"soundFile": soundFile,
+				"gameCategory": gameID,
+				"repeat": repeatInfo
+			];
+			notification.repeatInterval = .minute; //30초 간격 (1분 ~ 30초)
+			UIApplication.shared.scheduleLocalNotification(notification);
+		}
+		
 		
 	}
 	

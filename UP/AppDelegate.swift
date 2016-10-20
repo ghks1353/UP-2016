@@ -11,9 +11,10 @@ import AVFoundation;
 import MediaPlayer;
 import Google.Analytics;
 import GameKit;
+import UserNotifications;
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
 	var window: UIWindow?;
 	var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?;
@@ -42,6 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		//Unityads init
 		UnityAdsManager.initManager();
+		
+		if #available(iOS 10.0, *) {
+			UNUserNotificationCenter.current().delegate = self
+		} else {
+			// Fallback on earlier versions
+		};
 		
 		//로컬알림 (등)으로인해 앱실행된경우.
 		/*if let options = launchOptions {
@@ -217,6 +224,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+	//func notific
+	@available(iOS 10.0, *)
+	func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+		print("Notifi called");
+	}
+	@available(iOS 10.0, *)
+	func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+		print("Notifi responsed");
+	}
 
 }
 
