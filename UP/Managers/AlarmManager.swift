@@ -239,6 +239,11 @@ class AlarmManager {
 		
 		print("Scheduled alarm count", scdAlarm.count);
 		for i:Int in 0 ..< scdAlarm.count {
+			let alarmTmpUUID:String = scdAlarm[i].notifyUUID == "" ? UUID().uuidString : scdAlarm[i].notifyUUID;
+			if (scdAlarm[i].notifyUUID == "") {
+				scdAlarm[i].notifyUUID = alarmTmpUUID;
+			}
+			
 			//없는 사운드에 대해서 첫번째 사운드로 적용
 			if (SoundManager.findSoundObjectWithFileName(scdAlarm[i].alarmSound) == nil) {
 				//찾고 있는 사운드는 존재하지 않으니, 맨 첫번째 사운드로 바꿈.
@@ -282,7 +287,8 @@ class AlarmManager {
 						dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
 						
 						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
-						                     soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
+						                     soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID, notifiUUID: alarmTmpUUID);
+						
 						if #available(iOS 10.0, *) {
 						} else {
 							//add 30sec needed
@@ -377,14 +383,17 @@ class AlarmManager {
 					dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
 					
 					addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
-						soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
-					//add 30sec needed
-					dateForRepeat = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
-					tmpNSComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
-					tmpNSComp.second = 30;
-					dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
-					addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
-						soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
+						soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID, notifiUUID: alarmTmpUUID);
+					if #available(iOS 10.0, *) {
+					} else {
+						//add 30sec needed
+						dateForRepeat = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
+						tmpNSComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
+						tmpNSComp.second = 30;
+						dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
+						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
+							soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
+					}
 					print("Alarm added successfully.");
 					
 				} //end vaild chk
@@ -581,6 +590,7 @@ class AlarmManager {
 		var date:Date = funcDate;
 		var alarmTitle:String = funcAlarmTitle;
 		let alarmMemo:String = funcAlarmMemo;
+		let nUUID:String = UUID().uuidString;
 		
 		if(alarmTitle == "") { //알람 타이틀이 없으면 소리만 울리는 상황이 발생하므로 기본 이름 설정
 			alarmTitle = Languages.$("alarmDefaultName");
@@ -710,17 +720,20 @@ class AlarmManager {
 		date = Calendar.current.date(from: tmpNSComp)!;
 		
 		if (isToggled == true) {
-			AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID);
+			AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID, notifiUUID: nUUID);
 		}
 	
 		//30초
-		tmpNSComp.second = 30;
-		date = Calendar.current.date(from: tmpNSComp)!;
-		
-		if (isToggled == true) {
-			AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID);
-		}
+		if #available(iOS 10.0, *) {
+		} else {
+			tmpNSComp.second = 30;
+			date = Calendar.current.date(from: tmpNSComp)!;
 			
+			if (isToggled == true) {
+				AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID);
+			}
+		}
+		
 		//Add alarm to system (array) and save to nsdef
 		let tmpAlarmEle:AlarmElements = AlarmElements();
 		
@@ -729,7 +742,7 @@ class AlarmManager {
 		date = Calendar.current.date(from: tmpNSComp)!;
 		
 		tmpAlarmEle.initObject(alarmTitle, memo: alarmMemo, game: gameID, repeats: repeatArr,
-		                       soundSize: alarmLevel, sound: soundFile.soundFileName, alarmDate: date, alarmTool: isToggled, id: alarmUUID);
+		                       soundSize: alarmLevel, sound: soundFile.soundFileName, alarmDate: date, alarmTool: isToggled, id: alarmUUID, uuid: nUUID);
 		
 		if (insertAt == -1) {
 			//add to arr and save
@@ -749,14 +762,14 @@ class AlarmManager {
 	}
 	
 	//내부함수
-	static func addLocalNotification(_ aBody:String, aFireDate:Date, gameID:Int, soundFile:String, repeatInfo:Array<Bool>, alarmID:Int) {
+	static func addLocalNotification(_ aBody:String, aFireDate:Date, gameID:Int, soundFile:String, repeatInfo:Array<Bool>, alarmID:Int, notifiUUID:String = "") {
 		
 		//Add to system
 		if #available(iOS 10.0, *) {
 			//iOS 10
 			let notifiContent:UNMutableNotificationContent = UNMutableNotificationContent();
 			notifiContent.title = aBody;
-			notifiContent.body = "aa";
+			//notifiContent.body = "aa";
 			notifiContent.sound = UNNotificationSound(named: soundFile);
 			notifiContent.userInfo = [
 				"id": alarmID,
@@ -766,7 +779,7 @@ class AlarmManager {
 			];
 			let dateComp:DateComponents = Calendar.current.dateComponents([.calendar, .year, .month, .day, .hour, .minute, .second], from: aFireDate);
 			let notifiTrigger = UNCalendarNotificationTrigger.init(dateMatching: dateComp, repeats: false);
-			let notifiRequest:UNNotificationRequest = UNNotificationRequest.init(identifier: String(alarmID), content: notifiContent, trigger: notifiTrigger);
+			let notifiRequest:UNNotificationRequest = UNNotificationRequest.init(identifier: notifiUUID, content: notifiContent, trigger: notifiTrigger);
 			UNUserNotificationCenter.current().add(notifiRequest);
 			
 			

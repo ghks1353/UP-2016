@@ -12,6 +12,7 @@ class AlarmElements:NSObject {
 	
 	internal var alarmName:String = "";
 	internal var alarmMemo:String = ""; //added
+	internal var notifyUUID:String = ""; //for ios10 notify
 	
 	internal var gameSelected:Int = 0;
 	internal var alarmID:Int = 0;
@@ -32,6 +33,8 @@ class AlarmElements:NSObject {
 	func encodeWithCoder(_ aCoder: NSCoder!) {
 		aCoder.encode(alarmName, forKey: "alarmName");
 		aCoder.encode(alarmMemo, forKey: "alarmMemo");
+		
+		aCoder.encode(notifyUUID, forKey: "notifyUUID");
 		
 		aCoder.encode(gameSelected, forKey: "gameSelected");
 		aCoder.encode(alarmID, forKey: "alarmID");
@@ -59,6 +62,12 @@ class AlarmElements:NSObject {
 			alarmMemo = ""; //default empty.
 		}
 		
+		if (aDecoder.containsValue(forKey: "notifyUUID")) {
+			notifyUUID = aDecoder.decodeObject(forKey: "notifyUUID") as! String;
+		} else { //uuid not exists fallback
+			notifyUUID = ""; //default empty.
+		}
+		
 		gameSelected = aDecoder.decodeInteger(forKey: "gameSelected");
 		alarmID = aDecoder.decodeInteger(forKey: "alarmID");
 		for i:Int in 0 ..< alarmRepeat.count {
@@ -82,8 +91,9 @@ class AlarmElements:NSObject {
 	override init() {
 	}
 	
-	internal func initObject(_ name:String, memo:String, game:Int, repeats:Array<Bool>, soundSize:Int, sound:String, alarmDate:Date, alarmTool:Bool, id:Int) {
+	internal func initObject(_ name:String, memo:String, game:Int, repeats:Array<Bool>, soundSize:Int, sound:String, alarmDate:Date, alarmTool:Bool, id:Int, uuid:String = "") {
 		alarmName = name; alarmMemo = memo;
+		notifyUUID = uuid;
 		gameSelected = game; alarmRepeat = repeats;
 		
 		alarmSoundLevel = soundSize;
