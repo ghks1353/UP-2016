@@ -217,7 +217,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("0082ED").cgColor , UPUtils.colorWithHexString("005396").cgColor ];
 							break;
 						case 1, 2: //주황 계열 그래디언트 색 설정
-							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("FFCE08").cgColor , UPUtils.colorWithHexString("FF7300").cgColor ];
+							rootViewChartBackgroundGradient!.colors = [ UPUtils.colorWithHexString("FFA408").cgColor , UPUtils.colorWithHexString("F26100").cgColor ];
 							break;
 						default: break;
 					}
@@ -250,11 +250,6 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					rootViewChartPointer = createPredesignedPieChart() as ChartViewBase;
 					pieChartPointer = rootViewChartPointer as? PieChartView;
 					
-					//받아온 데이터를 0인지 1인지를 검사하여 두 카테고리로 분리해야 함
-					var xIndArr:Array<String> = [
-						Languages.$("statsDataGameRetired"), Languages.$("statsDataGameCleared")
-					]; //0번째 카테고리 - 포기, 1번째 카테고리 - 성공
-					
 					//element를 돌면서 성공과 비율을 먼저 구하자
 					var successCount:Int = 0; var failedCount:Int = 0;
 					
@@ -266,37 +261,30 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 						} //end if
 					} //end for
 					
-					//둘중 하나 카운트가 없으면 라벨 표기 안함
-					if (failedCount == 0) {
-						xIndArr[0] = ""; //0번째는 실패 라벨
-					}
-					if (successCount == 0) {
-						xIndArr[1] = ""; //1번째는 클리어 라벨
-					}
-					
 					//카운트를 기반으로 데이터를 넣기.
 					let successPercent:Double = (Double(successCount) / Double(statsDataResult!.count)) * 100;
 					let failedPercent:Double = (Double(failedCount) / Double(statsDataResult!.count)) * 100;
 					
-					let failedDataEntry:ChartDataEntry =
-						ChartDataEntry(value: failedPercent, xIndex: 0);
-					let successDataEntry:ChartDataEntry =
-						ChartDataEntry(value: successPercent, xIndex: 1);
+					let failedDataEntry:PieChartDataEntry =
+						PieChartDataEntry(value: failedPercent, label: failedCount == 0 ? "" : Languages.$("statsDataGameRetired"));
+					let successDataEntry:PieChartDataEntry =
+						PieChartDataEntry(value: successPercent, label: successCount == 0 ? "" : Languages.$("statsDataGameCleared"));
 					let pieChartDataSet:PieChartDataSet =
-						PieChartDataSet(yVals: [ failedDataEntry, successDataEntry ], label: "");
+						PieChartDataSet(values: [ failedDataEntry, successDataEntry ], label: "");
 					
 					pieChartDataSet.colors = [
-						UIColor(red: 1, green: 1, blue: 1, alpha: 0.3), /* 포기 */
+						UIColor(red: 1, green: 1, blue: 1, alpha: 0.2), /* 포기 */
 						UIColor(red: 1, green: 1, blue: 1, alpha: 0.82) //성공
 					];
 					pieChartDataSet.valueColors = [
 						UIColor.white, UPUtils.colorWithHexString(currentBGColor)
 					];
 					
-					let pieChartDatas:PieChartData = PieChartData( xVals: xIndArr, dataSet: pieChartDataSet );
+					let pieChartDatas:PieChartData = PieChartData(dataSet: pieChartDataSet);
 					pieChartDatas.setDrawValues(false);
 					
 					pieChartPointer!.data = pieChartDatas; //data apply
+					
 					currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
 					
 					//Show pie titles
@@ -321,16 +309,17 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							barChartPointer = rootViewChartPointer as? BarChartView;
 							
 							for i:Int in 0 ..< statsDataResult!.count {
-								let dataEntry = BarChartDataEntry( value: Double(statsDataResult![i].numberData), xIndex: i );
+								let dataEntry = BarChartDataEntry(x: Double(i), y: Double(statsDataResult![i].numberData));
 								tDataEntries.append( dataEntry );
 								
 								resultAverage += statsDataResult![i].numberData;
 								
 								//x축 라벨 추가를 위한 작업
+								
 								if (previousMonth != statsDataResult![i].dateComponents!.month) {
 									previousMonth = statsDataResult![i].dateComponents!.month!;
 									//Languages $0 ~ $1 되있는것 자동 변수 삽입.
-									let monthStr:String = Languages.localizeMonth( String(describing: statsDataResult![i].dateComponents!.month) );
+									let monthStr:String = Languages.localizeMonth( String(describing: previousMonth ));
 									
 									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: monthStr as AnyObject, statsDataResult![i].dateComponents!.day as AnyObject) ];
 								} else {
@@ -340,12 +329,16 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							} //end for
 							
 							//DataSet 지정(하나의 legend라고 생각하면 됨)
-							let chartDataSet:BarChartDataSet = BarChartDataSet( yVals: tDataEntries, label: "" );
+							let chartDataSet:BarChartDataSet = BarChartDataSet(values: tDataEntries, label: "");
+								//BarChartDataSet( yVals: tDataEntries, label: "" );
 							//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
-							let chartData = BarChartData(xVals: tDatasXAxisEntry, dataSet: chartDataSet );
+							let chartData = BarChartData(dataSet: chartDataSet);
+							chartData.barWidth = 0.07;
 							
 							//Visual settings
-							chartDataSet.barSpace = 0.8; chartDataSet.drawValuesEnabled = false;
+							//chartDataSet.barBorderWidth = 0.8; //before: barSpace
+							chartDataSet.barBorderColor = UIColor.clear;
+							chartDataSet.drawValuesEnabled = false;
 							chartDataSet.setColor( UIColor.init(red: 255, green: 255, blue: 255, alpha: 0.5) ); //Chart color
 							
 							let tYaxisTopLine:ChartLimitLine = ChartLimitLine(limit: chartData.getYMax(), label: "");
@@ -353,13 +346,21 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							tYaxisTopLine.lineWidth = 1;
 							
 							//표에 구분선 추가
-							barChartPointer!.rightYAxisRenderer.yAxis!.removeAllLimitLines(); //Reset all lines
-							barChartPointer!.rightYAxisRenderer.yAxis!.addLimitLine(tYaxisTopLine);
+							barChartPointer!.rightYAxisRenderer.axis!.removeAllLimitLines(); //Reset all lines
+							barChartPointer!.rightYAxisRenderer.axis!.addLimitLine(tYaxisTopLine);
 							
 							barChartPointer!.data = chartData; //data apply
 							
-							barChartPointer!.rightYAxisRenderer.yAxis!.axisMinValue = 0;
-							barChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax(); //set max value
+							barChartPointer!.rightYAxisRenderer.axis!.axisMinimum = 0;
+							barChartPointer!.rightYAxisRenderer.axis!.axisMaximum = chartData.getYMax(); //set max value
+							
+							barChartPointer!.rightYAxisRenderer.axis!.setLabelCount(2, force: true);
+							barChartPointer!.xAxisRenderer.axis!.setLabelCount(chartData.entryCount, force: false);
+							//barChartPointer!.xAxisRenderer.axis!.centerAxisLabelsEnabled = true;
+							
+							print("chart entrycount is ", chartData.entryCount);
+							
+							barChartPointer!.fitBars = true;
 							
 							switch(selDataPointInt) {
 								case 3, 5: //~% 표기
@@ -385,8 +386,18 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							
 							
 							barChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeOutCirc );
-							barChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positivePrefix = currentDataPrefix;
-							barChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positiveSuffix = currentDataSuffix;
+							
+							//X Formatter
+							let defXFormatter:StrArrayFormatter = StrArrayFormatter();
+							defXFormatter.strArr = tDatasXAxisEntry;
+							
+							//Y Formatter
+							let defFormatter:NumberFormatter = NumberFormatter();
+							defFormatter.positivePrefix = currentDataPrefix;
+							defFormatter.positiveSuffix = currentDataSuffix;
+							
+							barChartPointer!.xAxisRenderer.axis!.valueFormatter = DefaultAxisValueFormatter(formatter: defXFormatter);
+							barChartPointer!.rightYAxisRenderer.axis!.valueFormatter = DefaultAxisValueFormatter(formatter: defFormatter);
 							
 							break;
 						case 1, 2: //use line chart.
@@ -394,7 +405,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							lineChartPointer = rootViewChartPointer as? LineChartView;
 							
 							for i:Int in 0 ..< statsDataResult!.count {
-								let dataEntry = ChartDataEntry( value: Double(statsDataResult![i].numberData), xIndex: i );
+								let dataEntry = ChartDataEntry(x: Double(i), y: Double(statsDataResult![i].numberData));
+									//ChartDataEntry( value: Double(statsDataResult![i].numberData), xIndex: i );
 								tLineDataEntries.append( dataEntry );
 								
 								resultAverage += statsDataResult![i].numberData;
@@ -403,7 +415,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 								if (previousMonth != statsDataResult![i].dateComponents!.month) {
 									previousMonth = statsDataResult![i].dateComponents!.month!;
 									//Languages $0 ~ $1 되있는것 자동 변수 삽입.
-									let monthStr:String = Languages.localizeMonth( String(describing: statsDataResult![i].dateComponents!.month) );
+									let monthStr:String = Languages.localizeMonth( String(describing: previousMonth) );
 									
 									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: monthStr as AnyObject, statsDataResult![i].dateComponents!.day as AnyObject) ];
 								} else {
@@ -413,9 +425,10 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							} //end for
 							
 							//DataSet 지정(하나의 legend라고 생각하면 됨)
-							let chartDataSet:LineChartDataSet = LineChartDataSet(yVals: tLineDataEntries, label: "");
+							let chartDataSet:LineChartDataSet = LineChartDataSet(values: tLineDataEntries, label: "");
 							//종합적인 차트 데이터를 하나로 묶어야 함. dataSet는 단일이 아닌 배열로 줄 수도 있음
-							let chartData = LineChartData(xVals: tDatasXAxisEntry, dataSet: chartDataSet );
+							let chartData = LineChartData(dataSet: chartDataSet);
+								//LineChartData(xVals: tDatasXAxisEntry, dataSet: chartDataSet );
 							
 							chartDataSet.drawValuesEnabled = false; //값 표시 안함
 							//선 색 설정. 알파 적용을 위해 RGB 입력
@@ -431,35 +444,47 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							lineChartPointer!.data = chartData;
 							
 							//최대치 설정. 최대치는 여기서 설정해야 버그없이 작동함.
-							lineChartPointer!.rightYAxisRenderer.yAxis!.axisMaxValue = chartData.getYMax();
-							
+							lineChartPointer!.rightYAxisRenderer.axis!.axisMinimum = chartData.getYMax();
+							lineChartPointer!.rightYAxisRenderer.axis!.setLabelCount(2, force: true);
+							lineChartPointer!.xAxisRenderer.axis!.setLabelCount(chartData.entryCount, force: false);
 							
 							switch(selDataPointInt) {
-							case 3, 5: //~% 표기
-								currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
-								
-								//Get average
-								resultAverage = resultAverage / Float(statsDataResult!.count);
-								break;
-							case 4, 6: //합계 ~회 표기
-								currentDataPrefix = Languages.$("statsDataFormatCountsPrefixShort");
-								currentDataSuffix = Languages.$("statsDataFormatCountsSuffixShort");
-								
-								//Average 구할 필요 없음
-								break;
-							default: //평균 ~분 표기
-								currentDataPrefix = Languages.$("statsTimeFormatMinPrefix");
-								currentDataSuffix = Languages.$("statsTimeFormatMinSuffix");
-								
-								//Get average
-								resultAverage = resultAverage / Float(statsDataResult!.count);
-								break;
+								case 3, 5: //~% 표기
+									currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
+									
+									//Get average
+									resultAverage = resultAverage / Float(statsDataResult!.count);
+									break;
+								case 4, 6: //합계 ~회 표기
+									currentDataPrefix = Languages.$("statsDataFormatCountsPrefixShort");
+									currentDataSuffix = Languages.$("statsDataFormatCountsSuffixShort");
+									
+									//Average 구할 필요 없음
+									break;
+								default: //평균 ~분 표기
+									currentDataPrefix = Languages.$("statsTimeFormatMinPrefix");
+									currentDataSuffix = Languages.$("statsTimeFormatMinSuffix");
+									
+									//Get average
+									resultAverage = resultAverage / Float(statsDataResult!.count);
+									break;
 							} //end switch
 							
 							
 							lineChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeOutCirc );
-							lineChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positivePrefix = currentDataPrefix;
-							lineChartPointer!.rightYAxisRenderer.yAxis!.valueFormatter!.positiveSuffix = currentDataSuffix;
+							
+							//X Formatter
+							let defXFormatter:StrArrayFormatter = StrArrayFormatter();
+							defXFormatter.strArr = tDatasXAxisEntry;
+							
+							//Y Formatter
+							let defFormatter:NumberFormatter = NumberFormatter();
+							defFormatter.positivePrefix = currentDataPrefix;
+							defFormatter.positiveSuffix = currentDataSuffix;
+							
+							lineChartPointer!.xAxisRenderer.axis!.valueFormatter = DefaultAxisValueFormatter(formatter: defXFormatter);
+							lineChartPointer!.rightYAxisRenderer.axis!.valueFormatter = DefaultAxisValueFormatter(formatter: defFormatter);
+							
 							
 							break;
 						default: //fallback
@@ -717,7 +742,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tMultipleChart.legend.enabled = false;
 		tMultipleChart.highlightPerTapEnabled = false;
 		//오른쪽 아래 차트에 오버레이되는 라벨 텍스트
-		tMultipleChart.descriptionText = "";
+		tMultipleChart.chartDescription!.text = "";
 		tMultipleChart.noDataText = Languages.$("statsNoDataAvailable");
 		tMultipleChart.holeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
 		
@@ -734,7 +759,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		yAxisNumberFormatter.positiveSuffix = Languages.$("statsTimeFormatMinSuffix"); //positiveSuffix -> 숫자 뒤에 붙는 문자
 		
 		//차트 크기 지정
-		tMultipleChart.frame = CGRect(x: 0, y: 28, width: self.modalView.view.frame.width, height: 140);
+		tMultipleChart.frame = CGRect(x: 0, y: 28 + 12, width: self.modalView.view.frame.width, height: 140 - 12);
 		
 		//User-interaction 해제 부분
 		tMultipleChart.pinchZoomEnabled = false;
@@ -745,7 +770,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tMultipleChart.highlightPerTapEnabled = false;
 		
 		//오른쪽 아래 차트에 오버레이되는 라벨 텍스트
-		tMultipleChart.descriptionText = "";
+		tMultipleChart.chartDescription!.text = "";
 		
 		//주변 선 그리지 않도록 무시
 		tMultipleChart.drawBordersEnabled = false;
@@ -762,27 +787,28 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tMultipleChart.xAxis.labelTextColor = UIColor.white;
 		
 		//스킵이 있을 경우, 너비와 상관 없이 가로 라벨을 생략하므로 0으로 설정하여 생략이 없게 설정
-		tMultipleChart.xAxis.setLabelsToSkip(0);
+		tMultipleChart.xAxis.setLabelCount(tMultipleChart.xAxis.labelCount, force: true);
 		
 		//왼쪽 yAxis 표시 안함
-		tMultipleChart.leftYAxisRenderer.yAxis!.enabled = false;
+		tMultipleChart.leftYAxisRenderer.axis!.enabled = false;
 		
 		//오른쪽 yAxis의 라벨을 바깥으로 보냄
-		tMultipleChart.rightYAxisRenderer.yAxis!.labelPosition = .outsideChart;
+		//tMultipleChart.rightYAxisRenderer.axis!.label = .outsideChart;
 		
 		//그리드 라인, ZeroLine, AxisLine 그리지 않음 설정
-		tMultipleChart.rightYAxisRenderer.yAxis!.drawGridLinesEnabled = false;
-		tMultipleChart.rightYAxisRenderer.yAxis!.drawZeroLineEnabled = false;
-		tMultipleChart.rightYAxisRenderer.yAxis!.drawAxisLineEnabled = false;
+		tMultipleChart.rightYAxisRenderer.axis!.drawGridLinesEnabled = false;
+		//tMultipleChart.rightYAxisRenderer.axis!.drawZeroLineEnabled = false;
+		tMultipleChart.rightYAxisRenderer.axis!.drawAxisLineEnabled = false;
 		
 		//~분 포맷
-		tMultipleChart.rightYAxisRenderer.yAxis!.valueFormatter = yAxisNumberFormatter;
+		tMultipleChart.rightYAxisRenderer.axis!.valueFormatter = DefaultAxisValueFormatter(formatter: yAxisNumberFormatter);
+		
 		
 		//라벨 컬러 지정
-		tMultipleChart.rightYAxisRenderer.yAxis!.labelTextColor = UIColor.white;
-		tMultipleChart.leftYAxisRenderer.yAxis!.axisMinValue = 0; //disabled 되어있어도 설정이 필요.
-		tMultipleChart.rightYAxisRenderer.yAxis!.axisMinValue = 0;
-		tMultipleChart.rightYAxisRenderer.yAxis!.showOnlyMinMaxEnabled = true;
+		tMultipleChart.rightYAxisRenderer.axis!.labelTextColor = UIColor.white;
+		tMultipleChart.leftYAxisRenderer.axis!.axisMinimum = 0; //disabled 되어있어도 설정이 필요.
+		tMultipleChart.rightYAxisRenderer.axis!.axisMinimum = 0;
+		//tMultipleChart.rightYAxisRenderer.axis!.showOnlyMinMaxEnabled = true;
 		
 		tMultipleChart.noDataText = Languages.$("statsNoDataAvailable");
 		
@@ -837,7 +863,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		yAxisNumberFormatter.positiveSuffix = Languages.$("statsTimeFormatMinSuffix"); //positiveSuffix -> 숫자 뒤에 붙는 문자
 		
 		//차트 크기 지정
-		tMultipleChart.frame = CGRect(x: 0, y: 28, width: self.modalView.view.frame.width, height: 140);
+		tMultipleChart.frame = CGRect(x: 0, y: 28 + 12, width: self.modalView.view.frame.width, height: 140 - 12);
 		
 		//User-interaction 해제 부분
 		tMultipleChart.pinchZoomEnabled = false;
@@ -848,7 +874,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tMultipleChart.highlightPerTapEnabled = false;
 		
 		//오른쪽 아래 차트에 오버레이되는 라벨 텍스트
-		tMultipleChart.descriptionText = "";
+		tMultipleChart.chartDescription!.text = "";
 		
 		//주변 선 그리지 않도록 무시
 		tMultipleChart.drawBordersEnabled = false;
@@ -868,23 +894,23 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		//tMultipleChart.xAxis.setLabelsToSkip(0);
 		
 		//왼쪽 yAxis 표시 안함
-		tMultipleChart.leftYAxisRenderer.yAxis!.enabled = false;
+		tMultipleChart.leftYAxisRenderer.axis!.enabled = false;
 		
 		//오른쪽 yAxis의 라벨을 바깥으로 보냄
-		tMultipleChart.rightYAxisRenderer.yAxis!.labelPosition = .outsideChart;
+		//tMultipleChart.rightYAxisRenderer.axis!.labelPosition = .outsideChart;
 		
 		//그리드 라인, ZeroLine, AxisLine 그리지 않음 설정
-		tMultipleChart.rightYAxisRenderer.yAxis!.drawGridLinesEnabled = false;
-		tMultipleChart.rightYAxisRenderer.yAxis!.drawZeroLineEnabled = false;
-		tMultipleChart.rightYAxisRenderer.yAxis!.drawAxisLineEnabled = false;
+		tMultipleChart.rightYAxisRenderer.axis!.drawGridLinesEnabled = false;
+		//tMultipleChart.rightYAxisRenderer.axis!.drawZeroLineEnabled = false;
+		tMultipleChart.rightYAxisRenderer.axis!.drawAxisLineEnabled = false;
 		
 		//~분 포맷
-		tMultipleChart.rightYAxisRenderer.yAxis!.valueFormatter = yAxisNumberFormatter;
+		tMultipleChart.rightYAxisRenderer.axis!.valueFormatter = DefaultAxisValueFormatter( formatter: yAxisNumberFormatter );
 		
 		//라벨 컬러 지정
-		tMultipleChart.rightYAxisRenderer.yAxis!.labelTextColor = UIColor.white;
-		tMultipleChart.rightYAxisRenderer.yAxis!.axisMinValue = 0;
-		tMultipleChart.rightYAxisRenderer.yAxis!.showOnlyMinMaxEnabled = true;
+		tMultipleChart.rightYAxisRenderer.axis!.labelTextColor = UIColor.white;
+		tMultipleChart.rightYAxisRenderer.axis!.axisMinimum = 0;
+		//tMultipleChart.rightYAxisRenderer.axis!.showOnlyMinMaxEnabled = true;
 		
 		tMultipleChart.noDataText = Languages.$("statsNoDataAvailable");
 		

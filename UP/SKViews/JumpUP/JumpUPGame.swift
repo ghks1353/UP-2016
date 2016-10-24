@@ -2001,12 +2001,9 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		AlarmManager.gameClearToggleAlarm( AlarmRingView.selfView!.currentAlarmElement!.alarmID, cleared: true );
 		AlarmManager.mergeAlarm(); //Merge it
 		AlarmManager.alarmRingActivated = false;
-		//Refresh tables
-		AlarmListView.selfView?.createTableList();
 		
 		AlarmRingView.selfView!.dismiss(animated: false, completion: nil);
 		GlobalSubView.alarmRingViewcontroller.dismiss(animated: true, completion: nil);
-		
 	}
 	
 } //end of class

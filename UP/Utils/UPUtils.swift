@@ -59,7 +59,7 @@ class UPUtils {
 	//Encode sha256.
 	static func SHA256(_ str:String) -> String {
 		let plainData:Data = str.data(using: String.Encoding.utf8)!;
-		let encryptedData:Data = plainData.sha256()!;
+		let encryptedData:Data = plainData.sha256();
 		
 		return encryptedData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0));
 	}

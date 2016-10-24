@@ -122,6 +122,7 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 		tCell.cellID = menuID;
 		switch(menuID) {
 			case "useAlarmMemo": tIconFileStr = "comp-icons-settings-memo"; break;
+			case "usNoLieDown": tIconFileStr = "comp-icons-settings-wakeuponly"; break;
 			default: tIconFileStr = "comp-icons-settings-experiments"; break;
 		};
 		
@@ -185,6 +186,7 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 		
 		switch(settingsID) {
 			case "useAlarmMemo": tIconFileStr = "comp-icons-settings-memo"; break;
+			case "usNoLieDown": tIconFileStr = "comp-icons-settings-wakeuponly"; break;
 			default: tIconFileStr = "comp-icons-settings-experiments"; break;
 		};
 		

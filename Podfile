@@ -7,9 +7,9 @@ target "UP" do
 	pod 'Google/Analytics'
 	pod 'GoogleIDFASupport'
 	pod 'SwiftyJSON', :git => 'https://github.com/appsailor/SwiftyJSON.git', :branch => 'swift3'
-	pod 'Gifu', :git => 'https://github.com/kaishin/Gifu.git', :branch => 'swift3'
+	pod 'Gifu'
 	pod 'Charts/Realm'
-    pod 'SQLite.swift', :git => 'https://github.com/stephencelis/SQLite.swift.git', :branch => 'swift3-mariotaku'
+    pod 'SQLite.swift'
 end
 
 post_install do |installer|

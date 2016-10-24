@@ -97,6 +97,7 @@ class AlarmRingView:UIViewController {
 	
 	
 	//override func viewWillDisappear(animated: Bool) {
+	
 	func disposeView() {
 		//view disappear event handler
 		print("AlarmRingView disposing");
@@ -109,6 +110,9 @@ class AlarmRingView:UIViewController {
 			cMotionManager!.stopGyroUpdates();
 			cMotionManager = nil;
 		}
+		
+		//Refresh tables
+		AlarmListView.selfView!.createTableList();
 	}
 	
 	override func didReceiveMemoryWarning() {

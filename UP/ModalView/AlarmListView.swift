@@ -256,15 +256,16 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	} ///////////////////////////////
 	
 	//table list create method
-	internal func createTableList() {
+	func createTableList() {
 		for i:Int in 0..<alarmsCell.count {
 			alarmsCell[i].removeFromSuperview();
 		}
 		alarmsCell.removeAll();
 		
+		print("creating table list... count:", AlarmManager.alarmsArray.count );
 		var tmpComponentPointer:DateComponents;
 		for i:Int in 0 ..< AlarmManager.alarmsArray.count {
-			tmpComponentPointer = (Calendar.current as NSCalendar).components([.hour, .minute], from: AlarmManager.alarmsArray[i].alarmFireDate as Date);
+			tmpComponentPointer = Calendar.current.dateComponents([.hour, .minute], from: AlarmManager.alarmsArray[i].alarmFireDate as Date);
 			print("Alarm adding:", AlarmManager.alarmsArray[i].alarmID,
 			     ( AlarmManager.alarmsArray[i].alarmFireDate as Date).timeIntervalSince1970 ,
 			      AlarmManager.alarmsArray[i].alarmToggle, "repeat", AlarmManager.alarmsArray[i].alarmRepeat);

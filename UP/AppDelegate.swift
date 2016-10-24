@@ -98,9 +98,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		print("App is now running to background");
 		DeviceManager.appIsBackground = true;
 		AlarmManager.mergeAlarm();
-		if (AlarmListView.alarmListInited) {
+		/*if (AlarmListView.alarmListInited) {
 			AlarmListView.selfView!.createTableList(); //refresh alarm-list
-		}
+		}*/
 		
 		//// Background thread
 		backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {

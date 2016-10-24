@@ -260,11 +260,6 @@ class AlarmManager {
 							
 						}
 						
-						//iOS10은 하나만 해도 됨
-						/*let tmpContent:UNNotificationContent = UNNotificationContent();
-						tmpContent.title =
-						let tmpRequest:UNNotificationRequest = UNNotificationRequest(identifier: String(scdAlarm[i].alarmID), content: tmpContent, trigger: nil);*/
-						
 					} else {
 						for j:Int in 0 ..< notificationsArray!.count {
 							if ((notificationsArray![j] as! UILocalNotification).userInfo!["id"] as! Int == scdAlarm[i].alarmID) {
@@ -289,17 +284,17 @@ class AlarmManager {
 						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
 						                     soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID, notifiUUID: alarmTmpUUID);
 						
-						if #available(iOS 10.0, *) {
-						} else {
-							//add 30sec needed
-							dateForRepeat = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
-							tmpNSComp = (Calendar.current as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
-							tmpNSComp.second = 30;
-							dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
-							addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
-												 soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
-							//Add end..
-						}
+						//if #available(iOS 10.0, *) {
+						//} else {
+						//add 30sec needed
+						dateForRepeat = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
+						tmpNSComp = (Calendar.current as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
+						tmpNSComp.second = 30;
+						dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
+						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
+											 soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID, notifiUUID: alarmTmpUUID);
+						//Add end..
+						//}
 					}
 					
 					
@@ -384,16 +379,16 @@ class AlarmManager {
 					
 					addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
 						soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID, notifiUUID: alarmTmpUUID);
-					if #available(iOS 10.0, *) {
-					} else {
-						//add 30sec needed
-						dateForRepeat = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
-						tmpNSComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
-						tmpNSComp.second = 30;
-						dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
-						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
-							soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID);
-					}
+					//if #available(iOS 10.0, *) {
+					//} else {
+					//add 30sec needed
+					dateForRepeat = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
+					tmpNSComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
+					tmpNSComp.second = 30;
+					dateForRepeat = Calendar.current.date(from: tmpNSComp)!;
+					addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
+						soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID, notifiUUID: alarmTmpUUID);
+					//}
 					print("Alarm added successfully.");
 					
 				} //end vaild chk
@@ -724,15 +719,15 @@ class AlarmManager {
 		}
 	
 		//30초
-		if #available(iOS 10.0, *) {
-		} else {
-			tmpNSComp.second = 30;
-			date = Calendar.current.date(from: tmpNSComp)!;
-			
-			if (isToggled == true) {
-				AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID);
-			}
+		//if #available(iOS 10.0, *) {
+		//} else {
+		tmpNSComp.second = 30;
+		date = Calendar.current.date(from: tmpNSComp)!;
+		
+		if (isToggled == true) {
+			AlarmManager.addLocalNotification(alarmTitle, aFireDate: date, gameID: gameID, soundFile: soundFile.soundFileName, repeatInfo: repeatArr, alarmID: alarmUUID, notifiUUID: nUUID);
 		}
+		//}
 		
 		//Add alarm to system (array) and save to nsdef
 		let tmpAlarmEle:AlarmElements = AlarmElements();
@@ -767,6 +762,8 @@ class AlarmManager {
 		//Add to system
 		if #available(iOS 10.0, *) {
 			//iOS 10
+			//임시로 9때까지 쓰던걸 쓰자
+			/*
 			let notifiContent:UNMutableNotificationContent = UNMutableNotificationContent();
 			notifiContent.title = aBody;
 			//notifiContent.body = "aa";
@@ -781,8 +778,18 @@ class AlarmManager {
 			let notifiTrigger = UNCalendarNotificationTrigger.init(dateMatching: dateComp, repeats: false);
 			let notifiRequest:UNNotificationRequest = UNNotificationRequest.init(identifier: notifiUUID, content: notifiContent, trigger: notifiTrigger);
 			UNUserNotificationCenter.current().add(notifiRequest);
+			*/
 			
-			
+			let notification = UILocalNotification();
+			notification.alertBody = aBody;
+			notification.alertAction = Languages.$("alarmSlideToStartGameSuffix");
+			notification.fireDate = aFireDate;
+			notification.soundName = soundFile;
+			notification.userInfo = [
+				"id": alarmID,"soundFile": soundFile,"gameCategory": gameID,"repeat": repeatInfo
+			];
+			notification.repeatInterval = .minute; //30초 간격 (1분 ~ 30초)
+			UIApplication.shared.scheduleLocalNotification(notification);
 		} else {
 			//iOS 8-9 callback
 			let notification = UILocalNotification();

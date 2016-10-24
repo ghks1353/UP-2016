@@ -1,13 +1,16 @@
 PODS:
-  - Charts/Core (2.3.0)
-  - Charts/Realm (2.3.0):
+  - Charts/Core (3.0.0)
+  - Charts/Realm (3.0.0):
     - Charts/Core
     - RealmSwift (~> 1.1)
-  - CryptoSwift (0.6.0)
-  - FirebaseAnalytics (3.4.2):
+  - CryptoSwift (0.6.1)
+  - FirebaseAnalytics (3.4.4):
+    - FirebaseCore (~> 3.4)
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
+  - FirebaseCore (3.4.3):
+    - GoogleInterchangeUtilities (~> 1.2)
     - GoogleUtilities (~> 1.2)
   - FirebaseInstanceID (1.0.8)
   - Gifu (1.2.1)
@@ -20,70 +23,59 @@ PODS:
     - FirebaseAnalytics (~> 3.2)
   - GoogleAnalytics (3.17.0)
   - GoogleIDFASupport (3.14.0)
-  - GoogleInterchangeUtilities (1.2.1):
-    - GoogleSymbolUtilities (~> 1.0)
-  - GoogleSymbolUtilities (1.1.1)
-  - GoogleUtilities (1.3.1):
-    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleInterchangeUtilities (1.2.2):
+    - GoogleSymbolUtilities (~> 1.1)
+  - GoogleSymbolUtilities (1.1.2)
+  - GoogleUtilities (1.3.2):
+    - GoogleSymbolUtilities (~> 1.1)
   - Realm (1.1.0):
     - Realm/Headers (= 1.1.0)
   - Realm/Headers (1.1.0)
   - RealmSwift (1.1.0):
     - Realm (= 1.1.0)
-  - SQLite.swift (0.10.1):
-    - SQLite.swift/standard (= 0.10.1)
-  - SQLite.swift/standard (0.10.1)
+  - SQLite.swift (0.11.0):
+    - SQLite.swift/standard (= 0.11.0)
+  - SQLite.swift/standard (0.11.0)
   - SwiftyJSON (3.0.0)
 
 DEPENDENCIES:
   - Charts/Realm
   - CryptoSwift
-  - Gifu (from `https://github.com/kaishin/Gifu.git`, branch `swift3`)
+  - Gifu
   - Google
   - Google/Analytics
   - GoogleIDFASupport
-  - SQLite.swift (from `https://github.com/stephencelis/SQLite.swift.git`, branch `swift3-mariotaku`)
+  - SQLite.swift
   - SwiftyJSON (from `https://github.com/appsailor/SwiftyJSON.git`, branch `swift3`)
 
 EXTERNAL SOURCES:
-  Gifu:
-    :branch: swift3
-    :git: https://github.com/kaishin/Gifu.git
-  SQLite.swift:
-    :branch: swift3-mariotaku
-    :git: https://github.com/stephencelis/SQLite.swift.git
   SwiftyJSON:
     :branch: swift3
     :git: https://github.com/appsailor/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
-  Gifu:
-    :commit: f76b72582b9bbb996367657c8e30c5767aec957d
-    :git: https://github.com/kaishin/Gifu.git
-  SQLite.swift:
-    :commit: 1ae7acbcb1b59877cf2e034f72f3d411287a4119
-    :git: https://github.com/stephencelis/SQLite.swift.git
   SwiftyJSON:
     :commit: de73429b38b8994f614fb27c5ec094bb8a4833f2
     :git: https://github.com/appsailor/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Charts: 55d7fd9af175b500208601bea872f0fc72c1d19e
-  CryptoSwift: 4a599b7241b8d3b857d6e2c28867d0bd5d1aae24
-  FirebaseAnalytics: 3f5358d9104adf159cc8d99b7b501e50099a39ad
+  Charts: beb341928d2135613b4325a6c6aff9f2f6de895e
+  CryptoSwift: abdbc1bf32c89117c6b403810a7b30f742d86e68
+  FirebaseAnalytics: 0533a00b681e08fd0b2cd0444b7ddf0ef9fd7a1a
+  FirebaseCore: 5a885548bbc5f0c410b04f8e9ac9d73ff1221907
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   Gifu: 0eab1ca24a4adbd949338bcb71a8556748cb2d28
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   GoogleIDFASupport: aaf8c10bd429abb1c15349d5252244f5eda8ead1
-  GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
-  GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
-  GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
+  GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
+  GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
+  GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
   Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
   RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
-  SQLite.swift: c54b2cb32c2ec77cd52bc7442d05dd51b0623861
+  SQLite.swift: 9a26273607d3077a2e5a8d33486e9989f8404c7d
   SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
 
-PODFILE CHECKSUM: 415e91fdfe9f1dee4af1e1ebf23f6eb0e4eedc91
+PODFILE CHECKSUM: 8a950201b3badcf2a051b60f710959327b4e97c2
 
 COCOAPODS: 1.1.0.rc.2

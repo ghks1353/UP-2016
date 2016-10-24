@@ -392,6 +392,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			case "buyUP": tIconFileStr = "comp-icons-shop-buy"; break;
 			case "restorePurchases": tIconFileStr = "comp-icons-shop-restore"; break;
 			case "useCoupon": tIconFileStr = "comp-icons-shop-code"; break;
+			case "notice-fortesters": tIconFileStr = "comp-icons-settings-special-testers"; break;
 			default:
 				if (menuID.range(of: "experiments-") != nil) {
 					//실험실 아이콘?

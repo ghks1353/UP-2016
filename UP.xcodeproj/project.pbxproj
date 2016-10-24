@@ -455,6 +455,8 @@
 		77782E701C92B0B00016EE1B /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E641C92B0B00016EE1B /* Vector3.swift */; };
 		77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */ = {isa = PBXBuildFile; fileRef = 77802D1C1C805E1A00766DB0 /* game-thumb-jumpup.png */; };
 		77802D1F1C805E1A00766DB0 /* game-thumb-random.png in Resources */ = {isa = PBXBuildFile; fileRef = 77802D1D1C805E1A00766DB0 /* game-thumb-random.png */; };
+		779A1F341DBE32F0008D3FC3 /* StrArrayFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779A1F331DBE32F0008D3FC3 /* StrArrayFormatter.swift */; };
+		779A1F361DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png in Resources */ = {isa = PBXBuildFile; fileRef = 779A1F351DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png */; };
 		779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */; };
 		77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */; };
 		77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */; };
@@ -926,6 +928,8 @@
 		77782E641C92B0B00016EE1B /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector3.swift; path = SKTUtils/Vector3.swift; sourceTree = SOURCE_ROOT; };
 		77802D1C1C805E1A00766DB0 /* game-thumb-jumpup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-jumpup.png"; path = "ImageAssets/GameThumbs/game-thumb-jumpup.png"; sourceTree = "<group>"; };
 		77802D1D1C805E1A00766DB0 /* game-thumb-random.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-random.png"; path = "ImageAssets/GameThumbs/game-thumb-random.png"; sourceTree = "<group>"; };
+		779A1F331DBE32F0008D3FC3 /* StrArrayFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StrArrayFormatter.swift; path = Classes/StrArrayFormatter.swift; sourceTree = "<group>"; };
+		779A1F351DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-wakeuponly.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-wakeuponly.png"; sourceTree = "<group>"; };
 		779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = up_background_task_alarm.mp3; path = SoundAssets/SystemSounds/up_background_task_alarm.mp3; sourceTree = "<group>"; };
 		77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsoda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsoda.aiff"; sourceTree = "<group>"; };
@@ -1323,6 +1327,7 @@
 				03425B8B1CD0635700243B28 /* comp-icons-settings-rating.png */,
 				03425BA81CD389E100243B28 /* comp-icons-settings-experiments.png */,
 				77F9487B1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png */,
+				779A1F351DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1469,6 +1474,7 @@
 				03DDD7F91CEB990D007C026D /* SoundInfoObj.swift */,
 				03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */,
 				03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */,
+				779A1F331DBE32F0008D3FC3 /* StrArrayFormatter.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2389,6 +2395,7 @@
 				77561E4B1D50C2F2002EB26B /* skin-default-black-4.png in Resources */,
 				77561EB01D50CAB9002EB26B /* skin-default-time-sh.png in Resources */,
 				77561E1D1D50C21A002EB26B /* skin-default-character-0035.png in Resources */,
+				779A1F361DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png in Resources */,
 				032318CF1CFA686E0052732F /* result-best.png in Resources */,
 				775EB0571D51E64F00BE8C4A /* game-jumpup-assets-guide-1.png in Resources */,
 				77561E211D50C21A002EB26B /* skin-default-character-0039.png in Resources */,
@@ -2585,6 +2592,7 @@
 				77782E691C92B0B00016EE1B /* SKAction+Extensions.swift in Sources */,
 				77782E6F1C92B0B00016EE1B /* SKTTimingFunctions.swift in Sources */,
 				03DDD8101CEB9990007C026D /* UITouchableSegmentControl.swift in Sources */,
+				779A1F341DBE32F0008D3FC3 /* StrArrayFormatter.swift in Sources */,
 				03DDD81D1CEB99D1007C026D /* AlarmRingView.swift in Sources */,
 				03E1D1331CF3020B00B552FC /* CharacterInfo.swift in Sources */,
 				03DDD7FE1CEB990D007C026D /* GameInfoObj.swift in Sources */,
