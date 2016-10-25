@@ -177,23 +177,11 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		
 		switch (cell.cellID) {
 			case "buyUP":
-				if (PurchaseManager.checkIsAvailableProduct( PurchaseManager.productIDs.PREMIUM ) == false ) {
-					print("Buy up is not available");
-					showProductNotAvailable();
-				} else {
-					_ = PurchaseManager.requestBuyProduct( PurchaseManager.productIDs.PREMIUM );
-				}
+				showProductNotAvailable();
 				
 				break;
 			case "restorePurchases":
-				let restoreResult:Bool = PurchaseManager.requestRestoreProducts( restoreCallback );
-				if (restoreResult == false) {
-					//show failed restore
-					showRestoreFailed();
-				} else {
-					//wait for reply from server
-					
-				}
+				
 				//requestRestoreProducts
 				break;
 			case "startGuide":

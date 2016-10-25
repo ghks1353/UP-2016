@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//achievementmanager init
 		AchievementManager.initManager();
 		//purchase init
-		PurchaseManager.initInstance();
+		PurchaseManager.initManager();
 		
 		//Gogle Analytics active
 		AnalyticsManager.initGoogleAnalytics();
@@ -44,24 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		UnityAdsManager.initManager();
 		
 		if #available(iOS 10.0, *) {
-			UNUserNotificationCenter.current().delegate = self
+			UNUserNotificationCenter.current().delegate = self;
 		} else {
 			// Fallback on earlier versions
 		};
 		
-		//로컬알림 (등)으로인해 앱실행된경우.
-		/*if let options = launchOptions {
-			if let notification = options[UIApplicationLaunchOptionsKey.localNotification] as? UILocalNotification {
-				//queue with launchopt
-				print("Launched with options.");
-				AlarmManager.mergeAlarm();
-				if (AlarmListView.alarmListInited) {
-					AlarmListView.selfView!.createTableList(); //refresh alarm-list
-				}
-				
-			}
-		}
-		*/
 		//게임센터 초기화 및 뷰 표시
 		if let presentVC = window?.rootViewController {
 			let targetVC = presentVC;

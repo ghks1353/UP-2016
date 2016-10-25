@@ -12,6 +12,9 @@ import UIKit;
 
 class GameTitleViewJumpUP:UIViewController {
 	
+	//Loading indicator
+	var loadingIndicatorView:UIActivityIndicatorView = UIActivityIndicatorView();
+	
 	//Game title (red, white, skyblue)
 	var gameTitleLabel:UILabel = UILabel();
 	var gameTitleRedLabel:UILabel = UILabel();
@@ -36,11 +39,17 @@ class GameTitleViewJumpUP:UIViewController {
 	var aStartTimer:Timer?; //자동 게임시작 카운트다운 타이머
 	var aStartLeft:Int = 3;
 	
+	var preloadCompleted:Bool = false;
+	
 	override func viewDidLoad() {
 		// view init func
 		self.view.backgroundColor = UIColor.black; //black col
 		
-		
+		loadingIndicatorView.frame = CGRect(x: self.view.frame.width / 2, y: self.view.frame.height / 2, width: 32, height: 32);
+		loadingIndicatorView.center = self.view!.center;
+		loadingIndicatorView.hidesWhenStopped = false;
+		loadingIndicatorView.activityIndicatorViewStyle = .white;
+		self.view.addSubview(loadingIndicatorView);
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -48,6 +57,7 @@ class GameTitleViewJumpUP:UIViewController {
 			return;
 		}
 		
+		loadingIndicatorView.startAnimating();
 		print("JumpUP gameview appear event");
 		
 		//View load func
@@ -101,9 +111,9 @@ class GameTitleViewJumpUP:UIViewController {
 		
 		if (isGameMode == false) {
 			gameAutostartCountdownText.isHidden = true;
+			gameStartButtonImage.isHidden = true; //set to false when preload finish
 		} else {
 			gameStartButtonImage.isHidden = true;
-			//자동 시작해야 함
 			aStartTimer = UPUtils.setInterval(1, block: autoGameStartTimer);
 		}
 		
@@ -112,19 +122,46 @@ class GameTitleViewJumpUP:UIViewController {
 		self.gameThumbnailsBackgroundImage.alpha = 0; self.gameThumbnailsImage.alpha = 0;
 		self.gameStartButtonImage.alpha = 0; self.gameAutostartCountdownText.alpha = 0;
 		
+		//Auto-init (for loading resources)
+		jumpUPGameScene = JumpUPGame( size: CGSize( width: self.view.frame.width, height: self.view.frame.height ) );
+		jumpUPGameScene!.preloadCompleteHandler = gamePreloadCompleted;
+		jumpUPGameScene!.scaleMode = SKSceneScaleMode.resizeFill; jumpUPGameScene!.gameStartupType = isGameMode ? 1 : 0;
+		
+		gameView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height);
+		gameView.presentScene(jumpUPGameScene!);
+		
+		print("Auto init end");
+	} //end func
+	
+	func gamePreloadCompleted() {
 		//View fade-in effect
+		loadingIndicatorView.stopAnimating();
+		
+		if (isGameMode == false) {
+			//alarm mode
+			gameStartButtonImage.isHidden = false;
+		} else { //manual game mode
+			
+		}
+		
 		UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
 			self.gameTitleLabel.alpha = 1; self.gameTitleRedLabel.alpha = 1; self.gameTitleSkyblueLabel.alpha = 1;
 			self.gameThumbnailsBackgroundImage.alpha = 1; self.gameThumbnailsImage.alpha = 1;
-			self.gameStartButtonImage.alpha = 1;  self.gameAutostartCountdownText.alpha = 1;
+			self.gameAutostartCountdownText.alpha = 1; self.gameStartButtonImage.alpha = 1;
 			}, completion: {_ in
 		});
 		
-		
-	} //end func
+		preloadCompleted = true;
+	}
 	
 	//자동 시작 타이머
-	func autoGameStartTimer() {
+	func autoGameStartTimer( ) {
+		if (!preloadCompleted) {
+			return;
+		}
+		
+		print("timer running");
+		
 		aStartLeft -= 1;
 		gameAutostartCountdownText.text = String(aStartLeft);
 		if (aStartLeft <= 0) {
@@ -139,23 +176,19 @@ class GameTitleViewJumpUP:UIViewController {
 	func gameStartFuncTapHandler( _ recognizer: UITapGestureRecognizer! ) {
 		//Game start
 		print("Presenting game view");
-		jumpUPGameScene = JumpUPGame( size: CGSize( width: self.view.frame.width, height: self.view.frame.height ) );
-		jumpUPGameScene!.scaleMode = SKSceneScaleMode.resizeFill;
-		jumpUPGameScene!.gameStartupType = isGameMode ? 1 : 0;
 		
 		////////테스트 전용. 나중에 빼야함
 		gameView.showsFPS = true; //fps view
 		gameView.showsDrawCount = true;
 		gameView.showsNodeCount = true;
+		gameView.showsQuadCount = true;
+		gameView.showsFields = true;
 		//////////////
 		
-		gameView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height);
-		
 		self.view.addSubview(gameView);
-		gameView.presentScene(jumpUPGameScene!);
-		
 		//Gameview alpha transition
 		gameView.alpha = 0;
+		jumpUPGameScene!.isGamePaused = false;
 		
 		UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
 			self.gameView.alpha = 1;
@@ -163,12 +196,6 @@ class GameTitleViewJumpUP:UIViewController {
 		});
 		
 	} //end start func
-	
-	//override func viewWillAppear(animated: Bool) {
-		//뷰가 열릴 직전에.
-		//UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default;
-		
-	//} //end func
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		//UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent;

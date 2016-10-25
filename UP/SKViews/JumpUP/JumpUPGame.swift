@@ -77,7 +77,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	var gameSecondTickTimer:Timer?;
 	
 	//Game variables
-	var isGamePaused:Bool = false; //일시정지된 경우
+	var isGamePaused:Bool = true; //일시정지된 경우.
 	var isMenuVisible:Bool = true; //알파 효과를 위함
 	
 	var mapObject:SKNode = SKNode(); //효과, 흔들림 등으로 쓸 맵 오브젝트
@@ -163,6 +163,10 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	let aiRatherboxX:CGFloat = 16 * DeviceManager.scrRatioC;
 	let aiRatherboxY:CGFloat = 16 * DeviceManager.scrRatioC;
 	
+	//Preload progress vars
+	let preloadCompleteCout:Int = 71;
+	var preloadCurrentCompleted:Int = 0;
+	var preloadCompleteHandler:(() -> Void)? = nil;
 	
 	/////// 통계를 위한 데이터 변수
 	
@@ -383,7 +387,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			
 			//Preload textures
 			for i:Int in 0 ..< gameNodesTexturesArray.count {
-				gameNodesTexturesArray[i].preload(completionHandler: {});
+				gameNodesTexturesArray[i].preload(completionHandler: preloadEventCall);
 			}
 			
 		} //end of creation txt
@@ -396,7 +400,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 					SKTexture( imageNamed: "game-jumpup-assets-ai-j-astro-effect" + String(i) + ".png")
 				];
 				// Preload texture (reduce fps drop)
-				(gameTexturesAIEffectsArray[0][i] as SKTexture).preload(completionHandler: {});
+				(gameTexturesAIEffectsArray[0][i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
 			
 		} //end of effet create
@@ -423,7 +427,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				characterElement!.motions_walking += [
 					SKTexture( imageNamed: "game-jumpup-astro-" + SkinManager.getSelectedSkinCharacter() + "-move-" + String(i) + ".png" )
 				]; //Character motions preload
-				(characterElement!.motions_walking[i] as SKTexture).preload(completionHandler: {});
+				(characterElement!.motions_walking[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
 		} //walking motion end for *character*
 		if (characterElement!.motions_jumping.count == 0) {
@@ -431,7 +435,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				characterElement!.motions_jumping += [
 					SKTexture( imageNamed: "game-jumpup-astro-" + SkinManager.getSelectedSkinCharacter() + "-jump-" + String(i) + ".png" )
 				]; //Character motions preload
-				(characterElement!.motions_jumping[i] as SKTexture).preload(completionHandler: {});
+				(characterElement!.motions_jumping[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
 		} //jumping motion end for *character*
 		
@@ -441,7 +445,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				gameTexturesAIMoveTexturesArray += [
 					SKTexture( imageNamed: "game-jumpup-ai-astro-move" + String(i) + ".png" )
 				];
-				(gameTexturesAIMoveTexturesArray[i] as SKTexture).preload(completionHandler: {});
+				(gameTexturesAIMoveTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
 		} //jumping motion end for *ai move*
 		if (gameTexturesAIJMoveTexturesArray.count == 0) {
@@ -449,7 +453,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				gameTexturesAIJMoveTexturesArray += [
 					SKTexture( imageNamed: "game-jumpup-ai-j-astro-move" + String(i) + ".png" )
 				];
-				(gameTexturesAIJMoveTexturesArray[i] as SKTexture).preload(completionHandler: {});
+				(gameTexturesAIJMoveTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
 		} //jumping motion end for *ai_j move*
 		if (gameTexturesAIJJumpTexturesArray.count == 0) {
@@ -457,7 +461,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				gameTexturesAIJJumpTexturesArray += [
 					SKTexture( imageNamed: "game-jumpup-ai-j-astro-jump" + String(i) + ".png" )
 				];
-				(gameTexturesAIJJumpTexturesArray[i] as SKTexture).preload(completionHandler: {});
+				(gameTexturesAIJJumpTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
 		} //jumping motion end for *ai_j jump*
 		if (gameTexturesAIFlyTexturesArray.count == 0) {
@@ -465,7 +469,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				gameTexturesAIFlyTexturesArray += [
 					SKTexture( imageNamed: "game-jump-ai-astro-fly" + String(i) + ".png" )
 				];
-				(gameTexturesAIFlyTexturesArray[i] as SKTexture).preload(completionHandler: {});
+				(gameTexturesAIFlyTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
 		} //flying motion end for *ai fly*
 		if (gameTexturesAIJFlyTexturesArray.count == 0) {
@@ -473,7 +477,7 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 				gameTexturesAIJFlyTexturesArray += [
 					SKTexture( imageNamed: "game-jump-ai-j-astro-fly" + String(i) + ".png" )
 				];
-				(gameTexturesAIJFlyTexturesArray[i] as SKTexture).preload(completionHandler: {});
+				(gameTexturesAIJFlyTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
 		} //flying motion end for *ai_j fly*
 		
@@ -554,6 +558,18 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 		/////////////////
 		//Game starttime 기록
 		stats_gameStartedTimeStamp = Int(Date().timeIntervalSince1970);
+	}
+	
+	func preloadEventCall() {
+		preloadCurrentCompleted += 1;
+		
+		if (preloadCurrentCompleted >= preloadCompleteCout) {
+			if (preloadCompleteHandler != nil) {
+				preloadCompleteHandler!();
+			}
+		}
+		
+		print("Preload status:", preloadCurrentCompleted,"/",preloadCompleteCout);
 	}
 	
 	func appEnteredToBackground() {
@@ -1739,6 +1755,11 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			return;
 		} *///앱이 백그라운드에 있으면 함수 진행 자체를 캔슬함.
 		
+		//161025
+		if (isGamePaused == true) {
+			return; //게임 일시정지 된 경우 틱 정지
+		}
+		
 		if (gameScore <= 0) {
 			print("Game is over");
 			gameFinishedBool = true;
@@ -1812,33 +1833,33 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			let location:CGPoint = (touch as UITouch).location(in: self);
 			touchesLatestPoint.x = location.x; touchesLatestPoint.y = location.y;
 			
-			if let chkButtonName:SKNode = self.atPoint(location) {
-				if (chkButtonName.name == "button_retire" || chkButtonName.name == "button_alarm_off") {
-					//포기 버튼일 때 혹은 알람끄기 일 때
-					
-					//포기 여부 체크.
-					stats_gameIsFailed = chkButtonName.name == "button_retire" ? true : false;
-					
-					exitJumpUPGame();
-					
-				} else {
-					//기타 터치
-					
-					//터치 통계값 추가
-					stats_gameTouchCount += 1;
-					
-					if (gameFinishedBool == false) { //게임이 진행중일 때만 점프 가능.
-						if (characterElement!.jumpFlaggedCount < 2) { //캐릭터 점프횟수 제한
-							characterElement!.ySpeed = 11 * max(1, CGFloat(gameGravity / 1.5));
-							characterElement!.jumpFlaggedCount += 1;
-							gameUserJumpCount += 1; //점프 횟수 카운트
-							
-							//통계값 추가 (유효터치)
-							stats_gameValidTouchCount += 1;
-						}
+			let chkButtonName:SKNode = self.atPoint(location);
+			if (chkButtonName.name == "button_retire" || chkButtonName.name == "button_alarm_off") {
+				//포기 버튼일 때 혹은 알람끄기 일 때
+				
+				//포기 여부 체크.
+				stats_gameIsFailed = chkButtonName.name == "button_retire" ? true : false;
+				
+				exitJumpUPGame();
+				
+			} else {
+				//기타 터치
+				
+				//터치 통계값 추가
+				stats_gameTouchCount += 1;
+				
+				if (gameFinishedBool == false) { //게임이 진행중일 때만 점프 가능.
+					if (characterElement!.jumpFlaggedCount < 2) { //캐릭터 점프횟수 제한
+						characterElement!.ySpeed = 11 * max(1, CGFloat(gameGravity / 1.5));
+						characterElement!.jumpFlaggedCount += 1;
+						gameUserJumpCount += 1; //점프 횟수 카운트
+						
+						//통계값 추가 (유효터치)
+						stats_gameValidTouchCount += 1;
 					}
 				}
 			}
+			
 		} //end for
 		
 		
