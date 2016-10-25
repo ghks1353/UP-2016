@@ -3,13 +3,13 @@ platform :ios, '8.1'
 use_frameworks!
 target "UP" do
 	pod 'CryptoSwift'
-	pod 'Google'
-	pod 'Google/Analytics'
-	pod 'GoogleIDFASupport'
 	pod 'SwiftyJSON', :git => 'https://github.com/appsailor/SwiftyJSON.git', :branch => 'swift3'
 	pod 'Gifu'
 	pod 'Charts/Realm'
     pod 'SQLite.swift'
+    pod 'SwiftyStoreKit'
+    pod 'Firebase'
+	pod 'GoogleIDFASupport'
 end
 
 post_install do |installer|

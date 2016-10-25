@@ -64,7 +64,7 @@ class CreditsPopView:UIViewController {
 		creditsScrollView.addSubview(creditVersionInfo);
 		
 		//만든 인물들
-		for i:Int in 0 ..< 3 {
+		for i:Int in 0 ..< 2 {
 			var position:String = ""; var nickname:String = ""; var positionLabeled:String = "";
 			switch(i) {
 				case 0:
@@ -77,16 +77,11 @@ class CreditsPopView:UIViewController {
 					nickname = "Penple";
 					positionLabeled = "Graphic";
 					break;
-				case 2:
-					position = "plan";
-					nickname = "Noton";
-					positionLabeled = "Design";
-					break;
 				default: break;
 			}
 			let tmpUIImageView:UIImageView = UIImageView( image: UIImage( named: "modal-credits-people-" +  position + ".png" ) );
 			tmpUIImageView.frame = CGRect(
-				x: (creditsScrollView.frame.width / 2 + CGFloat((i-1) * (72 + 7))) - (72 / 2)
+				x: (creditsScrollView.frame.width / 2 + CGFloat((i-1) * 72)) + (i == 0 ? -4 : 4)
 				, y: creditVersionInfo.frame.maxY + 32, width: 72, height: 72);
 			let tmpNickLabel:UILabel = UILabel(); let tmpPositions:UILabel = UILabel();
 			tmpNickLabel.frame = CGRect(x: tmpUIImageView.frame.minX, y: tmpUIImageView.frame.maxY + 4, width: 72, height: 18);

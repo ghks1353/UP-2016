@@ -8,7 +8,6 @@
 
 import Foundation;
 import UIKit;
-import Google;
 import CryptoSwift;
 
 class UPUtils {
