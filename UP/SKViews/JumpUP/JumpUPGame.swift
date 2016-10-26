@@ -10,7 +10,7 @@ import Foundation;
 import AVFoundation;
 import SpriteKit;
 import UIKit;
-import SQLite
+import SQLite;
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -32,12 +32,7 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 ;
 
-class JumpUPGame:SKScene, UIScrollViewDelegate {
-	
-	let MATHPI:CGFloat = 3.141592;
-	
-	//게임 실행 타입 (0= 알람, 1= 메인화면 실행)
-	var gameStartupType:Int = 0;
+class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	
 	var gameScoreNm:Int = 3; //스코어 자리수. (알람=3, 일반=5)
 	
@@ -69,15 +64,12 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	var gameNumberTexturesArray:Array<SKTexture> = []; // 0~9 10개
 	var gameNumberSpriteNodesArray:Array<SKSpriteNode> = []; //000 3개
 	
-	//score (혹은 time으로 사용.)
-	var gameScore:Int = 0; var gameScoreStr:String = "";
 	var gameUserJumpCount:Int = 0; //점프 횟수
 	
 	//1초 tick (알람용)
 	var gameSecondTickTimer:Timer?;
 	
 	//Game variables
-	var isGamePaused:Bool = true; //일시정지된 경우.
 	var isMenuVisible:Bool = true; //알파 효과를 위함
 	
 	var mapObject:SKNode = SKNode(); //효과, 흔들림 등으로 쓸 맵 오브젝트
@@ -163,10 +155,6 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	let aiRatherboxX:CGFloat = 16 * DeviceManager.scrRatioC;
 	let aiRatherboxY:CGFloat = 16 * DeviceManager.scrRatioC;
 	
-	//Preload progress vars
-	let preloadCompleteCout:Int = 71;
-	var preloadCurrentCompleted:Int = 0;
-	var preloadCompleteHandler:(() -> Void)? = nil;
 	
 	/////// 통계를 위한 데이터 변수
 	
@@ -179,8 +167,6 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 	var stats_gameTouchCount:Int = 0; //전체 터치 횟수
 	var stats_gameValidTouchCount:Int = 0; //유효 터치 횟수
 	
-	//////////////////////////UI Menu
-	var uiContents:GeneralMenuUI?;
 	
 	//View initial function
 	override func didMove(to view: SKView) {
@@ -553,24 +539,14 @@ class JumpUPGame:SKScene, UIScrollViewDelegate {
 			uiContents!.gameShowADCallback = gameADWatchCallb;
 		}
 		
-		
-		
 		/////////////////
 		//Game starttime 기록
 		stats_gameStartedTimeStamp = Int(Date().timeIntervalSince1970);
+		
+		//Preload vars
+		preloadCompleteCout = 71;
 	}
 	
-	func preloadEventCall() {
-		preloadCurrentCompleted += 1;
-		
-		if (preloadCurrentCompleted >= preloadCompleteCout) {
-			if (preloadCompleteHandler != nil) {
-				preloadCompleteHandler!();
-			}
-		}
-		
-		print("Preload status:", preloadCurrentCompleted,"/",preloadCompleteCout);
-	}
 	
 	func appEnteredToBackground() {
 		//App -> Background
