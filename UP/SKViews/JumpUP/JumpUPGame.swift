@@ -171,6 +171,10 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	//View initial function
 	override func didMove(to view: SKView) {
 		print("Game view inited");
+		
+		//Preload vars
+		preloadCompleteCout = 71;
+		
 		self.backgroundColor = UIColor.black;
 		
 		//Tracking by google analytics
@@ -542,9 +546,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		/////////////////
 		//Game starttime 기록
 		stats_gameStartedTimeStamp = Int(Date().timeIntervalSince1970);
-		
-		//Preload vars
-		preloadCompleteCout = 71;
 	}
 	
 	

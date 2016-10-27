@@ -100,7 +100,6 @@ class AlarmRingView:UIViewController {
 	
 	func disposeView() {
 		//view disappear event handler
-		print("AlarmRingView disposing");
 		if (asleepTimer != nil) {
 			asleepTimer!.invalidate();
 			asleepTimer = nil;

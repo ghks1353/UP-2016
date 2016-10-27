@@ -134,6 +134,7 @@ class GameTitleViewJumpUP:UIViewController {
 	} //end func
 	
 	func gamePreloadCompleted() {
+		print("preload complete event");
 		//View fade-in effect
 		loadingIndicatorView.stopAnimating();
 		
@@ -181,8 +182,10 @@ class GameTitleViewJumpUP:UIViewController {
 		gameView.showsFPS = true; //fps view
 		gameView.showsDrawCount = true;
 		gameView.showsNodeCount = true;
-		gameView.showsQuadCount = true;
-		gameView.showsFields = true;
+		//gameView.showsQuadCount = true;
+		
+		//vvvvv 사용 시 메모리 누수가 있음.. ㅡㅡ;;
+		//gameView.showsFields = true;
 		//////////////
 		
 		self.view.addSubview(gameView);
