@@ -616,7 +616,7 @@ class ViewController: UIViewController {
 			}
 			
 			backgroundImageFadeView.alpha = 0;
-			print("Scrsize",DeviceManager.scrSize?.height, (DeviceManager.scrSize?.height <= 480.0 ? "-4s" : ""));
+			print("Scrsize",DeviceManager.scrSize!.height, (DeviceManager.scrSize?.height <= 480.0 ? "-4s" : ""));
 		} else {
 			//이미지가 있을 경우, 시간대가 바뀌는 경우 바꾸고 페이드
 			if (currentBackgroundImage != getBackgroundFileNameFromTime(components.hour!)) {

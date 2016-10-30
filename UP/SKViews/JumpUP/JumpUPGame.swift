@@ -11,26 +11,6 @@ import AVFoundation;
 import SpriteKit;
 import UIKit;
 import SQLite;
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l <= r
-  default:
-    return !(rhs < lhs)
-  }
-}
-;
 
 class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	
@@ -231,7 +211,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				gameScoreTitleImage!.size = CGSize( width: 87.65 * DeviceManager.scrRatioC, height: 38.35 * DeviceManager.scrRatioC );
 				
 				//4/4s의 경우, 세로길이가 부족하므로 기존 아이폰과 다른 y위치 지정
-				if (DeviceManager.scrSize?.height <= 480.0) {
+				if (DeviceManager.scrSize!.height <= CGFloat(480)) {
 					//4/4s fallback
 					movPositionY = self.view!.frame.height - (63 * DeviceManager.scrRatioC);
 				} else {
@@ -258,7 +238,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				gameScoreTitleImage!.size = CGSize( width: 135.15 * DeviceManager.scrRatioC, height: 27.45 * DeviceManager.scrRatioC );
 				
 				//4/4s의 경우, 세로길이가 부족하므로 기존 아이폰과 다른 y위치 지정
-				if (DeviceManager.scrSize?.height <= 480.0) {
+				if (DeviceManager.scrSize!.height <= CGFloat(480)) {
 					//4/4s fallback
 					movPositionY = self.view!.frame.height - (63 * DeviceManager.scrRatioC);
 				} else {

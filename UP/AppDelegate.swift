@@ -50,13 +50,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		};
 		
 		//게임센터 초기화 및 뷰 표시
-		if let presentVC = window?.rootViewController {
-			let targetVC = presentVC;
+		if (window?.rootViewController) != nil {
+			//let targetVC = presentVC;
 			let player = GKLocalPlayer.localPlayer();
 			player.authenticateHandler = {(viewController, error) -> Void in
 				if ((viewController) != nil) {
 					// Login phase start
-					targetVC.present(viewController!, animated: true, completion: nil);
+					//targetVC.present(viewController!, animated: true, completion: nil);
 				} else {
 					if (error == nil){
 						print("Authentication: OK")
@@ -68,7 +68,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		} //fin
 		
 		
-		
+		let nsURL:URL = Bundle.main.url( forResource: "up_background_task_alarm" , withExtension: "mp3")!;
+		do {
+			self.alarmBackgroundTaskPlayer = try AVAudioPlayer( contentsOf: nsURL, fileTypeHint: nil );
+		} catch let error as NSError {
+			print(error.description);
+		}
+		alarmBackgroundTaskPlayer!.prepareToPlay();
 		
 		return true;
     }
@@ -76,6 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+		print("Appwillresignactive");
     }
 	
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -96,21 +103,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//DISPATCH_QUEUE_PRIORITY_DEFAULT
 		DispatchQueue.global(qos: .background).async {
 		//DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.high).async(execute: { () -> Void in
-			if (self.alarmBackgroundTaskPlayer != nil) {
+			/*if (self.alarmBackgroundTaskPlayer != nil) {
 				self.alarmBackgroundTaskPlayer!.stop();
 				self.alarmBackgroundTaskPlayer = nil;
-			}
+			}*/
 			
-			let nsURL:URL = Bundle.main.url( forResource: "up_background_task_alarm" , withExtension: "mp3")!;
-			do { self.alarmBackgroundTaskPlayer = try AVAudioPlayer(
-				contentsOf: nsURL,
-				fileTypeHint: nil
-				);
-			} catch let error as NSError {
-				print(error.description);
-			}
+			
 			//self.alarmBackgroundTaskPlayer!.numberOfLoops = -1;
-			self.alarmBackgroundTaskPlayer!.prepareToPlay();
+			
 			//self.alarmBackgroundTaskPlayer!.play();
 
 			while(DeviceManager.appIsBackground) {
@@ -119,6 +119,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm();
 				
 				print( "thread remaining:", UIApplication.shared.backgroundTimeRemaining, ", remaining next alarm:", nextAlarmLeft );
+				
+				if (UIApplication.shared.backgroundTimeRemaining < 180) {
+					self.alarmBackgroundTaskPlayer!.stop();
+					self.alarmBackgroundTaskPlayer!.play();
+					print("background thread - sound play");
+				}
 				
 				//이부분 수정해야함 - 켜져있는 알람 중 타임스탬프를 빼서 곧 울릴것 같은 알람을 알람매니저측에서 구현한 다음
 				//만약 곧 울릴거 같다라고 판단되면 엄청 빠르게 백그라운드 태스크를 그때만 순간적으로 돌려서
@@ -134,11 +140,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 					AlarmManager.stopSoundAlarm();
 				}
 				
-				if (UIApplication.shared.backgroundTimeRemaining < 60) {
-					self.alarmBackgroundTaskPlayer!.stop();
-					self.alarmBackgroundTaskPlayer!.play();
-					print("background thread - sound play");
-				}
 				
 				if (ringingAlarm != nil && DeviceManager.appIsBackground == true) {
 					Thread.sleep(forTimeInterval: 1); //1초 주기 실행
@@ -166,10 +167,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 			}
 			//print("thread finished");
 			
-			if (self.alarmBackgroundTaskPlayer != nil) {
-				self.alarmBackgroundTaskPlayer!.stop();
-				self.alarmBackgroundTaskPlayer = nil;
-			}
 			UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!);
 			
 		};
@@ -190,9 +187,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		print("App is active now");
 		AlarmManager.mergeAlarm();
 		
-		if (AlarmListView.alarmListInited) {
+		/*if (AlarmListView.alarmListInited) {
 			AlarmListView.selfView!.createTableList(); //refresh alarm-list
-		}
+		}*/
 		
 		if (ViewController.viewSelf != nil) {
 			ViewController.viewSelf!.checkToCallAlarmRingingView();
@@ -204,6 +201,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		if (AlarmRingView.selfView != nil) {
 			AlarmRingView.selfView!.lastActivatedTimeAfter = 0;
 		}
+		
+		self.alarmBackgroundTaskPlayer!.stop();
+		print("background thread - sound stop");
+
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

@@ -657,7 +657,7 @@ class AlarmManager {
 		} //end if
 		
 		
-		print("Today's weekday is ", todayDate.weekday);
+		print("Today's weekday is ", todayDate.weekday!);
 		print("Next alarm date is ",fireOnce," (-1: no repeat, 0=sunday)");
 		print("If this is repeat, repeat vars over 2? =>", fireNextdaySearched);
 		print("Then when?", fireNextDay, " (-1: no nextday, 0=sunday)");

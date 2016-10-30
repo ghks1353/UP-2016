@@ -110,7 +110,7 @@ class CreditsPopView:UIViewController {
 		creditContentsSpecialThanks.numberOfLines = 0; creditContentsSpecialThanks.lineBreakMode = .byWordWrapping;
 		creditContentsSpecialThanks.textColor = UPUtils.colorWithHexString("#444444"); creditContentsSpecialThanks.textAlignment = .center;
 		creditContentsSpecialThanks.font = UIFont.systemFont(ofSize: 10);
-		creditContentsSpecialThanks.text = "Thanks to CellularHacker, Sang Wook Park, Seung Yeon Seo, Dae Yang Choi and Joong Wan Koo for helping us with our project.";
+		creditContentsSpecialThanks.text = "Thanks to CellularHacker, NotonAlcyone, Sang Wook Park, Seung Yeon Seo, Dae Yang Choi and Joong Wan Koo for helping us with our project.";
 		creditContentsSpecialThanks.sizeToFit();
 		creditsScrollView.addSubview(creditContentsSpecialThanks);
 		
@@ -125,7 +125,7 @@ class CreditsPopView:UIViewController {
 		creditContentsLicense.textColor = UPUtils.colorWithHexString("#444444"); creditContentsLicense.textAlignment = .center;
 		creditContentsLicense.font = UIFont.systemFont(ofSize: 10);
 		creditContentsLicense.text =
-			"Cryptoswift is copyrighted by Marcin Krzyżanowski, SwiftyJSON is copyrighted by Ruoyu Fu licensed under the MIT, Gifu is copyrighted by Reda Lemeden licensed under the MIT, Charts is copyrighted by Daniel Cohen Gindi & Philipp Jahoda licensed under the Apache License 2.0\n\nCopyright (c) 2016 <Project UP> by Seokhwan An and Seungha hwang.";
+			"Copyright (c) 2016 <Project UP> by Seokhwan An and Seungha hwang.";
 		creditContentsLicense.sizeToFit();
 		creditsScrollView.addSubview(creditContentsLicense);
 		

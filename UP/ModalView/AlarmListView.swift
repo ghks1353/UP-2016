@@ -126,9 +126,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		alarmAddIfEmptyButton.addTarget(self, action: #selector(AlarmListView.alarmAddAction), for: .touchUpInside);
 		/////////////////////
 		
-        //add alarm-list
-		createTableList();
-		
         tableView.delegate = self; tableView.dataSource = self;
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 		
@@ -237,6 +234,9 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//Check alarm limit and disable/enable button
 		checkAlarmLimitExceed();
 		checkAlarmIsEmpty();
+		
+		//add alarm-list
+		createTableList();
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {

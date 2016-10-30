@@ -535,7 +535,7 @@ class DataManager {
 						dataUntilAlarmOff += [statsElement]; //통계 배열에 추가
 						
 						print("STATS id:", statsElement.dataID, ", result:", statsElement.numberData, ", date:",
-						      statsElement.dateComponents!.year,"-",statsElement.dateComponents!.month,"-",statsElement.dateComponents!.day);
+						      statsElement.dateComponents!.year!,"-",statsElement.dateComponents!.month!,"-",statsElement.dateComponents!.day!);
 					} //end for
 					toReturnDatasArray = dataUntilAlarmOff; //Return pointer
 					

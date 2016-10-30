@@ -197,14 +197,20 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	
 	//게임센터 창 띄우기
 	func showGameCenter(_ gestureRecognizer: UITapGestureRecognizer) {
+		print("ShowGameCenter called");
+		/*
+		print("Gamecenter window presenting");
+		
 		let gcViewController: GKGameCenterViewController = GKGameCenterViewController();
 		gcViewController.gameCenterDelegate = self;
 		gcViewController.viewState = GKGameCenterViewControllerState.achievements;
 		
 		self.show(gcViewController, sender: self);
 		self.present(gcViewController, animated: true, completion: nil);
+		*/
 	}
 	
+			
 	//도전과제 열기
 	func showAchievements(_ gestureRecognizer: UITapGestureRecognizer) {
 		navigationCtrl.pushViewController(self.achievementsView, animated: true);
