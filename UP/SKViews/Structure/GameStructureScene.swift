@@ -34,12 +34,12 @@ class GameStructureScene:SKScene {
 	
 	func preloadEventCall() {
 		preloadCurrentCompleted += 1;
+		print("Preload status:", preloadCurrentCompleted,"/",preloadCompleteCout);
 		if (preloadCurrentCompleted >= preloadCompleteCout) {
 			if (preloadCompleteHandler != nil) {
 				preloadCompleteHandler!();
 			}
 		}
-		print("Preload status:", preloadCurrentCompleted,"/",preloadCompleteCout);
 	}
 	
 }

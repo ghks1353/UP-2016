@@ -36,7 +36,10 @@ class GameTitleViewJumpUP:UIViewController {
 	let gameThumbsSize:CGFloat = 180 * DeviceManager.maxScrRatioC;
 	
 	var isGameMode:Bool = false; //알람이 아닌, 스코어가 오르는 게임 모드인 경우
+	
 	var aStartTimer:Timer?; //자동 게임시작 카운트다운 타이머
+	var aPreloadCheckTimer:Timer?; //Preload check timer
+	
 	var aStartLeft:Int = 3;
 	
 	var preloadCompleted:Bool = false;
@@ -50,6 +53,8 @@ class GameTitleViewJumpUP:UIViewController {
 		loadingIndicatorView.hidesWhenStopped = false;
 		loadingIndicatorView.activityIndicatorViewStyle = .white;
 		self.view.addSubview(loadingIndicatorView);
+		
+		super.viewDidLoad();
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -114,7 +119,6 @@ class GameTitleViewJumpUP:UIViewController {
 			gameStartButtonImage.isHidden = true; //set to false when preload finish
 		} else {
 			gameStartButtonImage.isHidden = true;
-			aStartTimer = UPUtils.setInterval(1, block: autoGameStartTimer);
 		}
 		
 		///////
@@ -131,10 +135,26 @@ class GameTitleViewJumpUP:UIViewController {
 		gameView.presentScene(jumpUPGameScene!);
 		
 		print("Auto init end");
+		
+		aPreloadCheckTimer = UPUtils.setInterval(0.5, block: preloadCheckTimer);
+		
+		super.viewDidAppear(animated);
 	} //end func
 	
+	//외부에서 실행되는 함수라 그런지 뷰 알파 애니메이션 등등이 지연이 심함. 따라서 아래처럼만 사용함
 	func gamePreloadCompleted() {
-		print("preload complete event");
+		if (preloadCompleted) {
+			return;
+		}
+		
+		preloadCompleted = true;
+	}
+	
+	func preloadCheckTimer() {
+		if (!preloadCompleted) {
+			return;
+		}
+		
 		//View fade-in effect
 		loadingIndicatorView.stopAnimating();
 		
@@ -142,28 +162,28 @@ class GameTitleViewJumpUP:UIViewController {
 			//alarm mode
 			gameStartButtonImage.isHidden = false;
 		} else { //manual game mode
-			
+			aStartTimer = UPUtils.setInterval(1, block: autoGameStartTimer);
 		}
 		
-		UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
+		UIView.animate(withDuration: 0.5, animations: {
 			self.gameTitleLabel.alpha = 1; self.gameTitleRedLabel.alpha = 1; self.gameTitleSkyblueLabel.alpha = 1;
 			self.gameThumbnailsBackgroundImage.alpha = 1; self.gameThumbnailsImage.alpha = 1;
 			self.gameAutostartCountdownText.alpha = 1; self.gameStartButtonImage.alpha = 1;
-			}, completion: {_ in
+		}, completion: {_ in
+		
 		});
 		
-		preloadCompleted = true;
+		if (aPreloadCheckTimer != nil) {
+			aPreloadCheckTimer!.invalidate(); aPreloadCheckTimer = nil;
+		}
 	}
 	
 	//자동 시작 타이머
 	func autoGameStartTimer( ) {
-		if (!preloadCompleted) {
-			return;
-		}
-		
 		print("timer running");
 		
 		aStartLeft -= 1;
+		
 		gameAutostartCountdownText.text = String(aStartLeft);
 		if (aStartLeft <= 0) {
 			// 타이머 정지 및 시작
@@ -193,6 +213,7 @@ class GameTitleViewJumpUP:UIViewController {
 		gameView.alpha = 0;
 		jumpUPGameScene!.isGamePaused = false;
 		
+		
 		UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
 			self.gameView.alpha = 1;
 			}, completion: {_ in
@@ -207,6 +228,7 @@ class GameTitleViewJumpUP:UIViewController {
 		if (isGameMode == false) {
 			AlarmRingView.selfView!.disposeView();
 		}
+		super.viewWillDisappear(animated);
 	}
 		
 	override func didReceiveMemoryWarning() {
