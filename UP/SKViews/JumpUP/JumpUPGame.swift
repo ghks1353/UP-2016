@@ -10,7 +10,6 @@ import Foundation;
 import AVFoundation;
 import SpriteKit;
 import UIKit;
-import SQLite;
 
 class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	
@@ -22,8 +21,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	var gameTimerMaxTime:Int = 60; //알람으로 게임 진행 중일 때 시간이 추가될 수 있는 최대 수치
 	var gameRetireTime:Int = 240; //포기 버튼이 나타나는 시간
 	var gameRetireTimeCount:Int = 0; //포기 버튼 카운트
-	
-	var gameFinishedBool:Bool = false; // 게임이 완전히 끝나면 타이머 다시 늘어나는 등의 동작 없음
 	
 	//움직이는 뒷 배경
 	var repeatBackgroundTexture:SKTexture = SKTexture( imageNamed: "game-jumpup-assets-background.png" );
@@ -50,7 +47,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	var gameSecondTickTimer:Timer?;
 	
 	//Game variables
-	var isMenuVisible:Bool = true; //알파 효과를 위함
 	
 	var mapObject:SKNode = SKNode(); //효과, 흔들림 등으로 쓸 맵 오브젝트
 	
@@ -81,11 +77,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	var scoreUPDelayCurrent:Int = 0; //간격 딜레이
 	var scoreUPLevel:Double = 0.0; //현재 게임 레벨
 	var scoreNodesRandomArray:Array<Int>?; //스코어모드에서의 적 랜덤 출현 배열
-	
-	var swipeTouchLayer:SKSpriteNode = SKSpriteNode(color: UIColor.white, size: CGSize(width: 0,height: 0));
-	var touchesLatestPoint:CGPoint = CGPoint(x: 0, y: 0);
-	var swipeGestureMoved:CGFloat = 0; //위 혹은 아래로 이동한 양. 순식간에 사라지도록 해야함
-	var swipeGestureValid:CGFloat = 50 * DeviceManager.maxScrRatioC; //이동한 양에 대한 허용치. scrRatioC로만 하면 패드에서 힘들어질듯
 	
 	var maxScoreGameLife:Int = 0; //최대 라이프 (수치상)
 	var scoreGameLife:Int = 0; //현재 게임 라이프. (목숨)
@@ -136,29 +127,17 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	let aiRatherboxY:CGFloat = 16 * DeviceManager.scrRatioC;
 	
 	
-	/////// 통계를 위한 데이터 변수
-	
-	//아래 시작 종료 시간의 경우, 통계시에는 게임 시작까지 걸린 시간 / 게임 진행 시간으로 재집계
-	var stats_gameStartedTimeStamp:Int = 0; //게임 시작 시간
-	var stats_gameFinishedTimeStamp:Int = 0; //게임 종료 시간
-	
-	var stats_gameDiedCount:Int = 0; //맞은 횟수
-	var stats_gameIsFailed:Bool = false; //리타이어한 경우
-	var stats_gameTouchCount:Int = 0; //전체 터치 횟수
-	var stats_gameValidTouchCount:Int = 0; //유효 터치 횟수
-	
-	
 	//View initial function
 	override func didMove(to view: SKView) {
-		print("Game view inited");
+		self.backgroundColor = UIColor.black;
 		
+		//Game ID
+		currentGameID = 0;
 		//Preload vars
 		preloadCompleteCout = 71;
 		
-		self.backgroundColor = UIColor.black;
-		
 		//Tracking by google analytics
-		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_GAME_JUMPUP);
+		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_GAME);
 		
 		//variable initialize
 		gameCloudDecorationAddDelay = gameCloudAddDelayMAX; //초기값
@@ -525,7 +504,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		
 		/////////////////
 		//Game starttime 기록
-		stats_gameStartedTimeStamp = Int(Date().timeIntervalSince1970);
+		statsGameStartedTimeStamp = Int(Date().timeIntervalSince1970);
 	}
 	
 	
@@ -1189,7 +1168,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 								AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate));
 								
 								//통계값 추가
-								stats_gameDiedCount += 1;
+								statsGameDiedCount += 1;
 								
 								//scoreGameLife
 								switch(gameStartupType) {
@@ -1708,9 +1687,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	func updateWithSeconds() {
 		//알람 게임으로 실행되었을 때, 1초마다 주기적으로 실행되는 함수 (시간 체크시만 사용함)
 		//이 함수의 문제점: *앱이 백그라운드에 돌아가도 작동함!!*
-		/*if (DeviceManager.appIsBackground == true) {
-			return;
-		} *///앱이 백그라운드에 있으면 함수 진행 자체를 캔슬함.
 		
 		//161025
 		if (isGamePaused == true) {
@@ -1721,7 +1697,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			print("Game is over");
 			gameFinishedBool = true;
 			
-			gameSecondTickTimer?.invalidate();
+			gameSecondTickTimer!.invalidate();
 			gameSecondTickTimer = nil;
 			
 			//게임 끝. 알람끄기 버튼 표시.
@@ -1795,7 +1771,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				//포기 버튼일 때 혹은 알람끄기 일 때
 				
 				//포기 여부 체크.
-				stats_gameIsFailed = chkButtonName.name == "button_retire" ? true : false;
+				statsGameIsFailed = chkButtonName.name == "button_retire" ? true : false;
 				
 				exitJumpUPGame();
 				
@@ -1803,7 +1779,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				//기타 터치
 				
 				//터치 통계값 추가
-				stats_gameTouchCount += 1;
+				statsGameTouchCount += 1;
 				
 				if (gameFinishedBool == false) { //게임이 진행중일 때만 점프 가능.
 					if (characterElement!.jumpFlaggedCount < 2) { //캐릭터 점프횟수 제한
@@ -1812,7 +1788,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						gameUserJumpCount += 1; //점프 횟수 카운트
 						
 						//통계값 추가 (유효터치)
-						stats_gameValidTouchCount += 1;
+						statsGameValidTouchCount += 1;
 					}
 				}
 			}
@@ -1822,16 +1798,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		
 		super.touchesBegan(touches, with:event)
 	}
-	
-	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-		for touch in touches {
-			let location:CGPoint = (touch as UITouch).location(in: self);
-			//이동 거리 찍어주기
-			swipeGestureMoved += touchesLatestPoint.y - location.y;
-			touchesLatestPoint.x = location.x; touchesLatestPoint.y = location.y;
-		}
-	}
-	
 	
 	//////////////////////////////////
 	
@@ -1885,15 +1851,15 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				
 				if (self.gameScore != 0) {
 					// 게임 스코어를 저장함.
-					GameManager.saveBestScore(0 /* JumpUP GameID */, score: self.gameScore);
+					GameManager.saveBestScore(self.currentGameID /* JumpUP GameID */, score: self.gameScore);
 				}
 				
-				ViewController.viewSelf!.showGameResult(0 /* <- jumpup gameid */ , type: 1 /* game type */,
+				ViewController.viewSelf!.showGameResult( self.currentGameID /* <- jumpup gameid */ , type: 1 /* game type */,
 					score: self.gameScore, best: GameManager.loadBestScore(0) /* load jumpup bestscore */);
 			} else {
 				//게임 목록의 점프업 화면까지 바로 표시
 				ViewController.viewSelf!.openGamePlayView(nil);
-				GamePlayView.selfView!.selectCell(0);
+				GamePlayView.selfView!.selectCell( self.currentGameID ); //<- gameid
 			}
 		});
 	}
@@ -1911,69 +1877,22 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		print("Game finished");
 		
 		gameFinishedBool = true;
-		let currentDateTimeStamp:Int64 = Int64(Date().timeIntervalSince1970);
-		stats_gameFinishedTimeStamp = Int(currentDateTimeStamp);
 		
 		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 		
 		/// .. and send result for tracking.
-		AnalyticsManager.makeEvent(
-			AnalyticsManager.E_CATEGORY_GAMEDATA,
-			action: AnalyticsManager.E_ACTION_GAME_JUMPUP,
-			label: AnalyticsManager.E_LABEL_JUMPUP_PLAYTIME,
-			value: NSNumber(value: stats_gameFinishedTimeStamp - stats_gameStartedTimeStamp));
+		AnalyticsManager.sendGameResults(currentGameID,
+		                                 isAlarm: gameStartupType == 0 ? true : false,
+		                                 startTime: statsGameStartedTimeStamp,
+		                                 endTime: statsGameFinishedTimeStamp,
+		                                 diedCount: statsGameDiedCount,
+		                                 touchTotal: statsGameTouchCount,
+		                                 validTotal: statsGameValidTouchCount);
 		
 		
 		//// 알람으로 켜진 경우에만 로그를 남김
 		if (gameStartupType == 0) {
-			do {
-				//DB -> 알람 기록 저장 (게임 시작 전까지 걸린 시간)
-				try _ = DataManager.db()!.run(
-					DataManager.statsTable().insert(
-						//type -> 게임 로그 데이터 저장
-						Expression<Int64>("type") <- Int64(DataManager.statsType.TYPE_ALARM_START_TIME),
-						Expression<Int64>("date") <- currentDateTimeStamp,
-						Expression<Int64?>("statsDataInt") <-
-						Int64(stats_gameStartedTimeStamp - Int(AlarmManager.getAlarm(AlarmRingView.selfView!.currentAlarmElement!.alarmID)!.alarmFireDate.timeIntervalSince1970))
-						/* 게임 시작까지 걸린 시간 (시작시간 - 현재 울리고있는 알람의 알람 발생 시각) */
-					)
-				); //end try
-				
-				//DB -> 알람 기록 저장 (게임 플레이 시간)
-				try _ = DataManager.db()!.run(
-					DataManager.statsTable().insert(
-						//type -> 게임 로그 데이터 저장
-						Expression<Int64>("type") <- Int64(DataManager.statsType.TYPE_ALARM_CLEAR_TIME),
-						Expression<Int64>("date") <- currentDateTimeStamp,
-						Expression<Int64?>("statsDataInt") <-
-							Int64(stats_gameFinishedTimeStamp - stats_gameStartedTimeStamp)
-						/* 게임 플레이 경과시간 */
-					)
-				); //end try
-				
-				//DB -> 게임 기록 저장
-				try _ = DataManager.db()!.run(
-					DataManager.gameResultTable().insert(
-						//통계 저장 날짜 저장 (timestamp)
-						Expression<Int64>("date") <- currentDateTimeStamp, /* 데이터 기록 타임스탬프 */
-						Expression<Int64>("gameid") <- 0, /* 게임 ID */
-						Expression<Int64>("gameCleared") <- (stats_gameIsFailed == false ? 1 : 0), /* 클리어 여부. 1 = 클리어 */
-						Expression<Int64>("startedTimeStamp") <- Int64(stats_gameStartedTimeStamp), /* 게임 시작 시간 */
-						Expression<Int64>("playTime") <- Int64(stats_gameFinishedTimeStamp - stats_gameStartedTimeStamp), /* 플레이 시간 */
-						Expression<Int64>("resultMissCount") <- Int64(stats_gameDiedCount), /* 뒈짓 */
-						Expression<Int64>("touchAll") <- Int64(stats_gameTouchCount), /* 총 터치수 */
-						Expression<Int64>("touchValid") <- Int64(stats_gameValidTouchCount), /* 유효 터치수 */
-						Expression<Int64>("backgroundExitCount") <- Int64(AlarmRingView.selfView!.userAsleepCount) /* 존 횟수 */
-					) /* insert end */
-				); // run end
-				
-				print("DB Statement successful");
-				//covertToStringArray
-			} catch {
-				print("DB Statement error in JumpUP");
-			}
-			
-			
+			logAlarmGame();
 		} // end if
 		
 		AlarmManager.gameClearToggleAlarm( AlarmRingView.selfView!.currentAlarmElement!.alarmID, cleared: true );

@@ -562,7 +562,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tSwitch.elementID = uuid;
 		
 		let tTimeImgName:String = (defaultState == true ? "on" : "off") + (UIDevice.current.userInterfaceIdiom == .pad ? "-pad" : "");
-		print("lis timgname is => " + tTimeImgName);
+		//print("lis timgname is => " + tTimeImgName);
 		let bgFileName:String = getBackgroundFileNameFromTime(timeHour);
 		let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "-small" : "";
 		tTimeBackground.image = UIImage(named: bgFileName + "-time-" + tTimeImgName + fileUsesSmallPrefix + ".png");

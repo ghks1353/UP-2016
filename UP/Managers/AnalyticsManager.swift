@@ -6,34 +6,32 @@
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
-import Foundation
+import Foundation;
+import Firebase;
 
 class AnalyticsManager {
 	
-	// Screen name
-	static let T_SCREEN_MAIN:String = "Screen-Main";
-	static let T_SCREEN_SETTINGS:String = "Screen-Settings";
-	static let T_SCREEN_ALARMLIST:String = "Screen-AlarmList";
-	static let T_SCREEN_ALARMADD:String = "Screen-AlarmAdd";
-	static let T_SCREEN_STATS:String = "Screen-Statistics";
-	static let T_SCREEN_CHARACTERINFO:String = "Screen-CharacterInformation";
-	static let T_SCREEN_GAME_JUMPUP:String = "Screen-Game-JumpUP";
-	static let T_SCREEN_PLAYGAME:String = "Screen-GameSelect";
-	static let T_SCREEN_RESULT:String = "Screen-Result";
-	static let T_SCREEN_PLAYGAME_READY:String = "Screen-GameSelect-Ready";
+	//Tracking ID
+	static let T_ITEM_SCREEN:String = "Screen";
+	static let T_GAME_RESULTS:String = "GameResult";
 	
-	// Event category
-	static let E_CATEGORY_GAMEDATA:String = "Event-Game";
+	//Screens
+	static let T_SCREEN_MAIN:String = "Main";
+	static let T_SCREEN_SETTINGS:String = "Settings";
+	static let T_SCREEN_ALARMLIST:String = "AlarmList";
+	static let T_SCREEN_ALARMADD:String = "AlarmAdd";
+	static let T_SCREEN_STATS:String = "Statistics";
+	static let T_SCREEN_CHARACTERINFO:String = "CharacterInformation";
 	
-	// Event action
-	static let E_ACTION_GAME_JUMPUP:String = "JumpUP";
+	static let T_SCREEN_RESULT:String = "Result";
 	
-	// Event Label (With game)
-	static let E_LABEL_JUMPUP_PLAYTIME:String = "JumpUP-PlayTime";
+	static let T_SCREEN_GAME:String = "Game";
 	
-	// Event label
-	//static let E_LABEL_START:String = "Start";
+	static let T_SCREEN_PLAYGAME:String = "GameSelectWindow";
+	static let T_SCREEN_PLAYGAME_READY:String = "GameSelectWindow";
 	
+	//Games
+	static let T_GAME_NAME_JUMPUP:String = "JumpUP";
 	
 	//////////////
 	
@@ -41,27 +39,16 @@ class AnalyticsManager {
 	static var trackingArray:Array<String> = [];
 	
 	//init google analytics
-	static func initGoogleAnalytics() {
-		// Configure tracker from GoogleService-Info.plist.
-		/*var configureError:NSError?
-		GGLContext.sharedInstance().configureWithError(&configureError)
-		assert(configureError == nil, "Error configuring Google services: \(configureError)")
-		
-		// Optional: configure GAI options.
-		let gai = GAI.sharedInstance()
-		gai.trackUncaughtExceptions = true  // report uncaught exceptions
-		//gai.logger.logLevel = GAILogLevel.Warning;  // remove before app release
-		*/
+	static func initFirebase() {
+		FIRApp.configure();
 	}
 	
 	/// Tracking usage by google analytics
 	static func trackScreen( _ screenName:String, registerToArray:Bool = true ) {
-		/*let tracker = GAI.sharedInstance().defaultTracker; tracker.allowIDFACollection = true;
-		tracker.set(kGAIScreenName, value: screenName);
-		let builder = GAIDictionaryBuilder.createScreenView();
-		tracker.send(builder.build() as [AnyHashable: Any]);
-		
-		print("Tracking", screenName);*/
+		FIRAnalytics.logEvent(withName: T_ITEM_SCREEN, parameters: [
+			"target": screenName as NSObject
+			]);
+		print("Tracking", screenName);
 		if (registerToArray) {
 			trackingArray += [screenName];
 		}
@@ -70,21 +57,38 @@ class AnalyticsManager {
 		if (trackingArray.count > 1) { //적어도 두개여야함
 			print("Untracking screen");
 			trackingArray.removeLast();
-			//trackScreen( trackingArray[ trackingArray.count - 1], registerToArray: false);
+			trackScreen( trackingArray[ trackingArray.count - 1], registerToArray: false);
 			return true;
 		}
 		print("Untracking failed");
 		return false; // untrack failed
 	}
 	
-	///// Make events
-	static func makeEvent( _ eventCategory:String, action:String, label:String, value:NSNumber ) {
-		/*let tracker = GAI.sharedInstance().defaultTracker; tracker.allowIDFACollection = true;
-		tracker.send(
-			GAIDictionaryBuilder.createEventWithCategory(eventCategory, action: action, label: label, value: value).build()
-			 as [AnyHashable: Any]
-		);
-		*/
+	
+	////////////////// Analytics custom events
+	
+	//Log game result
+	static func sendGameResults( _ gameID:Int, isAlarm:Bool = false,
+	                             startTime:Int = 0, endTime:Int = 0,
+	                             diedCount:Int = 0, touchTotal:Int = 0, validTotal:Int = 0) {
+		
+		let dateFormatter:DateFormatter = DateFormatter();
+		dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss";
+		
+		let gamePlayTime:Int = endTime - startTime;
+		
+		FIRAnalytics.logEvent(withName: T_GAME_RESULTS, parameters: [
+			"id": String(gameID) as NSObject,
+			"isAlarm": String(isAlarm ? "true" : "false") as NSObject,
+			"startTime": dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(startTime))) as NSObject,
+			"endTime": dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(endTime))) as NSObject,
+			"playtime": String(gamePlayTime) as NSObject,
+			"missCount": String(diedCount) as NSObject,
+			"touchTotal": String(touchTotal) as NSObject,
+			"touchVaild": String(validTotal) as NSObject
+			
+			]);
+		print("GameData analytics tracking. gameID = ", gameID);
 	}
 	
 }

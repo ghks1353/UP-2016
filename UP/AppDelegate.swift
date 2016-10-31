@@ -37,11 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//purchase init
 		PurchaseManager.initManager();
 		
-		//Gogle Analytics active
-		AnalyticsManager.initGoogleAnalytics();
-		
 		//Unityads init
 		UnityAdsManager.initManager();
+		
+		//Firebase init
+		AnalyticsManager.initFirebase();
 		
 		if #available(iOS 10.0, *) {
 			UNUserNotificationCenter.current().delegate = self;
@@ -82,7 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-		print("Appwillresignactive");
+		print("App will background");
+		DeviceManager.appIsBackground = true;
     }
 	
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -91,9 +92,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		print("App is now running to background");
 		DeviceManager.appIsBackground = true;
 		AlarmManager.mergeAlarm();
-		/*if (AlarmListView.alarmListInited) {
-			AlarmListView.selfView!.createTableList(); //refresh alarm-list
-		}*/
 		
 		//// Background thread
 		backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
@@ -103,15 +101,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//DISPATCH_QUEUE_PRIORITY_DEFAULT
 		DispatchQueue.global(qos: .background).async {
 		//DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.high).async(execute: { () -> Void in
-			/*if (self.alarmBackgroundTaskPlayer != nil) {
-				self.alarmBackgroundTaskPlayer!.stop();
-				self.alarmBackgroundTaskPlayer = nil;
-			}*/
-			
-			
-			//self.alarmBackgroundTaskPlayer!.numberOfLoops = -1;
-			
-			//self.alarmBackgroundTaskPlayer!.play();
 
 			while(DeviceManager.appIsBackground) {
 				let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds();
@@ -120,28 +109,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 				
 				print( "thread remaining:", UIApplication.shared.backgroundTimeRemaining, ", remaining next alarm:", nextAlarmLeft );
 				
-				if (UIApplication.shared.backgroundTimeRemaining < 180) {
-					self.alarmBackgroundTaskPlayer!.stop();
-					self.alarmBackgroundTaskPlayer!.play();
-					print("background thread - sound play");
-				}
-				
-				//이부분 수정해야함 - 켜져있는 알람 중 타임스탬프를 빼서 곧 울릴것 같은 알람을 알람매니저측에서 구현한 다음
-				//만약 곧 울릴거 같다라고 판단되면 엄청 빠르게 백그라운드 태스크를 그때만 순간적으로 돌려서
-				//사운드 울리는 타이밍의 어긋남을 줄여야함.
-				
 				//1. 알람이 울리는 중일 경우, 2. 백그라운드에 앱이 있을 경우.
-				if (ringingAlarm != nil && DeviceManager.appIsBackground == true) {
+				if (ringingAlarm != nil) {
+					//Thread stop
+					if (self.alarmBackgroundTaskPlayer!.isPlaying) {
+						self.alarmBackgroundTaskPlayer!.stop();
+					}
+					
 					AlarmManager.ringSoundAlarm( ringingAlarm!, useVibrate: true );
-					//vibrate to ringsoundalarm
-					//print("Alarm ringing");
 				} else {
 					//울리고 있는 알람이 없는데 굳이 울려야 겠음?
 					AlarmManager.stopSoundAlarm();
+					
+					//Thread play
+					self.alarmBackgroundTaskPlayer!.stop();
+					self.alarmBackgroundTaskPlayer!.play();
 				}
 				
 				
-				if (ringingAlarm != nil && DeviceManager.appIsBackground == true) {
+				if (ringingAlarm != nil) {
 					Thread.sleep(forTimeInterval: 1); //1초 주기 실행
 				} else {
 					//남은 시간 비례하여 쓰레드 주기를 좁혀, 보다 정확한 시간에 알람이 울리게 함.
