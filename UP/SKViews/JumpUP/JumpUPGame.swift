@@ -1895,7 +1895,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			logAlarmGame();
 		} // end if
 		
-		AlarmManager.gameClearToggleAlarm( AlarmRingView.selfView!.currentAlarmElement!.alarmID, cleared: true );
+		//AlarmManager.gameClearToggle( AlarmRingView.selfView!.currentAlarmElement!.alarmID, cleared: true );
+		AlarmManager.gameClearToggle( Date(), cleared: true );
+		
 		AlarmManager.mergeAlarm(); //Merge it
 		AlarmManager.alarmRingActivated = false;
 		

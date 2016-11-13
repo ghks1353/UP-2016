@@ -158,7 +158,7 @@ class AlarmManager {
 	}
 	
 	//알람 게임 클리어 토글
-	static func gameClearToggleAlarm( _ alarmID:Int, cleared:Bool ) {
+	static func gameClearToggle( _ alarmID:Int, cleared:Bool ) {
 		let modAlarmElement:AlarmElements = getAlarm(alarmID)!;
 		modAlarmElement.alarmCleared = cleared;
 		
@@ -166,6 +166,24 @@ class AlarmManager {
 		DataManager.nsDefaults.set(NSKeyedArchiver.archivedData(withRootObject: alarmsArray), forKey: "alarmsList");
 		DataManager.save();
 		print("Alarm clear toggle to ..." ,cleared, "to id", alarmID);
+	}
+	
+	static func gameClearToggle( _ untilDate:Date, cleared:Bool ) {
+		
+		for i:Int in 0 ..< alarmsArray.count {
+			if (alarmsArray[i].alarmToggle == false) {
+				continue;
+			} //ignores off
+			
+			if (alarmsArray[i].alarmFireDate.timeIntervalSince1970 <= untilDate.timeIntervalSince1970) {
+				alarmsArray[i].alarmCleared = cleared;
+				print("Alarm clear toggle to ..." ,cleared, "to id", alarmsArray[i].alarmID);
+			}
+		} //end for
+
+		//save it
+		DataManager.nsDefaults.set(NSKeyedArchiver.archivedData(withRootObject: alarmsArray), forKey: "alarmsList");
+		DataManager.save();
 	}
 	
 	static func checkRegisterAlarm() -> Bool {

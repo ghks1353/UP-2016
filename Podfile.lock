@@ -3,10 +3,10 @@ PODS:
   - Charts/Realm (3.0.0):
     - Charts/Core
     - RealmSwift (~> 1.1)
-  - CryptoSwift (0.6.3)
-  - Firebase (3.8.0):
-    - Firebase/Core (= 3.8.0)
-  - Firebase/Core (3.8.0):
+  - CryptoSwift (0.6.6)
+  - Firebase (3.9.0):
+    - Firebase/Core (= 3.9.0)
+  - Firebase/Core (3.9.0):
     - FirebaseAnalytics (= 3.5.1)
     - FirebaseCore (= 3.4.4)
   - FirebaseAnalytics (3.5.1):
@@ -36,7 +36,7 @@ PODS:
     - SQLite.swift/standard (= 0.11.0)
   - SQLite.swift/standard (0.11.0)
   - SwiftyJSON (3.0.0)
-  - SwiftyStoreKit (0.5.3)
+  - SwiftyStoreKit (0.5.4)
 
 DEPENDENCIES:
   - Charts/Realm
@@ -60,8 +60,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Charts: beb341928d2135613b4325a6c6aff9f2f6de895e
-  CryptoSwift: 623f81faf4bc34caf78b792f8625fda9fc309abd
-  Firebase: fdbecadb7b5cbef2774852d4fa659b9daf11f2af
+  CryptoSwift: 88592381b73f36e192124539390a7c9bacda76af
+  Firebase: ff77ffb77b317c3720fef57a60e9335cebf962e6
   FirebaseAnalytics: 6e58fc9b397664369ac7617fb0ba93fab6ba7b5b
   FirebaseCore: d0ed25f27b6f9158eccc439f1be6f92e81207e28
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
@@ -74,8 +74,8 @@ SPEC CHECKSUMS:
   RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
   SQLite.swift: 9a26273607d3077a2e5a8d33486e9989f8404c7d
   SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
-  SwiftyStoreKit: 4422976f5ffacc4bd1be04211d0579f85c8c4ee1
+  SwiftyStoreKit: a8b02a708c6e2bf52207836d58afd3738e2f6670
 
 PODFILE CHECKSUM: 0e339c41fd4ff6d287317b05647f5e28d2fb3784
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0.beta.1
