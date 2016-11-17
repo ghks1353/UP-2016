@@ -193,7 +193,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		
 		let tSelection:UISegmentedControl
 			= UISegmentedControl( items: [ Languages.$("alarmRepeatFreqEveryday"), Languages.$("alarmRepeatFreqWeekday"), Languages.$("alarmRepeatFreqWeekend") ] );
-		tSelection.frame = CGRect( x: (tableView.frame.width / 2) - (190 / 2), y: 12, width: 190, height: 30 );
+		tSelection.frame = CGRect( x: (tableView.frame.width / 2) - (220 / 2), y: 12, width: 220, height: 30 );
 		tSelection.selectedSegmentIndex = -1; //default selected index
 		tSelection.addTarget(self, action: #selector(AlarmRepeatSettingsView.segmentIdxChanged(_:)), for: .valueChanged);
 		
