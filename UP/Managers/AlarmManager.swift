@@ -331,7 +331,12 @@ class AlarmManager {
 					}
 			
 				//다음 Repeat 대상이 있는지 체크
-				let todayDate:DateComponents = (Calendar.current as NSCalendar).components( .weekday, from: Date());
+				let todayDate:DateComponents = Calendar.current.dateComponents( [.weekday] , from: Date());
+				
+				//현재 날짜로부터 반복을 체크하여 반복을 몇일 뒤에 할지 설정하고, 그것에 대한 오차로 발생한 여러번 울리는건
+				//아래 최종적으로 다음 알람 울릴날짜 더할때 알람 날짜와 현재 날짜의 차를 체크하여 더하므로
+				//반복 대상은 오늘 날짜를 기준으로 체크하도록 한다.
+				
 				//TODO - 1. 오늘의 요일을 얻어옴. 2. 다음 날짜 알람 체크. 3. 날짜만큼 더함.
 				//단, 오늘날짜가 아니라 다음날짜로 계산해야함. (왜냐면 오늘은 울렸으니깐.)
 				var nextAlarmVaild:Int = -1;
@@ -348,7 +353,7 @@ class AlarmManager {
 					}
 				}
 				print("Next alarm day (0=sunday)", nextAlarmVaild);
-				scdAlarm[i].alarmCleared = false; // 게임클리어 리셋셋
+				scdAlarm[i].alarmCleared = false; // 게임클리어 리셋
 					
 				//TODO 2
 				//다음 알람 날짜에 알람 추가. (몇일 차이나는지 구해서 day만 더해주면됨. 없으면 추가안하고 토글종료)
@@ -358,18 +363,33 @@ class AlarmManager {
 					print("Alarm toggle finished (no-repeat alarm)");
 				} else {
 					//반복인 경우 다음 반복일 계산
+					//단, 다음 반복 날짜가 현재 시간보다 아래인 경우, 계속 반복하여 넘을 때까지 계산해야함..
+					//위 문장 16.11.10에 개선사항으로 추가됨
+					
+					//알람 울린 날짜와 오늘 날짜의 날짜간 차이를 구해서, 더해주면 될듯
+					//어차피 위크데이 계산은 오늘 날짜를 기준으로 하므로..
+					
 					print("Alarm toggle will repeat");
 					var fireAfterDay:Int = 0;
+					let firedDateSeconds:Int = Int(scdAlarm[i].alarmFireDate.timeIntervalSince1970);
+					
+					if (firedDateSeconds < Int(Date().timeIntervalSince1970)) {
+						fireAfterDay = Int(floor((Double(Date().timeIntervalSince1970) - Double(firedDateSeconds)) / 86400));
+						print("Adding days for correct alarm calc:", fireAfterDay);
+					}
+					
 					if (nextAlarmVaild - (todayDate.weekday! - 1) > 0) {
-						fireAfterDay = nextAlarmVaild - (todayDate.weekday! - 1);
+						fireAfterDay += nextAlarmVaild - (todayDate.weekday! - 1);
 						print("Firedate is over today: ", fireAfterDay);
 					} else {
-						fireAfterDay = (7 - (todayDate.weekday! - 1)) + nextAlarmVaild;
+						fireAfterDay += (7 - (todayDate.weekday! - 1)) + nextAlarmVaild;
 						print("Firedate is before today: ", fireAfterDay);
 					}
 					
+					
 					//alarmdate add
 					scdAlarm[i].alarmFireDate = UPUtils.addDays(scdAlarm[i].alarmFireDate, additionalDays: fireAfterDay);
+					
 					
 					//add new push for next alarm
 					var dateForRepeat:Date = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
