@@ -112,6 +112,12 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	var gameLifeOnTexture:SKTexture = SKTexture(imageNamed: "game-jumpup-assets-life-on.png");
 	var gameLifeOffTexture:SKTexture = SKTexture(imageNamed: "game-jumpup-assets-life-off.png");
 	
+	//Alarm bottom guides
+	var gameAlarmGuidesNodesArray:Array<SKSpriteNode> = [
+		SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-guide-alarm-0" ) ),
+		SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-guide-alarm-1" ) )
+	];
+	
 	//Character element
 	var characterElement:JumpUpElements?;// = JumpUpElements();
 	
@@ -204,6 +210,21 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				movPositionY = self.view!.frame.height - (52 * DeviceManager.scrRatioC);
 				gameScoreMovPositionY = movPositionY - 94;
 			}
+			
+			//Add How-to-play guide image
+			//gameAlarmGuidesNodesArray
+			for i:Int in 0 ..< gameAlarmGuidesNodesArray.count {
+				let xIndexCalcuated:CGFloat = (i == 0 ? 1 : -1) * (167/2 * DeviceManager.maxScrRatioC);
+				
+				gameAlarmGuidesNodesArray[i].size = CGSize( width: 167 * DeviceManager.maxScrRatioC, height: 126 * DeviceManager.maxScrRatioC );
+				gameAlarmGuidesNodesArray[i].position = CGPoint(
+				x: (self.view!.frame.width / 2 - xIndexCalcuated)
+				, y: gameStageYAxis - gameStageYHeight - (48 + 42 + 13) * DeviceManager.maxScrRatioC );
+				self.addChild( gameAlarmGuidesNodesArray[i] );
+			}
+			
+			
+			
 			
 			gameScore = gameAlarmFirstGoalTime; //초반 120초 부여
 			addCountdownTimerForAlarm();

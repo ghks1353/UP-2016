@@ -209,6 +209,8 @@
 		03E1D1311CF1BCF400B552FC /* characterinfo-gamecenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 03E1D1301CF1BCF400B552FC /* characterinfo-gamecenter.png */; };
 		03E1D1331CF3020B00B552FC /* CharacterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E1D1321CF3020B00B552FC /* CharacterInfo.swift */; };
 		03E1D1351CF32DB600B552FC /* CharacterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E1D1341CF32DB600B552FC /* CharacterManager.swift */; };
+		770973041DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */; };
+		770973051DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */; };
 		771ABC411D45DE8700938D1B /* CharacterSkinMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */; };
 		771ABC4A1D45DFDB00938D1B /* themes-main-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC491D45DFDB00938D1B /* themes-main-background.png */; };
 		771ABC5D1D46283B00938D1B /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC5C1D46283B00938D1B /* UnityAds.framework */; };
@@ -680,6 +682,8 @@
 		03E1D1321CF3020B00B552FC /* CharacterInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterInfo.swift; path = NSClasses/CharacterInfo.swift; sourceTree = "<group>"; };
 		03E1D1341CF32DB600B552FC /* CharacterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterManager.swift; path = Managers/CharacterManager.swift; sourceTree = "<group>"; };
 		3446BCAF72D11C596079B5EB /* Pods_UP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-guide-alarm-0.png"; path = "ImageAssets/GameAssets/JumpUP/guides/game-jumpup-assets-guide-alarm-0.png"; sourceTree = "<group>"; };
+		770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-guide-alarm-1.png"; path = "ImageAssets/GameAssets/JumpUP/guides/game-jumpup-assets-guide-alarm-1.png"; sourceTree = "<group>"; };
 		771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSkinMainView.swift; path = ModalView/CharacterSkinMainView.swift; sourceTree = "<group>"; };
 		771ABC491D45DFDB00938D1B /* themes-main-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-main-background.png"; path = "ImageAssets/ModalWindows/Themes/themes-main-background.png"; sourceTree = "<group>"; };
 		771ABC5C1D46283B00938D1B /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UnityAds.framework; sourceTree = "<group>"; };
@@ -1221,6 +1225,8 @@
 		0391ABCE1D25B5500051F3A6 /* Guides */ = {
 			isa = PBXGroup;
 			children = (
+				770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */,
+				770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */,
 				775EB0521D51E64F00BE8C4A /* game-jumpup-assets-guide-0.png */,
 				775EB0531D51E64F00BE8C4A /* game-jumpup-assets-guide-1.png */,
 				775EB0541D51E64F00BE8C4A /* game-jumpup-assets-guide-2.png */,
@@ -2233,6 +2239,7 @@
 				77561E101D50C21A002EB26B /* skin-default-character-0022.png in Resources */,
 				03DEB7C11D25D7A40086BEAD /* game-general-guide-left.png in Resources */,
 				032319321CFCAC170052732F /* result-btn-retry.png in Resources */,
+				770973041DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png in Resources */,
 				77561EA91D50CAB9002EB26B /* skin-default-object-list.png in Resources */,
 				03C14D0F1D2539D60078D10C /* game-general-window-exit.png in Resources */,
 				03B18E691D22C54600972101 /* comp-icons-shop-restore.png in Resources */,
@@ -2276,6 +2283,7 @@
 				03B18E501D20DB5800972101 /* modal-guide-images-all-10-general.png in Resources */,
 				0323191F1CFB5C7B0052732F /* characterinfo-exp-deco-21.png in Resources */,
 				775EAFB21D51E3B900BE8C4A /* game-jumpup-astro-default-jump-3.png in Resources */,
+				770973051DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png in Resources */,
 				77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */,
 				775EB05B1D524C7800BE8C4A /* game-jumpup-assets-warning.png in Resources */,
 				77561EAC1D50CAB9002EB26B /* skin-default-time-body.png in Resources */,
