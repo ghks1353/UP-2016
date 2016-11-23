@@ -565,6 +565,10 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						SKAction.actionWithEffect(moveEffect), SKAction.fadeOut(withDuration: 0.5)
 						])
 				);
+				
+				//Game guide animation
+				gameAlarmGuidesNodesArray[0].run( SKAction.fadeIn(withDuration: 0.5) );
+				gameAlarmGuidesNodesArray[1].run( SKAction.fadeIn(withDuration: 0.5) );
 			}
 			
 			addCountdownTimerForAlarm(); //타이머 재시작
@@ -1652,12 +1656,10 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				}
 				break;
 			case 1,2,3,8: //trap, box, box2
-				
 				addNodes( 10002, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
 
 				break;
 			case 4,5,9,10,11: //shadow for chars
-				
 				addNodes( 10003, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
 				
 				break;
@@ -1747,9 +1749,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			buttonAlarmOffSprite.run(
 				SKAction.actionWithEffect(moveEffect));
 			
-			
-			//게임 끝났으니 알람 끄기(임시)
-			//exitJumpUPGame();
+			//Game guide animation
+			gameAlarmGuidesNodesArray[0].run( SKAction.fadeOut(withDuration: 0.5) );
+			gameAlarmGuidesNodesArray[1].run( SKAction.fadeOut(withDuration: 0.5) );
 			
 		} else {
 			if (AlarmManager.alarmSoundPlaying == true) {
@@ -1775,6 +1777,10 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
 				buttonRetireSprite.run(
 					SKAction.actionWithEffect(moveEffect));
+				
+				//Game guide animation
+				gameAlarmGuidesNodesArray[0].run( SKAction.fadeOut(withDuration: 0.5) );
+				gameAlarmGuidesNodesArray[1].run( SKAction.fadeOut(withDuration: 0.5) );
 			}
 		}
 		
@@ -1791,11 +1797,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			if (chkButtonName.name == "button_retire" || chkButtonName.name == "button_alarm_off") {
 				//포기 버튼일 때 혹은 알람끄기 일 때
 				
-				//포기 여부 체크.
+				//포기 버튼을 눌렀는지의 여부 체크.
 				statsGameIsFailed = chkButtonName.name == "button_retire" ? true : false;
-				
 				exitJumpUPGame();
-				
 			} else {
 				//기타 터치
 				
@@ -1804,6 +1808,19 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				
 				if (gameFinishedBool == false) { //게임이 진행중일 때만 점프 가능.
 					if (characterElement!.jumpFlaggedCount < 2) { //캐릭터 점프횟수 제한
+						
+						//알람 모드에서 가이드 효과
+						if (gameStartupType == 0) {
+							//print("Current jump count", characterElement!.jumpFlaggedCount );
+							let scaleEffect = SKTScaleEffect(node: gameAlarmGuidesNodesArray[characterElement!.jumpFlaggedCount], duration: 0.5, startScale: CGPoint(x: 1.32, y: 1.32), endScale: CGPoint(x: 1, y: 1));
+							scaleEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
+							gameAlarmGuidesNodesArray[characterElement!.jumpFlaggedCount].run(
+								SKAction.actionWithEffect(scaleEffect));
+							
+
+						}
+						
+						
 						characterElement!.ySpeed = 11 * max(1, CGFloat(gameGravity / 1.5));
 						characterElement!.jumpFlaggedCount += 1;
 						gameUserJumpCount += 1; //점프 횟수 카운트
@@ -1816,8 +1833,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			
 		} //end for
 		
-		
-		super.touchesBegan(touches, with:event)
+		super.touchesBegan(touches, with:event);
 	}
 	
 	//////////////////////////////////
