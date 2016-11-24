@@ -402,13 +402,22 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     func alarmAddAction() {
         //Show alarm-add view
 		//뷰는 단 하나의 추가 뷰만 present가 가능한 관계로..
-		modalAlarmAddView.showBlur = false;
-		modalAlarmAddView.modalPresentationStyle = .overFullScreen;
-		
-		modalAlarmAddView.FitModalLocationToCenter();
-		self.present(modalAlarmAddView, animated: false, completion: nil);
-		modalAlarmAddView.clearComponents();
-		
+		//알람추가뷰 열기. 일단 최대 초과하는지 체크함
+		if ( AlarmManager.alarmsArray.count >= AlarmManager.alarmMaxRegisterCount ) {
+			//초과하므로, 열 수 없음
+			let alarmCantAddAlert = UIAlertController(title: Languages.$("generalAlert"), message: Languages.$("informationAlarmExceed"), preferredStyle: UIAlertControllerStyle.alert);
+			alarmCantAddAlert.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+				//Nothing do
+			}));
+			present(alarmCantAddAlert, animated: true, completion: nil);
+		} else {
+			modalAlarmAddView.showBlur = false;
+			modalAlarmAddView.modalPresentationStyle = .overFullScreen;
+			
+			modalAlarmAddView.FitModalLocationToCenter();
+			self.present(modalAlarmAddView, animated: false, completion: nil);
+			modalAlarmAddView.clearComponents();
+		}
     }
     
     func viewCloseAction() {
