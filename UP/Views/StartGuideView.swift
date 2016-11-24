@@ -15,7 +15,7 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 	static var selfView:StartGuideView?;
 	
 	var startingGuideBackgroundGradient:CAGradientLayer = CAGradientLayer();
-	var guidePages:Int = 14; //총 가이드 페이지 수.
+	var guidePages:Int = 4; //총 가이드 페이지 수.
 	var latestPage:Int = 0;
 	
 	var guideScrollView:UIScrollView = UIScrollView();
@@ -39,7 +39,16 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 		
 		//gradient background
 		startingGuideBackgroundGradient.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height);
-		startingGuideBackgroundGradient.colors = [ UPUtils.colorWithHexString("CBFFDC").cgColor , UPUtils.colorWithHexString("FFC9C9").cgColor ];
+		//startingGuideBackgroundGradient.colors = [ UPUtils.colorWithHexString("CBFFDC").cgColor , UPUtils.colorWithHexString("FFC9C9").cgColor ];
+		startingGuideBackgroundGradient.colors = [
+			UPUtils.colorWithHexString("2e2c4e").cgColor,
+			UPUtils.colorWithHexString("4e3f65").cgColor,
+			UPUtils.colorWithHexString("764f74").cgColor,
+			UPUtils.colorWithHexString("965778").cgColor,
+			UPUtils.colorWithHexString("c86879").cgColor,
+			UPUtils.colorWithHexString("df7e7a").cgColor,
+			UPUtils.colorWithHexString("e9a678").cgColor
+		];
 		self.view.layer.insertSublayer(startingGuideBackgroundGradient, at: 0);
 		////////////////
 		
@@ -78,9 +87,10 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			}
 			
 			//이미지는 정중앙이 아니라, 살짝 위로 올라가있음
-			tmpImage.frame = CGRect(x: self.view.frame.width / 2 - (255.6 * DeviceManager.maxScrRatioC) / 2
-				, y: (self.view.frame.height / 2 - (454.4 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC)
-				, width: 255.6 * DeviceManager.maxScrRatioC, height: 454.4 * DeviceManager.maxScrRatioC);
+			tmpImage.frame = CGRect(x: self.view.frame.width / 2 - (414 * DeviceManager.maxScrRatioC) / 2
+				, y: (self.view.frame.height / 2 - (736 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC)
+				//, width: 255.6 * DeviceManager.maxScrRatioC, height: 454.4 * DeviceManager.maxScrRatioC);
+				, width: 414 * DeviceManager.maxScrRatioC, height: 736 * DeviceManager.maxScrRatioC);
 			tmpScreenUIView.addSubview(tmpImage);
 			
 			//가이드 화면 위치 조정
@@ -88,10 +98,10 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			guideScrollView.addSubview(tmpScreenUIView);
 			
 			/// 텍스트 생성
-			tmpTitleUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpImage.frame.maxY + (48 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
+			tmpTitleUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpImage.frame.maxY - (64 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
 			tmpDesUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpTitleUILabel.frame.maxY + (12 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
 			
-			tmpTitleUILabel.textColor = UPUtils.colorWithHexString("#461515");
+			tmpTitleUILabel.textColor = UIColor.white; //UPUtils.colorWithHexString("#461515");
 			tmpDesUILabel.textColor = tmpTitleUILabel.textColor;
 			tmpTitleUILabel.textAlignment = .center; tmpTitleUILabel.font = i == 0 ? UIFont.boldSystemFont(ofSize: 16) : UIFont.systemFont(ofSize: 16);
 			tmpDesUILabel.textAlignment = .center; tmpDesUILabel.font = UIFont.systemFont(ofSize: 16);
@@ -196,14 +206,14 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 		for i:Int in 0 ..< guidePages {
 			guideUIViews[i].frame = CGRect(x: size.width * CGFloat(i), y: 0, width: size.width, height: size.height);
 			var arrPoint:CGPoint = CGPoint();
-			arrPoint.x = size.width / 2 - (255.6 * DeviceManager.maxScrRatioC) / 2;
-			arrPoint.y = (size.height / 2 - (454.4 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC);
+			arrPoint.x = size.width / 2 - (414 * DeviceManager.maxScrRatioC) / 2;
+			arrPoint.y = (size.height / 2 - (736 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC);
 			
 			guideImagesArray[i].frame =
 				CGRect(x: arrPoint.x
 					, y: arrPoint.y
-					, width: 255.6 * DeviceManager.maxScrRatioC, height: 454.4 * DeviceManager.maxScrRatioC);
-			guideTitleUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideImagesArray[i].frame.maxY + (48 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
+					, width: 414 * DeviceManager.maxScrRatioC, height: 736 * DeviceManager.maxScrRatioC);
+			guideTitleUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideImagesArray[i].frame.maxY - (64 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
 			guideDescriptionUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideTitleUILabelsArray[i].frame.maxY + (12 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
 		}
 		

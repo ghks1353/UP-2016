@@ -102,29 +102,6 @@
 		03B18E4B1D20DB5800972101 /* modal-guide-images-all-0-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E311D20DB5800972101 /* modal-guide-images-all-0-general.png */; };
 		03B18E4C1D20DB5800972101 /* modal-guide-images-all-1-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E321D20DB5800972101 /* modal-guide-images-all-1-general.png */; };
 		03B18E4D1D20DB5800972101 /* modal-guide-images-all-3-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E331D20DB5800972101 /* modal-guide-images-all-3-general.png */; };
-		03B18E4E1D20DB5800972101 /* modal-guide-images-all-6-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E341D20DB5800972101 /* modal-guide-images-all-6-general.png */; };
-		03B18E4F1D20DB5800972101 /* modal-guide-images-all-8-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E351D20DB5800972101 /* modal-guide-images-all-8-general.png */; };
-		03B18E501D20DB5800972101 /* modal-guide-images-all-10-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E361D20DB5800972101 /* modal-guide-images-all-10-general.png */; };
-		03B18E511D20DB5800972101 /* modal-guide-images-all-12-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E371D20DB5800972101 /* modal-guide-images-all-12-general.png */; };
-		03B18E521D20DB5800972101 /* modal-guide-images-all-13-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E381D20DB5800972101 /* modal-guide-images-all-13-general.png */; };
-		03B18E531D20DB5800972101 /* modal-guide-images-en-2-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E391D20DB5800972101 /* modal-guide-images-en-2-general.png */; };
-		03B18E541D20DB5800972101 /* modal-guide-images-en-4-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E3A1D20DB5800972101 /* modal-guide-images-en-4-general.png */; };
-		03B18E551D20DB5800972101 /* modal-guide-images-en-5-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E3B1D20DB5800972101 /* modal-guide-images-en-5-general.png */; };
-		03B18E561D20DB5800972101 /* modal-guide-images-en-7-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E3C1D20DB5800972101 /* modal-guide-images-en-7-general.png */; };
-		03B18E571D20DB5800972101 /* modal-guide-images-en-9-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E3D1D20DB5800972101 /* modal-guide-images-en-9-general.png */; };
-		03B18E581D20DB5800972101 /* modal-guide-images-en-11-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E3E1D20DB5800972101 /* modal-guide-images-en-11-general.png */; };
-		03B18E591D20DB5800972101 /* modal-guide-images-ja-2-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E3F1D20DB5800972101 /* modal-guide-images-ja-2-general.png */; };
-		03B18E5A1D20DB5800972101 /* modal-guide-images-ja-4-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E401D20DB5800972101 /* modal-guide-images-ja-4-general.png */; };
-		03B18E5B1D20DB5800972101 /* modal-guide-images-ja-5-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E411D20DB5800972101 /* modal-guide-images-ja-5-general.png */; };
-		03B18E5C1D20DB5800972101 /* modal-guide-images-ja-7-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E421D20DB5800972101 /* modal-guide-images-ja-7-general.png */; };
-		03B18E5D1D20DB5800972101 /* modal-guide-images-ja-9-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E431D20DB5800972101 /* modal-guide-images-ja-9-general.png */; };
-		03B18E5E1D20DB5800972101 /* modal-guide-images-ja-11-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E441D20DB5800972101 /* modal-guide-images-ja-11-general.png */; };
-		03B18E5F1D20DB5800972101 /* modal-guide-images-ko-2-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E451D20DB5800972101 /* modal-guide-images-ko-2-general.png */; };
-		03B18E601D20DB5800972101 /* modal-guide-images-ko-4-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E461D20DB5800972101 /* modal-guide-images-ko-4-general.png */; };
-		03B18E611D20DB5800972101 /* modal-guide-images-ko-5-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E471D20DB5800972101 /* modal-guide-images-ko-5-general.png */; };
-		03B18E621D20DB5800972101 /* modal-guide-images-ko-7-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E481D20DB5800972101 /* modal-guide-images-ko-7-general.png */; };
-		03B18E631D20DB5800972101 /* modal-guide-images-ko-9-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E491D20DB5800972101 /* modal-guide-images-ko-9-general.png */; };
-		03B18E641D20DB5800972101 /* modal-guide-images-ko-11-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E4A1D20DB5800972101 /* modal-guide-images-ko-11-general.png */; };
 		03B18E681D22C54600972101 /* comp-icons-shop-buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E661D22C54600972101 /* comp-icons-shop-buy.png */; };
 		03B18E691D22C54600972101 /* comp-icons-shop-restore.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E671D22C54600972101 /* comp-icons-shop-restore.png */; };
 		03B18E721D22CC3200972101 /* game-general-menu-info.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B18E6B1D22CC3200972101 /* game-general-menu-info.png */; };
@@ -223,6 +200,7 @@
 		771ABC6B1D4628DD00938D1B /* UnityAdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771ABC6A1D4628DD00938D1B /* UnityAdsManager.swift */; };
 		771ABC6D1D466D5500938D1B /* GeneralMenuUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771ABC6C1D466D5500938D1B /* GeneralMenuUI.swift */; };
 		77232C921C848CCA006E221A /* game-start-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 77232C911C848CCA006E221A /* game-start-button.png */; };
+		772BB1861DE73E2C0054B3EF /* modal-guide-images-all-2-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1851DE73E2C0054B3EF /* modal-guide-images-all-2-general.png */; };
 		77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */; };
 		77561DAF1D5066D0002EB26B /* comp-icons-settings-language-ja.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */; };
 		77561DB01D5066D0002EB26B /* comp-icons-settings-language-ko.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */; };
@@ -575,29 +553,6 @@
 		03B18E311D20DB5800972101 /* modal-guide-images-all-0-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-all-0-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-all-0-general.png"; sourceTree = "<group>"; };
 		03B18E321D20DB5800972101 /* modal-guide-images-all-1-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-all-1-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-all-1-general.png"; sourceTree = "<group>"; };
 		03B18E331D20DB5800972101 /* modal-guide-images-all-3-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-all-3-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-all-3-general.png"; sourceTree = "<group>"; };
-		03B18E341D20DB5800972101 /* modal-guide-images-all-6-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-all-6-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-all-6-general.png"; sourceTree = "<group>"; };
-		03B18E351D20DB5800972101 /* modal-guide-images-all-8-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-all-8-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-all-8-general.png"; sourceTree = "<group>"; };
-		03B18E361D20DB5800972101 /* modal-guide-images-all-10-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-all-10-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-all-10-general.png"; sourceTree = "<group>"; };
-		03B18E371D20DB5800972101 /* modal-guide-images-all-12-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-all-12-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-all-12-general.png"; sourceTree = "<group>"; };
-		03B18E381D20DB5800972101 /* modal-guide-images-all-13-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-all-13-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-all-13-general.png"; sourceTree = "<group>"; };
-		03B18E391D20DB5800972101 /* modal-guide-images-en-2-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-en-2-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-en-2-general.png"; sourceTree = "<group>"; };
-		03B18E3A1D20DB5800972101 /* modal-guide-images-en-4-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-en-4-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-en-4-general.png"; sourceTree = "<group>"; };
-		03B18E3B1D20DB5800972101 /* modal-guide-images-en-5-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-en-5-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-en-5-general.png"; sourceTree = "<group>"; };
-		03B18E3C1D20DB5800972101 /* modal-guide-images-en-7-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-en-7-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-en-7-general.png"; sourceTree = "<group>"; };
-		03B18E3D1D20DB5800972101 /* modal-guide-images-en-9-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-en-9-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-en-9-general.png"; sourceTree = "<group>"; };
-		03B18E3E1D20DB5800972101 /* modal-guide-images-en-11-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-en-11-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-en-11-general.png"; sourceTree = "<group>"; };
-		03B18E3F1D20DB5800972101 /* modal-guide-images-ja-2-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ja-2-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ja-2-general.png"; sourceTree = "<group>"; };
-		03B18E401D20DB5800972101 /* modal-guide-images-ja-4-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ja-4-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ja-4-general.png"; sourceTree = "<group>"; };
-		03B18E411D20DB5800972101 /* modal-guide-images-ja-5-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ja-5-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ja-5-general.png"; sourceTree = "<group>"; };
-		03B18E421D20DB5800972101 /* modal-guide-images-ja-7-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ja-7-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ja-7-general.png"; sourceTree = "<group>"; };
-		03B18E431D20DB5800972101 /* modal-guide-images-ja-9-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ja-9-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ja-9-general.png"; sourceTree = "<group>"; };
-		03B18E441D20DB5800972101 /* modal-guide-images-ja-11-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ja-11-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ja-11-general.png"; sourceTree = "<group>"; };
-		03B18E451D20DB5800972101 /* modal-guide-images-ko-2-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ko-2-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ko-2-general.png"; sourceTree = "<group>"; };
-		03B18E461D20DB5800972101 /* modal-guide-images-ko-4-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ko-4-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ko-4-general.png"; sourceTree = "<group>"; };
-		03B18E471D20DB5800972101 /* modal-guide-images-ko-5-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ko-5-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ko-5-general.png"; sourceTree = "<group>"; };
-		03B18E481D20DB5800972101 /* modal-guide-images-ko-7-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ko-7-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ko-7-general.png"; sourceTree = "<group>"; };
-		03B18E491D20DB5800972101 /* modal-guide-images-ko-9-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ko-9-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ko-9-general.png"; sourceTree = "<group>"; };
-		03B18E4A1D20DB5800972101 /* modal-guide-images-ko-11-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-ko-11-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-ko-11-general.png"; sourceTree = "<group>"; };
 		03B18E661D22C54600972101 /* comp-icons-shop-buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-shop-buy.png"; path = "ImageAssets/Components/Icons/comp-icons-shop-buy.png"; sourceTree = "<group>"; };
 		03B18E671D22C54600972101 /* comp-icons-shop-restore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-shop-restore.png"; path = "ImageAssets/Components/Icons/comp-icons-shop-restore.png"; sourceTree = "<group>"; };
 		03B18E6B1D22CC3200972101 /* game-general-menu-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-general-menu-info.png"; path = "ImageAssets/GameAssets/General/game-general-menu-info.png"; sourceTree = "<group>"; };
@@ -696,6 +651,7 @@
 		771ABC6A1D4628DD00938D1B /* UnityAdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnityAdsManager.swift; path = Managers/UnityAdsManager.swift; sourceTree = "<group>"; };
 		771ABC6C1D466D5500938D1B /* GeneralMenuUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeneralMenuUI.swift; path = Views/GeneralMenuUI.swift; sourceTree = "<group>"; };
 		77232C911C848CCA006E221A /* game-start-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-start-button.png"; path = "GameAssets/JumpUP/StartupView/game-start-button.png"; sourceTree = "<group>"; };
+		772BB1851DE73E2C0054B3EF /* modal-guide-images-all-2-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-images-all-2-general.png"; path = "ImageAssets/StartGuides/modal-guide-images-all-2-general.png"; sourceTree = "<group>"; };
 		77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-en.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-en.png"; sourceTree = "<group>"; };
 		77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ja.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ja.png"; sourceTree = "<group>"; };
 		77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ko.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ko.png"; sourceTree = "<group>"; };
@@ -1240,30 +1196,8 @@
 			children = (
 				03B18E311D20DB5800972101 /* modal-guide-images-all-0-general.png */,
 				03B18E321D20DB5800972101 /* modal-guide-images-all-1-general.png */,
+				772BB1851DE73E2C0054B3EF /* modal-guide-images-all-2-general.png */,
 				03B18E331D20DB5800972101 /* modal-guide-images-all-3-general.png */,
-				03B18E341D20DB5800972101 /* modal-guide-images-all-6-general.png */,
-				03B18E351D20DB5800972101 /* modal-guide-images-all-8-general.png */,
-				03B18E361D20DB5800972101 /* modal-guide-images-all-10-general.png */,
-				03B18E371D20DB5800972101 /* modal-guide-images-all-12-general.png */,
-				03B18E381D20DB5800972101 /* modal-guide-images-all-13-general.png */,
-				03B18E391D20DB5800972101 /* modal-guide-images-en-2-general.png */,
-				03B18E3A1D20DB5800972101 /* modal-guide-images-en-4-general.png */,
-				03B18E3B1D20DB5800972101 /* modal-guide-images-en-5-general.png */,
-				03B18E3C1D20DB5800972101 /* modal-guide-images-en-7-general.png */,
-				03B18E3D1D20DB5800972101 /* modal-guide-images-en-9-general.png */,
-				03B18E3E1D20DB5800972101 /* modal-guide-images-en-11-general.png */,
-				03B18E3F1D20DB5800972101 /* modal-guide-images-ja-2-general.png */,
-				03B18E401D20DB5800972101 /* modal-guide-images-ja-4-general.png */,
-				03B18E411D20DB5800972101 /* modal-guide-images-ja-5-general.png */,
-				03B18E421D20DB5800972101 /* modal-guide-images-ja-7-general.png */,
-				03B18E431D20DB5800972101 /* modal-guide-images-ja-9-general.png */,
-				03B18E441D20DB5800972101 /* modal-guide-images-ja-11-general.png */,
-				03B18E451D20DB5800972101 /* modal-guide-images-ko-2-general.png */,
-				03B18E461D20DB5800972101 /* modal-guide-images-ko-4-general.png */,
-				03B18E471D20DB5800972101 /* modal-guide-images-ko-5-general.png */,
-				03B18E481D20DB5800972101 /* modal-guide-images-ko-7-general.png */,
-				03B18E491D20DB5800972101 /* modal-guide-images-ko-9-general.png */,
-				03B18E4A1D20DB5800972101 /* modal-guide-images-ko-11-general.png */,
 			);
 			name = StartGuides;
 			sourceTree = "<group>";
@@ -2190,9 +2124,6 @@
 				03E1D12E1CF1BCF000B552FC /* characterinfo-achievements.png in Resources */,
 				03DDD82C1CEB9A49007C026D /* ko.json in Resources */,
 				032319181CFB5C7B0052732F /* characterinfo-exp-deco-14.png in Resources */,
-				03B18E5F1D20DB5800972101 /* modal-guide-images-ko-2-general.png in Resources */,
-				03B18E531D20DB5800972101 /* modal-guide-images-en-2-general.png in Resources */,
-				03B18E581D20DB5800972101 /* modal-guide-images-en-11-general.png in Resources */,
 				77561E4D1D50C2F2002EB26B /* skin-default-black-6.png in Resources */,
 				032536B31D187D23004C6293 /* modal-mask-result-sns.png in Resources */,
 				77561E981D50C884002EB26B /* a-time-on-small.png in Resources */,
@@ -2206,7 +2137,6 @@
 				032319201CFB5C7B0052732F /* characterinfo-exp-deco-22.png in Resources */,
 				03425B901CD0635700243B28 /* comp-icons-settings-icloud.png in Resources */,
 				77561E671D50C354002EB26B /* skin-default-ground-c-pad34.png in Resources */,
-				03B18E521D20DB5800972101 /* modal-guide-images-all-13-general.png in Resources */,
 				775EB0361D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect18.png in Resources */,
 				0323190F1CFB5C7B0052732F /* characterinfo-exp-deco-5.png in Resources */,
 				03DDD83D1CEB9D07007C026D /* comp-icons-datacategory-validratio.png in Resources */,
@@ -2221,7 +2151,6 @@
 				77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */,
 				77561E501D50C2F2002EB26B /* skin-default-black-9.png in Resources */,
 				03425BAF1CD391E500243B28 /* GoogleService-Info.plist in Resources */,
-				03B18E5E1D20DB5800972101 /* modal-guide-images-ja-11-general.png in Resources */,
 				775EAFA11D51E2EF00BE8C4A /* game-jumpup-assets-cloud-5.png in Resources */,
 				775EAFBF1D51E3D200BE8C4A /* game-jumpup-astro-default-move-5.png in Resources */,
 				032536CF1D1C4D1D004C6293 /* modal-credits-people-programmer.png in Resources */,
@@ -2263,7 +2192,6 @@
 				03B18E731D22CC3200972101 /* game-general-menu-list.png in Resources */,
 				77561E071D50C21A002EB26B /* skin-default-character-0013.png in Resources */,
 				77802D1F1C805E1A00766DB0 /* game-thumb-random.png in Resources */,
-				03B18E571D20DB5800972101 /* modal-guide-images-en-9-general.png in Resources */,
 				03425B8D1CD0635700243B28 /* comp-icons-settings-badge.png in Resources */,
 				771ABC4A1D45DFDB00938D1B /* themes-main-background.png in Resources */,
 				032319281CFB5C7B0052732F /* characterinfo-exp-deco-30.png in Resources */,
@@ -2280,7 +2208,6 @@
 				77561E891D50C86B002EB26B /* b-time-off-pad.png in Resources */,
 				77561E1A1D50C21A002EB26B /* skin-default-character-0032.png in Resources */,
 				77561EAA1D50CAB9002EB26B /* skin-default-object-st-shadow.png in Resources */,
-				03B18E501D20DB5800972101 /* modal-guide-images-all-10-general.png in Resources */,
 				0323191F1CFB5C7B0052732F /* characterinfo-exp-deco-21.png in Resources */,
 				775EAFB21D51E3B900BE8C4A /* game-jumpup-astro-default-jump-3.png in Resources */,
 				770973051DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png in Resources */,
@@ -2288,7 +2215,6 @@
 				775EB05B1D524C7800BE8C4A /* game-jumpup-assets-warning.png in Resources */,
 				77561EAC1D50CAB9002EB26B /* skin-default-time-body.png in Resources */,
 				77F9487C1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png in Resources */,
-				03B18E561D20DB5800972101 /* modal-guide-images-en-7-general.png in Resources */,
 				775EB0561D51E64F00BE8C4A /* game-jumpup-assets-guide-0.png in Resources */,
 				775EAFB31D51E3B900BE8C4A /* game-jumpup-astro-default-jump-4.png in Resources */,
 				779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */,
@@ -2309,7 +2235,6 @@
 				775EAFA71D51E2EF00BE8C4A /* game-jumpup-assets-time.png in Resources */,
 				77561E0D1D50C21A002EB26B /* skin-default-character-0019.png in Resources */,
 				77561E221D50C21A002EB26B /* skin-default-character-0040.png in Resources */,
-				03B18E511D20DB5800972101 /* modal-guide-images-all-12-general.png in Resources */,
 				0323191A1CFB5C7B0052732F /* characterinfo-exp-deco-16.png in Resources */,
 				77561E991D50C884002EB26B /* b-time-off-small.png in Resources */,
 				03B18E771D22CC3200972101 /* game-general-menu-soundoff.png in Resources */,
@@ -2365,19 +2290,16 @@
 				77561E9A1D50C884002EB26B /* b-time-on-small.png in Resources */,
 				77561E7C1D50C85D002EB26B /* c-time-on.png in Resources */,
 				03E1D1311CF1BCF400B552FC /* characterinfo-gamecenter.png in Resources */,
-				03B18E5B1D20DB5800972101 /* modal-guide-images-ja-5-general.png in Resources */,
 				77561E0C1D50C21A002EB26B /* skin-default-character-0018.png in Resources */,
 				032319171CFB5C7B0052732F /* characterinfo-exp-deco-13.png in Resources */,
 				775EAFD61D51E40F00BE8C4A /* game-jumpup-ai-j-astro-move4.png in Resources */,
 				775EB04E1D51E63400BE8C4A /* game-jump-ai-astro-fly2.png in Resources */,
 				775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */,
 				775EB04C1D51E63400BE8C4A /* game-jump-ai-astro-fly0.png in Resources */,
-				03B18E5C1D20DB5800972101 /* modal-guide-images-ja-7-general.png in Resources */,
 				03C14D0B1D2539D60078D10C /* game-general-window-btn-ads.png in Resources */,
 				77561E371D50C2E1002EB26B /* skin-default-7.png in Resources */,
 				77561DCC1D50C1BF002EB26B /* skin-default-c-back-pad34.png in Resources */,
 				775EAFAF1D51E3B900BE8C4A /* game-jumpup-astro-default-jump-0.png in Resources */,
-				03B18E5A1D20DB5800972101 /* modal-guide-images-ja-4-general.png in Resources */,
 				775EB0381D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect20.png in Resources */,
 				77FBE6841C6DCBAA00E251A2 /* game-thumb-background.png in Resources */,
 				776FF7C41D55B15D00E88B1A /* game-jumpup-assets-shadow-tiny.png in Resources */,
@@ -2407,7 +2329,6 @@
 				77561E6A1D50C354002EB26B /* skin-default-ground-d-pad34.png in Resources */,
 				775EAFC61D51E40000BE8C4A /* game-jumpup-ai-astro-move0.png in Resources */,
 				032319231CFB5C7B0052732F /* characterinfo-exp-deco-25.png in Resources */,
-				03B18E4F1D20DB5800972101 /* modal-guide-images-all-8-general.png in Resources */,
 				77561E1C1D50C21A002EB26B /* skin-default-character-0034.png in Resources */,
 				77561E201D50C21A002EB26B /* skin-default-character-0038.png in Resources */,
 				775EAFD41D51E40F00BE8C4A /* game-jumpup-ai-j-astro-move2.png in Resources */,
@@ -2429,11 +2350,9 @@
 				03425B921CD0635700243B28 /* comp-icons-settings-rating.png in Resources */,
 				0323190E1CFB5C7B0052732F /* characterinfo-exp-deco-4.png in Resources */,
 				03B18E4D1D20DB5800972101 /* modal-guide-images-all-3-general.png in Resources */,
-				03B18E4E1D20DB5800972101 /* modal-guide-images-all-6-general.png in Resources */,
 				77561EA81D50CAB9002EB26B /* skin-default-object-list-shadow.png in Resources */,
 				03B18E681D22C54600972101 /* comp-icons-shop-buy.png in Resources */,
 				775EAFB01D51E3B900BE8C4A /* game-jumpup-astro-default-jump-1.png in Resources */,
-				03B18E551D20DB5800972101 /* modal-guide-images-en-5-general.png in Resources */,
 				77561DC31D50C1BF002EB26B /* skin-default-a-back-4s.png in Resources */,
 				775EAFD51D51E40F00BE8C4A /* game-jumpup-ai-j-astro-move3.png in Resources */,
 				0323191D1CFB5C7B0052732F /* characterinfo-exp-deco-19.png in Resources */,
@@ -2448,7 +2367,6 @@
 				03DDD8381CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png in Resources */,
 				032319141CFB5C7B0052732F /* characterinfo-exp-deco-10.png in Resources */,
 				77561E8A1D50C86B002EB26B /* b-time-on-pad.png in Resources */,
-				03B18E5D1D20DB5800972101 /* modal-guide-images-ja-9-general.png in Resources */,
 				77561DFE1D50C21A002EB26B /* skin-default-character-0004.png in Resources */,
 				03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */,
 				03DDD8391CEB9D07007C026D /* comp-icons-datacategory-compratio.png in Resources */,
@@ -2457,12 +2375,9 @@
 				032319111CFB5C7B0052732F /* characterinfo-exp-deco-7.png in Resources */,
 				775EB0271D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect3.png in Resources */,
 				77561DD21D50C1BF002EB26B /* skin-default-d-back.png in Resources */,
-				03B18E631D20DB5800972101 /* modal-guide-images-ko-9-general.png in Resources */,
-				03B18E591D20DB5800972101 /* modal-guide-images-ja-2-general.png in Resources */,
 				77561E9E1D50C884002EB26B /* d-time-on-small.png in Resources */,
 				77561DC71D50C1BF002EB26B /* skin-default-b-back-4s.png in Resources */,
 				77561E631D50C354002EB26B /* skin-default-ground-a.png in Resources */,
-				03B18E601D20DB5800972101 /* modal-guide-images-ko-4-general.png in Resources */,
 				032536B91D19BA23004C6293 /* result-btn-play.png in Resources */,
 				77F948721D80ADEE00B33F5F /* comp-icons-settings-memo.png in Resources */,
 				03C14D0C1D2539D60078D10C /* game-general-window-btn-cancel.png in Resources */,
@@ -2481,17 +2396,16 @@
 				77561DCA1D50C1BF002EB26B /* skin-default-b-back.png in Resources */,
 				77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */,
 				775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */,
-				03B18E621D20DB5800972101 /* modal-guide-images-ko-7-general.png in Resources */,
 				775EAFA51D51E2EF00BE8C4A /* game-jumpup-assets-score.png in Resources */,
 				77561E7A1D50C85D002EB26B /* b-time-on.png in Resources */,
 				775EB0591D51E64F00BE8C4A /* game-jumpup-assets-guide-3.png in Resources */,
 				776FF7BC1D545C0800E88B1A /* game-jumpup-assets-playpreview.gif in Resources */,
 				77561E7D1D50C85D002EB26B /* d-time-off.png in Resources */,
+				772BB1861DE73E2C0054B3EF /* modal-guide-images-all-2-general.png in Resources */,
 				776FF7C21D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png in Resources */,
 				77561DCD1D50C1BF002EB26B /* skin-default-c-back-pad43.png in Resources */,
 				77561E641D50C354002EB26B /* skin-default-ground-b-pad34.png in Resources */,
 				03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */,
-				03B18E641D20DB5800972101 /* modal-guide-images-ko-11-general.png in Resources */,
 				77561DD01D50C1BF002EB26B /* skin-default-d-back-pad34.png in Resources */,
 				03E1D1281CF0BC7000B552FC /* characterinfo-exp-wrapper.png in Resources */,
 				77232C921C848CCA006E221A /* game-start-button.png in Resources */,
@@ -2520,11 +2434,9 @@
 				03425B981CD0670800243B28 /* comp-cell-arrow.png in Resources */,
 				77561DD11D50C1BF002EB26B /* skin-default-d-back-pad43.png in Resources */,
 				77561E351D50C2E1002EB26B /* skin-default-5.png in Resources */,
-				03B18E541D20DB5800972101 /* modal-guide-images-en-4-general.png in Resources */,
 				77561E8B1D50C86B002EB26B /* c-time-off-pad.png in Resources */,
 				03425B781CCEB2E400243B28 /* modal-back.png in Resources */,
 				77561DC51D50C1BF002EB26B /* skin-default-a-back-pad43.png in Resources */,
-				03B18E611D20DB5800972101 /* modal-guide-images-ko-5-general.png in Resources */,
 				77561E6B1D50C354002EB26B /* skin-default-ground-d-pad43.png in Resources */,
 				77561E0A1D50C21A002EB26B /* skin-default-character-0016.png in Resources */,
 				032318C41CFA24D90052732F /* modal-background-characterinfo-blank.png in Resources */,

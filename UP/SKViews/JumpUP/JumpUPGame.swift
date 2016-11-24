@@ -1811,15 +1811,11 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						
 						//알람 모드에서 가이드 효과
 						if (gameStartupType == 0) {
-							//print("Current jump count", characterElement!.jumpFlaggedCount );
-							let scaleEffect = SKTScaleEffect(node: gameAlarmGuidesNodesArray[characterElement!.jumpFlaggedCount], duration: 0.5, startScale: CGPoint(x: 1.32, y: 1.32), endScale: CGPoint(x: 1, y: 1));
+							let scaleEffect = SKTScaleEffect(node: gameAlarmGuidesNodesArray[characterElement!.jumpFlaggedCount], duration: 0.5, startScale: CGPoint(x: 1.4, y: 1.4), endScale: CGPoint(x: 1, y: 1));
 							scaleEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
 							gameAlarmGuidesNodesArray[characterElement!.jumpFlaggedCount].run(
 								SKAction.actionWithEffect(scaleEffect));
-							
-
 						}
-						
 						
 						characterElement!.ySpeed = 11 * max(1, CGFloat(gameGravity / 1.5));
 						characterElement!.jumpFlaggedCount += 1;
