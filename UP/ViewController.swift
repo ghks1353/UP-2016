@@ -854,17 +854,17 @@ class ViewController: UIViewController {
 			            height: 300 * DeviceManager.maxScrRatioC );
 		GroundStatSign.frame =
 			CGRect( x: 48 * DeviceManager.maxScrRatioC,
-			            y: GroundObj.frame.origin.y - (87 * DeviceManager.maxScrRatioC),
+			            y: GroundObj.frame.origin.y - (86 * DeviceManager.maxScrRatioC),
 			            width: 102 * DeviceManager.maxScrRatioC,
 			            height: 102 * DeviceManager.maxScrRatioC );
 		GroundStandingBox.frame =
 			CGRect( x: AstroCharacter.frame.midX - (120 * DeviceManager.maxScrRatioC),
-			            y: GroundObj.frame.origin.y,
+			            y: GroundObj.frame.origin.y - (2 * DeviceManager.maxScrRatioC),
 			            width: 72 * DeviceManager.maxScrRatioC,
 			            height: 18 * DeviceManager.maxScrRatioC );
 		GroundFloatingBox.frame =
 			CGRect( x: GroundStandingBox.frame.origin.x + (16 * DeviceManager.maxScrRatioC),
-			            y: GroundStandingBox.frame.origin.y - (54 * DeviceManager.maxScrRatioC),
+			            y: GroundStandingBox.frame.origin.y - (52 * DeviceManager.maxScrRatioC),
 			            width: 40 * DeviceManager.maxScrRatioC,
 			            height: 44 * DeviceManager.maxScrRatioC );
 		
