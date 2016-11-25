@@ -179,7 +179,7 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 	} //end func
 	
 	override func viewWillAppear(_ animated: Bool) {
-		UIApplication.shared.statusBarStyle = .default;
+		//UIApplication.shared.statusBarStyle = .default;
 		
 		//스크롤뷰 제자리로
 		self.guideScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
@@ -188,7 +188,7 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		//view disappear event handler
-		UIApplication.shared.statusBarStyle = .lightContent;
+		//UIApplication.shared.statusBarStyle = .lightContent;
 	}
 	
 	func fitView(_ size: CGSize) {
