@@ -87,7 +87,7 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			
 			//이미지는 정중앙이 아니라, 살짝 위로 올라가있음
 			tmpImage.frame = CGRect(x: self.view.frame.width / 2 - (414 * DeviceManager.maxScrRatioC) / 2
-				, y: (self.view.frame.height / 2 - (736 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC)
+				, y: UIDevice.current.userInterfaceIdiom == .pad ? ((self.view.frame.height / 2 - (736 * DeviceManager.maxScrRatioC) / 2)) : 0
 				, width: 414 * DeviceManager.maxScrRatioC, height: 736 * DeviceManager.maxScrRatioC);
 			tmpScreenUIView.addSubview(tmpImage);
 			
@@ -96,12 +96,13 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			guideScrollView.addSubview(tmpScreenUIView);
 			
 			/// 텍스트 생성
-			tmpTitleUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpImage.frame.maxY - (100 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
+			tmpTitleUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpImage.frame.maxY - (194 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
 			tmpDesUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpTitleUILabel.frame.maxY + (12 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 48);
 			
 			tmpTitleUILabel.textColor = UIColor.white; //UPUtils.colorWithHexString("#461515");
 			tmpDesUILabel.textColor = tmpTitleUILabel.textColor;
-			tmpTitleUILabel.textAlignment = .center; tmpTitleUILabel.font = i == 0 ? UIFont.boldSystemFont(ofSize: 16) : UIFont.systemFont(ofSize: 16);
+			tmpTitleUILabel.textAlignment = .center;
+			tmpTitleUILabel.font = UIFont.boldSystemFont(ofSize: 18);
 			tmpDesUILabel.textAlignment = .center; tmpDesUILabel.font = UIFont.systemFont(ofSize: 14);
 			tmpDesUILabel.numberOfLines = 0;
 			
@@ -206,13 +207,13 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			guideUIViews[i].frame = CGRect(x: size.width * CGFloat(i), y: 0, width: size.width, height: size.height);
 			var arrPoint:CGPoint = CGPoint();
 			arrPoint.x = size.width / 2 - (414 * DeviceManager.maxScrRatioC) / 2;
-			arrPoint.y = (size.height / 2 - (736 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC);
+			arrPoint.y = UIDevice.current.userInterfaceIdiom == .pad ? (size.height / 2 - (736 * DeviceManager.maxScrRatioC) / 2)  : 0;
 			
 			guideImagesArray[i].frame =
 				CGRect(x: arrPoint.x
 					, y: arrPoint.y
 					, width: 414 * DeviceManager.maxScrRatioC, height: 736 * DeviceManager.maxScrRatioC);
-			guideTitleUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideImagesArray[i].frame.maxY - (100 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
+			guideTitleUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideImagesArray[i].frame.maxY - (194 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
 			guideDescriptionUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideTitleUILabelsArray[i].frame.maxY + (12 * DeviceManager.maxScrRatioC), width: size.width, height: 48);
 		}
 		
