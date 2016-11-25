@@ -340,6 +340,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 					8, 9 - normal cloud (another design)
 				
 					10, 11, 12 - tiny / small / big shadows
+					13, 14 - tiny 1, tiny 2
 				*/
 				SKTexture( imageNamed: "game-jumpup-assets-cloud-2.png" ),
 				SKTexture( imageNamed: "game-jumpup-assets-trap.png" ),
@@ -352,9 +353,11 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				SKTexture( imageNamed: "game-jumpup-assets-cloud-3.png" ),
 				SKTexture( imageNamed: "game-jumpup-assets-cloud-4.png" ),
 				
-				SKTexture( imageNamed: "game-jumpup-assets-shadow-tiny.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-shadow-tiny-0.png" ),
 				SKTexture( imageNamed: "game-jumpup-assets-shadow-small.png" ),
-				SKTexture( imageNamed: "game-jumpup-assets-shadow-big.png" )
+				SKTexture( imageNamed: "game-jumpup-assets-shadow-big.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-shadow-tiny-1.png" ),
+				SKTexture( imageNamed: "game-jumpup-assets-shadow-tiny-2.png" )
 				
 			];
 			
@@ -1302,13 +1305,13 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		var ignoresForceZPosition:Bool = false;
 		
 		//shadow flags
-		var shadowFlags:Int = -1;
+		var tmpCloudNumber:Int = Int(arc4random_uniform( 3 ));
 		
 		switch(elementType){
 			case 0: //0 - Cloud for decoration
 				
 				//랜덤으로 구름의 종류 (3가지) 중 하나로 결정
-				switch( Int(arc4random_uniform( 3 )) ) {
+				switch( tmpCloudNumber ) {
 					case 0:
 						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[0] );
 						toAddelement!.size = CGSize( width: 132.65 * DeviceManager.scrRatioC , height: 32.15 * DeviceManager.scrRatioC );
@@ -1316,17 +1319,15 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 					case 1:
 						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[8] );
 						toAddelement!.size = CGSize( width: 100.5 * DeviceManager.scrRatioC , height: 24.1 * DeviceManager.scrRatioC );
-						shadowFlags = 0;
 						break;
 					case 2:
 						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[9] );
 						toAddelement!.size = CGSize( width: 100.45 * DeviceManager.scrRatioC , height: 24.1 * DeviceManager.scrRatioC );
-						shadowFlags = 0;
 						break;
 					default:
 						
 						break;
-				}
+				} //end cloud selection
 				
 				ignoresForceZPosition = true;
 				
@@ -1348,13 +1349,13 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[elementType] );
 				switch(elementType) {
 					case 1:
-						toAddelement!.size = CGSize( width: 52.25 * DeviceManager.scrRatioC , height: 20.1 * DeviceManager.scrRatioC );
+						toAddelement!.size = CGSize( width: 44 * DeviceManager.scrRatioC , height: 12 * DeviceManager.scrRatioC );
 						break;
 					case 2:
-						toAddelement!.size = CGSize( width: 28.15 * DeviceManager.scrRatioC , height: 24.1 * DeviceManager.scrRatioC );
+						toAddelement!.size = CGSize( width: 24 * DeviceManager.scrRatioC , height: 24 * DeviceManager.scrRatioC );
 						break;
 					case 3:
-						toAddelement!.size = CGSize( width: 40.2 * DeviceManager.scrRatioC , height: 56.25 * DeviceManager.scrRatioC );
+						toAddelement!.size = CGSize( width: 36 * DeviceManager.scrRatioC , height: 72 * DeviceManager.scrRatioC );
 						break;
 					default: break;
 				}
@@ -1430,6 +1431,8 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement!.elementFlag = 2; //고정형 (물리 안받음)
 				
 				ignoresForceZPosition = true;
+				
+				tmpCloudNumber = 3;
 				break;
 			case 7:
 				//페이크 구름 2. (떨어지는 구름)
@@ -1448,11 +1451,13 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement!.elementSpeed = 1.8;
 				
 				ignoresForceZPosition = true;
+				
+				tmpCloudNumber = 4;
 				break;
 			case 8:
 				//솟구치는 가시 (...)
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[7] );
-				toAddelement!.size = CGSize( width: 52.25 * DeviceManager.scrRatioC , height: 20.1 * DeviceManager.scrRatioC );
+				toAddelement!.size = CGSize( width: 44 * DeviceManager.scrRatioC , height: 12 * DeviceManager.scrRatioC );
 				
 				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
@@ -1547,16 +1552,30 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement!.motions_current = -1; //모션없음
 				toAddelement!.texture = targetElement!.texture; //그 순간의 모션이기 때문에 텍스쳐 박제
 				break;
-			case 10002:
-				//작은(tiny) 그림자
-				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[10] );
+			case 10002,10006,10007:
+				//작은(tiny 1/2/3) 그림자
+				
+				switch( elementType ) {
+					case 10002: //tiny 0
+						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[10] );
+						toAddelement!.size = CGSize( width: 44 * DeviceManager.scrRatioC, height: 28 * DeviceManager.scrRatioC );
+						break;
+					case 10006: //tiny 1
+						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[13] );
+						toAddelement!.size = CGSize( width: 48 * DeviceManager.scrRatioC, height: 32 * DeviceManager.scrRatioC );
+						break;
+					case 10007: //tiny 2
+						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[14] );
+						toAddelement!.size = CGSize( width: 68 * DeviceManager.scrRatioC, height: 32 * DeviceManager.scrRatioC );
+						break;
+					default: break;
+				} //end sel elementtype
+					
 				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
-				toAddelement!.size = CGSize( width: 76.35 * DeviceManager.scrRatioC, height: 32.15 * DeviceManager.scrRatioC );
 				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
 				
 				//약간의 위치조정.
 				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 );
-				// - 2 * DeviceManager.scrRatioC
 				toAddelement!.elementTargetElement = targetElement;
 				
 				if (targetElement == nil) {
@@ -1575,7 +1594,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				//캐릭터 전용(tiny) 그림자
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[10] );
 				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
-				toAddelement!.size = CGSize( width: 76.35 * DeviceManager.scrRatioC, height: 32.15 * DeviceManager.scrRatioC );
+				toAddelement!.size = CGSize( width: 44 * DeviceManager.scrRatioC, height: 28 * DeviceManager.scrRatioC );
 				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
 				
 				//약간의 위치조정.
@@ -1643,7 +1662,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				targetElement!.removeFromParent();
 				addTargetChild = true;
 				break;
-				
+			//10007까지 있음. (위에 10002에서 씀)
 			
 			default: break;
 		}
@@ -1665,25 +1684,30 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//그림자 생성 할 물건이 있으면 함
 		
 		switch(elementType){
-			case 0: //cloud
-				if(shadowFlags == 0) {
-					//Add normal size shadows
-					addNodes( 10005, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
-				} else {
-					//Add big shadows
-					addNodes( 10004, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
-				}
+			case 0,6,7: //cloud
+				//구름 종류에 따른 그림자 변형
+				switch(tmpCloudNumber) {
+					case 0,3,4: //big
+						addNodes( 10004, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+						break;
+					case 1: //small
+						addNodes( 10005, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+						break;
+					case 2: //small
+						addNodes( 10005, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+						break;
+					default: break;
+				} //end switch
+				
 				break;
-			case 1,2,3,8: //trap, box, box2
-				addNodes( 10002, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
-
+			case 2,3: //boxes
+				addNodes( 10006, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
+				break;
+			case 1,8: //traps
+				addNodes( 10007, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
 				break;
 			case 4,5,9,10,11: //shadow for chars
 				addNodes( 10003, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
-				
-				break;
-			case 6,7: //shadow for trap clouds.
-				addNodes( 10005, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
 				
 				break;
 			default: break;
