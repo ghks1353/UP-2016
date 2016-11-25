@@ -145,7 +145,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//Game ID
 		currentGameID = 0;
 		//Preload vars
-		preloadCompleteCout = 81; //p:71
+		preloadCompleteCout = 83; //p:71
 		
 		//Tracking by google analytics
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_GAME);
@@ -182,7 +182,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//실제 게임 스테이지 y값
 		gameStageYAxis = bgPositionRect.minY + (bgPositionRect.height / 2);
 		gameStageYHeight = bgPositionRect.height;
-		gameStageYFoot = gameStageYAxis - gameStageYHeight / 2 - (32 * DeviceManager.scrRatioC);
+		gameStageYFoot = gameStageYAxis - gameStageYHeight / 2 - (48 * DeviceManager.scrRatioC);
 		
 		//time 혹은 score 추가 (실행 타입에 따라 바뀜)
 		gameScoreStr = "";
@@ -673,7 +673,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			if (repeatBackgroundNodes[bgi].position.x < -repeatBackgroundNodes[bgi].size.width / 2) {
 				repeatBackgroundNodes[bgi].position.x =
 					(bgi == repeatBackgroundNodes.count - 1 ? repeatBackgroundNodes[0].position.x : repeatBackgroundNodes[bgi + 1].position.x)
-				+ self.view!.frame.width - (2 * DeviceManager.scrRatioC);
+				+ self.view!.frame.width - ((2 + CGFloat(additionalGameScrollSpeed)) * DeviceManager.scrRatioC);
 			}
 		}
 		
@@ -1337,7 +1337,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				toAddelement!.position.y = /* fit to stage, and random y range */
 					(gameStageYAxis - toAddelement!.size.height) + toAddelement!.elementTargetPosFix!.height;
-				toAddelement!.alpha = 0.8;
+				//toAddelement!.alpha = 0.8;
 				
 				toAddelement!.elementSpeed = 1.1 + Double(Float(arc4random()) / Float(UINT32_MAX)) / 7;
 				break;
@@ -1615,15 +1615,15 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				addTargetChild = true;
 				break;
 			case 10004:
-				//큰 그림자 (주로 구름 밑)
+				//큰 그림자 (주로 구름 밑) big
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[12] );
 				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
 				toAddelement!.size = CGSize( width: 168.8 * DeviceManager.scrRatioC, height: 56.25 * DeviceManager.scrRatioC );
-				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
+				toAddelement!.position.x = posX;
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2); //big, small구름은 땅에박음
 				
 				//약간의 위치조정.
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: targetElement!.elementTargetPosFix!.height / 2 );
-				
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 );
 				toAddelement!.elementTargetElement = targetElement;
 				
 				if (targetElement == nil) {
@@ -1644,10 +1644,11 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[12] );
 				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
 				toAddelement!.size = CGSize( width: 104.5 * DeviceManager.scrRatioC, height: 36.15 * DeviceManager.scrRatioC );
-				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
+				toAddelement!.position.x = posX;
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2); //big, small구름은 땅에박음
 				
 				//약간의 위치조정.
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: targetElement!.elementTargetPosFix!.height / 2 );
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 );
 				toAddelement!.elementTargetElement = targetElement;
 				
 				if (targetElement == nil) {
