@@ -93,7 +93,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" );
 		charGameCenterIcon.image = UIImage( named: "characterinfo-gamecenter.png" );
 		charAchievementsIcon.image = UIImage( named: "characterinfo-achievements.png" );
-		charCurrentCharacter.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character-" + "0001" + ".png" ); //현재 캐릭터 스킨 불러오기
+		charCurrentCharacter.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character-" + "0" + ".png" ); //현재 캐릭터 스킨 불러오기
 		
 		//기타 컴포넌트 배치.
 		modalView.view.addSubview(charLevelWrapper);

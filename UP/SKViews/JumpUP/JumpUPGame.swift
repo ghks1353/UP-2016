@@ -104,6 +104,11 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	
 	var gameTexturesAIFlyTexturesArray:Array<SKTexture> = [];
 	var gameTexturesAIJFlyTexturesArray:Array<SKTexture> = [];
+	
+	//AI from LEFT textures
+	var gameTexturesAILeftTexturesArray:Array<SKTexture> = [];
+	var gameTexturesAIJLeftTexturesArray:Array<SKTexture> = [];
+	
 	//AI Effect sktextures array
 	var gameTexturesAIEffectsArray:Array<Array<SKTexture>> = [];
 	
@@ -140,7 +145,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//Game ID
 		currentGameID = 0;
 		//Preload vars
-		preloadCompleteCout = 71;
+		preloadCompleteCout = 81; //p:71
 		
 		//Tracking by google analytics
 		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_GAME);
@@ -222,8 +227,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				, y: gameStageYAxis - gameStageYHeight - (48 + 42 + 13) * DeviceManager.maxScrRatioC );
 				self.addChild( gameAlarmGuidesNodesArray[i] );
 			}
-			
-			
 			
 			
 			gameScore = gameAlarmFirstGoalTime; //초반 120초 부여
@@ -413,7 +416,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		if (gameTexturesAIMoveTexturesArray.count == 0) {
 			for i:Int in 0 ..< 6 {
 				gameTexturesAIMoveTexturesArray += [
-					SKTexture( imageNamed: "game-jumpup-ai-astro-move" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jumpup-ai-astro-move-" + String(i) + ".png" )
 				];
 				(gameTexturesAIMoveTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
@@ -421,7 +424,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		if (gameTexturesAIJMoveTexturesArray.count == 0) {
 			for i:Int in 0 ..< 6 {
 				gameTexturesAIJMoveTexturesArray += [
-					SKTexture( imageNamed: "game-jumpup-ai-j-astro-move" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jumpup-ai-j-astro-move-" + String(i) + ".png" )
 				];
 				(gameTexturesAIJMoveTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
@@ -429,7 +432,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		if (gameTexturesAIJJumpTexturesArray.count == 0) {
 			for i:Int in 0 ..< 5 {
 				gameTexturesAIJJumpTexturesArray += [
-					SKTexture( imageNamed: "game-jumpup-ai-j-astro-jump" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jumpup-ai-j-astro-jump-" + String(i) + ".png" )
 				];
 				(gameTexturesAIJJumpTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
@@ -437,7 +440,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		if (gameTexturesAIFlyTexturesArray.count == 0) {
 			for i:Int in 0 ..< 4 {
 				gameTexturesAIFlyTexturesArray += [
-					SKTexture( imageNamed: "game-jump-ai-astro-fly" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jumpup-ai-astro-fly-" + String(i) + ".png" )
 				];
 				(gameTexturesAIFlyTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
@@ -445,11 +448,27 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		if (gameTexturesAIJFlyTexturesArray.count == 0) {
 			for i:Int in 0 ..< 4 {
 				gameTexturesAIJFlyTexturesArray += [
-					SKTexture( imageNamed: "game-jump-ai-j-astro-fly" + String(i) + ".png" )
+					SKTexture( imageNamed: "game-jumpup-ai-j-astro-fly-" + String(i) + ".png" )
 				];
 				(gameTexturesAIJFlyTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
 			}
 		} //flying motion end for *ai_j fly*
+		if (gameTexturesAILeftTexturesArray.count == 0) {
+			for i:Int in 0 ..< 6 {
+				gameTexturesAILeftTexturesArray += [
+					SKTexture( imageNamed: "game-jumpup-ai-astro-left-move-" + String(i) + ".png" )
+				];
+				(gameTexturesAILeftTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
+			}
+		} //walking motion end for *ai left move*
+		if (gameTexturesAIJLeftTexturesArray.count == 0) {
+			for i:Int in 0 ..< 4 {
+				gameTexturesAIJLeftTexturesArray += [
+					SKTexture( imageNamed: "game-jumpup-ai-astro-left-jump-" + String(i) + ".png" )
+				];
+				(gameTexturesAIJLeftTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
+			}
+		} //jumping motion end for *ai left jump*
 		
 		//Character to front
 		characterElement!.zPosition = 2;
@@ -1492,8 +1511,8 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI;
 				
 				toAddelement!.motions_current = 0;
-				toAddelement!.motions_walking = gameTexturesAIJMoveTexturesArray;
-				toAddelement!.motions_jumping = gameTexturesAIJJumpTexturesArray;
+				toAddelement!.motions_walking = gameTexturesAILeftTexturesArray;
+				toAddelement!.motions_jumping = gameTexturesAIJLeftTexturesArray;
 				toAddelement!.elementFlag = 7; //반대로 달리는 장애물.
 				
 				break;
