@@ -39,7 +39,6 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 		
 		//gradient background
 		startingGuideBackgroundGradient.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height);
-		//startingGuideBackgroundGradient.colors = [ UPUtils.colorWithHexString("CBFFDC").cgColor , UPUtils.colorWithHexString("FFC9C9").cgColor ];
 		startingGuideBackgroundGradient.colors = [
 			UPUtils.colorWithHexString("2e2c4e").cgColor,
 			UPUtils.colorWithHexString("4e3f65").cgColor,
@@ -89,7 +88,6 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			//이미지는 정중앙이 아니라, 살짝 위로 올라가있음
 			tmpImage.frame = CGRect(x: self.view.frame.width / 2 - (414 * DeviceManager.maxScrRatioC) / 2
 				, y: (self.view.frame.height / 2 - (736 * DeviceManager.maxScrRatioC) / 2) - (47 * DeviceManager.scrRatioC)
-				//, width: 255.6 * DeviceManager.maxScrRatioC, height: 454.4 * DeviceManager.maxScrRatioC);
 				, width: 414 * DeviceManager.maxScrRatioC, height: 736 * DeviceManager.maxScrRatioC);
 			tmpScreenUIView.addSubview(tmpImage);
 			
@@ -98,16 +96,17 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			guideScrollView.addSubview(tmpScreenUIView);
 			
 			/// 텍스트 생성
-			tmpTitleUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpImage.frame.maxY - (64 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
-			tmpDesUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpTitleUILabel.frame.maxY + (12 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
+			tmpTitleUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpImage.frame.maxY - (100 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
+			tmpDesUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpTitleUILabel.frame.maxY + (12 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 48);
 			
 			tmpTitleUILabel.textColor = UIColor.white; //UPUtils.colorWithHexString("#461515");
 			tmpDesUILabel.textColor = tmpTitleUILabel.textColor;
 			tmpTitleUILabel.textAlignment = .center; tmpTitleUILabel.font = i == 0 ? UIFont.boldSystemFont(ofSize: 16) : UIFont.systemFont(ofSize: 16);
-			tmpDesUILabel.textAlignment = .center; tmpDesUILabel.font = UIFont.systemFont(ofSize: 16);
+			tmpDesUILabel.textAlignment = .center; tmpDesUILabel.font = UIFont.systemFont(ofSize: 14);
+			tmpDesUILabel.numberOfLines = 0;
 			
-			tmpTitleUILabel.text = Languages.$("startGuide-" + String(i) + "-A");
-			tmpDesUILabel.text = Languages.$("startGuide-" + String(i) + "-B");
+			tmpTitleUILabel.text = Languages.$("startGuide-title-" + String(i));
+			tmpDesUILabel.text = Languages.$("startGuide-description-" + String(i));
 			
 			guideScrollView.addSubview(tmpTitleUILabel);
 			guideScrollView.addSubview(tmpDesUILabel);
@@ -127,7 +126,7 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 		
 		//밀어서 종료 안내문
 		guideExitInformationLabel.frame = CGRect(x: 0, y: self.view.frame.height - 16 - 18, width: self.view.frame.width, height: 16);
-		guideExitInformationLabel.textColor = UPUtils.colorWithHexString("#461515");
+		guideExitInformationLabel.textColor = UIColor.white; //UPUtils.colorWithHexString("#461515");
 		guideExitInformationLabel.textAlignment = .center;
 		guideExitInformationLabel.font = UIFont.boldSystemFont(ofSize: 14);
 		guideExitInformationLabel.text = Languages.$("startGuideExitWithSwipe");
@@ -213,8 +212,8 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 				CGRect(x: arrPoint.x
 					, y: arrPoint.y
 					, width: 414 * DeviceManager.maxScrRatioC, height: 736 * DeviceManager.maxScrRatioC);
-			guideTitleUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideImagesArray[i].frame.maxY - (64 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
-			guideDescriptionUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideTitleUILabelsArray[i].frame.maxY + (12 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
+			guideTitleUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideImagesArray[i].frame.maxY - (100 * DeviceManager.maxScrRatioC), width: size.width, height: 18);
+			guideDescriptionUILabelsArray[i].frame = CGRect(x: guideUIViews[i].frame.minX, y: guideTitleUILabelsArray[i].frame.maxY + (12 * DeviceManager.maxScrRatioC), width: size.width, height: 48);
 		}
 		
 		//재정렬되었으니 화면 오프셋도 같이.

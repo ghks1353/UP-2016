@@ -85,6 +85,10 @@ class Languages {
 			print("Cannot find subject",subject);
 		 	translatedStr = "ERR:" + subject; //cannot find subject
 		}
+		
+		//Parse escaped new-line moji to unescape
+		translatedStr = translatedStr.replacingOccurrences(of: "\\n", with: "\n");
+		
         return translatedStr;
     } //end func
 	
