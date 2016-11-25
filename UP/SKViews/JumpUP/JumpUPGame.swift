@@ -934,7 +934,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						}
 						////////// 4레벨 끝
 					} else { //////////////////// 일반 패턴
-						scoreNodesRandomArray = [ 1, 2, 3, 4, 5 ];
+						scoreNodesRandomArray = [ 1, 2, 3, 4, 5];
 						gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
 						self.addNodes( gameRdmElementNum );
 					}
@@ -1421,7 +1421,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
 				toAddelement!.size = CGSize( width: 92.3 * DeviceManager.scrRatioC , height: 25.15 * DeviceManager.scrRatioC );
 				
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 48 + (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 12) * DeviceManager.scrRatioC) );
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 32 + (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 12) * DeviceManager.scrRatioC) );
 				
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				toAddelement!.position.y = /* fit to stage, and random y range */
@@ -1598,7 +1598,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
 				
 				//약간의 위치조정.
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 4 * DeviceManager.scrRatioC );
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0/* * DeviceManager.scrRatioC*/ );
 				// - 2 * DeviceManager.scrRatioC
 				toAddelement!.elementTargetElement = targetElement;
 				
@@ -1608,7 +1608,14 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				
 				toAddelement!.elementSpeed = targetElement!.elementSpeed; //follow original target element speed
 				toAddelement!.motions_current = -1; //그림자는 모션없음
-				toAddelement!.elementFlag = 0;
+				
+				//거꾸로 가는 캐릭터였으면 오른쪽에서 없어지게
+				print("Character tiny add: targettype:", targetElement!.elementType);
+				if (targetElement!.elementFlag == 7) {
+					toAddelement!.elementFlag = 7;
+				} else {
+					toAddelement!.elementFlag = 0;
+				}
 				
 				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW;
 				targetElement!.removeFromParent();
