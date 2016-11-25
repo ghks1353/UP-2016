@@ -1421,7 +1421,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
 				toAddelement!.size = CGSize( width: 92.3 * DeviceManager.scrRatioC , height: 25.15 * DeviceManager.scrRatioC );
 				
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 32 + (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 12) * DeviceManager.scrRatioC) );
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 27 + (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 12) * DeviceManager.scrRatioC) );
 				
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				toAddelement!.position.y = /* fit to stage, and random y range */
