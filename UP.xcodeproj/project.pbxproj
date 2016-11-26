@@ -243,6 +243,7 @@
 		772BB1EE1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1EB1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png */; };
 		772BB1EF1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1EC1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png */; };
 		772BB1F01DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1ED1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png */; };
+		7732D2CD1DE990BF00E47542 /* sounds-alarms-test-theseus.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7732D2CC1DE990BF00E47542 /* sounds-alarms-test-theseus.aiff */; };
 		77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */; };
 		77561DAF1D5066D0002EB26B /* comp-icons-settings-language-ja.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */; };
 		77561DB01D5066D0002EB26B /* comp-icons-settings-language-ko.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */; };
@@ -670,6 +671,7 @@
 		772BB1EB1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-0.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-0.png"; sourceTree = "<group>"; };
 		772BB1EC1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-1.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-1.png"; sourceTree = "<group>"; };
 		772BB1ED1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-2.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-2.png"; sourceTree = "<group>"; };
+		7732D2CC1DE990BF00E47542 /* sounds-alarms-test-theseus.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-theseus.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-theseus.aiff"; sourceTree = "<group>"; };
 		77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-en.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-en.png"; sourceTree = "<group>"; };
 		77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ja.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ja.png"; sourceTree = "<group>"; };
 		77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ko.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ko.png"; sourceTree = "<group>"; };
@@ -1654,6 +1656,7 @@
 		77C3CFC61C6325BE009A183A /* Alarms */ = {
 			isa = PBXGroup;
 			children = (
+				7732D2CC1DE990BF00E47542 /* sounds-alarms-test-theseus.aiff */,
 				77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */,
 				77AC50C11CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff */,
 				77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */,
@@ -2225,6 +2228,7 @@
 				03E1D1311CF1BCF400B552FC /* characterinfo-gamecenter.png in Resources */,
 				772BB1B51DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-0.png in Resources */,
 				032319171CFB5C7B0052732F /* characterinfo-exp-deco-13.png in Resources */,
+				7732D2CD1DE990BF00E47542 /* sounds-alarms-test-theseus.aiff in Resources */,
 				775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */,
 				03C14D0B1D2539D60078D10C /* game-general-window-btn-ads.png in Resources */,
 				77561E371D50C2E1002EB26B /* skin-default-7.png in Resources */,
@@ -2551,6 +2555,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2599,7 +2604,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
