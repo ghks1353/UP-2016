@@ -30,7 +30,7 @@ class ExperimentsTestInfo:UIViewController {
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = "Technical info";
+		self.title = "Debug info";
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);

@@ -26,7 +26,7 @@ class TestersWebView:UIViewController {
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = "BetaTest notice";
+		self.title = "UP Testers";
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -51,7 +51,7 @@ class TestersWebView:UIViewController {
 		self.view.addSubview(wbProgress);
 		
 		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil);
-		
+		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil);
 	}
 	
 	func popToRootAction() {
@@ -74,6 +74,10 @@ class TestersWebView:UIViewController {
 		}
 		
 		switch(keyPath!) {
+			//Title change event
+			case "title":
+				self.title = wbView.title;
+				break;
 			//Progressbar event
 			case "estimatedProgress":
 				wbProgress.progress = Float(wbView.estimatedProgress);

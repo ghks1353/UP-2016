@@ -1768,9 +1768,9 @@
 		77C6BDE41C7EF84200F2887C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				77C35C891C81CBCA002EE465 /* AlarmGamesView */,
 				03DDD81C1CEB99D1007C026D /* AlarmRingView.swift */,
 				032536C31D1B4174004C6293 /* GameModeView.swift */,
-				77C35C891C81CBCA002EE465 /* AlarmGamesView */,
 				03DEB7C91D25E0260086BEAD /* StartGuideView.swift */,
 			);
 			name = Views;

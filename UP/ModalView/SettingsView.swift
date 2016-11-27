@@ -92,8 +92,8 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				createSettingsOnlyLabel( Languages.$("settingsExperimentsAlarm"), menuID: "experiments-notallowed-alarms")
 			],
 			[ /* section 5 */
-				createSettingsOnlyLabel( "Technical info", menuID: "experiments-test-info"),
-				createSettingsOnlyLabel( "Notice for testers", menuID: "notice-fortesters")
+				createSettingsOnlyLabel( "Debug info", menuID: "debug-test-info"),
+				createSettingsOnlyLabel( "UP Testers web", menuID: "notice-fortesters")
 			]
             
         ];
@@ -201,7 +201,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			case "experiments-notallowed-alarms":
 				navigationCtrl.pushViewController(self.experimentAlarmSettingsView, animated: true);
 				break;
-			case "experiments-test-info":
+			case "debug-test-info":
 				navigationCtrl.pushViewController(self.experimentTestingInfoView, animated: true);
 				break;
 			////////

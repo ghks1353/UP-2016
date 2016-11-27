@@ -34,8 +34,19 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 ;
 
 class ViewController: UIViewController {
-
-	/// 스토리보드 리소스를 옮겨야함 (스킨때문에)
+	
+	static var viewSelf:ViewController?;
+	
+	//Modal views
+	var modalSettingsView:SettingsView = SettingsView();
+	var modalAlarmListView:AlarmListView = AlarmListView();
+	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
+	var modalAlarmStatsView:StatisticsView = StatisticsView();
+	var modalCharacterInformationView:CharacterInfoView = CharacterInfoView();
+	var modalPlayGameview:GamePlayView = GamePlayView();
+	var modalGameResultView:GameResultView = GlobalSubView.alarmGameResultView;
+	var modalGamePlayWindowView:GamePlayWindowView = GlobalSubView.alarmGamePlayWindowView;
+	var modalWebView:ModalWebView = ModalWebView();
 	
 	//Digital 시계
 	var DigitalNum0:UIImageView = UIImageView(); var DigitalNum1:UIImageView = UIImageView();
@@ -63,29 +74,8 @@ class ViewController: UIViewController {
 	//고정 박스 터치에어리어
 	var groundBoxToucharea:UIView = UIView();
 	
-	///아래 애니메이션 이미지의 이미지 배열도 스킨에 따라 바뀜.
 	//스탠딩 모션
     var astroMotionsStanding:Array<UIImage> = [];
-	//달리기
-    var astroMotionsRunning:Array<UIImage> = [];
-	//점프
-    var astroMotionsJumping:Array<UIImage> = [];
-	
-	
-    //Modal views
-    var modalSettingsView:SettingsView = SettingsView();
-    var modalAlarmListView:AlarmListView = AlarmListView();
-	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
-	var modalAlarmStatsView:StatisticsView = StatisticsView();
-	var modalCharacterInformationView:CharacterInfoView = CharacterInfoView();
-	var modalPlayGameview:GamePlayView = GamePlayView();
-	var modalGameResultView:GameResultView = GlobalSubView.alarmGameResultView;
-	var modalGamePlayWindowView:GamePlayWindowView = GlobalSubView.alarmGamePlayWindowView;
-	
-	//screen blur view
-	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark));
-	
-	static var viewSelf:ViewController?;
 	
 	//////////
 	//뒷 배경 이미지 (시간에 따라 변경되며 변경 시간대마다 한번씩 fade)
@@ -94,11 +84,18 @@ class ViewController: UIViewController {
 	var currentBackgroundImage:String = "a"; //default background
 	var currentGroundImage:String = "a"; //default ground
 	
+	///// 메인 애니메이션용 값 저장 배열.
+	var mainAnimatedObjs:Array<AnimatedImg> = Array<AnimatedImg>();
+	
 	//위쪽에서 내려오는 알람 메시지를 위한 뷰
 	var upAlarmMessageView:UIView = UIView(); var upAlarmMessageText:UILabel = UILabel();
 	
-	///// 메인 애니메이션용 값 저장 배열.
-	var mainAnimatedObjs:Array<AnimatedImg> = Array<AnimatedImg>();
+	//screen blur view
+	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark));
+	
+	
+	//// 앱 실행 시 한번만, 웹브라우저 띄우기 (공지사항 같은)
+	var isNoticeModalAppeared:Bool = false;
 	
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
@@ -345,6 +342,10 @@ class ViewController: UIViewController {
 		//스타트가이드를 안 보았으면 강제로 보여주기
 		if (DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.startGuideFlag) == false) {
 			self.present(GlobalSubView.startingGuideView, animated: true, completion: nil);
+			//modal call의 경우 스타트가이드를 보여준 상태에서는 스타트가이드 종료시 보여주도록 함
+		} else {
+			//스타트가이드를 이미 본 상태이면
+			callShowNoticeModal();
 		}
 	}
 	
@@ -1000,9 +1001,22 @@ class ViewController: UIViewController {
 		modalGameResultView.modalPresentationStyle = .overFullScreen;
 		showHideBlurview(true);
 		self.present(modalGameResultView, animated: false, completion: nil);
-		
-		
 	}
+	
+	///// 공지사항 띄움
+	func callShowNoticeModal() {
+		if (isNoticeModalAppeared) {
+			return;
+		}
+		
+		modalWebView.modalPresentationStyle = .overFullScreen;
+		showHideBlurview(true);
+		self.present(modalWebView, animated: false, completion: nil);
+		isNoticeModalAppeared = true;
+		
+		modalWebView.openURL("https://up.avngraphic.kr/inapp/testers/");
+	}
+	
 	
 }
 

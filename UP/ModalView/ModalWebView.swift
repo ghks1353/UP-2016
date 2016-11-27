@@ -39,7 +39,7 @@ class ModalWebView:UIViewController {
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#333333");
 		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = "Notice";
+		modalView.title = "";
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -65,19 +65,19 @@ class ModalWebView:UIViewController {
 		
 		//Add webView
 		wbView.frame = CGRect(x: 0, y: 0,
-		                      width: navigationCtrl.view.frame.width,
-		                      height: navigationCtrl.view.frame.height);
-		navigationCtrl.view.addSubview(wbView);
+		                      width: modalView.view.frame.width,
+		                      height: modalView.view.frame.height);
+		modalView.view.addSubview(wbView);
 		
 		//add progressbar for show loading states
 		wbProgress.center = CGPoint(
-			x: self.view.frame.width / 2,
-			y: self.view.frame.height / 2
+			x: modalView.view.frame.width / 2,
+			y: modalView.view.frame.height / 2 + navigationCtrl.navigationBar.frame.size.height / 2
 		);
-		navigationCtrl.view.addSubview(wbProgress);
+		modalView.view.addSubview(wbProgress);
 		
 		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil);
-		
+		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil);
 		
 		FitModalLocationToCenter();
 	}
@@ -131,6 +131,10 @@ class ModalWebView:UIViewController {
 		}
 		
 		switch(keyPath!) {
+			//Title change event
+			case "title":
+				modalView.title = wbView.title;
+				break;
 			//Progressbar event
 			case "estimatedProgress":
 				wbProgress.progress = Float(wbView.estimatedProgress);
@@ -159,5 +163,13 @@ class ModalWebView:UIViewController {
 				break;
 		} //end switch
 	} //end observe ovv
+	
+	func openURL(_ urlStr:String) {
+		//load url
+		let url:String = urlStr;
+		wbView.load(URLRequest( url: URL( string:
+			url.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed )!
+			)!));
+	}
 	
 }

@@ -145,6 +145,11 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			
 			//이 창 종료
 			self.dismiss(animated: true, completion: nil);
+			
+			//이 가이드의 부모가 메인인 경우 공지 띄움 호출 트리거
+			if (self.view.superview == ViewController.viewSelf) {
+				ViewController.viewSelf!.callShowNoticeModal();
+			}
 		}
 	}
 	
