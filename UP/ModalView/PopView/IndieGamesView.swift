@@ -59,6 +59,8 @@ class IndieGamesView:UIViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		//load url
+		clearWebCache();
+		
 		let url:String = "https://up.avngraphic.kr/indies/";
 		wbView.load(URLRequest( url: URL( string:
 			url.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed )!
@@ -104,6 +106,24 @@ class IndieGamesView:UIViewController {
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
+	}
+	
+	func clearWebCache() {
+		if #available(iOS 9.0, *) {
+			let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
+			let date = NSDate(timeIntervalSince1970: 0)
+			WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date as Date, completionHandler:{ })
+		} else {
+			var libraryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, false).first!
+			libraryPath += "/Cookies"
+			
+			do {
+				try FileManager.default.removeItem(atPath: libraryPath)
+			} catch {
+				print("error")
+			}
+			URLCache.shared.removeAllCachedResponses()
+		}
 	}
 	
 }
