@@ -335,8 +335,7 @@ class ViewController: UIViewController {
     } //end viewdidload
 	
 	override func viewWillAppear(_ animated: Bool) {
-		//Tracking by google analytics
-		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_MAIN);
+		
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

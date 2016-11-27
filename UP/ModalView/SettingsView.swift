@@ -130,13 +130,10 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		
 		//iCloud 가능 여부에 따른 설정 활성/비활성
 		setSwitchEnabled("syncToiCloud", value: DataManager.iCloudAvailable);
-		
-		//Tracking by google analytics
-		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_SETTINGS);
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
+		
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

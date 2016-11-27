@@ -158,14 +158,12 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		}
 		tableView.reloadData();
 		
-		//Tracking by google analytics
-		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_ALARMADD);
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		//swift3에서는 void이외의 리턴되는 값이 있는 경우 사용하지 않으면 경고를 내기 때문에
 		//아래처럼 임시변수를 만듬.
-		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
+		//_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

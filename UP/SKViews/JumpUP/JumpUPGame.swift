@@ -147,8 +147,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//Preload vars
 		preloadCompleteCout = 83; //p:71
 		
-		//Tracking by google analytics
-		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_GAME);
 		
 		//variable initialize
 		gameCloudDecorationAddDelay = gameCloudAddDelayMAX; //초기값
@@ -1924,8 +1922,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		print("Game exiting");
 		gameFinishedBool = true;
 		
-		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
-		
 		GameModeView.isGameExiting = true; //재시작시엔 이게 false이면, 다시 appear가 발동함
 		GameModeView.selfView!.dismiss(animated: false, completion: nil);
 		ViewController.viewSelf!.showHideBlurview(true);
@@ -1951,7 +1947,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	func restartGame() {
 		print("Game restarting");
 		gameFinishedBool = true;
-		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 		GameModeView.isGameExiting = false;
 		GameModeView.jumpUPStartupViewController!.dismiss(animated: false, completion: nil);
 	}
@@ -1961,8 +1956,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		print("Game finished");
 		
 		gameFinishedBool = true;
-		
-		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
 		
 		/// .. and send result for tracking.
 		AnalyticsManager.sendGameResults(currentGameID,

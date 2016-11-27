@@ -11,11 +11,9 @@ import Foundation
 class SoundManager {
 	
 	static var list:Array<SoundInfoObj> = [
-		/*SoundInfoObj(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff"),
-		SoundInfoObj(soundName: "Sapphire", fileName: "sounds-alarms-test-kari-sapphire.aiff"),
-		SoundInfoObj(soundName: "WANDERLUST", fileName: "sounds-alarms-test-wanderlust.aiff"),
-		SoundInfoObj(soundName: "The big black", fileName: "sounds-alarms-test-bigblack.aiff"),
-		SoundInfoObj(soundName: "바ㅏㅏ카야로오오오ㅗㅗ", fileName: "sounds-alarms-test-marvelsodamatsuda.aiff")*/
+		SoundInfoObj(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff"),
+		SoundInfoObj(soundName: "Miracle 5ympho X", fileName: "sounds-alarms-test-miracle5ynphox.aiff"),
+		SoundInfoObj(soundName: "占쏙옙占쏙옙", fileName: "sounds-alarms-test-sokyepsokyep.aiff"),
 		SoundInfoObj(soundName: "sounds-alarms-test-theseus", fileName: "sounds-alarms-test-theseus.aiff")
 	];
 	
@@ -29,9 +27,5 @@ class SoundManager {
 		
 		return nil;
 	} //end func
-	
-	
-	//TODO: 사운드가 사라지면 기본 사운드로 바꿔야함
-	// - 기존 등록된 알람에 대해선 같은 시각으로 추가하고 알람음만 바꿔치기 해야함.
 	
 }

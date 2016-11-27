@@ -347,13 +347,10 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	override func viewWillAppear(_ animated: Bool) {
 		//setup bounce animation
 		self.view.alpha = 0;
-		
-		//Tracking by google analytics
-		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_RESULT);
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
+		
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

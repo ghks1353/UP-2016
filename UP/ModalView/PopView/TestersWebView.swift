@@ -16,7 +16,7 @@ class TestersWebView:UIViewController {
 	static var selfView:TestersWebView?;
 	
 	var wbView:WKWebView = WKWebView();
-	var wbProgress:UIProgressView = UIProgressView( progressViewStyle: .default );
+	var wbProgress:UIProgressView = UIProgressView( progressViewStyle: .bar );
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -43,6 +43,15 @@ class TestersWebView:UIViewController {
 			height: DeviceManager.defaultModalSizeRect.height);
 		self.view.addSubview(wbView);
 		
+		//add progressbar for show loading states
+		wbProgress.center = CGPoint(
+			x: DeviceManager.defaultModalSizeRect.width / 2,
+			y: DeviceManager.defaultModalSizeRect.height / 2 + self.navigationController!.navigationBar.frame.size.height / 2
+		);
+		self.view.addSubview(wbProgress);
+		
+		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil);
+		
 	}
 	
 	func popToRootAction() {
@@ -57,6 +66,42 @@ class TestersWebView:UIViewController {
 			url.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed )!
 			)!));
 	}
+	
+	//EventListener for Progressbar
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		if (keyPath == nil) {
+			return;
+		}
+		
+		switch(keyPath!) {
+			//Progressbar event
+			case "estimatedProgress":
+				wbProgress.progress = Float(wbView.estimatedProgress);
+				
+				//Progressbar hide/show animate
+				if (wbView.estimatedProgress == 1) {
+					wbProgress.isHidden = false;
+					UIView.animate(withDuration: 0.68, delay: 0, options: .curveEaseOut, animations: {
+						self.wbProgress.alpha = 0;
+					}) { _ in
+						self.wbProgress.isHidden = true;
+					} //end animate
+				} else {
+					if (wbProgress.isHidden) {
+						wbProgress.isHidden = false;
+						self.wbProgress.alpha = 0;
+						UIView.animate(withDuration: 0.48, delay: 0, options: .curveEaseOut, animations: {
+							self.wbProgress.alpha = 1;
+						}) { _ in
+						}
+					}
+				}
+				break;
+			default:
+				
+				break;
+		} //end switch
+	} //end observe ovv
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()

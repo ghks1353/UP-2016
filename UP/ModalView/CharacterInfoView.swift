@@ -246,12 +246,10 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 			, height: 49 * DeviceManager.modalRatioC);
 		charExpProgressImageView.frame = CGRect(x: charExpProgress.frame.maxX, y: 49 * DeviceManager.modalRatioC - 47.5 * DeviceManager.modalRatioC, width: 47.5 * DeviceManager.modalRatioC, height: 47.5 * DeviceManager.modalRatioC);
 		
-		//Tracking by google analytics
-		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_CHARACTERINFO);
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
+		
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

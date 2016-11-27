@@ -109,8 +109,6 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		//setup bounce animation
 		self.view.alpha = 0;
 		
-		//Tracking by google analytics
-		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_STATS);
 		
 		//뷰 초기 진입시 설정 초기화
 		rootViewChartSelectedCategory = 0;
@@ -121,7 +119,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
+		
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

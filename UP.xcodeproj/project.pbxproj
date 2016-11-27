@@ -244,6 +244,9 @@
 		772BB1EF1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1EC1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png */; };
 		772BB1F01DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1ED1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png */; };
 		7732D2CD1DE990BF00E47542 /* sounds-alarms-test-theseus.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7732D2CC1DE990BF00E47542 /* sounds-alarms-test-theseus.aiff */; };
+		7732D2D01DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7732D2CE1DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff */; };
+		7732D2D11DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */; };
+		775487D51DEA880900D2DCE5 /* ModalWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775487D41DEA880900D2DCE5 /* ModalWebView.swift */; };
 		77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */; };
 		77561DAF1D5066D0002EB26B /* comp-icons-settings-language-ja.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */; };
 		77561DB01D5066D0002EB26B /* comp-icons-settings-language-ko.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */; };
@@ -417,10 +420,6 @@
 		779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */; };
 		77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */; };
 		77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */; };
-		77AC50C21CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C11CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff */; };
-		77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */; };
-		77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */; };
-		77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */; };
 		77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */; };
 		77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */; };
 		77F948721D80ADEE00B33F5F /* comp-icons-settings-memo.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F948711D80ADEE00B33F5F /* comp-icons-settings-memo.png */; };
@@ -672,6 +671,9 @@
 		772BB1EC1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-1.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-1.png"; sourceTree = "<group>"; };
 		772BB1ED1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-2.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-2.png"; sourceTree = "<group>"; };
 		7732D2CC1DE990BF00E47542 /* sounds-alarms-test-theseus.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-theseus.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-theseus.aiff"; sourceTree = "<group>"; };
+		7732D2CE1DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-miracle5ynphox.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-miracle5ynphox.aiff"; sourceTree = "<group>"; };
+		7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-sokyepsokyep.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-sokyepsokyep.aiff"; sourceTree = "<group>"; };
+		775487D41DEA880900D2DCE5 /* ModalWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalWebView.swift; path = ModalView/ModalWebView.swift; sourceTree = "<group>"; };
 		77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-en.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-en.png"; sourceTree = "<group>"; };
 		77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ja.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ja.png"; sourceTree = "<group>"; };
 		77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ko.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ko.png"; sourceTree = "<group>"; };
@@ -848,10 +850,6 @@
 		779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = up_background_task_alarm.mp3; path = SoundAssets/SystemSounds/up_background_task_alarm.mp3; sourceTree = "<group>"; };
 		77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsoda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsoda.aiff"; sourceTree = "<group>"; };
-		77AC50C11CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-kari-sapphire.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-kari-sapphire.aiff"; sourceTree = "<group>"; };
-		77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-wanderlust.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-wanderlust.aiff"; sourceTree = "<group>"; };
-		77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-bigblack.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-bigblack.aiff"; sourceTree = "<group>"; };
-		77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsodamatsuda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsodamatsuda.aiff"; sourceTree = "<group>"; };
 		77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumbs-check.png"; path = "ImageAssets/game-thumbs-check.png"; sourceTree = "<group>"; };
 		77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-sample.png"; path = "ImageAssets/GameThumbs/game-thumb-sample.png"; sourceTree = "<group>"; };
 		77F948711D80ADEE00B33F5F /* comp-icons-settings-memo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-memo.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-memo.png"; sourceTree = "<group>"; };
@@ -1478,6 +1476,7 @@
 				03DDD7D61CEB921E007C026D /* CharacterInfoView.swift */,
 				03DDD7D71CEB921E007C026D /* SettingsView.swift */,
 				032318BA1CF9BABC0052732F /* GamePlayView.swift */,
+				775487D41DEA880900D2DCE5 /* ModalWebView.swift */,
 			);
 			name = ModalView;
 			sourceTree = "<group>";
@@ -1658,10 +1657,8 @@
 			children = (
 				7732D2CC1DE990BF00E47542 /* sounds-alarms-test-theseus.aiff */,
 				77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */,
-				77AC50C11CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff */,
-				77AC50C71CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff */,
-				77AC50C91CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff */,
-				77AC50D11CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff */,
+				7732D2CE1DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff */,
+				7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */,
 			);
 			name = Alarms;
 			sourceTree = "<group>";
@@ -2151,17 +2148,18 @@
 				775EAF991D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png in Resources */,
 				0323191E1CFB5C7B0052732F /* characterinfo-exp-deco-20.png in Resources */,
 				77561E891D50C86B002EB26B /* b-time-off-pad.png in Resources */,
+				7732D2D11DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff in Resources */,
 				77561EAA1D50CAB9002EB26B /* skin-default-object-st-shadow.png in Resources */,
 				0323191F1CFB5C7B0052732F /* characterinfo-exp-deco-21.png in Resources */,
 				775EAFB21D51E3B900BE8C4A /* game-jumpup-astro-default-jump-3.png in Resources */,
 				772BB18C1DE8B9590054B3EF /* skin-default-character-1.png in Resources */,
 				770973051DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png in Resources */,
-				77AC50D21CAC5E060044F5C8 /* sounds-alarms-test-marvelsodamatsuda.aiff in Resources */,
 				775EB05B1D524C7800BE8C4A /* game-jumpup-assets-warning.png in Resources */,
 				77561EAC1D50CAB9002EB26B /* skin-default-time-body.png in Resources */,
 				77F9487C1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png in Resources */,
 				772BB1E51DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-0.png in Resources */,
 				775EB0561D51E64F00BE8C4A /* game-jumpup-assets-guide-0.png in Resources */,
+				7732D2D01DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff in Resources */,
 				775EAFB31D51E3B900BE8C4A /* game-jumpup-astro-default-jump-4.png in Resources */,
 				779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */,
 				775EB0241D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect0.png in Resources */,
@@ -2271,8 +2269,6 @@
 				775EAFA81D51E2EF00BE8C4A /* game-jumpup-assets-trap-2.png in Resources */,
 				03425B7C1CCEBD0000243B28 /* modal-add.png in Resources */,
 				77561DC61D50C1BF002EB26B /* skin-default-a-back.png in Resources */,
-				77AC50C81CAC5B5B0044F5C8 /* sounds-alarms-test-wanderlust.aiff in Resources */,
-				77AC50C21CAC441A0044F5C8 /* sounds-alarms-test-kari-sapphire.aiff in Resources */,
 				77561DAF1D5066D0002EB26B /* comp-icons-settings-language-ja.png in Resources */,
 				03DDD8401CEBA089007C026D /* modal-background-characterinfo.png in Resources */,
 				03DDD83C1CEB9D07007C026D /* comp-icons-datacategory-untilstart.png in Resources */,
@@ -2378,7 +2374,6 @@
 				77561E9C1D50C884002EB26B /* c-time-on-small.png in Resources */,
 				03C14D121D2539D60078D10C /* game-general-window-retry.png in Resources */,
 				77561E781D50C85D002EB26B /* a-time-on.png in Resources */,
-				77AC50CA1CAC5B5E0044F5C8 /* sounds-alarms-test-bigblack.aiff in Resources */,
 				77561E4E1D50C2F2002EB26B /* skin-default-black-7.png in Resources */,
 				03425B991CD0670800243B28 /* comp-cell-check.png in Resources */,
 				77561E321D50C2E1002EB26B /* skin-default-2.png in Resources */,
@@ -2471,6 +2466,7 @@
 				77782E681C92B0B00016EE1B /* Int+Extensions.swift in Sources */,
 				03DDD7DB1CEB921E007C026D /* SettingsView.swift in Sources */,
 				03DDD8011CEB990D007C026D /* StatsDataElement.swift in Sources */,
+				775487D51DEA880900D2DCE5 /* ModalWebView.swift in Sources */,
 				77782E651C92B0B00016EE1B /* CGFloat+Extensions.swift in Sources */,
 				77782E6C1C92B0B00016EE1B /* SKNode+Extensions.swift in Sources */,
 				032536B11D187C19004C6293 /* GamePlayWindowView.swift in Sources */,

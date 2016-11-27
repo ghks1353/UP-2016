@@ -228,9 +228,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//setup bounce animation
 		self.view.alpha = 0;
 		
-		//Tracking by google analytics
-		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_ALARMLIST);
-		
 		//Check alarm limit and disable/enable button
 		checkAlarmLimitExceed();
 		checkAlarmIsEmpty();
@@ -240,7 +237,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
+		
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

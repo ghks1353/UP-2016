@@ -239,12 +239,10 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		//setup bounce animation
 		self.view.alpha = 0;
 		
-		//Tracking by google analytics
-		AnalyticsManager.trackScreen(AnalyticsManager.T_SCREEN_PLAYGAME_READY);
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		_ = AnalyticsManager.untrackScreen(); //untrack to previous screen
+		
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
