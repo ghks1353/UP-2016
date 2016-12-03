@@ -210,7 +210,7 @@ class AlarmManager {
 		}
 		
 		if (mergeProcess == 0) {
-			if #available(iOS 10.0, *) {
+			if #available(iOS 10, *) {
 				//ios10: uilocalnotification 쓰지 않고 unnotificationcenter사용
 				let unUserNotifyCenter = UNUserNotificationCenter.current();
 				var unNotifications:Array<UNNotificationRequest>?;
@@ -269,7 +269,7 @@ class AlarmManager {
 				scdAlarm[i].alarmSound = SoundManager.list[0].soundFileName;
 				if (scdAlarm[i].alarmToggle == true) {
 					//Toggle 상태면 기존 Notification을 삭제하고 새로 바꿈
-					if #available(iOS 10.0, *) {
+					if #available(iOS 10, *) {
 						for j:Int in 0 ..< (notificationsArray!.count) {
 							let arrTmpID:Int = (notificationsArray![j] as! UNNotificationRequest).content.userInfo["id"] as! Int;
 							if ( arrTmpID == scdAlarm[i].alarmID) {
@@ -302,8 +302,6 @@ class AlarmManager {
 						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
 						                     soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID, notifiUUID: alarmTmpUUID);
 						
-						//if #available(iOS 10.0, *) {
-						//} else {
 						//add 30sec needed
 						dateForRepeat = Date(timeIntervalSince1970: scdAlarm[i].alarmFireDate.timeIntervalSince1970);
 						tmpNSComp = (Calendar.current as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: dateForRepeat);
@@ -312,7 +310,6 @@ class AlarmManager {
 						addLocalNotification(scdAlarm[i].alarmName,	aFireDate: dateForRepeat, gameID: scdAlarm[i].gameSelected,
 											 soundFile: scdAlarm[i].alarmSound, repeatInfo: scdAlarm[i].alarmRepeat, alarmID: scdAlarm[i].alarmID, notifiUUID: alarmTmpUUID);
 						//Add end..
-						//}
 					}
 					
 					
@@ -322,6 +319,10 @@ class AlarmManager {
 			//이 다음은, Toggle on된것 대상으로만 검사
 			if (scdAlarm[i].alarmToggle == false) {
 				print("Scheduled alarm", scdAlarm[i].alarmID, " state off. skipping");
+				
+				//혹시 모르니 꺼져있는 건 스케줄된 시스템 노티에서 제거.
+				//..todo
+				
 				continue;
 			}
 			print("alarm id", scdAlarm[i].alarmID, " firedate", scdAlarm[i].alarmFireDate.timeIntervalSince1970);
@@ -330,10 +331,11 @@ class AlarmManager {
 				&& scdAlarm[i].alarmCleared == true ) { /* 시간이 지났어도, 게임을 클리어 해야됨. 게임 클리어시 true로 설정후 merge 한번더 하면됨 */
 					print("Merge start:", scdAlarm[i].alarmID);
 					//알람 merge 대상. 우선 일치하는 ID의 알람을 스케줄에서 삭제함
-					if #available(iOS 10.0, *) {
+					if #available(iOS 10, *) {
 						for j:Int in 0 ..< (notificationsArray!.count) {
 							let arrTmpID:Int = (notificationsArray![j] as! UNNotificationRequest).content.userInfo["id"] as! Int;
 							if ( arrTmpID == scdAlarm[i].alarmID) {
+								print("Removing pending notifi:", arrTmpID, "as", (notificationsArray![j] as! UNNotificationRequest).identifier);
 								UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [(notificationsArray![j] as! UNNotificationRequest).identifier]);
 							}
 							
@@ -502,14 +504,37 @@ class AlarmManager {
 					print("status already same..!!");
 					break; //상태가 같으므로 변경할 필요 없음
 				}
-				var scdNotifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!;
+				
+				//iOS10의 경우, 종전의 방식을 사용하지 않음
 				
 				if (alarmStatus == false) { //알람 끄기
-					for j:Int in 0 ..< scdNotifications.count {
-						if (scdNotifications[j].userInfo!["id"] as! Int == alarmsArray[i].alarmID) {
-							UIApplication.shared.cancelLocalNotification(scdNotifications[j]);
-						}
-					} //for end
+					if #available(iOS 10, *) {
+						//iOS 10 del
+						let unUserNotifyCenter = UNUserNotificationCenter.current();
+						var unNotifications:Array<UNNotificationRequest>?;
+						unUserNotifyCenter.getPendingNotificationRequests(completionHandler: { requests in
+							unNotifications = requests;
+							
+							for it:Int in 0 ..< (unNotifications!.count) {
+								let alarmTmpID:Int = unNotifications![it].content.userInfo["id"] as! Int;
+								if (alarmTmpID == alarmsArray[i].alarmID) {
+									unUserNotifyCenter.removePendingNotificationRequests(withIdentifiers: [unNotifications![it].identifier]);
+									print("[iOS10] Removed untoggled alarm ID:", alarmTmpID, "as", unNotifications![it].identifier);
+								}
+							}
+						});
+					} else {
+						//iOS 8~9 del
+						var scdNotifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!;
+						
+						for j:Int in 0 ..< scdNotifications.count {
+							if (scdNotifications[j].userInfo!["id"] as! Int == alarmsArray[i].alarmID) {
+								UIApplication.shared.cancelLocalNotification(scdNotifications[j]);
+							}
+						} //for end
+						
+					}
+					
 					alarmsArray[i].alarmToggle = false; //alarm toggle to off.
 				} else {
 					//알람 켜기 (addalarm 재탕)
@@ -556,11 +581,31 @@ class AlarmManager {
 			mergeAlarm();
 		} //merge first
 		
-		var scdNotifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!;
-		for i:Int in 0 ..< scdNotifications.count {
-			if (scdNotifications[i].userInfo!["id"] as! Int == alarmID) {
-				UIApplication.shared.cancelLocalNotification(scdNotifications[i]);
-			}
+		if #available(iOS 10, *) {
+			//iOS 10 del
+			let unUserNotifyCenter = UNUserNotificationCenter.current();
+			var unNotifications:Array<UNNotificationRequest>?;
+			unUserNotifyCenter.getPendingNotificationRequests(completionHandler: { requests in
+				unNotifications = requests;
+				
+				for it:Int in 0 ..< (unNotifications!.count) {
+					let alarmTmpID:Int = unNotifications![it].content.userInfo["id"] as! Int;
+					if (alarmTmpID == alarmID) {
+						unUserNotifyCenter.removePendingNotificationRequests(withIdentifiers: [unNotifications![it].identifier]);
+						print("[iOS10] Removed alarm ID:", alarmTmpID, "as", unNotifications![it].identifier);
+					}
+				}
+			});
+		} else {
+			//iOS 8~9 del
+			var scdNotifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!;
+			
+			for i:Int in 0 ..< scdNotifications.count {
+				if (scdNotifications[i].userInfo!["id"] as! Int == alarmID) {
+					UIApplication.shared.cancelLocalNotification(scdNotifications[i]);
+				}
+			} //for end
+			
 		} //alarm del from sys
 		
 		for i:Int in 0 ..< alarmsArray.count {
@@ -587,11 +632,30 @@ class AlarmManager {
 		
 		var alarmArrayIndex:Int = 0;
 		
-		var scdNotifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!;
-		for i:Int in 0 ..< scdNotifications.count {
-			if (scdNotifications[i].userInfo!["id"] as! Int == alarmID) {
-				UIApplication.shared.cancelLocalNotification(scdNotifications[i]);
-			}
+		if #available(iOS 10, *) {
+			//iOS 10 del
+			let unUserNotifyCenter = UNUserNotificationCenter.current();
+			var unNotifications:Array<UNNotificationRequest>?;
+			unUserNotifyCenter.getPendingNotificationRequests(completionHandler: { requests in
+				unNotifications = requests;
+				
+				for it:Int in 0 ..< (unNotifications!.count) {
+					let alarmTmpID:Int = unNotifications![it].content.userInfo["id"] as! Int;
+					if (alarmTmpID == alarmID) {
+						unUserNotifyCenter.removePendingNotificationRequests(withIdentifiers: [unNotifications![it].identifier]);
+						print("[iOS10] Removed alarm ID:", alarmTmpID, "as", unNotifications![it].identifier);
+					}
+				}
+			});
+		} else {
+			//iOS 8~9 del
+			var scdNotifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!;
+			for i:Int in 0 ..< scdNotifications.count {
+				if (scdNotifications[i].userInfo!["id"] as! Int == alarmID) {
+					UIApplication.shared.cancelLocalNotification(scdNotifications[i]);
+				}
+			} //for end
+			
 		} //alarm del from sys
 		
 		for i:Int in 0 ..< alarmsArray.count {
