@@ -1,11 +1,11 @@
-source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.1'
 use_frameworks!
+
 target "UP" do
-	pod 'CryptoSwift'
-	pod 'SwiftyJSON', :git => 'https://github.com/appsailor/SwiftyJSON.git', :branch => 'swift3'
+	pod 'CryptoSwift', :git => "https://github.com/krzyzanowskim/CryptoSwift", :branch => "master"
+	pod 'SwiftyJSON', :git => "https://github.com/appsailor/SwiftyJSON.git", :branch => "swift3"
 	pod 'Gifu'
-	pod 'Charts/Realm'
+	pod 'Charts'
     pod 'SQLite.swift'
     pod 'SwiftyStoreKit'
     pod 'Firebase'

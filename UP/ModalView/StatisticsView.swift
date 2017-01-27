@@ -289,10 +289,6 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					rootViewRightLFirstTitle!.isHidden = false; rootViewRightLFirstValue!.isHidden = false;
 					rootViewRightLSecondTitle!.isHidden = false; rootViewRightLSecondValue!.isHidden = false;
 					
-					/*rootViewRightLFirstValue!.text =
-						String(round(successPercent)) + currentDataSuffix + " (" +
-						Languages.$("statsDataFormatCountsPrefix") + String(successCount) + Languages.$("statsDataFormatCountsSuffix")
-					+ ")";*/
 					rootViewRightLFirstValue!.text = String(round(successPercent)) + currentDataSuffix;
 					rootViewRightLSecondValue!.text = String(round(failedPercent)) + currentDataSuffix;
 					
@@ -444,7 +440,9 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							//최대치 설정. 최대치는 여기서 설정해야 버그없이 작동함.
 							lineChartPointer!.rightYAxisRenderer.axis!.axisMinimum = chartData.getYMax();
 							lineChartPointer!.rightYAxisRenderer.axis!.setLabelCount(2, force: true);
-							lineChartPointer!.xAxisRenderer.axis!.setLabelCount(chartData.entryCount, force: false);
+							
+							//label max count max 7
+							lineChartPointer!.xAxisRenderer.axis!.setLabelCount(min(7, chartData.entryCount), force: false);
 							
 							switch(selDataPointInt) {
 								case 3, 5: //~% 표기

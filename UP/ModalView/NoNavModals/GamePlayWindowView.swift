@@ -11,7 +11,7 @@ import UIKit;
 import Gifu;
 import GameKit;
 
-class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
+class GamePlayWindowView:UIViewController {
 	
 	var XAXIS_PRESET_PAD:CGFloat = 0;
 	var YAXIS_PRESET_PAD:CGFloat = 6;
@@ -47,7 +47,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 	var numUPTimer:Timer?;
 	
 	//게임플레이 프리뷰 이미지뷰
-	var gamePreviewImageView:AnimatableImageView?;
+	var gamePreviewImageView:GIFImageView?;
 	
 	///////////////
 	
@@ -101,7 +101,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		modalView.addSubview(scrollView);
 		
 		///// 배경 추가
-		gamePreviewImageView = AnimatableImageView(frame: CGRect(x: 0, y: scrollView.frame.maxY, width: modalView.frame.width, height: 194 * DeviceManager.resultModalRatioC) );
+		gamePreviewImageView = GIFImageView(frame: CGRect(x: 0, y: scrollView.frame.maxY, width: modalView.frame.width, height: 194 * DeviceManager.resultModalRatioC) );
 		resultDecoBGMask.frame = gamePreviewImageView!.frame; resultDecoBGMask.backgroundColor = UIColor.black;
 		modalView.addSubview(resultDecoBGMask);
 		modalView.addSubview(gamePreviewImageView!);
@@ -166,15 +166,7 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 	
 	//리더보드 표시 함수
 	func showLeaderboard() {
-		let gcViewController: GKGameCenterViewController = GKGameCenterViewController();
-		gcViewController.gameCenterDelegate = self;
-		gcViewController.viewState = GKGameCenterViewControllerState.leaderboards;
 		
-		//아이튠즈 커네트에서 순위표id.
-		gcViewController.leaderboardIdentifier = GameManager.getLeadboardIDWithGameID( currentGameID );
-		
-		self.show(gcViewController, sender: self);
-		self.present(gcViewController, animated: true, completion: nil);
 	}
 	
 	func setGame( _ gameID:Int ) {
@@ -304,8 +296,5 @@ class GamePlayWindowView:UIViewController, GKGameCenterControllerDelegate {
 		}
 	} //end of scoretick
 	
-	func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-		gameCenterViewController.dismiss(animated: true, completion: nil);
-	}
 	
 }

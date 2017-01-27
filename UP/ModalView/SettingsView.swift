@@ -249,9 +249,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		
 		return UITableViewAutomaticDimension;
-		
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] )[(indexPath as NSIndexPath).row] as! UITableViewCell;

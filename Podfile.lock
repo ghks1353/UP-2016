@@ -1,9 +1,8 @@
 PODS:
-  - Charts/Core (3.0.0)
-  - Charts/Realm (3.0.0):
-    - Charts/Core
-    - RealmSwift (~> 1.1)
-  - CryptoSwift (0.6.6)
+  - Charts (3.0.1):
+    - Charts/Core (= 3.0.1)
+  - Charts/Core (3.0.1)
+  - CryptoSwift (0.6.7)
   - Firebase (3.9.0):
     - Firebase/Core (= 3.9.0)
   - Firebase/Core (3.9.0):
@@ -27,11 +26,6 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.0)
   - GoogleToolboxForMac/NSData+zlib (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
-  - Realm (1.1.0):
-    - Realm/Headers (= 1.1.0)
-  - Realm/Headers (1.1.0)
-  - RealmSwift (1.1.0):
-    - Realm (= 1.1.0)
   - SQLite.swift (0.11.0):
     - SQLite.swift/standard (= 0.11.0)
   - SQLite.swift/standard (0.11.0)
@@ -39,8 +33,8 @@ PODS:
   - SwiftyStoreKit (0.5.4)
 
 DEPENDENCIES:
-  - Charts/Realm
-  - CryptoSwift
+  - Charts
+  - CryptoSwift (from `https://github.com/krzyzanowskim/CryptoSwift`, branch `master`)
   - Firebase
   - Gifu
   - GoogleIDFASupport
@@ -49,18 +43,24 @@ DEPENDENCIES:
   - SwiftyStoreKit
 
 EXTERNAL SOURCES:
+  CryptoSwift:
+    :branch: master
+    :git: https://github.com/krzyzanowskim/CryptoSwift
   SwiftyJSON:
     :branch: swift3
     :git: https://github.com/appsailor/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  CryptoSwift:
+    :commit: bf3a902e09f759ec48b90c29b6b4d58d06686f74
+    :git: https://github.com/krzyzanowskim/CryptoSwift
   SwiftyJSON:
     :commit: de73429b38b8994f614fb27c5ec094bb8a4833f2
     :git: https://github.com/appsailor/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Charts: beb341928d2135613b4325a6c6aff9f2f6de895e
-  CryptoSwift: 88592381b73f36e192124539390a7c9bacda76af
+  Charts: 0e84f4418e87dad6a9edde221fba37ebb51d3ba7
+  CryptoSwift: 8f7b936cfd910257631f30d26e7188fa64e91e97
   Firebase: ff77ffb77b317c3720fef57a60e9335cebf962e6
   FirebaseAnalytics: 6e58fc9b397664369ac7617fb0ba93fab6ba7b5b
   FirebaseCore: d0ed25f27b6f9158eccc439f1be6f92e81207e28
@@ -70,12 +70,10 @@ SPEC CHECKSUMS:
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
-  Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
-  RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
   SQLite.swift: 9a26273607d3077a2e5a8d33486e9989f8404c7d
   SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
   SwiftyStoreKit: a8b02a708c6e2bf52207836d58afd3738e2f6670
 
-PODFILE CHECKSUM: 0e339c41fd4ff6d287317b05647f5e28d2fb3784
+PODFILE CHECKSUM: 857b460e01a1af5a9911b51dcfbb96620e22cb56
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.1.1

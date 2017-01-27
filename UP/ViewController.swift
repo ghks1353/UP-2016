@@ -755,7 +755,6 @@ class ViewController: UIViewController {
 				
 				//기본 스킨 아스트로 애니메이션 (텍스쳐)
 				for i in 0...3 { //부동
-					//let numberStr:String = String(i).characters.count == 1 ? "0" + String(i) : String(i);
 					let fileName:String = SkinManager.getAssetPresetsCharacter() + "character-" + String(i) + ".png";
 					let fImage:UIImage = UIImage( named: fileName )!;
 					astroMotionsStanding += [fImage];
