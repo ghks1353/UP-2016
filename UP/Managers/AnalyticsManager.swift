@@ -2,7 +2,7 @@
 //  AnalyticsManager.swift
 //  UP
 //
-//  Created by 문화창조아카데미12 on 2016. 5. 1..
+//  Created by ExFl on 2016. 5. 1..
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
@@ -37,11 +37,6 @@ class AnalyticsManager {
 	
 	//Tracking store array
 	static var trackingArray:Array<String> = [];
-	
-	//init google analytics
-	static func initFirebase() {
-		FIRApp.configure();
-	}
 	
 	/// Tracking usage by google analytics
 	static func trackScreen( _ screenName:String, registerToArray:Bool = true ) {

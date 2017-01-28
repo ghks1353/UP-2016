@@ -8,7 +8,8 @@ target "UP" do
 	pod 'Charts'
     pod 'SQLite.swift'
     pod 'SwiftyStoreKit'
-    pod 'Firebase'
+    pod 'Firebase/Core'
+	pod 'Firebase/Messaging'
 	pod 'GoogleIDFASupport'
 end
 

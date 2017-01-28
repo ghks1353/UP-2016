@@ -6,53 +6,56 @@
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
-import UIKit;
-import AVFoundation;
-import MediaPlayer;
-import GameKit;
-import UserNotifications;
+import UIKit
+import AVFoundation
+import MediaPlayer
+import GameKit
+import UserNotifications
+import Firebase
+import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
-	var window: UIWindow?;
-	var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?;
+	var window: UIWindow?
+	var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
 	
-	var alarmBackgroundTaskPlayer:AVAudioPlayer?;
+	var alarmBackgroundTaskPlayer:AVAudioPlayer?
 	
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		//앱 실행시
 		
 		//Startup language initial
-		print("Pref lang", (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String );
-		Languages.initLanugages( (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String );
+		print("Pref lang", (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String )
+		Languages.initLanugages( (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String )
 		//Init DataManager
-		DataManager.initDataManager();
+		DataManager.initDataManager()
 		//Init CharacterMgr
-		CharacterManager.merge();
+		CharacterManager.merge()
 		//Startup alarm merge
-		AlarmManager.mergeAlarm();
+		AlarmManager.mergeAlarm()
 		//achievementmanager init
-		AchievementManager.initManager();
+		AchievementManager.initManager()
 		//purchase init
-		PurchaseManager.initManager();
+		PurchaseManager.initManager()
 		
 		//Unityads init
-		UnityAdsManager.initManager();
+		UnityAdsManager.initManager()
 		
 		//Firebase init
-		AnalyticsManager.initFirebase();
+		FIRApp.configure()
 		
 		if #available(iOS 10.0, *) {
-			UNUserNotificationCenter.current().delegate = self;
+			UNUserNotificationCenter.current().delegate = self
 		} else {
 			// Fallback on earlier versions
-		};
+		}
+		
 		
 		//게임센터 초기화 및 뷰 표시
 		if (window?.rootViewController) != nil {
 			//let targetVC = presentVC;
-			let player = GKLocalPlayer.localPlayer();
+			let player = GKLocalPlayer.localPlayer()
 			player.authenticateHandler = {(viewController, error) -> Void in
 				if ((viewController) != nil) {
 					// Login phase start
@@ -68,94 +71,91 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		} //fin
 		
 		
-		let nsURL:URL = Bundle.main.url( forResource: "up_background_task_alarm" , withExtension: "mp3")!;
+		let nsURL:URL = Bundle.main.url( forResource: "up_background_task_alarm" , withExtension: "mp3")!
 		do {
-			self.alarmBackgroundTaskPlayer = try AVAudioPlayer( contentsOf: nsURL, fileTypeHint: nil );
+			self.alarmBackgroundTaskPlayer = try AVAudioPlayer( contentsOf: nsURL, fileTypeHint: nil )
 		} catch let error as NSError {
-			print(error.description);
+			print(error.description)
 		}
-		alarmBackgroundTaskPlayer!.prepareToPlay();
+		alarmBackgroundTaskPlayer!.prepareToPlay()
 		
-		return true;
+		return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-		print("App will background");
-		DeviceManager.appIsBackground = true;
+		print("App will background")
+		DeviceManager.appIsBackground = true
     }
 	
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-		print("App is now running to background");
-		DeviceManager.appIsBackground = true;
-		AlarmManager.mergeAlarm();
+		print("App is now running to background")
+		DeviceManager.appIsBackground = true
+		AlarmManager.mergeAlarm()
 		
 		//// Background thread
 		backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
-			UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!);
-		});
+			UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!)
+		})
 		
 		//DISPATCH_QUEUE_PRIORITY_DEFAULT
 		DispatchQueue.global(qos: .background).async {
-		//DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.high).async(execute: { () -> Void in
-
 			while(DeviceManager.appIsBackground) {
-				let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds();
-				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970));
-				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm();
+				let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds()
+				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970))
+				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm()
 				
-				print( "thread remaining:", UIApplication.shared.backgroundTimeRemaining, ", remaining next alarm:", nextAlarmLeft );
+				print( "thread remaining:", UIApplication.shared.backgroundTimeRemaining, ", remaining next alarm:", nextAlarmLeft )
 				
 				//1. 알람이 울리는 중일 경우, 2. 백그라운드에 앱이 있을 경우.
 				if (ringingAlarm != nil) {
 					//Thread stop
 					if (self.alarmBackgroundTaskPlayer!.isPlaying) {
-						self.alarmBackgroundTaskPlayer!.stop();
+						self.alarmBackgroundTaskPlayer!.stop()
 					}
 					
-					AlarmManager.ringSoundAlarm( ringingAlarm!, useVibrate: true );
+					AlarmManager.ringSoundAlarm( ringingAlarm!, useVibrate: true )
 				} else {
 					//울리고 있는 알람이 없는데 굳이 울려야 겠음?
-					AlarmManager.stopSoundAlarm();
+					AlarmManager.stopSoundAlarm()
 					
 					//Thread play
-					self.alarmBackgroundTaskPlayer!.stop();
-					self.alarmBackgroundTaskPlayer!.play();
+					self.alarmBackgroundTaskPlayer!.stop()
+					self.alarmBackgroundTaskPlayer!.play()
 				}
 				
 				
 				if (ringingAlarm != nil) {
-					Thread.sleep(forTimeInterval: 1); //1초 주기 실행
+					Thread.sleep(forTimeInterval: 1) //1초 주기 실행
 				} else {
 					//남은 시간 비례하여 쓰레드 주기를 좁혀, 보다 정확한 시간에 알람이 울리게 함.
 					if (nextAlarmLeft >= 0) {
 						if (nextAlarmLeft > 90) {
-							Thread.sleep(forTimeInterval: 30); //30초 주기 실행
+							Thread.sleep(forTimeInterval: 30) //30초 주기 실행
 						} else if (nextAlarmLeft > 30) {
-							Thread.sleep(forTimeInterval: 10); //10
+							Thread.sleep(forTimeInterval: 10) //10
 						} else if (nextAlarmLeft > 20) {
-							Thread.sleep(forTimeInterval: 5); //5
+							Thread.sleep(forTimeInterval: 5) //5
 						} else if (nextAlarmLeft > 3) {
-							Thread.sleep(forTimeInterval: 1); //1
+							Thread.sleep(forTimeInterval: 1) //1
 						} else if (nextAlarmLeft > 1) {
-							Thread.sleep(forTimeInterval: 0.5); //0.5
+							Thread.sleep(forTimeInterval: 0.5) //0.5
 						} else {
-							Thread.sleep(forTimeInterval: 0.25); //0.25
+							Thread.sleep(forTimeInterval: 0.25) //0.25
 						} //end if
 					} else {
-						Thread.sleep(forTimeInterval: 30); //30초 주기 실행
+						Thread.sleep(forTimeInterval: 30) //30초 주기 실행
 					} //end if
 					
 				} //end chk alarm vaild
 			}
 			//print("thread finished");
 			
-			UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!);
-			
-		};
+			UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!)
+		}; //end thread
 		
 		
 		
@@ -165,31 +165,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-		DeviceManager.appIsBackground = false;
+		DeviceManager.appIsBackground = false
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-		print("App is active now");
-		AlarmManager.mergeAlarm();
+		print("App is active now")
+		AlarmManager.mergeAlarm()
 		
 		/*if (AlarmListView.alarmListInited) {
 			AlarmListView.selfView!.createTableList(); //refresh alarm-list
 		}*/
 		
 		if (ViewController.viewSelf != nil) {
-			ViewController.viewSelf!.checkToCallAlarmRingingView();
+			ViewController.viewSelf!.checkToCallAlarmRingingView()
 		}
 		
 		//알람이 울리고 있었다면 꺼줌.
-		AlarmManager.stopSoundAlarm();
+		AlarmManager.stopSoundAlarm()
 		//알람 게임뷰가 켜져있는 경우, 터치 지연 시간을 0으로 초기화
 		if (AlarmRingView.selfView != nil) {
-			AlarmRingView.selfView!.lastActivatedTimeAfter = 0;
+			AlarmRingView.selfView!.lastActivatedTimeAfter = 0
 		}
 		
-		self.alarmBackgroundTaskPlayer!.stop();
-		print("background thread - sound stop");
+		self.alarmBackgroundTaskPlayer!.stop()
+		print("background thread - sound stop")
 
     }
 
@@ -200,11 +200,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	//func notific
 	@available(iOS 10.0, *)
 	func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-		print("Notifi called");
+		print("Notifi called")
 	}
 	@available(iOS 10.0, *)
 	func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-		print("Notifi responsed");
+		print("Notifi responsed")
+	}
+	
+	///////// FCM
+	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+		FIRMessaging.messaging().connect { (error) in
+			if (error != nil) {
+				print("Unable to connect with FCM. \(error)")
+			} else {
+				print("Connected to FCM.")
+			}
+		}
 	}
 
 }

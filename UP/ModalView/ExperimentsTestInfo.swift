@@ -10,6 +10,7 @@ import Foundation;
 import UIKit;
 import AdSupport;
 import UnityAds;
+import FirebaseInstanceID;
 
 class ExperimentsTestInfo:UIViewController {
 	
@@ -110,6 +111,15 @@ class ExperimentsTestInfo:UIViewController {
 		informationStr += "UnityAds inited: " + String(UnityAds.isInitialized()) + "\n";
 		informationStr += "UnityAds testmode: " + String(UnityAds.getDebugMode()) + "\n";
 		
+		informationStr += "\nFirebase\n";
+		
+		let fBaseToken:String? = FIRInstanceID.instanceID().token()!;
+		if (fBaseToken == nil) {
+			//FIR inst is null
+			informationStr += "FIR InstID: null\n";
+		} else {
+			informationStr += "FIR InstID: " + fBaseToken! + "\n";
+		}
 		
 		infoLabel.text = informationStr;
 		infoLabel.sizeToFit();

@@ -114,13 +114,18 @@ class ViewController: UIViewController {
 			UNUserNotificationCenter.current().requestAuthorization(
 				options: [.alert,.sound,.badge],
 				completionHandler: { (granted,error) in
-					//self.isGrantedNotificationAccess = granted
+					if (error == nil) {
+						UIApplication.shared.registerForRemoteNotifications();
+					} else {
+						//alarm auth regist fallback 넣어야함 (알람설정 해주세요)
+					} //end if
 				}
 			)
 		} else {
 			// Fallback on earlier versions
 			let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
 			UIApplication.shared.registerUserNotificationSettings(notificationSettings);
+			UIApplication.shared.registerForRemoteNotifications();
 		};
 		
 		
