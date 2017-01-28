@@ -27,7 +27,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = Languages.$("alarmGame");
+		self.title = LanguagesManager.$("alarmGame");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -144,7 +144,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		let tGameSubjectLabel:UILabel = UILabel(); //게임 제목
 		tGameSubjectLabel.frame = CGRect(x: 92, y: 22, width: tableView.frame.width * 0.6, height: 28);
 		tGameSubjectLabel.font = UIFont.systemFont(ofSize: 22);
-		tGameSubjectLabel.text = Languages.$("alarmGameRandom"); //Random
+		tGameSubjectLabel.text = LanguagesManager.$("alarmGameRandom"); //Random
 		tGameSubjectLabel.textColor = UIColor.white;
 		
 		let tGameGenreLabel:UILabel = UILabel(); //게임 장르
@@ -204,7 +204,7 @@ class AlarmGameListView:UIViewController, UITableViewDataSource, UITableViewDele
 		let tGameDifficultyLabel:UILabel = UILabel(); //게임 난이도
 		tGameDifficultyLabel.frame = CGRect(x: 92, y: 58, width: tableView.frame.width * 0.6, height: 20);
 		tGameDifficultyLabel.font = UIFont.systemFont(ofSize: 14);
-		tGameDifficultyLabel.text = Languages.$("alarmGameDifficulty") + " " + gameDifficultyLevelStr;
+		tGameDifficultyLabel.text = LanguagesManager.$("alarmGameDifficulty") + " " + gameDifficultyLevelStr;
 		tGameDifficultyLabel.textColor = gameObj.gameTextUIColor;
 		
 		let tGameDescriptionLabel:UILabel = UILabel();

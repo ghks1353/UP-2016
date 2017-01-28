@@ -38,7 +38,7 @@ class CreditsPopView:UIViewController {
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = Languages.$("settingsCredits");
+		self.title = LanguagesManager.$("settingsCredits");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);

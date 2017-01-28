@@ -15,9 +15,9 @@ class GameInfoObj {
 	init(gameIDf:String, gameName:String, gameGenre:String, gameDifficultyLevel:Int, gameDescription:String, gameFileName:String, gameColor:UIColor, textColor:UIColor) {
 		//Get variables from lang file
 		gameID = gameIDf;
-		gameLangName = Languages.$(gameName); gameLangGenre = Languages.$(gameGenre);
+		gameLangName = LanguagesManager.$(gameName); gameLangGenre = LanguagesManager.$(gameGenre);
 		gameDifficulty = gameDifficultyLevel;
-		gameLangDescription = Languages.$(gameDescription);
+		gameLangDescription = LanguagesManager.$(gameDescription);
 		
 		gameThumbFileName = gameFileName;
 		gameBackgroundUIColor = gameColor;

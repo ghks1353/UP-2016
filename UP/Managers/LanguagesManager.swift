@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Languages {
+class LanguagesManager {
 	
     static let supportedLanguages:Array<String> = ["ko", "en", "ja"];
     static var languageJsonFile:NSDictionary?;

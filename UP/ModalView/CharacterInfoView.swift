@@ -56,7 +56,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#232D4B");
 		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = Languages.$("userCharacterInformation");
+		modalView.title = LanguagesManager.$("userCharacterInformation");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -283,8 +283,8 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	}
 	
 	func viewCloseAction() {
-		ViewController.viewSelf!.showHideBlurview(false);
-		self.dismiss(animated: true, completion: nil);
+		ViewController.selfView!.showHideBlurview(false)
+		self.dismiss(animated: true, completion: nil)
 	} //end close func
 	
 	

@@ -59,7 +59,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#535B66");
 		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = Languages.$("alarmList");
+		modalView.title = LanguagesManager.$("alarmList");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -105,14 +105,14 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			width: modalView.view.frame.width, height: 24
 		);
 		alarmAddGuideText.font = UIFont.systemFont(ofSize: 18);
-		alarmAddGuideText.text = Languages.$("alarmListEmpty");
+		alarmAddGuideText.text = LanguagesManager.$("alarmListEmpty");
 		modalView.view.addSubview(alarmAddGuideText);
 		
 		//추가 버튼
 		alarmAddIfEmptyButton = UIButton();
 		alarmAddIfEmptyButton.titleLabel!.font = UIFont.systemFont(ofSize: 14);
 		alarmAddIfEmptyButton.setTitleColor(UPUtils.colorWithHexString("#BBBBBB"), for: UIControlState());
-		alarmAddIfEmptyButton.setTitle(Languages.$("alarmListAddWhenEmpty"), for: UIControlState());
+		alarmAddIfEmptyButton.setTitle(LanguagesManager.$("alarmListAddWhenEmpty"), for: UIControlState());
 		alarmAddIfEmptyButton.frame = CGRect(
 			x: modalView.view.frame.width / 2 - (80 / 2),
 			y: modalView.view.frame.height / 2 + 64,
@@ -130,12 +130,12 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
 		
 		//Document상에서는 iOS 8부터임
-		listConfirmAction = UIAlertController(title: Languages.$("alarmDeleteTitle"), message: Languages.$("alarmDeleteSure"), preferredStyle: .actionSheet);
+		listConfirmAction = UIAlertController(title: LanguagesManager.$("alarmDeleteTitle"), message: LanguagesManager.$("alarmDeleteSure"), preferredStyle: .actionSheet);
 		//add menus
-		let cancelAct:UIAlertAction = UIAlertAction(title: Languages.$("generalCancel"), style: .cancel) { action -> Void in
+		let cancelAct:UIAlertAction = UIAlertAction(title: LanguagesManager.$("generalCancel"), style: .cancel) { action -> Void in
 			//Cancel just dismiss it
 		};
-		let deleteSureAct:UIAlertAction = UIAlertAction(title: Languages.$("alarmDelete"), style: .destructive) { action -> Void in
+		let deleteSureAct:UIAlertAction = UIAlertAction(title: LanguagesManager.$("alarmDelete"), style: .destructive) { action -> Void in
 			//delete it
 			self.deleteAlarmConfirm();
 			
@@ -188,13 +188,13 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	//iPad Alarm Delete Question
 	func showAlarmDelAlert() {
-		let alarmDelAlertController = UIAlertController(title: Languages.$("alarmDelete"), message: Languages.$("alarmDeleteSure"), preferredStyle: UIAlertControllerStyle.alert);
-		alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+		let alarmDelAlertController = UIAlertController(title: LanguagesManager.$("alarmDelete"), message: LanguagesManager.$("alarmDeleteSure"), preferredStyle: UIAlertControllerStyle.alert);
+		alarmDelAlertController.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 			//Alarm delete
 			self.deleteAlarmConfirm();
 		}));
 		
-		alarmDelAlertController.addAction(UIAlertAction(title: Languages.$("generalCancel"), style: .default, handler: { (action: UIAlertAction!) in
+		alarmDelAlertController.addAction(UIAlertAction(title: LanguagesManager.$("generalCancel"), style: .default, handler: { (action: UIAlertAction!) in
 			//Cancel
 		}));
 		present(alarmDelAlertController, animated: true, completion: nil);
@@ -355,7 +355,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//get row
 		//let cell:AlarmListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmListCell;
 		
-		let deleteRow:UITableViewRowAction = UITableViewRowAction(style: .default, title: Languages.$("alarmDelete")) {
+		let deleteRow:UITableViewRowAction = UITableViewRowAction(style: .default, title: LanguagesManager.$("alarmDelete")) {
 			(action:UITableViewRowAction!, childIndexPath:IndexPath!) -> Void in
 			
 			let cell:AlarmListCell = tableView.cellForRow(at: childIndexPath) as! AlarmListCell;
@@ -402,8 +402,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//알람추가뷰 열기. 일단 최대 초과하는지 체크함
 		if ( AlarmManager.alarmsArray.count >= AlarmManager.alarmMaxRegisterCount ) {
 			//초과하므로, 열 수 없음
-			let alarmCantAddAlert = UIAlertController(title: Languages.$("generalAlert"), message: Languages.$("informationAlarmExceed"), preferredStyle: UIAlertControllerStyle.alert);
-			alarmCantAddAlert.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+			let alarmCantAddAlert = UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("informationAlarmExceed"), preferredStyle: UIAlertControllerStyle.alert);
+			alarmCantAddAlert.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 				//Nothing do
 			}));
 			present(alarmCantAddAlert, animated: true, completion: nil);
@@ -429,8 +429,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		}
 		
 		modalAddViewCalled = false;
-		ViewController.viewSelf!.showHideBlurview(false);
-        self.dismiss(animated: true, completion: nil);
+		ViewController.selfView!.showHideBlurview(false)
+        self.dismiss(animated: true, completion: nil)
     } //end func
 	
 	func checkAlarmLimitExceed() {
@@ -598,7 +598,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		let timeStr:String = timeHourStr + ":" + timeMinStr; tLabelTime.text = timeStr;
 		
 		//12시간제인 경우 오전오후 표기
-		tAMPMLabel.text = funcTimeHour >= 12 && funcTimeHour <= 23 ? Languages.$("generalPM") : Languages.$("generalAM");
+		tAMPMLabel.text = funcTimeHour >= 12 && funcTimeHour <= 23 ? LanguagesManager.$("generalPM") : LanguagesManager.$("generalAM");
 		//반복설정에 따른 반복표기
 		tRepeatLabel.text = AlarmManager.fetchRepeatLabel(repeatSettings, loadType: 1);
 		
@@ -658,18 +658,18 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		}
 		
 		//이 부분은 메인 뷰 컨트롤러에도 나오게끔 만듬
-		ViewController.viewSelf!.showMessageOnView(message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex);
+		ViewController.selfView!.showMessageOnView(message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex)
 		
-		self.upAlarmMessageView.alpha = 1;
+		self.upAlarmMessageView.alpha = 1
 		
-		self.view.bringSubview(toFront: upAlarmMessageView);
-		upAlarmMessageView.isHidden = false;
-		upAlarmMessageView.backgroundColor = UPUtils.colorWithHexString(backgroundColorHex);
+		self.view.bringSubview(toFront: upAlarmMessageView)
+		upAlarmMessageView.isHidden = false
+		upAlarmMessageView.backgroundColor = UPUtils.colorWithHexString(backgroundColorHex)
 		upAlarmMessageText.textColor = UPUtils.colorWithHexString(textColorHex)
-		upAlarmMessageText.text = message;
+		upAlarmMessageText.text = message
 		
-		UIApplication.shared.setStatusBarHidden(true, with: .fade); //statusbar hidden
-		self.upAlarmMessageView.frame = CGRect(x: 0, y: -self.upAlarmMessageView.frame.height, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height);
+		UIApplication.shared.setStatusBarHidden(true, with: .fade) //statusbar hidden
+		self.upAlarmMessageView.frame = CGRect(x: 0, y: -self.upAlarmMessageView.frame.height, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height)
 		
 		//Message animation
 		UIView.animate(withDuration: 0.32, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {

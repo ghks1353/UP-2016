@@ -27,7 +27,7 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = Languages.$("achievements");
+		self.title = LanguagesManager.$("achievements");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -146,12 +146,12 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 		
 		//숨겨진 목표의 경우
 		if (AchievementManager.achievementList[achievementIndex].isHiddenTitle == true) {
-			aText.text = Languages.$("hiddenAchieveTitle");
+			aText.text = LanguagesManager.$("hiddenAchieveTitle");
 		} else {
 			aText.text = AchievementManager.achievementList[achievementIndex].name;
 		}
 		if (AchievementManager.achievementList[achievementIndex].isHiddenDescription == true) {
-			aDescription.text = Languages.$("hiddenAchieveDescription");
+			aDescription.text = LanguagesManager.$("hiddenAchieveDescription");
 		} else {
 			aDescription.text = AchievementManager.achievementList[achievementIndex].description;
 		}

@@ -68,7 +68,7 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			let tmpDesUILabel:UILabel = UILabel();
 			
 			let globalVersionFileName:String = "modal-guide-images-all-" + String(i) + "-general";
-			let localizedVersionFileName:String = "modal-guide-images-" + Languages.currentLocaleCode + "-" + String(i) + "-general";
+			let localizedVersionFileName:String = "modal-guide-images-" + LanguagesManager.currentLocaleCode + "-" + String(i) + "-general";
 			let fallbackFileName:String = "modal-guide-images-en-" + String(i) + "-general";
 			
 			//파일 검사해서 all버전이 없으면 각 로케일 버전으로 찾음
@@ -106,8 +106,8 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			tmpDesUILabel.textAlignment = .center; tmpDesUILabel.font = UIFont.systemFont(ofSize: 14);
 			tmpDesUILabel.numberOfLines = 0;
 			
-			tmpTitleUILabel.text = Languages.$("startGuide-title-" + String(i));
-			tmpDesUILabel.text = Languages.$("startGuide-description-" + String(i));
+			tmpTitleUILabel.text = LanguagesManager.$("startGuide-title-" + String(i));
+			tmpDesUILabel.text = LanguagesManager.$("startGuide-description-" + String(i));
 			
 			guideScrollView.addSubview(tmpTitleUILabel);
 			guideScrollView.addSubview(tmpDesUILabel);
@@ -130,7 +130,7 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 		guideExitInformationLabel.textColor = UIColor.white; //UPUtils.colorWithHexString("#461515");
 		guideExitInformationLabel.textAlignment = .center;
 		guideExitInformationLabel.font = UIFont.boldSystemFont(ofSize: 14);
-		guideExitInformationLabel.text = Languages.$("startGuideExitWithSwipe");
+		guideExitInformationLabel.text = LanguagesManager.$("startGuideExitWithSwipe");
 		
 		self.view.addSubview(guideExitInformationLabel);
 		guideExitInformationLabel.alpha = 0; //페이지 마지막으로 갔을 때만 보이게
@@ -147,8 +147,8 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			self.dismiss(animated: true, completion: nil);
 			
 			//이 가이드의 부모가 메인인 경우 공지 띄움 호출 트리거
-			if (self.view.superview == ViewController.viewSelf) {
-				ViewController.viewSelf!.callShowNoticeModal();
+			if (self.view.superview == ViewController.selfView) {
+				ViewController.selfView!.callShowNoticeModal()
 			}
 		}
 	}

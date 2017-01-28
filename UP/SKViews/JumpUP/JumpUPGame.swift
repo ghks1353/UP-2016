@@ -1919,27 +1919,27 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	
 	// 게임모드에서의 강제 게임 종료 루틴.
 	func forceExitGame( _ showResultWindow:Bool = false ) {
-		print("Game exiting");
-		gameFinishedBool = true;
+		print("Game exiting")
+		gameFinishedBool = true
 		
-		GameModeView.isGameExiting = true; //재시작시엔 이게 false이면, 다시 appear가 발동함
-		GameModeView.selfView!.dismiss(animated: false, completion: nil);
-		ViewController.viewSelf!.showHideBlurview(true);
+		GameModeView.isGameExiting = true //재시작시엔 이게 false이면, 다시 appear가 발동함
+		GameModeView.selfView!.dismiss(animated: false, completion: nil)
+		ViewController.selfView!.showHideBlurview(true)
 		GlobalSubView.gameModePlayViewcontroller.dismiss(animated: true, completion: { _ in
 			if (showResultWindow == true) { //<- Result화면 이동은 게임을 마쳤다는 소리임
 				// Result 표시.
 				
 				if (self.gameScore != 0) {
 					// 게임 스코어를 저장함.
-					GameManager.saveBestScore(self.currentGameID /* JumpUP GameID */, score: self.gameScore);
+					GameManager.saveBestScore(self.currentGameID /* JumpUP GameID */, score: self.gameScore)
 				}
 				
-				ViewController.viewSelf!.showGameResult( self.currentGameID /* <- jumpup gameid */ , type: 1 /* game type */,
-					score: self.gameScore, best: GameManager.loadBestScore(0) /* load jumpup bestscore */);
+				ViewController.selfView!.showGameResult( self.currentGameID /* <- jumpup gameid */ , type: 1 /* game type */,
+					score: self.gameScore, best: GameManager.loadBestScore(0) /* load jumpup bestscore */)
 			} else {
 				//게임 목록의 점프업 화면까지 바로 표시
-				ViewController.viewSelf!.openGamePlayView(nil);
-				GamePlayView.selfView!.selectCell( self.currentGameID ); //<- gameid
+				ViewController.selfView!.openGamePlayView(nil)
+				GamePlayView.selfView!.selectCell( self.currentGameID ) //<- gameid
 			}
 		});
 	}

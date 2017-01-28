@@ -35,7 +35,7 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class ViewController: UIViewController {
 	
-	static var viewSelf:ViewController?;
+	static var selfView:ViewController?;
 	
 	//Modal views
 	var modalSettingsView:SettingsView = SettingsView();
@@ -93,21 +93,21 @@ class ViewController: UIViewController {
 	//screen blur view
 	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark));
 	
-	
 	//// 앱 실행 시 한번만, 웹브라우저 띄우기 (공지사항 같은)
-	var isNoticeModalAppeared:Bool = false;
+	var isNoticeCalled:Bool = false;
 	
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
         super.viewDidLoad();
 		
+		//statusbar
 		UIApplication.shared.setStatusBarHidden(false, with: .fade);
 		
 		//Init device size factor
         DeviceManager.initialDeviceSize();
 		
 		//클래스 외부접근
-		ViewController.viewSelf = self;
+		ViewController.selfView = self;
 		
 		//Startup permission request
 		if #available(iOS 10.0, *) {
@@ -117,7 +117,7 @@ class ViewController: UIViewController {
 					if (error == nil) {
 						UIApplication.shared.registerForRemoteNotifications();
 					} else {
-						//alarm auth regist fallback 넣어야함 (알람설정 해주세요)
+						//alarm auth regist fallback 넣어야함 (알림설정 해주세요)
 					} //end if
 				}
 			)
@@ -273,55 +273,10 @@ class ViewController: UIViewController {
 		self.view.addSubview( upAlarmMessageView ); upAlarmMessageView.isHidden = true;
 		///// upside message inital
 		
-		//DB Select test
-		//https://github.com/stephencelis/SQLite.swift/blob/master/Documentation/Index.md#selecting-rows
-		/*do {
-			if (DataManager.db() == nil) {
-				print("DB is nil");
-			}
-			print("type0");
-			for dbResult in try DataManager.db()!.prepare( DataManager.statsTable().filter( Expression<Int64>("type") == 0 ) ) {
-				print("id", dbResult[ Expression<Int64>("id") ], "type", dbResult[ Expression<Int64>("type") ], "date", dbResult[ Expression<Int64>("date") ],
-				      "int", dbResult[ Expression<Int64>("statsDataInt") ] );
-			}
-			print("type1");
-			for dbResult in try DataManager.db()!.prepare( DataManager.statsTable().filter( Expression<Int64>("type") == 1 ) ) {
-				print("id", dbResult[ Expression<Int64>("id") ], "type", dbResult[ Expression<Int64>("type") ], "date", dbResult[ Expression<Int64>("date") ],
-				      "int", dbResult[ Expression<Int64>("statsDataInt") ] );
-			}
-			
-			print("Game result here");
-			for dbResult in try DataManager.db()!.prepare( DataManager.gameResultTable() ) {
-				print("id", dbResult[ Expression<Int64>("id") ], "date", dbResult[ Expression<Int64>("date") ],
-					"gameid", dbResult[ Expression<Int64>("gameid") ],
-					"gameCleared", dbResult[ Expression<Int64>("gameCleared") ],
-					"startedTimeStamp", dbResult[ Expression<Int64>("startedTimeStamp") ],
-					"playTime", dbResult[ Expression<Int64>("playTime") ],
-					"resultMissCount", dbResult[ Expression<Int64>("resultMissCount") ],
-					"touchAll", dbResult[ Expression<Int64>("touchAll") ],
-					"touchValid", dbResult[ Expression<Int64>("touchValid") ],
-					"backgroundExitCount", dbResult[ Expression<Int64>("backgroundExitCount") ]
-				);
-				//결과를 불러올 땐 결과가 null이 아니라고 장담한다면 Optional 빼버리죠.
-			}
-		} catch {
-			print("DB Selection error");
-		} ////////////////////// test fin
-		*/
-		/*
-		print("Font name start");
-		for name in UIFont.familyNames()
-		{
-			print(name)
-			print(UIFont.fontNamesForFamilyName(name))
-		}*/
-		
-		
 		//애니메이션을 위해 배열에 넣음
 		mainAnimatedObjs += [
 			AnimatedImg(targetView: GroundFloatingBox, defaultMovFactor: 1.0, defaultMovMaxFactor: 8.0, defaultMovRandomFactor: 1.0)
 		];
-		
 		
 		///////// start update task
 		updateTimeAnimation(); //first call
@@ -379,8 +334,8 @@ class ViewController: UIViewController {
 		if ( AlarmManager.alarmsArray.count >= AlarmManager.alarmMaxRegisterCount ) {
 			//초과하므로, 열 수 없음
 			
-			let alarmCantAddAlert = UIAlertController(title: Languages.$("generalAlert"), message: Languages.$("informationAlarmExceed"), preferredStyle: UIAlertControllerStyle.alert);
-			alarmCantAddAlert.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+			let alarmCantAddAlert = UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("informationAlarmExceed"), preferredStyle: UIAlertControllerStyle.alert);
+			alarmCantAddAlert.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 				//Nothing do
 			}));
 			present(alarmCantAddAlert, animated: true, completion: nil);
@@ -724,16 +679,20 @@ class ViewController: UIViewController {
 	} //end if
 	
 	//모든 modal 강제로 닫기 (바로 다음 뷰를 열때 사용)
-	func closeAllModalsForce() {
-		modalSettingsView.dismiss(animated: false, completion: nil);
-		modalAlarmAddView.dismiss(animated: false, completion: nil);
-		modalAlarmListView.dismiss(animated: false, completion: nil);
-		modalAlarmStatsView.dismiss(animated: false, completion: nil);
-		modalCharacterInformationView.dismiss(animated: false, completion: nil);
-		modalPlayGameview.dismiss(animated: false, completion: nil);
-		modalGameResultView.dismiss(animated: false, completion: nil);
-		modalGamePlayWindowView.dismiss(animated: false, completion: nil);
-		self.showHideBlurview(false);
+	func closeAllModalsForce( ignoreBlurView:Bool = false ) {
+		modalSettingsView.dismiss(animated: false, completion: nil)
+		modalAlarmAddView.dismiss(animated: false, completion: nil)
+		modalAlarmListView.dismiss(animated: false, completion: nil)
+		modalAlarmStatsView.dismiss(animated: false, completion: nil)
+		modalCharacterInformationView.dismiss(animated: false, completion: nil)
+		modalPlayGameview.dismiss(animated: false, completion: nil)
+		modalGameResultView.dismiss(animated: false, completion: nil)
+		modalGamePlayWindowView.dismiss(animated: false, completion: nil)
+		modalWebView.dismiss(animated: false, completion: nil)
+		
+		if (!ignoreBlurView) {
+			self.showHideBlurview(false)
+		}
 	}
 	
 	///////// 메인 스킨 변경 (혹은 스킨 설정 )
@@ -988,9 +947,10 @@ class ViewController: UIViewController {
 	
 	func runGame() {
 		//게임 시작
-		print("ViewController: rungame started");
+		print("ViewController: rungame started")
+		closeAllModalsForce() //closes all modal force
+		
 		GameModeView.isGameExiting = false;
-		closeAllModalsForce();
 		GlobalSubView.gameModePlayViewcontroller.modalTransitionStyle = .crossDissolve;
 		self.present(GlobalSubView.gameModePlayViewcontroller, animated: true, completion: nil);
 	}
@@ -1000,26 +960,35 @@ class ViewController: UIViewController {
 		//Score 및 best는 보여주기용이며, 저장은 각 게임 혹은 이 함수 호출 전에 알아서.
 		//Type 0: alarm, 1: game
 		
-		modalGameResultView.setVariables(gameID, windowType: type, showingScore: score, showingBest: best);
+		modalGameResultView.setVariables(gameID, windowType: type, showingScore: score, showingBest: best)
 		
-		modalGameResultView.modalPresentationStyle = .overFullScreen;
-		showHideBlurview(true);
-		self.present(modalGameResultView, animated: false, completion: nil);
+		showHideBlurview(true)
+		modalGameResultView.modalPresentationStyle = .overFullScreen
+		self.present(modalGameResultView, animated: false, completion: nil)
 	}
 	
 	///// 공지사항 띄움
 	func callShowNoticeModal() {
-		if (isNoticeModalAppeared) {
+		if (isNoticeCalled) {
 			return;
 		}
-		
-		modalWebView.modalPresentationStyle = .overFullScreen;
-		showHideBlurview(true);
-		self.present(modalWebView, animated: false, completion: nil);
-		isNoticeModalAppeared = true;
-		
-		modalWebView.openURL("https://up.avngraphic.kr/inapp/testers/");
+		isNoticeCalled = true
+		showWebViewModal( url: "https://up.avngraphic.kr/inapp/testers/?l=" + LanguagesManager.currentLocaleCode )
 	}
+	func showWebViewModal( url:String ) {
+		if (self.presentingViewController == modalWebView) {
+			modalWebView.openURL( url )
+			return
+		} //end if
+		
+		closeAllModalsForce( ignoreBlurView: true )
+		
+		modalWebView.openURL( url )
+		
+		showHideBlurview(true)
+		modalWebView.modalPresentationStyle = .overFullScreen
+		self.present(modalWebView, animated: false, completion: nil)
+	} //end func
 	
 	
 }

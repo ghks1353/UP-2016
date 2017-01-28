@@ -31,7 +31,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = Languages.$("alarmRepeat");
+		self.title = LanguagesManager.$("alarmRepeat");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -192,7 +192,7 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		tCell.dayID = -1; //selection 예외처리
 		
 		let tSelection:UISegmentedControl
-			= UISegmentedControl( items: [ Languages.$("alarmRepeatFreqEveryday"), Languages.$("alarmRepeatFreqWeekday"), Languages.$("alarmRepeatFreqWeekend") ] );
+			= UISegmentedControl( items: [ LanguagesManager.$("alarmRepeatFreqEveryday"), LanguagesManager.$("alarmRepeatFreqWeekday"), LanguagesManager.$("alarmRepeatFreqWeekend") ] );
 		tSelection.frame = CGRect( x: (tableView.frame.width / 2) - (220 / 2), y: 12, width: 220, height: 30 );
 		tSelection.selectedSegmentIndex = -1; //default selected index
 		tSelection.addTarget(self, action: #selector(AlarmRepeatSettingsView.segmentIdxChanged(_:)), for: .valueChanged);
@@ -215,21 +215,21 @@ class AlarmRepeatSettingsView:UIViewController, UITableViewDataSource, UITableVi
 		
 		switch( dayID ) { //0 = 일요일
 			case 0:
-				tLabel.text = Languages.$("alarmRepeatSun");
+				tLabel.text = LanguagesManager.$("alarmRepeatSun");
 				tLabel.textColor = UIColor.red;
 				break;
 			case 1:
-				tLabel.text = Languages.$("alarmRepeatMon"); break;
+				tLabel.text = LanguagesManager.$("alarmRepeatMon"); break;
 			case 2:
-				tLabel.text = Languages.$("alarmRepeatTue"); break;
+				tLabel.text = LanguagesManager.$("alarmRepeatTue"); break;
 			case 3:
-				tLabel.text = Languages.$("alarmRepeatWed"); break;
+				tLabel.text = LanguagesManager.$("alarmRepeatWed"); break;
 			case 4:
-				tLabel.text = Languages.$("alarmRepeatThu"); break;
+				tLabel.text = LanguagesManager.$("alarmRepeatThu"); break;
 			case 5:
-				tLabel.text = Languages.$("alarmRepeatFri"); break;
+				tLabel.text = LanguagesManager.$("alarmRepeatFri"); break;
 			case 6:
-				tLabel.text = Languages.$("alarmRepeatSat"); break;
+				tLabel.text = LanguagesManager.$("alarmRepeatSat"); break;
 			
 			default: break;
 		}

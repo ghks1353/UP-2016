@@ -50,7 +50,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#333333");
 		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = Languages.$("settingsMenu"); //Modal title
+		modalView.title = LanguagesManager.$("settingsMenu"); //Modal title
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -72,24 +72,24 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
         //add table cells (options)
         tablesArray = [
             [ /* SECTION 1 */
-				createSettingsToggle( Languages.$("settingsIconBadgeSetting"), defaultState: false, settingsID: "showIconBadge")
-				, createSettingsToggle( Languages.$("settingsiCloud"), defaultState: false, settingsID: "syncToiCloud")
-				, createSettingsOnlyLabel( Languages.$("settingsChangeLanguage"), menuID: "languageChange")
+				createSettingsToggle( LanguagesManager.$("settingsIconBadgeSetting"), defaultState: false, settingsID: "showIconBadge")
+				, createSettingsToggle( LanguagesManager.$("settingsiCloud"), defaultState: false, settingsID: "syncToiCloud")
+				, createSettingsOnlyLabel( LanguagesManager.$("settingsChangeLanguage"), menuID: "languageChange")
             ],
             [ /* SECTION 2*/
-				createSettingsOnlyLabel( Languages.$("settingsBuyPremium") , menuID: "buyUP")
-				, createSettingsOnlyLabel( Languages.$("settingsRestoreBought") , menuID: "restorePurchases")
-				, createSettingsOnlyLabel( Languages.$("settingsCoupon") , menuID: "useCoupon")
+				createSettingsOnlyLabel( LanguagesManager.$("settingsBuyPremium") , menuID: "buyUP")
+				, createSettingsOnlyLabel( LanguagesManager.$("settingsRestoreBought") , menuID: "restorePurchases")
+				, createSettingsOnlyLabel( LanguagesManager.$("settingsCoupon") , menuID: "useCoupon")
 			],
             [ /* SECTION 3*/
-                createSettingsOnlyLabel( Languages.$("settingsStartingGuide") , menuID: "startGuide")
-                , createSettingsOnlyLabel( Languages.$("settingsRatingApp") , menuID: "ratingApplication")
-                , createSettingsOnlyLabel( Languages.$("settingsShowNewgame") , menuID: "indieGames")
-                , createSettingsOnlyLabel( Languages.$("settingsGotoUPProject") , menuID: "gotoUPProject")
-				, createSettingsOnlyLabel( Languages.$("settingsCredits") , menuID: "credits")
+                createSettingsOnlyLabel( LanguagesManager.$("settingsStartingGuide") , menuID: "startGuide")
+                , createSettingsOnlyLabel( LanguagesManager.$("settingsRatingApp") , menuID: "ratingApplication")
+                , createSettingsOnlyLabel( LanguagesManager.$("settingsShowNewgame") , menuID: "indieGames")
+                , createSettingsOnlyLabel( LanguagesManager.$("settingsGotoUPProject") , menuID: "gotoUPProject")
+				, createSettingsOnlyLabel( LanguagesManager.$("settingsCredits") , menuID: "credits")
             ],
             [ /* SECTION 4 */
-				createSettingsOnlyLabel( Languages.$("settingsExperimentsAlarm"), menuID: "experiments-notallowed-alarms")
+				createSettingsOnlyLabel( LanguagesManager.$("settingsExperimentsAlarm"), menuID: "experiments-notallowed-alarms")
 			],
 			[ /* section 5 */
 				createSettingsOnlyLabel( "Debug info", menuID: "debug-test-info"),
@@ -185,7 +185,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				self.present(GlobalSubView.startingGuideView, animated: true, completion: nil);
 				break;
 			case "gotoUPProject":
-				UIApplication.shared.openURL(URL(string: "https://up.avngraphic.kr/?l=" + Languages.currentLocaleCode)!);
+				UIApplication.shared.openURL(URL(string: "https://up.avngraphic.kr/?l=" + LanguagesManager.currentLocaleCode)!);
 				break;
 			case "languageChange":
 				navigationCtrl.pushViewController(self.languagesView, animated: true);
@@ -224,13 +224,13 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
             case 0:
-                return Languages.$("generalSettings");
+                return LanguagesManager.$("generalSettings");
 			case 1:
-				return Languages.$("generalBuySettings");
+				return LanguagesManager.$("generalBuySettings");
             case 2:
-                return Languages.$("generalGuide");
+                return LanguagesManager.$("generalGuide");
 			case 3: //DEV, TEST
-				return Languages.$("settingsExperiments");
+				return LanguagesManager.$("settingsExperiments");
             default:
                 return "-";
         }
@@ -277,10 +277,10 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     
     func viewCloseAction() {
 		//Save changes
-		saveChasngesToSystem();
+		saveChasngesToSystem()
 		
-		ViewController.viewSelf!.showHideBlurview(false);
-        self.dismiss(animated: true, completion: nil);
+		ViewController.selfView!.showHideBlurview(false)
+        self.dismiss(animated: true, completion: nil)
     }
 	
 	func saveChasngesToSystem() {
@@ -414,20 +414,20 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	////////////////
 	
 	func showProductNotAvailable() {
-		let alertWindow:UIAlertController = UIAlertController(title: Languages.$("generalAlert"), message: Languages.$("storeBuyNotAvailable"), preferredStyle: UIAlertControllerStyle.alert);
-		alertWindow.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+		let alertWindow:UIAlertController = UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("storeBuyNotAvailable"), preferredStyle: UIAlertControllerStyle.alert);
+		alertWindow.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 		}));
 		present(alertWindow, animated: true, completion: nil);
 	} //end function
 	func showRestoreFailed() {
-		let alertWindow:UIAlertController = UIAlertController(title: Languages.$("generalAlert"), message: Languages.$("storeRestoreFailed"), preferredStyle: UIAlertControllerStyle.alert);
-		alertWindow.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+		let alertWindow:UIAlertController = UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("storeRestoreFailed"), preferredStyle: UIAlertControllerStyle.alert);
+		alertWindow.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 		}));
 		present(alertWindow, animated: true, completion: nil);
 	}
 	func showRestoreSucceed() {
-		let alertWindow:UIAlertController = UIAlertController(title: Languages.$("generalAlert"), message: Languages.$("storeRestoreSuccess"), preferredStyle: UIAlertControllerStyle.alert);
-		alertWindow.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+		let alertWindow:UIAlertController = UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("storeRestoreSuccess"), preferredStyle: UIAlertControllerStyle.alert);
+		alertWindow.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 		}));
 		present(alertWindow, animated: true, completion: nil);
 	}

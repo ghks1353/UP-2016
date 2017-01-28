@@ -13,22 +13,22 @@ import WebKit
 class ModalWebView:UIViewController {
 	
 	//for access
-	static var selfView:ModalWebView?;
+	static var selfView:ModalWebView?
 	
 	//Inner-modal view
-	var modalView:UIViewController = UIViewController();
+	var modalView:UIViewController = UIViewController()
 	//Navigationbar view
-	var navigationCtrl:UINavigationController = UINavigationController();
+	var navigationCtrl:UINavigationController = UINavigationController()
 	
 	//WebView
-	var wbView:WKWebView = WKWebView();
-	var wbProgress:UIProgressView = UIProgressView( progressViewStyle: .bar );
+	var wbView:WKWebView = WKWebView()
+	var wbProgress:UIProgressView = UIProgressView( progressViewStyle: .bar )
 	
 	override func viewDidLoad() {
-		super.viewDidLoad();
-		self.view.backgroundColor = UIColor.clear;
+		super.viewDidLoad()
+		self.view.backgroundColor = UIColor.clear
 		
-		ModalWebView.selfView = self;
+		ModalWebView.selfView = self
 		
 		//ModalView
 		modalView.view.backgroundColor = UIColor.white;
@@ -39,7 +39,7 @@ class ModalWebView:UIViewController {
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#333333");
 		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = "";
+		modalView.title = "Loading";
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -80,6 +80,9 @@ class ModalWebView:UIViewController {
 		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil);
 		
 		FitModalLocationToCenter();
+		
+		//clear cache
+		clearWebCache();
 	}
 	
 	////////////////
@@ -99,13 +102,13 @@ class ModalWebView:UIViewController {
 	
 	func viewCloseAction() {
 		//Close this view
-		ViewController.viewSelf!.showHideBlurview(false);
-		self.dismiss(animated: true, completion: nil);
+		ViewController.selfView!.showHideBlurview(false)
+		self.dismiss(animated: true, completion: nil)
 	} //end func
 	
 	override func viewWillAppear(_ animated: Bool) {
 		//setup bounce animation
-		self.view.alpha = 0;
+		self.view.alpha = 0
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -165,9 +168,7 @@ class ModalWebView:UIViewController {
 	} //end observe ovv
 	
 	func openURL(_ urlStr:String) {
-		//load url
-		clearWebCache();
-		
+		//Open URL. (https만 열림)
 		let url:String = urlStr;
 		wbView.load(URLRequest( url: URL( string:
 			url.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed )!

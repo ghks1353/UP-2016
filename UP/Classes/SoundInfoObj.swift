@@ -12,7 +12,7 @@ class SoundInfoObj {
 	
 	init(soundName:String, fileName:String) {
 		//Name from Language files
-		soundLangName = Languages.$(soundName); soundFileName = fileName;
+		soundLangName = LanguagesManager.$(soundName); soundFileName = fileName;
 	}
 	
 	internal var soundLangName:String = "";

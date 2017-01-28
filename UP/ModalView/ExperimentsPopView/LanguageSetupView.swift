@@ -22,7 +22,7 @@ class LanguageSetupView:UIViewController, UITableViewDataSource, UITableViewDele
 		self.view.backgroundColor = UIColor.clear;
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = Languages.$("settingsChangeLanguage");
+		self.title = LanguagesManager.$("settingsChangeLanguage");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -39,7 +39,7 @@ class LanguageSetupView:UIViewController, UITableViewDataSource, UITableViewDele
 		
 		tablesArray = [
 			[ /* sec 1 */
-				createCell( Languages.$("settingsLanguageSystemSettings"), menuID: "default")
+				createCell( LanguagesManager.$("settingsLanguageSystemSettings"), menuID: "default")
 				, createCell("한국어", menuID: "ko")
 				, createCell("日本語", menuID: "ja")
 				, createCell("English", menuID: "en")
@@ -88,7 +88,7 @@ class LanguageSetupView:UIViewController, UITableViewDataSource, UITableViewDele
 		DataManager.save();
 		
 		/*let alarmCantAddAlert = UIAlertController(title: "설정 저장됨", message: "애플리케이션을 재시작하여 주세요.", preferredStyle: UIAlertControllerStyle.Alert);
-		alarmCantAddAlert.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
+		alarmCantAddAlert.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .Default, handler: { (action: UIAlertAction!) in
 			//Nothing do
 		}));
 		presentViewController(alarmCantAddAlert, animated: true, completion: nil);
@@ -101,13 +101,13 @@ class LanguageSetupView:UIViewController, UITableViewDataSource, UITableViewDele
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
 			case 0:
-				return Languages.$("settingsChangeLanguage");
+				return LanguagesManager.$("settingsChangeLanguage");
 			default:
 				return "";
 		}
 	}
 	func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		return Languages.$("settingsChangeLanguageAlert");
+		return LanguagesManager.$("settingsChangeLanguageAlert");
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

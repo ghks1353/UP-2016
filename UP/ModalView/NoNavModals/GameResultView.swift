@@ -340,7 +340,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		if (!rbuttonEnabled) {
 			return;
 		}
-		ViewController.viewSelf!.showHideBlurview(false);
+		ViewController.selfView!.showHideBlurview(false);
 		self.dismiss(animated: true, completion: nil);
 	} //end func
 	
@@ -483,8 +483,8 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		}
 		self.dismiss(animated: true, completion: { _ in
 			
-			ViewController.viewSelf!.openGamePlayView(nil);
-			GamePlayView.selfView!.selectCell( self.currentGameID );
+			ViewController.selfView!.openGamePlayView(nil)
+			GamePlayView.selfView!.selectCell( self.currentGameID )
 			
 		});
 	}
@@ -494,9 +494,9 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 			return;
 		}
 		self.dismiss(animated: true, completion: { _ in
-			print("Game retry!");
-			GameModeView.setGame( self.currentGameID ); //게임 id 전달
-			ViewController.viewSelf!.runGame();
+			print("Game retry!")
+			GameModeView.setGame( self.currentGameID ) //게임 id 전달
+			ViewController.selfView!.runGame()
 		});
 	}
 	func showRankingGameCenter() {

@@ -43,8 +43,8 @@ class AchievementManager {
 		for i:Int in 0 ..< jData["list"].arrayValue.count {
 			let tmpAchievement:AchievementElement = AchievementElement();
 			tmpAchievement.id = jData["list"][i]["id"].string!;
-			tmpAchievement.name = jData["list"][i]["name"][ Languages.currentLocaleCode ].string!;
-			tmpAchievement.description = jData["list"][i]["description"][ Languages.currentLocaleCode ].string!;
+			tmpAchievement.name = jData["list"][i]["name"][ LanguagesManager.currentLocaleCode ].string!;
+			tmpAchievement.description = jData["list"][i]["description"][ LanguagesManager.currentLocaleCode ].string!;
 			tmpAchievement.checkTargets = jData["list"][i]["targets"].arrayValue.map {$0.string!};
 			tmpAchievement.equalStr = jData["list"][i]["valueEquals"].arrayValue.map {$0.string!};
 			tmpAchievement.checkVals = jData["list"][i]["values"].arrayValue.map {$0.float!};

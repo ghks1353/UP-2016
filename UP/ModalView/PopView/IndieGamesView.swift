@@ -26,7 +26,7 @@ class IndieGamesView:UIViewController {
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = Languages.$("settingsShowNewgame");
+		self.title = LanguagesManager.$("settingsShowNewgame");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);

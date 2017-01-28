@@ -73,7 +73,7 @@ class ExperimentsTestInfo:UIViewController {
 		informationStr += "OS: iOS " + String(UIDevice.current.systemVersion) + "\n";
 		informationStr += "Device: " + String( UIDevice.current.model ) + "\n";
 		
-		informationStr += "App Lang: " + String(Languages.currentLocaleCode) + "\n";
+		informationStr += "App Lang: " + String(LanguagesManager.currentLocaleCode) + "\n";
 		informationStr += "Sys Lang: " + String(describing: (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode)!) + "\n";
 		
 		informationStr += "App version: " + String((Bundle.main.infoDictionary?["CFBundleVersion"])! as! String) + "\n";
@@ -150,8 +150,8 @@ class ExperimentsTestInfo:UIViewController {
 	func copyInformationFunc() {
 		UIPasteboard.general.string = infoLabel.text;
 		
-		let aCtrl = UIAlertController(title: Languages.$("generalAlert"), message: "Copied!", preferredStyle: UIAlertControllerStyle.alert);
-		aCtrl.addAction(UIAlertAction(title: Languages.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+		let aCtrl = UIAlertController(title: LanguagesManager.$("generalAlert"), message: "Copied!", preferredStyle: UIAlertControllerStyle.alert);
+		aCtrl.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 		}));
 		present(aCtrl, animated: true, completion: nil);
 	}

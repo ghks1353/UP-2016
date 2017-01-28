@@ -21,7 +21,7 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 		self.view.backgroundColor = UIColor.clear;
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = Languages.$("settingsExperimentsAlarm");
+		self.title = LanguagesManager.$("settingsExperimentsAlarm");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -39,8 +39,8 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 		
 		tablesArray = [
 			[ /* sec 1 */
-				createSettingsToggle( Languages.$("settingsAlarmMemo"), defaultState: false, settingsID: "useAlarmMemo"),
-				createSettingsToggle( Languages.$("settingsNoLieDown"), defaultState: false, settingsID: "usNoLieDown")
+				createSettingsToggle( LanguagesManager.$("settingsAlarmMemo"), defaultState: false, settingsID: "useAlarmMemo"),
+				createSettingsToggle( LanguagesManager.$("settingsNoLieDown"), defaultState: false, settingsID: "usNoLieDown")
 			] ];
 		
 		tableView.delegate = self; tableView.dataSource = self;
@@ -88,7 +88,7 @@ class ExperimentsAlarmsSetupView:UIViewController, UITableViewDataSource, UITabl
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
 		case 0:
-			return Languages.$("settingsExperimentsAlarm");
+			return LanguagesManager.$("settingsExperimentsAlarm");
 		default:
 			return "";
 		}

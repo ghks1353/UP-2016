@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		
 		//Startup language initial
 		print("Pref lang", (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String )
-		Languages.initLanugages( (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String )
+		LanguagesManager.initLanugages( (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String )
 		//Init DataManager
 		DataManager.initDataManager()
 		//Init CharacterMgr
@@ -177,8 +177,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 			AlarmListView.selfView!.createTableList(); //refresh alarm-list
 		}*/
 		
-		if (ViewController.viewSelf != nil) {
-			ViewController.viewSelf!.checkToCallAlarmRingingView()
+		if (ViewController.selfView != nil) {
+			ViewController.selfView!.checkToCallAlarmRingingView()
 		}
 		
 		//알람이 울리고 있었다면 꺼줌.
@@ -205,18 +205,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	@available(iOS 10.0, *)
 	func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		print("Notifi responsed")
+		
+		let usrInfo = response.notification.request.content.userInfo
+		handlePushMessage( usrInfo )
 	}
 	
-	///////// FCM
+	///////// FCM Register
 	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
 		FIRMessaging.messaging().connect { (error) in
 			if (error != nil) {
 				print("Unable to connect with FCM. \(error)")
 			} else {
-				print("Connected to FCM.")
-			}
+				//기본 주제 등록 (전체 사용자에게)
+				print("FCM Connected")
+				
+				FIRMessaging.messaging().subscribe(toTopic: FirebaseTopicManager.Topics.GeneralUser.rawValue)
+				
+			} //end if
+		} //end conneect
+	} //end func
+	/////////// FCM Receive
+	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+		print("Received pushmsg")
+		
+		handlePushMessage( userInfo )
+	} //end func
+	
+	////////////////// 
+	func handlePushMessage(_ usrInfo:[AnyHashable : Any]? ) {
+		//Handling push/local notify
+		if (usrInfo == nil) {
+			print("Can't handle push message because userinfo is null")
+			return
 		}
-	}
-
+		
+		if (usrInfo!["type"] == nil) {
+			print("Can't handle push message because type is null")
+			return
+		}
+		
+		switch( String(describing: usrInfo!["type"]!) ) {
+			case "link":
+				let targetURL:String? = usrInfo!["url"] as! String?
+				if (targetURL != nil) {
+					ViewController.selfView!.showWebViewModal( url: targetURL! )
+				}
+				break
+			default:
+				print("Can't handle push message because type is unknown. type:", usrInfo!["type"]!)
+				break
+		} //end switch
+		
+		print("url:" + String(describing: usrInfo!["url"] ))
+	} //end func
 }
 

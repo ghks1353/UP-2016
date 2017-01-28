@@ -59,7 +59,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#174468");
 		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = Languages.$("userStatistics");
+		modalView.title = LanguagesManager.$("userStatistics");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -84,7 +84,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tablesArray = [
 			[ /* SECTION 1 */
 				createIntroChartCell(),
-				createCellWithNextArrow(Languages.$("statsDataPoint"), menuID: "dataPoint")
+				createCellWithNextArrow(LanguagesManager.$("statsDataPoint"), menuID: "dataPoint")
 			]
 			
 		];
@@ -143,32 +143,32 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		switch(rootSelectedCurrentDataPoint) {
 			case StatisticsDataPointView.POINT_UNTIL_OFF:
 				selDataPointInt = 0;
-				rootViewChartTitle!.text = Languages.$("statsTitleUntilAlarmOff");
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleUntilAlarmOff");
 				break;
 			case StatisticsDataPointView.POINT_UNTIL_START:
 				selDataPointInt = 1;
-				rootViewChartTitle!.text = Languages.$("statsTitleUntilGameStart");
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleUntilGameStart");
 				break;
 			case StatisticsDataPointView.POINT_PLAYTIME:
 				selDataPointInt = 2;
-				rootViewChartTitle!.text = Languages.$("statsTitleGamePlayTime");
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleGamePlayTime");
 				break;
 			case StatisticsDataPointView.POINT_GAME_CLEARED:
 				selDataPointInt = 3;
-				rootViewChartTitle!.text = Languages.$("statsTitleGameClearPercent");
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleGameClearPercent");
 				break;
 			
 			case StatisticsDataPointView.POINT_GAME_TOUCHES:
 				selDataPointInt = 4;
-				rootViewChartTitle!.text = Languages.$("statsTitleTouches");
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleTouches");
 				break;
 			case StatisticsDataPointView.POINT_GAME_VALID:
 				selDataPointInt = 5;
-				rootViewChartTitle!.text = Languages.$("statsTitleVaildTouchPercent");
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleVaildTouchPercent");
 				break;
 			case StatisticsDataPointView.POINT_GAME_ASLEEP:
 				selDataPointInt = 6;
-				rootViewChartTitle!.text = Languages.$("statsTitleFellAsleepCount");
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleFellAsleepCount");
 				break;
 			default: break;
 		}
@@ -264,9 +264,9 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					let failedPercent:Double = (Double(failedCount) / Double(statsDataResult!.count)) * 100;
 					
 					let failedDataEntry:PieChartDataEntry =
-						PieChartDataEntry(value: failedPercent, label: failedCount == 0 ? "" : Languages.$("statsDataGameRetired"));
+						PieChartDataEntry(value: failedPercent, label: failedCount == 0 ? "" : LanguagesManager.$("statsDataGameRetired"));
 					let successDataEntry:PieChartDataEntry =
-						PieChartDataEntry(value: successPercent, label: successCount == 0 ? "" : Languages.$("statsDataGameCleared"));
+						PieChartDataEntry(value: successPercent, label: successCount == 0 ? "" : LanguagesManager.$("statsDataGameCleared"));
 					let pieChartDataSet:PieChartDataSet =
 						PieChartDataSet(values: [ failedDataEntry, successDataEntry ], label: "");
 					
@@ -283,7 +283,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					
 					pieChartPointer!.data = pieChartDatas; //data apply
 					
-					currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
+					currentDataPrefix = ""; currentDataSuffix = LanguagesManager.$("statsDataFormatPercent");
 					
 					//Show pie titles
 					rootViewRightLFirstTitle!.isHidden = false; rootViewRightLFirstValue!.isHidden = false;
@@ -313,12 +313,12 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 								if (previousMonth != statsDataResult![i].dateComponents!.month) {
 									previousMonth = statsDataResult![i].dateComponents!.month!;
 									//Languages $0 ~ $1 되있는것 자동 변수 삽입.
-									let monthStr:String = Languages.localizeMonth( String(describing: previousMonth ));
+									let monthStr:String = LanguagesManager.localizeMonth( String(describing: previousMonth ));
 									
-									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: monthStr as AnyObject, statsDataResult![i].dateComponents!.day as AnyObject) ];
+									tDatasXAxisEntry += [ LanguagesManager.parseStr(LanguagesManager.$("statsDateFormatWithMonth"), args: monthStr as AnyObject, statsDataResult![i].dateComponents!.day as AnyObject) ];
 								} else {
 									//일만 추가
-									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day as AnyObject) ];
+									tDatasXAxisEntry += [ LanguagesManager.parseStr(LanguagesManager.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day as AnyObject) ];
 								}
 							} //end for
 							
@@ -358,20 +358,20 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							
 							switch(selDataPointInt) {
 								case 3, 5: //~% 표기
-									currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
+									currentDataPrefix = ""; currentDataSuffix = LanguagesManager.$("statsDataFormatPercent");
 									
 									//Get average
 									resultAverage = resultAverage / Float(statsDataResult!.count);
 									break;
 								case 4, 6: //합계 ~회 표기
-									currentDataPrefix = Languages.$("statsDataFormatCountsPrefixShort");
-									currentDataSuffix = Languages.$("statsDataFormatCountsSuffixShort");
+									currentDataPrefix = LanguagesManager.$("statsDataFormatCountsPrefixShort");
+									currentDataSuffix = LanguagesManager.$("statsDataFormatCountsSuffixShort");
 									
 									//Average 구할 필요 없음
 									break;
 								default: //평균 ~분 표기
-									currentDataPrefix = Languages.$("statsTimeFormatMinPrefix");
-									currentDataSuffix = Languages.$("statsTimeFormatMinSuffix");
+									currentDataPrefix = LanguagesManager.$("statsTimeFormatMinPrefix");
+									currentDataSuffix = LanguagesManager.$("statsTimeFormatMinSuffix");
 									
 									//Get average
 									resultAverage = resultAverage / Float(statsDataResult!.count);
@@ -409,12 +409,12 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 								if (previousMonth != statsDataResult![i].dateComponents!.month) {
 									previousMonth = statsDataResult![i].dateComponents!.month!;
 									//Languages $0 ~ $1 되있는것 자동 변수 삽입.
-									let monthStr:String = Languages.localizeMonth( String(describing: previousMonth) );
+									let monthStr:String = LanguagesManager.localizeMonth( String(describing: previousMonth) );
 									
-									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatWithMonth"), args: monthStr as AnyObject, statsDataResult![i].dateComponents!.day as AnyObject) ];
+									tDatasXAxisEntry += [ LanguagesManager.parseStr(LanguagesManager.$("statsDateFormatWithMonth"), args: monthStr as AnyObject, statsDataResult![i].dateComponents!.day as AnyObject) ];
 								} else {
 									//일만 추가
-									tDatasXAxisEntry += [ Languages.parseStr(Languages.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day as AnyObject) ];
+									tDatasXAxisEntry += [ LanguagesManager.parseStr(LanguagesManager.$("statsDateFormatDayOnly"), args: statsDataResult![i].dateComponents!.day as AnyObject) ];
 								}
 							} //end for
 							
@@ -446,20 +446,20 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 							
 							switch(selDataPointInt) {
 								case 3, 5: //~% 표기
-									currentDataPrefix = ""; currentDataSuffix = Languages.$("statsDataFormatPercent");
+									currentDataPrefix = ""; currentDataSuffix = LanguagesManager.$("statsDataFormatPercent");
 									
 									//Get average
 									resultAverage = resultAverage / Float(statsDataResult!.count);
 									break;
 								case 4, 6: //합계 ~회 표기
-									currentDataPrefix = Languages.$("statsDataFormatCountsPrefixShort");
-									currentDataSuffix = Languages.$("statsDataFormatCountsSuffixShort");
+									currentDataPrefix = LanguagesManager.$("statsDataFormatCountsPrefixShort");
+									currentDataSuffix = LanguagesManager.$("statsDataFormatCountsSuffixShort");
 									
 									//Average 구할 필요 없음
 									break;
 								default: //평균 ~분 표기
-									currentDataPrefix = Languages.$("statsTimeFormatMinPrefix");
-									currentDataSuffix = Languages.$("statsTimeFormatMinSuffix");
+									currentDataPrefix = LanguagesManager.$("statsTimeFormatMinPrefix");
+									currentDataSuffix = LanguagesManager.$("statsTimeFormatMinSuffix");
 									
 									//Get average
 									resultAverage = resultAverage / Float(statsDataResult!.count);
@@ -497,17 +497,17 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 					rootViewChartSubtitle!.text = "";
 					break;
 				case 5: //평균 ~% 표기
-					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
-					                                                 args: String(String(format:"%.0f", resultAverage) + Languages.$("statsDataFormatPercent")) as AnyObject);
+					rootViewChartSubtitle!.text = LanguagesManager.parseStr(LanguagesManager.$("statsAverageFormat"),
+					                                                 args: String(String(format:"%.0f", resultAverage) + LanguagesManager.$("statsDataFormatPercent")) as AnyObject);
 					break;
 				case 4, 6: //합계 ~회 표기
-					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsTotalFormat"),
-																	 args: String(Languages.$("statsDataFormatCountsPrefix") + String(format:"%.0f", resultAverage) + Languages.$("statsDataFormatCountsSuffix")
+					rootViewChartSubtitle!.text = LanguagesManager.parseStr(LanguagesManager.$("statsTotalFormat"),
+																	 args: String(LanguagesManager.$("statsDataFormatCountsPrefix") + String(format:"%.0f", resultAverage) + LanguagesManager.$("statsDataFormatCountsSuffix")
 						) as AnyObject);
 					break;
 				default: //평균 ~분 표기
-					rootViewChartSubtitle!.text = Languages.parseStr(Languages.$("statsAverageFormat"),
-																	 args: String(Languages.$("statsTimeFormatMinPrefix") + String(format:"%.0f", resultAverage) + Languages.$("statsTimeFormatMinSuffix")) as AnyObject);
+					rootViewChartSubtitle!.text = LanguagesManager.parseStr(LanguagesManager.$("statsAverageFormat"),
+																	 args: String(LanguagesManager.$("statsTimeFormatMinPrefix") + String(format:"%.0f", resultAverage) + LanguagesManager.$("statsTimeFormatMinSuffix")) as AnyObject);
 				break;
 			} //end switch
 			
@@ -588,10 +588,10 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	}
 	
 	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
+		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect
 		
 		if (self.view.mask != nil) {
-			self.view.mask!.frame = DeviceManager.defaultModalSizeRect;
+			self.view.mask!.frame = DeviceManager.defaultModalSizeRect
 		}
 	}
 	
@@ -602,8 +602,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	
 	func viewCloseAction() {
 		
-		ViewController.viewSelf!.showHideBlurview(false);
-		self.dismiss(animated: true, completion: nil);
+		ViewController.selfView!.showHideBlurview(false)
+		self.dismiss(animated: true, completion: nil)
 	} //end close func
 	
 	///// 초기 화면 그래프 (segment) 표시
@@ -615,7 +615,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		
 		//create 3-seg sel
 		let tSelection:UISegmentedControl
-			= UISegmentedControl( items: [ Languages.$("statsWeek"), Languages.$("statsMonth"), Languages.$("statsYear") ] );
+			= UISegmentedControl( items: [ LanguagesManager.$("statsWeek"), LanguagesManager.$("statsMonth"), LanguagesManager.$("statsYear") ] );
 		tSelection.frame = CGRect( x: (self.modalView.view.frame.width / 2) - (190 / 2), y: 12, width: 190, height: 30 );
 		tSelection.selectedSegmentIndex = 0; //default selected index
 		tSelection.addTarget(self, action: #selector(StatisticsView.segmentIdxChanged(_:)), for: .valueChanged);
@@ -628,7 +628,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tChartNodataUILabel.font = UIFont.systemFont(ofSize: 14);
 		tChartNodataUILabel.textColor = UIColor.white;
 		tChartNodataUILabel.frame = CGRect( x: 0, y: 140, width: self.modalView.view.frame.width, height: 24 );
-		tChartNodataUILabel.text = Languages.$("statsNoDataAvailable");
+		tChartNodataUILabel.text = LanguagesManager.$("statsNoDataAvailable");
 		
 		//// 아래 4개 라벨은 파이차트용
 		let tChartRightFirstLabelTitle:UILabel = UILabel();
@@ -636,7 +636,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tChartRightFirstLabelTitle.font = UIFont.boldSystemFont(ofSize: 22);
 		tChartRightFirstLabelTitle.textColor = UIColor.white;
 		tChartRightFirstLabelTitle.frame = CGRect( x: 0, y: 110, width: self.modalView.view.frame.width - 24, height: 24 );
-		tChartRightFirstLabelTitle.text = Languages.$("statsDataGameCleared");
+		tChartRightFirstLabelTitle.text = LanguagesManager.$("statsDataGameCleared");
 		
 		let tChartRightFirstLabelValue:UILabel = UILabel();
 		tChartRightFirstLabelValue.textAlignment = .right;
@@ -650,7 +650,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tChartRightSecondLabelTitle.font = UIFont.boldSystemFont(ofSize: 22);
 		tChartRightSecondLabelTitle.textColor = UIColor.white;
 		tChartRightSecondLabelTitle.frame = CGRect( x: 0, y: 164, width: self.modalView.view.frame.width - 24, height: 24 );
-		tChartRightSecondLabelTitle.text = Languages.$("statsDataGameRetired");
+		tChartRightSecondLabelTitle.text = LanguagesManager.$("statsDataGameRetired");
 		
 		let tChartRightSecondLabelValue:UILabel = UILabel();
 		tChartRightSecondLabelValue.textAlignment = .right;
@@ -693,7 +693,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		let tCell:UIView = UIView();
 		//Chart title
 		let tChartTitleLabel:UILabel = UILabel();
-		tChartTitleLabel.text = Languages.$("statsTitleUntilAlarmOff"); // title text.
+		tChartTitleLabel.text = LanguagesManager.$("statsTitleUntilAlarmOff"); // title text.
 		tChartTitleLabel.font = UIFont.systemFont(ofSize: 17);
 		tChartTitleLabel.frame = CGRect(x: 16, y: 10, width: self.modalView.view.frame.width / 1.25, height: 24);
 		tChartTitleLabel.textColor = UIColor.white;
@@ -739,7 +739,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tMultipleChart.highlightPerTapEnabled = false;
 		//오른쪽 아래 차트에 오버레이되는 라벨 텍스트
 		tMultipleChart.chartDescription!.text = "";
-		tMultipleChart.noDataText = Languages.$("statsNoDataAvailable");
+		tMultipleChart.noDataText = LanguagesManager.$("statsNoDataAvailable");
 		tMultipleChart.holeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0);
 		
 		
@@ -751,8 +751,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		let tMultipleChart:BarChartView = BarChartView(); //차트 뷰
 		let yAxisNumberFormatter:NumberFormatter = NumberFormatter();
 		yAxisNumberFormatter.numberStyle = .none; //숫자 표현 방법. NoStyle이면 포맷 안함
-		yAxisNumberFormatter.positivePrefix = Languages.$("statsTimeFormatMinPrefix"); //숫자 앞
-		yAxisNumberFormatter.positiveSuffix = Languages.$("statsTimeFormatMinSuffix"); //positiveSuffix -> 숫자 뒤에 붙는 문자
+		yAxisNumberFormatter.positivePrefix = LanguagesManager.$("statsTimeFormatMinPrefix"); //숫자 앞
+		yAxisNumberFormatter.positiveSuffix = LanguagesManager.$("statsTimeFormatMinSuffix"); //positiveSuffix -> 숫자 뒤에 붙는 문자
 		
 		//차트 크기 지정
 		tMultipleChart.frame = CGRect(x: 0, y: 28 + 12, width: self.modalView.view.frame.width, height: 140 - 12);
@@ -806,7 +806,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tMultipleChart.rightYAxisRenderer.axis!.axisMinimum = 0;
 		//tMultipleChart.rightYAxisRenderer.axis!.showOnlyMinMaxEnabled = true;
 		
-		tMultipleChart.noDataText = Languages.$("statsNoDataAvailable");
+		tMultipleChart.noDataText = LanguagesManager.$("statsNoDataAvailable");
 		
 		return tMultipleChart;
 	}
@@ -817,7 +817,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		let tCell:UIView = UIView();
 		//Chart title
 		let tChartTitleLabel:UILabel = UILabel();
-		tChartTitleLabel.text = Languages.$("statsTitleUntilAlarmOff"); // title text.
+		tChartTitleLabel.text = LanguagesManager.$("statsTitleUntilAlarmOff"); // title text.
 		tChartTitleLabel.font = UIFont.systemFont(ofSize: 17);
 		tChartTitleLabel.frame = CGRect(x: 16, y: 10, width: self.modalView.view.frame.width / 1.25, height: 24);
 		tChartTitleLabel.textColor = UIColor.white;
@@ -855,8 +855,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		let tMultipleChart:LineChartView = LineChartView(); //차트 뷰
 		let yAxisNumberFormatter:NumberFormatter = NumberFormatter();
 		yAxisNumberFormatter.numberStyle = .none; //숫자 표현 방법. NoStyle이면 포맷 안함
-		yAxisNumberFormatter.positivePrefix = Languages.$("statsTimeFormatMinPrefix"); //숫자 앞
-		yAxisNumberFormatter.positiveSuffix = Languages.$("statsTimeFormatMinSuffix"); //positiveSuffix -> 숫자 뒤에 붙는 문자
+		yAxisNumberFormatter.positivePrefix = LanguagesManager.$("statsTimeFormatMinPrefix"); //숫자 앞
+		yAxisNumberFormatter.positiveSuffix = LanguagesManager.$("statsTimeFormatMinSuffix"); //positiveSuffix -> 숫자 뒤에 붙는 문자
 		
 		//차트 크기 지정
 		tMultipleChart.frame = CGRect(x: 0, y: 28 + 12, width: self.modalView.view.frame.width, height: 140 - 12);
@@ -908,7 +908,7 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tMultipleChart.rightYAxisRenderer.axis!.axisMinimum = 0;
 		//tMultipleChart.rightYAxisRenderer.axis!.showOnlyMinMaxEnabled = true;
 		
-		tMultipleChart.noDataText = Languages.$("statsNoDataAvailable");
+		tMultipleChart.noDataText = LanguagesManager.$("statsNoDataAvailable");
 		
 		//chart 반환
 		return tMultipleChart;

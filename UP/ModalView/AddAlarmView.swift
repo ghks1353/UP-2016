@@ -64,7 +64,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		navigationCtrl.navigationBar.tintColor = UIColor.white;
 		navigationCtrl.view.frame = modalView.view.frame;
 		
-		modalView.title = Languages.$("alarmSettings");
+		modalView.title = LanguagesManager.$("alarmSettings");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -193,16 +193,16 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		switch(gameID) {
 			case -1: //RANDOM
 				//랜덤은 게임선택으로 하고, 설명을 랜덤으로 하죠
-				(getElementFromTable("alarmGame") as! UILabel).text = Languages.$("alarmGameSelect");
-				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = Languages.$("alarmGameRandom");
+				(getElementFromTable("alarmGame") as! UILabel).text = LanguagesManager.$("alarmGameSelect");
+				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = LanguagesManager.$("alarmGameRandom");
 				
 				getImageViewFromTable("alarmGame")!.image = UIImage(named: "game-thumb-random.png");
 				tArray[0].backgroundColor = UPUtils.colorWithHexString("#333333");
 				break;
 			default:
 				gameName = GameManager.list[gameID].gameLangName;
-				(getElementFromTable("alarmGame") as! UILabel).text = gameName; //Languages.$("alarmGameSelect");
-				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = Languages.$("alarmGameSelect");
+				(getElementFromTable("alarmGame") as! UILabel).text = gameName; //LanguagesManager.$("alarmGameSelect");
+				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = LanguagesManager.$("alarmGameSelect");
 				
 				getImageViewFromTable("alarmGame")!.image = UIImage(named: GameManager.list[gameID].gameThumbFileName + ".png");
 				tArray[0].backgroundColor = GameManager.list[gameID].gameBackgroundUIColor;
@@ -291,21 +291,21 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		alarmSoundListView.stopSound();
 		
 		if (showBlur) {
-			ViewController.viewSelf!.showHideBlurview(false);
+			ViewController.selfView!.showHideBlurview(false)
 			
 			//Add alarm alert to main
 			if (confirmed == true) {
-				ViewController.viewSelf!.showMessageOnView(Languages.$(isAlarmEditMode == true ? "informationAlarmEdited" : "informationAlarmAdded"), backgroundColorHex: "219421", textColorHex: "FFFFFF");
+				ViewController.selfView!.showMessageOnView(LanguagesManager.$(isAlarmEditMode == true ? "informationAlarmEdited" : "informationAlarmAdded"), backgroundColorHex: "219421", textColorHex: "FFFFFF")
 			}
 			
 		} else {
 			//Check alarm make/ornot
-			AlarmListView.selfView!.checkAlarmLimitExceed();
-			AlarmListView.selfView!.checkAlarmIsEmpty(); //and chk list is empty or not
+			AlarmListView.selfView!.checkAlarmLimitExceed()
+			AlarmListView.selfView!.checkAlarmIsEmpty() //and chk list is empty or not
 			
 			//Add alarm alert to list
 			if (confirmed == true) {
-				AlarmListView.selfView!.showMessageOnView(Languages.$(isAlarmEditMode == true ? "informationAlarmEdited" : "informationAlarmAdded"), backgroundColorHex: "219421", textColorHex: "FFFFFF");
+				AlarmListView.selfView!.showMessageOnView(LanguagesManager.$(isAlarmEditMode == true ? "informationAlarmEdited" : "informationAlarmAdded"), backgroundColorHex: "219421", textColorHex: "FFFFFF");
 			}
 			
 		} //end if
@@ -408,7 +408,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		let tGameSubjectLabel:UILabel = UILabel(); //게임 제목
 		tGameSubjectLabel.frame = CGRect(x: 92, y: 22, width: tableView.frame.width * 0.6, height: 28);
 		tGameSubjectLabel.font = UIFont.systemFont(ofSize: 22);
-		tGameSubjectLabel.text = ""; //Languages.$("alarmGameRandom"); //Random
+		tGameSubjectLabel.text = ""; //LanguagesManager.$("alarmGameRandom"); //Random
 		tGameSubjectLabel.textColor = UIColor.white;
 		
 		let tGameGenreLabel:UILabel = UILabel(); //게임 장르
@@ -443,10 +443,10 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				//alarmMemo
 				switch(cellID) {
 					case "alarmName":
-						alarmNameInput.placeholder = Languages.$("alarmTitle");
+						alarmNameInput.placeholder = LanguagesManager.$("alarmTitle");
 						break;
 					case "alarmMemo":
-						alarmNameInput.placeholder = Languages.$("alarmMemo");
+						alarmNameInput.placeholder = LanguagesManager.$("alarmMemo");
 						break;
 					default:
 						alarmNameInput.placeholder = "";
@@ -497,10 +497,10 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				
 				switch(cellID) {
 					case "alarmGame":
-						tLabel.text = Languages.$("alarmGame");
+						tLabel.text = LanguagesManager.$("alarmGame");
 						break;
 					case "alarmSound":
-						tLabel.text = Languages.$("alarmSound");
+						tLabel.text = LanguagesManager.$("alarmSound");
 						if (DeviceManager.defaultModalSizeRect.width < 250) {
 							// 작은 화면에서 표시 못하는 세부설정 감춤
 							tSettingLabel.isHidden = true;
@@ -508,7 +508,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 						
 						break;
 					case "alarmRepeatSetting":
-						tLabel.text = Languages.$("alarmRepeat");
+						tLabel.text = LanguagesManager.$("alarmRepeat");
 						break;
 					default: break;
 				}
@@ -518,7 +518,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				tCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
 				
 				tCell.cellElement = tSettingLabel;
-				tSettingLabel.text = Languages.$("generalDefault");
+				tSettingLabel.text = LanguagesManager.$("generalDefault");
 				tCell.addSubview(tLabel); tCell.addSubview(tSettingLabel);
 				break;
 			
@@ -548,7 +548,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		gameSelectedID = -1; //clear selected game id
 		self.resetAlarmRepeatCell();
 		
-		modalView.title = Languages.$("alarmSettings"); //Modal title set to alarmsettings
+		modalView.title = LanguagesManager.$("alarmSettings"); //Modal title set to alarmsettings
 		
 		isAlarmEditMode = false; //AddMode
 		alarmDefaultStatus = true; //default on
@@ -579,7 +579,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		gameSelectedID = selectedGameID;
 		confirmed = false;
 		
-		modalView.title = Languages.$("alarmEditTitle"); //Modal title set to alarmedit
+		modalView.title = LanguagesManager.$("alarmEditTitle"); //Modal title set to alarmedit
 		
 		isAlarmEditMode = true; //EditMode
 		alarmDefaultStatus = alarmDefaultToggle; //Default toggle status

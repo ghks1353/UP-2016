@@ -66,7 +66,7 @@ class GameTitleViewJumpUP:UIViewController {
 		print("JumpUP gameview appear event");
 		
 		//View load func
-		gameTitleLabel.text = Languages.$("gameNameJumpUP");
+		gameTitleLabel.text = LanguagesManager.$("gameNameJumpUP");
 		gameTitleLabel.font = UIFont.systemFont(ofSize: 38);
 		gameTitleLabel.frame = CGRect( x: 0, y: gameTitleLabelYAxis, width: self.view.frame.width, height: 38 );
 		gameTitleLabel.textColor = UIColor.white;

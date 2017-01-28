@@ -34,7 +34,7 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = Languages.$("alarmSound");
+		self.title = LanguagesManager.$("alarmSound");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -124,9 +124,9 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
 			case 0:
-				return Languages.$("alarmSoundLevelTitle");
+				return LanguagesManager.$("alarmSoundLevelTitle");
 			case 1:
-				return Languages.$("alarmSoundSelection");
+				return LanguagesManager.$("alarmSoundSelection");
 			default:
 				return "";
 		} //end switch
@@ -135,7 +135,7 @@ class AlarmSoundListView:UIViewController, UITableViewDataSource, UITableViewDel
 	func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch(section) {
 			case 0:
-				return Languages.$("alarmSoundLevelDescription");
+				return LanguagesManager.$("alarmSoundLevelDescription");
 			default:
 				return "";
 		} //end switch

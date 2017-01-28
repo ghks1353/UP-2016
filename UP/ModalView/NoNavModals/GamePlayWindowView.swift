@@ -157,7 +157,7 @@ class GamePlayWindowView:UIViewController {
 				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
 		}) { _ in
 			self.dismiss(animated: false, completion: { _ in
-				ViewController.viewSelf!.runGame(); //게임 시작 호출
+				ViewController.selfView!.runGame(); //게임 시작 호출
 			});
 		}
 		

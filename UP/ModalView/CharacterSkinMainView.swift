@@ -38,7 +38,7 @@ class CharacterSkinMainView:UIViewController {
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = Languages.$("userTheme");
+		self.title = LanguagesManager.$("userTheme");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);

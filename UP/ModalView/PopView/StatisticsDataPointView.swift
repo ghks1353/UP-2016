@@ -36,7 +36,7 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 		
 		//ModalView
 		self.view.backgroundColor = UIColor.white;
-		self.title = Languages.$("statsDataPoint");
+		self.title = LanguagesManager.$("statsDataPoint");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -55,15 +55,15 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 		//add table cells (options)
 		tablesArray = [
 			[ /* section 1 */
-				createCell(Languages.$("statsTitleUntilAlarmOff"), cellID: StatisticsDataPointView.POINT_UNTIL_OFF),
-				createCell(Languages.$("statsTitleUntilGameStart"), cellID: StatisticsDataPointView.POINT_UNTIL_START),
-				createCell(Languages.$("statsTitleGamePlayTime"), cellID: StatisticsDataPointView.POINT_PLAYTIME)
+				createCell(LanguagesManager.$("statsTitleUntilAlarmOff"), cellID: StatisticsDataPointView.POINT_UNTIL_OFF),
+				createCell(LanguagesManager.$("statsTitleUntilGameStart"), cellID: StatisticsDataPointView.POINT_UNTIL_START),
+				createCell(LanguagesManager.$("statsTitleGamePlayTime"), cellID: StatisticsDataPointView.POINT_PLAYTIME)
 			],
 			[ /* section 2 */
-				createCell(Languages.$("statsTitleGameClearPercent"), cellID: StatisticsDataPointView.POINT_GAME_CLEARED),
-				createCell(Languages.$("statsTitleTouches"), cellID: StatisticsDataPointView.POINT_GAME_TOUCHES),
-				createCell(Languages.$("statsTitleVaildTouchPercent"), cellID: StatisticsDataPointView.POINT_GAME_VALID),
-				createCell(Languages.$("statsTitleFellAsleepCount"), cellID: StatisticsDataPointView.POINT_GAME_ASLEEP)
+				createCell(LanguagesManager.$("statsTitleGameClearPercent"), cellID: StatisticsDataPointView.POINT_GAME_CLEARED),
+				createCell(LanguagesManager.$("statsTitleTouches"), cellID: StatisticsDataPointView.POINT_GAME_TOUCHES),
+				createCell(LanguagesManager.$("statsTitleVaildTouchPercent"), cellID: StatisticsDataPointView.POINT_GAME_VALID),
+				createCell(LanguagesManager.$("statsTitleFellAsleepCount"), cellID: StatisticsDataPointView.POINT_GAME_ASLEEP)
 			]
 		];
 		
@@ -107,9 +107,9 @@ class StatisticsDataPointView:UIViewController, UITableViewDataSource, UITableVi
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
 			case 0:
-				return Languages.$("statsDataCategoryTime");
+				return LanguagesManager.$("statsDataCategoryTime");
 			case 1:
-				return Languages.$("statsDataCategoryGame");
+				return LanguagesManager.$("statsDataCategoryGame");
 
 			default:
 				return "";

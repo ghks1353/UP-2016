@@ -690,7 +690,7 @@ class AlarmManager {
 		let nUUID:String = UUID().uuidString;
 		
 		if(alarmTitle == "") { //알람 타이틀이 없으면 소리만 울리는 상황이 발생하므로 기본 이름 설정
-			alarmTitle = Languages.$("alarmDefaultName");
+			alarmTitle = LanguagesManager.$("alarmDefaultName");
 		}
 		
 		//TODO 1 -> 테스트가 필요하지만, 일단 했음.
@@ -884,7 +884,7 @@ class AlarmManager {
 			
 			let notification = UILocalNotification();
 			notification.alertBody = aBody;
-			notification.alertAction = Languages.$("alarmSlideToStartGameSuffix");
+			notification.alertAction = LanguagesManager.$("alarmSlideToStartGameSuffix");
 			notification.fireDate = aFireDate;
 			notification.soundName = soundFile;
 			notification.userInfo = [
@@ -896,7 +896,7 @@ class AlarmManager {
 			//iOS 8-9 callback
 			let notification = UILocalNotification();
 			notification.alertBody = aBody;
-			notification.alertAction = Languages.$("alarmSlideToStartGameSuffix"); //'밀어서' 고정 아시발.
+			notification.alertAction = LanguagesManager.$("alarmSlideToStartGameSuffix"); //'밀어서' 고정 아시발.
 			notification.fireDate = aFireDate;
 			notification.soundName = soundFile;
 			notification.userInfo = [
@@ -930,32 +930,32 @@ class AlarmManager {
 		let shortPara:String = "Short"; //loadType == 0 ? "" : "Short";
 		
 		if (repeatCount == 7) { //everyday
-			return Languages.$("alarmRepeatFreqEveryday" + shortPara);
+			return LanguagesManager.$("alarmRepeatFreqEveryday" + shortPara);
 		} else if (repeatInfo[0] == false && repeatInfo[1] == true && repeatInfo[2] == true &&
 			repeatInfo[3] == true && repeatInfo[4] == true && repeatInfo[5] == true && repeatInfo[6] == false) { //weekday
-			return Languages.$("alarmRepeatFreqWeekday" + shortPara);
+			return LanguagesManager.$("alarmRepeatFreqWeekday" + shortPara);
 		} else if (repeatInfo[0] == true && repeatInfo[1] == false && repeatInfo[2] == false && repeatInfo[3] == false &&
 			repeatInfo[4] == false && repeatInfo[5] == false && repeatInfo[6] == true) { //weekend
-			return Languages.$("alarmRepeatFreqWeekend" + shortPara);
+			return LanguagesManager.$("alarmRepeatFreqWeekend" + shortPara);
 		} else if (repeatInfo[0] == false && repeatInfo[1] == false && repeatInfo[2] == false && repeatInfo[3] == false &&
 			repeatInfo[4] == false && repeatInfo[5] == false && repeatInfo[6] == false) {
-			return loadType == 0 ? Languages.$("alarmRepeatFreqOnce") : ""; //no repeats
+			return loadType == 0 ? LanguagesManager.$("alarmRepeatFreqOnce") : ""; //no repeats
 		} else if (repeatCount == 1) { //하루만 있는 경우는, 해당 하루의 요일을 표시함
 			print("rep:", repeatDayNum);
 			switch(repeatDayNum) {
-				case 0: return Languages.$("alarmRepeatSun" + shortPara);
-				case 1: return Languages.$("alarmRepeatMon" + shortPara);
-				case 2: return Languages.$("alarmRepeatTue" + shortPara);
-				case 3: return Languages.$("alarmRepeatWed" + shortPara);
-				case 4: return Languages.$("alarmRepeatThu" + shortPara);
-				case 5: return Languages.$("alarmRepeatFri" + shortPara);
-				case 6: return Languages.$("alarmRepeatSat" + shortPara);
+				case 0: return LanguagesManager.$("alarmRepeatSun" + shortPara);
+				case 1: return LanguagesManager.$("alarmRepeatMon" + shortPara);
+				case 2: return LanguagesManager.$("alarmRepeatTue" + shortPara);
+				case 3: return LanguagesManager.$("alarmRepeatWed" + shortPara);
+				case 4: return LanguagesManager.$("alarmRepeatThu" + shortPara);
+				case 5: return LanguagesManager.$("alarmRepeatFri" + shortPara);
+				case 6: return LanguagesManager.$("alarmRepeatSat" + shortPara);
 					
 				default: break;
 			}
 		}
 		
-		return loadType == 0 ? Languages.$("alarmRepeatFreqOn") : Languages.$("timeRepeatOn"); //unselected
+		return loadType == 0 ? LanguagesManager.$("alarmRepeatFreqOn") : LanguagesManager.$("timeRepeatOn"); //unselected
 	} //end func
 	
 }

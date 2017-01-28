@@ -49,7 +49,7 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
 		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#333333");
 		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = Languages.$("gamePlay");
+		modalView.title = LanguagesManager.$("gamePlay");
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -109,8 +109,8 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	
 	func viewCloseAction() {
 		//Close this view
-		ViewController.viewSelf!.showHideBlurview(false);
-		self.dismiss(animated: true, completion: nil);
+		ViewController.selfView!.showHideBlurview(false)
+		self.dismiss(animated: true, completion: nil)
 	} //end func
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -230,7 +230,7 @@ class GamePlayView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		let tGameDifficultyLabel:UILabel = UILabel(); //게임 난이도
 		tGameDifficultyLabel.frame = CGRect(x: 92, y: 58, width: tableView.frame.width * 0.6, height: 20);
 		tGameDifficultyLabel.font = UIFont.systemFont(ofSize: 14);
-		tGameDifficultyLabel.text = Languages.$("alarmGameDifficulty") + " " + gameDifficultyLevelStr;
+		tGameDifficultyLabel.text = LanguagesManager.$("alarmGameDifficulty") + " " + gameDifficultyLevelStr;
 		tGameDifficultyLabel.textColor = gameObj.gameTextUIColor;
 		
 		let tGameDescriptionLabel:UILabel = UILabel();
