@@ -10,6 +10,7 @@ target "UP" do
     pod 'SwiftyStoreKit'
     pod 'Firebase/Core'
 	pod 'Firebase/Messaging'
+	pod 'Firebase/Crash'
 	pod 'GoogleIDFASupport'
 end
 

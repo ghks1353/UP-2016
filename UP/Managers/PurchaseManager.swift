@@ -12,13 +12,14 @@ import SwiftyStoreKit;
 class PurchaseManager {
 	
 	static func initManager() {
-		SwiftyStoreKit.completeTransactions() { completedTransactions in
+		/*SwiftyStoreKit.completeTransactions() { completedTransactions in
 			for completedTransaction in completedTransactions {
 				if (completedTransaction.transactionState == .purchased || completedTransaction.transactionState == .restored) {
 					print("purchased: \(completedTransaction.productId)")
 				}
 			}
-		}
+			
+		}*/
 		
 		
 		

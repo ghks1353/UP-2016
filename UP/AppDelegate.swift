@@ -212,6 +212,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	
 	///////// FCM Register
 	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+		FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.sandbox)
 		FIRMessaging.messaging().connect { (error) in
 			if (error != nil) {
 				print("Unable to connect with FCM. \(error)")
@@ -230,7 +231,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		
 		handlePushMessage( userInfo )
 	} //end func
-	
+
 	////////////////// 
 	func handlePushMessage(_ usrInfo:[AnyHashable : Any]? ) {
 		//Handling push/local notify

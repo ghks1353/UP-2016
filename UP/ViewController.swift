@@ -893,7 +893,6 @@ class ViewController: UIViewController {
 			
 		} //end if
 		
-		
 	} //end func
 	
 	

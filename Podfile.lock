@@ -6,6 +6,9 @@ PODS:
   - Firebase/Core (3.11.1):
     - FirebaseAnalytics (= 3.6.0)
     - FirebaseCore (= 3.4.7)
+  - Firebase/Crash (3.11.1):
+    - Firebase/Core
+    - FirebaseCrash (= 1.1.4)
   - Firebase/Messaging (3.11.1):
     - Firebase/Core
     - FirebaseMessaging (= 1.2.1)
@@ -18,6 +21,13 @@ PODS:
   - FirebaseCore (3.4.7):
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseCrash (1.1.4):
+    - FirebaseAnalytics (~> 3.5)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleSymbolUtilities (~> 1.1)
+    - GoogleToolboxForMac/Logger (~> 2.1)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseInstanceID (1.0.8)
   - FirebaseMessaging (1.2.1):
@@ -36,16 +46,17 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
-  - SQLite.swift (0.11.0):
-    - SQLite.swift/standard (= 0.11.0)
-  - SQLite.swift/standard (0.11.0)
+  - SQLite.swift (0.11.2):
+    - SQLite.swift/standard (= 0.11.2)
+  - SQLite.swift/standard (0.11.2)
   - SwiftyJSON (3.0.0)
-  - SwiftyStoreKit (0.5.4)
+  - SwiftyStoreKit (0.6.3)
 
 DEPENDENCIES:
   - Charts
   - CryptoSwift (from `https://github.com/krzyzanowskim/CryptoSwift`, branch `master`)
   - Firebase/Core
+  - Firebase/Crash
   - Firebase/Messaging
   - Gifu
   - GoogleIDFASupport
@@ -75,6 +86,7 @@ SPEC CHECKSUMS:
   Firebase: 53b2343db1ebfa3eb16bdb4318b8bb65360b2220
   FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
   FirebaseCore: 46afaf2c2e0419ea7d3acfb08cf26a461a75fe85
+  FirebaseCrash: 34f0349908ec87945a5ae96c402e7201a3f3aede
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   FirebaseMessaging: acf66347e43c5637c697060c3001d25c809a4131
   Gifu: 0eab1ca24a4adbd949338bcb71a8556748cb2d28
@@ -82,10 +94,10 @@ SPEC CHECKSUMS:
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  SQLite.swift: 9a26273607d3077a2e5a8d33486e9989f8404c7d
+  SQLite.swift: 670c3e9e0a806bbfd56a3de5d530768dc0e6fe7c
   SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
-  SwiftyStoreKit: a8b02a708c6e2bf52207836d58afd3738e2f6670
+  SwiftyStoreKit: 10150a793482e576070fd1afcbeefaa125032981
 
-PODFILE CHECKSUM: 065f0e3dbfb691cba6ffdae22ec10a834928de11
+PODFILE CHECKSUM: e0c63d5f10c453dbea8eace8fd6178a2ac496d75
 
 COCOAPODS: 1.1.1
