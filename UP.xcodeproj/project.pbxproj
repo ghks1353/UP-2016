@@ -418,6 +418,7 @@
 		779A1F361DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png in Resources */ = {isa = PBXBuildFile; fileRef = 779A1F351DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png */; };
 		779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */; };
 		77A058391E3CC2F800E04968 /* FirebaseTopicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A058381E3CC2F800E04968 /* FirebaseTopicManager.swift */; };
+		77A0583C1E3D07A200E04968 /* ALDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0583B1E3D07A200E04968 /* ALDManager.swift */; };
 		77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */; };
 		77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */; };
 		77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */; };
@@ -848,6 +849,7 @@
 		779A1F351DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-wakeuponly.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-wakeuponly.png"; sourceTree = "<group>"; };
 		779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = up_background_task_alarm.mp3; path = SoundAssets/SystemSounds/up_background_task_alarm.mp3; sourceTree = "<group>"; };
 		77A058381E3CC2F800E04968 /* FirebaseTopicManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseTopicManager.swift; path = Managers/FirebaseTopicManager.swift; sourceTree = "<group>"; };
+		77A0583B1E3D07A200E04968 /* ALDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ALDManager.swift; path = Managers/ALDManager.swift; sourceTree = "<group>"; };
 		77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsoda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsoda.aiff"; sourceTree = "<group>"; };
 		77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumbs-check.png"; path = "ImageAssets/game-thumbs-check.png"; sourceTree = "<group>"; };
@@ -1839,6 +1841,7 @@
 				035BAAC71D34F3D700B4D43F /* PurchaseManager.swift */,
 				771ABC6A1D4628DD00938D1B /* UnityAdsManager.swift */,
 				77A058381E3CC2F800E04968 /* FirebaseTopicManager.swift */,
+				77A0583B1E3D07A200E04968 /* ALDManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -2495,6 +2498,7 @@
 				03DDD8201CEB99F0007C026D /* JumpUpElements.swift in Sources */,
 				03DDD7D91CEB921E007C026D /* AlarmListView.swift in Sources */,
 				03DDD8091CEB9952007C026D /* UITableDottedCell.swift in Sources */,
+				77A0583C1E3D07A200E04968 /* ALDManager.swift in Sources */,
 				77A058391E3CC2F800E04968 /* FirebaseTopicManager.swift in Sources */,
 				0383DB801CF6169F0009D5DE /* CharacterAchievementsView.swift in Sources */,
 				77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */,

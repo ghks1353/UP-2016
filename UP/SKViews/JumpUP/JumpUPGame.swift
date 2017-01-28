@@ -19,7 +19,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	var gameAlarmFirstGoalTime:Int = 40; // 처음 목표로 하는 시간
 	var gameLevelAverageTime:Int = 20; //난이도가 높아지는 시간
 	var gameTimerMaxTime:Int = 60; //알람으로 게임 진행 중일 때 시간이 추가될 수 있는 최대 수치
-	var gameRetireTime:Int = 240; //포기 버튼이 나타나는 시간
+	var gameRetireTime:Int = 200; //포기 버튼이 나타나는 시간
 	var gameRetireTimeCount:Int = 0; //포기 버튼 카운트
 	
 	//움직이는 뒷 배경
@@ -56,6 +56,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	var additionalGameScrollSpeed:Double = 1.2; //추가 게임 스크롤 스피드
 	
 	var gameGravity:Double = 1; //추가 게임 중력.
+	var characterJumpPower:Float = 11; //캐릭터 점프력.
 	
 	let gameCloudAddDelayMAX:Int = 60; // original: 60
 	var gameCloudDecorationAddDelay:Int = 0; //구름 생성 딜레이
@@ -147,7 +148,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//Preload vars
 		preloadCompleteCout = 83; //p:71
 		
-		
 		//variable initialize
 		gameCloudDecorationAddDelay = gameCloudAddDelayMAX; //초기값
 		//reset character element
@@ -190,7 +190,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		var gameScoreMovPositionY:CGFloat = 0;
 		
 		if (gameStartupType == 0) {
-			//time
+			//알람으로 실행된 경우
+			ALDManager.buildLevel() //Auto build level
+			
 			gameScoreTitleImageTexture = SKTexture( imageNamed: "game-jumpup-assets-time.png" );
 			gameScoreTitleImage = SKSpriteNode( texture: gameScoreTitleImageTexture );
 			
@@ -215,7 +217,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			}
 			
 			//Add How-to-play guide image
-			//gameAlarmGuidesNodesArray
 			for i:Int in 0 ..< gameAlarmGuidesNodesArray.count {
 				let xIndexCalcuated:CGFloat = (i == 0 ? 1 : -1) * (167/2 * DeviceManager.maxScrRatioC);
 				
@@ -226,9 +227,17 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				self.addChild( gameAlarmGuidesNodesArray[i] );
 			}
 			
+			gameAlarmFirstGoalTime = Int(ceil(ALDManager.generatedTimeMultiply))
+			gameTimerMaxTime = gameAlarmFirstGoalTime + 20
 			
-			gameScore = gameAlarmFirstGoalTime; //초반 120초 부여
-			addCountdownTimerForAlarm();
+			scoreUPLevel = Double(max(0.0, Double(ALDManager.generatedLevelMultiply)))
+			//레벨은 0부터 시작하기 때문에 계수가 1 미만인경우 캐릭터의 점프력을 증가시키는 것으로 대체
+			if (ALDManager.generatedLevelMultiply < 1) {
+				characterJumpPower = 11 * (1 + ((1 - ALDManager.generatedLevelMultiply) / 1.25))
+			}
+			
+			gameScore = gameAlarmFirstGoalTime //초반 부여
+			addCountdownTimerForAlarm()
 		} else {
 			//score
 			gameScoreTitleImageTexture = SKTexture( imageNamed: "game-jumpup-assets-score.png" );
@@ -772,22 +781,25 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				}
 				//레벨을 일정 주기로 높임
 				scoreUPLevel += 0.0009;
-				//스크롤 속도 높임
-				if (hellMode == true) {
-					additionalGameScrollSpeed = 3.5; //헬모드 속도 고정
-				} else if ( additionalGameScrollSpeed < 2.5) { //조금 빠르게 올림
-					additionalGameScrollSpeed = min(3.25, 1.24 + (scoreUPLevel / 4));
-				} else { //천천히 올림
-					additionalGameScrollSpeed = min(3.25, additionalGameScrollSpeed + 0.0002 );
-				}
-				//약간씩 중력 늘림 (스크롤 속도 비례)
-				gameGravity = max(1, additionalGameScrollSpeed / 2);
+				
 			} else {
 				gameCharacterRetryADScoreTerm -= 1;
 			}
 			
 			
 		} // 스코어 관련 끝
+		
+		//// 기본적인 레벨링은 일반 알람모드에서도 적용 (단, 레벨이 올라가지는 않음)
+		//스크롤 속도 높임
+		if (hellMode == true) {
+			additionalGameScrollSpeed = 3.5; //헬모드 속도 고정
+		} else if ( additionalGameScrollSpeed < 2.5) { //조금 빠르게 올림
+			additionalGameScrollSpeed = min(3.25, 1.24 + (scoreUPLevel / 4));
+		} else { //천천히 올림
+			additionalGameScrollSpeed = min(3.25, additionalGameScrollSpeed + 0.0002 );
+		}
+		//약간씩 중력 늘림 (스크롤 속도 비례)
+		gameGravity = max(1, additionalGameScrollSpeed / 2);
 		
 		//Render time(or score)
 		gameScoreStr = String(gameScore);
@@ -834,7 +846,10 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 					}
 					
 					//딜레이 최대치를 시간이 갈때마다 줄임 (알람으로 켜졌을 때.)
-					gameEnemyGenerateDelay = gameEnemyGenerateDelayMAX - Int((gameAlarmFirstGoalTime - gameScore) / 4);
+					//gameEnemyGenerateDelay = gameEnemyGenerateDelayMAX - Int((gameAlarmFirstGoalTime - gameScore) / 4)
+					
+					//딜레이 최대치 스크롤 속도에 비례. (게임 모드보단 조금 더 자주나옴)
+					gameEnemyGenerateDelay = max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 12.5)));
 					break;
 				case 1: //직접 킨 게임
 					
@@ -1866,7 +1881,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 								SKAction.actionWithEffect(scaleEffect));
 						}
 						
-						characterElement!.ySpeed = 11 * max(1, CGFloat(gameGravity / 1.5));
+						characterElement!.ySpeed = CGFloat(characterJumpPower) * max(1, CGFloat(gameGravity / 1.5));
 						characterElement!.jumpFlaggedCount += 1;
 						gameUserJumpCount += 1; //점프 횟수 카운트
 						

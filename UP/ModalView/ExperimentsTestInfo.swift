@@ -66,69 +66,74 @@ class ExperimentsTestInfo:UIViewController {
 	}
 	
 	func refreshInformationStatus() {
+		ALDManager.buildLevel()
 		
 		//info fill
-		var informationStr:String = "";
-		informationStr += "System\n";
-		informationStr += "OS: iOS " + String(UIDevice.current.systemVersion) + "\n";
-		informationStr += "Device: " + String( UIDevice.current.model ) + "\n";
+		var informationStr:String = ""
+		informationStr += "System\n"
+		informationStr += "OS: iOS " + String(UIDevice.current.systemVersion) + "\n"
+		informationStr += "Device: " + String( UIDevice.current.model ) + "\n"
 		
-		informationStr += "App Lang: " + String(LanguagesManager.currentLocaleCode) + "\n";
-		informationStr += "Sys Lang: " + String(describing: (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode)!) + "\n";
+		informationStr += "App Lang: " + String(LanguagesManager.currentLocaleCode) + "\n"
+		informationStr += "Sys Lang: " + String(describing: (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode)!) + "\n"
 		
-		informationStr += "App version: " + String((Bundle.main.infoDictionary?["CFBundleVersion"])! as! String) + "\n";
+		informationStr += "App version: " + String((Bundle.main.infoDictionary?["CFBundleVersion"])! as! String) + "\n"
 		
-		informationStr += "\nAlarms\n";
-		informationStr += "Current alarm len: " + String(AlarmManager.alarmsArray.count) + "\n";
-		informationStr += "Sys max alarm len: " + String(AlarmManager.alarmMaxRegisterCount) + "\n";
+		//Auto-Level Design
+		informationStr += "\nALD Result\n"
+		informationStr += "LvMul: " + String( ALDManager.generatedLevelMultiply ) + "\n"
+		informationStr += "TimeMul: " + String( ALDManager.generatedTimeMultiply ) + "\n"
 		
-		let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds();
-		let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970));
+		informationStr += "\nAlarms\n"
+		informationStr += "Current alarm len: " + String(AlarmManager.alarmsArray.count) + "\n"
+		informationStr += "Sys max alarm len: " + String(AlarmManager.alarmMaxRegisterCount) + "\n"
 		
-		informationStr += "Next alarm in: " + String(nextAlarmLeft) + "s\n";
-		informationStr += "Alarms list start::\n";
+		let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds()
+		let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970))
+		
+		informationStr += "Next alarm in: " + String(nextAlarmLeft) + "s\n"
+		informationStr += "Alarms list start::\n"
 		
 		for i:Int in 0 ..< AlarmManager.alarmsArray.count {
-			var repeatinfo:String = "";
+			var repeatinfo:String = ""
 			for j:Int in 0 ..< AlarmManager.alarmsArray[i].alarmRepeat.count {
-				repeatinfo += AlarmManager.alarmsArray[i].alarmRepeat[j] == false ? "0" : "1";
+				repeatinfo += AlarmManager.alarmsArray[i].alarmRepeat[j] == false ? "0" : "1"
 			}
-			informationStr += String(AlarmManager.alarmsArray[i].alarmID) + "(" + AlarmManager.alarmsArray[i].alarmName + "): FIRE " + String(describing: AlarmManager.alarmsArray[i].alarmFireDate) + ", REPEAT " + repeatinfo + ", SOUND " + String(AlarmManager.alarmsArray[i].alarmSoundLevel) + ", STAT: " + String(AlarmManager.alarmsArray[i].alarmToggle) + "\n";
+			informationStr += String(AlarmManager.alarmsArray[i].alarmID) + "(" + AlarmManager.alarmsArray[i].alarmName + "): TIME " + String(describing: AlarmManager.alarmsArray[i].alarmFireDate) + ", REP " + repeatinfo + ", SND " + String(AlarmManager.alarmsArray[i].alarmSoundLevel) + ", ON: " + String(AlarmManager.alarmsArray[i].alarmToggle) + "\n"
 		}
-		informationStr += "Alarms list end::\n";
+		informationStr += "Alarms list end::\n"
 		
-		informationStr += "\nStatistics\n";
+		informationStr += "\nStatistics\n"
 		
-		let alarmsDataLen:Int = DataManager.getAlarmGraphData(3, dataPointSelection: 0)!.count;
-		let gamesDataLen:Int = DataManager.getAlarmGraphData(3, dataPointSelection: 3)!.count;
+		let alarmsDataLen:Int = DataManager.getAlarmGraphData(3, dataPointSelection: 0)!.count
+		let gamesDataLen:Int = DataManager.getAlarmGraphData(3, dataPointSelection: 3)!.count
 		
-		informationStr += "Alarms data len: " + String(alarmsDataLen) + "\n";
-		informationStr += "Games data len: " + String(gamesDataLen) + "\n";
+		informationStr += "Alarms data len: " + String(alarmsDataLen) + "\n"
+		informationStr += "Games data len: " + String(gamesDataLen) + "\n"
 		
-		informationStr += "\nAdvertisement\n";
-		informationStr += "ADID: " + ASIdentifierManager.shared().advertisingIdentifier.uuidString + "\n";
-		informationStr += "UnityAds version: " + String(UnityAds.getVersion()) + "\n";
-		informationStr += "UnityAds inited: " + String(UnityAds.isInitialized()) + "\n";
-		informationStr += "UnityAds testmode: " + String(UnityAds.getDebugMode()) + "\n";
+		informationStr += "\nAdvertisement\n"
+		informationStr += "ADID: " + ASIdentifierManager.shared().advertisingIdentifier.uuidString + "\n"
+		informationStr += "UnityAds version: " + String(UnityAds.getVersion()) + "\n"
+		informationStr += "UnityAds inited: " + String(UnityAds.isInitialized()) + "\n"
+		informationStr += "UnityAds testmode: " + String(UnityAds.getDebugMode()) + "\n"
 		
-		informationStr += "\nFirebase\n";
+		informationStr += "\nFirebase\n"
 		
-		let fBaseToken:String? = FIRInstanceID.instanceID().token()!;
+		let fBaseToken:String? = FIRInstanceID.instanceID().token()!
 		if (fBaseToken == nil) {
 			//FIR inst is null
-			informationStr += "FIR InstID: null\n";
+			informationStr += "FIR InstID: null\n"
 		} else {
-			informationStr += "FIR InstID: " + fBaseToken! + "\n";
+			informationStr += "FIR InstID: " + fBaseToken! + "\n"
 		}
 		
-		infoLabel.text = informationStr;
-		infoLabel.sizeToFit();
+		infoLabel.text = informationStr
+		infoLabel.sizeToFit()
 		
-		infoCopyButton.frame = CGRect(x: 0, y: infoLabel.frame.maxY, width: DeviceManager.defaultModalSizeRect.width, height: 42 );
+		infoCopyButton.frame = CGRect(x: 0, y: infoLabel.frame.maxY, width: DeviceManager.defaultModalSizeRect.width, height: 42 )
 		
 		//컨텐츠 크기 설정
-		infoScrollView.contentSize = CGSize(width: DeviceManager.defaultModalSizeRect.width, height: max(DeviceManager.defaultModalSizeRect.height - (self.navigationController?.navigationBar.frame.size.height)!, infoCopyButton.frame.maxY + 20));
-		
+		infoScrollView.contentSize = CGSize(width: DeviceManager.defaultModalSizeRect.width, height: max(DeviceManager.defaultModalSizeRect.height - (self.navigationController?.navigationBar.frame.size.height)!, infoCopyButton.frame.maxY + 20))
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

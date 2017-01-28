@@ -241,6 +241,24 @@ class ViewController: UIViewController {
 		//FOR TEST
 		//UIApplication.sharedApplication().cancelAllLocalNotifications();
 		//AlarmManager.clearAlarm();
+		/*
+		do {
+			for user in try DataManager.db()!.prepare(
+				DataManager.gameResultTable()
+					.order( Expression<Int64>("id").desc )
+					.limit(2, offset: 0)
+				) {
+				print("id: ", user[Expression<Int64>("id")])
+			}
+			
+			try DataManager.db()!.run(
+				DataManager.gameResultTable()
+					.filter(Expression<Int64>("id") == 83 || Expression<Int64>("id") == 82)
+				.delete()
+			)
+		} catch {
+			
+		}*/
 		
 		//무음모드 사운드 허용
 		do {
