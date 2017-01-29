@@ -61,7 +61,7 @@ class ALDManager {
 		
 		//계수측정값대로 계산 (메모해논게 있음)
 		generatedLevelMultiply = 24 / min(max(8, hitMultipl), 96)
-		generatedLevelMultiply = generatedLevelMultiply * max(0.5, 1 - ((60/max(timeMultipl,60)) / 4))
+		generatedLevelMultiply = generatedLevelMultiply * max(0.5, 1 - ((120/max(timeMultipl,120)) / 6))
 		generatedLevelMultiply = generatedLevelMultiply * (clearMultipl < 0.5 ? 0.5 : 1)
 		
 		generatedTimeMultiply = max(30, 30 * (generatedLevelMultiply / 1))
