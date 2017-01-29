@@ -45,6 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//Firebase init
 		FIRApp.configure()
 		
+		//add observer to fir
+		NotificationCenter.default.addObserver(self,
+		                                       selector: #selector(self.tokenRefreshNotification),
+		                                       name: .firInstanceIDTokenRefresh,
+		                                       object: nil)
+		
 		if #available(iOS 10.0, *) {
 			UNUserNotificationCenter.current().delegate = self
 		} else {
@@ -172,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 		print("App is active now")
 		AlarmManager.mergeAlarm()
-		
+		connectToFcm()
 		/*if (AlarmListView.alarmListInited) {
 			AlarmListView.selfView!.createTableList(); //refresh alarm-list
 		}*/
@@ -212,18 +218,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	
 	///////// FCM Register
 	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+		// With swizzling disabled you must set the APNs token here.
 		FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.sandbox)
-		FIRMessaging.messaging().connect { (error) in
-			if (error != nil) {
-				print("Unable to connect with FCM. \(error)")
-			} else {
-				//기본 주제 등록 (전체 사용자에게)
-				print("FCM Connected")
-				
-				FIRMessaging.messaging().subscribe(toTopic: FirebaseTopicManager.Topics.GeneralUser.rawValue)
-				
-			} //end if
-		} //end conneect
 	} //end func
 	/////////// FCM Receive
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
@@ -231,8 +227,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		
 		handlePushMessage( userInfo )
 	} //end func
-
-	////////////////// 
+	func tokenRefreshNotification(_ notification: Notification) {
+		if let refreshedToken = FIRInstanceID.instanceID().token() {
+			print("InstanceID token: \(refreshedToken)")
+		}
+		
+		// Connect to FCM since connection may have failed when attempted before having a token.
+		connectToFcm()
+	}
+	func connectToFcm() {
+		// Won't connect since there is no token
+		guard FIRInstanceID.instanceID().token() != nil else {
+			return;
+		}
+		
+		// Disconnect previous FCM connection if it exists.
+		FIRMessaging.messaging().disconnect()
+		
+		FIRMessaging.messaging().connect { (error) in
+			if error != nil {
+				print("Unable to connect with FCM. \(error)")
+			} else {
+				print("Connected to FCM.")
+				FIRMessaging.messaging().subscribe(toTopic: FirebaseTopicManager.Topics.GeneralUser.rawValue)
+			}
+		}
+	}
+	//////////////////
 	func handlePushMessage(_ usrInfo:[AnyHashable : Any]? ) {
 		//Handling push/local notify
 		if (usrInfo == nil) {

@@ -119,7 +119,7 @@ class ExperimentsTestInfo:UIViewController {
 		
 		informationStr += "\nFirebase\n"
 		
-		let fBaseToken:String? = FIRInstanceID.instanceID().token()!
+		let fBaseToken:String? = FIRInstanceID.instanceID().token();
 		if (fBaseToken == nil) {
 			//FIR inst is null
 			informationStr += "FIR InstID: null\n"
