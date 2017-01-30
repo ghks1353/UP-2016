@@ -219,7 +219,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	///////// FCM Register
 	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
 		// With swizzling disabled you must set the APNs token here.
-		FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.sandbox)
+		/*
+			setAPNSToken:type:에 APN 토큰 및 토큰 유형을 제공합니다. type의 값을 올바르게 설정해야 합니다. 샌드박스 환경의 경우 FIRInstanceIDAPNSTokenTypeSandbox, 운영 환경의 경우 FIRInstanceIDAPNSTokenTypeProd로 설정합니다. 유형을 잘못 설정하면 메시지가 앱에 전송되지 않습니다.
+		*/
+		//debug/production을 잘못 고르면
+		//(즉 프로덕션에서 샌드박스 토큰 고르고 하면)
+		//배터리가 이상하게 광탈함. 구글쪽 문제임
+		
+		#if DEBUG
+			print("Using debug mode.")
+			//usb 연결해서 테스트하는거면 sandbox 사용
+			FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.sandbox)
+		#else
+			print("Using release mode.")
+			//앱스토어에 올리거나 애드혹인 경우 prod 사용
+			FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.prod)
+		#endif
 	} //end func
 	/////////// FCM Receive
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
