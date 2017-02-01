@@ -11,31 +11,37 @@ import UnityAds;
 
 class UnityAdsManager:NSObject, UnityAdsDelegate {
 	
-	static let IS_TEST_MODE:Bool = true;
-	static let PLACEMENT_SKIPABLE:String = "video";
-	static let PLACEMENT_GAMECONTINUE:String = "gameContinueAD";
+	static var unityAdsTestMode:Bool = true
+	static let PLACEMENT_SKIPABLE:String = "alarmFinishVideo"
+	static let PLACEMENT_GAMECONTINUE:String = "gameContinueAD"
 	
-	static var instance:UnityAdsManager?;
-	static var callbackFunc:(() -> Void)? = nil;
+	static var instance:UnityAdsManager?
+	static var callbackFunc:(() -> Void)? = nil
 	
 	static func initManager() {
-		instance = UnityAdsManager();
-		instance!.initInstance();
+		instance = UnityAdsManager()
+		instance!.initInstance()
 	}
 	
 	static func showUnityAD( _ viewController:UIViewController, placementID:String, callbackFunction:@escaping (() -> Void) ) {
+		#if DEBUG
+			unityAdsTestMode = true
+		#else
+			unityAdsTestMode = false
+		#endif
+		
 		if (UnityAds.isReady(placementID) == true) {
-			UnityAds.show(viewController, placementId: placementID);
-			callbackFunc = callbackFunction;
+			UnityAds.show(viewController, placementId: placementID)
+			callbackFunc = callbackFunction
 		} else {
-			print("UnityAds " + placementID + " not ready");
+			print("UnityAds " + placementID + " not ready")
 		}
 	}
 	
 	///////////////// instance functions
 	func initInstance() {
 		print("UnityADs init...");
-		UnityAds.initialize("1085659", delegate: self, testMode: UnityAdsManager.IS_TEST_MODE);
+		UnityAds.initialize("1085659", delegate: self, testMode: UnityAdsManager.unityAdsTestMode);
 	}
 	
 	@objc func unityAdsReady(_ placementId: String) {

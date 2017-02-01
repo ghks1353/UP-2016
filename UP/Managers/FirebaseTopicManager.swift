@@ -11,7 +11,7 @@ import Foundation
 class FirebaseTopicManager {
 
 	public enum Topics:String {
-		case GeneralUser = "/topics/general-user";
+		case GeneralUser = "/topics/general-user"
 	}
 
 }

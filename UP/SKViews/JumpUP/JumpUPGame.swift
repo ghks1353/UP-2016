@@ -554,22 +554,23 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		
 		/////////////////
 		//Game starttime 기록
-		statsGameStartedTimeStamp = Int(Date().timeIntervalSince1970);
+		statsGameStartedTimeStamp = Int(Date().timeIntervalSince1970)
 	}
 	
 	
 	func appEnteredToBackground() {
 		//App -> Background
+		SoundManager.pauseResumeBGMSound( false )
 		if (gameStartupType == 0) {
 			//알람으로 게임이 켜졌을 때 **타이머 종료 **
 			if (gameSecondTickTimer != nil) {
-				gameSecondTickTimer!.invalidate();
-				gameSecondTickTimer = nil;
+				gameSecondTickTimer!.invalidate()
+				gameSecondTickTimer = nil
 			}
 		} else {
 			//Queue pause
 			if ( isGamePaused == false ) {
-				togglePause();
+				togglePause()
 			}
 		}
 	} //end func
@@ -601,6 +602,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			}
 			
 			addCountdownTimerForAlarm(); //타이머 재시작
+			SoundManager.pauseResumeBGMSound( true )
 		} //end if gametype 0
 	} //end func
 	
@@ -1935,6 +1937,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	// 게임모드에서의 강제 게임 종료 루틴.
 	func forceExitGame( _ showResultWindow:Bool = false ) {
 		print("Game exiting")
+		
+		SoundManager.stopBGMSound()
+		
 		gameFinishedBool = true
 		
 		GameModeView.isGameExiting = true //재시작시엔 이게 false이면, 다시 appear가 발동함
@@ -1960,17 +1965,18 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	}
 	//게임 재시작 루틴.
 	func restartGame() {
-		print("Game restarting");
-		gameFinishedBool = true;
-		GameModeView.isGameExiting = false;
-		GameModeView.jumpUPStartupViewController!.dismiss(animated: false, completion: nil);
+		print("Game restarting")
+		gameFinishedBool = true
+		GameModeView.isGameExiting = false
+		GameModeView.jumpUPStartupViewController!.dismiss(animated: false, completion: nil)
 	}
 	
 	//게임 포기 혹은 종료.
 	func exitJumpUPGame() {
 		print("Game finished");
 		
-		gameFinishedBool = true;
+		gameFinishedBool = true
+		SoundManager.stopBGMSound()
 		
 		/// .. and send result for tracking.
 		AnalyticsManager.sendGameResults(currentGameID,
@@ -1979,22 +1985,21 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		                                 endTime: statsGameFinishedTimeStamp,
 		                                 diedCount: statsGameDiedCount,
 		                                 touchTotal: statsGameTouchCount,
-		                                 validTotal: statsGameValidTouchCount);
+		                                 validTotal: statsGameValidTouchCount)
 		
 		
 		//// 알람으로 켜진 경우에만 로그를 남김
 		if (gameStartupType == 0) {
-			logAlarmGame();
+			logAlarmGame()
 		} // end if
 		
-		//AlarmManager.gameClearToggle( AlarmRingView.selfView!.currentAlarmElement!.alarmID, cleared: true );
-		AlarmManager.gameClearToggle( Date(), cleared: true );
+		AlarmManager.gameClearToggle( Date(), cleared: true )
 		
-		AlarmManager.mergeAlarm(); //Merge it
-		AlarmManager.alarmRingActivated = false;
+		AlarmManager.mergeAlarm() //Merge it
+		AlarmManager.alarmRingActivated = false
 		
-		AlarmRingView.selfView!.dismiss(animated: false, completion: nil);
-		GlobalSubView.alarmRingViewcontroller.dismiss(animated: true, completion: nil);
+		AlarmRingView.selfView!.dismiss(animated: false, completion: nil)
+		GlobalSubView.alarmRingViewcontroller.dismiss(animated: true, completion: nil)
 	}
 	
 } //end of class

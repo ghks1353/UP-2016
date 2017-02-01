@@ -120,19 +120,23 @@ class CreditsPopView:UIViewController {
 		creditTitleLicense.font = UIFont.systemFont(ofSize: 20);
 		creditTitleLicense.text = "License"; creditsScrollView.addSubview(creditTitleLicense);
 		
-		creditContentsLicense.frame = CGRect(x: 12, y: creditTitleLicense.frame.maxY + 18, width: creditsScrollView.frame.width - 24, height: 0);
-		creditContentsLicense.numberOfLines = 0; creditContentsLicense.lineBreakMode = .byWordWrapping;
-		creditContentsLicense.textColor = UPUtils.colorWithHexString("#444444"); creditContentsLicense.textAlignment = .center;
-		creditContentsLicense.font = UIFont.systemFont(ofSize: 10);
+		creditContentsLicense.frame = CGRect(x: 12, y: creditTitleLicense.frame.maxY + 18, width: creditsScrollView.frame.width - 24, height: 0)
+		creditContentsLicense.numberOfLines = 0
+		creditContentsLicense.lineBreakMode = .byWordWrapping
+		creditContentsLicense.textColor = UPUtils.colorWithHexString("#444444")
+		creditContentsLicense.textAlignment = .center
+		creditContentsLicense.font = UIFont.systemFont(ofSize: 10)
+		
+		creditContentsLicense.lineBreakMode = .byCharWrapping
 		creditContentsLicense.text =
-			"Copyright (c) 2016 <Project UP> by Seokhwan An and Seungha hwang.";
-		creditContentsLicense.sizeToFit();
-		creditsScrollView.addSubview(creditContentsLicense);
+			"Copyright (c) 2016 <Project UP> by Seokhwan An and Seungha hwang."
+		creditContentsLicense.sizeToFit()
+		creditsScrollView.addSubview(creditContentsLicense)
 		
 		//컨텐츠 크기 설정
-		creditsScrollView.contentSize = CGSize(width: DeviceManager.defaultModalSizeRect.width, height: max(DeviceManager.defaultModalSizeRect.height - (self.navigationController?.navigationBar.frame.size.height)!, creditContentsLicense.frame.maxY + 20));
+		creditsScrollView.contentSize = CGSize(width: DeviceManager.defaultModalSizeRect.width, height: max(DeviceManager.defaultModalSizeRect.height - (self.navigationController?.navigationBar.frame.size.height)!, creditContentsLicense.frame.maxY + 20))
 		
-		self.view.addSubview(creditsScrollView);
+		self.view.addSubview(creditsScrollView)
 	}
 	
 	func popToRootAction() {

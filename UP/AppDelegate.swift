@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		
 		//Firebase init
 		FIRApp.configure()
+		//Firebase remoteconfig init
+		RemoteConfigManager.initManager()
 		
 		//add observer to fir
 		NotificationCenter.default.addObserver(self,
@@ -219,9 +221,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	///////// FCM Register
 	func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
 		// With swizzling disabled you must set the APNs token here.
-		/*
-			setAPNSToken:type:에 APN 토큰 및 토큰 유형을 제공합니다. type의 값을 올바르게 설정해야 합니다. 샌드박스 환경의 경우 FIRInstanceIDAPNSTokenTypeSandbox, 운영 환경의 경우 FIRInstanceIDAPNSTokenTypeProd로 설정합니다. 유형을 잘못 설정하면 메시지가 앱에 전송되지 않습니다.
-		*/
 		//debug/production을 잘못 고르면
 		//(즉 프로덕션에서 샌드박스 토큰 고르고 하면)
 		//배터리가 이상하게 광탈함. 구글쪽 문제임

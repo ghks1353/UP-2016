@@ -6,17 +6,18 @@
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
-import Foundation;
-import UIKit;
-import QuartzCore;
-import StoreKit;
+import Foundation
+import UIKit
+import QuartzCore
+import StoreKit
+import SwiftyStoreKit
 
 class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
 	//Inner-modal view
-	var modalView:UIViewController = UIViewController();
+	var modalView:UIViewController = UIViewController()
 	//Navigationbar view
-	var navigationCtrl:UINavigationController = UINavigationController();
+	var navigationCtrl:UINavigationController = UINavigationController()
 	
     //Table for menu
     internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped);
@@ -174,46 +175,69 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		
 		switch (cell.cellID) {
 			case "buyUP":
-				showProductNotAvailable();
-				
-				break;
+				if (RemoteConfigManager.rConfig![RemoteConfigManager.configs.CanPurchase.rawValue].boolValue != true) {
+					showProductNotAvailable()
+				} else {
+					//product buy phase
+					SwiftyStoreKit.purchaseProduct(PurchaseManager.ProductsID.ExpansionPack.rawValue, atomically: true) { result in
+						switch result {
+							case .success(let product):
+								print("Purchase Success: \(product)")
+							case .error(let error):
+								print("Purchase Failed: \(error)")
+						} //end switch
+					} //end purchase
+				} //end if
+				break
 			case "restorePurchases":
+				let restoreConfirmAlert:UIAlertController =
+					UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("storeRestoreConfirm"), preferredStyle: UIAlertControllerStyle.alert)
+				restoreConfirmAlert.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+					//Restore
+					PurchaseManager.restorePurchases(callback: self.restoreFinishedCallback)
+				}))
+				restoreConfirmAlert.addAction(UIAlertAction(title: LanguagesManager.$("generalCancel"), style: .cancel, handler: { (action: UIAlertAction!) in
+					//Cancel
+				}))
+				present(restoreConfirmAlert, animated: true, completion: nil)
 				
-				//requestRestoreProducts
-				break;
+				break
+			case "ratingApplication":
+				UIApplication.shared.openURL(URL(string: "https://itunes.apple.com/app/id1128109120")!)
+				break
 			case "startGuide":
-				self.present(GlobalSubView.startingGuideView, animated: true, completion: nil);
-				break;
+				self.present(GlobalSubView.startingGuideView, animated: true, completion: nil)
+				break
 			case "gotoUPProject":
-				UIApplication.shared.openURL(URL(string: "https://up.avngraphic.kr/?l=" + LanguagesManager.currentLocaleCode)!);
-				break;
+				UIApplication.shared.openURL(URL(string: "https://up.avngraphic.kr/?l=" + LanguagesManager.currentLocaleCode)!)
+				break
 			case "languageChange":
-				navigationCtrl.pushViewController(self.languagesView, animated: true);
-				break;
+				navigationCtrl.pushViewController(self.languagesView, animated: true)
+				break
 			case "indieGames":
-				navigationCtrl.pushViewController(self.indieGamesView, animated: true);
-				break;
+				navigationCtrl.pushViewController(self.indieGamesView, animated: true)
+				break
 			case "credits":
-				navigationCtrl.pushViewController(self.creditsView, animated: true);
-				creditsView.creditsScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
-				break;
+				navigationCtrl.pushViewController(self.creditsView, animated: true)
+				creditsView.creditsScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+				break
 			////// EXPERIMENTS
 			case "experiments-notallowed-alarms":
-				navigationCtrl.pushViewController(self.experimentAlarmSettingsView, animated: true);
-				break;
+				navigationCtrl.pushViewController(self.experimentAlarmSettingsView, animated: true)
+				break
 			case "debug-test-info":
-				navigationCtrl.pushViewController(self.experimentTestingInfoView, animated: true);
-				break;
+				navigationCtrl.pushViewController(self.experimentTestingInfoView, animated: true)
+				break
 			////////
 			/// Testers menu
 			case "notice-fortesters":
-				navigationCtrl.pushViewController(self.testersWebView, animated: true);
-				break;
+				navigationCtrl.pushViewController(self.testersWebView, animated: true)
+				break
 			//////////////////////
-			default: break;
+			default: break
 		}
 		
-		tableView.deselectRow(at: indexPath, animated: true);
+		tableView.deselectRow(at: indexPath, animated: true)
 	} //end func
 	
 	/////////////////
@@ -269,7 +293,6 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		}
 	}
 	
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -301,12 +324,12 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			}
 		}
 		
-		DataManager.save();
+		DataManager.save()
 	}
 	
 	func switchChangedEvent( _ target:UISwitch ) {
-		print("switch changed. saving.");
-		saveChasngesToSystem();
+		print("switch changed. saving.")
+		saveChasngesToSystem()
 	}
 	
     //Tableview cell view create
@@ -433,15 +456,12 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	}
 	
 	//// shop callbacks
-	func restoreCallback(_ paymentInfo:SKPaymentTransactionState) {
-		switch(paymentInfo) {
-			case .restored:
-				showRestoreSucceed();
-				break;
-			default:
-				showRestoreFailed();
-				break;
+	func restoreFinishedCallback(_ isSucced:Bool ) {
+		if (isSucced) { //restore OK
+			showRestoreSucceed()
+		} else {
+			showRestoreFailed();
 		}
-	}
+	} //end func
 	
 }

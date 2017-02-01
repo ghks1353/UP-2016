@@ -11,6 +11,7 @@ target "UP" do
     pod 'Firebase/Core'
 	pod 'Firebase/Messaging'
 	pod 'Firebase/Crash'
+	pod 'Firebase/RemoteConfig'
 	pod 'GoogleIDFASupport'
 end
 

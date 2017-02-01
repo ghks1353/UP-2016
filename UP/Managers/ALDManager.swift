@@ -12,8 +12,8 @@ import SQLite
 class ALDManager {
 	//자동 레벨 디자인 관리 클래스
 	
-	static var generatedLevelMultiply:Float = 1;
-	static var generatedTimeMultiply:Float = 30;
+	static var generatedLevelMultiply:Float = 1
+	static var generatedTimeMultiply:Float = 30
 	
 	static func buildLevel() {
 		//최대 7개 기록으로 만듬
@@ -21,11 +21,11 @@ class ALDManager {
 		var resultDatasArray:Array<[String:Int]> = []
 		
 		//맞은회수 평균치 계수
-		var hitMultipl:Float = 0;
+		var hitMultipl:Float = 0
 		//플레이시간 평균치 계수
-		var timeMultipl:Float = 0;
+		var timeMultipl:Float = 0
 		//클리어 평균치 계수
-		var clearMultipl:Float = 0;
+		var clearMultipl:Float = 0
 		
 		do {
 			for dbResult in try DataManager.db()!.prepare(
@@ -64,7 +64,7 @@ class ALDManager {
 		generatedLevelMultiply = generatedLevelMultiply * max(0.5, 1 - ((120/max(timeMultipl,120)) / 6))
 		generatedLevelMultiply = generatedLevelMultiply * (clearMultipl < 0.5 ? 0.5 : 1)
 		
-		generatedTimeMultiply = max(30, 30 * (generatedLevelMultiply / 1))
+		generatedTimeMultiply = max(30, 30 * (generatedLevelMultiply / 1.25))
 		
 		print("ALD build finished: m",generatedLevelMultiply," t",generatedTimeMultiply)
 	} //end func

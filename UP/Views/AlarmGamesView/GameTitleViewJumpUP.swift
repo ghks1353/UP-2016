@@ -42,19 +42,19 @@ class GameTitleViewJumpUP:UIViewController {
 	
 	var aStartLeft:Int = 3;
 	
-	var preloadCompleted:Bool = false;
+	var preloadCompleted:Bool = false
 	
 	override func viewDidLoad() {
 		// view init func
-		self.view.backgroundColor = UIColor.black; //black col
+		self.view.backgroundColor = UIColor.black //black col
 		
-		loadingIndicatorView.frame = CGRect(x: self.view.frame.width / 2, y: self.view.frame.height / 2, width: 32, height: 32);
-		loadingIndicatorView.center = self.view!.center;
-		loadingIndicatorView.hidesWhenStopped = false;
-		loadingIndicatorView.activityIndicatorViewStyle = .white;
-		self.view.addSubview(loadingIndicatorView);
+		loadingIndicatorView.frame = CGRect(x: self.view.frame.width / 2, y: self.view.frame.height / 2, width: 32, height: 32)
+		loadingIndicatorView.center = self.view!.center
+		loadingIndicatorView.hidesWhenStopped = false
+		loadingIndicatorView.activityIndicatorViewStyle = .white
+		self.view.addSubview(loadingIndicatorView)
 		
-		super.viewDidLoad();
+		super.viewDidLoad()
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -62,8 +62,8 @@ class GameTitleViewJumpUP:UIViewController {
 			return;
 		}
 		
-		loadingIndicatorView.startAnimating();
-		print("JumpUP gameview appear event");
+		loadingIndicatorView.startAnimating()
+		print("JumpUP gameview appear event")
 		
 		//View load func
 		gameTitleLabel.text = LanguagesManager.$("gameNameJumpUP");
@@ -155,6 +155,9 @@ class GameTitleViewJumpUP:UIViewController {
 			return;
 		}
 		
+		//Play bgm sound
+		SoundManager.playBGMSound(SoundManager.bundleSounds.GameReadyBGM.rawValue, repeatCount: -1)
+		
 		//View fade-in effect
 		loadingIndicatorView.stopAnimating();
 		
@@ -196,26 +199,30 @@ class GameTitleViewJumpUP:UIViewController {
 	
 	func gameStartFuncTapHandler( _ recognizer: UITapGestureRecognizer! ) {
 		//Game start
-		print("Presenting game view");
+		print("Presenting game view")
 		
-		////////테스트 전용. 나중에 빼야함
-		gameView.showsFPS = true; //fps view
-		gameView.showsDrawCount = true;
-		gameView.showsNodeCount = true;
-		//gameView.showsQuadCount = true;
+		////////테스트 전용.
+		#if DEBUG
+			gameView.showsFPS = true //fps view
+			gameView.showsDrawCount = true
+			gameView.showsNodeCount = true
+		#endif
 		
 		//vvvvv 사용 시 메모리 누수가 있음.. ㅡㅡ;;
 		//gameView.showsFields = true;
 		//////////////
 		
-		self.view.addSubview(gameView);
-		//Gameview alpha transition
-		gameView.alpha = 0;
-		jumpUPGameScene!.isGamePaused = false;
+		self.view.addSubview(gameView)
 		
+		//Gameview alpha transition
+		gameView.alpha = 0
+		jumpUPGameScene!.isGamePaused = false
+		
+		// play bgm sound
+		SoundManager.playBGMSound(SoundManager.bundleSounds.GameJumpUPBGM.rawValue, repeatCount: -1)
 		
 		UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
-			self.gameView.alpha = 1;
+			self.gameView.alpha = 1
 			}, completion: {_ in
 		});
 		

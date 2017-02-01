@@ -154,6 +154,7 @@ class AlarmRingView:UIViewController {
 		}
 		if (isLied == false && liePhoneDownCount <= 14) {
 			AlarmManager.stopSoundAlarm(); //터치시에만 꺼지게..
+			SoundManager.pauseResumeBGMSound( true )
 		}
 		
 		lastActivatedTimeAfter = 0;
@@ -171,9 +172,10 @@ class AlarmRingView:UIViewController {
 			return;
 		}
 		/////////////////////////////////////
-		lastActivatedTimeAfter += 1;
+		lastActivatedTimeAfter += 1
 		if (lastActivatedTimeAfter > 120 || liePhoneDownCount > 14) {
-			AlarmManager.ringSoundAlarm(currentAlarmElement, useVibrate: true);
+			SoundManager.pauseResumeBGMSound( false )
+			AlarmManager.ringSoundAlarm(currentAlarmElement, useVibrate: true)
 		}
 		/////////////////////// Accel check
 		if (accelSensorWorks) {
@@ -182,6 +184,7 @@ class AlarmRingView:UIViewController {
 				print ("LIE");
 				isLied = true;
 				//ring alarm when lie user
+				SoundManager.pauseResumeBGMSound( false )
 				AlarmManager.ringSoundAlarm(currentAlarmElement, useVibrate: true);
 				
 			} else {
