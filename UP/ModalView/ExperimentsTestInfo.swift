@@ -46,7 +46,7 @@ class ExperimentsTestInfo:UIViewController {
 		infoScrollView.frame = CGRect(x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height);
 		
 		infoLabel.frame = CGRect(x: 12, y: 8, width: infoScrollView.frame.width - 24, height: 0);
-		infoLabel.numberOfLines = 0; infoLabel.lineBreakMode = .byWordWrapping;
+		infoLabel.numberOfLines = 0; infoLabel.lineBreakMode = .byCharWrapping;
 		infoLabel.textColor = UPUtils.colorWithHexString("#000000"); infoLabel.textAlignment = .left;
 		infoLabel.font = UIFont.systemFont(ofSize: 10);
 		infoLabel.text = "";

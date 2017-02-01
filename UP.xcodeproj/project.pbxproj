@@ -191,6 +191,8 @@
 		7717A6EE1E41BB8D00076E16 /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */; };
 		7717A6F21E41CF8900076E16 /* bgm-game-jumpup-field.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F01E41CF8900076E16 /* bgm-game-jumpup-field.mp3 */; };
 		7717A6F31E41CF8900076E16 /* bgm-game-waiting.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F11E41CF8900076E16 /* bgm-game-waiting.mp3 */; };
+		7717A6F51E42679200076E16 /* comp-buyup-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F41E42679200076E16 /* comp-buyup-icon.png */; };
+		7717A6F71E4267D000076E16 /* comp-icons-settings-donate.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F61E4267D000076E16 /* comp-icons-settings-donate.png */; };
 		771ABC411D45DE8700938D1B /* CharacterSkinMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */; };
 		771ABC4A1D45DFDB00938D1B /* themes-main-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC491D45DFDB00938D1B /* themes-main-background.png */; };
 		771ABC5D1D46283B00938D1B /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC5C1D46283B00938D1B /* UnityAds.framework */; };
@@ -622,6 +624,8 @@
 		7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteConfigManager.swift; path = Managers/RemoteConfigManager.swift; sourceTree = "<group>"; };
 		7717A6F01E41CF8900076E16 /* bgm-game-jumpup-field.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-jumpup-field.mp3"; path = "SoundAssets/BGMSounds/bgm-game-jumpup-field.mp3"; sourceTree = "<group>"; };
 		7717A6F11E41CF8900076E16 /* bgm-game-waiting.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-waiting.mp3"; path = "SoundAssets/BGMSounds/bgm-game-waiting.mp3"; sourceTree = "<group>"; };
+		7717A6F41E42679200076E16 /* comp-buyup-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-buyup-icon.png"; path = "ImageAssets/Components/comp-buyup-icon.png"; sourceTree = "<group>"; };
+		7717A6F61E4267D000076E16 /* comp-icons-settings-donate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-donate.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-donate.png"; sourceTree = "<group>"; };
 		771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSkinMainView.swift; path = ModalView/CharacterSkinMainView.swift; sourceTree = "<group>"; };
 		771ABC491D45DFDB00938D1B /* themes-main-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-main-background.png"; path = "ImageAssets/ModalWindows/Themes/themes-main-background.png"; sourceTree = "<group>"; };
 		771ABC5C1D46283B00938D1B /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UnityAds.framework; sourceTree = "<group>"; };
@@ -1081,6 +1085,7 @@
 				03425BA01CD099C800243B28 /* comp-alarm-notfound.png */,
 				03425B961CD0670800243B28 /* comp-cell-arrow.png */,
 				03425B971CD0670800243B28 /* comp-cell-check.png */,
+				7717A6F41E42679200076E16 /* comp-buyup-icon.png */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -1214,6 +1219,7 @@
 			children = (
 				77561DA41D5066C8002EB26B /* Languages */,
 				03B18E661D22C54600972101 /* comp-icons-shop-buy.png */,
+				7717A6F61E4267D000076E16 /* comp-icons-settings-donate.png */,
 				77F948711D80ADEE00B33F5F /* comp-icons-settings-memo.png */,
 				03B18E671D22C54600972101 /* comp-icons-shop-restore.png */,
 				77561DB11D5066DA002EB26B /* comp-icons-settings-language.png */,
@@ -2143,6 +2149,7 @@
 				03B18E691D22C54600972101 /* comp-icons-shop-restore.png in Resources */,
 				0323190A1CFB5C7B0052732F /* characterinfo-exp-deco-0.png in Resources */,
 				032319271CFB5C7B0052732F /* characterinfo-exp-deco-29.png in Resources */,
+				7717A6F71E4267D000076E16 /* comp-icons-settings-donate.png in Resources */,
 				77561E611D50C354002EB26B /* skin-default-ground-a-pad34.png in Resources */,
 				77561E791D50C85D002EB26B /* b-time-off.png in Resources */,
 				032536CE1D1C4D1D004C6293 /* modal-credits-people-plan.png in Resources */,
@@ -2342,6 +2349,7 @@
 				77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */,
 				03C14D0D1D2539D60078D10C /* game-general-window-btn-ok.png in Resources */,
 				032318C21CFA1D010052732F /* achievements-item.png in Resources */,
+				7717A6F51E42679200076E16 /* comp-buyup-icon.png in Resources */,
 				03E1D1231CEC70A600B552FC /* comp-icons-alarm-music.png in Resources */,
 				03425B9C1CD08B1C00243B28 /* comp-icons-settings-avn.png in Resources */,
 				772BB1BF1DE8BCBB0054B3EF /* game-jumpup-ai-j-astro-fly-2.png in Resources */,

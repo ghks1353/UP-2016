@@ -86,6 +86,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
                 createSettingsOnlyLabel( LanguagesManager.$("settingsStartingGuide") , menuID: "startGuide")
                 , createSettingsOnlyLabel( LanguagesManager.$("settingsRatingApp") , menuID: "ratingApplication")
                 , createSettingsOnlyLabel( LanguagesManager.$("settingsShowNewgame") , menuID: "indieGames")
+				, createSettingsOnlyLabel( LanguagesManager.$("settingsDonate") , menuID: "donateUP")
                 , createSettingsOnlyLabel( LanguagesManager.$("settingsGotoUPProject") , menuID: "gotoUPProject")
 				, createSettingsOnlyLabel( LanguagesManager.$("settingsCredits") , menuID: "credits")
             ],
@@ -98,28 +99,30 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			]
             
         ];
-        tableView.delegate = self; tableView.dataSource = self;
-        tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
+        tableView.delegate = self
+		tableView.dataSource = self
+        tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA")
         
         //get data from local
-		DataManager.initDefaults();
-		var tmpOption:Bool = DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.showBadge);
+		DataManager.initDefaults()
+		var tmpOption:Bool = DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.showBadge)
 		if (tmpOption == true) { /* badge option is true? */
-			setSwitchData("showIconBadge", value: true);
+			setSwitchData("showIconBadge", value: true)
 		}
 		//icloud chk
-		tmpOption = DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.syncToiCloud);
+		tmpOption = DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.syncToiCloud)
 		if (tmpOption == true) { /* icloud option is true? */
-			setSwitchData("syncToiCloud", value: true);
+			setSwitchData("syncToiCloud", value: true)
 		}
 		
 		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false;
+		self.view.autoresizesSubviews = false
 		
 		//SET MASK for dot eff
-		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
-		modalMaskImageView.frame = modalView.view.frame;
-		modalMaskImageView.contentMode = .scaleAspectFit; self.view.mask = modalMaskImageView;
+		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"))
+		modalMaskImageView.frame = modalView.view.frame
+		modalMaskImageView.contentMode = .scaleAspectFit
+		self.view.mask = modalMaskImageView
 		
 		FitModalLocationToCenter();
 	}
@@ -208,6 +211,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			case "startGuide":
 				self.present(GlobalSubView.startingGuideView, animated: true, completion: nil)
 				break
+			case "donateUP":
+				
+				break
 			case "gotoUPProject":
 				UIApplication.shared.openURL(URL(string: "https://up.avngraphic.kr/?l=" + LanguagesManager.currentLocaleCode)!)
 				break
@@ -286,10 +292,9 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     ////////////////
 	
 	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
-		
+		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect
 		if (self.view.mask != nil) {
-			self.view.mask!.frame = DeviceManager.defaultModalSizeRect;
+			self.view.mask!.frame = DeviceManager.defaultModalSizeRect
 		}
 	}
 	
@@ -381,17 +386,21 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     }
 	
     func createSettingsOnlyLabel(_ name:String, menuID:String ) -> CustomTableCell {
-        let tCell:CustomTableCell = CustomTableCell();
-        let tLabel:UILabel = UILabel();
+        let tCell:CustomTableCell = CustomTableCell()
+        let tLabel:UILabel = UILabel()
 		
 		//아이콘 표시 관련
-		let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
-		tIconImg.frame = CGRect(x: 12, y: 6, width: 31.3, height: 31.3);
+		let tIconImg:UIImageView = UIImageView()
+		var tIconFileStr:String = ""
+		var tIconWPadding:CGFloat = 0
+		tIconImg.frame = CGRect(x: 12, y: 6, width: 31.3, height: 31.3)
 		switch(menuID) { //특정 조건으로 아이콘 구분
 			case "startGuide": tIconFileStr = "comp-icons-settings-guide"; break;
 			case "ratingApplication": tIconFileStr = "comp-icons-settings-rating"; break;
 			case "indieGames": tIconFileStr = "comp-icons-settings-newgames"; break;
 			case "credits": tIconFileStr = "comp-icons-settings-developers"; break;
+			
+			case "donateUP": tIconFileStr = "comp-icons-settings-donate"; break;
 			case "gotoUPProject": tIconFileStr = "comp-icons-settings-projectup"; break;
 			case "languageChange": tIconFileStr = "comp-icons-settings-language"; break;
 			
@@ -408,11 +417,13 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 						default: tIconFileStr = "comp-icons-settings-experiments"; break;
 					}
 				} else {
-					tIconFileStr = "comp-icons-blank";
+					tIconFileStr = "comp-icons-blank"
 				}
-				break;
-		}; tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8;
-		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
+				break
+		}
+		tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8
+		tIconImg.image = UIImage( named: tIconFileStr + ".png" )
+		tCell.addSubview(tIconImg)
 		
         let settingsObj:SettingsElement = SettingsElement();
         settingsObj.settingsID = menuID; tCell.cellID = menuID;
