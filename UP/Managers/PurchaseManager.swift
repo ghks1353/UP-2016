@@ -21,6 +21,9 @@ class PurchaseManager {
 	static var localReceipts:Data!
 	static let purchaseSharedSecret:String = "86e4dd4d3cdb4e13a5fb31eae24e94e5"
 	
+	static var pValidator:AppleReceiptValidator?
+	static var isInited:Bool = false
+	
 	//Callback
 	//static var restoreCallbackFunc:(() -> Void)? = nil
 	
@@ -28,8 +31,17 @@ class PurchaseManager {
 		//complete transcations
 		completeTranscations()
 		
+		//Validator type set
+		#if DEBUG
+			pValidator = AppleReceiptValidator(service: .sandbox)
+		#else
+			pValidator = AppleReceiptValidator(service: .production)
+		#endif
+		
 		localReceipts = SwiftyStoreKit.localReceiptData
 		autoVerifyPurchases()
+		
+		isInited = true
 	}
 	
 	//트랜지션 완료함수
@@ -50,11 +62,14 @@ class PurchaseManager {
 	
 	//자동 결제된 항목 체크 함수 (필요한 것들만)
 	static func autoVerifyPurchases( callback:((_ result:Bool ) -> Void)? = nil ) {
+		if (!isInited) {
+			return
+		}
+		
 		print("[PurchaseManager] Product verify ongoing")
 		
 		//Verify UP Ext pack subscription
-		let productValidator:AppleReceiptValidator = AppleReceiptValidator(service: .sandbox)
-		SwiftyStoreKit.verifyReceipt(using: productValidator, password: purchaseSharedSecret) { result in
+		SwiftyStoreKit.verifyReceipt(using: pValidator!, password: purchaseSharedSecret) { result in
 			switch result {
 				case .success(let receipt):
 					let purchaseResult = SwiftyStoreKit.verifySubscription(

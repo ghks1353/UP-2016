@@ -68,14 +68,14 @@ class CreditsPopView:UIViewController {
 			var position:String = ""; var nickname:String = ""; var positionLabeled:String = "";
 			switch(i) {
 				case 0:
-					position = "programmer";
-					nickname = "ExFl";
-					positionLabeled = "Programming";
+					position = "programmer"
+					nickname = "ExFl"
+					positionLabeled = "Programming"
 					break;
 				case 1:
-					position = "graphic";
-					nickname = "Penple";
-					positionLabeled = "Graphic";
+					position = "graphic"
+					nickname = "Penple"
+					positionLabeled = "Graphic"
 					break;
 				default: break;
 			}
@@ -129,7 +129,7 @@ class CreditsPopView:UIViewController {
 		
 		creditContentsLicense.lineBreakMode = .byCharWrapping
 		creditContentsLicense.text =
-			"Copyright (c) 2016 <Project UP> by Seokhwan An and Seungha hwang."
+			"Copyright (c) 2017 <Project UP> by Seokhwan An and Seungha hwang."
 		creditContentsLicense.sizeToFit()
 		creditsScrollView.addSubview(creditContentsLicense)
 		

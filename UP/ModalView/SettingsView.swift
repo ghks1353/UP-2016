@@ -186,8 +186,11 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 						switch result {
 							case .success(let product):
 								print("Purchase Success: \(product)")
+								PurchaseManager.autoVerifyPurchases()
+								break
 							case .error(let error):
 								print("Purchase Failed: \(error)")
+								break
 						} //end switch
 					} //end purchase
 				} //end if

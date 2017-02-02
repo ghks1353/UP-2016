@@ -6,11 +6,11 @@
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
-import Foundation;
-import UIKit;
-import AVFoundation;
-import MediaPlayer;
-import UserNotifications;
+import Foundation
+import UIKit
+import AVFoundation
+import MediaPlayer
+import UserNotifications
 
 class AlarmManager {
 	/*
@@ -22,17 +22,20 @@ class AlarmManager {
 			- 반복이 없으면 리스트에 off상태로 둠. 알람등록은 안함
 			- 다음날이 알람일이 아니지만 반복은 있는경우 그 날이 돌아올때까지 일만 추가함
 	*/
-	static var alarmsArray:Array<AlarmElements> = [];
-	static var isAlarmMergedFirst:Bool = false; //첫회 merge 체크용
-	static let alarmMaxRegisterCount:Int = 20; //알람 최대 등록 가능 개수
+	static var alarmsArray:Array<AlarmElements> = []
+	static var isAlarmMergedFirst:Bool = false //첫회 merge 체크용
+	static let alarmMaxRegisterCount:Int = 20 //알람 최대 등록 가능 개수
 	
-	static var alarmRingActivated:Bool = false; //알람 액티비티.. 아니 뷰가 뜨고 있을 때 true. (게임 진행 중일 때.)
-	static var alarmSoundPlaying:Bool = false;
-	static var alarmAudioPlayer:AVAudioPlayer?;
+	static var alarmRingActivated:Bool = false //알람 액티비티.. 아니 뷰가 뜨고 있을 때 true. (게임 진행 중일 때.)
+	static var alarmSoundPlaying:Bool = false
+	static var alarmAudioPlayer:AVAudioPlayer?
 	
 	//강제 볼륨조절용
-	static var alarmVolumeView:MPVolumeView = MPVolumeView();
-	static var alarmPreviousVolume:Float = 0.5; //이전 볼륨값. (알람끌때 돌리기 위해서)
+	static var alarmVolumeView:MPVolumeView = MPVolumeView()
+	static var alarmPreviousVolume:Float = 0.5 //이전 볼륨값. (알람끌때 돌리기 위해서)
+	
+	//특정 시간 이후로는 알람을 바로 끌 수 있도록 함
+	static let alarmForceStopAvaliableSeconds:Int = 3600 //default: 3600 (1h)
 	
 	//미디어 알람 끄기
 	static func stopSoundAlarm() {
@@ -96,19 +99,21 @@ class AlarmManager {
 		} catch let error as NSError {
 			print(error.description);
 		}
-		alarmAudioPlayer!.numberOfLoops = -1; alarmAudioPlayer!.prepareToPlay(); alarmAudioPlayer!.play();
-		alarmAudioPlayer!.volume = Float(targetAlarmElement!.alarmSoundLevel) / 100;
+		alarmAudioPlayer!.numberOfLoops = -1
+		alarmAudioPlayer!.prepareToPlay()
+		alarmAudioPlayer!.play()
+		alarmAudioPlayer!.volume = Float(targetAlarmElement!.alarmSoundLevel) / 100
 		if let view = alarmVolumeView.subviews.first as? UISlider{
-			view.value = Float(targetAlarmElement!.alarmSoundLevel) / 100;
+			view.value = Float(targetAlarmElement!.alarmSoundLevel) / 100
 		} else {
-			print("Volume control error. creating new context");
-			alarmVolumeView = MPVolumeView();
+			print("Volume control error. creating new context")
+			alarmVolumeView = MPVolumeView()
 		}
 
 		alarmSoundPlaying = true;
 	} // end func
 	
-	//알람이 켜져있는 게 있을 경우 다음 알람이 몇초 후에 울릴지 가져옴
+	//알람이 켜져있는 게 있을 경우 다음 알람이 언제 울리는지 초단위로 가져옴
 	static func getNextAlarmFireInSeconds() -> Int {
 		//Merge된 후 실행되야 함
 		if (!isAlarmMergedFirst) {
@@ -199,7 +204,7 @@ class AlarmManager {
 	
 	static func mergeAlarm(_ mergeProcess:Int = 0, notificationsArray:Array<AnyObject>? = nil ) {
 		//스케줄된 알람들 가져와서 지난것들 merge하고, 발생할 수 있는 오류에 대해서 체크함
-		DataManager.initDefaults();
+		DataManager.initDefaults()
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true;
 		
 		var savedAlarm:Data; var scdAlarm:Array<AlarmElements> = [];
@@ -910,7 +915,90 @@ class AlarmManager {
 		}
 		
 		
-	}
+	} //end func
+	
+	static func refreshLocalNotifications() -> Void {
+		//현재 알람이 울리고 있을 때 사용함.
+		//현재 알람 (쓰레드)에서 울리는 소리와, 노티피에서 울리는 소리가
+		//겹치는 것을 방지하고 동시에 커스텀 사운드 및 긴 사운드를 사용할수 있도록
+		//알람이 울릴때마다 호출하여 노티피를 캔슬했다가 다시 추가해줌
+		//(울리고 있는 알람만 해당함)
+		
+		let currentDate:Date = Date()
+		
+		//This function will work after mergealarm called
+		
+		if #available(iOS 10.0, *) {
+			return
+			//print("iOS 10 bug fucking")
+			/*
+			let unUserNotifyCenter = UNUserNotificationCenter.current();
+			var unNotifications:Array<UNNotification>?;
+			
+			unUserNotifyCenter.getDeliveredNotifications(completionHandler: { requests in
+				unNotifications = requests
+				
+				for i:Int in 0 ..< (unNotifications!.count) {
+					let targetAlarmID:Int = unNotifications![i].request.content.userInfo["id"] as! Int
+					//check valid alarm
+					let targetAlarm:AlarmElements? = getAlarm(targetAlarmID)
+					if (targetAlarm == nil) {
+						continue
+					} //endif
+					if (targetAlarm!.alarmToggle == false || targetAlarm!.alarmCleared == true ||
+						targetAlarm!.alarmFireDate.timeIntervalSince1970 > currentDate.timeIntervalSince1970) {
+						continue
+					} //endif
+					
+					unUserNotifyCenter.removeDeliveredNotifications(withIdentifiers: [unNotifications![i].request.identifier])
+					unUserNotifyCenter.removePendingNotificationRequests(withIdentifiers: [unNotifications![i].request.identifier])
+					
+					let nTitle:String = unNotifications![i].request.content.title
+					let nUserInfo:[AnyHashable:Any] = unNotifications![i].request.content.userInfo
+					let nDate:Date = unNotifications![i].date
+					
+					//removed. and add notification again
+					addLocalNotification(
+						nTitle,
+						aFireDate: nDate,
+						gameID: nUserInfo["gameCategory"] as! Int,
+						soundFile: nUserInfo["soundFile"] as! String,
+						repeatInfo: nUserInfo["repeat"] as! Array<Bool>,
+						alarmID: targetAlarmID)
+				} //end for
+				
+			});*/
+		} else {
+			//iOS 8, 9
+			
+			var currLNotifi:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!
+			for i:Int in 0 ..< currLNotifi.count {
+				let targetAlarmID:Int = currLNotifi[i].userInfo!["id"] as! Int
+				let targetAlarm:AlarmElements? = getAlarm(targetAlarmID)
+				if (targetAlarm == nil) {
+					continue
+				} //endif
+				if (targetAlarm!.alarmToggle == false || targetAlarm!.alarmCleared == true ||
+					targetAlarm!.alarmFireDate.timeIntervalSince1970 > currentDate.timeIntervalSince1970) {
+					continue
+				} //endif
+				
+				UIApplication.shared.cancelLocalNotification(currLNotifi[i])
+				//removed. and add notification again
+				addLocalNotification(
+					currLNotifi[i].alertBody!,
+					aFireDate: currLNotifi[i].fireDate!,
+					gameID: currLNotifi[i].userInfo!["gameCategory"] as! Int,
+					soundFile: currLNotifi[i].userInfo!["soundFile"] as! String,
+					repeatInfo: currLNotifi[i].userInfo!["repeat"] as! Array<Bool>,
+					alarmID: targetAlarmID)
+			} //for end
+			
+		} //end if
+		
+		print("Recreated active notifications")
+		
+	} //end func
 	
 	
 	////// 반복 배열에 따른 라벨 획득

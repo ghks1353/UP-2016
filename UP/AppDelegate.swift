@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	var window: UIWindow?
 	var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
 	
+	//Alarm background task bgm player
 	var alarmBackgroundTaskPlayer:AVAudioPlayer?
 	
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -112,8 +113,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//DISPATCH_QUEUE_PRIORITY_DEFAULT
 		DispatchQueue.global(qos: .background).async {
 			while(DeviceManager.appIsBackground) {
+				let currentTimeStamp:Int = Int(Date().timeIntervalSince1970)
 				let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds()
-				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970))
+				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - currentTimeStamp)
 				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm()
 				
 				print( "thread remaining:", UIApplication.shared.backgroundTimeRemaining, ", remaining next alarm:", nextAlarmLeft )
@@ -125,12 +127,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 						self.alarmBackgroundTaskPlayer!.stop()
 					}
 					
+					//노티피 제거후 다시생성
+					AlarmManager.refreshLocalNotifications()
 					AlarmManager.ringSoundAlarm( ringingAlarm!, useVibrate: true )
 				} else {
 					//울리고 있는 알람이 없는데 굳이 울려야 겠음?
 					AlarmManager.stopSoundAlarm()
 					
-					//Thread play
+					//Background 유지를 위한 Thread play
 					self.alarmBackgroundTaskPlayer!.stop()
 					self.alarmBackgroundTaskPlayer!.play()
 				}
@@ -181,9 +185,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		print("App is active now")
 		AlarmManager.mergeAlarm()
 		connectToFcm()
-		/*if (AlarmListView.alarmListInited) {
-			AlarmListView.selfView!.createTableList(); //refresh alarm-list
-		}*/
 		
 		if (ViewController.selfView != nil) {
 			ViewController.selfView!.checkToCallAlarmRingingView()
@@ -195,6 +196,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		if (AlarmRingView.selfView != nil) {
 			AlarmRingView.selfView!.lastActivatedTimeAfter = 0
 		}
+		
+		//verify product if available
+		PurchaseManager.autoVerifyPurchases()
 		
 		self.alarmBackgroundTaskPlayer!.stop()
 		print("background thread - sound stop")

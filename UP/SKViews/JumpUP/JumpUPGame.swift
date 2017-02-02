@@ -29,7 +29,8 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	
 	//게임 끝나거나 포기 버튼
 	var buttonRetireSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-retire.png" ) );
-	var buttonAlarmOffSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-alram-off.png" ) );
+	var buttonAlarmOffSprite:SKSpriteNode?
+	
 	
 	//게임 종료 / 포기 버튼이 생기는 Y위치
 	var buttonYAxis:CGFloat = 0;
@@ -44,85 +45,87 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	var gameUserJumpCount:Int = 0; //점프 횟수
 	
 	//1초 tick (알람용)
-	var gameSecondTickTimer:Timer?;
+	var gameSecondTickTimer:Timer?
 	
+	///////////
 	//Game variables
+	var mapObject:SKNode = SKNode() //효과, 흔들림 등으로 쓸 맵 오브젝트
 	
-	var mapObject:SKNode = SKNode(); //효과, 흔들림 등으로 쓸 맵 오브젝트
+	var gameStageYAxis:CGFloat = 0
+	var gameStageYHeight:CGFloat = 0
+	var gameStageYFoot:CGFloat = 0 //gravity 0 position
+	var gameScrollSpeed:Double = 1 //왼쪽으로 흘러가는 게임 스크롤 스피드.
+	var additionalGameScrollSpeed:Double = 1.2 //추가 게임 스크롤 스피드
 	
-	var gameStageYAxis:CGFloat = 0; var gameStageYHeight:CGFloat = 0;
-	var gameStageYFoot:CGFloat = 0; //gravity 0 position
-	var gameScrollSpeed:Double = 1; //왼쪽으로 흘러가는 게임 스크롤 스피드.
-	var additionalGameScrollSpeed:Double = 1.2; //추가 게임 스크롤 스피드
+	var gameGravity:Double = 1 //추가 게임 중력.
+	var characterJumpPower:Float = 11 //캐릭터 점프력.
 	
-	var gameGravity:Double = 1; //추가 게임 중력.
-	var characterJumpPower:Float = 11; //캐릭터 점프력.
+	let gameCloudAddDelayMAX:Int = 60 // original: 60
+	var gameCloudDecorationAddDelay:Int = 0 //구름 생성 딜레이
 	
-	let gameCloudAddDelayMAX:Int = 60; // original: 60
-	var gameCloudDecorationAddDelay:Int = 0; //구름 생성 딜레이
+	var gameEnemyGenerateDelayMAX:Int = 120 // original: 120
+	var gameEnemyGenerateDelay:Int = 0 //장애물 생성 딜레이
 	
-	var gameEnemyGenerateDelayMAX:Int = 120; // original: 120
-	var gameEnemyGenerateDelay:Int = 0; //장애물 생성 딜레이
+	var gameCharacterUnlimitedLife:Int = 0 //캐릭터 무적 시간. (있을 경우)
+	var gameCharacterRetryADScoreTerm:Int = 0 //이 시간동안은 점수가 올라가지 않음
+	var gameScreenShakeEventDelay:Int = 0 //화면 흔들림 효과를 위한 딜레이.
+	var gameRdmElementNum:Int = 0 //랜덤으로 나오는 장애물 고유 번호. (메모리 절약을 위해 재사용)
 	
-	var gameCharacterUnlimitedLife:Int = 0; //캐릭터 무적 시간. (있을 경우)
-	var gameCharacterRetryADScoreTerm:Int = 0; //이 시간동안은 점수가 올라가지 않음
-	var gameScreenShakeEventDelay:Int = 0; //화면 흔들림 효과를 위한 딜레이.
-	var gameRdmElementNum:Int = 0; //랜덤으로 나오는 장애물 고유 번호. (메모리 절약을 위해 재사용)
+	var previousEnemyNumber:Int = -1 //이전에 바로 나온 노드 번호
 	
-	var previousEnemyNumber:Int = -1; //이전에 바로 나온 노드 번호
-	
-	var characterMinYAxis:CGFloat = 0; //캐릭터가 땅에 닿았을 때의 좌표
+	var characterMinYAxis:CGFloat = 0 //캐릭터가 땅에 닿았을 때의 좌표
 	
 	//Game vars in GAMEMODE.
-	var scoreUPDelayMax:Double = 60.0; //스코어 상승 간격
-	var scoreUPDelayCurrent:Int = 0; //간격 딜레이
-	var scoreUPLevel:Double = 0.0; //현재 게임 레벨
-	var scoreNodesRandomArray:Array<Int>?; //스코어모드에서의 적 랜덤 출현 배열
+	var scoreUPDelayMax:Double = 60.0 //스코어 상승 간격
+	var scoreUPDelayCurrent:Int = 0 //간격 딜레이
+	var scoreUPLevel:Double = 0.0 //현재 게임 레벨
+	var scoreNodesRandomArray:Array<Int>? //스코어모드에서의 적 랜덤 출현 배열
 	
-	var maxScoreGameLife:Int = 0; //최대 라이프 (수치상)
-	var scoreGameLife:Int = 0; //현재 게임 라이프. (목숨)
-	var externalLifeLeft:Int = 0; //추가로 살아날 수 있는 라이프 개수
+	var maxScoreGameLife:Int = 0 //최대 라이프 (수치상)
+	var scoreGameLife:Int = 0 //현재 게임 라이프. (목숨)
+	var externalLifeLeft:Int = 0 //추가로 살아날 수 있는 라이프 개수
 	
 	//피버모드.. 가 아니라 헬게이트 오픈시 바뀌는 배경색
-	var hellMode:Bool = false; //일정 레벨 도달시 오픈
+	var hellMode:Bool = false //일정 레벨 도달시 오픈
 	var hellModeBackgroundColours:Array<UIColor> = [
 		UPUtils.colorWithHexString("#790000")
 		, UPUtils.colorWithHexString("#007700")
 		, UPUtils.colorWithHexString("#00006D")
-	];
-	var hellModeBackgroundCurrentDelay:Int = 0; var hellModeBackgroundCurrentIndex:Int = 0;
-	var hellModeScreenReversed:Bool = false; //헬모드 뒤집힘.
+	]
+	var hellModeBackgroundCurrentDelay:Int = 0
+	var hellModeBackgroundCurrentIndex:Int = 0
+	var hellModeScreenReversed:Bool = false //헬모드 뒤집힘.
 	
 	//Game node arrays
-	var gameNodesArray:Array<JumpUpElements?> = [];
+	var gameNodesArray:Array<JumpUpElements?> = []
 	//Game elements textures (for *optimize*)
-	var gameNodesTexturesArray:Array<SKTexture> = [];
+	var gameNodesTexturesArray:Array<SKTexture> = []
 	
 	//AI Move sktextures (for optimize.)
-	var gameTexturesAIMoveTexturesArray:Array<SKTexture> = [];
-	var gameTexturesAIJMoveTexturesArray:Array<SKTexture> = [];
-	var gameTexturesAIJJumpTexturesArray:Array<SKTexture> = [];
+	var gameTexturesAIMoveTexturesArray:Array<SKTexture> = []
+	var gameTexturesAIJMoveTexturesArray:Array<SKTexture> = []
+	var gameTexturesAIJJumpTexturesArray:Array<SKTexture> = []
 	
-	var gameTexturesAIFlyTexturesArray:Array<SKTexture> = [];
-	var gameTexturesAIJFlyTexturesArray:Array<SKTexture> = [];
+	var gameTexturesAIFlyTexturesArray:Array<SKTexture> = []
+	var gameTexturesAIJFlyTexturesArray:Array<SKTexture> = []
 	
 	//AI from LEFT textures
-	var gameTexturesAILeftTexturesArray:Array<SKTexture> = [];
-	var gameTexturesAIJLeftTexturesArray:Array<SKTexture> = [];
+	var gameTexturesAILeftTexturesArray:Array<SKTexture> = []
+	var gameTexturesAIJLeftTexturesArray:Array<SKTexture> = []
 	
 	//AI Effect sktextures array
-	var gameTexturesAIEffectsArray:Array<Array<SKTexture>> = [];
+	var gameTexturesAIEffectsArray:Array<Array<SKTexture>> = []
 	
 	//Life nodes
-	var gameLifeNodesArray:Array<SKSpriteNode> = []; // 생성해놓고 상태 변화에 따라 그림의 변경을 줌.
-	var gameLifeOnTexture:SKTexture = SKTexture(imageNamed: "game-jumpup-assets-life-on.png");
-	var gameLifeOffTexture:SKTexture = SKTexture(imageNamed: "game-jumpup-assets-life-off.png");
+	var gameLifeNodesArray:Array<SKSpriteNode> = [] // 생성해놓고 상태 변화에 따라 그림의 변경을 줌.
+	var gameLifeOnTexture:SKTexture = SKTexture(imageNamed: "game-jumpup-assets-life-on.png")
+	var gameLifeOffTexture:SKTexture = SKTexture(imageNamed: "game-jumpup-assets-life-off.png")
 	
 	//Alarm bottom guides
 	var gameAlarmGuidesNodesArray:Array<SKSpriteNode> = [
 		SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-guide-alarm-0" ) ),
 		SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-guide-alarm-1" ) )
-	];
+	]
 	
 	//Character element
 	var characterElement:JumpUpElements?;// = JumpUpElements();
@@ -516,13 +519,22 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		buttonRetireSprite.zPosition = 3;
 		
 		//알람끄기 버튼.
-		buttonAlarmOffSprite.size = buttonRetireSprite.size;
-		buttonAlarmOffSprite.position.x = self.view!.frame.width / 2;
-		buttonAlarmOffSprite.position.y = -buttonAlarmOffSprite.size.height / 2; //화면 밖에 배치
-		buttonAlarmOffSprite.alpha = 0;
-		self.addChild(buttonAlarmOffSprite);
-		buttonAlarmOffSprite.name = "button_alarm_off";
-		buttonAlarmOffSprite.zPosition = 3;
+		
+		if (PurchaseManager.purchasedItems[PurchaseManager.ProductsID.ExpansionPack.rawValue] == true) {
+			//확장팩 결제자에게는 일반 해제버튼 표시
+			buttonAlarmOffSprite = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-alram-off.png" ) )
+		} else {
+			//확장팩 미결제한 사람에게는 광고 그림도 같이 나오게 수정된 파일로 표시
+			buttonAlarmOffSprite = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-alarm-ad-off.png" ) )
+		}
+		
+		buttonAlarmOffSprite!.size = buttonRetireSprite.size;
+		buttonAlarmOffSprite!.position.x = self.view!.frame.width / 2;
+		buttonAlarmOffSprite!.position.y = -buttonAlarmOffSprite!.size.height / 2; //화면 밖에 배치
+		buttonAlarmOffSprite!.alpha = 0;
+		self.addChild(buttonAlarmOffSprite!);
+		buttonAlarmOffSprite!.name = "button_alarm_off";
+		buttonAlarmOffSprite!.zPosition = 3;
 		
 		//터치 레이어 만들기 (스와이프)
 		swipeTouchLayer.name = "touchlayer";
@@ -1754,20 +1766,20 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//게임오버 처리 *use only UI available*
 		
 		//메뉴 제거, 게임 끝, 일시정지는 해제한 상태로.
-		isMenuVisible = false;
-		gameFinishedBool = true;
-		isGamePaused = false;
-		uiContents!.menuPausedOverlay.isHidden = false; //오버레이는 띄움
+		isMenuVisible = false
+		gameFinishedBool = true
+		isGamePaused = false
+		uiContents!.menuPausedOverlay.isHidden = false //오버레이는 띄움
 		
 		//게임오버 창 띄우기
-		externalLifeLeft -= 1;
+		externalLifeLeft -= 1
 		
 		if (externalLifeLeft == 0) {
 			//완전 게임오버
-			uiContents!.showUISelectionWindow( 3 );
+			uiContents!.showUISelectionWindow( 3 )
 		} else {
 			//컨티뉴 게임오버
-			uiContents!.showUISelectionWindow( 2 );
+			uiContents!.showUISelectionWindow( 2 )
 		}
 		
 	} ////// 끝
@@ -1779,15 +1791,15 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		
 		//161025
 		if (isGamePaused == true) {
-			return; //게임 일시정지 된 경우 틱 정지
+			return //게임 일시정지 된 경우 틱 정지
 		}
 		
 		if (gameScore <= 0) {
-			print("Game is over");
-			gameFinishedBool = true;
+			print("Game is over")
+			gameFinishedBool = true
 			
-			gameSecondTickTimer!.invalidate();
-			gameSecondTickTimer = nil;
+			gameSecondTickTimer!.invalidate()
+			gameSecondTickTimer = nil
 			
 			//게임 끝. 알람끄기 버튼 표시.
 			
@@ -1806,13 +1818,13 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			}
 			
 			print("Showing off button");
-			buttonAlarmOffSprite.alpha = 1;
-			let moveEffect = SKTMoveEffect(node: buttonAlarmOffSprite, duration: 0.5 ,
-				startPosition: CGPoint( x: buttonAlarmOffSprite.position.x, y: buttonAlarmOffSprite.position.y ),
-				endPosition: CGPoint( x: buttonAlarmOffSprite.position.x, y: buttonYAxis)
+			buttonAlarmOffSprite!.alpha = 1;
+			let moveEffect = SKTMoveEffect(node: buttonAlarmOffSprite!, duration: 0.5 ,
+				startPosition: CGPoint( x: buttonAlarmOffSprite!.position.x, y: buttonAlarmOffSprite!.position.y ),
+				endPosition: CGPoint( x: buttonAlarmOffSprite!.position.x, y: buttonYAxis)
 			);
 			moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
-			buttonAlarmOffSprite.run(
+			buttonAlarmOffSprite!.run(
 				SKAction.actionWithEffect(moveEffect));
 			
 			//Game guide animation
@@ -1987,11 +1999,15 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		                                 touchTotal: statsGameTouchCount,
 		                                 validTotal: statsGameValidTouchCount)
 		
-		
-		//// 알람으로 켜진 경우에만 로그를 남김
-		if (gameStartupType == 0) {
-			logAlarmGame()
-		} // end if
+		let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds()
+		let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970))
+		if (abs(nextAlarmLeft) > AlarmManager.alarmForceStopAvaliableSeconds) {
+			//알람 해제 1시간이 지나버린 경우엔 기록을 남기지 않음
+		} else { //// 알람으로 켜진 경우에만 로그를 남김
+			if (gameStartupType == 0) {
+				logAlarmGame()
+			} // end if
+		}
 		
 		AlarmManager.gameClearToggle( Date(), cleared: true )
 		

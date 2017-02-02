@@ -6,41 +6,42 @@
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
-import Foundation;
-import SpriteKit;
-import UIKit;
+import Foundation
+import SpriteKit
+import UIKit
+import Gifu
 
 class GameTitleViewJumpUP:UIViewController {
 	
 	//Loading indicator
-	var loadingIndicatorView:UIActivityIndicatorView = UIActivityIndicatorView();
+	var loadingIndicatorView:GIFImageView?
 	
 	//Game title (red, white, skyblue)
-	var gameTitleLabel:UILabel = UILabel();
-	var gameTitleRedLabel:UILabel = UILabel();
-	var gameTitleSkyblueLabel:UILabel = UILabel();
+	var gameTitleLabel:UILabel = UILabel()
+	var gameTitleRedLabel:UILabel = UILabel()
+	var gameTitleSkyblueLabel:UILabel = UILabel()
 	
-	var gameThumbnailsBackgroundImage:UIImageView = UIImageView();
-	var gameThumbnailsImage:UIImageView = UIImageView();
+	var gameThumbnailsBackgroundImage:UIImageView = UIImageView()
+	var gameThumbnailsImage:UIImageView = UIImageView()
 	
 	//Start button
-	var gameStartButtonImage:UIImageView = UIImageView();
+	var gameStartButtonImage:UIImageView = UIImageView()
 	//Auto-start in GameMode
-	var gameAutostartCountdownText:UILabel = UILabel();
+	var gameAutostartCountdownText:UILabel = UILabel()
 	
 	//SKView (Game view) and game scene
-	var gameView:SKView = SKView();
-	var jumpUPGameScene:JumpUPGame?;
+	var gameView:SKView = SKView()
+	var jumpUPGameScene:JumpUPGame?
 	
-	let gameTitleLabelYAxis:CGFloat = 128 * DeviceManager.scrRatioC;
-	let gameThumbsSize:CGFloat = 180 * DeviceManager.maxScrRatioC;
+	let gameTitleLabelYAxis:CGFloat = 128 * DeviceManager.scrRatioC
+	let gameThumbsSize:CGFloat = 180 * DeviceManager.maxScrRatioC
 	
-	var isGameMode:Bool = false; //알람이 아닌, 스코어가 오르는 게임 모드인 경우
+	var isGameMode:Bool = false //알람이 아닌, 스코어가 오르는 게임 모드인 경우
 	
-	var aStartTimer:Timer?; //자동 게임시작 카운트다운 타이머
-	var aPreloadCheckTimer:Timer?; //Preload check timer
+	var aStartTimer:Timer? //자동 게임시작 카운트다운 타이머
+	var aPreloadCheckTimer:Timer? //Preload check timer
 	
-	var aStartLeft:Int = 3;
+	var aStartLeft:Int = 3
 	
 	var preloadCompleted:Bool = false
 	
@@ -48,11 +49,11 @@ class GameTitleViewJumpUP:UIViewController {
 		// view init func
 		self.view.backgroundColor = UIColor.black //black col
 		
-		loadingIndicatorView.frame = CGRect(x: self.view.frame.width / 2, y: self.view.frame.height / 2, width: 32, height: 32)
-		loadingIndicatorView.center = self.view!.center
-		loadingIndicatorView.hidesWhenStopped = false
-		loadingIndicatorView.activityIndicatorViewStyle = .white
-		self.view.addSubview(loadingIndicatorView)
+		loadingIndicatorView = GIFImageView(frame: CGRect(x: self.view.frame.width / 2, y: self.view.frame.height / 2, width: 24, height: 24))
+		loadingIndicatorView!.center = self.view!.center
+		loadingIndicatorView!.contentMode = .scaleAspectFit
+		loadingIndicatorView!.animate(withGIFNamed: "comp-loading-preloader.gif")
+		self.view.addSubview(loadingIndicatorView!)
 		
 		super.viewDidLoad()
 	}
@@ -62,7 +63,7 @@ class GameTitleViewJumpUP:UIViewController {
 			return;
 		}
 		
-		loadingIndicatorView.startAnimating()
+		loadingIndicatorView!.isHidden = false
 		print("JumpUP gameview appear event")
 		
 		//View load func
@@ -159,7 +160,7 @@ class GameTitleViewJumpUP:UIViewController {
 		SoundManager.playBGMSound(SoundManager.bundleSounds.GameReadyBGM.rawValue, repeatCount: -1)
 		
 		//View fade-in effect
-		loadingIndicatorView.stopAnimating();
+		loadingIndicatorView!.isHidden = true
 		
 		if (isGameMode == false) {
 			//alarm mode
