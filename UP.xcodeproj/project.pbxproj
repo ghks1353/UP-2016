@@ -195,6 +195,17 @@
 		7717A6F71E4267D000076E16 /* comp-icons-settings-donate.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F61E4267D000076E16 /* comp-icons-settings-donate.png */; };
 		7717A6FA1E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F91E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png */; };
 		7717A6FC1E43510000076E16 /* comp-loading-preloader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6FB1E43510000076E16 /* comp-loading-preloader.gif */; };
+		7717A6FE1E4382C200076E16 /* comp-showguide-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6FD1E4382C200076E16 /* comp-showguide-icon.png */; };
+		7717A7031E43885900076E16 /* UIOverlayGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7717A7021E43885900076E16 /* UIOverlayGuideView.swift */; };
+		7717A7051E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */; };
+		7717A7071E439D7900076E16 /* comp-guideclose-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A7061E439D7900076E16 /* comp-guideclose-icon.png */; };
+		7717A7101E439DB100076E16 /* skin-default-guide-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70A1E439DB100076E16 /* skin-default-guide-astro.png */; };
+		7717A7111E439DB100076E16 /* skin-default-guide-buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70B1E439DB100076E16 /* skin-default-guide-buy.png */; };
+		7717A7121E439DB100076E16 /* skin-default-guide-center.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70C1E439DB100076E16 /* skin-default-guide-center.png */; };
+		7717A7131E439DB100076E16 /* skin-default-guide-ground-hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70D1E439DB100076E16 /* skin-default-guide-ground-hover.png */; };
+		7717A7141E439DB100076E16 /* skin-default-guide-ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70E1E439DB100076E16 /* skin-default-guide-ground.png */; };
+		7717A7151E439DB100076E16 /* skin-default-guide-stats.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70F1E439DB100076E16 /* skin-default-guide-stats.png */; };
+		7717A7171E43A99F00076E16 /* MainOverlayGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7717A7161E43A99F00076E16 /* MainOverlayGuideView.swift */; };
 		771ABC411D45DE8700938D1B /* CharacterSkinMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */; };
 		771ABC4A1D45DFDB00938D1B /* themes-main-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC491D45DFDB00938D1B /* themes-main-background.png */; };
 		771ABC5D1D46283B00938D1B /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC5C1D46283B00938D1B /* UnityAds.framework */; };
@@ -630,6 +641,17 @@
 		7717A6F61E4267D000076E16 /* comp-icons-settings-donate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-donate.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-donate.png"; sourceTree = "<group>"; };
 		7717A6F91E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-alarm-ad-off.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-alarm-ad-off.png"; sourceTree = "<group>"; };
 		7717A6FB1E43510000076E16 /* comp-loading-preloader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "comp-loading-preloader.gif"; path = "ImageAssets/Components/comp-loading-preloader.gif"; sourceTree = "<group>"; };
+		7717A6FD1E4382C200076E16 /* comp-showguide-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-showguide-icon.png"; path = "ImageAssets/Components/comp-showguide-icon.png"; sourceTree = "<group>"; };
+		7717A7021E43885900076E16 /* UIOverlayGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIOverlayGuideView.swift; path = Views/UIOverlayGuideView.swift; sourceTree = "<group>"; };
+		7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-nyancat.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-nyancat.aiff"; sourceTree = "<group>"; };
+		7717A7061E439D7900076E16 /* comp-guideclose-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-guideclose-icon.png"; path = "ImageAssets/Components/comp-guideclose-icon.png"; sourceTree = "<group>"; };
+		7717A70A1E439DB100076E16 /* skin-default-guide-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-astro.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-astro.png"; sourceTree = "<group>"; };
+		7717A70B1E439DB100076E16 /* skin-default-guide-buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-buy.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-buy.png"; sourceTree = "<group>"; };
+		7717A70C1E439DB100076E16 /* skin-default-guide-center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-center.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-center.png"; sourceTree = "<group>"; };
+		7717A70D1E439DB100076E16 /* skin-default-guide-ground-hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-ground-hover.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-ground-hover.png"; sourceTree = "<group>"; };
+		7717A70E1E439DB100076E16 /* skin-default-guide-ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-ground.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-ground.png"; sourceTree = "<group>"; };
+		7717A70F1E439DB100076E16 /* skin-default-guide-stats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-stats.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-stats.png"; sourceTree = "<group>"; };
+		7717A7161E43A99F00076E16 /* MainOverlayGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainOverlayGuideView.swift; path = Views/MainOverlayGuideView.swift; sourceTree = "<group>"; };
 		771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSkinMainView.swift; path = ModalView/CharacterSkinMainView.swift; sourceTree = "<group>"; };
 		771ABC491D45DFDB00938D1B /* themes-main-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-main-background.png"; path = "ImageAssets/ModalWindows/Themes/themes-main-background.png"; sourceTree = "<group>"; };
 		771ABC5C1D46283B00938D1B /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UnityAds.framework; sourceTree = "<group>"; };
@@ -1091,6 +1113,8 @@
 				03425B971CD0670800243B28 /* comp-cell-check.png */,
 				7717A6F41E42679200076E16 /* comp-buyup-icon.png */,
 				7717A6FB1E43510000076E16 /* comp-loading-preloader.gif */,
+				7717A6FD1E4382C200076E16 /* comp-showguide-icon.png */,
+				7717A7061E439D7900076E16 /* comp-guideclose-icon.png */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -1327,6 +1351,27 @@
 			name = Objects;
 			sourceTree = "<group>";
 		};
+		7717A7081E439D9100076E16 /* Guides */ = {
+			isa = PBXGroup;
+			children = (
+				7717A7091E439D9E00076E16 /* Default */,
+			);
+			name = Guides;
+			sourceTree = "<group>";
+		};
+		7717A7091E439D9E00076E16 /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				7717A70A1E439DB100076E16 /* skin-default-guide-astro.png */,
+				7717A70B1E439DB100076E16 /* skin-default-guide-buy.png */,
+				7717A70C1E439DB100076E16 /* skin-default-guide-center.png */,
+				7717A70D1E439DB100076E16 /* skin-default-guide-ground-hover.png */,
+				7717A70E1E439DB100076E16 /* skin-default-guide-ground.png */,
+				7717A70F1E439DB100076E16 /* skin-default-guide-stats.png */,
+			);
+			name = Default;
+			sourceTree = "<group>";
+		};
 		771ABC481D45DFD000938D1B /* Themes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1426,13 +1471,11 @@
 			isa = PBXGroup;
 			children = (
 				032318AE1CF8BA4D0052732F /* AchievementElement.swift */,
-				03DDD7F61CEB990D007C026D /* AnimatedImg.swift */,
 				03DDD7F71CEB990D007C026D /* GameInfoObj.swift */,
 				03DDD7F81CEB990D007C026D /* SettingsElement.swift */,
 				03DDD7F91CEB990D007C026D /* SoundInfoObj.swift */,
 				03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */,
 				03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */,
-				779A1F331DBE32F0008D3FC3 /* StrArrayFormatter.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1491,6 +1534,7 @@
 				77C54E4D1C9EC02B00013F9D /* DigitalClock */,
 				77C54D671C9EC00D00013F9D /* Character */,
 				77802D201C8060A100766DB0 /* Backgrounds */,
+				7717A7081E439D9100076E16 /* Guides */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -1696,6 +1740,7 @@
 				77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */,
 				7732D2CE1DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff */,
 				7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */,
+				7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */,
 			);
 			name = Alarms;
 			sourceTree = "<group>";
@@ -1809,6 +1854,8 @@
 				03DDD81C1CEB99D1007C026D /* AlarmRingView.swift */,
 				032536C31D1B4174004C6293 /* GameModeView.swift */,
 				03DEB7C91D25E0260086BEAD /* StartGuideView.swift */,
+				7717A7021E43885900076E16 /* UIOverlayGuideView.swift */,
+				7717A7161E43A99F00076E16 /* MainOverlayGuideView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1887,6 +1934,8 @@
 			isa = PBXGroup;
 			children = (
 				03DDD8051CEB992D007C026D /* UPUtils.swift */,
+				779A1F331DBE32F0008D3FC3 /* StrArrayFormatter.swift */,
+				03DDD7F61CEB990D007C026D /* AnimatedImg.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -2191,6 +2240,7 @@
 				775EAFA91D51E2EF00BE8C4A /* game-jumpup-assets-trap.png in Resources */,
 				775EAFA21D51E2EF00BE8C4A /* game-jumpup-assets-cloud-6.png in Resources */,
 				775EAF991D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png in Resources */,
+				7717A7111E439DB100076E16 /* skin-default-guide-buy.png in Resources */,
 				0323191E1CFB5C7B0052732F /* characterinfo-exp-deco-20.png in Resources */,
 				77561E891D50C86B002EB26B /* b-time-off-pad.png in Resources */,
 				7732D2D11DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff in Resources */,
@@ -2244,13 +2294,16 @@
 				77561DCE1D50C1BF002EB26B /* skin-default-c-back.png in Resources */,
 				03E1D1291CF0BC7000B552FC /* characterinfo-level-wrapper.png in Resources */,
 				775EAF981D51E2EF00BE8C4A /* game-jumpup-assets-alram-off.png in Resources */,
+				7717A7051E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff in Resources */,
 				0391ABCD1D25B4A00051F3A6 /* game-general-window-btn-close.png in Resources */,
 				775EAFBB1D51E3D200BE8C4A /* game-jumpup-astro-default-move-1.png in Resources */,
 				77561DB21D5066DA002EB26B /* comp-icons-settings-language.png in Resources */,
 				03425BA91CD389E100243B28 /* comp-icons-settings-experiments.png in Resources */,
+				7717A7151E439DB100076E16 /* skin-default-guide-stats.png in Resources */,
 				032319211CFB5C7B0052732F /* characterinfo-exp-deco-23.png in Resources */,
 				0323191B1CFB5C7B0052732F /* characterinfo-exp-deco-17.png in Resources */,
 				03B18E721D22CC3200972101 /* game-general-menu-info.png in Resources */,
+				7717A7101E439DB100076E16 /* skin-default-guide-astro.png in Resources */,
 				772BB1D21DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-4.png in Resources */,
 				775EB0281D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect4.png in Resources */,
 				77561E471D50C2F2002EB26B /* skin-default-black-0.png in Resources */,
@@ -2260,7 +2313,9 @@
 				77561E301D50C2E1002EB26B /* skin-default-0.png in Resources */,
 				775EAF9F1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-3.png in Resources */,
 				03425B911CD0635700243B28 /* comp-icons-settings-newgames.png in Resources */,
+				7717A7121E439DB100076E16 /* skin-default-guide-center.png in Resources */,
 				772BB1C51DE8BD250054B3EF /* game-jumpup-ai-astro-fly-0.png in Resources */,
+				7717A7071E439D7900076E16 /* comp-guideclose-icon.png in Resources */,
 				775EAF9B1D51E2EF00BE8C4A /* game-jumpup-assets-box.png in Resources */,
 				032319131CFB5C7B0052732F /* characterinfo-exp-deco-9.png in Resources */,
 				03B18E4C1D20DB5800972101 /* modal-guide-images-all-1-general.png in Resources */,
@@ -2276,6 +2331,7 @@
 				77561E9A1D50C884002EB26B /* b-time-on-small.png in Resources */,
 				77561E7C1D50C85D002EB26B /* c-time-on.png in Resources */,
 				03E1D1311CF1BCF400B552FC /* characterinfo-gamecenter.png in Resources */,
+				7717A6FE1E4382C200076E16 /* comp-showguide-icon.png in Resources */,
 				772BB1B51DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-0.png in Resources */,
 				032319171CFB5C7B0052732F /* characterinfo-exp-deco-13.png in Resources */,
 				775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */,
@@ -2326,6 +2382,7 @@
 				772BB1AE1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-3.png in Resources */,
 				77561EA81D50CAB9002EB26B /* skin-default-object-list-shadow.png in Resources */,
 				772BB1B81DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-3.png in Resources */,
+				7717A7141E439DB100076E16 /* skin-default-guide-ground.png in Resources */,
 				03B18E681D22C54600972101 /* comp-icons-shop-buy.png in Resources */,
 				775EAFB01D51E3B900BE8C4A /* game-jumpup-astro-default-jump-1.png in Resources */,
 				77561DC31D50C1BF002EB26B /* skin-default-a-back-4s.png in Resources */,
@@ -2412,6 +2469,7 @@
 				03425B8E1CD0635700243B28 /* comp-icons-settings-developers.png in Resources */,
 				03425B981CD0670800243B28 /* comp-cell-arrow.png in Resources */,
 				77561DD11D50C1BF002EB26B /* skin-default-d-back-pad43.png in Resources */,
+				7717A7131E439DB100076E16 /* skin-default-guide-ground-hover.png in Resources */,
 				77561E351D50C2E1002EB26B /* skin-default-5.png in Resources */,
 				77561E8B1D50C86B002EB26B /* c-time-off-pad.png in Resources */,
 				03425B781CCEB2E400243B28 /* modal-back.png in Resources */,
@@ -2510,6 +2568,7 @@
 				03DDD8101CEB9990007C026D /* UITouchableSegmentControl.swift in Sources */,
 				779A1F341DBE32F0008D3FC3 /* StrArrayFormatter.swift in Sources */,
 				03DDD81D1CEB99D1007C026D /* AlarmRingView.swift in Sources */,
+				7717A7171E43A99F00076E16 /* MainOverlayGuideView.swift in Sources */,
 				03E1D1331CF3020B00B552FC /* CharacterInfo.swift in Sources */,
 				03DDD7FE1CEB990D007C026D /* GameInfoObj.swift in Sources */,
 				03DDD7F21CEB98D2007C026D /* GlobalSubView.swift in Sources */,
@@ -2520,6 +2579,7 @@
 				032536C61D1B5333004C6293 /* CreditsPopView.swift in Sources */,
 				03E1D1351CF32DB600B552FC /* CharacterManager.swift in Sources */,
 				03DDD8231CEB9A0F007C026D /* AlarmElements.swift in Sources */,
+				7717A7031E43885900076E16 /* UIOverlayGuideView.swift in Sources */,
 				032536D51D1ED333004C6293 /* IndieGamesView.swift in Sources */,
 				03DDD7E61CEB9884007C026D /* ExperimentsAlarmsSetupView.swift in Sources */,
 				03DDD7F51CEB98D2007C026D /* SoundManager.swift in Sources */,

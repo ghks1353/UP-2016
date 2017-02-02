@@ -15,26 +15,26 @@ import FirebaseInstanceID;
 class ExperimentsTestInfo:UIViewController {
 	
 	//클래스 외부접근을 위함
-	static var selfView:ExperimentsTestInfo?;
+	static var selfView:ExperimentsTestInfo?
 	
-	var infoScrollView:UIScrollView = UIScrollView();
+	var infoScrollView:UIScrollView = UIScrollView()
 	
-	var infoLabel:UILabel = UILabel();
-	var infoCopyButton:UIButton = UIButton();
+	var infoLabel:UILabel = UILabel()
+	var infoCopyButton:UIButton = UIButton()
 	
 	
 	override func viewDidLoad() {
-		super.viewDidLoad();
-		ExperimentsTestInfo.selfView = self;
+		super.viewDidLoad()
+		ExperimentsTestInfo.selfView = self
 		
-		self.view.backgroundColor = UIColor.clear;
+		self.view.backgroundColor = UIColor.clear
 		
 		//ModalView
-		self.view.backgroundColor = UIColor.white;
-		self.title = "Debug info";
+		self.view.backgroundColor = UIColor.white
+		self.title = "Debug info"
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
 		navLeftPadding.width = -12; //Button left padding
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
 		navCloseButton.setImage( UIImage(named: "modal-back"), for: UIControlState());

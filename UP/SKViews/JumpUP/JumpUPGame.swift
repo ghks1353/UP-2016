@@ -1675,27 +1675,27 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				break;
 			case 10005:
 				//Shadow (small)
-				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[12] );
-				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
-				toAddelement!.size = CGSize( width: 104.5 * DeviceManager.scrRatioC, height: 36.15 * DeviceManager.scrRatioC );
-				toAddelement!.position.x = posX;
-				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2); //big, small구름은 땅에박음
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[12] )
+				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT
+				toAddelement!.size = CGSize( width: 104.5 * DeviceManager.scrRatioC, height: 36.15 * DeviceManager.scrRatioC )
+				toAddelement!.position.x = posX
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2) //big, small구름은 땅에박음
 				
 				//약간의 위치조정.
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 );
-				toAddelement!.elementTargetElement = targetElement;
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 )
+				toAddelement!.elementTargetElement = targetElement
 				
 				if (targetElement == nil) {
-					print("effect target is null.");
+					print("effect target is null.")
 				}
 				
-				toAddelement!.elementSpeed = targetElement!.elementSpeed; //follow original target element speed
-				toAddelement!.motions_current = -1; //그림자는 모션없음
-				toAddelement!.elementFlag = 0;
+				toAddelement!.elementSpeed = targetElement!.elementSpeed //follow original target element speed
+				toAddelement!.motions_current = -1 //그림자는 모션없음
+				toAddelement!.elementFlag = 0
 				
-				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW;
-				targetElement!.removeFromParent();
-				addTargetChild = true;
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW
+				targetElement!.removeFromParent()
+				addTargetChild = true
 				break;
 			//10007까지 있음. (위에 10002에서 씀)
 			
@@ -1935,7 +1935,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	}
 	func gameADWatchCallb() {
 		//광고 보고 게임 이어하기 기능
-		UnityAdsManager.showUnityAD(GameModeView.jumpUPStartupViewController!, placementID: UnityAdsManager.PLACEMENT_GAMECONTINUE, callbackFunction: gameADWatchFinishedCallback);
+		UnityAdsManager.showUnityAD(GameModeView.jumpUPStartupViewController!, placementID: UnityAdsManager.PlacementAds.gameContinueAD.rawValue, callbackFunction: gameADWatchFinishedCallback);
 	}
 	func gameADWatchFinishedCallback() {
 		print("AD Finished");
@@ -2007,7 +2007,23 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			if (gameStartupType == 0) {
 				logAlarmGame()
 			} // end if
-		}
+		} //end if [1 hour pass check]
+		
+		if (gameStartupType == 0) { //알람으로 켜진 경우 확장팩 결제를 검사하여, 결제되지 않은경우 광고를 보여줌
+			if (PurchaseManager.purchasedItems[PurchaseManager.ProductsID.ExpansionPack.rawValue] == true) {
+				//확장팩 결제함
+				alarmADFinishedCallback()
+			} else {
+				//광고 보고 가실게요!
+				UnityAdsManager.showUnityAD(AlarmRingView.jumpUPStartupViewController!, placementID: UnityAdsManager.PlacementAds.alarmFinishAD.rawValue, callbackFunction: alarmADFinishedCallback)
+			} //end if [Purchase]
+		} //end if [gameStartupType]
+		
+	} //end func exit
+	
+	func alarmADFinishedCallback() {
+		//광고 본 후의 알람 해제 및 화면 이동
+		//확장팩 결제의 경우 바로 이쪽으로 넘어옴.
 		
 		AlarmManager.gameClearToggle( Date(), cleared: true )
 		
@@ -2016,6 +2032,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		
 		AlarmRingView.selfView!.dismiss(animated: false, completion: nil)
 		GlobalSubView.alarmRingViewcontroller.dismiss(animated: true, completion: nil)
-	}
+		
+	} //end func
 	
 } //end of class

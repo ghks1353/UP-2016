@@ -35,23 +35,26 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class ViewController: UIViewController {
 	
-	static var selfView:ViewController?;
+	static var selfView:ViewController?
 	
 	//Modal views
-	var modalSettingsView:SettingsView = SettingsView();
-	var modalAlarmListView:AlarmListView = AlarmListView();
-	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
-	var modalAlarmStatsView:StatisticsView = StatisticsView();
-	var modalCharacterInformationView:CharacterInfoView = CharacterInfoView();
-	var modalPlayGameview:GamePlayView = GamePlayView();
-	var modalGameResultView:GameResultView = GlobalSubView.alarmGameResultView;
-	var modalGamePlayWindowView:GamePlayWindowView = GlobalSubView.alarmGamePlayWindowView;
-	var modalWebView:ModalWebView = ModalWebView();
+	var modalSettingsView:SettingsView = SettingsView()
+	var modalAlarmListView:AlarmListView = AlarmListView()
+	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView
+	var modalAlarmStatsView:StatisticsView = StatisticsView()
+	var modalCharacterInformationView:CharacterInfoView = CharacterInfoView()
+	var modalPlayGameview:GamePlayView = GamePlayView()
+	var modalGameResultView:GameResultView = GlobalSubView.alarmGameResultView
+	var modalGamePlayWindowView:GamePlayWindowView = GlobalSubView.alarmGamePlayWindowView
+	var modalWebView:ModalWebView = ModalWebView()
+	
+	//Overlay view
+	var overlayGuideView:MainOverlayGuideView = MainOverlayGuideView()
 	
 	//Digital 시계
 	var DigitalNum0:UIImageView = UIImageView(); var DigitalNum1:UIImageView = UIImageView();
 	var DigitalNum2:UIImageView = UIImageView(); var DigitalNum3:UIImageView = UIImageView();
-	var DigitalCol:UIImageView = UIImageView();
+	var DigitalCol:UIImageView = UIImageView()
 	
 	//AM / PM
 	var digitalAMPMIndicator:UIImageView = UIImageView();
@@ -72,42 +75,46 @@ class ViewController: UIViewController {
 	var GroundStandingBox:UIImageView = UIImageView(); var GroundFloatingBox:UIImageView = UIImageView();
 	
 	//고정 박스 터치에어리어
-	var groundBoxToucharea:UIView = UIView();
+	var groundBoxToucharea:UIView = UIView()
 	
 	//스탠딩 모션
-    var astroMotionsStanding:Array<UIImage> = [];
+    var astroMotionsStanding:Array<UIImage> = []
 	
 	//////////
 	//뒷 배경 이미지 (시간에 따라 변경되며 변경 시간대마다 한번씩 fade)
-	var backgroundImageView:UIImageView = UIImageView();
-	var backgroundImageFadeView:UIImageView = UIImageView();
-	var currentBackgroundImage:String = "a"; //default background
-	var currentGroundImage:String = "a"; //default ground
+	var backgroundImageView:UIImageView = UIImageView()
+	var backgroundImageFadeView:UIImageView = UIImageView()
+	var currentBackgroundImage:String = "a" //default background
+	var currentGroundImage:String = "a" //default ground
 	
 	///// 메인 애니메이션용 값 저장 배열.
-	var mainAnimatedObjs:Array<AnimatedImg> = Array<AnimatedImg>();
+	var mainAnimatedObjs:Array<AnimatedImg> = Array<AnimatedImg>()
 	
 	//위쪽에서 내려오는 알람 메시지를 위한 뷰
 	var upAlarmMessageView:UIView = UIView(); var upAlarmMessageText:UILabel = UILabel();
 	
+	//UP 확장팩 구매 유도 버튼 및 도움말 표시 버튼
+	var upExtPackButton:UIImageView = UIImageView()
+	var upLayerGuideShowButton:UIImageView = UIImageView()
+	
 	//screen blur view
-	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark));
+	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
 	
 	//// 앱 실행 시 한번만, 웹브라우저 띄우기 (공지사항 같은)
-	var isNoticeCalled:Bool = false;
+	var isNoticeCalled:Bool = false
 	
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
-        super.viewDidLoad();
+        super.viewDidLoad()
 		
 		//statusbar
-		UIApplication.shared.setStatusBarHidden(false, with: .fade);
+		UIApplication.shared.setStatusBarHidden(false, with: .fade)
 		
 		//Init device size factor
-        DeviceManager.initialDeviceSize();
+        DeviceManager.initialDeviceSize()
 		
 		//클래스 외부접근
-		ViewController.selfView = self;
+		ViewController.selfView = self
 		
 		//Startup permission request
 		if #available(iOS 10.0, *) {
@@ -115,7 +122,7 @@ class ViewController: UIViewController {
 				options: [.alert,.sound,.badge],
 				completionHandler: { (granted,error) in
 					if (error == nil) {
-						UIApplication.shared.registerForRemoteNotifications();
+						UIApplication.shared.registerForRemoteNotifications()
 					} else {
 						//alarm auth regist fallback 넣어야함 (알림설정 해주세요)
 					} //end if
@@ -124,9 +131,9 @@ class ViewController: UIViewController {
 		} else {
 			// Fallback on earlier versions
 			let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-			UIApplication.shared.registerUserNotificationSettings(notificationSettings);
-			UIApplication.shared.registerForRemoteNotifications();
-		};
+			UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+			UIApplication.shared.registerForRemoteNotifications()
+		}
 		
 		
 		//Background image add.
@@ -149,50 +156,59 @@ class ViewController: UIViewController {
 		
 		self.view.addSubview(GroundStandingBox); self.view.addSubview(GroundFloatingBox);
 		
+		//UP 구매버튼, 가이드 보기 버튼
+		self.view.addSubview(upExtPackButton)
+		self.view.addSubview(upLayerGuideShowButton)
+		
 		//약간 투명하게 조정
-		SettingsImg.alpha = 1; AlarmListImg.alpha = 1;
+		SettingsImg.alpha = 1
+		AlarmListImg.alpha = 1
 		
 		//toucharea view add
-		AnalogBodyToucharea.backgroundColor = UIColor.clear;
-		groundBoxToucharea.backgroundColor = UIColor.clear;
-		self.view.addSubview(groundBoxToucharea);
-		self.view.addSubview(AnalogBodyToucharea);
+		AnalogBodyToucharea.backgroundColor = UIColor.clear
+		groundBoxToucharea.backgroundColor = UIColor.clear
+		self.view.addSubview(groundBoxToucharea)
+		self.view.addSubview(AnalogBodyToucharea)
 		
 		//리소스 우선순위 설정
-		self.view.bringSubview(toFront: DigitalCol);
+		self.view.bringSubview(toFront: DigitalCol)
 		self.view.bringSubview(toFront: DigitalNum0); self.view.bringSubview(toFront: DigitalNum1);
 		self.view.bringSubview(toFront: DigitalNum2); self.view.bringSubview(toFront: DigitalNum3);
-		self.view.bringSubview(toFront: digitalAMPMIndicator);
+		self.view.bringSubview(toFront: digitalAMPMIndicator)
 		
-		self.view.bringSubview(toFront: AnalogBody);
+		self.view.bringSubview(toFront: AnalogBody)
 		self.view.bringSubview(toFront: AnalogHours); self.view.bringSubview(toFront: AnalogMinutes);
 		self.view.bringSubview(toFront: AnalogSeconds); self.view.bringSubview(toFront: AnalogCenter);
 		
 		self.view.bringSubview(toFront: GroundObj); self.view.bringSubview(toFront: AstroCharacter);
-		self.view.bringSubview(toFront: GroundStatSign);
-		self.view.bringSubview(toFront: AnalogBodyToucharea);
+		self.view.bringSubview(toFront: GroundStatSign)
+		self.view.bringSubview(toFront: AnalogBodyToucharea)
 		
 		self.view.bringSubview(toFront: GroundStandingBox); self.view.bringSubview(toFront: GroundFloatingBox);
-		self.view.bringSubview(toFront: groundBoxToucharea);
+		self.view.bringSubview(toFront: groundBoxToucharea)
 		
+		/////////
+		//일부 리소스 이미지 미리 지정
+		upExtPackButton.image = UIImage( named: "comp-buyup-icon.png" )
+		upLayerGuideShowButton.image = UIImage( named: "comp-showguide-icon.png" )
 		
 		//디지털시계 이미지 기본 설정
-		DigitalCol.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "col.png" );
-		DigitalNum0.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
-		DigitalNum1.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
-		DigitalNum2.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
-		DigitalNum3.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
+		DigitalCol.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "col.png" )
+		DigitalNum0.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" )
+		DigitalNum1.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" )
+		DigitalNum2.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" )
+		DigitalNum3.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" )
 		DigitalCol.frame.size = CGSize( width: 43.5, height: 60.9 ); //디바이스별 크기 설정은 밑에서 하므로 여긴 원본 크기를 입력함.
 		
 		if (DeviceManager.is24HourMode == true) {
-			digitalAMPMIndicator.isHidden = true; //24시간에선 오전오후 표시필요가 없음
+			digitalAMPMIndicator.isHidden = true //24시간에선 오전오후 표시필요가 없음
 		}
 		
 		//기본 스킨 선택. 나중엔 저장된 스킨번호를 불러오게 변경.
-		selectMainSkin(0);
+		selectMainSkin(0)
 		
 		//Element fit to screen
-		fitViewControllerElementsToScreen( false );
+		fitViewControllerElementsToScreen( false )
 		
 		//기본 스킨이 선택된 상태에서
         AstroCharacter.animationImages = astroMotionsStanding;
@@ -202,41 +218,47 @@ class ViewController: UIViewController {
 		//////////////////// 터치 인터렉션 (메뉴 이동)
 		
         //시계 이미지 터치시
-        var tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openAlarmaddView(_:))); //openAlarmaddView
-        AnalogBodyToucharea.isUserInteractionEnabled = true;
-        AnalogBodyToucharea.addGestureRecognizer(tapGestureRecognizer);
+        var tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.openAlarmaddView(_:))); //openAlarmaddView
+        AnalogBodyToucharea.isUserInteractionEnabled = true
+        AnalogBodyToucharea.addGestureRecognizer(tGests)
         
         //환경설정 아이콘 터치시
-        tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openSettingsView(_:)))
-        SettingsImg.isUserInteractionEnabled = true;
-        SettingsImg.addGestureRecognizer(tapGestureRecognizer);
+        tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.openSettingsView(_:)))
+        SettingsImg.isUserInteractionEnabled = true
+        SettingsImg.addGestureRecognizer(tGests)
         
         //리스트 아이콘 터치시
-        tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openAlarmlistView(_:)))
-        AlarmListImg.isUserInteractionEnabled = true;
-        AlarmListImg.addGestureRecognizer(tapGestureRecognizer);
+        tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.openAlarmlistView(_:)))
+        AlarmListImg.isUserInteractionEnabled = true
+        AlarmListImg.addGestureRecognizer(tGests)
 		
 		//통계 아이콘 터치시
-		tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openStatisticsView(_:)))
-		GroundStatSign.isUserInteractionEnabled = true;
-		GroundStatSign.addGestureRecognizer(tapGestureRecognizer);
+		tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.openStatisticsView(_:)))
+		GroundStatSign.isUserInteractionEnabled = true
+		GroundStatSign.addGestureRecognizer(tGests)
 		
 		//Astro 터치 시
-		tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openCharacterInformationView(_:)))
-		AstroCharacter.isUserInteractionEnabled = true;
-		AstroCharacter.addGestureRecognizer(tapGestureRecognizer);
+		tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.openCharacterInformationView(_:)))
+		AstroCharacter.isUserInteractionEnabled = true
+		AstroCharacter.addGestureRecognizer(tGests)
 		
 		//게임 박스 터치시
-		tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(ViewController.openGamePlayView(_:)))
-		groundBoxToucharea.isUserInteractionEnabled = true;
-		groundBoxToucharea.addGestureRecognizer(tapGestureRecognizer);
+		tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.openGamePlayView(_:)))
+		groundBoxToucharea.isUserInteractionEnabled = true
+		groundBoxToucharea.addGestureRecognizer(tGests)
+		
+		
+		//가이드 버튼 터치시
+		tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.showGuideView(_:)))
+		upLayerGuideShowButton.isUserInteractionEnabled = true
+		upLayerGuideShowButton.addGestureRecognizer(tGests)
 		
 		//////////////////////////////////////
 		
 		//iOS8 blur effect
-		scrBlurView.frame = self.view.bounds;
-		scrBlurView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight];
-		scrBlurView.translatesAutoresizingMaskIntoConstraints = true;
+		scrBlurView.frame = self.view.bounds
+		scrBlurView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+		scrBlurView.translatesAutoresizingMaskIntoConstraints = true
 		
 		//FOR TEST
 		//UIApplication.sharedApplication().cancelAllLocalNotifications();
@@ -275,30 +297,31 @@ class ViewController: UIViewController {
 		} //end do catch
 		
 		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false;
+		self.view.autoresizesSubviews = false
 		
 		//Upside message initial
-		upAlarmMessageView.backgroundColor = UIColor.white; //color initial
-		upAlarmMessageText.textColor = UIColor.black;
+		upAlarmMessageView.backgroundColor = UIColor.white //color initial
+		upAlarmMessageText.textColor = UIColor.black
 		
-		upAlarmMessageText.text = "";
-		upAlarmMessageText.textAlignment = .center;
-		upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: 48);
-		upAlarmMessageText.frame = CGRect(x: 0, y: 12, width: DeviceManager.scrSize!.width, height: 24);
-		upAlarmMessageText.font = UIFont.systemFont(ofSize: 16);
-		upAlarmMessageView.addSubview(upAlarmMessageText);
+		upAlarmMessageText.text = ""
+		upAlarmMessageText.textAlignment = .center
+		upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: 48)
+		upAlarmMessageText.frame = CGRect(x: 0, y: 12, width: DeviceManager.scrSize!.width, height: 24)
+		upAlarmMessageText.font = UIFont.systemFont(ofSize: 16)
+		upAlarmMessageView.addSubview(upAlarmMessageText)
 		
-		self.view.addSubview( upAlarmMessageView ); upAlarmMessageView.isHidden = true;
+		self.view.addSubview( upAlarmMessageView )
+		upAlarmMessageView.isHidden = true
 		///// upside message inital
 		
 		//애니메이션을 위해 배열에 넣음
 		mainAnimatedObjs += [
 			AnimatedImg(targetView: GroundFloatingBox, defaultMovFactor: 1.0, defaultMovMaxFactor: 8.0, defaultMovRandomFactor: 1.0)
-		];
+		]
 		
 		///////// start update task
-		updateTimeAnimation(); //first call
-		_ = UPUtils.setInterval(0.5, block: updateTimeAnimation);
+		updateTimeAnimation() //first call
+		_ = UPUtils.setInterval(0.5, block: updateTimeAnimation)
 		
 		
 		//test
@@ -315,15 +338,15 @@ class ViewController: UIViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		//Check alarms
-		checkToCallAlarmRingingView();
+		checkToCallAlarmRingingView()
 		
 		//스타트가이드를 안 보았으면 강제로 보여주기
 		if (DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.startGuideFlag) == false) {
-			self.present(GlobalSubView.startingGuideView, animated: true, completion: nil);
+			self.present(GlobalSubView.startingGuideView, animated: true, completion: nil)
 			//modal call의 경우 스타트가이드를 보여준 상태에서는 스타트가이드 종료시 보여주도록 함
 		} else {
 			//스타트가이드를 이미 본 상태이면
-			callShowNoticeModal();
+			callShowNoticeModal()
 		}
 	}
 	
@@ -331,18 +354,18 @@ class ViewController: UIViewController {
 		
 		//Show or hide blur
 		if (show) {
-			self.view.addSubview(scrBlurView);
+			self.view.addSubview(scrBlurView)
 			scrBlurView.alpha = 0;
 			UIView.animate(withDuration: 0.32, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-				self.scrBlurView.alpha = 0.8;
-			}, completion: nil);
+				self.scrBlurView.alpha = 0.8
+			}, completion: nil)
 		} else {
 			self.scrBlurView.alpha = 0.8;
 			UIView.animate(withDuration: 0.32, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-			self.scrBlurView.alpha = 0;
+			self.scrBlurView.alpha = 0
 				}, completion: {_ in
-					self.scrBlurView.removeFromSuperview();
-			});
+					self.scrBlurView.removeFromSuperview()
+			})
 		}
 	} //end func
 	
@@ -352,65 +375,64 @@ class ViewController: UIViewController {
 		if ( AlarmManager.alarmsArray.count >= AlarmManager.alarmMaxRegisterCount ) {
 			//초과하므로, 열 수 없음
 			
-			let alarmCantAddAlert = UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("informationAlarmExceed"), preferredStyle: UIAlertControllerStyle.alert);
+			let alarmCantAddAlert = UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("informationAlarmExceed"), preferredStyle: UIAlertControllerStyle.alert)
 			alarmCantAddAlert.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 				//Nothing do
-			}));
-			present(alarmCantAddAlert, animated: true, completion: nil);
-			
+			}))
+			present(alarmCantAddAlert, animated: true, completion: nil)
 			
 		} else {
-			modalAlarmAddView.showBlur = true;
-			modalAlarmAddView.modalPresentationStyle = .overFullScreen;
+			modalAlarmAddView.showBlur = true
+			modalAlarmAddView.modalPresentationStyle = .overFullScreen
 			
-			showHideBlurview(true);
-			self.present(modalAlarmAddView, animated: false, completion: nil);
-			modalAlarmAddView.clearComponents();
+			showHideBlurview(true)
+			self.present(modalAlarmAddView, animated: false, completion: nil)
+			modalAlarmAddView.clearComponents()
 		} //end if
 		
 	} //end func
 	
     func openSettingsView (_ gestureRecognizer: UITapGestureRecognizer) {
         //환경설정 열기
-		modalSettingsView.modalPresentationStyle = .overFullScreen;
+		modalSettingsView.modalPresentationStyle = .overFullScreen
 		
-		showHideBlurview(true);
-        self.present(modalSettingsView, animated: false, completion: nil);
-		modalSettingsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+		showHideBlurview(true)
+        self.present(modalSettingsView, animated: false, completion: nil)
+		modalSettingsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false) //scroll to top
     }
 	
     func openAlarmlistView (_ gestureRecognizer: UITapGestureRecognizer) {
         //Alarmlist view 열기
-		modalAlarmListView.modalPresentationStyle = .overFullScreen;
-		showHideBlurview(true);
+		modalAlarmListView.modalPresentationStyle = .overFullScreen
+		showHideBlurview(true)
 		
-        self.present(modalAlarmListView, animated: false, completion: nil);
-		modalAlarmListView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+        self.present(modalAlarmListView, animated: false, completion: nil)
+		modalAlarmListView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false) //scroll to top
     }
 	
 	func openStatisticsView (_ gestureRecognizer: UITapGestureRecognizer) {
 		//Stats 열기
-		modalAlarmStatsView.modalPresentationStyle = .overFullScreen;
-		showHideBlurview(true);
+		modalAlarmStatsView.modalPresentationStyle = .overFullScreen
+		showHideBlurview(true)
 		
-		self.present(modalAlarmStatsView, animated: false, completion: nil);
-		modalAlarmStatsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
+		self.present(modalAlarmStatsView, animated: false, completion: nil)
+		modalAlarmStatsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false) //scroll to top
 	}
 	
-	func openCharacterInformationView(_ gestureRecognizer: UITapGestureRecognizer) {
+	func openCharacterInformationView(_ gst: UITapGestureRecognizer) {
 		//Character information 열기
-		modalCharacterInformationView.modalPresentationStyle = .overFullScreen;
-		showHideBlurview(true);
+		modalCharacterInformationView.modalPresentationStyle = .overFullScreen
+		showHideBlurview(true)
 		
-		self.present(modalCharacterInformationView, animated: false, completion: nil);
+		self.present(modalCharacterInformationView, animated: false, completion: nil)
 	}
 	
 	func openGamePlayView(_ gestureRecognizer: UITapGestureRecognizer!) {
 		//GamePlay View 열기
-		modalPlayGameview.modalPresentationStyle = .overFullScreen;
-		showHideBlurview(true);
+		modalPlayGameview.modalPresentationStyle = .overFullScreen
+		showHideBlurview(true)
 		
-		self.present(modalPlayGameview, animated: false, completion: nil);
+		self.present(modalPlayGameview, animated: false, completion: nil)
 	}
 
 	
@@ -690,7 +712,6 @@ class ViewController: UIViewController {
 				GlobalSubView.alarmRingViewcontroller.modalTransitionStyle = .crossDissolve
 				self.present(GlobalSubView.alarmRingViewcontroller, animated: true, completion: nil)
 				AlarmManager.alarmRingActivated = true
-				
 			} //end check is running
 			
 		} //end check
@@ -708,6 +729,8 @@ class ViewController: UIViewController {
 		modalGameResultView.dismiss(animated: false, completion: nil)
 		modalGamePlayWindowView.dismiss(animated: false, completion: nil)
 		modalWebView.dismiss(animated: false, completion: nil)
+		
+		overlayGuideView.dismiss(animated: false, completion: nil)
 		
 		if (!ignoreBlurView) {
 			self.showHideBlurview(false)
@@ -742,7 +765,6 @@ class ViewController: UIViewController {
 					let fImage:UIImage = UIImage( named: fileName )!
 					astroMotionsStanding += [fImage]
 				}
-
 				
 				break;
 			default: break;
@@ -786,6 +808,11 @@ class ViewController: UIViewController {
 			y: DigitalCol.frame.minY - 31 * DeviceManager.maxScrRatioC,
 			width: 28 * DeviceManager.maxScrRatioC, height: 14 * DeviceManager.maxScrRatioC)
 		
+		//UP 구매 버튼 위치 및 크기지정
+		upExtPackButton.frame = CGRect( x: 18 * DeviceManager.maxScrRatioC, y: 34 * DeviceManager.maxScrRatioC,
+		                                width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
+		upLayerGuideShowButton.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: upExtPackButton.frame.minY, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
+		
 		//시계 바디 및 시침 분침 위치/크기조절
 		let clockScrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 - (CGFloat(240 * DeviceManager.maxScrRatioC) / 2))
 		let clockRightScrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 + (CGFloat(240 * DeviceManager.maxScrRatioC) / 2))
@@ -811,7 +838,7 @@ class ViewController: UIViewController {
 		AnalogCenter.frame = CGRect( x: clockScrX, y: clockScrY, width: AnalogBody.frame.width, height: AnalogBody.frame.height )
 		
 		SettingsImg.frame = CGRect( x: clockScrX - ((150 * DeviceManager.maxScrRatioC) / 2), y: clockScrY + (140 * DeviceManager.maxScrRatioC) , width: (148 * DeviceManager.maxScrRatioC), height: (148 * DeviceManager.maxScrRatioC) )
-		AlarmListImg.frame = CGRect( x: clockRightScrX - ((82 * DeviceManager.maxScrRatioC) / 2), y: clockScrY - (18 * DeviceManager.maxScrRatioC), width: (102 * DeviceManager.maxScrRatioC), height: (146 * DeviceManager.maxScrRatioC) )
+		AlarmListImg.frame = CGRect( x: clockRightScrX - ((76 * DeviceManager.maxScrRatioC) / 2), y: clockScrY - (18 * DeviceManager.maxScrRatioC), width: (102 * DeviceManager.maxScrRatioC), height: (146 * DeviceManager.maxScrRatioC) )
 		
 		
 		
@@ -868,6 +895,8 @@ class ViewController: UIViewController {
 		modalGameResultView.FitModalLocationToCenter( )
 		modalGamePlayWindowView.FitModalLocationToCenter( )
 		modalWebView.FitModalLocationToCenter( )
+		
+		overlayGuideView.fitFrames()
 		
 		//Blur view 조절
 		scrBlurView.frame = DeviceManager.scrSize!
@@ -1011,8 +1040,14 @@ class ViewController: UIViewController {
 		self.present(modalWebView, animated: false, completion: nil)
 	} //end func
 	
+	func showGuideView( _ gst: UITapGestureRecognizer ) {
+		//가이드 뷰를 (다시) 보여줌. blurview 사용안함
+		
+		overlayGuideView.modalPresentationStyle = .overFullScreen
+		self.present(overlayGuideView, animated: true, completion: nil)
+	} //end func
 	
-}
+} //end class
 
 
 extension String {

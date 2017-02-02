@@ -12,8 +12,11 @@ import UnityAds;
 class UnityAdsManager:NSObject, UnityAdsDelegate {
 	
 	static var unityAdsTestMode:Bool = true
-	static let PLACEMENT_SKIPABLE:String = "alarmFinishVideo"
-	static let PLACEMENT_GAMECONTINUE:String = "gameContinueAD"
+	
+	public enum PlacementAds:String {
+		case alarmFinishAD = "alarmFinishVideo"
+		case gameContinueAD = "gameContinueAD"
+	}
 	
 	static var instance:UnityAdsManager?
 	static var callbackFunc:(() -> Void)? = nil
@@ -60,7 +63,7 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 	}
 	@objc func unityAdsDidFinish(_ placementId: String, with state: UnityAdsFinishState) {
 		print("UnityAds finished advertising: " + placementId);
-		
+		/*
 		switch(placementId) {
 			case UnityAdsManager.PLACEMENT_GAMECONTINUE:
 				//게임 이어하기 기능으로 컨티뉴하는 겨웅
@@ -72,7 +75,7 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 				break;
 			default: break;
 		}
-		
+		*/
 		//Run callback
 		if (UnityAdsManager.callbackFunc != nil) {
 			UnityAdsManager.callbackFunc!();

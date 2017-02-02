@@ -379,16 +379,16 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     ////////////////
 	
 	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
+		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect
 		
 		if (self.view.mask != nil) {
-			self.view.mask!.frame = DeviceManager.defaultModalSizeRect;
+			self.view.mask!.frame = DeviceManager.defaultModalSizeRect
 		}
 		
 		//알람 텍스트 및 배경의 조절
-		upAlarmMessageText.textAlignment = .center;
-		upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: 48);
-		upAlarmMessageText.frame = CGRect(x: 0, y: 12, width: DeviceManager.scrSize!.width, height: 24);
+		upAlarmMessageText.textAlignment = .center
+		upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: 48)
+		upAlarmMessageText.frame = CGRect(x: 0, y: 12, width: DeviceManager.scrSize!.width, height: 24)
 	}
 	
     override func didReceiveMemoryWarning() {
