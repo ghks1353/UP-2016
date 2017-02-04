@@ -59,7 +59,7 @@ class AlarmRingView:UIViewController {
 		//1시간이 지났으면 로드 과정을 잠시 멈추고 즉시 해제할 건지 물어봄.
 		let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds()
 		let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970))
-		if (abs(nextAlarmLeft) > AlarmManager.alarmForceStopAvaliableSeconds) {
+		if (nextfieInSeconds != -1 && nextAlarmLeft < AlarmManager.alarmForceStopAvaliableSeconds * -1) {
 			//알람이 울린 후 특정 시간이 지나 오래된 경우
 			
 			//즉시 해제할거냐?

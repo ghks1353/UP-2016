@@ -96,14 +96,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 		print("App will background")
 		DeviceManager.appIsBackground = true
-    }
+		AlarmManager.mergeAlarm()
+		FIRMessaging.messaging().disconnect()
+	}
 	
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 		print("App is now running to background")
 		DeviceManager.appIsBackground = true
-		AlarmManager.mergeAlarm()
 		
 		//// Background thread
 		backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
@@ -113,9 +114,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//DISPATCH_QUEUE_PRIORITY_DEFAULT
 		DispatchQueue.global(qos: .background).async {
 			while(DeviceManager.appIsBackground) {
-				let currentTimeStamp:Int = Int(Date().timeIntervalSince1970)
 				let nextfieInSeconds:Int = AlarmManager.getNextAlarmFireInSeconds()
-				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - currentTimeStamp)
+				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970))
 				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm()
 				
 				print( "thread remaining:", UIApplication.shared.backgroundTimeRemaining, ", remaining next alarm:", nextAlarmLeft )
@@ -130,6 +130,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 					//노티피 제거후 다시생성
 					AlarmManager.refreshLocalNotifications()
 					AlarmManager.ringSoundAlarm( ringingAlarm!, useVibrate: true )
+					
+					Thread.sleep(forTimeInterval: 1) //1초 주기 실행
 				} else {
 					//울리고 있는 알람이 없는데 굳이 울려야 겠음?
 					AlarmManager.stopSoundAlarm()
@@ -137,12 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 					//Background 유지를 위한 Thread play
 					self.alarmBackgroundTaskPlayer!.stop()
 					self.alarmBackgroundTaskPlayer!.play()
-				}
-				
-				
-				if (ringingAlarm != nil) {
-					Thread.sleep(forTimeInterval: 1) //1초 주기 실행
-				} else {
+					
 					//남은 시간 비례하여 쓰레드 주기를 좁혀, 보다 정확한 시간에 알람이 울리게 함.
 					if (nextAlarmLeft >= 0) {
 						if (nextAlarmLeft > 90) {
@@ -160,12 +157,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 						} //end if
 					} else {
 						Thread.sleep(forTimeInterval: 30) //30초 주기 실행
-					} //end if
-					
-				} //end chk alarm vaild
-			}
-			//print("thread finished");
-			
+					} //end if  [alarm left]
+				} //end if [alarm valid]
+				
+				
+			} //end while
 			UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!)
 		}; //end thread
 		

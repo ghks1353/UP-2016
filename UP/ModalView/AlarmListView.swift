@@ -310,7 +310,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		let cell:AlarmListCell = tableView.cellForRow(at: indexPath) as! AlarmListCell;
 		//Show alarm edit view
 		
-		modalAlarmAddView.showBlur = false;
 		modalAlarmAddView.modalPresentationStyle = .overFullScreen;
 		
 		//find alarm object from array
@@ -408,12 +407,13 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			}));
 			present(alarmCantAddAlert, animated: true, completion: nil);
 		} else {
-			modalAlarmAddView.showBlur = false;
+			
 			modalAlarmAddView.modalPresentationStyle = .overFullScreen;
 			
-			modalAlarmAddView.FitModalLocationToCenter();
-			self.present(modalAlarmAddView, animated: false, completion: nil);
-			modalAlarmAddView.clearComponents();
+			modalAlarmAddView.FitModalLocationToCenter()
+			self.present(modalAlarmAddView, animated: false, completion: nil)
+			modalAlarmAddView.clearComponents()
+			
 		}
     }
     

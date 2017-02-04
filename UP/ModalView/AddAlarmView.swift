@@ -42,7 +42,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	internal var currentRepeatMode:Array<Bool> = [false, false, false, false, false, false, false];
 	
-	internal var showBlur:Bool = true;
+	//internal var showBlur:Bool = true;
 	internal var isAlarmEditMode:Bool = false;
 	
 	var confirmed:Bool = false; //편집 혹은 확인을 누를 경우임.
@@ -175,6 +175,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
 			self.view.alpha = 1;
 		}) { _ in
+			if (self.presentingViewController is AlarmListView) {
+				(self.presentingViewController as! AlarmListView).tableView.isHidden = true
+			}
 		}
 	} ///////////////////////////////
 	
@@ -288,26 +291,28 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		//Close this view
 		
 		//if playing sound, stop it
-		alarmSoundListView.stopSound();
+		alarmSoundListView.stopSound()
 		
-		if (showBlur) {
+		//if parent is main or not
+		if (self.presentingViewController is ViewController) {
 			ViewController.selfView!.showHideBlurview(false)
 			
 			//Add alarm alert to main
 			if (confirmed == true) {
 				ViewController.selfView!.showMessageOnView(LanguagesManager.$(isAlarmEditMode == true ? "informationAlarmEdited" : "informationAlarmAdded"), backgroundColorHex: "219421", textColorHex: "FFFFFF")
 			}
-			
 		} else {
 			//Check alarm make/ornot
-			AlarmListView.selfView!.checkAlarmLimitExceed()
-			AlarmListView.selfView!.checkAlarmIsEmpty() //and chk list is empty or not
+			(self.presentingViewController as! AlarmListView).checkAlarmLimitExceed()
+			(self.presentingViewController as! AlarmListView).checkAlarmIsEmpty() //and chk list is empty or not
 			
 			//Add alarm alert to list
 			if (confirmed == true) {
-				AlarmListView.selfView!.showMessageOnView(LanguagesManager.$(isAlarmEditMode == true ? "informationAlarmEdited" : "informationAlarmAdded"), backgroundColorHex: "219421", textColorHex: "FFFFFF");
+				(self.presentingViewController as! AlarmListView).showMessageOnView(LanguagesManager.$(isAlarmEditMode == true ? "informationAlarmEdited" : "informationAlarmAdded"), backgroundColorHex: "219421", textColorHex: "FFFFFF")
 			}
 			
+			//list tableview visible
+			(self.presentingViewController as! AlarmListView).tableView.isHidden = false
 		} //end if
 		
 		self.dismiss(animated: true, completion: nil);

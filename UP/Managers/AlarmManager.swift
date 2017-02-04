@@ -97,7 +97,7 @@ class AlarmManager {
 			fileTypeHint: nil
 			);
 		} catch let error as NSError {
-			print(error.description);
+			print(error.description)
 		}
 		alarmAudioPlayer!.numberOfLoops = -1
 		alarmAudioPlayer!.prepareToPlay()
@@ -110,28 +110,28 @@ class AlarmManager {
 			alarmVolumeView = MPVolumeView()
 		}
 
-		alarmSoundPlaying = true;
+		alarmSoundPlaying = true
 	} // end func
 	
 	//알람이 켜져있는 게 있을 경우 다음 알람이 언제 울리는지 초단위로 가져옴
 	static func getNextAlarmFireInSeconds() -> Int {
 		//Merge된 후 실행되야 함
 		if (!isAlarmMergedFirst) {
-			mergeAlarm();
+			mergeAlarm()
 		} //merge first
 		
-		var alarmNextFireDate:Int = -1;
+		var alarmNextFireDate:Int = -1
 		for i:Int in 0 ..< alarmsArray.count {
 			if (alarmsArray[i].alarmToggle == false) {
-				continue;
+				continue
 			} //ignores off
 			if (alarmNextFireDate == -1 || alarmNextFireDate > Int(alarmsArray[i].alarmFireDate.timeIntervalSince1970) ) {
 				//적은 시간 우선으로 대입
-				alarmNextFireDate = Int(alarmsArray[i].alarmFireDate.timeIntervalSince1970);
+				alarmNextFireDate = Int(alarmsArray[i].alarmFireDate.timeIntervalSince1970)
 			}
 		}
 		
-		return alarmNextFireDate; //-1을 리턴한 경우, 켜져있는 알람이 없음
+		return alarmNextFireDate //-1을 리턴한 경우, 켜져있는 알람이 없음
 	} //end func
 	
 	
@@ -205,7 +205,6 @@ class AlarmManager {
 	static func mergeAlarm(_ mergeProcess:Int = 0, notificationsArray:Array<AnyObject>? = nil ) {
 		//스케줄된 알람들 가져와서 지난것들 merge하고, 발생할 수 있는 오류에 대해서 체크함
 		DataManager.initDefaults()
-		UIApplication.shared.isNetworkActivityIndicatorVisible = true;
 		
 		var savedAlarm:Data; var scdAlarm:Array<AlarmElements> = [];
 		if (DataManager.nsDefaults.object(forKey: "alarmsList") != nil) {
@@ -469,8 +468,7 @@ class AlarmManager {
 			UIApplication.shared.applicationIconBadgeNumber = 0;
 		}
 		
-		isAlarmMergedFirst = true;
-		UIApplication.shared.isNetworkActivityIndicatorVisible = false;
+		isAlarmMergedFirst = true
 	} //merge end
 	
 	//Clear alarm all (for debug?)
@@ -497,10 +495,8 @@ class AlarmManager {
 		//- 알람이 켜져있는 상태에서 끌 경우, LocalNotification도 같이 종료
 		//- 알람이 꺼져있는 상태에서 킬 경우, 상황에 따라 (반복체크후) LocalNotification 추가
 		if (!isAlarmMergedFirst) {
-			mergeAlarm();
+			mergeAlarm()
 		} //merge first
-		
-		UIApplication.shared.isNetworkActivityIndicatorVisible = true;
 		
 		for i:Int in 0 ..< alarmsArray.count {
 			if (alarmsArray[i].alarmID == alarmID) { //target found
@@ -573,11 +569,9 @@ class AlarmManager {
 		} //end for
 		
 		//save it
-		print("Status change saving");
-		DataManager.nsDefaults.set(NSKeyedArchiver.archivedData(withRootObject: alarmsArray), forKey: "alarmsList");
-		DataManager.save();
-		
-		UIApplication.shared.isNetworkActivityIndicatorVisible = false;
+		print("Status change saving")
+		DataManager.nsDefaults.set(NSKeyedArchiver.archivedData(withRootObject: alarmsArray), forKey: "alarmsList")
+		DataManager.save()
 	} //end func
 	
 	//Remove alarm from system

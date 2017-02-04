@@ -382,7 +382,6 @@ class ViewController: UIViewController {
 			present(alarmCantAddAlert, animated: true, completion: nil)
 			
 		} else {
-			modalAlarmAddView.showBlur = true
 			modalAlarmAddView.modalPresentationStyle = .overFullScreen
 			
 			showHideBlurview(true)
@@ -440,7 +439,10 @@ class ViewController: UIViewController {
   
     func updateTimeAnimation() {
         //setinterval call
-        
+		if (DeviceManager.appIsBackground == true) {
+			return //배터리타임 아끼기 위해 실행 중단
+		}
+		
         //get time and calcuate
         let date = Date(); let calendar = Calendar.current
         let components = calendar.dateComponents([ .hour, .minute, .second], from: date);
@@ -664,9 +666,15 @@ class ViewController: UIViewController {
 				continue;
 			} //ignore nil target
 			mainAnimatedObjs[i].movY(2)
-			
 		} //end for
 		
+		
+		//Guide 띄운 상태인 경우 특정 이미지 프레임 조정
+		if (self.presentedViewController != nil) {
+			if (self.presentedViewController == overlayGuideView) {
+				overlayGuideView.guideGameFloatingImage.frame = GroundFloatingBox.frame
+			} //end if [isPresentingView]
+		} //end if [isPresenting]
 		
     } //end tick func
 	
@@ -841,7 +849,6 @@ class ViewController: UIViewController {
 		AlarmListImg.frame = CGRect( x: clockRightScrX - ((76 * DeviceManager.maxScrRatioC) / 2), y: clockScrY - (18 * DeviceManager.maxScrRatioC), width: (102 * DeviceManager.maxScrRatioC), height: (146 * DeviceManager.maxScrRatioC) )
 		
 		
-		
 		if (UIDevice.current.userInterfaceIdiom == .phone) {
 			//배경화면 프레임도 같이 조절 (패드는 끝부분의 회전처리와 동시에 함)
 			backgroundImageView.frame = CGRect(x: 0, y: 0, width: (DeviceManager.scrSize?.width)!, height: (DeviceManager.scrSize?.height)!)
@@ -884,6 +891,14 @@ class ViewController: UIViewController {
 				x: GroundStandingBox.frame.origin.x - (44 * DeviceManager.maxScrRatioC),
 				y: GroundStandingBox.frame.origin.y - (80 * DeviceManager.maxScrRatioC),
 				width: 100 * DeviceManager.maxScrRatioC, height: 160 * DeviceManager.maxScrRatioC )
+		
+		
+		//Guide 띄운 상태인 경우 특정 이미지 프레임 조정
+		if (self.presentedViewController != nil) {
+			if (self.presentedViewController == overlayGuideView) {
+				overlayGuideView.guideGameFloatingImage.frame = GroundFloatingBox.frame
+			} //end if [isPresentingView]
+		} //end if [isPresenting]
 		
 		//Modal view 크기 가운데로 조정. (rotation)
 		modalSettingsView.FitModalLocationToCenter( )
