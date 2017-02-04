@@ -13,53 +13,66 @@ import UIKit
 class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate {
 	
 	//for access
-	static var selfView:AlarmListView?;
-	static var alarmListInited:Bool = false;
+	static var selfView:AlarmListView?
+	static var alarmListInited:Bool = false
 	
 	//Inner-modal view
-	var modalView:UIViewController = UIViewController();
+	var modalView:UIViewController = UIViewController()
 	//Navigationbar view
-	var navigationCtrl:UINavigationController = UINavigationController();
+	var navigationCtrl:UINavigationController = UINavigationController()
 	
 	//Alarm guide label and image
-	var alarmAddGuideImageView:UIImageView = UIImageView();
-	var alarmAddGuideText:UILabel = UILabel();
-	var alarmAddIfEmptyButton:UIButton = UIButton();
+	var alarmAddGuideImageView:UIImageView = UIImageView()
+	var alarmAddGuideText:UILabel = UILabel()
+	var alarmAddIfEmptyButton:UIButton = UIButton()
 	
     //Table for menu
-    internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.plain);
-    var tablesArray:Array<AnyObject> = [];
-	var alarmsCell:Array<AlarmListCell> = [];
+    internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.plain)
+    var tablesArray:Array<AnyObject> = []
+	var alarmsCell:Array<AlarmListCell> = []
 	
 	//Alarm-add view
 	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
 	
 	//List delete confirm alert
-	var listConfirmAction:UIAlertController = UIAlertController();
-	var alarmTargetID:Int = 0; //target del id(tmp)
-	var alarmTargetIndexPath:IndexPath?; // = NSIndexPath(); //to delete animation/optimization
+	var listConfirmAction:UIAlertController = UIAlertController()
+	var alarmTargetID:Int = 0 //target del id(tmp)
+	var alarmTargetIndexPath:IndexPath? // = NSIndexPath(); //to delete animation/optimization
 	
-	internal var modalAddViewCalled:Bool = false;
+	internal var modalAddViewCalled:Bool = false
 	
 	//위쪽에서 내려오는 알람 메시지를 위한 뷰
-	var upAlarmMessageView:UIView = UIView(); var upAlarmMessageText:UILabel = UILabel();
+	var upAlarmMessageView:UIView = UIView()
+	var upAlarmMessageText:UILabel = UILabel()
+	
+	//화면 레이어 가이드
+	var upLayerGuide:UIOverlayGuideView = UIOverlayGuideView()
+	//레이어가이드 보이기 버튼
+	var upLayerGuideShowButton:UIImageView = UIImageView()
+	
+	//// Mask views
+	var maskUIView:UIView = UIView()
+	let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"))
+	let modalUpperMaskView:UIView = UIView()
 	
     override func viewDidLoad() {
-        super.viewDidLoad();
-		self.view.backgroundColor = UIColor.clear;
+        super.viewDidLoad()
+		self.view.backgroundColor = UIColor.clear
 		
-		AlarmListView.selfView = self;
+		AlarmListView.selfView = self
+		//DISABLE AUTORESIZE
+		self.view.autoresizesSubviews = false
 		
         //ModalView
-        modalView.view.backgroundColor = UIColor.white;
-		modalView.view.frame = DeviceManager.defaultModalSizeRect;
+        modalView.view.backgroundColor = UIColor.white
+		modalView.view.frame = DeviceManager.defaultModalSizeRect
 		
-		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white];
-		navigationCtrl = UINavigationController.init(rootViewController: modalView);
-		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#535B66");
-		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = LanguagesManager.$("alarmList");
+		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
+		navigationCtrl = UINavigationController.init(rootViewController: modalView)
+		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
+		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#535B66")
+		navigationCtrl.view.frame = modalView.view.frame
+		modalView.title = LanguagesManager.$("alarmList")
 		
 		// Make modal custom image buttons
 		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
@@ -161,15 +174,22 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		upAlarmMessageView.isHidden = true;
 		///// upside message inital
 		
-		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false;
+		////////// 모달 밖에 배치하는 리소스
+		upLayerGuideShowButton.image = UIImage( named: "comp-showguide-icon.png" )
+		self.view.addSubview(upLayerGuideShowButton)
 		
 		//SET MASK for dot eff
-		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
-		modalMaskImageView.frame = modalView.view.frame;
-		modalMaskImageView.contentMode = .scaleAspectFit; self.view.mask = modalMaskImageView;
+		modalMaskImageView.frame = modalView.view.frame
+		modalMaskImageView.contentMode = .scaleAspectFit
 		
-		FitModalLocationToCenter();
+		modalUpperMaskView.backgroundColor = UIColor.white
+		
+		maskUIView.addSubview(modalMaskImageView)
+		maskUIView.addSubview(modalUpperMaskView)
+		
+		self.view.mask = maskUIView
+		
+		FitModalLocationToCenter()
     }
 	
 	func deleteAlarmConfirm() {
@@ -216,7 +236,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		switch(buttonIndex){
 			case 0:
 				//Alarm delete
-				deleteAlarmConfirm();
+				deleteAlarmConfirm()
 				
 				break;
 			default: break;
@@ -226,17 +246,17 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	/////// View transition animation
 	override func viewWillAppear(_ animated: Bool) {
 		//setup bounce animation
-		self.view.alpha = 0;
-		
+		self.view.alpha = 0
 		//Check alarm limit and disable/enable button
-		checkAlarmLimitExceed();
-		checkAlarmIsEmpty();
+		checkAlarmLimitExceed()
+		checkAlarmIsEmpty()
 		
 		//add alarm-list
-		createTableList();
+		createTableList()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
+		
 		
 	}
 	
@@ -246,11 +266,31 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
 		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
 			self.view.frame = CGRect(x: 0, y: 0,
-				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
-			self.view.alpha = 1;
+				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
+			self.view.alpha = 1
 		}) { _ in
 		}
+		
+		fadeInGuideButton()
 	} ///////////////////////////////
+	
+	//function으로 분리
+	func fadeInGuideButton( _ withDelay:Bool = true ) {
+		upLayerGuideShowButton.alpha = 0
+		UIView.animate(withDuration: 0.5, delay: withDelay ? 0.56 : 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+			self.upLayerGuideShowButton.alpha = 1
+		}, completion: {_ in
+		})
+	} //end func
+	func fadeOutGuideButton( ) {
+		upLayerGuideShowButton.alpha = 1
+		UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+			self.upLayerGuideShowButton.alpha = 0
+		}, completion: {_ in
+		})
+	} //end func
+	
+	//////////////
 	
 	//table list create method
 	func createTableList() {
@@ -297,25 +337,27 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     /// table setup
 	
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1;
+        return 1
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
 			default:
-				return "";
+				return ""
         }
     }
 	
+	///// 알람수정
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let cell:AlarmListCell = tableView.cellForRow(at: indexPath) as! AlarmListCell;
+		let cell:AlarmListCell = tableView.cellForRow(at: indexPath) as! AlarmListCell
 		//Show alarm edit view
 		
-		modalAlarmAddView.modalPresentationStyle = .overFullScreen;
+		modalAlarmAddView.modalPresentationStyle = .overFullScreen
 		
 		//find alarm object from array
-		let targetAlarm:AlarmElements = AlarmManager.getAlarm(cell.alarmID)!;
+		let targetAlarm:AlarmElements = AlarmManager.getAlarm(cell.alarmID)!
+		self.present(modalAlarmAddView, animated: false, completion: nil)
 		
-		self.present(modalAlarmAddView, animated: false, completion: nil);
+		fadeOutGuideButton( )
 		
 		print("Modifing", targetAlarm.alarmName, targetAlarm.alarmID);
 		modalAlarmAddView.fillComponentsWithEditMode(cell.alarmID,
@@ -326,24 +368,22 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			scaledSoundLevel: targetAlarm.alarmSoundLevel,
 			selectedSoundFileName: targetAlarm.alarmSound,
 			repeatInfo: targetAlarm.alarmRepeat,
-			alarmDefaultToggle: targetAlarm.alarmToggle);
+			alarmDefaultToggle: targetAlarm.alarmToggle)
 		
-		tableView.deselectRow(at: indexPath, animated: true);
-
-		
+		tableView.deselectRow(at: indexPath, animated: true)
 	}
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (tablesArray[section] as! Array<AnyObject>).count;
+        return (tablesArray[section] as! Array<AnyObject>).count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 80; //UITableViewAutomaticDimension;
+		return 80 //UITableViewAutomaticDimension;
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell;
-        return cell;
+        let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell
+        return cell
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0;
+        return 0
     }
 	
 	//Fallback function. DO NOT REMOVE
@@ -352,22 +392,21 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 		//get row
-		//let cell:AlarmListCell = tableView.cellForRowAtIndexPath(indexPath) as! AlarmListCell;
 		
 		let deleteRow:UITableViewRowAction = UITableViewRowAction(style: .default, title: LanguagesManager.$("alarmDelete")) {
 			(action:UITableViewRowAction!, childIndexPath:IndexPath!) -> Void in
 			
-			let cell:AlarmListCell = tableView.cellForRow(at: childIndexPath) as! AlarmListCell;
-			print("cell delete alarm", cell.alarmID);
-			self.alarmTargetID = cell.alarmID;
-			self.alarmTargetIndexPath = childIndexPath;
+			let cell:AlarmListCell = tableView.cellForRow(at: childIndexPath) as! AlarmListCell
+			print("cell delete alarm", cell.alarmID)
+			self.alarmTargetID = cell.alarmID
+			self.alarmTargetIndexPath = childIndexPath
 			
 			if (UIDevice.current.userInterfaceIdiom == .pad) {
 				//패드일 땐 그냥 alert로 띄움
-				self.showAlarmDelAlert();
+				self.showAlarmDelAlert()
 			} else {
 				//폰일 때
-				self.present(self.listConfirmAction, animated: true, completion: nil); //show menu
+				self.present(self.listConfirmAction, animated: true, completion: nil) //show menu
 			} //end chk phone or not
 			
 		} //end if
@@ -381,8 +420,12 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect
 		
 		if (self.view.mask != nil) {
-			self.view.mask!.frame = DeviceManager.defaultModalSizeRect
+			modalMaskImageView.frame = DeviceManager.defaultModalSizeRect
+			
+			modalUpperMaskView.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: 34 * DeviceManager.maxScrRatioC, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
 		}
+		
+		upLayerGuideShowButton.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: 34 * DeviceManager.maxScrRatioC, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
 		
 		//알람 텍스트 및 배경의 조절
 		upAlarmMessageText.textAlignment = .center
@@ -405,41 +448,41 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 			alarmCantAddAlert.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 				//Nothing do
 			}));
-			present(alarmCantAddAlert, animated: true, completion: nil);
+			present(alarmCantAddAlert, animated: true, completion: nil)
 		} else {
 			
-			modalAlarmAddView.modalPresentationStyle = .overFullScreen;
+			modalAlarmAddView.modalPresentationStyle = .overFullScreen
 			
 			modalAlarmAddView.FitModalLocationToCenter()
 			self.present(modalAlarmAddView, animated: false, completion: nil)
 			modalAlarmAddView.clearComponents()
 			
+			fadeOutGuideButton( )
 		}
     }
     
     func viewCloseAction() {
         //Close this view
+		
+		upLayerGuideShowButton.alpha = 0
+		
 		if (upAlarmMessageView.isHidden == false) {
-			//가리면서 사라지게
-			self.upAlarmMessageView.alpha = 1;
-			UIView.animate(withDuration: 0.12, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-				self.upAlarmMessageView.alpha = 0;
-				}, completion: {_ in
-			});
+			//바로 가려야 함
+			upAlarmMessageView.alpha = 0
 		}
 		
-		modalAddViewCalled = false;
-		ViewController.selfView!.showHideBlurview(false)
+		modalAddViewCalled = false
+		(self.presentingViewController as! ViewController).showHideBlurview(false)
         self.dismiss(animated: true, completion: nil)
     } //end func
 	
 	func checkAlarmLimitExceed() {
 		//informationAlarmExceed
 		if ( AlarmManager.alarmsArray.count >= AlarmManager.alarmMaxRegisterCount ) {
-			print("Alarm over", AlarmManager.alarmMaxRegisterCount, "(current ", AlarmManager.alarmsArray.count ,")");
-			modalView.navigationItem.rightBarButtonItem!.isEnabled = false;
+			print("Alarm over", AlarmManager.alarmMaxRegisterCount, "(current ", AlarmManager.alarmsArray.count ,")")
+			modalView.navigationItem.rightBarButtonItem!.isEnabled = false
 		} else {
-			modalView.navigationItem.rightBarButtonItem!.isEnabled = true;
+			modalView.navigationItem.rightBarButtonItem!.isEnabled = true
 		}
 		
 	} //end chk limit func
@@ -448,14 +491,14 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		//알람이 비어있는 경우 비어있으니 추가해달라는 메시지 표시.
 		if ( AlarmManager.alarmsArray.count == 0 ) {
 			//뷰 표시
-			alarmAddGuideText.isHidden = false;
-			alarmAddGuideImageView.isHidden = false;
-			alarmAddIfEmptyButton.isHidden = false;
+			alarmAddGuideText.isHidden = false
+			alarmAddGuideImageView.isHidden = false
+			alarmAddIfEmptyButton.isHidden = false
 		} else {
 			//메시지 삭제
-			alarmAddGuideText.isHidden = true;
-			alarmAddGuideImageView.isHidden = true;
-			alarmAddIfEmptyButton.isHidden = true;
+			alarmAddGuideText.isHidden = true
+			alarmAddGuideImageView.isHidden = true
+			alarmAddIfEmptyButton.isHidden = true
 		}
 		
 		
@@ -463,36 +506,35 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	//Switch changed-event
 	func alarmSwitchChangedEventHandler(_ targetElement:UIAlarmIDSwitch) {
-		AlarmManager.toggleAlarm(targetElement.elementID, alarmStatus: targetElement.isOn, isListOn: true);
-		var statusChanged:Bool = false;
+		AlarmManager.toggleAlarm(targetElement.elementID, alarmStatus: targetElement.isOn, isListOn: true)
+		var statusChanged:Bool = false
 		
 		//리스트 갱신
-		var tImage:String = ""; var targetCell:AlarmListCell?;
+		var tImage:String = ""
+		var targetCell:AlarmListCell?
 		for i:Int in 0 ..< alarmsCell.count {
 			if (alarmsCell[i].alarmID == targetElement.elementID) {
-				targetCell = alarmsCell[i];
+				targetCell = alarmsCell[i]
 				
 				if ( alarmsCell[i].alarmToggled != targetElement.isOn) {
-					statusChanged = true;
+					statusChanged = true
 				}
-				alarmsCell[i].alarmToggled = targetElement.isOn; // on = true / off = false
+				alarmsCell[i].alarmToggled = targetElement.isOn // on = true / off = false
 				
-				let bgFileName:String = getBackgroundFileNameFromTime(alarmsCell[i].timeHour);
-				let bgFileState:String = (targetElement.isOn == true ? "on" : "off") + (UIDevice.current.userInterfaceIdiom == .pad ? "-pad" : "");
-				let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "-small" : "";
-				tImage = bgFileName + "-time-" + bgFileState + fileUsesSmallPrefix + ".png";
-				//alarmsCell[i].backgroundImage!.image = UIImage(named: bgFileName + "_time_" + bgFileState + fileUsesSmallPrefix + ".png");
+				let bgFileName:String = getBackgroundFileNameFromTime(alarmsCell[i].timeHour)
+				let bgFileState:String = (targetElement.isOn == true ? "on" : "off") + (UIDevice.current.userInterfaceIdiom == .pad ? "-pad" : "")
+				let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "-small" : ""
+				tImage = bgFileName + "-time-" + bgFileState + fileUsesSmallPrefix + ".png"
 				
-				//alarmsCell[i].alarmName!.textColor = alarmsCell[i].alarmToggled ? UIColor.whiteColor() : UIColor.blackColor();
-				alarmsCell[i].alarmName!.alpha = targetElement.isOn ? 1 : 0.8;
-				alarmsCell[i].timeText!.alpha = alarmsCell[i].alarmName!.alpha;
-				alarmsCell[i].timeAMPM!.alpha = alarmsCell[i].alarmName!.alpha;
-				alarmsCell[i].timeRepeat!.alpha = alarmsCell[i].alarmName!.alpha;
+				alarmsCell[i].alarmName!.alpha = targetElement.isOn ? 1 : 0.8
+				alarmsCell[i].timeText!.alpha = alarmsCell[i].alarmName!.alpha
+				alarmsCell[i].timeAMPM!.alpha = alarmsCell[i].alarmName!.alpha
+				alarmsCell[i].timeRepeat!.alpha = alarmsCell[i].alarmName!.alpha
 				
-				alarmsCell[i].alarmName!.textColor = targetElement.isOn ? UIColor.white : UPUtils.colorWithHexString("#878787");
-				alarmsCell[i].timeText!.textColor = alarmsCell[i].alarmName!.textColor;
-				alarmsCell[i].timeAMPM!.textColor = alarmsCell[i].alarmName!.textColor;
-				alarmsCell[i].timeRepeat!.textColor = alarmsCell[i].alarmName!.textColor;
+				alarmsCell[i].alarmName!.textColor = targetElement.isOn ? UIColor.white : UPUtils.colorWithHexString("#878787")
+				alarmsCell[i].timeText!.textColor = alarmsCell[i].alarmName!.textColor
+				alarmsCell[i].timeAMPM!.textColor = alarmsCell[i].alarmName!.textColor
+				alarmsCell[i].timeRepeat!.textColor = alarmsCell[i].alarmName!.textColor
 				break;
 			}
 		} //end for
@@ -560,7 +602,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tCell.layer.mask = maskLayer;
 		
 		let tSwitch:UIAlarmIDSwitch = UIAlarmIDSwitch();
-		//let tGameImage:UIButton = UIButton(); let tGameImageBackground:UIImageView = UIImageView();
 		let tAMPMLabel:UILabel = UILabel(); let tRepeatLabel:UILabel = UILabel();
 		
 		tCell.alarmID = uuid; tCell.timeHour = timeHour; tCell.timeMinute = timeMin;
@@ -610,8 +651,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		tLabelTime.adjustsFontSizeToFitWidth = true;
 		tLabelTime.sizeToFit();
 		
-		tAMPMLabel.frame = CGRect(  x: tLabelTime.frame.width + 16, y: 8, width: 60, height: 24 ); //오전 오후 인디케이터. (12시간만 해당)
-		tRepeatLabel.frame = CGRect(  x: tLabelTime.frame.width + 16, y: 25, width: 60, height: 24 ); //반복 인디케이터.
+		tAMPMLabel.frame = CGRect( x: tLabelTime.frame.width + 16, y: 8, width: 60, height: 24 ); //오전 오후 인디케이터. (12시간만 해당)
+		tRepeatLabel.frame = CGRect( x: tLabelTime.frame.width + 16, y: 25, width: 60, height: 24 ); //반복 인디케이터.
 		tAMPMLabel.textAlignment = .left; tRepeatLabel.textAlignment = .left;
 		
 		//알람명 표시.
@@ -658,7 +699,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		}
 		
 		//이 부분은 메인 뷰 컨트롤러에도 나오게끔 만듬
-		ViewController.selfView!.showMessageOnView(message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex)
+		(self.presentingViewController as! ViewController).showMessageOnView(message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex)
 		
 		self.upAlarmMessageView.alpha = 1
 		
@@ -671,6 +712,10 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		UIApplication.shared.setStatusBarHidden(true, with: .fade) //statusbar hidden
 		self.upAlarmMessageView.frame = CGRect(x: 0, y: -self.upAlarmMessageView.frame.height, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height)
 		
+		//마스크 범위 임시 조절
+		
+		modalUpperMaskView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: (34 + 50.5) * DeviceManager.maxScrRatioC)
+		
 		//Message animation
 		UIView.animate(withDuration: 0.32, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
 			self.upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height);
@@ -679,6 +724,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		//animation fin.
 		UIView.animate(withDuration: 0.32, delay: 1, options: UIViewAnimationOptions.curveEaseIn, animations: {
+			self.modalUpperMaskView.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: 34 * DeviceManager.maxScrRatioC, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
 			self.upAlarmMessageView.frame = CGRect(x: 0, y: -self.upAlarmMessageView.frame.height, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height);
 			}, completion: {_ in
 				self.upAlarmMessageView.isHidden = true;

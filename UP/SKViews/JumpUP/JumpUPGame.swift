@@ -204,7 +204,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				gameScoreTitleImage!.size = CGSize( width: 87.65 * DeviceManager.scrRatioC, height: 38.35 * DeviceManager.scrRatioC );
 				
 				//4/4s의 경우, 세로길이가 부족하므로 기존 아이폰과 다른 y위치 지정
-				if (DeviceManager.scrSize!.height <= CGFloat(480)) {
+				if (DeviceManager.isiPhone4S) {
 					//4/4s fallback
 					movPositionY = self.view!.frame.height - (63 * DeviceManager.scrRatioC);
 				} else {

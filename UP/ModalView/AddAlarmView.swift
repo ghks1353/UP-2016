@@ -13,43 +13,42 @@ import UIKit
 class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate  {
 	
 	//클래스 외부접근을 위함
-	static var selfView:AddAlarmView?;
+	static var selfView:AddAlarmView?
 	
 	//Inner-modal view
-	var modalView:UIViewController = UIViewController();
+	var modalView:UIViewController = UIViewController()
 	//Navigationbar view
-	var navigationCtrl:UINavigationController = UINavigationController();
+	var navigationCtrl:UINavigationController = UINavigationController()
 	
 	//Table for view
-	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped);
-	var tablesArray:Array<Array<AnyObject>> = [];
-	var tableCells:Array<AlarmSettingsCell> = [];
+	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped)
+	var tablesArray:Array<Array<AnyObject>> = []
+	var tableCells:Array<AlarmSettingsCell> = []
 	
 	//Subview for select
-	var alarmSoundListView:AlarmSoundListView = GlobalSubView.alarmSoundListView; // = AlarmSoundListView();
-	var alarmGameListView:AlarmGameListView = GlobalSubView.alarmGameListView; 
-	var alarmRepeatSelectListView:AlarmRepeatSettingsView = GlobalSubView.alarmRepeatSettingsView;
+	var alarmSoundListView:AlarmSoundListView = GlobalSubView.alarmSoundListView // = AlarmSoundListView();
+	var alarmGameListView:AlarmGameListView = GlobalSubView.alarmGameListView
+	var alarmRepeatSelectListView:AlarmRepeatSettingsView = GlobalSubView.alarmRepeatSettingsView
 	//Current sound level
-	var alarmCurrentSoundLevel:Int = 0;
+	var alarmCurrentSoundLevel:Int = 0
 	//Alarm sound selected
-	var alarmSoundSelectedObj:SoundInfoObj = SoundInfoObj(soundName: "", fileName: "");
+	var alarmSoundSelectedObj:SoundInfoObj = SoundInfoObj(soundName: "", fileName: "")
 	//Game selected
-	var gameSelectedID:Int = -1;
+	var gameSelectedID:Int = -1
 	
 	//Default alarm status (default: true)
-	var alarmDefaultStatus:Bool = true;
-	var editingAlarmID:Int = -1;
+	var alarmDefaultStatus:Bool = true
+	var editingAlarmID:Int = -1
 	
-	internal var currentRepeatMode:Array<Bool> = [false, false, false, false, false, false, false];
+	internal var currentRepeatMode:Array<Bool> = [false, false, false, false, false, false, false]
 	
-	//internal var showBlur:Bool = true;
-	internal var isAlarmEditMode:Bool = false;
+	internal var isAlarmEditMode:Bool = false
 	
-	var confirmed:Bool = false; //편집 혹은 확인을 누를 경우임.
+	var confirmed:Bool = false //편집 혹은 확인을 누를 경우임.
 	
 	override func viewDidLoad() {
-		super.viewDidLoad();
-		self.view.backgroundColor = UIColor.clear;
+		super.viewDidLoad()
+		self.view.backgroundColor = UIColor.clear
 		
 		AddAlarmView.selfView = self;
 		
@@ -313,19 +312,21 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			
 			//list tableview visible
 			(self.presentingViewController as! AlarmListView).tableView.isHidden = false
+			//show guide again
+			(self.presentingViewController as! AlarmListView).fadeInGuideButton( false )
 		} //end if
 		
-		self.dismiss(animated: true, completion: nil);
+		self.dismiss(animated: true, completion: nil)
 	}
 	
 	///// for table func
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 4;
+		return 4
 	}
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
 			default:
-				return "";
+				return ""
 		}
 	}
 	

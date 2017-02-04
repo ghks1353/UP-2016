@@ -58,6 +58,9 @@ class AlarmManager {
 			}
 		}
 		
+		//기본 사운드 플레이모드로 변경
+		SoundManager.setAudioPlayback(.NormalMode)
+		
 		alarmSoundPlaying = false;
 	}
 	
@@ -68,6 +71,9 @@ class AlarmManager {
 		if (useVibrate) {
 			AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate));
 		}
+		
+		//알람 사운드 플레이백 모드로 변경
+		SoundManager.setAudioPlayback(.AlarmMode)
 		
 		if (alarmSoundPlaying == true) {
 			if (alarmAudioPlayer != nil) {

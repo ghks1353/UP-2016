@@ -14,7 +14,7 @@ class DeviceManager {
     //기기 해상도 bounds
 	static var scrSize:CGRect?; static var scrSizeForCalcuate:CGRect?;
     //기준 해상도 (iPhone 6s plus)
-    static let workSize:CGRect = CGRect(x: 0, y: 0, width: 414, height: 736);
+    static let workSize:CGRect = CGRect(x: 0, y: 0, width: 414, height: 736)
     //기준에 대한 비율
     static var scrRatio:Double = 1; static var maxScrRatio:Double = 1; //최대가 1인 비율 크기
 	static var scrRatioC:CGFloat = 1; static var maxScrRatioC:CGFloat = 1;
@@ -22,18 +22,21 @@ class DeviceManager {
 	static var resultModalRatioC:CGFloat = 1; static var resultMaxModalRatioC:CGFloat = 1;
 	
 	//낮은 해상도 사용
-	static var usesLowQualityImage:Bool = false;
+	static var usesLowQualityImage:Bool = false
 	//평균 Modal size
-	static var defaultModalSizeRect:CGRect = CGRect();
+	static var defaultModalSizeRect:CGRect = CGRect()
 	
 	//Result / 게임시작 창 Modal size
-	static var resultModalSizeRect:CGRect = CGRect();
+	static var resultModalSizeRect:CGRect = CGRect()
 	
 	//chk is back or not
-	static var appIsBackground:Bool = false;
+	static var appIsBackground:Bool = false
 	
 	////// Is 24hours or not
-	static var is24HourMode:Bool = false;
+	static var is24HourMode:Bool = false
+	
+	//is 4s or not
+	static var isiPhone4S:Bool = false
 	
     static func initialDeviceSize() {
         //화면 사이즈를 얻어옴.
@@ -58,6 +61,12 @@ class DeviceManager {
 		
 		print("Checking user interface ipad is", UIDevice.current.userInterfaceIdiom == .pad);
 		changeModalSize();
+		
+		if (UIDevice.current.userInterfaceIdiom == .phone) {
+			if (scrSize!.height <= 480) {
+				isiPhone4S = true
+			}
+		}
 		
 		//오전/오후 체크
 		let formatString:NSString = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as NSString;

@@ -33,12 +33,13 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 	
 	override func viewDidLoad() {
 		// view init func
-		gameGuideViewLoaded = true;
-		self.view.backgroundColor = UIColor.white;
-		StartGuideView.selfView = self;
+		gameGuideViewLoaded = true
+		self.view.backgroundColor = UIColor.white
+		
+		StartGuideView.selfView = self
 		
 		//gradient background
-		startingGuideBackgroundGradient.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height);
+		startingGuideBackgroundGradient.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
 		startingGuideBackgroundGradient.colors = [
 			UPUtils.colorWithHexString("2e2c4e").cgColor,
 			UPUtils.colorWithHexString("4e3f65").cgColor,
@@ -47,56 +48,69 @@ class StartGuideView:UIViewController, UIScrollViewDelegate {
 			UPUtils.colorWithHexString("c86879").cgColor,
 			UPUtils.colorWithHexString("df7e7a").cgColor,
 			UPUtils.colorWithHexString("e9a678").cgColor
-		];
-		self.view.layer.insertSublayer(startingGuideBackgroundGradient, at: 0);
+		]
+		self.view.layer.insertSublayer(startingGuideBackgroundGradient, at: 0)
 		////////////////
 		
-		guideScrollView.delegate = self;
-		guideScrollView.isPagingEnabled = true;
-		guideScrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height);
-		guideScrollView.contentSize = CGSize( width: self.view.frame.width * CGFloat(guidePages), height: self.view.frame.height );
-		guideScrollView.showsVerticalScrollIndicator = false;
-		guideScrollView.showsHorizontalScrollIndicator = false;
-		self.view.addSubview(guideScrollView);
+		guideScrollView.delegate = self
+		guideScrollView.isPagingEnabled = true
+		guideScrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+		guideScrollView.contentSize = CGSize( width: self.view.frame.width * CGFloat(guidePages), height: self.view.frame.height )
+		guideScrollView.showsVerticalScrollIndicator = false
+		guideScrollView.showsHorizontalScrollIndicator = false
+		self.view.addSubview(guideScrollView)
 		
 		//가이드 이미지 추가
 		for i:Int in 0 ..< guidePages {
-			let tmpScreenUIView:UIView = UIView();
-			let tmpImage:UIImageView = UIImageView();
+			let tmpScreenUIView:UIView = UIView()
+			let tmpImage:UIImageView = UIImageView()
 			
-			let tmpTitleUILabel:UILabel = UILabel();
-			let tmpDesUILabel:UILabel = UILabel();
+			let tmpTitleUILabel:UILabel = UILabel()
+			let tmpDesUILabel:UILabel = UILabel()
 			
-			let globalVersionFileName:String = "modal-guide-images-all-" + String(i) + "-general";
-			let localizedVersionFileName:String = "modal-guide-images-" + LanguagesManager.currentLocaleCode + "-" + String(i) + "-general";
-			let fallbackFileName:String = "modal-guide-images-en-" + String(i) + "-general";
+			let globalVersionFileName:String = "modal-guide-images-all-" + String(i) + "-general"
+			let localizedVersionFileName:String = "modal-guide-images-" + LanguagesManager.currentLocaleCode + "-" + String(i) + "-general"
+			let fallbackFileName:String = "modal-guide-images-en-" + String(i) + "-general"
 			
 			//파일 검사해서 all버전이 없으면 각 로케일 버전으로 찾음
-			var tmpImageFile:UIImage? = UIImage( named: globalVersionFileName );
+			var tmpImageFile:UIImage? = UIImage( named: globalVersionFileName )
 			
 			if (tmpImageFile != nil) {
-				tmpImage.image = tmpImageFile;
+				tmpImage.image = tmpImageFile
 			} else {
-				tmpImageFile = UIImage( named: localizedVersionFileName );
+				tmpImageFile = UIImage( named: localizedVersionFileName )
 				if (tmpImageFile != nil) {
-					tmpImage.image = tmpImageFile;
+					tmpImage.image = tmpImageFile
 				} else {
-					tmpImage.image = UIImage( named: fallbackFileName );
+					tmpImage.image = UIImage( named: fallbackFileName )
 				}
 			}
 			
 			//이미지는 정중앙이 아니라, 살짝 위로 올라가있음
+			var imageYAxis:CGFloat = 0
+			var labelImageMargin:CGFloat = 194
+			if (UIDevice.current.userInterfaceIdiom == .pad) {
+				//iPad 공통
+				imageYAxis = ((self.view.frame.height / 2 - (736 * DeviceManager.maxScrRatioC) / 2))
+			} else if (DeviceManager.isiPhone4S) {
+				//iPhone 4s 이하
+				imageYAxis = -64 * DeviceManager.maxScrRatioC
+				labelImageMargin = 242
+			} else { //iPhone, iPod 공통
+				imageYAxis = 0
+			} //end if [interface]
+			
 			tmpImage.frame = CGRect(x: self.view.frame.width / 2 - (414 * DeviceManager.maxScrRatioC) / 2
-				, y: UIDevice.current.userInterfaceIdiom == .pad ? ((self.view.frame.height / 2 - (736 * DeviceManager.maxScrRatioC) / 2)) : 0
-				, width: 414 * DeviceManager.maxScrRatioC, height: 736 * DeviceManager.maxScrRatioC);
-			tmpScreenUIView.addSubview(tmpImage);
+				, y: imageYAxis
+				, width: 414 * DeviceManager.maxScrRatioC, height: 736 * DeviceManager.maxScrRatioC)
+			tmpScreenUIView.addSubview(tmpImage)
 			
 			//가이드 화면 위치 조정
 			tmpScreenUIView.frame = CGRect(x: self.view.frame.width * CGFloat(i), y: 0, width: self.view.frame.width, height: self.view.frame.height);
 			guideScrollView.addSubview(tmpScreenUIView);
 			
 			/// 텍스트 생성
-			tmpTitleUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpImage.frame.maxY - (194 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
+			tmpTitleUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpImage.frame.maxY - (labelImageMargin * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 18);
 			tmpDesUILabel.frame = CGRect(x: tmpScreenUIView.frame.minX, y: tmpTitleUILabel.frame.maxY + (12 * DeviceManager.maxScrRatioC), width: self.view.frame.width, height: 48);
 			
 			tmpTitleUILabel.textColor = UIColor.white; //UPUtils.colorWithHexString("#461515");

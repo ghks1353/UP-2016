@@ -57,8 +57,8 @@ class ViewController: UIViewController {
 	var DigitalCol:UIImageView = UIImageView()
 	
 	//AM / PM
-	var digitalAMPMIndicator:UIImageView = UIImageView();
-	var digitalCurrentIsPM:Int = -1; //am이면 0, pm이면 1
+	var digitalAMPMIndicator:UIImageView = UIImageView()
+	var digitalCurrentIsPM:Int = -1 //am이면 0, pm이면 1
 	
 	//아날로그 시계
 	var AnalogBody:UIImageView = UIImageView(); var AnalogHours:UIImageView = UIImageView();
@@ -282,19 +282,8 @@ class ViewController: UIViewController {
 			
 		}*/
 		
-		//무음모드 사운드 허용
-		do {
-			try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: AVAudioSessionCategoryOptions.mixWithOthers)
-			print("AVAudioSession Category Playback OK")
-			do {
-				try AVAudioSession.sharedInstance().setActive(true)
-				print("AVAudioSession is Active")
-			} catch let error as NSError {
-				print(error.localizedDescription)
-			}
-		} catch let error as NSError {
-			print(error.localizedDescription)
-		} //end do catch
+		//일반적인 사운드 재생 모드
+		SoundManager.setAudioPlayback(.NormalMode)
 		
 		//DISABLE AUTORESIZE
 		self.view.autoresizesSubviews = false

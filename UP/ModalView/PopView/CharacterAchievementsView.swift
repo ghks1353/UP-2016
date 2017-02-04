@@ -63,6 +63,7 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 	
 	func popToRootAction() {
 		//Pop to root by back button
+		ViewController.selfView!.modalCharacterInformationView.fadeInGuideButton( false )
 		_ = self.navigationController?.popViewController(animated: true);
 	}
 	

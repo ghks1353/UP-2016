@@ -8,12 +8,18 @@
 
 import Foundation
 import AVFoundation
+import AudioToolbox
 
 class SoundManager {
 	
 	public enum bundleSounds:String {
 		case GameReadyBGM = "bgm-game-waiting.mp3"
 		case GameJumpUPBGM = "bgm-game-jumpup-field.mp3"
+	}
+	
+	public enum PlaybackPlayMode {
+		case NormalMode
+		case AlarmMode
 	}
 	
 	////////////// system bgm sounds
@@ -62,7 +68,6 @@ class SoundManager {
 	
 	static func pauseResumeBGMSound(_ status:Bool = false ) {
 		//플레이중인 사운드가 있을 경우 일시정지
-		
 		if (status == false) {
 			//일시정지
 			if (systemBGMPlayer != nil) {
@@ -77,6 +82,38 @@ class SoundManager {
 				}
 			}
 		}
+	} //end func
+	
+	////////// Audio playback settings
+	
+	static func setAudioPlayback(_ playMode:PlaybackPlayMode ) {
+		
+		var aSessionCategoryOptions:AVAudioSessionCategoryOptions?
+		var aSessionCategory:String?
+		
+		switch(playMode) {
+			case .AlarmMode: //알람 모드 (무음 모드에서도 울림) 설정
+				aSessionCategory = AVAudioSessionCategoryPlayback
+				aSessionCategoryOptions = AVAudioSessionCategoryOptions.mixWithOthers
+				break
+			case .NormalMode: //일반 모드 (무음 모드에선 울리지 않음) 설정
+				aSessionCategory = AVAudioSessionCategoryAmbient
+				aSessionCategoryOptions = AVAudioSessionCategoryOptions.mixWithOthers
+				break
+			/*default: return*/
+		} //end switch
+		
+		do {
+			try AVAudioSession.sharedInstance().setCategory(aSessionCategory!, with: aSessionCategoryOptions!)
+			do {
+				try AVAudioSession.sharedInstance().setActive(true)
+			} catch let error as NSError {
+				print("[SoundManager] Playback mode setting error: ", error.localizedDescription)
+			}
+		} catch let error as NSError {
+			print("[SoundManager] Playback mode setting error: ", error.localizedDescription)
+		} //end do catch
+		
 	} //end func
 	
 	////////////// alarm sounds
