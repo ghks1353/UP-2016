@@ -1972,6 +1972,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				//게임 목록의 점프업 화면까지 바로 표시
 				ViewController.selfView!.openGamePlayView(nil)
 				GamePlayView.selfView!.selectCell( self.currentGameID ) //<- gameid
+				
+				//패드에서 가끔 방향이 안 맞아서 설정함.
+				ViewController.selfView!.fitViewControllerElementsToScreen( false )
 			}
 		});
 	}

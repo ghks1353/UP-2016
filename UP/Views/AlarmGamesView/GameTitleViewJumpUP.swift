@@ -49,9 +49,8 @@ class GameTitleViewJumpUP:UIViewController {
 		// view init func
 		self.view.backgroundColor = UIColor.black //black col
 		
-		loadingIndicatorView = GIFImageView(frame: CGRect(x: self.view.frame.width / 2, y: self.view.frame.height / 2, width: 24, height: 24))
-		loadingIndicatorView!.center = self.view!.center
-		loadingIndicatorView!.contentMode = .scaleAspectFit
+		loadingIndicatorView = GIFImageView()
+		
 		loadingIndicatorView!.animate(withGIFNamed: "comp-loading-preloader.gif")
 		self.view.addSubview(loadingIndicatorView!)
 		
@@ -63,63 +62,69 @@ class GameTitleViewJumpUP:UIViewController {
 			return;
 		}
 		
+		loadingIndicatorView!.frame =  CGRect(x: self.view.frame.width / 2, y: self.view.frame.height / 2, width: 24, height: 24)
+		loadingIndicatorView!.center = self.view!.center
+		loadingIndicatorView!.contentMode = .scaleAspectFit
+		
 		loadingIndicatorView!.isHidden = false
 		print("JumpUP gameview appear event")
 		
 		//View load func
-		gameTitleLabel.text = LanguagesManager.$("gameNameJumpUP");
-		gameTitleLabel.font = UIFont.systemFont(ofSize: 38);
-		gameTitleLabel.frame = CGRect( x: 0, y: gameTitleLabelYAxis, width: self.view.frame.width, height: 38 );
-		gameTitleLabel.textColor = UIColor.white;
-		gameTitleLabel.textAlignment = .center;
+		gameTitleLabel.text = LanguagesManager.$("gameNameJumpUP")
+		gameTitleLabel.font = UIFont.systemFont(ofSize: 38)
+		gameTitleLabel.frame = CGRect( x: 0, y: gameTitleLabelYAxis, width: self.view.frame.width, height: 38 )
+		gameTitleLabel.textColor = UIColor.white
+		gameTitleLabel.textAlignment = .center
 		
-		gameTitleRedLabel.font = gameTitleLabel.font; gameTitleRedLabel.text = gameTitleLabel.text;
-		gameTitleRedLabel.frame = CGRect( x: -1.5, y: gameTitleLabelYAxis, width: gameTitleLabel.frame.width, height: gameTitleLabel.frame.height );
-		gameTitleRedLabel.textColor = UPUtils.colorWithHexString("#FF0000");
-		gameTitleRedLabel.textAlignment = gameTitleLabel.textAlignment;
-		gameTitleSkyblueLabel.font = gameTitleLabel.font; gameTitleSkyblueLabel.text = gameTitleLabel.text;
-		gameTitleSkyblueLabel.frame = CGRect( x: 1.5, y: gameTitleLabelYAxis, width: gameTitleLabel.frame.width, height: gameTitleLabel.frame.height );
-		gameTitleSkyblueLabel.textColor = UPUtils.colorWithHexString("#00FFFF");
-		gameTitleSkyblueLabel.textAlignment = gameTitleLabel.textAlignment;
+		gameTitleRedLabel.font = gameTitleLabel.font; gameTitleRedLabel.text = gameTitleLabel.text
+		gameTitleRedLabel.frame = CGRect( x: -1.5, y: gameTitleLabelYAxis, width: gameTitleLabel.frame.width, height: gameTitleLabel.frame.height )
+		gameTitleRedLabel.textColor = UPUtils.colorWithHexString("#FF0000")
+		gameTitleRedLabel.textAlignment = gameTitleLabel.textAlignment
+		gameTitleSkyblueLabel.font = gameTitleLabel.font; gameTitleSkyblueLabel.text = gameTitleLabel.text
+		gameTitleSkyblueLabel.frame = CGRect( x: 1.5, y: gameTitleLabelYAxis, width: gameTitleLabel.frame.width, height: gameTitleLabel.frame.height )
+		gameTitleSkyblueLabel.textColor = UPUtils.colorWithHexString("#00FFFF")
+		gameTitleSkyblueLabel.textAlignment = gameTitleLabel.textAlignment
 		
-		self.view.addSubview(gameTitleRedLabel);
-		self.view.addSubview(gameTitleSkyblueLabel); self.view.addSubview(gameTitleLabel);
+		self.view.addSubview(gameTitleRedLabel)
+		self.view.addSubview(gameTitleSkyblueLabel)
+		self.view.addSubview(gameTitleLabel)
 		/////
 		
-		gameThumbnailsBackgroundImage.image = UIImage( named: "game-thumb-background.png" );
-		gameThumbnailsImage.image = UIImage( named: "game-thumb-jumpup.png" );
+		gameThumbnailsBackgroundImage.image = UIImage( named: "game-thumb-background.png" )
+		gameThumbnailsImage.image = UIImage( named: "game-thumb-jumpup.png" )
 		
-		gameThumbnailsBackgroundImage.frame = CGRect( x: self.view.frame.width / 2 - gameThumbsSize / 2, y: self.view.frame.height / 2 - gameThumbsSize / 2, width: gameThumbsSize, height: gameThumbsSize);
-		gameThumbnailsImage.frame = gameThumbnailsBackgroundImage.frame;
+		gameThumbnailsBackgroundImage.frame = CGRect( x: self.view.frame.width / 2 - gameThumbsSize / 2, y: self.view.frame.height / 2 - gameThumbsSize / 2, width: gameThumbsSize, height: gameThumbsSize)
+		gameThumbnailsImage.frame = gameThumbnailsBackgroundImage.frame
 		
-		self.view.addSubview(gameThumbnailsBackgroundImage); self.view.addSubview(gameThumbnailsImage);
+		self.view.addSubview(gameThumbnailsBackgroundImage)
+		self.view.addSubview(gameThumbnailsImage)
 		
 		//start btn add.
-		gameStartButtonImage.image = UIImage( named: "game-start-button.png" );
-		gameStartButtonImage.frame = CGRect( x: self.view.frame.width / 2 - (242.05 * DeviceManager.maxScrRatioC) / 2, y: self.view.frame.height - (70.75 * DeviceManager.maxScrRatioC) - (86 * DeviceManager.maxScrRatioC), width: 242.05 * DeviceManager.maxScrRatioC, height: 70.75 * DeviceManager.maxScrRatioC );
+		gameStartButtonImage.image = UIImage( named: "game-start-button.png" )
+		gameStartButtonImage.frame = CGRect( x: self.view.frame.width / 2 - (242.05 * DeviceManager.maxScrRatioC) / 2, y: self.view.frame.height - (70.75 * DeviceManager.maxScrRatioC) - (86 * DeviceManager.maxScrRatioC), width: 242.05 * DeviceManager.maxScrRatioC, height: 70.75 * DeviceManager.maxScrRatioC )
 		
-		let gameStartGesture:UITapGestureRecognizer = UITapGestureRecognizer();
-		gameStartGesture.addTarget(self, action: #selector(GameTitleViewJumpUP.gameStartFuncTapHandler(_:)));
-		gameStartButtonImage.addGestureRecognizer(gameStartGesture);
+		let gameStartGesture:UITapGestureRecognizer = UITapGestureRecognizer()
+		gameStartGesture.addTarget(self, action: #selector(GameTitleViewJumpUP.gameStartFuncTapHandler(_:)))
+		gameStartButtonImage.addGestureRecognizer(gameStartGesture)
 		
-		self.view.addSubview(gameStartButtonImage);
-		gameStartButtonImage.isUserInteractionEnabled = true;
+		self.view.addSubview(gameStartButtonImage)
+		gameStartButtonImage.isUserInteractionEnabled = true
 		
 		//Auto-count Add. (게임모드일때만 보임)
-		gameAutostartCountdownText.text = String(aStartLeft);
-		gameAutostartCountdownText.font = UIFont.systemFont(ofSize: 38);
+		gameAutostartCountdownText.text = String(aStartLeft)
+		gameAutostartCountdownText.font = UIFont.systemFont(ofSize: 38)
 		gameAutostartCountdownText.frame = CGRect( x: 0,
 		                                               y: self.view.frame.height - (48 * DeviceManager.maxScrRatioC) - (86 * DeviceManager.maxScrRatioC)
 		                                               , width: self.view.frame.width, height: 38 );
-		gameAutostartCountdownText.textColor = UIColor.white;
-		gameAutostartCountdownText.textAlignment = .center;
-		self.view.addSubview(gameAutostartCountdownText);
+		gameAutostartCountdownText.textColor = UIColor.white
+		gameAutostartCountdownText.textAlignment = .center
+		self.view.addSubview(gameAutostartCountdownText)
 		
 		if (isGameMode == false) {
-			gameAutostartCountdownText.isHidden = true;
-			gameStartButtonImage.isHidden = true; //set to false when preload finish
+			gameAutostartCountdownText.isHidden = true
+			gameStartButtonImage.isHidden = true //set to false when preload finish
 		} else {
-			gameStartButtonImage.isHidden = true;
+			gameStartButtonImage.isHidden = true
 		}
 		
 		///////
@@ -132,28 +137,27 @@ class GameTitleViewJumpUP:UIViewController {
 		jumpUPGameScene!.preloadCompleteHandler = gamePreloadCompleted;
 		jumpUPGameScene!.scaleMode = SKSceneScaleMode.resizeFill; jumpUPGameScene!.gameStartupType = isGameMode ? 1 : 0;
 		
-		gameView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height);
-		gameView.presentScene(jumpUPGameScene!);
+		gameView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+		gameView.presentScene(jumpUPGameScene!)
 		
-		print("Auto init end");
+		print("Auto init end")
 		
-		aPreloadCheckTimer = UPUtils.setInterval(0.5, block: preloadCheckTimer);
-		
-		super.viewDidAppear(animated);
+		aPreloadCheckTimer = UPUtils.setInterval(0.5, block: preloadCheckTimer)
+		super.viewDidAppear(animated)
 	} //end func
 	
 	//외부에서 실행되는 함수라 그런지 뷰 알파 애니메이션 등등이 지연이 심함. 따라서 아래처럼만 사용함
 	func gamePreloadCompleted() {
 		if (preloadCompleted) {
-			return;
+			return
 		}
 		
-		preloadCompleted = true;
+		preloadCompleted = true
 	}
 	
 	func preloadCheckTimer() {
 		if (!preloadCompleted) {
-			return;
+			return
 		}
 		
 		//Play bgm sound if alarm mode
@@ -166,9 +170,9 @@ class GameTitleViewJumpUP:UIViewController {
 		
 		if (isGameMode == false) {
 			//alarm mode
-			gameStartButtonImage.isHidden = false;
+			gameStartButtonImage.isHidden = false
 		} else { //manual game mode
-			aStartTimer = UPUtils.setInterval(1, block: autoGameStartTimer);
+			aStartTimer = UPUtils.setInterval(1, block: autoGameStartTimer)
 		}
 		
 		UIView.animate(withDuration: 0.5, animations: {
@@ -180,25 +184,27 @@ class GameTitleViewJumpUP:UIViewController {
 		});
 		
 		if (aPreloadCheckTimer != nil) {
-			aPreloadCheckTimer!.invalidate(); aPreloadCheckTimer = nil;
-		}
-	}
+			aPreloadCheckTimer!.invalidate()
+			aPreloadCheckTimer = nil
+		} //end func
+	} //end if
 	
 	//자동 시작 타이머
 	func autoGameStartTimer( ) {
-		print("timer running");
+		print("timer running")
 		
-		aStartLeft -= 1;
+		aStartLeft -= 1
 		
-		gameAutostartCountdownText.text = String(aStartLeft);
+		gameAutostartCountdownText.text = String(aStartLeft)
 		if (aStartLeft <= 0) {
 			// 타이머 정지 및 시작
 			if (aStartTimer != nil) {
-				aStartTimer!.invalidate(); aStartTimer = nil;
+				aStartTimer!.invalidate()
+				aStartTimer = nil
 			}
-			gameStartFuncTapHandler(nil);
-		}
-	}
+			gameStartFuncTapHandler(nil)
+		} //end if
+	} //end func
 	
 	func gameStartFuncTapHandler( _ recognizer: UITapGestureRecognizer! ) {
 		//Game start
@@ -233,24 +239,21 @@ class GameTitleViewJumpUP:UIViewController {
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		//UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent;
-		//disposeView
-		print("viewwilldisappear.");
 		if (isGameMode == false) {
-			AlarmRingView.selfView!.disposeView();
+			AlarmRingView.selfView!.disposeView()
 		}
-		super.viewWillDisappear(animated);
-	}
+		super.viewWillDisappear(animated)
+	} //end func
 		
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
-	}
+	} //end func
 	
 	
 	//Lock
 	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
 		//Lock it to Portrait
-		return .portrait;
+		return .portrait
 	}
-	
-}
+} //end class
