@@ -171,4 +171,12 @@ class CharacterOverlayGuideView:UIOverlayGuideView {
 		
 	} //end func override fitframes
 	
+	override func closeGuideView(_ gst: UITapGestureRecognizer) {
+		super.closeGuideView(gst)
+		
+		//창 닫을 때 캐릭터 오버레이 가이드 보았음을 저장
+		DataManager.setDataBool( true, key: DataManager.settingsKeys.overlayGuideCharacterInfoFlag )
+		
+	} //end func
+	
 }

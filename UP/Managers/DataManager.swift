@@ -27,56 +27,62 @@ import SQLite;
 class DataManager {
 	
 	//Experiments keys
-	static let EXPERIMENTS_USE_MEMO_KEY:String = "experiments-alarm-memo";
-	static let EXPERIMENTS_USE_NOLIEDOWN_KEY:String = "experiments-alarm-noliedown";
+	static let EXPERIMENTS_USE_MEMO_KEY:String = "experiments-alarm-memo"
+	static let EXPERIMENTS_USE_NOLIEDOWN_KEY:String = "experiments-alarm-noliedown"
 	
 	//환경설정 저장값 key
     enum settingsKeys {
-        static let showBadge:String = "settings_showbadge";
-        static let syncToiCloud:String = "settings_synctoicloud";
+		//환경설정 뱃지표시 / 동기화여부
+        static let showBadge:String = "settings_showbadge"
+        static let syncToiCloud:String = "settings_synctoicloud"
+		//언어 저장 키
+		static let language:String = "settings_language"
 		
-		//아이클라우드 동기화 시, 자신 폰 데이터와 비교하여 높은 쪽을 유지함. ... 는 안쓰는듯. 싱크일만 기록함
-		static let lastSyncDate:String = "settings_data_lastSync";
 		
 		//스타트가이드를 보았는가
-		static let startGuideFlag:String = "settings_startguide_flag";
+		static let startGuideFlag:String = "settings_startguide_flag"
+		//오버레이 가이드: 메인을 보았는가
+		static let overlayGuideMainFlag:String = "settings_overlayguide_flag_main"
+		//오버레이 가이드: 캐릭터를 보았는가
+		static let overlayGuideCharacterInfoFlag:String = "settings_overlayguide_flag_characterinfo"
 		
-		//언어 저장 키
-		static let language:String = "settings_language";
+		////////// iCloud 내부 사용
+		//싱크일만 기록함
+		static let lastSyncDate:String = "settings_data_lastSync"
     }
 	
 	enum characterInfoKeys {
-		static let info:String = "character_info";
+		static let info:String = "character_info"
 	}
 	
 	//최고기록 저장 키
 	enum gamesBestKeys {
-		static let jumpup_best:String = "games_best_jumpup";
+		static let jumpup_best:String = "games_best_jumpup"
 	}
 	enum alarmsBestKeys { //(알람 모드)의 최고기록
-		static let jumpup_best:String = "alarms_best_jumpup";
+		static let jumpup_best:String = "alarms_best_jumpup"
 	}
-	static var bestDatasKeyCollection:Array<String> = []; //코드 간소화를 위함
+	static var bestDatasKeyCollection:Array<String> = [] //코드 간소화를 위함
 	
-	static var bestGameDatasKeyCollection:Array<String> = []; //점수가 높을수록 고득점인 경우 (일반게임)
-	static var bestAlarmDatasKeyCollection:Array<String> = []; //점수가 낮을수록 고득점인 경우 (알람게임)
+	static var bestGameDatasKeyCollection:Array<String> = [] //점수가 높을수록 고득점인 경우 (일반게임)
+	static var bestAlarmDatasKeyCollection:Array<String> = [] //점수가 낮을수록 고득점인 경우 (알람게임)
 	
 	//DB Stats type
 	enum statsType {
-		static let TYPE_ALARM_START_TIME:Int = 0; //게임을 시작하기 전 까지 걸린 시간. 단위: 초
-		static let TYPE_ALARM_CLEAR_TIME:Int = 1; //게임을 클리어하는데 걸린 시간. 단위: 초
+		static let TYPE_ALARM_START_TIME:Int = 0 //게임을 시작하기 전 까지 걸린 시간. 단위: 초
+		static let TYPE_ALARM_CLEAR_TIME:Int = 1 //게임을 클리어하는데 걸린 시간. 단위: 초
 		
-		static let TYPE_ALARM_GAME_DATA:Int = 3; //게임에 대한 전반적인 결과를 가짐.
+		static let TYPE_ALARM_GAME_DATA:Int = 3 //게임에 대한 전반적인 결과를 가짐.
 	}
 	
-	static var iCloudAvailable = false;
+	static var iCloudAvailable = false
 	
 	//////////////////////
 	
-	static var nsDefaults = UserDefaults.standard;
-	static var nsCloudDefaults:NSUbiquitousKeyValueStore? = nil;
+	static var nsDefaults = UserDefaults.standard
+	static var nsCloudDefaults:NSUbiquitousKeyValueStore? = nil
 	static func initDefaults() {
-		nsDefaults = UserDefaults.standard;
+		nsDefaults = UserDefaults.standard
 		
 		if (isICloudContainerAvailable() == true && iCloudAvailable == false) {
 			print("iCloudAvailable. activiting");
@@ -289,6 +295,16 @@ class DataManager {
 		return upDBTableGameResults;
 	}
 	
+	/////////// Data 가져오는 함수. (형태에 따라)
+	static func getSavedDataBool(_ key:String ) -> Bool {
+		return DataManager.nsDefaults.bool(forKey: key)
+	} //end func
+	
+	
+	////////// Data 저장 함수.
+	static func setDataBool(_ boolData:Bool, key:String ) {
+		DataManager.nsDefaults.set(boolData, forKey: key)
+	}
 	
 	///// utils: int to str arr (,)
 	static func covertToStringArray(_ intObj:Array<Int>) -> String {

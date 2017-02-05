@@ -201,4 +201,24 @@ class MainOverlayGuideView:UIOverlayGuideView {
 		
 	} //end func override fitframes
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear( animated )
+		
+		//버튼 표시 여부에 따라 표시/표시해제
+		//(구매버튼)
+		let buyButtonIsHidden:Bool = (self.presentingViewController as! ViewController).upExtPackButton.isHidden
+		
+		guideMainBuyUPImage.isHidden = buyButtonIsHidden
+		guideMainBuyLabel.isHidden = buyButtonIsHidden
+		
+	} //end func
+	
+	override func closeGuideView(_ gst: UITapGestureRecognizer) {
+		super.closeGuideView(gst)
+		
+		//창 닫을 때 메인 오버레이 가이드 보았음을 저장
+		DataManager.setDataBool( true, key: DataManager.settingsKeys.overlayGuideMainFlag )
+		
+	} //end func
+	
 }

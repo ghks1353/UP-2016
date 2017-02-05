@@ -235,8 +235,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	}
 	
 	//오버레이 가이드 열기
-	func showOverlayGuide(_ gst: UITapGestureRecognizer) {
-		
+	func showOverlayGuide(_ gst: UITapGestureRecognizer? ) {
 		upLayerGuide.modalPresentationStyle = .overFullScreen
 		self.present(upLayerGuide, animated: true, completion: nil)
 	} //end func
@@ -285,9 +284,12 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
 			self.view.alpha = 1
 		}) { _ in
+			//캐릭터 오버레이 가이드 표시
+			if (DataManager.getSavedDataBool( DataManager.settingsKeys.overlayGuideCharacterInfoFlag ) == false) {
+				self.showOverlayGuide( nil )
+			} //end if [check character overlay guide flag]
 			
-		}
-		
+		} //end block [complete animation]
 		fadeInGuideButton()
 	} ///////////////////////////////
 	

@@ -285,9 +285,6 @@ class ViewController: UIViewController {
 		//일반적인 사운드 재생 모드
 		SoundManager.setAudioPlayback(.NormalMode)
 		
-		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false
-		
 		//Upside message initial
 		upAlarmMessageView.backgroundColor = UIColor.white //color initial
 		upAlarmMessageText.textColor = UIColor.black
@@ -312,13 +309,11 @@ class ViewController: UIViewController {
 		updateTimeAnimation() //first call
 		_ = UPUtils.setInterval(0.5, block: updateTimeAnimation)
 		
-		
 		//test
 		//CharacterManager.giveEXP(4);
 		
-		
-		///////
-		
+		//DISABLE AUTORESIZE
+		self.view.autoresizesSubviews = false
     } //end viewdidload
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -330,7 +325,8 @@ class ViewController: UIViewController {
 		checkToCallAlarmRingingView()
 		
 		//스타트가이드를 안 보았으면 강제로 보여주기
-		if (DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.startGuideFlag) == false) {
+		if (DataManager.getSavedDataBool( DataManager.settingsKeys.startGuideFlag ) == false) {
+			GlobalSubView.startingGuideView.modalPresentationStyle = .overFullScreen
 			self.present(GlobalSubView.startingGuideView, animated: true, completion: nil)
 			//modal call의 경우 스타트가이드를 보여준 상태에서는 스타트가이드 종료시 보여주도록 함
 		} else {
@@ -1034,6 +1030,9 @@ class ViewController: UIViewController {
 			modalWebView.openURL( url )
 			return
 		} //end if
+		//Modal 실행 시 다음부터는 notice 띄우지 않도록 함
+		//(링크 있는 푸시로 처음 킨 경우 문제가 발생하기 때문)
+		isNoticeCalled = true
 		
 		closeAllModalsForce( ignoreBlurView: true )
 		
@@ -1044,11 +1043,22 @@ class ViewController: UIViewController {
 		self.present(modalWebView, animated: false, completion: nil)
 	} //end func
 	
-	func showGuideView( _ gst: UITapGestureRecognizer ) {
+	func showGuideView( _ gst: UITapGestureRecognizer? ) {
 		//가이드 뷰를 (다시) 보여줌. blurview 사용안함
 		
 		overlayGuideView.modalPresentationStyle = .overFullScreen
 		self.present(overlayGuideView, animated: true, completion: nil)
+	} //end func
+	
+	func updatePurchaseStates() {
+		//Purchase 상태에 따라 메인 화면의 element 숨김/표시여부 결정.
+		if (PurchaseManager.purchasedItems[PurchaseManager.ProductsID.ExpansionPack.rawValue] == true) {
+			//구매하였으니 버튼 비표시
+			upExtPackButton.isHidden = true
+		} else {
+			//구매 버튼 표시
+			upExtPackButton.isHidden = false
+		} //end if
 	} //end func
 	
 } //end class

@@ -13,46 +13,46 @@ import GameKit;
 
 class GamePlayWindowView:UIViewController {
 	
-	var XAXIS_PRESET_PAD:CGFloat = 0;
-	var YAXIS_PRESET_PAD:CGFloat = 6;
+	var XAXIS_PRESET_PAD:CGFloat = 0
+	var YAXIS_PRESET_PAD:CGFloat = 6
 	
-	var XAXIS_PRESET_LV_PAD:CGFloat = -8;
-	var XAXIS_PRESET_LV_R_PAD:CGFloat = -13;
-	var YAXIS_PRESET_LV_PAD:CGFloat = -10;
+	var XAXIS_PRESET_LV_PAD:CGFloat = -8
+	var XAXIS_PRESET_LV_R_PAD:CGFloat = -13
+	var YAXIS_PRESET_LV_PAD:CGFloat = -10
 	
 	//for access
-	static var selfView:GamePlayWindowView?;
+	static var selfView:GamePlayWindowView?
 	
 	//Floating view
-	var modalView:UIView = UIView();
+	var modalView:UIView = UIView()
 	
 	//숫자 리소스 추가
-	var blackNumbers:Array<UIImage> = [];
+	var blackNumbers:Array<UIImage> = []
 	
 	//숫자 조작을 위한 포인터
-	var bestNumPointers:Array<UIImageView> = [];
+	var bestNumPointers:Array<UIImageView> = []
 	
 	//Score/Best 표시를 위한 페이징 뷰
-	var scrollView:UIScrollView = UIScrollView();
+	var scrollView:UIScrollView = UIScrollView()
 	
 	//가운데 결과창 데코 배경, 배경 색
-	var resultDecoBGMask:UIView = UIView();
+	var resultDecoBGMask:UIView = UIView()
 	
 	//버튼 (일반 게임 결과창)
-	var resultButtonList:UIButton = UIButton();
-	var resultButtonRanking:UIButton = UIButton();
-	var resultButtonPlay:UIButton = UIButton(); //<- 일반게임 시 가운데
+	var resultButtonList:UIButton = UIButton()
+	var resultButtonRanking:UIButton = UIButton()
+	var resultButtonPlay:UIButton = UIButton() //<- 일반게임 시 가운데
 	
 	//number up timers
-	var numUPTimer:Timer?;
+	var numUPTimer:Timer?
 	
 	//게임플레이 프리뷰 이미지뷰
-	var gamePreviewImageView:GIFImageView?;
+	var gamePreviewImageView:GIFImageView?
 	
 	///////////////
 	
 	//현재 지정된 게임
-	var currentGameID:Int = 0;
+	var currentGameID:Int = 0
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -234,27 +234,31 @@ class GamePlayWindowView:UIViewController {
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		
+		//BGM 정지
+		SoundManager.stopBGMSound()
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
-		gamePreviewImageView!.startAnimatingGIF();
+		gamePreviewImageView!.startAnimatingGIF()
 		
 		//이 곳에 점수 애니메이션
-		showNumbersOnScore( GameManager.loadBestScore( currentGameID ) );
+		showNumbersOnScore( GameManager.loadBestScore( currentGameID ) )
 		
 		//베스트 쪽 스크롤 초기화
-		self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
+		self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
 		
 		//queue bounce animation
 		self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
 		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
 		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
 			self.view.frame = CGRect(x: 0, y: 0,
-				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
-			self.view.alpha = 1;
+				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
+			self.view.alpha = 1
 		}) { _ in
+			//BGM 재생
+			SoundManager.playBGMSound(SoundManager.bundleSounds.GameReadyBGM.rawValue, repeatCount: -1)
 		}
+		
 	} ///////////////////////////////
 	
 	var tmpNumCurrent:Float = 0; var tmpNumTimeCurrent:Float = 0; var tmpNumCurrentMax:Float = 0;

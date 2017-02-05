@@ -20,23 +20,23 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	var navigationCtrl:UINavigationController = UINavigationController()
 	
     //Table for menu
-    internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped);
+    internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped)
     
-    var settingsArray:Array<SettingsElement> = [];
-    var tablesArray:Array<Array<AnyObject>> = [];
+    var settingsArray:Array<SettingsElement> = []
+    var tablesArray:Array<Array<AnyObject>> = []
 	
 	///////// Test experiments views
-	var experimentAlarmSettingsView:ExperimentsAlarmsSetupView = ExperimentsAlarmsSetupView();
-	var experimentTestingInfoView:ExperimentsTestInfo = ExperimentsTestInfo();
+	var experimentAlarmSettingsView:ExperimentsAlarmsSetupView = ExperimentsAlarmsSetupView()
+	var experimentTestingInfoView:ExperimentsTestInfo = ExperimentsTestInfo()
 	/////
 	
 	/// InSettings Views
-	var creditsView:CreditsPopView = CreditsPopView();
-	var indieGamesView:IndieGamesView = IndieGamesView();
-	var languagesView:LanguageSetupView = LanguageSetupView();
+	var creditsView:CreditsPopView = CreditsPopView()
+	var indieGamesView:IndieGamesView = IndieGamesView()
+	var languagesView:LanguageSetupView = LanguageSetupView()
 	
 	//// Testers view
-	var testersWebView:TestersWebView = TestersWebView();
+	var testersWebView:TestersWebView = TestersWebView()
 	
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -124,7 +124,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		modalMaskImageView.contentMode = .scaleAspectFit
 		self.view.mask = modalMaskImageView
 		
-		FitModalLocationToCenter();
+		FitModalLocationToCenter()
 	}
 	
 	/////// View transition animation
@@ -146,8 +146,8 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
 		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
 			self.view.frame = CGRect(x: 0, y: 0,
-				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
-			self.view.alpha = 1;
+				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
+			self.view.alpha = 1
 		}) { _ in
 		}
 	} ///////////////////////////////
@@ -212,6 +212,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 				UIApplication.shared.openURL(URL(string: "https://itunes.apple.com/app/id1128109120")!)
 				break
 			case "startGuide":
+				GlobalSubView.startingGuideView.modalPresentationStyle = .overFullScreen
 				self.present(GlobalSubView.startingGuideView, animated: true, completion: nil)
 				break
 			case "donateUP":
@@ -474,7 +475,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 		if (isSucced) { //restore OK
 			showRestoreSucceed()
 		} else {
-			showRestoreFailed();
+			showRestoreFailed()
 		}
 	} //end func
 	

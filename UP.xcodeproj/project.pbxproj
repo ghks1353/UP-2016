@@ -186,6 +186,7 @@
 		03E1D1311CF1BCF400B552FC /* characterinfo-gamecenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 03E1D1301CF1BCF400B552FC /* characterinfo-gamecenter.png */; };
 		03E1D1331CF3020B00B552FC /* CharacterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E1D1321CF3020B00B552FC /* CharacterInfo.swift */; };
 		03E1D1351CF32DB600B552FC /* CharacterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E1D1341CF32DB600B552FC /* CharacterManager.swift */; };
+		77050FF21E473610005A891B /* FullScreenGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77050FF11E473610005A891B /* FullScreenGuideView.swift */; };
 		770973041DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */; };
 		770973051DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */; };
 		7717A6EE1E41BB8D00076E16 /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */; };
@@ -638,6 +639,7 @@
 		03E1D1321CF3020B00B552FC /* CharacterInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterInfo.swift; path = NSClasses/CharacterInfo.swift; sourceTree = "<group>"; };
 		03E1D1341CF32DB600B552FC /* CharacterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterManager.swift; path = Managers/CharacterManager.swift; sourceTree = "<group>"; };
 		3446BCAF72D11C596079B5EB /* Pods_UP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77050FF11E473610005A891B /* FullScreenGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FullScreenGuideView.swift; path = Views/FullScreenGuideView.swift; sourceTree = "<group>"; };
 		770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-guide-alarm-0.png"; path = "ImageAssets/GameAssets/JumpUP/guides/game-jumpup-assets-guide-alarm-0.png"; sourceTree = "<group>"; };
 		770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-guide-alarm-1.png"; path = "ImageAssets/GameAssets/JumpUP/guides/game-jumpup-assets-guide-alarm-1.png"; sourceTree = "<group>"; };
 		7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteConfigManager.swift; path = Managers/RemoteConfigManager.swift; sourceTree = "<group>"; };
@@ -1886,6 +1888,7 @@
 				77C35C891C81CBCA002EE465 /* AlarmGamesView */,
 				03DDD81C1CEB99D1007C026D /* AlarmRingView.swift */,
 				032536C31D1B4174004C6293 /* GameModeView.swift */,
+				77050FF11E473610005A891B /* FullScreenGuideView.swift */,
 				03DEB7C91D25E0260086BEAD /* StartGuideView.swift */,
 				7717A7021E43885900076E16 /* UIOverlayGuideView.swift */,
 				7717A7161E43A99F00076E16 /* MainOverlayGuideView.swift */,
@@ -2535,7 +2538,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		77A0583A1E3CE3BF00E04968 /* Google Firebase Crashing Report Auto Renew */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -2543,9 +2546,9 @@
 			name = "Google Firebase Crashing Report Auto Renew";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Replace this path with the path to the key you just downloaded\nJSON_FILE=\"${SRCROOT}/Firebase/account.json\"\n\n# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:821076026620:ios:ced33bf14d2fd64f\n\ndefaults write com.google.SymbolUpload version -integer 1\n\nJSON=$(cat \"${JSON_FILE}\")\n/usr/bin/plutil -replace \"app_${GOOGLE_APP_ID//:/_}\" -json \"${JSON}\" \"$HOME/Library/Preferences/com.google.SymbolUpload.plist\"\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym\n";
+			shellScript = "# Replace this path with the path to the key you just downloaded\nJSON_FILE=${SRCROOT}/Firebase/ServiceAccount.json\n\n# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:821076026620:ios:ced33bf14d2fd64f\n\ndefaults write com.google.SymbolUpload version -integer 1\n\nJSON=$(cat \"${JSON_FILE}\")\n/usr/bin/plutil -replace \"app_${GOOGLE_APP_ID//:/_}\" -json \"${JSON}\" \"$HOME/Library/Preferences/com.google.SymbolUpload.plist\"\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym\n";
 		};
 		7C58E00C7C0E1917BA592676 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2674,6 +2677,7 @@
 				03DDD7E11CEB929F007C026D /* AlarmRepeatSettingsView.swift in Sources */,
 				035BAAC81D34F3D700B4D43F /* PurchaseManager.swift in Sources */,
 				03DDD8251CEB9A2B007C026D /* TKTimingFunction.swift in Sources */,
+				77050FF21E473610005A891B /* FullScreenGuideView.swift in Sources */,
 				032536C41D1B4174004C6293 /* GameModeView.swift in Sources */,
 				032318C91CFA4F860052732F /* GameResultView.swift in Sources */,
 				03DDD7F41CEB98D2007C026D /* SkinManager.swift in Sources */,

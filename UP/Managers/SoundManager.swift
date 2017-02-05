@@ -87,7 +87,6 @@ class SoundManager {
 	////////// Audio playback settings
 	
 	static func setAudioPlayback(_ playMode:PlaybackPlayMode ) {
-		
 		var aSessionCategoryOptions:AVAudioSessionCategoryOptions?
 		var aSessionCategory:String?
 		

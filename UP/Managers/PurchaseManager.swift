@@ -94,6 +94,8 @@ class PurchaseManager {
 			if (callback != nil) {
 				callback!( true )
 			}
+			
+			updateVisibleComponents()
 		} //end verify
 	} //end func
 	
@@ -113,5 +115,16 @@ class PurchaseManager {
 			autoVerifyPurchases( callback: callback )
 		} //end result
 	} //end if
+	
+	////////
+	//보이는 컴포넌트를 구매 여부에 따라 표시/숨김할 수 있도록 도와주는 함수.
+	//auto verify 이후에 call됨
+	static func updateVisibleComponents() {
+		
+		//메인 화면 업데이트
+		if (ViewController.selfView != nil) {
+			ViewController.selfView!.updatePurchaseStates()
+		}
+	} //end func
 	
 }

@@ -179,6 +179,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 		print("App is active now")
+		DeviceManager.appIsBackground = false
 		AlarmManager.mergeAlarm()
 		connectToFcm()
 		
@@ -239,6 +240,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
 		print("Received pushmsg")
 		
+		FIRMessaging.messaging().appDidReceiveMessage( userInfo )
 		handlePushMessage( userInfo )
 	} //end func
 	func tokenRefreshNotification(_ notification: Notification) {
@@ -252,7 +254,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	func connectToFcm() {
 		// Won't connect since there is no token
 		guard FIRInstanceID.instanceID().token() != nil else {
-			return;
+			return
 		}
 		
 		// Disconnect previous FCM connection if it exists.
@@ -284,15 +286,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 			case "link":
 				let targetURL:String? = usrInfo!["url"] as! String?
 				if (targetURL != nil) {
-					ViewController.selfView!.showWebViewModal( url: targetURL! )
-				}
+					if (ViewController.selfView != nil) {
+						ViewController.selfView!.showWebViewModal( url: targetURL! )
+					} //end if [viewcontroller instance is nil or not]
+					else {
+						print("ViewController instance is not inited")
+					}
+				} //end if [targeturl is nil or not]
 				break
 			default:
 				print("Can't handle push message because type is unknown. type:", usrInfo!["type"]!)
 				break
 		} //end switch
 		
-		print("url:" + String(describing: usrInfo!["url"] ))
 	} //end func
 }
 

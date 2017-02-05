@@ -53,10 +53,7 @@ class ModalWebView:UIViewController {
 		///////// Nav items fin
 		
 		//Add Ctrl vw
-		self.view.addSubview(navigationCtrl.view);
-		
-		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false;
+		self.view.addSubview(navigationCtrl.view)
 		
 		//SET MASK for dot eff
 		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
@@ -66,23 +63,27 @@ class ModalWebView:UIViewController {
 		//Add webView
 		wbView.frame = CGRect(x: 0, y: 0,
 		                      width: modalView.view.frame.width,
-		                      height: modalView.view.frame.height);
-		modalView.view.addSubview(wbView);
+		                      height: modalView.view.frame.height)
+		modalView.view.addSubview(wbView)
 		
 		//add progressbar for show loading states
 		wbProgress.center = CGPoint(
 			x: modalView.view.frame.width / 2,
 			y: modalView.view.frame.height / 2 + navigationCtrl.navigationBar.frame.size.height / 2
-		);
-		modalView.view.addSubview(wbProgress);
+		)
+		modalView.view.addSubview(wbProgress)
 		
-		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil);
-		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil);
+		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
 		
-		FitModalLocationToCenter();
+		FitModalLocationToCenter()
 		
 		//clear cache
-		clearWebCache();
+		clearWebCache()
+		
+		///////////////////////////
+		//DISABLE AUTORESIZE
+		self.view.autoresizesSubviews = false
 	}
 	
 	////////////////
@@ -102,8 +103,17 @@ class ModalWebView:UIViewController {
 	
 	func viewCloseAction() {
 		//Close this view
-		ViewController.selfView!.showHideBlurview(false)
-		self.dismiss(animated: true, completion: nil)
+		
+		(self.presentingViewController as! ViewController).showHideBlurview(false)
+		self.dismiss(animated: true, completion: {
+			//맨 처음 오버레이 가이드를 안 보았으면 닫을 때 메인 뷰에
+			//오버레이 가이드 강제적으로 띄우게 호출
+			
+			if (DataManager.getSavedDataBool( DataManager.settingsKeys.overlayGuideMainFlag ) == false) {
+				//presentingViewController가 없기 때문에 그렇게 호출하면 안됨!!
+				ViewController.selfView!.showGuideView( nil )
+			}
+		})
 	} //end func
 	
 	override func viewWillAppear(_ animated: Bool) {

@@ -156,8 +156,10 @@ class GameTitleViewJumpUP:UIViewController {
 			return;
 		}
 		
-		//Play bgm sound
-		SoundManager.playBGMSound(SoundManager.bundleSounds.GameReadyBGM.rawValue, repeatCount: -1)
+		//Play bgm sound if alarm mode
+		if (isGameMode == false) {
+			SoundManager.playBGMSound(SoundManager.bundleSounds.GameReadyBGM.rawValue, repeatCount: -1)
+		} //end if
 		
 		//View fade-in effect
 		loadingIndicatorView!.isHidden = true

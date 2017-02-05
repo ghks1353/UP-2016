@@ -295,17 +295,17 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	//table list create method
 	func createTableList() {
 		for i:Int in 0..<alarmsCell.count {
-			alarmsCell[i].removeFromSuperview();
+			alarmsCell[i].removeFromSuperview()
 		}
-		alarmsCell.removeAll();
+		alarmsCell.removeAll()
 		
-		print("creating table list... count:", AlarmManager.alarmsArray.count );
-		var tmpComponentPointer:DateComponents;
+		print("creating table list... count:", AlarmManager.alarmsArray.count )
+		var tmpComponentPointer:DateComponents
 		for i:Int in 0 ..< AlarmManager.alarmsArray.count {
-			tmpComponentPointer = Calendar.current.dateComponents([.hour, .minute], from: AlarmManager.alarmsArray[i].alarmFireDate as Date);
+			tmpComponentPointer = Calendar.current.dateComponents([.hour, .minute], from: AlarmManager.alarmsArray[i].alarmFireDate as Date)
 			print("Alarm adding:", AlarmManager.alarmsArray[i].alarmID,
 			     ( AlarmManager.alarmsArray[i].alarmFireDate as Date).timeIntervalSince1970 ,
-			      AlarmManager.alarmsArray[i].alarmToggle, "repeat", AlarmManager.alarmsArray[i].alarmRepeat);
+			      AlarmManager.alarmsArray[i].alarmToggle, "repeat", AlarmManager.alarmsArray[i].alarmRepeat)
 			alarmsCell += [
 				createAlarmList(AlarmManager.alarmsArray[i].alarmName,
 					alarmMemo: AlarmManager.alarmsArray[i].alarmMemo,
@@ -315,21 +315,21 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 					selectedGame: AlarmManager.alarmsArray[i].gameSelected,
 					repeatSettings: AlarmManager.alarmsArray[i].alarmRepeat,
 					uuid: AlarmManager.alarmsArray[i].alarmID)
-			];
+			]
 		}
-		tablesArray.removeAll();
+		tablesArray.removeAll()
 		tablesArray = [
 			/*section 1*/
 			alarmsCell as AnyObject
-		];
+		]
 		
-		tableView.reloadData();
-		tableView.reloadInputViews();
-		tableView.delegate = self; tableView.dataSource = self;
+		tableView.reloadData()
+		tableView.reloadInputViews()
+		tableView.delegate = self; tableView.dataSource = self
 		
 		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false;
-		self.view.autoresizingMask = UIViewAutoresizing();
+		self.view.autoresizesSubviews = false
+		self.view.autoresizingMask = UIViewAutoresizing()
 		
 	}
 	
