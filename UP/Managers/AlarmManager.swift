@@ -222,30 +222,30 @@ class AlarmManager {
 		if (mergeProcess == 0) {
 			if #available(iOS 10, *) {
 				//ios10: uilocalnotification 쓰지 않고 unnotificationcenter사용
-				let unUserNotifyCenter = UNUserNotificationCenter.current();
-				var unNotifications:Array<UNNotificationRequest>?;
+				let unUserNotifyCenter = UNUserNotificationCenter.current()
+				var unNotifications:Array<UNNotificationRequest>?
 				unUserNotifyCenter.getPendingNotificationRequests(completionHandler: { requests in
-					unNotifications = requests;
-					print("[iOS10] Merging nil alarms");
-					var removedCount = 0;
+					unNotifications = requests
+					print("[iOS10] Merging nil alarms")
+					var removedCount = 0
 					for it:Int in 0 ..< (unNotifications!.count) {
-						let alarmTmpID:Int = unNotifications![it - removedCount].content.userInfo["id"] as! Int;
+						let alarmTmpID:Int = unNotifications![it - removedCount].content.userInfo["id"] as! Int
 						if (AlarmManager.getAlarm(alarmTmpID) == nil) {
 							//REMOVE LocalNotification
 							
 							//unschedule
-							unUserNotifyCenter.removePendingNotificationRequests(withIdentifiers: [unNotifications![it - removedCount].identifier]);
-							unNotifications!.remove(at: it);
-							removedCount += 1;
-							print("[iOS10] Removed nil alarm ID:", alarmTmpID);
+							unUserNotifyCenter.removePendingNotificationRequests(withIdentifiers: [unNotifications![it - removedCount].identifier])
+							unNotifications!.remove(at: (it - removedCount))
+							removedCount += 1
+							print("[iOS10] Removed nil alarm ID:", alarmTmpID)
 						}
 					}
-					mergeAlarm(1, notificationsArray: unNotifications);
+					mergeAlarm(1, notificationsArray: unNotifications)
 					/////////////
 				});
 				
 			} else { ///fallback ios8~9 code.
-				var ios9notifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!;
+				var ios9notifications:Array<UILocalNotification> = UIApplication.shared.scheduledLocalNotifications!
 				
 				//앱을 삭제한 후 설치하거나, 데이터가 없는 경우에도 로컬알람이 울릴 수 있음.
 				//이 경우, Merge했을 때 지워지게 해야함.

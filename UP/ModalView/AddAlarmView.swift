@@ -46,50 +46,60 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 	
 	var confirmed:Bool = false //편집 혹은 확인을 누를 경우임.
 	
+	//// Mask views
+	var maskUIView:UIView = UIView()
+	let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"))
+	let modalUpperMaskView:UIView = UIView()
+	
+	//알람 셋업 fullscreen 가이드
+	var upAlarmFullGuide:AlarmSetupGuideView = GlobalSubView.alarmSetupGuideView
+	//레이어가이드 보이기 버튼
+	var upLayerGuideShowButton:UIImageView = UIImageView()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.clear
 		
-		AddAlarmView.selfView = self;
+		AddAlarmView.selfView = self
 		
 		//ModalView
-		modalView.view.backgroundColor = UIColor.white;
-		modalView.view.frame = DeviceManager.defaultModalSizeRect;
+		modalView.view.backgroundColor = UIColor.white
+		modalView.view.frame = DeviceManager.defaultModalSizeRect
 		
-		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white];
-		navigationCtrl = UINavigationController.init(rootViewController: modalView);
-		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#4F3317");
-		navigationCtrl.navigationBar.tintColor = UIColor.white;
-		navigationCtrl.view.frame = modalView.view.frame;
+		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
+		navigationCtrl = UINavigationController.init(rootViewController: modalView)
+		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
+		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#4F3317")
+		navigationCtrl.navigationBar.tintColor = UIColor.white
+		navigationCtrl.view.frame = modalView.view.frame
 		
-		modalView.title = LanguagesManager.$("alarmSettings");
+		modalView.title = LanguagesManager.$("alarmSettings")
 		
 		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
-		navLeftPadding.width = -12; //Button left padding
-		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-close"), for: UIControlState());
-		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(AddAlarmView.viewCloseAction), for: .touchUpInside);
-		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
+		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+		navLeftPadding.width = -12 //Button left padding
+		let navCloseButton:UIButton = UIButton() //Add image into UIButton
+		navCloseButton.setImage( UIImage(named: "modal-close"), for: UIControlState())
+		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45) //Image frame size
+		navCloseButton.addTarget(self, action: #selector(AddAlarmView.viewCloseAction), for: .touchUpInside)
+		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ]
 		
 		//add right items
-		let navRightPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
-		navRightPadding.width = -12; //Button right padding
-		let navFuncButton:UIButton = UIButton(); //Add image into UIButton
-		navFuncButton.setImage( UIImage(named: "modal-check"), for: UIControlState());
-		navFuncButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
-		navFuncButton.addTarget(self, action: #selector(AddAlarmView.addAlarmToDevice), for: .touchUpInside);
-		modalView.navigationItem.rightBarButtonItems = [ navRightPadding, UIBarButtonItem(customView: navFuncButton) ];
+		let navRightPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+		navRightPadding.width = -12 //Button right padding
+		let navFuncButton:UIButton = UIButton() //Add image into UIButton
+		navFuncButton.setImage( UIImage(named: "modal-check"), for: UIControlState())
+		navFuncButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45) //Image frame size
+		navFuncButton.addTarget(self, action: #selector(AddAlarmView.addAlarmToDevice), for: .touchUpInside)
+		modalView.navigationItem.rightBarButtonItems = [ navRightPadding, UIBarButtonItem(customView: navFuncButton) ]
 		///////// Nav items fin
 		
 		//add ctrl
-		self.view.addSubview(navigationCtrl.view);
+		self.view.addSubview(navigationCtrl.view)
 		
 		//add table to modals
-		tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height);
-		modalView.view.addSubview(tableView);
+		tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height)
+		modalView.view.addSubview(tableView)
 		
 		//add table cells (options)
 		tablesArray = [
@@ -107,56 +117,75 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			[ /* section 4 */
 				createCell(1, cellID: "alarmDatePicker")
 			]
-			
-		];
+		] ///////////////////////////////////////////////
 		
+		tableView.delegate = self
+		tableView.dataSource = self
+		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA")
 		
-		
-		tableView.delegate = self; tableView.dataSource = self;
-		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA"); //modalView.view.backgroundColor;
-		
-		//set subview size
-		setSubviewSize();
-		
-		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false;
+		////////// 모달 밖에 배치하는 리소스
+		upLayerGuideShowButton.image = UIImage( named: "comp-showguide-icon.png" )
+		self.view.addSubview(upLayerGuideShowButton)
 		
 		//SET MASK for dot eff
-		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
-		modalMaskImageView.frame = modalView.view.frame;
-		modalMaskImageView.contentMode = .scaleAspectFit; self.view.mask = modalMaskImageView;
+		modalMaskImageView.frame = modalView.view.frame
+		modalMaskImageView.contentMode = .scaleAspectFit
 		
-		FitModalLocationToCenter();
-	}
+		modalUpperMaskView.backgroundColor = UIColor.white
+		
+		maskUIView.addSubview(modalMaskImageView)
+		maskUIView.addSubview(modalUpperMaskView)
+		
+		self.view.mask = maskUIView
+		
+		
+		//알람 셋업 가이드 표시
+		let tGesture = UITapGestureRecognizer(target:self, action: #selector(AddAlarmView.showAlarmFullGuide(_:)))
+		upLayerGuideShowButton.isUserInteractionEnabled = true
+		upLayerGuideShowButton.addGestureRecognizer(tGesture)
+		
+		
+		//DISABLE AUTORESIZE
+		self.view.autoresizesSubviews = false
+		
+		//set subview size
+		setSubviewSize()
+		
+		FitModalLocationToCenter()
+	} //end init func
 	
+	func showAlarmFullGuide(_ gst:UIGestureRecognizer ) {
+		//알람 셋업 가이드 표시 시.
+		upAlarmFullGuide.modalPresentationStyle = .overFullScreen
+		self.present( upAlarmFullGuide, animated: true, completion: nil )
+	} //end func
 	
+	//////////////////
 	internal func setSubviewSize() {
 		alarmSoundListView.view.frame = CGRect(
-			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height );
+			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height )
 		alarmGameListView.view.frame = CGRect(
-			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height );
+			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height )
 		alarmRepeatSelectListView.view.frame = CGRect(
-			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height );
-	}
-	
+			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height )
+	} //end func
 	
 	/////// View transition animation
 	override func viewWillAppear(_ animated: Bool) {
 		//setup bounce animation
-		self.view.alpha = 0;
+		self.view.alpha = 0
 		
 		//알람 메모 사용기능 시 사용 (실험실)
 		//이건 단순히 hidden 상태만 조정하는거임
-		DataManager.initDefaults();
-		let tmpOption:Bool = DataManager.nsDefaults.bool(forKey: DataManager.EXPERIMENTS_USE_MEMO_KEY);
-		let alarmsCellArr:Array<AlarmSettingsCell> = tablesArray[1] as! Array<AlarmSettingsCell>;
+		DataManager.initDefaults()
+		let tmpOption:Bool = DataManager.nsDefaults.bool(forKey: DataManager.EXPERIMENTS_USE_MEMO_KEY)
+		let alarmsCellArr:Array<AlarmSettingsCell> = tablesArray[1] as! Array<AlarmSettingsCell>
 		if (tmpOption == true) { /* 메모 사용 시 */
-			alarmsCellArr[1].isHidden = false;
+			alarmsCellArr[1].isHidden = false
 		} else { //메모 사용 안함.
-			alarmsCellArr[1].isHidden = true;
+			alarmsCellArr[1].isHidden = true
 		}
-		tableView.reloadData();
-		
+		tableView.reloadData()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -178,46 +207,65 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 				(self.presentingViewController as! AlarmListView).tableView.isHidden = true
 			}
 		}
+		
+		fadeInGuideButton()
 	} ///////////////////////////////
 	
+	func fadeInGuideButton( _ withDelay:Bool = true ) {
+		upLayerGuideShowButton.alpha = 0
+		UIView.animate(withDuration: 0.5, delay: withDelay ? 0.56 : 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+			self.upLayerGuideShowButton.alpha = 1
+		}, completion: {_ in
+		})
+	} //end func
+	func fadeOutGuideButton( ) {
+		upLayerGuideShowButton.alpha = 1
+		UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+			self.upLayerGuideShowButton.alpha = 0
+		}, completion: {_ in
+		})
+	} //end func
+	
+	////////////////////////////
 	
 	//set sound element from other view
 	internal func setSoundElement(_ sInfo:SoundInfoObj) {
-		(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundLangName;
-		alarmSoundSelectedObj = sInfo;
+		(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundLangName
+		alarmSoundSelectedObj = sInfo
 	}
 	
 	//set game id from other view
 	internal func setGameElement(_ gameID:Int) {
-		var gameName:String = "";
-		let tArray:Array<AlarmSettingsCell> = tablesArray[0] as! Array<AlarmSettingsCell>;
-		//cellImageViewElement
+		var gameName:String = ""
+		let tArray:Array<AlarmSettingsCell> = tablesArray[0] as! Array<AlarmSettingsCell>
+		
+		
 		switch(gameID) {
 			case -1: //RANDOM
 				//랜덤은 게임선택으로 하고, 설명을 랜덤으로 하죠
-				(getElementFromTable("alarmGame") as! UILabel).text = LanguagesManager.$("alarmGameSelect");
-				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = LanguagesManager.$("alarmGameRandom");
+				(getElementFromTable("alarmGame") as! UILabel).text = LanguagesManager.$("alarmGameSelect")
+				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = LanguagesManager.$("alarmGameRandom")
 				
-				getImageViewFromTable("alarmGame")!.image = UIImage(named: "game-thumb-random.png");
-				tArray[0].backgroundColor = UPUtils.colorWithHexString("#333333");
-				break;
+				getImageViewFromTable("alarmGame")!.image = UIImage(named: "game-thumb-random.png")
+				tArray[0].backgroundColor = UPUtils.colorWithHexString("#333333")
+				break
 			default:
 				gameName = GameManager.list[gameID].gameLangName;
-				(getElementFromTable("alarmGame") as! UILabel).text = gameName; //LanguagesManager.$("alarmGameSelect");
-				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = LanguagesManager.$("alarmGameSelect");
+				(getElementFromTable("alarmGame") as! UILabel).text = gameName //LanguagesManager.$("alarmGameSelect");
+				(getElementFromTable("alarmGame", isSubElement: true) as! UILabel).text = LanguagesManager.$("alarmGameSelect")
 				
-				getImageViewFromTable("alarmGame")!.image = UIImage(named: GameManager.list[gameID].gameThumbFileName + ".png");
-				tArray[0].backgroundColor = GameManager.list[gameID].gameBackgroundUIColor;
-				break;
+				getImageViewFromTable("alarmGame")!.image = UIImage(named: GameManager.list[gameID].gameThumbFileName + ".png")
+				tArray[0].backgroundColor = GameManager.list[gameID].gameBackgroundUIColor
+				break
 		}
 		
-		gameSelectedID = gameID;
+		gameSelectedID = gameID
 	}
 	
 	//add alarm evt
 	func addAlarmToDevice() {
 		
-		confirmed = true;
+		confirmed = true
 		
 		if (isAlarmEditMode == false) {
 			///Add alarm to system
@@ -243,13 +291,9 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			
 		}
 		
-		//if playing sound, stop it
-		//alarmSoundListView.stopSound();
-		
 		//added successfully. close view
-		viewCloseAction();
-		
-	}
+		viewCloseAction( true )
+	} //end func
 	
 	//for default setting at view opening
 	internal func getElementFromTable(_ cellID:String, isSubElement:Bool = false)->AnyObject? {
@@ -277,8 +321,12 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect;
 		
 		if (self.view.mask != nil) {
-			self.view.mask!.frame = DeviceManager.defaultModalSizeRect;
+			modalMaskImageView.frame = DeviceManager.defaultModalSizeRect
+			
+			modalUpperMaskView.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: 34 * DeviceManager.maxScrRatioC, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
 		}
+		
+		upLayerGuideShowButton.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: 34 * DeviceManager.maxScrRatioC, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -286,11 +334,17 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 		// Dispose of any resources that can be recreated.
 	}
 	
-	func viewCloseAction() {
+	func viewCloseAction(_ addedAlarm:Bool = false) {
 		//Close this view
+		
+		//Hide guide
+		upLayerGuideShowButton.alpha = 0
 		
 		//if playing sound, stop it
 		alarmSoundListView.stopSound()
+		
+		//알람 풀 가이드를 맨 처음 띄우기 위해 dismiss complete 블럭에 검사를 위한 용도
+		var parentIsMainView:Bool = false
 		
 		//if parent is main or not
 		if (self.presentingViewController is ViewController) {
@@ -300,6 +354,7 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			if (confirmed == true) {
 				ViewController.selfView!.showMessageOnView(LanguagesManager.$(isAlarmEditMode == true ? "informationAlarmEdited" : "informationAlarmAdded"), backgroundColorHex: "219421", textColorHex: "FFFFFF")
 			}
+			parentIsMainView = true
 		} else {
 			//Check alarm make/ornot
 			(self.presentingViewController as! AlarmListView).checkAlarmLimitExceed()
@@ -316,7 +371,18 @@ class AddAlarmView:UIViewController, UITableViewDataSource, UITableViewDelegate,
 			(self.presentingViewController as! AlarmListView).fadeInGuideButton( false )
 		} //end if
 		
-		self.dismiss(animated: true, completion: nil)
+		self.dismiss(animated: true, completion: {
+			if (DataManager.getSavedDataBool( DataManager.settingsKeys.fullscreenAlarmGuideFlag ) == false && addedAlarm == true) {
+				GlobalSubView.alarmSetupGuideView.modalPresentationStyle = .overFullScreen
+				if (parentIsMainView == true) {
+					//메인에서 present
+					ViewController.selfView!.present(GlobalSubView.alarmSetupGuideView, animated: true, completion: nil)
+				} else {
+					//리스트에서 present
+					AlarmListView.selfView!.present(GlobalSubView.alarmSetupGuideView, animated: true, completion: nil)
+				} //end if
+			}
+		}) //end block
 	}
 	
 	///// for table func

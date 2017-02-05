@@ -139,7 +139,7 @@ class FullScreenGuideView:UIViewController, UIScrollViewDelegate {
 		guideExitInformationLabel.textColor = UIColor.white
 		guideExitInformationLabel.textAlignment = .center
 		guideExitInformationLabel.font = UIFont.boldSystemFont(ofSize: 14)
-		guideExitInformationLabel.text = LanguagesManager.$("startGuideExitWithSwipe")
+		guideExitInformationLabel.text = LanguagesManager.$("guideExitWithSwipe")
 		
 		self.view.addSubview(guideExitInformationLabel)
 		guideExitInformationLabel.alpha = 0 //페이지 마지막으로 갔을 때만 보이게

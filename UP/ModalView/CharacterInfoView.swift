@@ -108,12 +108,12 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		modalView.view.addSubview(charInfoBGView)
 		
 		//컴포넌트 이미지 설정
-		charLevelWrapper.image = UIImage( named: "characterinfo-level-wrapper.png" );
-		charLevelIndicator.image = UIImage( named: "characterinfo-level.png" );
-		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" );
-		charGameCenterIcon.image = UIImage( named: "characterinfo-gamecenter.png" );
-		charAchievementsIcon.image = UIImage( named: "characterinfo-achievements.png" );
-		charCurrentCharacter.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character-" + "0" + ".png" ); //현재 캐릭터 스킨 불러오기
+		charLevelWrapper.image = UIImage( named: "characterinfo-level-wrapper.png" )
+		charLevelIndicator.image = UIImage( named: "characterinfo-level.png" )
+		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" )
+		charGameCenterIcon.image = UIImage( named: "characterinfo-gamecenter.png" )
+		charAchievementsIcon.image = UIImage( named: "characterinfo-achievements.png" )
+		charCurrentCharacter.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character-" + "0" + ".png" ) //현재 캐릭터 스킨 불러오기
 		
 		//기타 컴포넌트 배치.
 		modalView.view.addSubview(charLevelWrapper)
@@ -130,27 +130,27 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		
 		charLevelWrapper.frame = CGRect( x: 194.5 * DeviceManager.modalRatioC,
 		                                     y: charInfoBGView.frame.minY + 12 * DeviceManager.modalRatioC
-		                                     , width: 105.65 * DeviceManager.modalRatioC, height: 63.65 * DeviceManager.modalRatioC);
+		                                     , width: 105.65 * DeviceManager.modalRatioC, height: 63.65 * DeviceManager.modalRatioC)
 		charLevelIndicator.frame = CGRect( x: 142 * DeviceManager.modalRatioC,
 		                                        y: charInfoBGView.frame.minY + 42 * DeviceManager.modalRatioC
-		                                       , width: 43.85 * DeviceManager.modalRatioC, height: 33.9 * DeviceManager.modalRatioC);
+		                                       , width: 43.85 * DeviceManager.modalRatioC, height: 33.9 * DeviceManager.modalRatioC)
 		charExpWrapper.frame = CGRect( x: 26 * DeviceManager.modalRatioC,
 		                                   y: charInfoBGView.frame.minY + 54.5 * DeviceManager.modalRatioC
-		                                   ,width: 93.7 * DeviceManager.modalRatioC, height: 55.8 * DeviceManager.modalRatioC);
+		                                   ,width: 93.7 * DeviceManager.modalRatioC, height: 55.8 * DeviceManager.modalRatioC)
 		
-		charGameCenterIcon.frame = CGRect( x: 40 * DeviceManager.modalRatioC, y: navigationCtrl.navigationBar.frame.size.height + 188 * DeviceManager.modalRatioC, width: 75.8 * DeviceManager.modalRatioC, height: 75.75 * DeviceManager.modalRatioC);
-		charAchievementsIcon.frame = CGRect( x: 198.5 * DeviceManager.modalRatioC, y: charGameCenterIcon.frame.minY, width: 75.8 * DeviceManager.modalRatioC, height: 75.75 * DeviceManager.modalRatioC);
+		charGameCenterIcon.frame = CGRect( x: 40 * DeviceManager.modalRatioC, y: navigationCtrl.navigationBar.frame.size.height + 188 * DeviceManager.modalRatioC, width: 75.8 * DeviceManager.modalRatioC, height: 75.75 * DeviceManager.modalRatioC)
+		charAchievementsIcon.frame = CGRect( x: 198.5 * DeviceManager.modalRatioC, y: charGameCenterIcon.frame.minY, width: 75.8 * DeviceManager.modalRatioC, height: 75.75 * DeviceManager.modalRatioC)
 		
-		charCurrentCharacter.frame = CGRect( x: 6 * DeviceManager.modalRatioC, y: modalView.view.frame.height - 252 * DeviceManager.modalRatioC, width: 300 * DeviceManager.modalRatioC, height: 300 * DeviceManager.modalRatioC );
+		charCurrentCharacter.frame = CGRect( x: 6 * DeviceManager.modalRatioC, y: modalView.view.frame.height - 252 * DeviceManager.modalRatioC, width: 300 * DeviceManager.modalRatioC, height: 300 * DeviceManager.modalRatioC )
 		
 		//마스크용 프레임 배치
 		charExpMaskView.frame = CGRect(x: 30.5 * DeviceManager.modalRatioC, y: charExpWrapper.frame.minY + 3 * DeviceManager.modalRatioC,
-		                                   width: 82 * DeviceManager.modalRatioC, height: 48 * DeviceManager.modalRatioC);
-		let maskLayer:CAShapeLayer = CAShapeLayer();
-		let cMaskRect = CGRect(x: 0, y: 0, width: 82 * DeviceManager.modalRatioC, height: 49 * DeviceManager.modalRatioC);
-		let cPath:CGPath = CGPath(rect: cMaskRect, transform: nil);
-		maskLayer.path = cPath;
-		charExpMaskView.layer.mask = maskLayer;
+		                                   width: 82 * DeviceManager.modalRatioC, height: 48 * DeviceManager.modalRatioC)
+		let maskLayer:CAShapeLayer = CAShapeLayer()
+		let cMaskRect = CGRect(x: 0, y: 0, width: 82 * DeviceManager.modalRatioC, height: 49 * DeviceManager.modalRatioC)
+		let cPath:CGPath = CGPath(rect: cMaskRect, transform: nil)
+		maskLayer.path = cPath
+		charExpMaskView.layer.mask = maskLayer
 		//charExpMaskView.backgroundColor = UIColor.whiteColor();
 		//경험치 막대
 		charExpProgress.backgroundColor = UPUtils.colorWithHexString("#00CC33");

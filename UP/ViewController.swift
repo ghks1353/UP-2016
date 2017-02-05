@@ -212,13 +212,14 @@ class ViewController: UIViewController {
 		
 		//기본 스킨이 선택된 상태에서
         AstroCharacter.animationImages = astroMotionsStanding;
-        AstroCharacter.animationDuration = 1.0; AstroCharacter.animationRepeatCount = -1;
-        AstroCharacter.startAnimating();
+        AstroCharacter.animationDuration = 1.0
+		AstroCharacter.animationRepeatCount = -1
+        AstroCharacter.startAnimating()
 		
 		//////////////////// 터치 인터렉션 (메뉴 이동)
 		
         //시계 이미지 터치시
-        var tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.openAlarmaddView(_:))); //openAlarmaddView
+        var tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.openAlarmaddView(_:))) //openAlarmaddView
         AnalogBodyToucharea.isUserInteractionEnabled = true
         AnalogBodyToucharea.addGestureRecognizer(tGests)
         

@@ -46,6 +46,9 @@ class DataManager {
 		//오버레이 가이드: 캐릭터를 보았는가
 		static let overlayGuideCharacterInfoFlag:String = "settings_overlayguide_flag_characterinfo"
 		
+		//풀스크린 가이드: 알람 최초 추가시 가이드
+		static let fullscreenAlarmGuideFlag:String = "settings_full_alarmguide_flag"
+		
 		////////// iCloud 내부 사용
 		//싱크일만 기록함
 		static let lastSyncDate:String = "settings_data_lastSync"

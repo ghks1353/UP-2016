@@ -19,7 +19,7 @@ class StartGuideView:FullScreenGuideView {
 		
 		//가이드 사진/라벨 프리픽스
 		guideImagePrefix = "modal-guide-images-"
-		guideLabelPrefix = "startGuide-"
+		guideLabelPrefix = "guide-start-"
 
 		guidePages = 4
 		StartGuideView.selfView = self

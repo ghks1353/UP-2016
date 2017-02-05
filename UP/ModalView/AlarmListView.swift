@@ -195,15 +195,15 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	func deleteAlarmConfirm() {
 		//알람 삭제 통합 function
 		
-		print("del start of", self.alarmTargetID);
-		AlarmManager.removeAlarm(self.alarmTargetID);
+		print("del start of", self.alarmTargetID)
+		AlarmManager.removeAlarm(self.alarmTargetID)
 		//Update table with animation
-		self.alarmsCell.remove(at: (self.alarmTargetIndexPath! as NSIndexPath).row); self.tablesArray = [self.alarmsCell as AnyObject];
-		self.tableView.deleteRows(at: [self.alarmTargetIndexPath!], with: UITableViewRowAnimation.top);
+		self.alarmsCell.remove(at: (self.alarmTargetIndexPath! as NSIndexPath).row); self.tablesArray = [self.alarmsCell as AnyObject]
+		self.tableView.deleteRows(at: [self.alarmTargetIndexPath!], with: UITableViewRowAnimation.top)
 		
 		//chk alarm make available
-		checkAlarmLimitExceed();
-		checkAlarmIsEmpty(); //and check is empty
+		checkAlarmLimitExceed()
+		checkAlarmIsEmpty() //and check is empty
 	}
 	
 	//iPad Alarm Delete Question
