@@ -18,6 +18,7 @@ class SoundManager {
 	}
 	
 	public enum PlaybackPlayMode {
+		case Default
 		case NormalMode
 		case AlarmMode
 	}
@@ -26,6 +27,8 @@ class SoundManager {
 	//(중첩불가)
 	static var systemBGMPlayer:AVAudioPlayer?
 	static var playingSoundName:String?
+	
+	static var previousPlaybackMode:PlaybackPlayMode = .Default
 	
 	static func playBGMSound(_ soundName:String, repeatCount:Int = -1 ) {
 		let bgmURL:URL? = Bundle.main.url(forResource: soundName, withExtension: nil)
@@ -47,12 +50,12 @@ class SoundManager {
 		do {
 			systemBGMPlayer = try AVAudioPlayer( contentsOf: bgmURL! )
 			
-			systemBGMPlayer!.numberOfLoops = repeatCount;
+			systemBGMPlayer!.numberOfLoops = repeatCount
 			
 			systemBGMPlayer!.prepareToPlay()
-			systemBGMPlayer!.play();
+			systemBGMPlayer!.play()
 			
-			playingSoundName = soundName;
+			playingSoundName = soundName
 		} catch {
 			
 		}
@@ -87,6 +90,10 @@ class SoundManager {
 	////////// Audio playback settings
 	
 	static func setAudioPlayback(_ playMode:PlaybackPlayMode ) {
+		if (playMode == previousPlaybackMode) {
+			return
+		} //end if
+		
 		var aSessionCategoryOptions:AVAudioSessionCategoryOptions?
 		var aSessionCategory:String?
 		
@@ -99,7 +106,7 @@ class SoundManager {
 				aSessionCategory = AVAudioSessionCategoryAmbient
 				aSessionCategoryOptions = AVAudioSessionCategoryOptions.mixWithOthers
 				break
-			/*default: return*/
+			default: return
 		} //end switch
 		
 		do {
@@ -113,12 +120,13 @@ class SoundManager {
 			print("[SoundManager] Playback mode setting error: ", error.localizedDescription)
 		} //end do catch
 		
+		previousPlaybackMode = playMode
 	} //end func
 	
 	////////////// alarm sounds
 	static var list:Array<SoundInfoObj> = [
 		SoundInfoObj(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff"),
-		SoundInfoObj(soundName: "Miracle 5ympho X", fileName: "sounds-alarms-test-miracle5ynphox.aiff"),
+		SoundInfoObj(soundName: "Play Play Play (UP test sound)", fileName: "sounds-alarms-test-playplayplay.aiff"),
 		SoundInfoObj(soundName: "占쏙옙占쏙옙", fileName: "sounds-alarms-test-sokyepsokyep.aiff"),
 		SoundInfoObj(soundName: "냥냥-냐냐-냐냐냐냥", fileName: "sounds-alarms-test-nyancat.aiff")
 		

@@ -36,7 +36,8 @@ class GameTitleViewJumpUP:UIViewController {
 	let gameTitleLabelYAxis:CGFloat = 128 * DeviceManager.scrRatioC
 	let gameThumbsSize:CGFloat = 180 * DeviceManager.maxScrRatioC
 	
-	var isGameMode:Bool = false //알람이 아닌, 스코어가 오르는 게임 모드인 경우
+	//게임 모드 타입 체크
+	var gameStartupType:GameManager.GameType = .AlarmMode
 	
 	var aStartTimer:Timer? //자동 게임시작 카운트다운 타이머
 	var aPreloadCheckTimer:Timer? //Preload check timer
@@ -120,12 +121,12 @@ class GameTitleViewJumpUP:UIViewController {
 		gameAutostartCountdownText.textAlignment = .center
 		self.view.addSubview(gameAutostartCountdownText)
 		
-		if (isGameMode == false) {
+		if (gameStartupType == .AlarmMode) {
 			gameAutostartCountdownText.isHidden = true
 			gameStartButtonImage.isHidden = true //set to false when preload finish
 		} else {
 			gameStartButtonImage.isHidden = true
-		}
+		} //end if [is AlarmMode]
 		
 		///////
 		self.gameTitleLabel.alpha = 0; self.gameTitleRedLabel.alpha = 0; self.gameTitleSkyblueLabel.alpha = 0;
@@ -133,9 +134,10 @@ class GameTitleViewJumpUP:UIViewController {
 		self.gameStartButtonImage.alpha = 0; self.gameAutostartCountdownText.alpha = 0;
 		
 		//Auto-init (for loading resources)
-		jumpUPGameScene = JumpUPGame( size: CGSize( width: self.view.frame.width, height: self.view.frame.height ) );
-		jumpUPGameScene!.preloadCompleteHandler = gamePreloadCompleted;
-		jumpUPGameScene!.scaleMode = SKSceneScaleMode.resizeFill; jumpUPGameScene!.gameStartupType = isGameMode ? 1 : 0;
+		jumpUPGameScene = JumpUPGame( size: CGSize( width: self.view.frame.width, height: self.view.frame.height ) )
+		jumpUPGameScene!.preloadCompleteHandler = gamePreloadCompleted
+		jumpUPGameScene!.scaleMode = SKSceneScaleMode.resizeFill
+		jumpUPGameScene!.gameStartupType = gameStartupType
 		
 		gameView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
 		gameView.presentScene(jumpUPGameScene!)
@@ -161,19 +163,15 @@ class GameTitleViewJumpUP:UIViewController {
 		}
 		
 		//Play bgm sound if alarm mode
-		if (isGameMode == false) {
+		if (gameStartupType == .AlarmMode) {
 			SoundManager.playBGMSound(SoundManager.bundleSounds.GameReadyBGM.rawValue, repeatCount: -1)
-		} //end if
+			gameStartButtonImage.isHidden = false //Start hidden false
+		} else { //Start auto 3-2-1 counter in Game Mode
+			aStartTimer = UPUtils.setInterval(1, block: autoGameStartTimer)
+		} //end if [Alarm mode or game mode]
 		
 		//View fade-in effect
 		loadingIndicatorView!.isHidden = true
-		
-		if (isGameMode == false) {
-			//alarm mode
-			gameStartButtonImage.isHidden = false
-		} else { //manual game mode
-			aStartTimer = UPUtils.setInterval(1, block: autoGameStartTimer)
-		}
 		
 		UIView.animate(withDuration: 0.5, animations: {
 			self.gameTitleLabel.alpha = 1; self.gameTitleRedLabel.alpha = 1; self.gameTitleSkyblueLabel.alpha = 1;
@@ -239,7 +237,7 @@ class GameTitleViewJumpUP:UIViewController {
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		//UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent;
-		if (isGameMode == false) {
+		if (gameStartupType == .AlarmMode) {
 			AlarmRingView.selfView!.disposeView()
 		}
 		super.viewWillDisappear(animated)

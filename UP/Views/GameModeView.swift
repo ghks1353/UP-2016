@@ -41,7 +41,7 @@ class GameModeView:UIViewController {
 				
 				GameModeView.jumpUPStartupViewController = nil
 				GameModeView.jumpUPStartupViewController = GameTitleViewJumpUP()
-				GameModeView.jumpUPStartupViewController!.isGameMode = true
+				GameModeView.jumpUPStartupViewController!.gameStartupType = .GameMode
 				
 				present(GameModeView.jumpUPStartupViewController!, animated: false, completion: nil)
 				break

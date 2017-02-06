@@ -11,6 +11,11 @@ import UIKit
 
 class GameManager {
 	
+	public enum GameType {
+		case AlarmMode
+		case GameMode
+	}
+	
 	static var list:Array<GameInfoObj> = [
 		GameInfoObj(
 			gameIDf: "jumpup", /* <- 게임 ID 식별자 */

@@ -20,14 +20,17 @@ class AlarmRingView:UIViewController {
 	
 	static var selfView:AlarmRingView?
 	
-	internal var userAsleepCount:Int = 0 //중간에 존 횟수를 여기다 추가하도록 함
-	
-	//게임 서브 뷰는 예외적으로 이 뷰에 포함.
+	//게임 서브 뷰들
 	static var jumpUPStartupViewController:GameTitleViewJumpUP?
-	internal var currentAlarmElement:AlarmElements?
+	
+	//알람 Element
+	var currentAlarmElement:AlarmElements?
 	var gameSelectedNumber:Int = 0
 	
 	//Asleep func
+	var userAsleepCount:Int = 0 //중간에 존 횟수를 여기다 추가하도록 함
+	var liePhoneDownCount:Int = 0 //자이로 움직임을 판단해서 터치를 해도 누워있다고 판단하는 카운트
+	
 	var lastActivatedTimeAfter:Int = 0
 	var asleepTimer:Timer?
 	
@@ -35,7 +38,10 @@ class AlarmRingView:UIViewController {
 	var cMotionManager:CMMotionManager?
 	var accelSensorWorks:Bool = false
 	var isLied:Bool = false
-	var liePhoneDownCount:Int = 0 //자이로 움직임을 판단해서 터치를 해도 누워있다고 판단하는 카운트
+	
+	//광고를 보고있거나 기타 등의 이유로 일부 기능을 작동하지 않게 해야할 경우
+	//예 : 광고 보는중 타이머 지나서 울림, 혹은 누워서 제한
+	var ignoresActiveSound:Bool = false
 	
 	override func viewDidLoad() {
 		// view init func
@@ -61,8 +67,8 @@ class AlarmRingView:UIViewController {
 		let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970))
 		if (nextfieInSeconds != -1 && nextAlarmLeft < AlarmManager.alarmForceStopAvaliableSeconds * -1) {
 			//알람이 울린 후 특정 시간이 지나 오래된 경우
-			
 			//즉시 해제할거냐?
+			
 			let unlockForceConfirmAlert:UIAlertController =
 				UIAlertController(title: LanguagesManager.$("alarmOldWarningTitle"), message: LanguagesManager.$("alarmOldWarningDescription"), preferredStyle: UIAlertControllerStyle.alert)
 			unlockForceConfirmAlert.addAction(UIAlertAction(title: LanguagesManager.$("alarmOldOffNow"), style: .default, handler: { (action: UIAlertAction!) in
@@ -73,13 +79,11 @@ class AlarmRingView:UIViewController {
 				//Play game
 				self.alarmViewLoadProcced()
 			}))
-			present(unlockForceConfirmAlert, animated: true, completion: nil)
 			
-		} else {
+			present(unlockForceConfirmAlert, animated: true, completion: nil)
+		} else { //즉시 해제 불가. 바로 게임으로
 			alarmViewLoadProcced()
-		}
-		
-		
+		} //end if [old alarm]
 		
 	} //end func
 	
@@ -87,6 +91,7 @@ class AlarmRingView:UIViewController {
 	//load games
 	func alarmViewLoadProcced() {
 		currentAlarmElement = AlarmManager.getRingingAlarm()
+		ignoresActiveSound = false
 		
 		if (currentAlarmElement != nil) {
 			//게임을 분류하여 각각 맞는 view를 present
@@ -106,18 +111,17 @@ class AlarmRingView:UIViewController {
 			
 			print("selected ->", gameSelectedNumber)
 			switch( gameSelectedNumber ) {
-			case 0: //점프업
-				changeRotation(0);
-				
-				AlarmRingView.jumpUPStartupViewController = nil
-				AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP() //게임 강제 초기화. (TitleView)
-				
-				present(AlarmRingView.jumpUPStartupViewController!, animated: false, completion: nil)
-				break;
-				
-			default:
-				print("game code", self.gameSelectedNumber, "not found err")
-				break;
+				case 0: //점프업
+					changeRotation(0)
+					
+					AlarmRingView.jumpUPStartupViewController = nil
+					AlarmRingView.jumpUPStartupViewController = GameTitleViewJumpUP() //게임 강제 초기화. (TitleView)
+					
+					present(AlarmRingView.jumpUPStartupViewController!, animated: false, completion: nil)
+					break
+				default:
+					print("game code", self.gameSelectedNumber, "not found err")
+					break
 			} //end switch
 			
 			//게임 중간에 조는 것 + 가속도센서 체크 관련한 핸들링
@@ -130,17 +134,17 @@ class AlarmRingView:UIViewController {
 	func disposeView() {
 		//view disappear event handler
 		if (asleepTimer != nil) {
-			asleepTimer!.invalidate();
-			asleepTimer = nil;
+			asleepTimer!.invalidate()
+			asleepTimer = nil
 		}
 		if (cMotionManager != nil) {
-			cMotionManager!.stopAccelerometerUpdates();
-			cMotionManager!.stopGyroUpdates();
-			cMotionManager = nil;
+			cMotionManager!.stopAccelerometerUpdates()
+			cMotionManager!.stopGyroUpdates()
+			cMotionManager = nil
 		}
 		
 		//Refresh tables
-		AlarmListView.selfView!.createTableList();
+		AlarmListView.selfView!.createTableList()
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -154,23 +158,23 @@ class AlarmRingView:UIViewController {
 		//세로로 화면 돌림
 		
 		//Rotate this view to portrait
-		let portraitOriention = UIInterfaceOrientation.portrait.rawValue;
-		let landscapeOriention = UIInterfaceOrientation.landscapeRight.rawValue;
+		let portraitOriention = UIInterfaceOrientation.portrait.rawValue
+		let landscapeOriention = UIInterfaceOrientation.landscapeRight.rawValue
 		
 		if (rotationNum == 0) { // 0 - 세로, 1 - 가로
-			UIDevice.current.setValue(portraitOriention, forKey: "orientation");
+			UIDevice.current.setValue(portraitOriention, forKey: "orientation")
 		} else {
-			UIDevice.current.setValue(landscapeOriention, forKey: "orientation");
+			UIDevice.current.setValue(landscapeOriention, forKey: "orientation")
 		}
 		
 		//PS: this is unsecure use of APIs
 		// http://stackoverflow.com/questions/26357162/how-to-force-view-controller-orientation-in-ios-8
-	}
+	} //end func
 	
 	
 	// Lock rotation and fix
 	override var shouldAutorotate : Bool {
-		return false; //Lock autorotate in this view
+		return false //Lock autorotate in this view
 	}
 	
 	//Check last touch
@@ -191,7 +195,10 @@ class AlarmRingView:UIViewController {
 	
 	//Check if asleep or not + acc check
 	func asleepTimeCheckFunc() {
-		//print("Asleep check process is running");
+		if (ignoresActiveSound == true) {
+			return
+		}
+		
 		if (currentAlarmElement == nil) {
 			//remove it
 			if (asleepTimer != nil) {

@@ -88,75 +88,70 @@ class DataManager {
 		nsDefaults = UserDefaults.standard
 		
 		if (isICloudContainerAvailable() == true && iCloudAvailable == false) {
-			print("iCloudAvailable. activiting");
-			iCloudAvailable = true;
-			nsCloudDefaults = NSUbiquitousKeyValueStore.default();
-			NotificationCenter.default.addObserver(self, selector: #selector(DataManager.iCloudValChanged(_:)), name: NSUbiquitousKeyValueStore.didChangeExternallyNotification, object: nsCloudDefaults);
+			print("iCloudAvailable. activiting")
+			iCloudAvailable = true
+			nsCloudDefaults = NSUbiquitousKeyValueStore.default()
+			NotificationCenter.default.addObserver(self, selector: #selector(DataManager.iCloudValChanged(_:)), name: NSUbiquitousKeyValueStore.didChangeExternallyNotification, object: nsCloudDefaults)
 		}
 		
 		//전체 컬렉션
 		bestDatasKeyCollection = [
 			DataManager.gamesBestKeys.jumpup_best
 			, DataManager.alarmsBestKeys.jumpup_best
-		];
-		
+		]
 		//고득점 고랭킹 스코어
 		bestGameDatasKeyCollection = [
 			DataManager.gamesBestKeys.jumpup_best
-		];
-		
+		]
 		//저득점 고랭킹 스코어
 		bestAlarmDatasKeyCollection = [
 			DataManager.alarmsBestKeys.jumpup_best
-		];
+		]
 		
 		//베스트 기록 체크후, 없다면 0으로 설정
 		for i:Int in 0 ..< bestDatasKeyCollection.count {
 			if (DataManager.nsDefaults.object(forKey: bestDatasKeyCollection[i]) == nil) {
-				DataManager.nsDefaults.set(0, forKey: bestDatasKeyCollection[i]);
+				DataManager.nsDefaults.set(0, forKey: bestDatasKeyCollection[i])
 			}
-		}
-		
+		} //end for
 		//StartGuide 봄 여부에 대해
 		if (DataManager.nsDefaults.object(forKey: DataManager.settingsKeys.startGuideFlag) == nil) {
-			DataManager.nsDefaults.set(false, forKey: DataManager.settingsKeys.startGuideFlag);
+			DataManager.nsDefaults.set(false, forKey: DataManager.settingsKeys.startGuideFlag)
 		}
 		
 		
-		DataManager.save();
-		
+		DataManager.save()
 	} //end func
 	
 	static func loadiCloudDefaults() {
-		print("Loading iCloud defaults.");
-		nsCloudDefaults = NSUbiquitousKeyValueStore.default();
-		DataManager.nsCloudDefaults!.synchronize(); //Receive data
-		iCloudMerge();
-	}
+		print("Loading iCloud defaults.")
+		nsCloudDefaults = NSUbiquitousKeyValueStore.default()
+		DataManager.nsCloudDefaults!.synchronize() //Receive data
+		iCloudMerge()
+	} //end func
 	
 	//iCloud merge
 	static func iCloudMerge() {
 		if (iCloudAvailable == false) {
-			return;
+			return
 		}
 		
-		print("Merging cloud data");
-		
+		print("Merging cloud data")
 		//캐릭터 경험치 및 레벨에 대한 데이터
 		if (DataManager.nsCloudDefaults!.object( forKey: DataManager.characterInfoKeys.info ) != nil) {
-			let tmpInfo:Data = DataManager.nsCloudDefaults!.object( forKey: DataManager.characterInfoKeys.info ) as! Data;
-			let cloudCharacterInfo:CharacterInfo = NSKeyedUnarchiver.unarchiveObject(with: tmpInfo) as! CharacterInfo;
+			let tmpInfo:Data = DataManager.nsCloudDefaults!.object( forKey: DataManager.characterInfoKeys.info ) as! Data
+			let cloudCharacterInfo:CharacterInfo = NSKeyedUnarchiver.unarchiveObject(with: tmpInfo) as! CharacterInfo
 			
 			if (CharacterManager.currentCharInfo.characterLevel < cloudCharacterInfo.characterLevel ||
 				(CharacterManager.currentCharInfo.characterExp < cloudCharacterInfo.characterExp &&
 					CharacterManager.currentCharInfo.characterLevel == cloudCharacterInfo.characterLevel
 				)) { //캐릭터 레벨이 낮거나, 캐릭터 레벨은 같은데 경험치가 낮을 경우
 				//클라우드 데이터로 덮어쓰기
-				CharacterManager.setDataTo(cloudCharacterInfo);
-				print("Merged characterinfo data to cloud data.");
-			}
-		}
-		
+				CharacterManager.setDataTo(cloudCharacterInfo)
+				print("Merged characterinfo data to cloud data.")
+			} //end if
+		} //end if
+	
 		//베스트 스코어에 대한 데이터 (고득점 고랭킹)
 		for i:Int in 0 ..< bestGameDatasKeyCollection.count {
 			if (DataManager.nsCloudDefaults!.object( forKey: bestGameDatasKeyCollection[i] ) != nil) {
@@ -178,81 +173,81 @@ class DataManager {
 			}
 		} //데이터 루프 끝
 		
-	}
+	} //end func
 	
 	//iCloud 값 변경시
 	@objc static func iCloudValChanged(_ sender:Notification) {
 		//현재 캐릭터 정보와 비교후 클라우드쪽이 높을 경우 반영
-		print("iCloud val changed disp");
-		CharacterManager.merge();
+		print("iCloud val changed disp")
+		CharacterManager.merge()
 		
-		iCloudMerge();
-		
-	}
+		iCloudMerge()
+	} //end objc func
 	
 	static func save() {
 		//save를 이쪽으로 돌려야 하는 이유: icloud.
 		//lastSyncDate
-		let isSync = DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.syncToiCloud);
+		let isSync = DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.syncToiCloud)
 		if (isSync == true) { //iCloud sync의 경우 데이터 갱신일 지정
-			DataManager.nsDefaults.set(Int(Date().timeIntervalSince1970), forKey: DataManager.settingsKeys.lastSyncDate);
+			DataManager.nsDefaults.set(Int(Date().timeIntervalSince1970), forKey: DataManager.settingsKeys.lastSyncDate)
 			
 			//일단 환경설정과 알람 목록 제외하고 캐릭터 정보만 저장 및 로드를 해봅시다
 			//여긴 저장이니까 저장을 해야겠지 음 그래 저장
 			
 			//레벨체크를 해서 클라우드가 더 높으면 저장 안함
-			iCloudMerge();
+			iCloudMerge()
 			
 			//클라우드에 캐릭터 정보 저장
 			DataManager.nsCloudDefaults!.set(NSKeyedArchiver.archivedData(withRootObject: CharacterManager.currentCharInfo),
-			                                      forKey: DataManager.characterInfoKeys.info);
+			                                      forKey: DataManager.characterInfoKeys.info)
 			//클라우드에 베스트 스코어들 저장
 			for i:Int in 0 ..< bestDatasKeyCollection.count {
 				DataManager.nsCloudDefaults!.set( DataManager.nsDefaults.integer(forKey: bestDatasKeyCollection[i]) ,
-				                                       forKey: bestDatasKeyCollection[i]);
+				                                       forKey: bestDatasKeyCollection[i])
 			}
-			saveCloud(); //클라우드에 저장
+			saveCloud() //클라우드에 저장
 		}
 		
-		nsDefaults.synchronize();
-	}
+		nsDefaults.synchronize()
+	} //end func
 	
 	static func saveCloud() {
 		if (DataManager.nsCloudDefaults == nil) {
-			return;
+			return
 		} //el
-		print("Saving some datas to iCloud");
-		DataManager.nsCloudDefaults!.synchronize(); //save to iCloud
+		print("Saving some datas to iCloud")
+		DataManager.nsCloudDefaults!.synchronize() //save to iCloud
 		
 		//and merge it
-		iCloudMerge();
-	}
+		iCloudMerge()
+	} //end func
 	
 	//// Utils
 	
 	static func isICloudContainerAvailable()->Bool {
 		if FileManager.default.ubiquityIdentityToken != nil {
-			return true;
+			return true
 		} else {
-			return false;
-		}
-	}
+			return false
+		} //end if
+	} //end func
 	
+	///////////////////////////////////////////////////
 	/////////// DB
-	static var upDatabaseConnection:Connection? = nil;
+	static var upDatabaseConnection:Connection? = nil
 	
 	/// Tables
-	static let upDBTableStats = Table("statisticsCollection"); //통계 자료를 모아놓는 테이블
-	static let upDBTableGameResults = Table("statisticsGameResults"); //게임 결과 모아놓는 테이블.
+	static let upDBTableStats = Table("statisticsCollection") //통계 자료를 모아놓는 테이블
+	static let upDBTableGameResults = Table("statisticsGameResults") //게임 결과 모아놓는 테이블.
 	
 	//DataManager init (nsDefault의 init와는 다르게 작동함)
 	static func initDataManager() {
-		let libPathArr:NSArray = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true) as NSArray;
+		let libPathArr:NSArray = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true) as NSArray
 		
-		print("Database init works started");
+		print("Database init works started")
 		do {
 			//DB 연결
-			upDatabaseConnection = try Connection( libPathArr.object(at: 0) as! String + "/db.sqlite3" );
+			upDatabaseConnection = try Connection( libPathArr.object(at: 0) as! String + "/db.sqlite3" )
 			//Type 0,1을 위한 테이블 생성 (없을 경우)
 			try _ = upDatabaseConnection!.run(upDBTableStats.create(ifNotExists: true) { t in
 				t.column( Expression<Int64>("id") , primaryKey: PrimaryKey.autoincrement) //자동증가 ID
@@ -277,9 +272,9 @@ class DataManager {
 				t.column( Expression<Int64>("touchAll")) //전체 행동수
 				t.column( Expression<Int64>("touchValid")) //유효 행동수
 				t.column( Expression<Int64>("backgroundExitCount")) //중간에 백그라운드로 나간 횟수
-				});
+				})
 			
-			print("Database init works finished");
+			print("Database init works finished")
 		} catch {
 			print("Database Error");
 		} //end do try catch

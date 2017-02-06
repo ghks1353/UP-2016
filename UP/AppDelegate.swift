@@ -98,6 +98,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		DeviceManager.appIsBackground = true
 		AlarmManager.mergeAlarm()
 		FIRMessaging.messaging().disconnect()
+		
+		SoundManager.setAudioPlayback( .AlarmMode )
 	}
 	
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -105,6 +107,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 		print("App is now running to background")
 		DeviceManager.appIsBackground = true
+		
+		SoundManager.setAudioPlayback( .AlarmMode )
 		
 		//// Background thread
 		backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
@@ -157,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 						} //end if
 					} else {
 						Thread.sleep(forTimeInterval: 30) //30초 주기 실행
-					} //end if  [alarm left]
+					} //end if [alarm left]
 				} //end if [alarm valid]
 				
 				
@@ -169,7 +173,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		
 		
 		
-    }
+    } //end func
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
@@ -182,6 +186,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		DeviceManager.appIsBackground = false
 		AlarmManager.mergeAlarm()
 		connectToFcm()
+		
+		SoundManager.setAudioPlayback( .NormalMode )
 		
 		if (ViewController.selfView != nil) {
 			ViewController.selfView!.checkToCallAlarmRingingView()
@@ -198,9 +204,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		PurchaseManager.autoVerifyPurchases()
 		
 		self.alarmBackgroundTaskPlayer!.stop()
-		print("background thread - sound stop")
-
-    }
+    } //end func
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

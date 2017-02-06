@@ -59,9 +59,10 @@ class JumpUpElements:SKSpriteNode {
 	internal func changeMotion( _ motionNumber:Int ) {
 		//이렇게 해 주는 이유는 프레임의 초기화를 위해서임 !!!
 		if (motions_current != motionNumber) {
-			motions_current_frame = 0;
-			motions_current = motionNumber;
+			motions_current_frame = 0
+			motions_current = motionNumber
 		}
 	} //end func
+	
 	
 }

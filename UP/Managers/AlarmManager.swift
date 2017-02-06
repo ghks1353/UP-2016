@@ -40,28 +40,33 @@ class AlarmManager {
 	//미디어 알람 끄기
 	static func stopSoundAlarm() {
 		if (alarmSoundPlaying == false) {
-			return;
+			return
 		}
 		
 		if (alarmAudioPlayer != nil) {
-			alarmAudioPlayer!.stop();
-			alarmAudioPlayer = nil;
+			alarmAudioPlayer!.stop()
+			alarmAudioPlayer = nil
 		}
 		
 		if let view = alarmVolumeView.subviews.first as? UISlider{
-			view.value = alarmPreviousVolume;
+			view.value = alarmPreviousVolume
 		} else {
-			print("Volume control error. creating new context");
-			alarmVolumeView = MPVolumeView();
+			print("Volume control error. creating new context")
+			alarmVolumeView = MPVolumeView()
 			if let view = alarmVolumeView.subviews.first as? UISlider{
-				view.value = alarmPreviousVolume;
+				view.value = alarmPreviousVolume
 			}
 		}
 		
 		//기본 사운드 플레이모드로 변경
-		SoundManager.setAudioPlayback(.NormalMode)
+		if (DeviceManager.appIsBackground == false) {
+			SoundManager.setAudioPlayback(.NormalMode)
+		} else {
+			//백그라운드에서는 Playback Mode를 알람 모드로 설정
+			SoundManager.setAudioPlayback(.AlarmMode)
+		} //end if
 		
-		alarmSoundPlaying = false;
+		alarmSoundPlaying = false
 	}
 	
 	

@@ -13,39 +13,12 @@ import UIKit;
 
 class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	
-	var gameScoreNm:Int = 3; //스코어 자리수. (알람=3, 일반=5)
-	
-	//아래는 알람으로 게임진행 중일 때 사용하는 값임
-	var gameAlarmFirstGoalTime:Int = 40; // 처음 목표로 하는 시간
-	var gameLevelAverageTime:Int = 20; //난이도가 높아지는 시간
-	var gameTimerMaxTime:Int = 60; //알람으로 게임 진행 중일 때 시간이 추가될 수 있는 최대 수치
-	var gameRetireTime:Int = 200; //포기 버튼이 나타나는 시간
-	var gameRetireTimeCount:Int = 0; //포기 버튼 카운트
-	
 	//움직이는 뒷 배경
-	var repeatBackgroundTexture:SKTexture = SKTexture( imageNamed: "game-jumpup-assets-background.png" );
-	var repeatBackgroundNodes:Array<SKSpriteNode> = [];
-	var repeatBackgroundContainer:SKNode = SKNode();
-	
-	//게임 끝나거나 포기 버튼
-	var buttonRetireSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-retire.png" ) );
-	var buttonAlarmOffSprite:SKSpriteNode?
-	
-	
-	//게임 종료 / 포기 버튼이 생기는 Y위치
-	var buttonYAxis:CGFloat = 0;
-	
-	//time 또는 score 표시 부분
-	var gameScoreTitleImageTexture:SKTexture?;
-	var gameScoreTitleImage:SKSpriteNode?;
-	//time / score에 대한 숫자 관련 텍스쳐 배열
-	var gameNumberTexturesArray:Array<SKTexture> = []; // 0~9 10개
-	var gameNumberSpriteNodesArray:Array<SKSpriteNode> = []; //000 3개
+	var repeatBackgroundTexture:SKTexture = SKTexture( imageNamed: "game-jumpup-assets-background.png" )
+	var repeatBackgroundNodes:Array<SKSpriteNode> = []
+	var repeatBackgroundContainer:SKNode = SKNode()
 	
 	var gameUserJumpCount:Int = 0; //점프 횟수
-	
-	//1초 tick (알람용)
-	var gameSecondTickTimer:Timer?
 	
 	///////////
 	//Game variables
@@ -74,6 +47,8 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	var previousEnemyNumber:Int = -1 //이전에 바로 나온 노드 번호
 	
 	var characterMinYAxis:CGFloat = 0 //캐릭터가 땅에 닿았을 때의 좌표
+	
+	var speedyObjectAlarmFix:CGFloat = 0 //스피드 있는 오브젝트가 알람모드에선 느리기 때문에 좌표 보정치
 	
 	//Game vars in GAMEMODE.
 	var scoreUPDelayMax:Double = 60.0 //스코어 상승 간격
@@ -128,111 +103,96 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	]
 	
 	//Character element
-	var characterElement:JumpUpElements?;// = JumpUpElements();
+	var characterElement:JumpUpElements?
 	
 	//캐릭터 경고등
-	var characterWarningSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-warning.png" ) );
+	var characterWarningSprite:SKSpriteNode = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-warning.png" ) )
 	
 	//판정 완화의 정도
-	let characterRatherboxX:CGFloat = 140 * DeviceManager.scrRatioC;
-	let characterRatherboxY:CGFloat = 125 * DeviceManager.scrRatioC;
-	let nodeRatherboxX:CGFloat = 4 * DeviceManager.scrRatioC;
-	let nodeRatherboxY:CGFloat = 4 * DeviceManager.scrRatioC;
-	let aiRatherboxX:CGFloat = 16 * DeviceManager.scrRatioC;
-	let aiRatherboxY:CGFloat = 16 * DeviceManager.scrRatioC;
-	
+	let characterRatherboxX:CGFloat = 140 * DeviceManager.scrRatioC
+	let characterRatherboxY:CGFloat = 125 * DeviceManager.scrRatioC
+	let nodeRatherboxX:CGFloat = 4 * DeviceManager.scrRatioC
+	let nodeRatherboxY:CGFloat = 4 * DeviceManager.scrRatioC
+	let aiRatherboxX:CGFloat = 16 * DeviceManager.scrRatioC
+	let aiRatherboxY:CGFloat = 16 * DeviceManager.scrRatioC
 	
 	//View initial function
 	override func didMove(to view: SKView) {
-		self.backgroundColor = UIColor.black;
 		
+		///////// 사전설정 variables
 		//Game ID
-		currentGameID = 0;
-		//Preload vars
-		preloadCompleteCout = 83; //p:71
+		currentGameID = 0
+		//Preload total count
+		preloadCompleteCout = 83
+		
+		// 포기까지의 시간
+		gameRetireTime = 200
+		
+		//////////////////
+		let bgPositionRect:CGRect = CGRect( x: self.view!.frame.width / 2, y: self.view!.frame.height / 2, width: self.view!.frame.width, height: 226.95 * DeviceManager.scrRatioC )
+		
+		///////////실제 게임 스테이지 y값
+		gameStageYAxis = bgPositionRect.minY + (bgPositionRect.height / 2)
+		gameStageYHeight = bgPositionRect.height
+		gameStageYFoot = gameStageYAxis - gameStageYHeight / 2 - (48 * DeviceManager.scrRatioC)
+		
+		/// 버튼 위치 지정 (사전설정 variable)
+		buttonYAxisPrefix = gameStageYHeight
+		buttonYAxisCenter = gameStageYAxis - gameStageYHeight
+		
+		//////////////////// Init view (사전설정 필요한 variable 이후)
+		super.didMove(to: view)
+		
+		/////////////////////////
+		/// JumpUP assets initialize
 		
 		//variable initialize
-		gameCloudDecorationAddDelay = gameCloudAddDelayMAX; //초기값
+		gameCloudDecorationAddDelay = gameCloudAddDelayMAX //초기값
 		//reset character element
 		if (characterElement != nil) {
-			characterElement = nil;
+			characterElement = nil
 		}
-		gameFinishedBool = false;
-		gameEnemyGenerateDelay = 0;
-		gameCloudDecorationAddDelay = 0;
+		
+		gameEnemyGenerateDelay = 0
+		gameCloudDecorationAddDelay = 0
 		
 		//맵오브젝트 생성
-		mapObject.position = CGPoint(x: 0, y: 0);
-		self.addChild(mapObject);
-		mapObject.addChild(repeatBackgroundContainer);
+		mapObject.position = CGPoint(x: 0, y: 0)
+		mapObject.addChild(repeatBackgroundContainer)
+		self.addChild(mapObject)
 		
 		//게임 스크롤 뒷 배경 추가 (스크롤은 업데이트에서)
 		for i:Int in 0 ..< 2 {
 			//add 2 nodes
-			let nBackground:SKSpriteNode = SKSpriteNode( texture: repeatBackgroundTexture );
-			nBackground.size = CGSize( width: self.view!.frame.width, height: 226.95 * DeviceManager.scrRatioC );
-			nBackground.position = CGPoint( x: CGFloat(i) * self.view!.frame.width + (self.view!.frame.width / 2), y: self.view!.frame.height / 2 );
+			let nBackground:SKSpriteNode = SKSpriteNode( texture: repeatBackgroundTexture )
+			nBackground.size = CGSize( width: self.view!.frame.width, height: 226.95 * DeviceManager.scrRatioC )
+			nBackground.position = CGPoint( x: CGFloat(i) * self.view!.frame.width + (self.view!.frame.width / 2), y: self.view!.frame.height / 2 )
 			
-			repeatBackgroundNodes += [nBackground];
-			repeatBackgroundContainer.addChild(nBackground);
-		}
+			repeatBackgroundNodes += [nBackground]
+			repeatBackgroundContainer.addChild(nBackground)
+		} //end for
 		
-		let bgPositionRect:CGRect = CGRect( x: self.view!.frame.width / 2, y: self.view!.frame.height / 2,
-		width: self.view!.frame.width, height: 226.95 * DeviceManager.scrRatioC );
-		
-		//실제 게임 스테이지 y값
-		gameStageYAxis = bgPositionRect.minY + (bgPositionRect.height / 2);
-		gameStageYHeight = bgPositionRect.height;
-		gameStageYFoot = gameStageYAxis - gameStageYHeight / 2 - (48 * DeviceManager.scrRatioC);
-		
-		//time 혹은 score 추가 (실행 타입에 따라 바뀜)
-		gameScoreStr = "";
-		
-		//컴포넌트 위치조정을 위한 값
-		var movPositionY:CGFloat = 0;
-		var gameScoreMovPositionY:CGFloat = 0;
-		
-		if (gameStartupType == 0) {
-			//알람으로 실행된 경우
-			ALDManager.buildLevel() //Auto build level
-			
-			gameScoreTitleImageTexture = SKTexture( imageNamed: "game-jumpup-assets-time.png" );
-			gameScoreTitleImage = SKSpriteNode( texture: gameScoreTitleImageTexture );
-			
-			if (UIDevice.current.userInterfaceIdiom == .phone) {
-				//iPhone 전용 사이즈
-				gameScoreTitleImage!.size = CGSize( width: 87.65 * DeviceManager.scrRatioC, height: 38.35 * DeviceManager.scrRatioC );
-				
-				//4/4s의 경우, 세로길이가 부족하므로 기존 아이폰과 다른 y위치 지정
-				if (DeviceManager.isiPhone4S) {
-					//4/4s fallback
-					movPositionY = self.view!.frame.height - (63 * DeviceManager.scrRatioC);
-				} else {
-					movPositionY = self.view!.frame.height - (96 * DeviceManager.scrRatioC);
-				}
-				
-				gameScoreMovPositionY = movPositionY - (72 * DeviceManager.scrRatioC);
-			} else {
-				//iPad 전용 사이즈 (고정)
-				gameScoreTitleImage!.size = CGSize( width: 122.15, height: 53.35 );
-				movPositionY = self.view!.frame.height - (52 * DeviceManager.scrRatioC);
-				gameScoreMovPositionY = movPositionY - 94;
-			}
-			
+		///// 알람으로 켜진 경우
+		if (gameStartupType == .AlarmMode) {
 			//Add How-to-play guide image
 			for i:Int in 0 ..< gameAlarmGuidesNodesArray.count {
-				let xIndexCalcuated:CGFloat = (i == 0 ? 1 : -1) * (167/2 * DeviceManager.maxScrRatioC);
+				let xIndexCalcuated:CGFloat = (i == 0 ? 1 : -1) * (167/2 * DeviceManager.maxScrRatioC)
 				
-				gameAlarmGuidesNodesArray[i].size = CGSize( width: 167 * DeviceManager.maxScrRatioC, height: 126 * DeviceManager.maxScrRatioC );
+				gameAlarmGuidesNodesArray[i].size = CGSize( width: 167 * DeviceManager.maxScrRatioC, height: 126 * DeviceManager.maxScrRatioC )
 				gameAlarmGuidesNodesArray[i].position = CGPoint(
-				x: (self.view!.frame.width / 2 - xIndexCalcuated)
-				, y: gameStageYAxis - gameStageYHeight - (48 + 42 + 13) * DeviceManager.maxScrRatioC );
-				self.addChild( gameAlarmGuidesNodesArray[i] );
+					x: (self.view!.frame.width / 2 - xIndexCalcuated)
+					, y: gameStageYAxis - gameStageYHeight - (48 + 42 + 13) * DeviceManager.maxScrRatioC )
+				self.addChild( gameAlarmGuidesNodesArray[i] )
 			}
 			
+			//좌표 보정
+			speedyObjectAlarmFix = 24
+			
+			//레벨 조절
 			gameAlarmFirstGoalTime = Int(ceil(ALDManager.generatedTimeMultiply))
 			gameTimerMaxTime = gameAlarmFirstGoalTime + 20
-			
+			gameLevelAverageTime = gameAlarmFirstGoalTime / 2
+				
 			scoreUPLevel = Double(max(0.0, Double(ALDManager.generatedLevelMultiply)))
 			//레벨은 0부터 시작하기 때문에 계수가 1 미만인경우 캐릭터의 점프력을 증가시키는 것으로 대체
 			if (ALDManager.generatedLevelMultiply < 1) {
@@ -240,101 +200,28 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			}
 			
 			gameScore = gameAlarmFirstGoalTime //초반 부여
-			addCountdownTimerForAlarm()
 		} else {
-			//score
-			gameScoreTitleImageTexture = SKTexture( imageNamed: "game-jumpup-assets-score.png" );
-			gameScoreTitleImage = SKSpriteNode( texture: gameScoreTitleImageTexture );
-			
-			if (UIDevice.current.userInterfaceIdiom == .phone) {
-				//iPhone 전용 사이즈
-				gameScoreTitleImage!.size = CGSize( width: 135.15 * DeviceManager.scrRatioC, height: 27.45 * DeviceManager.scrRatioC );
-				
-				//4/4s의 경우, 세로길이가 부족하므로 기존 아이폰과 다른 y위치 지정
-				if (DeviceManager.scrSize!.height <= CGFloat(480)) {
-					//4/4s fallback
-					movPositionY = self.view!.frame.height - (63 * DeviceManager.scrRatioC);
-				} else {
-					movPositionY = self.view!.frame.height - (96 * DeviceManager.scrRatioC);
-				}
-				
-				gameScoreMovPositionY = movPositionY - (72 * DeviceManager.scrRatioC);
-			} else {
-				//iPad 전용 사이즈 (고정)
-				gameScoreTitleImage!.size = CGSize( width: 135.15, height: 27.45 );
-				movPositionY = self.view!.frame.height - (52 * DeviceManager.scrRatioC);
-				gameScoreMovPositionY = movPositionY - 94;
-			}
-			
-			gameScore = 0; maxScoreGameLife = 3; //기본 최대 라이프
-			scoreGameLife = maxScoreGameLife;
-			externalLifeLeft = 2; //연장 1회
+			//게임으로 켜진 경우
+			gameScore = 0
+			maxScoreGameLife = 3 //기본 최대 라이프
+			scoreGameLife = maxScoreGameLife
+			externalLifeLeft = 2 //연장 1회, 2life
 			
 			//// 라이프 구성
 			for i:Int in 0 ..< maxScoreGameLife {
 				// 최대 라이프만큼 슬롯 만들기
-				let lifeNode:SKSpriteNode = SKSpriteNode( texture: gameLifeOnTexture );
-				let xIndexCalcuated:CGFloat = ((CGFloat(i)-1) * ((48+22 /* 22: margin */) * DeviceManager.maxScrRatioC));
-				lifeNode.size = CGSize( width: 48 * DeviceManager.maxScrRatioC, height: 84 * DeviceManager.maxScrRatioC );
+				let lifeNode:SKSpriteNode = SKSpriteNode( texture: gameLifeOnTexture )
+				let xIndexCalcuated:CGFloat = ((CGFloat(i)-1) * ((48+22 /* 22: margin */) * DeviceManager.maxScrRatioC))
+				lifeNode.size = CGSize( width: 48 * DeviceManager.maxScrRatioC, height: 84 * DeviceManager.maxScrRatioC )
 				
 				lifeNode.position = CGPoint(
 					x: (self.view!.frame.width / 2 - xIndexCalcuated)
-					, y: gameStageYAxis - gameStageYHeight - (48 + 42 + 13) * DeviceManager.maxScrRatioC );
+					, y: gameStageYAxis - gameStageYHeight - (48 + 42 + 13) * DeviceManager.maxScrRatioC )
 				
-				gameLifeNodesArray += [lifeNode];
-				self.addChild( lifeNode );
-			}
-		} //게임모드 / 알람모드 구분 끝
-		
-		
-		gameScoreTitleImage!.position.x = self.view!.frame.width / 2;
-		self.addChild(gameScoreTitleImage!);
-		
-		let moveEffect = SKTMoveEffect(node: gameScoreTitleImage!, duration: 0.5,
-			startPosition: CGPoint( x: self.view!.frame.width / 2, y: self.view!.frame.height + gameScoreTitleImage!.frame.height / 2),
-			endPosition: CGPoint( x: self.view!.frame.width / 2, y: movPositionY));
-		moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
-		gameScoreTitleImage!.run(SKAction.actionWithEffect(moveEffect));
-		
-		//time / score에 대한 데이터 처리
-		gameScoreNm = (gameStartupType == 0 ? 3 : 5);
-		
-		if (gameNumberTexturesArray.count == 0) {
-			for i:Int in 0 ..< 10 {
-				gameNumberTexturesArray += [ SKTexture( imageNamed: SkinManager.getDefaultAssetPresets() + String(i) + ".png" ) ];
-			} //0~9에 대한 숫자 데이터 텍스쳐
-			for i:Int in 0 ..< gameScoreNm {
-				gameNumberSpriteNodesArray += [ SKSpriteNode( texture: gameNumberTexturesArray[0] ) ];
-				if (UIDevice.current.userInterfaceIdiom == .phone) { //iPhone 전용 크기 (가변)
-					gameNumberSpriteNodesArray[i].size = CGSize(width: 50 * DeviceManager.scrRatioC , height: 70 * DeviceManager.scrRatioC);
-					gameNumberSpriteNodesArray[i].position.y = movPositionY - (120 * DeviceManager.scrRatioC);
-				} else { //iPad 전용 크기 (고정)
-					gameNumberSpriteNodesArray[i].size = CGSize(width: 69.7, height: 97.4);
-					gameNumberSpriteNodesArray[i].position.y = movPositionY - 120;
-				}
-				
-				gameNumberSpriteNodesArray[i].position.x =
-					self.view!.frame.width / 2 - (CGFloat( (gameStartupType == 0 ? i : i - 1) ) * (gameNumberSpriteNodesArray[i].size.width + 12 * DeviceManager.maxScrRatioC))
-					/* align to center */
-					+ ((gameNumberSpriteNodesArray[i].size.width + 12 * DeviceManager.maxScrRatioC));
-				
-				self.addChild( gameNumberSpriteNodesArray[i] );
-				
-				//숫자 밑에서 위로 올라오는 효과 주기
-				gameNumberSpriteNodesArray[i].alpha = 0;
-				let moveEffect = SKTMoveEffect(node: gameNumberSpriteNodesArray[i], duration: 0.5 ,
-					startPosition: CGPoint( x: gameNumberSpriteNodesArray[i].position.x, y: movPositionY - (120 * DeviceManager.scrRatioC)),
-					endPosition: CGPoint( x: gameNumberSpriteNodesArray[i].position.x, y: gameScoreMovPositionY));
-				moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
-				//gameNumberSpriteNodesArray[i].runAction();
-				gameNumberSpriteNodesArray[i].run(
-					SKAction.group( [
-						SKAction.afterDelay(Double((gameStartupType == 0 ? 2 : 4) - i) * 0.1, performAction: SKAction.actionWithEffect(moveEffect)),
-						SKAction.fadeIn(withDuration: 0.5)
-				]));
-				
-			} //숫자 표시용 디지털 숫자 노드 3개
-		} //end of chk
+				gameLifeNodesArray += [lifeNode]
+				self.addChild( lifeNode )
+			} //end for [life]
+		} //end if
 		
 		if (gameNodesTexturesArray.count == 0) {
 			//texture creation
@@ -368,14 +255,12 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				SKTexture( imageNamed: "game-jumpup-assets-shadow-big.png" ),
 				SKTexture( imageNamed: "game-jumpup-assets-shadow-tiny-1.png" ),
 				SKTexture( imageNamed: "game-jumpup-assets-shadow-tiny-2.png" )
-				
-			];
+			]
 			
 			//Preload textures
 			for i:Int in 0 ..< gameNodesTexturesArray.count {
-				gameNodesTexturesArray[i].preload(completionHandler: preloadEventCall);
+				gameNodesTexturesArray[i].preload(completionHandler: preloadEventCall)
 			}
-			
 		} //end of creation txt
 		
 		if (gameTexturesAIEffectsArray.count == 0) {
@@ -392,36 +277,37 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		} //end of effet create
 		
 		//기존 배열에 노드가 있을경우 삭제
-		delAllElementsFromArray();
+		delAllElementsFromArray()
 		
-		characterMinYAxis = gameStageYFoot + (32 * DeviceManager.scrRatioC);
+		characterMinYAxis = gameStageYFoot + (32 * DeviceManager.scrRatioC)
 		
 		//캐릭터 추가
-		characterElement = JumpUpElements(); //60, 70이 원래 크기였음
-		characterElement!.size = CGSize(width: 300 * DeviceManager.scrRatioC, height: 300 * DeviceManager.scrRatioC); //Create astro size
-		characterElement!.position.x = 64 * DeviceManager.scrRatioC; //캐릭터의 왼쪽. 초기위치 잡음
-		characterElement!.position.y = characterMinYAxis; //gameStageYAxis - gameStageYHeight + (characterElement!.size.height / 2); // * DeviceManager.scrRatioC;
+		characterElement = JumpUpElements() //60, 70이 원래 크기였음
+		characterElement!.size = CGSize(width: 300 * DeviceManager.scrRatioC, height: 300 * DeviceManager.scrRatioC) //Create astro size
+		characterElement!.position.x = 64 * DeviceManager.scrRatioC //캐릭터의 왼쪽. 초기위치 잡음
+		characterElement!.position.y = characterMinYAxis
 		
 		//캐릭터 경고등 추가
-		characterWarningSprite.size = CGSize( width: 33.6 * DeviceManager.scrRatioC, height: 30.8 * DeviceManager.scrRatioC );
-		characterWarningSprite.position.x = characterElement!.position.x;
-		mapObject.addChild(characterWarningSprite); characterWarningSprite.isHidden = true;
+		characterWarningSprite.size = CGSize( width: 33.6 * DeviceManager.scrRatioC, height: 30.8 * DeviceManager.scrRatioC )
+		characterWarningSprite.position.x = characterElement!.position.x
+		mapObject.addChild(characterWarningSprite)
+		characterWarningSprite.isHidden = true
 		
 		//////// Make textures for Character (Player)
 		if (characterElement!.motions_walking.count == 0) {
 			for i:Int in 0 ..< 6 {
 				characterElement!.motions_walking += [
 					SKTexture( imageNamed: "game-jumpup-astro-" + SkinManager.getSelectedSkinCharacter() + "-move-" + String(i) + ".png" )
-				]; //Character motions preload
-				(characterElement!.motions_walking[i] as SKTexture).preload(completionHandler: preloadEventCall);
+				] //Character motions preload
+				(characterElement!.motions_walking[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}
 		} //walking motion end for *character*
 		if (characterElement!.motions_jumping.count == 0) {
 			for i:Int in 0 ..< 5 {
 				characterElement!.motions_jumping += [
 					SKTexture( imageNamed: "game-jumpup-astro-" + SkinManager.getSelectedSkinCharacter() + "-jump-" + String(i) + ".png" )
-				]; //Character motions preload
-				(characterElement!.motions_jumping[i] as SKTexture).preload(completionHandler: preloadEventCall);
+				] //Character motions preload
+				(characterElement!.motions_jumping[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}
 		} //jumping motion end for *character*
 		
@@ -430,218 +316,108 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			for i:Int in 0 ..< 6 {
 				gameTexturesAIMoveTexturesArray += [
 					SKTexture( imageNamed: "game-jumpup-ai-astro-move-" + String(i) + ".png" )
-				];
-				(gameTexturesAIMoveTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
+				]
+				(gameTexturesAIMoveTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}
 		} //jumping motion end for *ai move*
 		if (gameTexturesAIJMoveTexturesArray.count == 0) {
 			for i:Int in 0 ..< 6 {
 				gameTexturesAIJMoveTexturesArray += [
 					SKTexture( imageNamed: "game-jumpup-ai-j-astro-move-" + String(i) + ".png" )
-				];
-				(gameTexturesAIJMoveTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
+				]
+				(gameTexturesAIJMoveTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}
 		} //jumping motion end for *ai_j move*
 		if (gameTexturesAIJJumpTexturesArray.count == 0) {
 			for i:Int in 0 ..< 5 {
 				gameTexturesAIJJumpTexturesArray += [
 					SKTexture( imageNamed: "game-jumpup-ai-j-astro-jump-" + String(i) + ".png" )
-				];
-				(gameTexturesAIJJumpTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
+				]
+				(gameTexturesAIJJumpTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}
 		} //jumping motion end for *ai_j jump*
 		if (gameTexturesAIFlyTexturesArray.count == 0) {
 			for i:Int in 0 ..< 4 {
 				gameTexturesAIFlyTexturesArray += [
 					SKTexture( imageNamed: "game-jumpup-ai-astro-fly-" + String(i) + ".png" )
-				];
-				(gameTexturesAIFlyTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
+				]
+				(gameTexturesAIFlyTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}
 		} //flying motion end for *ai fly*
 		if (gameTexturesAIJFlyTexturesArray.count == 0) {
 			for i:Int in 0 ..< 4 {
 				gameTexturesAIJFlyTexturesArray += [
 					SKTexture( imageNamed: "game-jumpup-ai-j-astro-fly-" + String(i) + ".png" )
-				];
-				(gameTexturesAIJFlyTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
+				]
+				(gameTexturesAIJFlyTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}
 		} //flying motion end for *ai_j fly*
 		if (gameTexturesAILeftTexturesArray.count == 0) {
 			for i:Int in 0 ..< 6 {
 				gameTexturesAILeftTexturesArray += [
 					SKTexture( imageNamed: "game-jumpup-ai-astro-left-move-" + String(i) + ".png" )
-				];
-				(gameTexturesAILeftTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
+				]
+				(gameTexturesAILeftTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}
 		} //walking motion end for *ai left move*
 		if (gameTexturesAIJLeftTexturesArray.count == 0) {
 			for i:Int in 0 ..< 4 {
 				gameTexturesAIJLeftTexturesArray += [
 					SKTexture( imageNamed: "game-jumpup-ai-astro-left-jump-" + String(i) + ".png" )
-				];
-				(gameTexturesAIJLeftTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall);
+				]
+				(gameTexturesAIJLeftTexturesArray[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}
 		} //jumping motion end for *ai left jump*
 		
 		//Character to front
-		characterElement!.zPosition = 2;
-		mapObject.addChild(characterElement!);
+		characterElement!.zPosition = 2
+		mapObject.addChild(characterElement!)
 		
 		//make character's shadow
-		addNodes( 10003, posX: characterElement!.position.x, posY: characterElement!.position.y, targetElement: characterElement! );
+		addNodes( 10003, posX: characterElement!.position.x, posY: characterElement!.position.y, targetElement: characterElement! )
 		
-		
-		// 일시정지 / 재생 혹은 버그 (나와도 타이머 흐름) 방지를 위한 코드
-		let nCenter = NotificationCenter.default;
-		nCenter.addObserver(self, selector: #selector(JumpUPGame.appEnteredToBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil);
-		nCenter.addObserver(self, selector: #selector(JumpUPGame.appEnteredToForeground), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil);
-		
-		
-		//버튼 배치
-		if (UIDevice.current.userInterfaceIdiom == .phone) {
-			//아이폰 (상대크기)
-			buttonRetireSprite.size = CGSize( width: 242.05 * DeviceManager.scrRatioC, height: 70.75 * DeviceManager.scrRatioC );
-			if (DeviceManager.scrSize!.height > 480.0) { //iPhone 4, 4s 이외
-				buttonYAxis = gameStageYAxis - gameStageYHeight - (128 * DeviceManager.scrRatioC);
-			} else { //iPhone 4시리즈
-				buttonYAxis = gameStageYAxis - gameStageYHeight - (86 * DeviceManager.scrRatioC);
-			}
-		} else { //아이패드 (절대크기)
-			buttonRetireSprite.size = CGSize( width: 336.75, height: 98.45 );
-			buttonYAxis = gameStageYAxis - gameStageYHeight - ((self.size.height - gameStageYHeight) / 4);
-		}
-		
-		buttonRetireSprite.position.x = self.view!.frame.width / 2;
-		buttonRetireSprite.position.y = -buttonRetireSprite.size.height / 2; //화면 밖에 배치
-		buttonRetireSprite.alpha = 0; //나옴/안나옴 플래그 대신 사용
-		self.addChild(buttonRetireSprite);
-		buttonRetireSprite.name = "button_retire";
-		buttonRetireSprite.zPosition = 3;
-		
-		//알람끄기 버튼.
-		
-		if (PurchaseManager.purchasedItems[PurchaseManager.ProductsID.ExpansionPack.rawValue] == true) {
-			//확장팩 결제자에게는 일반 해제버튼 표시
-			buttonAlarmOffSprite = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-alram-off.png" ) )
-		} else {
-			//확장팩 미결제한 사람에게는 광고 그림도 같이 나오게 수정된 파일로 표시
-			buttonAlarmOffSprite = SKSpriteNode( texture: SKTexture( imageNamed: "game-jumpup-assets-alarm-ad-off.png" ) )
-		}
-		
-		buttonAlarmOffSprite!.size = buttonRetireSprite.size;
-		buttonAlarmOffSprite!.position.x = self.view!.frame.width / 2;
-		buttonAlarmOffSprite!.position.y = -buttonAlarmOffSprite!.size.height / 2; //화면 밖에 배치
-		buttonAlarmOffSprite!.alpha = 0;
-		self.addChild(buttonAlarmOffSprite!);
-		buttonAlarmOffSprite!.name = "button_alarm_off";
-		buttonAlarmOffSprite!.zPosition = 3;
-		
-		//터치 레이어 만들기 (스와이프)
-		swipeTouchLayer.name = "touchlayer";
-		swipeTouchLayer.size = CGSize( width: self.view!.frame.width, height: self.view!.frame.height );
-		swipeTouchLayer.position = CGPoint( x: self.view!.frame.width / 2 , y: self.view!.frame.height / 2);
-		swipeTouchLayer.alpha = 0;
-		swipeTouchLayer.zPosition = 2;
-		self.addChild(swipeTouchLayer);
-		
-		/////////// UI 구성 (메뉴, 가이드, 게임오버 등)
-		
-		//알람이 아닌 경우만 추가함
-		if (gameStartupType == 1) {
-			uiContents = GeneralMenuUI( frame: CGRect(x: 0, y: 0, width: self.view!.frame.width, height: self.view!.frame.height ) );
-			uiContents!.isUserInteractionEnabled = true;
-			
-			uiContents!.setGame(0); //jumpup
-			uiContents!.initUI( uiContents!.frame );
-			self.view!.addSubview(uiContents!);
+		////////////////// UI 추가설정 (게임모드)
+		if (gameStartupType == .GameMode) {
+			uiContents!.setGame(0) //jumpup
+			uiContents!.initUI( uiContents!.frame )
 			
 			//set callback functions
-			uiContents!.pauseResumeBtnCallback = togglePause;
-			uiContents!.gameForceStopCallback = gameForceStopCallb;
-			uiContents!.gameOverCallback = gameOverCallb;
-			uiContents!.restartCallback = gameRestartCallb;
+			uiContents!.pauseResumeBtnCallback = togglePause
+			uiContents!.gameForceStopCallback = gameForceStopCallb
+			uiContents!.gameOverCallback = gameOverCallb
+			uiContents!.restartCallback = gameRestartCallb
 			
-			uiContents!.gameShowADCallback = gameADWatchCallb;
-		}
+			uiContents!.gameShowADCallback = gameADWatchCallb
+		} //end if [Check gamemode]
+	} //end didMove override func
+	
+	/////// Method override
+	override func appEnteredToForeground() {
+		super.appEnteredToForeground()
 		
-		/////////////////
-		//Game starttime 기록
-		statsGameStartedTimeStamp = Int(Date().timeIntervalSince1970)
-	}
-	
-	
-	func appEnteredToBackground() {
-		//App -> Background
-		SoundManager.pauseResumeBGMSound( false )
-		if (gameStartupType == 0) {
-			//알람으로 게임이 켜졌을 때 **타이머 종료 **
-			if (gameSecondTickTimer != nil) {
-				gameSecondTickTimer!.invalidate()
-				gameSecondTickTimer = nil
-			}
-		} else {
-			//Queue pause
-			if ( isGamePaused == false ) {
-				togglePause()
-			}
-		}
-	} //end func
-	
-	func appEnteredToForeground() {
 		//App -> Foreground
-		if (gameStartupType == 0 && gameFinishedBool == false) {
-			//알람으로 게임이 켜졌을 때, 졸거나 하는 등으로 화면이 꺼지거나 백그라운드로 나갔다 오면 시간은 리셋.
-			gameScore = max(gameAlarmFirstGoalTime, gameScore); //남은 시간이 더 크면 유지
-			gameRetireTimeCount = gameRetireTimeCount / 2; //리타이어 수작일수도 있으니 이거도 조절함
-			AlarmRingView.selfView!.userAsleepCount += 1;
-			
-			//리타이어 버튼이 이미 나와있는 경우, 다시 없앰
-			if (buttonRetireSprite.alpha == 1) {
-				let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
-					startPosition: CGPoint( x: buttonRetireSprite.position.x, y: buttonRetireSprite.position.y ),
-					endPosition: CGPoint( x: buttonRetireSprite.position.x, y: -buttonRetireSprite.frame.height/2)
-				);
-				moveEffect.timingFunction = SKTTimingFunctionCircularEaseIn;
-				buttonRetireSprite.run(
-					SKAction.group( [
-						SKAction.actionWithEffect(moveEffect), SKAction.fadeOut(withDuration: 0.5)
-						])
-				);
-				
-				//Game guide animation
-				gameAlarmGuidesNodesArray[0].run( SKAction.fadeIn(withDuration: 0.5) );
-				gameAlarmGuidesNodesArray[1].run( SKAction.fadeIn(withDuration: 0.5) );
-			}
-			
-			addCountdownTimerForAlarm(); //타이머 재시작
-			SoundManager.pauseResumeBGMSound( true )
-		} //end if gametype 0
+		if (gameStartupType == .AlarmMode && isGameFinished == false && buttonRetireSprite.alpha == 1) {
+			//Game guide animation
+			gameAlarmGuidesNodesArray[0].run( SKAction.fadeIn(withDuration: 0.5) )
+			gameAlarmGuidesNodesArray[1].run( SKAction.fadeIn(withDuration: 0.5) )
+		} //end if [GameType is AlarmMode]
 	} //end func
 	
-	
-	func addCountdownTimerForAlarm() {
-		if (gameSecondTickTimer != nil) {
-			gameSecondTickTimer!.invalidate();
-			gameSecondTickTimer = nil;
-		}
-		gameSecondTickTimer = UPUtils.setInterval(1, block: updateWithSeconds); //1초간 실행되는 tick
-	}
-	
+	//////////// 모든 Element 제거 (점프업)
 	func delAllElementsFromArray() {
 		for i:Int in 0 ..< gameNodesArray.count {
-			gameNodesArray[i]!.removeFromParent();
-			gameNodesArray[i] = nil;
+			gameNodesArray[i]!.removeFromParent()
+			gameNodesArray[i] = nil
 		} //end for
-		gameNodesArray = [];
-		
-		print("deleted all nodes from array");
-	}
+		gameNodesArray = []
+		print("deleted all nodes from array")
+	} //end func
 	
+	///////// Update
 	override func update(_ interval: TimeInterval) {
 		//Update per frame
-		if (gameFinishedBool == true) {
+		if (isGameFinished == true) {
 			// 게임 끝. update 정지
-			
 			return;
 		}
 		if (isGamePaused == true) {
@@ -650,7 +426,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		
 		//제스처 처리
 		if (abs(swipeGestureMoved) > 0) {
-			if (gameStartupType == 1) {
+			if (gameStartupType == .GameMode) {
 				if (abs(swipeGestureMoved) > swipeGestureValid) {
 					if (swipeGestureMoved > 0) {
 						// 아래로 스와이프
@@ -749,7 +525,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		} //라이프 인디케이터 갱신 끝.
 		
 		//게임모드일 시 스코어 상승과 레벨링
-		if (gameStartupType == 1) {
+		if (gameStartupType == .GameMode) {
 			
 			//헬모드 효과 (..)
 			if (hellMode == true) {
@@ -784,39 +560,35 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						
 					}
 					
-					scoreUPDelayMax -= 0.5;
-					scoreUPDelayMax = max(max(0, 10 - scoreUPLevel), scoreUPDelayMax);
+					scoreUPDelayMax -= 0.5
+					scoreUPDelayMax = max(max(0, 10 - scoreUPLevel), scoreUPDelayMax)
 					
 					print("Current level:", scoreUPLevel, ",Scroll (x):", additionalGameScrollSpeed, ", Max delay:",
-						  max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 10))));
-					
+						  max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 10))))
 				} else {
-					scoreUPDelayCurrent -= 1;
-				}
+					scoreUPDelayCurrent -= 1
+				} //end if [Score UP Delay is 0]
 				//레벨을 일정 주기로 높임
-				scoreUPLevel += 0.0009;
-				
+				scoreUPLevel += 0.0014 //0.0009
 			} else {
-				gameCharacterRetryADScoreTerm -= 1;
-			}
-			
-			
-		} // 스코어 관련 끝
+				gameCharacterRetryADScoreTerm -= 1
+			} //end if [Character is unbeatable or not]
+		} //end if [gametype is gamemode]
 		
 		//// 기본적인 레벨링은 일반 알람모드에서도 적용 (단, 레벨이 올라가지는 않음)
 		//스크롤 속도 높임
 		if (hellMode == true) {
-			additionalGameScrollSpeed = 3.5; //헬모드 속도 고정
+			additionalGameScrollSpeed = 3.5 //헬모드 속도 고정
 		} else if ( additionalGameScrollSpeed < 2.5) { //조금 빠르게 올림
-			additionalGameScrollSpeed = min(3.25, 1.24 + (scoreUPLevel / 4));
+			additionalGameScrollSpeed = min(3.25, 1.24 + (scoreUPLevel / 4))
 		} else { //천천히 올림
-			additionalGameScrollSpeed = min(3.25, additionalGameScrollSpeed + 0.0002 );
-		}
+			additionalGameScrollSpeed = min(3.25, additionalGameScrollSpeed + 0.0002 )
+		} //end if [hellmode, scrollspeed]
 		//약간씩 중력 늘림 (스크롤 속도 비례)
-		gameGravity = max(1, additionalGameScrollSpeed / 2);
+		gameGravity = max(1, additionalGameScrollSpeed / 2)
 		
 		//Render time(or score)
-		gameScoreStr = String(gameScore);
+		gameScoreStr = String(gameScore)
 		//Render text
 		for i:Int in 0 ..< gameScoreNm {
 			gameNumberSpriteNodesArray[i].texture =
@@ -830,155 +602,148 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//Add decoration elements
 		if (gameCloudDecorationAddDelay <= 0) { //add queue
 			if (Int(arc4random_uniform(10)) < 8) { //add
-				addNodes( 0 ); //0 is decoration cloud
+				addNodes( 0 ) //0 is decoration cloud
 			}
-			gameCloudDecorationAddDelay = gameCloudAddDelayMAX;
+			gameCloudDecorationAddDelay = gameCloudAddDelayMAX
 		} else {
-			gameCloudDecorationAddDelay -= 1;
+			gameCloudDecorationAddDelay -= 1
 		} //end of decoration cloud add
 		
 		//Add enemy elements
 		if (gameEnemyGenerateDelay <= 0){
-			gameRdmElementNum = 1 + Int(arc4random_uniform( 5 )); //0번은 데코용 구름이라 제외함
-			let rdmVars:Float = Float(arc4random()) / Float(UINT32_MAX);
+			gameRdmElementNum = 1 + Int(arc4random_uniform( 5 )) //0번은 데코용 구름이라 제외함
+			let rdmVars:Float = Float(arc4random()) / Float(UINT32_MAX)
 			//딜레이 설정 및 노드 생성
 			switch(gameStartupType) {
-				case 0: //알람 게임
-					gameRdmElementNum = 1 + Int(arc4random_uniform( 5 ));
-					//가시나 트랩이 나올 때, 50초 미만으로 남았을 때, 알람으로 켜졌을 때, 약 40% 미만의 확률로 발동
-					if ((gameRdmElementNum == 1 || gameRdmElementNum == 2) && gameScore < gameLevelAverageTime) {
-						if (rdmVars <= 0.5) {
-							self.addNodes( 6 ); //구름
-							self.addNodes( 1 + Int(arc4random_uniform( 2 ))); //가시 + 박스
-						} else if (rdmVars <= 0.3) {
-							self.addNodes( 3 + Int(arc4random_uniform( 3 )));
+				case .AlarmMode: //알람 게임
+					gameRdmElementNum = 1 + Int(arc4random_uniform( 5 ))
+					//일정 시간 미만으로 남았을 때, 알람으로 켜졌을 때, 약 50% 미만의 확률로 발동
+					if (gameScore < gameLevelAverageTime) {
+						if (rdmVars <= 0.1) {
+							addNodes( 6 ) //구름
+							addNodes( 1 + Int(arc4random_uniform( 2 ))) //가시 + 박스
+						} else if (rdmVars <= 0.4 && ALDManager.generatedLevelMultiply >= 2) {
+							//페이크 가시
+							addNodes( 8 )
+							//self.addNodes( 3 + Int(arc4random_uniform( 3 )))
 						} else {
-							self.addNodes( gameRdmElementNum );
+							addNodes( gameRdmElementNum )
 						}
 					} else {
-						self.addNodes( gameRdmElementNum );
-					}
+						addNodes( gameRdmElementNum )
+					} //end if [time check]
 					
 					//딜레이 최대치를 시간이 갈때마다 줄임 (알람으로 켜졌을 때.)
 					//gameEnemyGenerateDelay = gameEnemyGenerateDelayMAX - Int((gameAlarmFirstGoalTime - gameScore) / 4)
 					
-					//딜레이 최대치 스크롤 속도에 비례. (게임 모드보단 조금 더 자주나옴)
-					gameEnemyGenerateDelay = max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 12.5)));
-					break;
-				case 1: //직접 킨 게임
-					
-					if (hellMode == true) {
-						//헬모드가 켜진 경우, 가끔씩 화면을 돌림
+					//딜레이 최대치 스크롤 속도에 비례.
+					gameEnemyGenerateDelay = max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * (9 + Double(ALDManager.generatedLevelMultiply)))))
+					break
+				case .GameMode: //직접 킨 게임
+					if (hellMode == true) { //헬모드가 켜진 경우, 가끔씩 화면을 돌림
 						if (Float(arc4random()) / Float(UINT32_MAX) < 0.1) { //10% 확률로 돌림
-							
 							//180도 플랩
-							hellModeScreenReversed = !hellModeScreenReversed;
-						}
-						
+							hellModeScreenReversed = !hellModeScreenReversed
+						} //end if [10%]
 					} //헬모드 처리 끝
 					
 					if (scoreUPLevel > 9) { //////////////////// 9레벨 등장 패턴
-						
 						switch(previousEnemyNumber) {
 							case 11:
-								gameRdmElementNum = 0;
-								
+								gameRdmElementNum = 0
 								//뒤에서 나오는걸 생성
-								self.addNodes( 11 );
-								
-								characterWarningSprite.isHidden = true;
+								addNodes( 11 )
+								characterWarningSprite.isHidden = true
 								break;
 							default:
-								
 								if (rdmVars >= 0.95) { //낮은확률로 다음 턴에 뒤로 달리는 로봇 생성.
 									//고로 이번턴엔 점프를 안 할만한걸 생성
-									scoreNodesRandomArray = [ 9 ];
-									gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
-									self.addNodes( gameRdmElementNum );
-									gameRdmElementNum = 11; // 점등 해제를 위해
+									scoreNodesRandomArray = [ 9 ]
+									gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ]
+									addNodes( gameRdmElementNum )
+									gameRdmElementNum = 11 // 점등 해제를 위해
 									
 									//경고등 점등
-									characterWarningSprite.isHidden = false;
+									characterWarningSprite.isHidden = false
 								} else if (rdmVars <= 0.05) { //0.5/10 확률로 떨어지는 구름 생성
-									gameRdmElementNum = 7; scoreNodesRandomArray = [ 1, 2, 3 ];
-									gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
-									self.addNodes( 7 ); //위에 고정되었다 떨어지는 구름
-									self.addNodes( gameRdmElementNum ); //작은 박스나 가시로만 구성
+									gameRdmElementNum = 7
+									scoreNodesRandomArray = [ 1, 2, 3 ]
+									gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ]
+									addNodes( 7 ) //위에 고정되었다 떨어지는 구름
+									addNodes( gameRdmElementNum ) //작은 박스나 가시로만 구성
 								} else if (previousEnemyNumber == 7) {
 									//이전에 바로 구름이 나온 경우, 로봇은 소환하지 말자
-									scoreNodesRandomArray = [ 1, 2, 3, 9 ];
-									gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
+									scoreNodesRandomArray = [ 1, 2, 3, 9 ]
+									gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ]
 									
-									self.addNodes( gameRdmElementNum ); //3단 박스 + 날아다니는 로봇
+									addNodes( gameRdmElementNum ) //3단 박스 + 날아다니는 로봇
 								} else {
-									scoreNodesRandomArray = [ 1, 2, 3, 4, 5, 8, 9, 10 ]; //9, 10: 플라잉 로봇. 떨어지는 놈까지
-									gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
-									self.addNodes( gameRdmElementNum );
-								}
-								
-								break;
-						}
-						
+									scoreNodesRandomArray = [ 1, 2, 3, 4, 5, 8, 9, 10 ] //9, 10: 플라잉 로봇. 떨어지는 놈까지
+									gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ]
+									addNodes( gameRdmElementNum )
+								} //end if [Random vars]
+								break
+						} //end switch [previous enemy ID]
 						
 						////////// 9레벨 끝
 					} else if (scoreUPLevel > 7) { //////////////////// 7레벨 등장 패턴
 						
 						if (rdmVars <= 0.05) { //0.5/10 확률로 떨어지는 구름 생성
-							gameRdmElementNum = 7; scoreNodesRandomArray = [ 1, 2, 3 ];
-							gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
-							self.addNodes( 7 ); //위에 고정되었다 떨어지는 구름
-							self.addNodes( gameRdmElementNum ); //작은 박스나 가시로만 구성
+							gameRdmElementNum = 7
+							scoreNodesRandomArray = [ 1, 2, 3 ]
+							gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ]
+							self.addNodes( 7 ) //위에 고정되었다 떨어지는 구름
+							self.addNodes( gameRdmElementNum ) //작은 박스나 가시로만 구성
 						} else if (previousEnemyNumber == 7) {
 							//이전에 바로 구름이 나온 경우, 로봇은 소환하지 말자
-							scoreNodesRandomArray = [ 1, 2, 3, 9 ];
-							gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
+							scoreNodesRandomArray = [ 1, 2, 3, 9 ]
+							gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ]
 							
-							self.addNodes( gameRdmElementNum ); //3단 박스 + 날아다니는 로봇
+							self.addNodes( gameRdmElementNum ) //3단 박스 + 날아다니는 로봇
 						} else {
-							scoreNodesRandomArray = [ 1, 2, 3, 4, 5, 8, 9 ]; //9 : 플라잉 로봇
-							gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
-							self.addNodes( gameRdmElementNum );
-						}
+							scoreNodesRandomArray = [ 1, 2, 3, 4, 5, 8, 9 ] //9 : 플라잉 로봇
+							gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ]
+							self.addNodes( gameRdmElementNum )
+						} //end if [random]
 						
 						////////// 7레벨 끝
 					} else if (scoreUPLevel > 4) { //////////////////// 4레벨 등장 패턴
 						if (rdmVars <= 0.1) { //1/10 확률로 떨어지는 구름 생성
-							gameRdmElementNum = 7;
+							gameRdmElementNum = 7
 							
-							scoreNodesRandomArray = [ 1, 2, 3 ]; //올라가는 가시가 나오면 안될듯. 3단 박스까지만
-							gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
+							scoreNodesRandomArray = [ 1, 2, 3 ] //올라가는 가시가 나오면 안될듯. 3단 박스까지만
+							gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ]
 							
-							self.addNodes( 7 ); //위에 고정되었다 떨어지는 구름
-							self.addNodes( gameRdmElementNum ); //작은 박스나 가시로만 구성
+							self.addNodes( 7 ) //위에 고정되었다 떨어지는 구름
+							self.addNodes( gameRdmElementNum ) //작은 박스나 가시로만 구성
 							
 						} else if (previousEnemyNumber == 7) {
 							//이전에 바로 구름이 나온 경우, 로봇은 소환하지 말자
-							self.addNodes( 1 + Int(arc4random_uniform( 3 ))); //3단 박스까지 생성함.
+							self.addNodes( 1 + Int(arc4random_uniform( 3 ))) //3단 박스까지 생성함.
 						} else {
-							scoreNodesRandomArray = [ 1, 2, 3, 4, 5 ];
-							gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
-							self.addNodes( gameRdmElementNum );
+							scoreNodesRandomArray = [ 1, 2, 3, 4, 5 ]
+							gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ]
+							self.addNodes( gameRdmElementNum )
 						}
 						////////// 4레벨 끝
 					} else { //////////////////// 일반 패턴
-						scoreNodesRandomArray = [ 1, 2, 3, 4, 5];
-						gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ];
-						self.addNodes( gameRdmElementNum );
-					}
+						scoreNodesRandomArray = [ 1, 2, 3, 4, 5]
+						gameRdmElementNum = scoreNodesRandomArray![ Int(arc4random_uniform( UInt32(scoreNodesRandomArray!.count) )) ]
+						self.addNodes( gameRdmElementNum )
+					} //end check [GameLevel]
 					
-					gameEnemyGenerateDelay = max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 10)));
+					gameEnemyGenerateDelay = max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 10)))
 					//스코어 레벨에 따라 관리
 					//해보니까 빠른속도에 50이하로 내려가긴 힘듬
 					
-					scoreNodesRandomArray = nil; //GC
-					break;
-				default: break;
+					scoreNodesRandomArray = nil //GC
+					break
 			} //end switch
 			
-			previousEnemyNumber = gameRdmElementNum;
+			previousEnemyNumber = gameRdmElementNum
 			
 		} else {
-			gameEnemyGenerateDelay -= 1;
+			gameEnemyGenerateDelay -= 1
 		} //end of generate
 		
 		
@@ -1184,7 +949,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 								default:
 									additionalYFixAxis = 0;
 									break;
-							}
+							} //end switch [elementStyleType]
 							
 							gameNodesArray[i]!.position.y += (gameNodesArray[i]!.ySpeed / 2) * DeviceManager.scrRatioC;
 							if (gameNodesArray[i]!.position.y <= 1 + gameStageYFoot + additionalYFixAxis + (gameNodesArray[i]!.size.height / 2)) {
@@ -1195,12 +960,12 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 							} else {
 								gameNodesArray[i]!.ySpeed -= 0.5 * CGFloat(gameGravity);
 								gameNodesArray[i]!.changeMotion(1); //jumping motion
-							}
-							break;
-					}
+							} //end if
+							break
+					} //end switch [ElementFlag]
 					
 					//판정 완화용 Rect.
-					var nodeTmpRect:CGRect? = nil;
+					var nodeTmpRect:CGRect? = nil
 					switch(gameNodesArray[i]!.elementStyleType) {
 						case JumpUpElements.STYLE_AI:
 							nodeTmpRect = CGRect(
@@ -1210,8 +975,8 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 								(gameNodesArray[i]!.position.y - gameNodesArray[i]!.size.height / 2) + aiRatherboxY ,
 								width: gameNodesArray[i]!.size.width - (aiRatherboxX * 2),
 								height: max(6 * DeviceManager.scrRatioC, gameNodesArray[i]!.size.height - (aiRatherboxY * 2))
-							);
-							break;
+							)
+							break
 						default:
 							nodeTmpRect = CGRect(
 								x:
@@ -1220,10 +985,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 								(gameNodesArray[i]!.position.y - gameNodesArray[i]!.size.height / 2) + nodeRatherboxY ,
 								width: gameNodesArray[i]!.size.width - (nodeRatherboxX * 2),
 								height: max(6 * DeviceManager.scrRatioC, gameNodesArray[i]!.size.height - (nodeRatherboxY * 2))
-								);
-							break;
-					}
-					
+								)
+							break
+					} //end switch [ElementStyle]
 					
 					if ( //캐릭터 - 적간 충돌판정 (조금 완화 함.)
 							nodeTmpRect!.contains( CGPoint( x: (characterElement!.position.x - characterElement!.size.width / 2) + characterRatherboxX, y: (characterElement!.position.y - characterElement!.size.height / 2) + characterRatherboxY  ) ) ||
@@ -1234,38 +998,37 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						) {
 						
 							if (gameCharacterUnlimitedLife == 0) {
-								print("Character collision");
-								gameCharacterUnlimitedLife = 120; //무적시간 부여
-								gameScreenShakeEventDelay = 60; //화면 흔들림 효과
+								print("Character collision")
+								gameCharacterUnlimitedLife = 120 //무적시간 부여
+								gameScreenShakeEventDelay = 60 //화면 흔들림 효과
 								
 								//진동
-								AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate));
+								AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
 								
 								//통계값 추가
-								statsGameDiedCount += 1;
+								statsGameDiedCount += 1
 								
 								//scoreGameLife
 								switch(gameStartupType) {
-									case 0: //알람으로 켜진 경우, 최대 설정된 시간까지 커지도록 시간 추가
+									case .AlarmMode: //알람으로 켜진 경우, 최대 설정된 시간까지 커지도록 시간 추가
 										if (gameScore <= gameLevelAverageTime) {
-											gameScore = min( gameScore + 5, gameTimerMaxTime);
+											gameScore = min( gameScore + 5, gameTimerMaxTime)
 										} else {
-											gameScore = min( gameScore + 7, gameTimerMaxTime);
-										}
-										break;
-									case 1: //게임 모드로 켜짐
-										scoreGameLife -= 1;
+											gameScore = min( gameScore + 7, gameTimerMaxTime)
+										} //end if [Alarm time is average time or not]
+										break
+									case .GameMode: //게임 모드로 켜짐
+										scoreGameLife -= 1
 										if (scoreGameLife <= 0) {
-											gameOverRutine(); //라이프가 없으면 게임오버.
-											return;
-										}
-										break;
-									default: break;
-								}
+											gameOverRutine() //라이프가 없으면 게임오버.
+											return
+										} //end if
+										break
+								} //end switch [Game Startup Type]
 							} //end if
 					} //end if
 					
-					break;
+					break
 				default: break;
 			} //end switch
 			
@@ -1273,53 +1036,49 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			//점프할거라는 신호를 먼저 주고 점프해야 함. addNodes( 10000 );
 			switch(gameNodesArray[i]!.elementFlag) {
 				case 1: //점프하는 적
-					let distanceFlagZero:CGFloat = (260 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.65))) * DeviceManager.scrRatioC;
-					let distanceFlagOne:CGFloat = (160 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.85))) * DeviceManager.scrRatioC;
+					let distanceFlagZero:CGFloat = (260 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.65))) * DeviceManager.scrRatioC
+					let distanceFlagOne:CGFloat = (160 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.85))) * DeviceManager.scrRatioC
 					
 					if (gameNodesArray[i]!.elementTickFlag == 0 && gameNodesArray[i]!.position.x < distanceFlagZero ) {
-						addNodes( 10000, posX: gameNodesArray[i]!.position.x, posY: gameNodesArray[i]!.position.y, targetElement: gameNodesArray[i] );
-						gameNodesArray[i]!.elementTickFlag = 1;
+						addNodes( 10000, posX: gameNodesArray[i]!.position.x, posY: gameNodesArray[i]!.position.y, targetElement: gameNodesArray[i] )
+						gameNodesArray[i]!.elementTickFlag = 1
 					} else if (gameNodesArray[i]!.elementTickFlag == 1 && gameNodesArray[i]!.position.x < distanceFlagOne ) {
-						gameNodesArray[i]!.ySpeed = 14 * max(1, CGFloat(gameGravity / 1.1));
-						gameNodesArray[i]!.elementTickFlag = 2;
+						gameNodesArray[i]!.ySpeed = 14 * max(1, CGFloat(gameGravity / 1.1))
+						gameNodesArray[i]!.elementTickFlag = 2
 					}
 					break;
 				case 2: break; //물리 영향 없음
 				case 3: //일정 좌표 이후 형태가 변경되는 경우. (구름?)
 					if (gameNodesArray[i]!.position.x < (230 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.65))) * DeviceManager.scrRatioC ) {
-						//gameNodesArray[i]!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
-						gameNodesArray[i]!.elementSpeed = 1.8;
-						gameNodesArray[i]!.elementFlag = 0;
+						gameNodesArray[i]!.elementSpeed = 1.8
+						gameNodesArray[i]!.elementFlag = 0
 					}
 					break;
 				case 4: //페이크 가시같은 것들
-					if (gameNodesArray[i]!.position.x < (260 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.85))) * DeviceManager.scrRatioC ) {
-						gameNodesArray[i]!.ySpeed = 21 * max(1, CGFloat(gameGravity / 1.3));
-						gameNodesArray[i]!.elementFlag = 5;
-						gameNodesArray[i]!.zRotation = 0;
+					if (gameNodesArray[i]!.position.x < ((260 + speedyObjectAlarmFix) * max(1.0, CGFloat(additionalGameScrollSpeed / 1.85))) * DeviceManager.scrRatioC ) {
+						gameNodesArray[i]!.ySpeed = 21 * max(1, CGFloat(gameGravity / 1.3))
+						gameNodesArray[i]!.elementFlag = 5
+						gameNodesArray[i]!.zRotation = 0
 					}
 					break;
 				case 5: //페이크 가시가 거의 올라가면
 					if (gameNodesArray[i]!.ySpeed < 12) {
 						if (gameNodesArray[i]!.zRotation < MATHPI) {
-							gameNodesArray[i]!.zRotation += MATHPI / 16;
+							gameNodesArray[i]!.zRotation += MATHPI / 16
 						}
 					}
 					break;
 				case 6: //날아다니는 AI가 중간에 착지하는 경우
 					if (gameNodesArray[i]!.position.x < (220 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.8))) * DeviceManager.scrRatioC ) {
-						gameNodesArray[i]!.elementSpeed = 2.2;
-						gameNodesArray[i]!.elementFlag = 0;
-						gameNodesArray[i]!.motions_walking = gameTexturesAIJMoveTexturesArray;
-						gameNodesArray[i]!.motions_jumping = gameTexturesAIJJumpTexturesArray;
+						gameNodesArray[i]!.elementSpeed = 2.2
+						gameNodesArray[i]!.elementFlag = 0
+						gameNodesArray[i]!.motions_walking = gameTexturesAIJMoveTexturesArray
+						gameNodesArray[i]!.motions_jumping = gameTexturesAIJJumpTexturesArray
 					}
 					break;
-				case 7: break; //반대로 달리는 놈.
-				default: break;
+				case 7: break //반대로 달리는 놈.
+				default: break
 			}
-			
-			
-			
 			
 		} //end for
 		
@@ -1327,12 +1086,12 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	
 	//node add func
 	func addNodes( _ elementType:Int, posX:CGFloat = 0, posY:CGFloat = 0, targetElement:JumpUpElements? = nil ) {
-		var toAddelement:JumpUpElements?; // = JumpUpElements();
-		var addTargetChild:Bool = false;
-		var ignoresForceZPosition:Bool = false;
+		var toAddelement:JumpUpElements?
+		var addTargetChild:Bool = false
+		var ignoresForceZPosition:Bool = false
 		
 		//shadow flags
-		var tmpCloudNumber:Int = Int(arc4random_uniform( 3 ));
+		var tmpCloudNumber:Int = Int(arc4random_uniform( 3 ))
 		
 		switch(elementType){
 			case 0: //0 - Cloud for decoration
@@ -1356,10 +1115,10 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						break;
 				} //end cloud selection
 				
-				ignoresForceZPosition = true;
+				ignoresForceZPosition = true
 				
-				toAddelement!.elementType = JumpUpElements.TYPE_DECORATION;
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 52) * DeviceManager.scrRatioC) );
+				toAddelement!.elementType = JumpUpElements.TYPE_DECORATION
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 52) * DeviceManager.scrRatioC) )
 				
 				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
 				toAddelement!.position.y = /* fit to stage, and random y range */
@@ -1397,284 +1156,269 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			
 			case 4:
 				//AI Astro (점프 안하고 걸어오는)
-				toAddelement = JumpUpElements(); //텍스쳐는 모션으로 정할 것임.
-				toAddelement!.size = CGSize( width: 85 * DeviceManager.scrRatioC , height: 95 * DeviceManager.scrRatioC );
-				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
-				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
+				toAddelement = JumpUpElements() //텍스쳐는 모션으로 정할 것임.
+				toAddelement!.size = CGSize( width: 85 * DeviceManager.scrRatioC , height: 95 * DeviceManager.scrRatioC )
+				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY
+				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width
 				/* y fit to bottom of stage */
-				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2);
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2)
 				
-				if (gameStartupType == 1) {
-					toAddelement!.elementSpeed = 2.2; //일반게임은 속도를 좀 줄임
+				if (gameStartupType == .GameMode) {
+					toAddelement!.elementSpeed = 2.2 //일반게임은 속도를 좀 줄임
 				} else {
-					toAddelement!.elementSpeed = 2.8; //속도.
+					toAddelement!.elementSpeed = 2.8 //속도.
 				}
 				
-				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI;
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI
 				
-				toAddelement!.motions_current = 0;
-				toAddelement!.motions_walking = gameTexturesAIMoveTexturesArray;
-				toAddelement!.motions_jumping = gameTexturesAIJJumpTexturesArray;
+				toAddelement!.motions_current = 0
+				toAddelement!.motions_walking = gameTexturesAIMoveTexturesArray
+				toAddelement!.motions_jumping = gameTexturesAIJJumpTexturesArray
 				
-				break;
-			
+				break
 			case 5:
 				//AI Astro (점프)
-				toAddelement = JumpUpElements(); //텍스쳐는 모션으로 정할 것임.
-				toAddelement!.size = CGSize( width: 85 * DeviceManager.scrRatioC , height: 95 * DeviceManager.scrRatioC );
-				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
-				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
+				toAddelement = JumpUpElements() //텍스쳐는 모션으로 정할 것임.
+				toAddelement!.size = CGSize( width: 85 * DeviceManager.scrRatioC , height: 95 * DeviceManager.scrRatioC )
+				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY
+				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width
 				/* y fit to bottom of stage */
-				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2);
-				if (gameStartupType == 1) {
-					toAddelement!.elementSpeed = 2.2; //일반게임은 속도를 좀 줄임
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2)
+				if (gameStartupType == .GameMode) {
+					toAddelement!.elementSpeed = 2.2 //일반게임은 속도를 좀 줄임
 				} else {
-					toAddelement!.elementSpeed = 2.8; //속도.
+					toAddelement!.elementSpeed = 2.8 //속도.
 				}
 				
-				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI;
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI
 				
-				toAddelement!.motions_current = 0;
-				toAddelement!.motions_walking = gameTexturesAIJMoveTexturesArray;
-				toAddelement!.motions_jumping = gameTexturesAIJJumpTexturesArray;
+				toAddelement!.motions_current = 0
+				toAddelement!.motions_walking = gameTexturesAIJMoveTexturesArray
+				toAddelement!.motions_jumping = gameTexturesAIJJumpTexturesArray
 				
-				toAddelement!.elementFlag = 1; //점프하는 장애물 (flag)
-				
-				break;
+				toAddelement!.elementFlag = 1 //점프하는 장애물 (flag)
+				break
 			
 			case 6:
 				//페이크 구름
-				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[6] );
-				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
-				toAddelement!.size = CGSize( width: 92.3 * DeviceManager.scrRatioC , height: 25.15 * DeviceManager.scrRatioC );
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[6] )
+				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY
+				toAddelement!.size = CGSize( width: 92.3 * DeviceManager.scrRatioC , height: 25.15 * DeviceManager.scrRatioC )
 				
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 27 + (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 12) * DeviceManager.scrRatioC) );
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 27 + (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 12) * DeviceManager.scrRatioC) )
 				
-				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
+				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) + toAddelement!.elementTargetPosFix!.height;
+					(gameStageYAxis - toAddelement!.size.height) + toAddelement!.elementTargetPosFix!.height
 				
-				toAddelement!.elementSpeed = 1.8; // + Double(Float(arc4random()) / Float(UINT32_MAX)) / 9;
-				toAddelement!.elementFlag = 2; //고정형 (물리 안받음)
+				toAddelement!.elementSpeed = 1.8 // + Double(Float(arc4random()) / Float(UINT32_MAX)) / 9;
+				toAddelement!.elementFlag = 2 //고정형 (물리 안받음)
 				
-				ignoresForceZPosition = true;
-				
-				tmpCloudNumber = 3;
-				break;
+				ignoresForceZPosition = true
+				tmpCloudNumber = 3
+				break
 			case 7:
 				//페이크 구름 2. (떨어지는 구름)
-				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[5] );
-				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY; //static이지만 나중에 dynamic으로 바뀜.
-				toAddelement!.size = CGSize( width: 92.3 * DeviceManager.scrRatioC , height: 25.95 * DeviceManager.scrRatioC );
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[5] )
+				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY //static이지만 나중에 dynamic으로 바뀜.
+				toAddelement!.size = CGSize( width: 92.3 * DeviceManager.scrRatioC , height: 25.95 * DeviceManager.scrRatioC )
 				
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 );
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 )
 				
-				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width / 2;
+				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width / 2
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) + (48 + (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 12) * DeviceManager.scrRatioC));
+					(gameStageYAxis - toAddelement!.size.height) + (48 + (CGFloat(Double(Float(arc4random()) / Float(UINT32_MAX)) * 12) * DeviceManager.scrRatioC))
 				
-				toAddelement!.motions_current = -1;
-				toAddelement!.elementFlag = 3; //고정형 (물리 안받음), 그리고 중간에 형태 변경
-				toAddelement!.elementSpeed = 1.8;
+				toAddelement!.motions_current = -1
+				toAddelement!.elementFlag = 3 //고정형 (물리 안받음), 그리고 중간에 형태 변경
+				toAddelement!.elementSpeed = 1.8
 				
-				ignoresForceZPosition = true;
-				
-				tmpCloudNumber = 4;
+				ignoresForceZPosition = true
+				tmpCloudNumber = 4
 				break;
 			case 8:
 				//솟구치는 가시 (...)
-				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[7] );
-				toAddelement!.size = CGSize( width: 44 * DeviceManager.scrRatioC , height: 12 * DeviceManager.scrRatioC );
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[7] )
+				toAddelement!.size = CGSize( width: 44 * DeviceManager.scrRatioC , height: 12 * DeviceManager.scrRatioC )
 				
-				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY;
-				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
-				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2);
-				toAddelement!.elementSpeed = 1.8; //속도.
-				toAddelement!.elementFlag = 4; //빠르게 위로 솟구치는 장애물.
+				toAddelement!.elementType = JumpUpElements.TYPE_STATIC_ENEMY
+				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2)
+				toAddelement!.elementSpeed = 1.8 //속도.
+				toAddelement!.elementFlag = 4 //빠르게 위로 솟구치는 장애물.
 				break;
 			case 9:
 				//날기만 하는 AI
-				toAddelement = JumpUpElements();
-				toAddelement!.size = CGSize( width: 85 * DeviceManager.scrRatioC , height: 95 * DeviceManager.scrRatioC );
-				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
-				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
+				toAddelement = JumpUpElements()
+				toAddelement!.size = CGSize( width: 85 * DeviceManager.scrRatioC , height: 95 * DeviceManager.scrRatioC )
+				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY
+				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width
 				/* fly */
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) + (CGFloat(80 + Double(Float(arc4random()) / Float(UINT32_MAX)) * 18) * DeviceManager.scrRatioC);
+					(gameStageYAxis - toAddelement!.size.height) + (CGFloat(80 + Double(Float(arc4random()) / Float(UINT32_MAX)) * 18) * DeviceManager.scrRatioC)
 				
-				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI;
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI
 				
-				toAddelement!.elementSpeed = 1.8; //속도.
-				toAddelement!.motions_current = 0;
-				toAddelement!.motions_walking = gameTexturesAIFlyTexturesArray;
-				toAddelement!.elementFlag = 2; //고정형 (물리 안받음)
-				
-				break;
+				toAddelement!.elementSpeed = 1.8 //속도.
+				toAddelement!.motions_current = 0
+				toAddelement!.motions_walking = gameTexturesAIFlyTexturesArray
+				toAddelement!.elementFlag = 2 //고정형 (물리 안받음)
+				break
 			case 10:
 				//날다가 땅으로 착지해서 평범하게 걸어가는 미친놈
-				toAddelement = JumpUpElements();
-				toAddelement!.size = CGSize( width: 85 * DeviceManager.scrRatioC , height: 95 * DeviceManager.scrRatioC );
-				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
-				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width;
+				toAddelement = JumpUpElements()
+				toAddelement!.size = CGSize( width: 85 * DeviceManager.scrRatioC , height: 95 * DeviceManager.scrRatioC )
+				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY
+				toAddelement!.position.x = self.view!.frame.width + toAddelement!.size.width
 				/* fly */
 				toAddelement!.position.y = /* fit to stage, and random y range */
-					(gameStageYAxis - toAddelement!.size.height) + (CGFloat(80 + Double(Float(arc4random()) / Float(UINT32_MAX)) * 18) * DeviceManager.scrRatioC);
+					(gameStageYAxis - toAddelement!.size.height) + (CGFloat(80 + Double(Float(arc4random()) / Float(UINT32_MAX)) * 18) * DeviceManager.scrRatioC)
 				
-				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI;
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI
 				
-				toAddelement!.elementSpeed = 1.8; //속도.
-				toAddelement!.motions_current = 0;
-				toAddelement!.motions_walking = gameTexturesAIJFlyTexturesArray;
-				toAddelement!.elementFlag = 6; //고정형 및 형태변경. 좀 일찍.
-				
-				break;
+				toAddelement!.elementSpeed = 1.8 //속도.
+				toAddelement!.motions_current = 0
+				toAddelement!.motions_walking = gameTexturesAIJFlyTexturesArray
+				toAddelement!.elementFlag = 6 //고정형 및 형태변경. 좀 일찍.
+				break
 			case 11:
 				//이번엔.. 반대로 달리는 미친놈..
-				toAddelement = JumpUpElements(); //텍스쳐는 모션으로 정할 것임.
-				toAddelement!.size = CGSize( width: 85 * DeviceManager.scrRatioC , height: 95 * DeviceManager.scrRatioC );
-				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY;
-				toAddelement!.position.x = -toAddelement!.size.width / 2; //왼쪽에서 시작
+				toAddelement = JumpUpElements() //텍스쳐는 모션으로 정할 것임.
+				toAddelement!.size = CGSize( width: 85 * DeviceManager.scrRatioC , height: 95 * DeviceManager.scrRatioC )
+				toAddelement!.elementType = JumpUpElements.TYPE_DYNAMIC_ENEMY
+				toAddelement!.position.x = -toAddelement!.size.width / 2 //왼쪽에서 시작
 				/* y fit to bottom of stage */
-				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2) + (48 * DeviceManager.scrRatioC);
-				toAddelement!.elementSpeed = -1.6; //속도. -로하면 반대로 감
-				toAddelement!.xScale = -1;
-				toAddelement!.ySpeed = 10 * max(1, CGFloat(gameGravity / 1.3)); //약간 점프한 상태
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2) + (48 * DeviceManager.scrRatioC)
+				toAddelement!.elementSpeed = -1.6 //속도. -로하면 반대로 감
+				toAddelement!.xScale = -1
+				toAddelement!.ySpeed = 10 * max(1, CGFloat(gameGravity / 1.3)) //약간 점프한 상태
 				
-				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI;
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_AI
 				
-				toAddelement!.motions_current = 0;
-				toAddelement!.motions_walking = gameTexturesAILeftTexturesArray;
-				toAddelement!.motions_jumping = gameTexturesAIJLeftTexturesArray;
-				toAddelement!.elementFlag = 7; //반대로 달리는 장애물.
-				
-				break;
-			case 10000:
-				//AI 폭발 효과
-				toAddelement = JumpUpElements();
-				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
-				toAddelement!.size = CGSize( width: 150 * DeviceManager.scrRatioC , height: 150 * DeviceManager.scrRatioC );
-				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
+				toAddelement!.motions_current = 0
+				toAddelement!.motions_walking = gameTexturesAILeftTexturesArray
+				toAddelement!.motions_jumping = gameTexturesAIJLeftTexturesArray
+				toAddelement!.elementFlag = 7 //반대로 달리는 장애물.
+				break
+			case 10000: //AI 폭발 효과
+				toAddelement = JumpUpElements()
+				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT
+				toAddelement!.size = CGSize( width: 150 * DeviceManager.scrRatioC , height: 150 * DeviceManager.scrRatioC )
+				toAddelement!.position.x = posX //정해진 위치로
+				toAddelement!.position.y = posY
 				
 				//약간의 위치조정.
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 10 * DeviceManager.scrRatioC );
-				toAddelement!.elementTargetElement = targetElement;
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 10 * DeviceManager.scrRatioC )
+				toAddelement!.elementTargetElement = targetElement
 				
 				if (targetElement == nil) {
-					print("effect target is null.");
+					print("effect target is null.")
 				}
 				
-				toAddelement!.elementSpeed = 0; //타겟이 정해져있는경우 타겟에 맞춰서 움직일테니.
-				toAddelement!.motions_current = 2; //폭발효과는 2번
-				toAddelement!.motions_effect = gameTexturesAIEffectsArray[0]; //텍스쳐 배열의 텍스쳐 배열 (이중배열)
+				toAddelement!.elementSpeed = 0 //타겟이 정해져있는경우 타겟에 맞춰서 움직일테니.
+				toAddelement!.motions_current = 2 //폭발효과는 2번
+				toAddelement!.motions_effect = gameTexturesAIEffectsArray[0] //텍스쳐 배열의 텍스쳐 배열 (이중배열)
+				break
+			case 10001: //그림자. 뭐 빠름을 느끼게 할때나 쓰임
+				toAddelement = JumpUpElements()
+				toAddelement!.elementType = JumpUpElements.TYPE_SHADOW
+				toAddelement!.size = targetElement!.size
+				toAddelement!.position.x = targetElement!.position.x
+				toAddelement!.position.y = targetElement!.position.y
 				
+				toAddelement!.elementSpeed = 0
+				toAddelement!.motions_current = -1 //모션없음
+				toAddelement!.texture = targetElement!.texture //그 순간의 모션이기 때문에 텍스쳐 박제
 				break;
-			case 10001:
-				//그림자. 뭐 빠름을 느끼게 할때나 쓰임
-				toAddelement = JumpUpElements();
-				toAddelement!.elementType = JumpUpElements.TYPE_SHADOW;
-				toAddelement!.size = targetElement!.size;
-				toAddelement!.position.x = targetElement!.position.x; toAddelement!.position.y = targetElement!.position.y; //정해진 위치로
-				
-				toAddelement!.elementSpeed = 0;
-				toAddelement!.motions_current = -1; //모션없음
-				toAddelement!.texture = targetElement!.texture; //그 순간의 모션이기 때문에 텍스쳐 박제
-				break;
-			case 10002,10006,10007:
-				//작은(tiny 1/2/3) 그림자
-				
+			case 10002,10006,10007: //작은(tiny 1/2/3) 그림자
 				switch( elementType ) {
 					case 10002: //tiny 0
-						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[10] );
-						toAddelement!.size = CGSize( width: 44 * DeviceManager.scrRatioC, height: 28 * DeviceManager.scrRatioC );
-						break;
+						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[10] )
+						toAddelement!.size = CGSize( width: 44 * DeviceManager.scrRatioC, height: 28 * DeviceManager.scrRatioC )
+						break
 					case 10006: //tiny 1
-						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[13] );
-						toAddelement!.size = CGSize( width: 48 * DeviceManager.scrRatioC, height: 32 * DeviceManager.scrRatioC );
-						break;
+						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[13] )
+						toAddelement!.size = CGSize( width: 48 * DeviceManager.scrRatioC, height: 32 * DeviceManager.scrRatioC )
+						break
 					case 10007: //tiny 2
-						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[14] );
-						toAddelement!.size = CGSize( width: 68 * DeviceManager.scrRatioC, height: 32 * DeviceManager.scrRatioC );
-						break;
+						toAddelement = JumpUpElements( texture: gameNodesTexturesArray[14] )
+						toAddelement!.size = CGSize( width: 68 * DeviceManager.scrRatioC, height: 32 * DeviceManager.scrRatioC )
+						break
 					default: break;
 				} //end sel elementtype
 					
-				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
-				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
-				
+				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT
+				toAddelement!.position.x = posX
+				toAddelement!.position.y = posY
 				//약간의 위치조정.
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 );
-				toAddelement!.elementTargetElement = targetElement;
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 )
+				toAddelement!.elementTargetElement = targetElement
 				
 				if (targetElement == nil) {
-					print("effect target is null.");
+					print("effect target is null.")
 				}
 				
-				toAddelement!.elementSpeed = targetElement!.elementSpeed; //follow original target element speed
-				toAddelement!.motions_current = -1; //그림자는 모션없음
-				toAddelement!.elementFlag = 0;
+				toAddelement!.elementSpeed = targetElement!.elementSpeed //follow original target element speed
+				toAddelement!.motions_current = -1 //그림자는 모션없음
+				toAddelement!.elementFlag = 0
 				
-				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW;
-				targetElement!.removeFromParent();
-				addTargetChild = true;
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW
+				targetElement!.removeFromParent()
+				addTargetChild = true
 				break;
-			case 10003:
-				//캐릭터 전용(tiny) 그림자
-				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[10] );
-				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
-				toAddelement!.size = CGSize( width: 44 * DeviceManager.scrRatioC, height: 28 * DeviceManager.scrRatioC );
-				toAddelement!.position.x = posX; toAddelement!.position.y = posY; //정해진 위치로
+			case 10003: //캐릭터 전용(tiny) 그림자
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[10] )
+				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT
+				toAddelement!.size = CGSize( width: 44 * DeviceManager.scrRatioC, height: 28 * DeviceManager.scrRatioC )
+				toAddelement!.position.x = posX
+				toAddelement!.position.y = posY
 				
 				//약간의 위치조정.
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0/* * DeviceManager.scrRatioC*/ );
-				// - 2 * DeviceManager.scrRatioC
-				toAddelement!.elementTargetElement = targetElement;
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0/* * DeviceManager.scrRatioC*/ )
+				toAddelement!.elementTargetElement = targetElement
 				
 				if (targetElement == nil) {
-					print("effect target is null.");
+					print("effect target is null.")
 				}
 				
-				toAddelement!.elementSpeed = targetElement!.elementSpeed; //follow original target element speed
-				toAddelement!.motions_current = -1; //그림자는 모션없음
+				toAddelement!.elementSpeed = targetElement!.elementSpeed //follow original target element speed
+				toAddelement!.motions_current = -1 //그림자는 모션없음
 				
 				//거꾸로 가는 캐릭터였으면 오른쪽에서 없어지게
-				print("Character tiny add: targettype:", targetElement!.elementType);
 				if (targetElement!.elementFlag == 7) {
-					toAddelement!.elementFlag = 7;
+					toAddelement!.elementFlag = 7
 				} else {
-					toAddelement!.elementFlag = 0;
+					toAddelement!.elementFlag = 0
 				}
 				
-				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW;
-				targetElement!.removeFromParent();
-				addTargetChild = true;
-				break;
-			case 10004:
-				//큰 그림자 (주로 구름 밑) big
-				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[12] );
-				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT;
-				toAddelement!.size = CGSize( width: 168.8 * DeviceManager.scrRatioC, height: 56.25 * DeviceManager.scrRatioC );
-				toAddelement!.position.x = posX;
-				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2); //big, small구름은 땅에박음
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW
+				targetElement!.removeFromParent()
+				addTargetChild = true
+				break
+			case 10004: //큰 그림자 (주로 구름 밑) big
+				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[12] )
+				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT
+				toAddelement!.size = CGSize( width: 168.8 * DeviceManager.scrRatioC, height: 56.25 * DeviceManager.scrRatioC )
+				toAddelement!.position.x = posX
+				toAddelement!.position.y = gameStageYFoot + (toAddelement!.size.height / 2) //big, small구름은 땅에박음
 				
 				//약간의 위치조정.
-				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 );
-				toAddelement!.elementTargetElement = targetElement;
+				toAddelement!.elementTargetPosFix = CGSize( width: 0, height: 0 )
+				toAddelement!.elementTargetElement = targetElement
 				
 				if (targetElement == nil) {
-					print("effect target is null.");
+					print("effect target is null.")
 				}
 				
-				toAddelement!.elementSpeed = targetElement!.elementSpeed; //follow original target element speed
-				toAddelement!.motions_current = -1; //그림자는 모션없음
-				toAddelement!.elementFlag = 0;
+				toAddelement!.elementSpeed = targetElement!.elementSpeed //follow original target element speed
+				toAddelement!.motions_current = -1 //그림자는 모션없음
+				toAddelement!.elementFlag = 0
 				
-				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW;
-				targetElement!.removeFromParent();
-				addTargetChild = true;
-				
-				break;
-			case 10005:
-				//Shadow (small)
+				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW
+				targetElement!.removeFromParent()
+				addTargetChild = true
+				break
+			case 10005: //Shadow (small)
 				toAddelement = JumpUpElements( texture: gameNodesTexturesArray[12] )
 				toAddelement!.elementType = JumpUpElements.TYPE_EFFECT
 				toAddelement!.size = CGSize( width: 104.5 * DeviceManager.scrRatioC, height: 36.15 * DeviceManager.scrRatioC )
@@ -1696,306 +1440,223 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement!.elementStyleType = JumpUpElements.STYLE_SHADOW
 				targetElement!.removeFromParent()
 				addTargetChild = true
-				break;
+				break
 			//10007까지 있음. (위에 10002에서 씀)
-			
-			default: break;
-		}
+			default: break
+		} //end switch [ElementType]
 		
 		if (ignoresForceZPosition == false) {
-			toAddelement!.zPosition = 1; //behind of character
+			toAddelement!.zPosition = 1 //behind of character
 		} else {
-			toAddelement!.zPosition = 3; //front of character
-		}
+			toAddelement!.zPosition = 3 //front of character
+		} //end if [zPosition ignores or not]
+		mapObject.addChild(toAddelement!)
+		if (addTargetChild) { //Target Child
+			mapObject.addChild(targetElement!)
+		} //end if [targetchlid add or not]
 		
-		mapObject.addChild(toAddelement!);
-		
-		if (addTargetChild) {
-			mapObject.addChild(targetElement!);
-		}
-		
-		gameNodesArray += [toAddelement];
+		gameNodesArray += [toAddelement]
 		
 		//그림자 생성 할 물건이 있으면 함
-		
 		switch(elementType){
-			case 0,6,7: //cloud
-				//구름 종류에 따른 그림자 변형
+			case 0,6,7: //cloud. 구름 종류에 따른 그림자 변형
 				switch(tmpCloudNumber) {
 					case 0,3,4: //big
-						addNodes( 10004, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
-						break;
-					case 1: //small
-						addNodes( 10005, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
-						break;
-					case 2: //small
-						addNodes( 10005, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
-						break;
+						addNodes( 10004, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! )
+						break
+					case 1, 2: //small
+						addNodes( 10005, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! )
+						break
 					default: break;
-				} //end switch
-				
-				break;
+				} //end switch [Cloud]
+				break
 			case 2,3: //boxes
-				addNodes( 10006, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
-				break;
+				addNodes( 10006, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! )
+				break
 			case 1,8: //traps
-				addNodes( 10007, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
-				break;
+				addNodes( 10007, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! )
+				break
 			case 4,5,9,10,11: //shadow for chars
-				addNodes( 10003, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! );
-				
-				break;
-			default: break;
-		}
-	}
+				addNodes( 10003, posX: toAddelement!.position.x, posY: toAddelement!.position.y, targetElement: toAddelement! )
+				break
+			default: break
+		} //end switch [ElementType]
+	} //end func [Add]
 	
-	/////////////
-	
+	////////////////////////////////
 	func gameRestartWithAD() {
 		//광고가 캐릭터를 살린 경우
-		uiContents!.hideUISelectionWindow();
-		uiContents!.toggleMenu(false);
+		uiContents!.hideUISelectionWindow()
+		uiContents!.toggleMenu(false)
 		
-		gameFinishedBool = false;
-		scoreGameLife = maxScoreGameLife - 1;
-		gameCharacterUnlimitedLife = 300; //부활 무적시간
-		gameCharacterRetryADScoreTerm = 300; //이 무적시간동안은 스코어 증가 없음
-	}
+		isGameFinished = false
+		scoreGameLife = maxScoreGameLife - 1
+		gameCharacterUnlimitedLife = 300 //부활 무적시간
+		gameCharacterRetryADScoreTerm = 300 //이 무적시간동안은 스코어 증가 없음
+	} //end func
 	
 	func gameOverRutine() {
 		//게임오버 처리 *use only UI available*
-		
 		//메뉴 제거, 게임 끝, 일시정지는 해제한 상태로.
 		isMenuVisible = false
-		gameFinishedBool = true
+		isGameFinished = true
 		isGamePaused = false
 		uiContents!.menuPausedOverlay.isHidden = false //오버레이는 띄움
 		
 		//게임오버 창 띄우기
 		externalLifeLeft -= 1
-		
 		if (externalLifeLeft == 0) {
 			//완전 게임오버
 			uiContents!.showUISelectionWindow( 3 )
 		} else {
 			//컨티뉴 게임오버
 			uiContents!.showUISelectionWindow( 2 )
-		}
-		
+		} //end if [Life over]
 	} ////// 끝
 	
-	/////////////
-	func updateWithSeconds() {
-		//알람 게임으로 실행되었을 때, 1초마다 주기적으로 실행되는 함수 (시간 체크시만 사용함)
-		//이 함수의 문제점: *앱이 백그라운드에 돌아가도 작동함!!*
+	////////////////////////////////
+	override func updateWithSeconds() {
+		super.updateWithSeconds()
 		
-		//161025
-		if (isGamePaused == true) {
-			return //게임 일시정지 된 경우 틱 정지
-		}
-		
-		if (gameScore <= 0) {
-			print("Game is over")
-			gameFinishedBool = true
-			
-			gameSecondTickTimer!.invalidate()
-			gameSecondTickTimer = nil
-			
-			//게임 끝. 알람끄기 버튼 표시.
-			
-			//리타이어 버튼이 이미 나와있는 경우, 다시 없앰
-			if (buttonRetireSprite.alpha == 1) {
-				let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
-					startPosition: CGPoint( x: buttonRetireSprite.position.x, y: buttonRetireSprite.position.y ),
-					endPosition: CGPoint( x: buttonRetireSprite.position.x, y: -buttonRetireSprite.frame.height/2)
-				);
-				moveEffect.timingFunction = SKTTimingFunctionCircularEaseIn;
-				buttonRetireSprite.run(
-					SKAction.group( [
-						SKAction.actionWithEffect(moveEffect), SKAction.fadeOut(withDuration: 0.5)
-						])
-				);
-			}
-			
-			print("Showing off button");
-			buttonAlarmOffSprite!.alpha = 1;
-			let moveEffect = SKTMoveEffect(node: buttonAlarmOffSprite!, duration: 0.5 ,
-				startPosition: CGPoint( x: buttonAlarmOffSprite!.position.x, y: buttonAlarmOffSprite!.position.y ),
-				endPosition: CGPoint( x: buttonAlarmOffSprite!.position.x, y: buttonYAxis)
-			);
-			moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
-			buttonAlarmOffSprite!.run(
-				SKAction.actionWithEffect(moveEffect));
-			
+		if (gameScore <= 0) { //If game is over
 			//Game guide animation
-			gameAlarmGuidesNodesArray[0].run( SKAction.fadeOut(withDuration: 0.5) );
-			gameAlarmGuidesNodesArray[1].run( SKAction.fadeOut(withDuration: 0.5) );
-			
-		} else {
-			if (AlarmManager.alarmSoundPlaying == true) {
-				//오히려 남은시간을 올려버리게 하자
-				gameScore = min( gameScore + 1, gameTimerMaxTime);
-				gameScoreTitleImage!.alpha = 0.5;
-			} else {
-				gameScoreTitleImage!.alpha = 1;
-				gameScore -= 1;
-			}
-			gameRetireTimeCount = min(gameRetireTimeCount + 1, gameRetireTime); //포기 버튼을 띄워야 할 때 필요
-		}
+			gameAlarmGuidesNodesArray[0].run( SKAction.fadeOut(withDuration: 0.5) )
+			gameAlarmGuidesNodesArray[1].run( SKAction.fadeOut(withDuration: 0.5) )
+		} else { //If game not over
+			// ~ empty
+		} //end if [UserTime to zero or not]
 		
-		//포기 버튼을 띄워야하면 띄움. 점프횟수가 60번을 넘어야함
+		//포기 버튼을 띄워야하면 띄움. (시간도 계산함) 점프횟수가 60번을 넘어야함
 		if (gameRetireTimeCount >= gameRetireTime && buttonRetireSprite.alpha == 0) {
-			if (gameUserJumpCount > 60) {
-				print("Showing retire button");
-				buttonRetireSprite.alpha = 1;
+			if (gameUserJumpCount > 60) { /// 점프 카운트 60번 이상일 때부터 띄움.
+				print("Showing retire button")
+				buttonRetireSprite.alpha = 1
 				let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
 					startPosition: CGPoint( x: buttonRetireSprite.position.x, y: buttonRetireSprite.position.y ),
 					endPosition: CGPoint( x: buttonRetireSprite.position.x, y: buttonYAxis)
-					);
-				moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
+					)
+				moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut
 				buttonRetireSprite.run(
-					SKAction.actionWithEffect(moveEffect));
+					SKAction.actionWithEffect(moveEffect))
 				
 				//Game guide animation
-				gameAlarmGuidesNodesArray[0].run( SKAction.fadeOut(withDuration: 0.5) );
-				gameAlarmGuidesNodesArray[1].run( SKAction.fadeOut(withDuration: 0.5) );
-			}
-		}
-		
-	}
+				gameAlarmGuidesNodesArray[0].run( SKAction.fadeOut(withDuration: 0.5) )
+				gameAlarmGuidesNodesArray[1].run( SKAction.fadeOut(withDuration: 0.5) )
+			} //end if [user jumped a lot or not]
+		} //end if [Retire show or not]
+	} // end func [Update per 1 seconds]
 	
 	//////// touch evt handler
 	//Swift 2용
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		for touch in touches {
-			let location:CGPoint = (touch as UITouch).location(in: self);
-			touchesLatestPoint.x = location.x; touchesLatestPoint.y = location.y;
+			let location:CGPoint = (touch as UITouch).location(in: self)
+			touchesLatestPoint.x = location.x
+			touchesLatestPoint.y = location.y
 			
 			let chkButtonName:SKNode = self.atPoint(location);
 			if (chkButtonName.name == "button_retire" || chkButtonName.name == "button_alarm_off") {
 				//포기 버튼일 때 혹은 알람끄기 일 때
-				
 				//포기 버튼을 눌렀는지의 여부 체크.
-				statsGameIsFailed = chkButtonName.name == "button_retire" ? true : false;
-				exitJumpUPGame();
-			} else {
-				//기타 터치
-				
-				//터치 통계값 추가
-				statsGameTouchCount += 1;
-				
-				if (gameFinishedBool == false) { //게임이 진행중일 때만 점프 가능.
+				statsGameIsFailed = chkButtonName.name == "button_retire" ? true : false
+				exitJumpUPGame()
+			} else { //기타 터치: 터치 통계값 추가
+				statsGameTouchCount += 1
+				if (isGameFinished == false) { //게임이 진행중일 때만 점프 가능.
 					if (characterElement!.jumpFlaggedCount < 2) { //캐릭터 점프횟수 제한
-						
 						//알람 모드에서 가이드 효과
-						if (gameStartupType == 0) {
-							let scaleEffect = SKTScaleEffect(node: gameAlarmGuidesNodesArray[characterElement!.jumpFlaggedCount], duration: 0.5, startScale: CGPoint(x: 1.4, y: 1.4), endScale: CGPoint(x: 1, y: 1));
-							scaleEffect.timingFunction = SKTTimingFunctionCircularEaseOut;
+						if (gameStartupType == .AlarmMode) {
+							let scaleEffect = SKTScaleEffect(node: gameAlarmGuidesNodesArray[characterElement!.jumpFlaggedCount], duration: 0.5, startScale: CGPoint(x: 1.4, y: 1.4), endScale: CGPoint(x: 1, y: 1))
+							scaleEffect.timingFunction = SKTTimingFunctionCircularEaseOut
 							gameAlarmGuidesNodesArray[characterElement!.jumpFlaggedCount].run(
-								SKAction.actionWithEffect(scaleEffect));
-						}
-						
-						characterElement!.ySpeed = CGFloat(characterJumpPower) * max(1, CGFloat(gameGravity / 1.5));
-						characterElement!.jumpFlaggedCount += 1;
-						gameUserJumpCount += 1; //점프 횟수 카운트
-						
+								SKAction.actionWithEffect(scaleEffect))
+						} //end if [is AlarmMode or not]
+						//Jump character
+						characterElement!.ySpeed = CGFloat(characterJumpPower) * max(1, CGFloat(gameGravity / 1.5))
+						characterElement!.jumpFlaggedCount += 1
+						gameUserJumpCount += 1 //점프 횟수 카운트
 						//통계값 추가 (유효터치)
-						statsGameValidTouchCount += 1;
-					}
-				}
-			}
-			
+						statsGameValidTouchCount += 1
+					} //end if [Jump count limit]
+				} //end if [Game finished or not]
+			} //end if [touched button or not]
 		} //end for
-		
-		super.touchesBegan(touches, with:event);
-	}
+		super.touchesBegan(touches, with:event)
+	} //end func [Touch handling]
 	
 	//////////////////////////////////
-	
-	//일시정지 기능
-	func togglePause() {
-		isGamePaused = !isGamePaused;
-		uiContents!.toggleMenu( isGamePaused );
-		self.isPaused = false;
-		if (self.view != nil) {
-			self.view!.isPaused = false;
-		}
-	}
+	//// UI Handler / Callback
 	func gameForceStopCallb() {
 		//강제 게임 정지의 경우 result 없이 바로 메인으로
-		forceExitGame( false );
-	}
+		forceExitGame( false )
+	} //end func ForceStop Callback
 	func gameOverCallb() {
 		//게임오버의 경우 게임오버 루틴으로.
-		forceExitGame( true );
-		
-	}
+		forceExitGame( true )
+	} //end func Force Exit Handler
 	func gameRestartCallb() {
-		restartGame();
-	}
+		restartGame()
+	} //end func RestartGame handler
 	func gameADWatchCallb() {
 		//광고 보고 게임 이어하기 기능
-		UnityAdsManager.showUnityAD(GameModeView.jumpUPStartupViewController!, placementID: UnityAdsManager.PlacementAds.gameContinueAD.rawValue, callbackFunction: gameADWatchFinishedCallback);
-	}
+		SoundManager.pauseResumeBGMSound( false )
+		UnityAdsManager.showUnityAD(GameModeView.jumpUPStartupViewController!, placementID: UnityAdsManager.PlacementAds.gameContinueAD.rawValue, callbackFunction: gameADWatchFinishedCallback)
+	} //end func GameAD Show button handler
 	func gameADWatchFinishedCallback() {
-		print("AD Finished");
-		
-		gameRestartWithAD();
-	}
-	
+		print("AD Finished")
+		SoundManager.pauseResumeBGMSound( true )
+		gameRestartWithAD()
+	} //end func AD Finished Callback
 	
 	//////////////////////////////////
 	
 	// 게임모드에서의 강제 게임 종료 루틴.
 	func forceExitGame( _ showResultWindow:Bool = false ) {
 		print("Game exiting")
+		isGameFinished = true
+		GameModeView.isGameExiting = true //재시작시엔 이게 false이면, 다시 appear가 발동함
 		
 		SoundManager.stopBGMSound()
 		
-		gameFinishedBool = true
-		
-		GameModeView.isGameExiting = true //재시작시엔 이게 false이면, 다시 appear가 발동함
 		GameModeView.selfView!.dismiss(animated: false, completion: nil)
 		ViewController.selfView!.showHideBlurview(true)
 		GlobalSubView.gameModePlayViewcontroller.dismiss(animated: true, completion: { _ in
 			if (showResultWindow == true) { //<- Result화면 이동은 게임을 마쳤다는 소리임
 				// Result 표시.
-				
 				if (self.gameScore != 0) {
 					// 게임 스코어를 저장함.
 					GameManager.saveBestScore(self.currentGameID /* JumpUP GameID */, score: self.gameScore)
-				}
+				} //end if [GameScore is 0 or not]
 				
 				ViewController.selfView!.showGameResult( self.currentGameID /* <- jumpup gameid */ , type: 1 /* game type */,
 					score: self.gameScore, best: GameManager.loadBestScore(0) /* load jumpup bestscore */)
-			} else {
-				//게임 목록의 점프업 화면까지 바로 표시
+			} else { //게임 목록의 점프업 화면까지 바로 표시
 				ViewController.selfView!.openGamePlayView(nil)
 				GamePlayView.selfView!.selectCell( self.currentGameID ) //<- gameid
 				
 				//패드에서 가끔 방향이 안 맞아서 설정함.
 				ViewController.selfView!.fitViewControllerElementsToScreen( false )
-			}
-		});
-	}
+			} //end if [Show result or not]
+		})
+	} //end func [force Exit]
 	//게임 재시작 루틴.
 	func restartGame() {
 		print("Game restarting")
-		gameFinishedBool = true
+		isGameFinished = true
 		GameModeView.isGameExiting = false
 		GameModeView.jumpUPStartupViewController!.dismiss(animated: false, completion: nil)
-	}
+	} //end func
 	
 	//게임 포기 혹은 종료.
 	func exitJumpUPGame() {
-		print("Game finished");
+		print("Game finished")
 		
-		gameFinishedBool = true
+		isGameFinished = true
 		SoundManager.stopBGMSound()
 		
 		/// .. and send result for tracking.
 		AnalyticsManager.sendGameResults(currentGameID,
-		                                 isAlarm: gameStartupType == 0 ? true : false,
+		                                 isAlarm: gameStartupType == .AlarmMode ? true : false,
 		                                 startTime: statsGameStartedTimeStamp,
 		                                 endTime: statsGameFinishedTimeStamp,
 		                                 diedCount: statsGameDiedCount,
@@ -2007,12 +1668,13 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		if (abs(nextAlarmLeft) > AlarmManager.alarmForceStopAvaliableSeconds) {
 			//알람 해제 1시간이 지나버린 경우엔 기록을 남기지 않음
 		} else { //// 알람으로 켜진 경우에만 로그를 남김
-			if (gameStartupType == 0) {
+			if (gameStartupType == .AlarmMode) {
 				logAlarmGame()
 			} // end if
 		} //end if [1 hour pass check]
 		
-		if (gameStartupType == 0) { //알람으로 켜진 경우 확장팩 결제를 검사하여, 결제되지 않은경우 광고를 보여줌
+		if (gameStartupType == .AlarmMode) { //알람으로 켜진 경우 확장팩 결제를 검사하여, 결제되지 않은경우 광고를 보여줌
+			AlarmRingView.selfView!.ignoresActiveSound = true
 			if (PurchaseManager.purchasedItems[PurchaseManager.ProductsID.ExpansionPack.rawValue] == true) {
 				//확장팩 결제함
 				alarmADFinishedCallback()

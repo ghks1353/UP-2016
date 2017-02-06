@@ -30,7 +30,7 @@ class ALDManager {
 		do {
 			for dbResult in try DataManager.db()!.prepare(
 				targetTable!
-					.order( Expression<Int64>("id").desc )
+					.order( Expression<Int64>("date").desc )
 					.limit( 7, offset: 0 )
 				) {
 				var tmpDic:[String:Int] = [:]

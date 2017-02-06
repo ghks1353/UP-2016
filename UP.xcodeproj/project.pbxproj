@@ -186,6 +186,7 @@
 		77050FF21E473610005A891B /* FullScreenGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77050FF11E473610005A891B /* FullScreenGuideView.swift */; };
 		770973041DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */; };
 		770973051DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */; };
+		770B5A5B1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A5A1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff */; };
 		7717A6EE1E41BB8D00076E16 /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */; };
 		7717A6F21E41CF8900076E16 /* bgm-game-jumpup-field.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F01E41CF8900076E16 /* bgm-game-jumpup-field.mp3 */; };
 		7717A6F31E41CF8900076E16 /* bgm-game-waiting.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F11E41CF8900076E16 /* bgm-game-waiting.mp3 */; };
@@ -268,7 +269,6 @@
 		772BB1EE1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1EB1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png */; };
 		772BB1EF1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1EC1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png */; };
 		772BB1F01DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1ED1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png */; };
-		7732D2D01DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7732D2CE1DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff */; };
 		7732D2D11DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */; };
 		775487D51DEA880900D2DCE5 /* ModalWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775487D41DEA880900D2DCE5 /* ModalWebView.swift */; };
 		77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */; };
@@ -645,6 +645,7 @@
 		77050FF11E473610005A891B /* FullScreenGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FullScreenGuideView.swift; path = Views/FullScreenGuideView.swift; sourceTree = "<group>"; };
 		770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-guide-alarm-0.png"; path = "ImageAssets/GameAssets/JumpUP/guides/game-jumpup-assets-guide-alarm-0.png"; sourceTree = "<group>"; };
 		770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-guide-alarm-1.png"; path = "ImageAssets/GameAssets/JumpUP/guides/game-jumpup-assets-guide-alarm-1.png"; sourceTree = "<group>"; };
+		770B5A5A1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-playplayplay.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-playplayplay.aiff"; sourceTree = "<group>"; };
 		7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteConfigManager.swift; path = Managers/RemoteConfigManager.swift; sourceTree = "<group>"; };
 		7717A6F01E41CF8900076E16 /* bgm-game-jumpup-field.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-jumpup-field.mp3"; path = "SoundAssets/BGMSounds/bgm-game-jumpup-field.mp3"; sourceTree = "<group>"; };
 		7717A6F11E41CF8900076E16 /* bgm-game-waiting.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-waiting.mp3"; path = "SoundAssets/BGMSounds/bgm-game-waiting.mp3"; sourceTree = "<group>"; };
@@ -727,7 +728,6 @@
 		772BB1EB1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-0.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-0.png"; sourceTree = "<group>"; };
 		772BB1EC1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-1.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-1.png"; sourceTree = "<group>"; };
 		772BB1ED1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-2.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-2.png"; sourceTree = "<group>"; };
-		7732D2CE1DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-miracle5ynphox.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-miracle5ynphox.aiff"; sourceTree = "<group>"; };
 		7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-sokyepsokyep.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-sokyepsokyep.aiff"; sourceTree = "<group>"; };
 		775487D41DEA880900D2DCE5 /* ModalWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalWebView.swift; path = ModalView/ModalWebView.swift; sourceTree = "<group>"; };
 		77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-en.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-en.png"; sourceTree = "<group>"; };
@@ -1805,8 +1805,8 @@
 		77C3CFC61C6325BE009A183A /* Alarms */ = {
 			isa = PBXGroup;
 			children = (
+				770B5A5A1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff */,
 				77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */,
-				7732D2CE1DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff */,
 				7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */,
 				7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */,
 			);
@@ -2331,7 +2331,6 @@
 				77F9487C1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png in Resources */,
 				772BB1E51DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-0.png in Resources */,
 				775EB0561D51E64F00BE8C4A /* game-jumpup-assets-guide-0.png in Resources */,
-				7732D2D01DEA767700E47542 /* sounds-alarms-test-miracle5ynphox.aiff in Resources */,
 				7717A6F21E41CF8900076E16 /* bgm-game-jumpup-field.mp3 in Resources */,
 				7717A6F31E41CF8900076E16 /* bgm-game-waiting.mp3 in Resources */,
 				7717A6FA1E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png in Resources */,
@@ -2389,6 +2388,7 @@
 				77561E471D50C2F2002EB26B /* skin-default-black-0.png in Resources */,
 				03DEB7C21D25D7A40086BEAD /* game-general-guide-right.png in Resources */,
 				772BB1EE1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png in Resources */,
+				770B5A5B1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff in Resources */,
 				772BB1E71DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-2.png in Resources */,
 				77561E301D50C2E1002EB26B /* skin-default-0.png in Resources */,
 				775EAF9F1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-3.png in Resources */,
