@@ -11,16 +11,17 @@ import UIKit;
 
 class GameModeView:UIViewController {
 	
-	static var selfView:GameModeView?;
+	static var selfView:GameModeView?
 	
 	//게임 서브 뷰
-	static var jumpUPStartupViewController:GameTitleViewJumpUP?;
+	static var jumpUPStartupViewController:GameTitleViewJumpUP?
+	static var gozaUPView:GameGozaUPView?
 	
 	//선택된 게임 번호
-	static var gameSelectedNumber:Int = 0;
+	static var gameSelectedNumber:Int = 0
 	
 	//게임 종료 모드시, viewdidappear부분에 대한 실행을 안 함
-	static var isGameExiting:Bool = false;
+	static var isGameExiting:Bool = false
 	
 	override func viewDidLoad() {
 		// view init func
@@ -44,6 +45,14 @@ class GameModeView:UIViewController {
 				GameModeView.jumpUPStartupViewController!.gameStartupType = .GameMode
 				
 				present(GameModeView.jumpUPStartupViewController!, animated: false, completion: nil)
+				break
+			case 573573: //고자업
+				changeRotation(0)
+				
+				GameModeView.gozaUPView = nil
+				GameModeView.gozaUPView = GameGozaUPView()
+				
+				present(GameModeView.gozaUPView!, animated: false, completion: nil)
 				break
 			default: break
 		} //end switch

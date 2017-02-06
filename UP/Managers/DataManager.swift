@@ -45,6 +45,8 @@ class DataManager {
 		static let overlayGuideMainFlag:String = "settings_overlayguide_flag_main"
 		//오버레이 가이드: 캐릭터를 보았는가
 		static let overlayGuideCharacterInfoFlag:String = "settings_overlayguide_flag_characterinfo"
+		//오버레이 가이드: 리스트를 보았는가
+		static let overlayGuideAlarmListFlag:String = "settings_overlayguide_flag_alarmlist"
 		
 		//풀스크린 가이드: 알람 최초 추가시 가이드
 		static let fullscreenAlarmGuideFlag:String = "settings_full_alarmguide_flag"

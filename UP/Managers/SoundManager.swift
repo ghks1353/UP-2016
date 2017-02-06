@@ -10,12 +10,27 @@ import Foundation
 import AVFoundation
 import AudioToolbox
 
-class SoundManager {
+class SoundManager:NSObject, AVAudioPlayerDelegate {
+	
+	static var sharedInstance:SoundManager = SoundManager()
 	
 	public enum bundleSounds:String {
 		case GameReadyBGM = "bgm-game-waiting.mp3"
 		case GameJumpUPBGM = "bgm-game-jumpup-field.mp3"
-	}
+		
+		case GozaJumpUPBGM = "bgm-game-gozaup-field.mp3"
+	} //bundlesounds
+	
+	public enum bundleEffectsGozaUP:String {
+		case GameEffect0 = "effect-game-gozaup-ef0.mp3"
+		case GameEffect1 = "effect-game-gozaup-ef1.mp3"
+		case GameEffect2 = "effect-game-gozaup-ef2.mp3"
+		case GameEffect3 = "effect-game-gozaup-ef3.mp3"
+		case GameEffect4 = "effect-game-gozaup-ef4.mp3"
+		case GameEffect5 = "effect-game-gozaup-ef5.mp3"
+		case GameEffect6 = "effect-game-gozaup-ef6.mp3"
+		case GameEffect7 = "effect-game-gozaup-ef7.mp3"
+	} //bundleeffects for GozaUP
 	
 	public enum PlaybackPlayMode {
 		case Default
@@ -26,6 +41,7 @@ class SoundManager {
 	////////////// system bgm sounds
 	//(중첩불가)
 	static var systemBGMPlayer:AVAudioPlayer?
+	static var effectPlayers:Array<AVAudioPlayer> = []
 	static var playingSoundName:String?
 	
 	static var previousPlaybackMode:PlaybackPlayMode = .Default
@@ -81,13 +97,31 @@ class SoundManager {
 		} else { //계속
 			if (systemBGMPlayer != nil) {
 				if (systemBGMPlayer!.isPlaying == false) {
-					systemBGMPlayer!.play();
+					systemBGMPlayer!.play()
 				}
 			}
 		}
 	} //end func
 	
+	
+	/// Effect
+	static func playEffectSound(_ soundName:String ) {
+		//이펙트는 임시객체가 생성됨.
+		
+		let effectSoundPlayer:AVAudioPlayer = try! AVAudioPlayer( contentsOf: Bundle.main.url(forResource: soundName, withExtension: nil)! )
+		effectSoundPlayer.delegate = sharedInstance
+		effectSoundPlayer.prepareToPlay()
+		effectSoundPlayer.play()
+		
+		effectPlayers.append(effectSoundPlayer)
+	} //end func
+	
 	////////// Audio playback settings
+	
+	////effect delegate
+	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+		SoundManager.effectPlayers.remove( at: SoundManager.effectPlayers.index(of: player)! )
+	}
 	
 	static func setAudioPlayback(_ playMode:PlaybackPlayMode ) {
 		if (playMode == previousPlaybackMode) {

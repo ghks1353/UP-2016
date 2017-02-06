@@ -101,7 +101,7 @@ class GameTitleViewJumpUP:UIViewController {
 		self.view.addSubview(gameThumbnailsImage)
 		
 		//start btn add.
-		gameStartButtonImage.image = UIImage( named: "game-start-button.png" )
+		gameStartButtonImage.image = UIImage( named: "game-general-start.png" )
 		gameStartButtonImage.frame = CGRect( x: self.view.frame.width / 2 - (242.05 * DeviceManager.maxScrRatioC) / 2, y: self.view.frame.height - (70.75 * DeviceManager.maxScrRatioC) - (86 * DeviceManager.maxScrRatioC), width: 242.05 * DeviceManager.maxScrRatioC, height: 70.75 * DeviceManager.maxScrRatioC )
 		
 		let gameStartGesture:UITapGestureRecognizer = UITapGestureRecognizer()

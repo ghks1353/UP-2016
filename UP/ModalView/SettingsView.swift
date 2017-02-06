@@ -14,6 +14,8 @@ import SwiftyStoreKit
 
 class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
+	static var selfView:SettingsView?
+	
 	//Inner-modal view
 	var modalView:UIViewController = UIViewController()
 	//Navigationbar view
@@ -39,8 +41,10 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	var testersWebView:TestersWebView = TestersWebView()
 	
     override func viewDidLoad() {
-        super.viewDidLoad();
-		self.view.backgroundColor = UIColor.clear;
+        super.viewDidLoad()
+		self.view.backgroundColor = UIColor.clear
+		
+		SettingsView.selfView = self
 		
 		//ModalView
         modalView.view.backgroundColor = UIColor.white;

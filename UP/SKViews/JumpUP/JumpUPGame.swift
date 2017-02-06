@@ -1554,7 +1554,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			touchesLatestPoint.x = location.x
 			touchesLatestPoint.y = location.y
 			
-			let chkButtonName:SKNode = self.atPoint(location);
+			let chkButtonName:SKNode = self.atPoint(location)
 			if (chkButtonName.name == "button_retire" || chkButtonName.name == "button_alarm_off") {
 				//포기 버튼일 때 혹은 알람끄기 일 때
 				//포기 버튼을 눌렀는지의 여부 체크.

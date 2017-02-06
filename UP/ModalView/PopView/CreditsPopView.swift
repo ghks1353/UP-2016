@@ -13,22 +13,27 @@ import UIKit;
 class CreditsPopView:UIViewController {
 	
 	//클래스 외부접근을 위함
-	static var selfView:CreditsPopView?;
+	static var selfView:CreditsPopView?
 	
-	var creditsScrollView:UIScrollView = UIScrollView();
+	var creditsScrollView:UIScrollView = UIScrollView()
 	
-	var creditLogo:UIImageView = UIImageView();
-	var creditVersionInfo:UILabel = UILabel();
+	var creditLogo:UIImageView = UIImageView()
+	var creditVersionInfo:UILabel = UILabel()
 	
-	var madeByImages:Array<UIImageView> = [];
-	var madeByNicknames:Array<UILabel> = [];
-	var madeByPositions:Array<UILabel> = [];
+	var madeByImages:Array<UIImageView> = []
+	var madeByNicknames:Array<UILabel> = []
+	var madeByPositions:Array<UILabel> = []
 	
-	var creditTitleSpecialThanks:UILabel = UILabel();
-	var creditContentsSpecialThanks:UILabel = UILabel();
+	var creditTitleSpecialThanks:UILabel = UILabel()
+	var creditContentsSpecialThanks:UILabel = UILabel()
 	
-	var creditTitleLicense:UILabel = UILabel();
-	var creditContentsLicense:UILabel = UILabel();
+	var creditTitleLicense:UILabel = UILabel()
+	var creditContentsLicense:UILabel = UILabel()
+	
+	
+	///////////////////////
+	var easterEggGameCount:Int = 0
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
@@ -137,7 +142,32 @@ class CreditsPopView:UIViewController {
 		creditsScrollView.contentSize = CGSize(width: DeviceManager.defaultModalSizeRect.width, height: max(DeviceManager.defaultModalSizeRect.height - (self.navigationController?.navigationBar.frame.size.height)!, creditContentsLicense.frame.maxY + 20))
 		
 		self.view.addSubview(creditsScrollView)
+		
+		
+		////// Easter egg! :)
+		
+		let tGesture = UITapGestureRecognizer(target:self, action: #selector(CreditsPopView.gozaGogo(_:)))
+		creditLogo.isUserInteractionEnabled = true
+		creditLogo.addGestureRecognizer(tGesture)
+		
 	}
+	
+	//////////////////////////////
+	
+	func gozaGogo( _ gst:UIGestureRecognizer ) {
+		easterEggGameCount += 1
+		
+		if (easterEggGameCount > 10) {
+			GameModeView.setGame( 573573 )
+			
+			SettingsView.selfView!.dismiss(animated: true, completion: { _ in
+				ViewController.selfView!.runGame() //게임 시작 호출
+			})
+		}
+	}
+	
+	
+	///////////////////////////
 	
 	func popToRootAction() {
 		//Pop to root by back button
