@@ -6,10 +6,10 @@
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
-import UIKit;
-import AVFoundation;
-import AudioToolbox;
-import UserNotifications;
+import UIKit
+import AVFoundation
+import AudioToolbox
+import UserNotifications
 
 import SQLite
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -31,7 +31,6 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     return !(rhs < lhs)
   }
 }
-;
 
 class ViewController: UIViewController {
 	
@@ -47,6 +46,7 @@ class ViewController: UIViewController {
 	var modalGameResultView:GameResultView = GlobalSubView.alarmGameResultView
 	var modalGamePlayWindowView:GamePlayWindowView = GlobalSubView.alarmGamePlayWindowView
 	var modalWebView:ModalWebView = ModalWebView()
+	var modalBuyExPackView:BuyExPackView = BuyExPackView()
 	
 	//Overlay view
 	var overlayGuideView:MainOverlayGuideView = MainOverlayGuideView()
@@ -248,11 +248,16 @@ class ViewController: UIViewController {
 		groundBoxToucharea.isUserInteractionEnabled = true
 		groundBoxToucharea.addGestureRecognizer(tGests)
 		
-		
 		//가이드 버튼 터치시
 		tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.showGuideView(_:)))
 		upLayerGuideShowButton.isUserInteractionEnabled = true
 		upLayerGuideShowButton.addGestureRecognizer(tGests)
+		
+		//UP 구매 버튼 터치시
+		tGests = UITapGestureRecognizer(target:self, action:#selector(ViewController.showUPBuyView(_:)))
+		upExtPackButton.isUserInteractionEnabled = true
+		upExtPackButton.addGestureRecognizer(tGests)
+		
 		
 		//////////////////////////////////////
 		
@@ -355,7 +360,7 @@ class ViewController: UIViewController {
 		}
 	} //end func
 	
-	func openAlarmaddView (_ gestureRecognizer: UITapGestureRecognizer) {
+	func openAlarmaddView (_ gst: UITapGestureRecognizer) {
 		
 		//알람추가뷰 열기. 일단 최대 초과하는지 체크함
 		if ( AlarmManager.alarmsArray.count >= AlarmManager.alarmMaxRegisterCount ) {
@@ -377,7 +382,7 @@ class ViewController: UIViewController {
 		
 	} //end func
 	
-    func openSettingsView (_ gestureRecognizer: UITapGestureRecognizer) {
+    func openSettingsView (_ gst: UITapGestureRecognizer) {
         //환경설정 열기
 		modalSettingsView.modalPresentationStyle = .overFullScreen
 		
@@ -386,7 +391,7 @@ class ViewController: UIViewController {
 		modalSettingsView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false) //scroll to top
     }
 	
-    func openAlarmlistView (_ gestureRecognizer: UITapGestureRecognizer) {
+    func openAlarmlistView (_ gst: UITapGestureRecognizer) {
         //Alarmlist view 열기
 		modalAlarmListView.modalPresentationStyle = .overFullScreen
 		showHideBlurview(true)
@@ -395,7 +400,7 @@ class ViewController: UIViewController {
 		modalAlarmListView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false) //scroll to top
     }
 	
-	func openStatisticsView (_ gestureRecognizer: UITapGestureRecognizer) {
+	func openStatisticsView (_ gst: UITapGestureRecognizer) {
 		//Stats 열기
 		modalAlarmStatsView.modalPresentationStyle = .overFullScreen
 		showHideBlurview(true)
@@ -410,16 +415,22 @@ class ViewController: UIViewController {
 		showHideBlurview(true)
 		
 		self.present(modalCharacterInformationView, animated: false, completion: nil)
-	}
+	} //end func
 	
-	func openGamePlayView(_ gestureRecognizer: UITapGestureRecognizer!) {
+	func openGamePlayView(_ gst: UITapGestureRecognizer!) {
 		//GamePlay View 열기
 		modalPlayGameview.modalPresentationStyle = .overFullScreen
 		showHideBlurview(true)
 		
 		self.present(modalPlayGameview, animated: false, completion: nil)
-	}
-
+	} //end func
+	
+	func showUPBuyView( _ gst:UITapGestureRecognizer ) {
+		modalBuyExPackView.modalPresentationStyle = .overFullScreen
+		showHideBlurview(true)
+		
+		self.present(modalBuyExPackView, animated: false, completion: nil)
+	} //end func
 	
 	////////////////////////////////////
   

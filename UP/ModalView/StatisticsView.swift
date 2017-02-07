@@ -6,79 +6,50 @@
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
-import Foundation;
-import UIKit;
-import Charts;
+import Foundation
+import UIKit
+import Charts
 
-class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegate {
+class StatisticsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 	
 	//클래스 외부접근을 위함
-	static var selfView:StatisticsView?;
-	
-	//Inner-modal view
-	var modalView:UIViewController = UIViewController();
-	//Navigationbar view
-	var navigationCtrl:UINavigationController = UINavigationController();
+	static var selfView:StatisticsView?
 	
 	//Table for menu
-	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped);
-	var tablesArray:Array<Array<CustomTableCell>> = [];
+	var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped)
+	var tablesArray:Array<Array<CustomTableCell>> = []
 	
 	//Main charts pointer
-	var rootViewChartPointer:ChartViewBase?; //차트에 대한 기본 클래스
+	var rootViewChartPointer:ChartViewBase? //차트에 대한 기본 클래스
 	
-	var rootViewChartSubtitle:UILabel?; var rootViewChartTitle:UILabel?; //제목 및 부제목
-	var rootViewChartWrapperCellPointer:UIView?; var rootViewChartBackgroundGradient:CAGradientLayer?;
+	var rootViewChartSubtitle:UILabel?
+	var rootViewChartTitle:UILabel? //제목 및 부제목
+	var rootViewChartWrapperCellPointer:UIView?
+	var rootViewChartBackgroundGradient:CAGradientLayer?
 	
-	var rootViewChartSelSegmentCell:UISegmentedControl?; var rootViewChartNodataUILabel:UILabel?;
-	var rootViewChartSelectedCategory:Int = 0; //메인차트 주/월/년 구분
+	var rootViewChartSelSegmentCell:UISegmentedControl?
+	var rootViewChartNodataUILabel:UILabel?
+	var rootViewChartSelectedCategory:Int = 0 //메인차트 주/월/년 구분
 	
 	//완주 비율 그래프일 때 나타낼 텍스트 (4개)
-	var rootViewRightLFirstTitle:UILabel?; var rootViewRightLFirstValue:UILabel?;
-	var rootViewRightLSecondTitle:UILabel?; var rootViewRightLSecondValue:UILabel?;
+	var rootViewRightLFirstTitle:UILabel?
+	var rootViewRightLFirstValue:UILabel?
+	var rootViewRightLSecondTitle:UILabel?
+	var rootViewRightLSecondValue:UILabel?
 	
-	
-	var rootSelectedCurrentDataPoint:String = StatisticsDataPointView.POINT_UNTIL_OFF; //ualarmoff - 겜시작+플레이, ugamestart - 겜시작, playtime - 플레이
+	//ualarmoff - 겜시작+플레이, ugamestart - 겜시작, playtime - 플레이
+	var rootSelectedCurrentDataPoint:String = StatisticsDataPointView.POINT_UNTIL_OFF
 	
 	//Subviews
-	var statsDataPointView:StatisticsDataPointView = GlobalSubView.alarmStatisticsDataPointView;
+	var statsDataPointView:StatisticsDataPointView = GlobalSubView.alarmStatisticsDataPointView
 	
 	override func viewDidLoad() {
-		super.viewDidLoad();
-		self.view.backgroundColor = UIColor.clear;
-		
-		StatisticsView.selfView = self;
-		print("initing view.");
-		
-		//ModalView
-		modalView.view.backgroundColor = UIColor.white;
-		modalView.view.frame = DeviceManager.defaultModalSizeRect;
-		
-		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white];
-		navigationCtrl = UINavigationController.init(rootViewController: modalView);
-		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#174468");
-		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = LanguagesManager.$("userStatistics");
-		
-		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
-		navLeftPadding.width = -12; //Button left padding
-		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-close"), for: UIControlState());
-		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(StatisticsView.viewCloseAction), for: .touchUpInside);
-		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
-		///////// Nav items fin
-		
-		//add ctrl
-		self.view.addSubview(navigationCtrl.view);
+		super.viewDidLoad(LanguagesManager.$("userStatistics"), barColor: UPUtils.colorWithHexString("#174468"))
+		StatisticsView.selfView = self
 		
 		//add table to modal
-		tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height);
-		modalView.view.addSubview(tableView);
-		
-		print("Adding table.");
+		tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height)
+		modalView.view.addSubview(tableView)
 		
 		//add table cells (options)
 		tablesArray = [
@@ -86,109 +57,80 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 				createIntroChartCell(),
 				createCellWithNextArrow(LanguagesManager.$("statsDataPoint"), menuID: "dataPoint")
 			]
-			
-		];
-		tableView.delegate = self; tableView.dataSource = self;
-		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
+		] //////////////////////
+		tableView.delegate = self
+		tableView.dataSource = self
+		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA")
 		
-		setSubviewSize();
-		
-		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false;
-		
-		//SET MASK for dot eff
-		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"));
-		modalMaskImageView.frame = modalView.view.frame;
-		modalMaskImageView.contentMode = .scaleAspectFit; self.view.mask = modalMaskImageView;
-		
-		FitModalLocationToCenter();
-	}
+		setSubviewSize()
+	} //////////// end func load
 	
 	/////// View transition animation
 	override func viewWillAppear(_ animated: Bool) {
-		//setup bounce animation
-		self.view.alpha = 0;
-		
+		super.viewWillAppear( animated )
 		
 		//뷰 초기 진입시 설정 초기화
-		rootViewChartSelectedCategory = 0;
-		rootSelectedCurrentDataPoint = StatisticsDataPointView.POINT_UNTIL_OFF;
-		rootViewChartSelSegmentCell!.selectedSegmentIndex = 0;
+		rootViewChartSelectedCategory = 0
+		rootSelectedCurrentDataPoint = StatisticsDataPointView.POINT_UNTIL_OFF
+		rootViewChartSelSegmentCell!.selectedSegmentIndex = 0
 		
-		drawMainGraph();
-	}
+		drawMainGraph()
+	} //end func
 	
-	override func viewWillDisappear(_ animated: Bool) {
-		
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		//queue bounce animation
-		self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
-		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
-		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
-			self.view.frame = CGRect(x: 0, y: 0,
-				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
-			self.view.alpha = 1;
-		}) { _ in
-		}
-	} ///////////////////////////////
-	
-	
+	///////////////////////////////////////////////
 	func drawMainGraph() {
 		//data fetch
-		print("Getting data");
-		var selDataPointInt:Int = 0;
+		print("Getting graph data from Database")
+		var selDataPointInt:Int = 0
 		
 		switch(rootSelectedCurrentDataPoint) {
 			case StatisticsDataPointView.POINT_UNTIL_OFF:
-				selDataPointInt = 0;
-				rootViewChartTitle!.text = LanguagesManager.$("statsTitleUntilAlarmOff");
-				break;
+				selDataPointInt = 0
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleUntilAlarmOff")
+				break
 			case StatisticsDataPointView.POINT_UNTIL_START:
-				selDataPointInt = 1;
-				rootViewChartTitle!.text = LanguagesManager.$("statsTitleUntilGameStart");
-				break;
+				selDataPointInt = 1
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleUntilGameStart")
+				break
 			case StatisticsDataPointView.POINT_PLAYTIME:
-				selDataPointInt = 2;
-				rootViewChartTitle!.text = LanguagesManager.$("statsTitleGamePlayTime");
+				selDataPointInt = 2
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleGamePlayTime")
 				break;
 			case StatisticsDataPointView.POINT_GAME_CLEARED:
-				selDataPointInt = 3;
-				rootViewChartTitle!.text = LanguagesManager.$("statsTitleGameClearPercent");
-				break;
-			
+				selDataPointInt = 3
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleGameClearPercent")
+				break
 			case StatisticsDataPointView.POINT_GAME_TOUCHES:
-				selDataPointInt = 4;
-				rootViewChartTitle!.text = LanguagesManager.$("statsTitleTouches");
-				break;
+				selDataPointInt = 4
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleTouches")
+				break
 			case StatisticsDataPointView.POINT_GAME_VALID:
-				selDataPointInt = 5;
-				rootViewChartTitle!.text = LanguagesManager.$("statsTitleVaildTouchPercent");
-				break;
+				selDataPointInt = 5
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleVaildTouchPercent")
+				break
 			case StatisticsDataPointView.POINT_GAME_ASLEEP:
-				selDataPointInt = 6;
-				rootViewChartTitle!.text = LanguagesManager.$("statsTitleFellAsleepCount");
-				break;
-			default: break;
-		}
+				selDataPointInt = 6
+				rootViewChartTitle!.text = LanguagesManager.$("statsTitleFellAsleepCount")
+				break
+			default: break
+		} //end switch [selectedDataPoint]
 		
 		//Default hidden
 		rootViewRightLFirstTitle!.isHidden = true; rootViewRightLFirstValue!.isHidden = true;
 		rootViewRightLSecondTitle!.isHidden = true; rootViewRightLSecondValue!.isHidden = true;
 		
 		//Data fetch from datamanager
-		let statsDataResult:Array<StatsDataElement>? = DataManager.getAlarmGraphData( rootViewChartSelectedCategory, dataPointSelection: selDataPointInt );
+		let statsDataResult:Array<StatsDataElement>? = DataManager.getAlarmGraphData( rootViewChartSelectedCategory, dataPointSelection: selDataPointInt )
 		
 		//Set pointers
 		var barChartPointer:BarChartView?; var lineChartPointer:LineChartView?; var pieChartPointer:PieChartView?;
 		//BGColor
-		var currentBGColor:String = "";
+		var currentBGColor:String = ""
 		
 		//Remove existing view
 		if (rootViewChartPointer != nil) {
-			rootViewChartPointer!.removeFromSuperview();
-			rootViewChartPointer = nil;
+			rootViewChartPointer!.removeFromSuperview()
+			rootViewChartPointer = nil
 		} //end chk
 		
 		if (statsDataResult == nil) {
@@ -466,61 +408,51 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 									break;
 							} //end switch
 							
-							
-							lineChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeOutCirc );
+							lineChartPointer!.animate( xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeOutCirc )
 							
 							//X Formatter
-							let defXFormatter:StrArrayFormatter = StrArrayFormatter();
-							defXFormatter.strArr = tDatasXAxisEntry;
+							let defXFormatter:StrArrayFormatter = StrArrayFormatter()
+							defXFormatter.strArr = tDatasXAxisEntry
 							
 							//Y Formatter
-							let defFormatter:NumberFormatter = NumberFormatter();
-							defFormatter.positivePrefix = currentDataPrefix;
-							defFormatter.positiveSuffix = currentDataSuffix;
+							let defFormatter:NumberFormatter = NumberFormatter()
+							defFormatter.positivePrefix = currentDataPrefix
+							defFormatter.positiveSuffix = currentDataSuffix
 							
-							lineChartPointer!.xAxisRenderer.axis!.valueFormatter = DefaultAxisValueFormatter(formatter: defXFormatter);
-							lineChartPointer!.rightYAxisRenderer.axis!.valueFormatter = DefaultAxisValueFormatter(formatter: defFormatter);
+							lineChartPointer!.xAxisRenderer.axis!.valueFormatter = DefaultAxisValueFormatter(formatter: defXFormatter)
+							lineChartPointer!.rightYAxisRenderer.axis!.valueFormatter = DefaultAxisValueFormatter(formatter: defFormatter)
 							
-							
-							break;
+							break
 						default: //fallback
-							break;
+							break
 					} //end switch
-					
-					break;
-			}
-			
-			
+					break
+			} //end if [if data exists]
 			
 			switch(selDataPointInt) {
 				case 3: //표기 없음
-					rootViewChartSubtitle!.text = "";
-					break;
+					rootViewChartSubtitle!.text = ""
+					break
 				case 5: //평균 ~% 표기
 					rootViewChartSubtitle!.text = LanguagesManager.parseStr(LanguagesManager.$("statsAverageFormat"),
-					                                                 args: String(String(format:"%.0f", resultAverage) + LanguagesManager.$("statsDataFormatPercent")) as AnyObject);
-					break;
+					                                                 args: String(String(format:"%.0f", resultAverage) + LanguagesManager.$("statsDataFormatPercent")) as AnyObject)
+					break
 				case 4, 6: //합계 ~회 표기
 					rootViewChartSubtitle!.text = LanguagesManager.parseStr(LanguagesManager.$("statsTotalFormat"),
-																	 args: String(LanguagesManager.$("statsDataFormatCountsPrefix") + String(format:"%.0f", resultAverage) + LanguagesManager.$("statsDataFormatCountsSuffix")
-						) as AnyObject);
-					break;
+																	 args: String(LanguagesManager.$("statsDataFormatCountsPrefix") + String(format:"%.0f", resultAverage) + LanguagesManager.$("statsDataFormatCountsSuffix") ) as AnyObject)
+					break
 				default: //평균 ~분 표기
 					rootViewChartSubtitle!.text = LanguagesManager.parseStr(LanguagesManager.$("statsAverageFormat"),
-																	 args: String(LanguagesManager.$("statsTimeFormatMinPrefix") + String(format:"%.0f", resultAverage) + LanguagesManager.$("statsTimeFormatMinSuffix")) as AnyObject);
-				break;
+																	 args: String(LanguagesManager.$("statsTimeFormatMinPrefix") + String(format:"%.0f", resultAverage) + LanguagesManager.$("statsTimeFormatMinSuffix") ) as AnyObject)
+				break
 			} //end switch
-			
-			
-			
 		} //end if
 		
 		//Add charts to view
 		if (rootViewChartPointer != nil) {
 			rootViewChartWrapperCellPointer!.addSubview( rootViewChartPointer! );
-		}
-		
-	}
+		} //end if
+	} ////end func
 	
 	
 	/// table setup
@@ -535,76 +467,52 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	} //end func
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return (tablesArray[section]).count;
+		return (tablesArray[section]).count
 	}
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		//return UITableViewAutomaticDimension;
 		switch((indexPath as NSIndexPath).section) {
 			case 0:
 				if ((indexPath as NSIndexPath).row == 0) {
-					return 180 + 48 + 6;
+					return 180 + 48 + 6
 				} else {
-					return 45;
+					return 45
 				}
 			default:
-				return UITableViewAutomaticDimension;
+				return UITableViewAutomaticDimension
 		}
 	}
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section])[(indexPath as NSIndexPath).row] as UITableViewCell;
-		return cell;
+		return cell
 	}
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		switch( section ) {
 			case 0:
-				return 0.0001;
+				return 0.0001
 			default:
-				return 38;
-		}
-		
-	}
+				return 38
+		} //end switch
+	} //end func
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let cellID:String = (tableView.cellForRow(at: indexPath) as! CustomTableCell).cellID;
+		let cellID:String = (tableView.cellForRow(at: indexPath) as! CustomTableCell).cellID
 		switch(cellID) {
-			case "dataPoint":
-				//open datapoint view
-				self.statsDataPointView.setSelectedCell( rootSelectedCurrentDataPoint );
-				navigationCtrl.pushViewController(self.statsDataPointView, animated: true);
-				statsDataPointView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
-
-				break;
-			default: break;
+			case "dataPoint": //open datapoint view
+				self.statsDataPointView.setSelectedCell( rootSelectedCurrentDataPoint )
+				navigationCtrl.pushViewController(self.statsDataPointView, animated: true)
+				statsDataPointView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false) //scroll to top
+				break
+			default: break
 		}
 		
-		
-		tableView.deselectRow(at: indexPath, animated: true);
-	}
+		tableView.deselectRow(at: indexPath, animated: true)
+	} ////end func
 	
 	////////////////
 	
-	internal func setSubviewSize() {
+	func setSubviewSize() {
 		statsDataPointView.view.frame = CGRect(
 			x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height );
-	}
-	
-	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect
-		
-		if (self.view.mask != nil) {
-			self.view.mask!.frame = DeviceManager.defaultModalSizeRect
-		}
-	}
-	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-	
-	func viewCloseAction() {
-		
-		ViewController.selfView!.showHideBlurview(false)
-		self.dismiss(animated: true, completion: nil)
-	} //end close func
+	} ///////////////////////////////////////////////
 	
 	///// 초기 화면 그래프 (segment) 표시
 	func createIntroChartCell() -> CustomTableCell {
@@ -679,11 +587,11 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 	//// SegmentedControl func
 	func segmentIdxChanged(_ target: UISegmentedControl) {
 		if (target.selectedSegmentIndex == rootViewChartSelectedCategory || target.selectedSegmentIndex == -1) {
-			return; //같은걸 선택했으면 새로 안 그림
+			return //같은걸 선택했으면 새로 안 그림
 		}
 		
-		rootViewChartSelectedCategory = target.selectedSegmentIndex;
-		drawMainGraph();
+		rootViewChartSelectedCategory = target.selectedSegmentIndex
+		drawMainGraph()
 	} //end func
 	
 	
@@ -911,9 +819,8 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		tMultipleChart.noDataText = LanguagesManager.$("statsNoDataAvailable");
 		
 		//chart 반환
-		return tMultipleChart;
-	}
-	
+		return tMultipleChart
+	} //end func
 	
 	func createCellWithNextArrow( _ name:String, menuID:String ) -> CustomTableCell {
 		let tCell:CustomTableCell = CustomTableCell();
@@ -925,25 +832,25 @@ class StatisticsView:UIViewController, UITableViewDataSource, UITableViewDelegat
 		switch(menuID) { //특정 조건으로 아이콘 구분
 			case "dataPoint": tIconFileStr = "comp-icons-datacategory-icon"; break;
 			default:
-				tIconFileStr = "comp-icons-blank";
-				break;
-		}; tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8;
-		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
+				tIconFileStr = "comp-icons-blank"
+				break
+		}; tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8
+		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg)
 		
 		//해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
-		tLabel.frame = CGRect(x: tIconWPadding, y: 0, width: self.modalView.view.frame.width, height: 45);
-		tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 45);
-		tCell.backgroundColor = UIColor.white;
+		tLabel.frame = CGRect(x: tIconWPadding, y: 0, width: self.modalView.view.frame.width, height: 45)
+		tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 45)
+		tCell.backgroundColor = UIColor.white
 		
-		tCell.addSubview(tLabel);
-		tLabel.text = name;
+		tCell.addSubview(tLabel)
+		tLabel.text = name
 		
-		tCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
-		tLabel.font = UIFont.systemFont(ofSize: 16);
+		tCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+		tLabel.font = UIFont.systemFont(ofSize: 16)
 		
-		tCell.cellID = menuID;
+		tCell.cellID = menuID
 		
-		return tCell;
+		return tCell
 	} //end func
 	
 }

@@ -230,6 +230,7 @@
 		7719776E1E48DFFD0018EE00 /* bgm-game-gozaup-field.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7719776D1E48DFFD0018EE00 /* bgm-game-gozaup-field.mp3 */; };
 		771977711E48E1340018EE00 /* GozaUPGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771977701E48E1340018EE00 /* GozaUPGame.swift */; };
 		771977731E48F8CB0018EE00 /* GameGozaUPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771977721E48F8CB0018EE00 /* GameGozaUPView.swift */; };
+		771977751E490A670018EE00 /* BuyExPackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771977741E490A670018EE00 /* BuyExPackView.swift */; };
 		771ABC411D45DE8700938D1B /* CharacterSkinMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */; };
 		771ABC4A1D45DFDB00938D1B /* themes-main-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 771ABC491D45DFDB00938D1B /* themes-main-background.png */; };
 		771ABC5D1D46283B00938D1B /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771ABC5C1D46283B00938D1B /* UnityAds.framework */; };
@@ -251,6 +252,7 @@
 		771CD1591E478DB600574AD8 /* modal-guide-alarm-images-all-2-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 771CD1541E478DB600574AD8 /* modal-guide-alarm-images-all-2-general.png */; };
 		771CD15A1E478DB600574AD8 /* modal-guide-alarm-images-all-3-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 771CD1551E478DB600574AD8 /* modal-guide-alarm-images-all-3-general.png */; };
 		771CD15B1E478DB600574AD8 /* modal-guide-alarm-images-all-4-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 771CD1561E478DB600574AD8 /* modal-guide-alarm-images-all-4-general.png */; };
+		7723940B1E499C1E00C8BC43 /* UIModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7723940A1E499C1E00C8BC43 /* UIModalView.swift */; };
 		772BB18B1DE8B9590054B3EF /* skin-default-character-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1871DE8B9590054B3EF /* skin-default-character-0.png */; };
 		772BB18C1DE8B9590054B3EF /* skin-default-character-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1881DE8B9590054B3EF /* skin-default-character-1.png */; };
 		772BB18D1DE8B9590054B3EF /* skin-default-character-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1891DE8B9590054B3EF /* skin-default-character-2.png */; };
@@ -713,6 +715,7 @@
 		7719776D1E48DFFD0018EE00 /* bgm-game-gozaup-field.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-gozaup-field.mp3"; path = "SoundAssets/BGMSounds/bgm-game-gozaup-field.mp3"; sourceTree = "<group>"; };
 		771977701E48E1340018EE00 /* GozaUPGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GozaUPGame.swift; path = SKViews/GozaUP/GozaUPGame.swift; sourceTree = "<group>"; };
 		771977721E48F8CB0018EE00 /* GameGozaUPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameGozaUPView.swift; path = Views/AlarmGamesView/GameGozaUPView.swift; sourceTree = "<group>"; };
+		771977741E490A670018EE00 /* BuyExPackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BuyExPackView.swift; path = ModalView/BuyExPackView.swift; sourceTree = "<group>"; };
 		771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSkinMainView.swift; path = ModalView/CharacterSkinMainView.swift; sourceTree = "<group>"; };
 		771ABC491D45DFDB00938D1B /* themes-main-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-main-background.png"; path = "ImageAssets/ModalWindows/Themes/themes-main-background.png"; sourceTree = "<group>"; };
 		771ABC5C1D46283B00938D1B /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UnityAds.framework; sourceTree = "<group>"; };
@@ -734,6 +737,7 @@
 		771CD1541E478DB600574AD8 /* modal-guide-alarm-images-all-2-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-alarm-images-all-2-general.png"; path = "ImageAssets/Guides/AlarmGuide/modal-guide-alarm-images-all-2-general.png"; sourceTree = "<group>"; };
 		771CD1551E478DB600574AD8 /* modal-guide-alarm-images-all-3-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-alarm-images-all-3-general.png"; path = "ImageAssets/Guides/AlarmGuide/modal-guide-alarm-images-all-3-general.png"; sourceTree = "<group>"; };
 		771CD1561E478DB600574AD8 /* modal-guide-alarm-images-all-4-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-alarm-images-all-4-general.png"; path = "ImageAssets/Guides/AlarmGuide/modal-guide-alarm-images-all-4-general.png"; sourceTree = "<group>"; };
+		7723940A1E499C1E00C8BC43 /* UIModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIModalView.swift; path = ModalView/Structure/UIModalView.swift; sourceTree = "<group>"; };
 		772BB1871DE8B9590054B3EF /* skin-default-character-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-character-0.png"; path = "ImageAssets/Skins/Default/Character/skin-default-character-0.png"; sourceTree = "<group>"; };
 		772BB1881DE8B9590054B3EF /* skin-default-character-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-character-1.png"; path = "ImageAssets/Skins/Default/Character/skin-default-character-1.png"; sourceTree = "<group>"; };
 		772BB1891DE8B9590054B3EF /* skin-default-character-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-character-2.png"; path = "ImageAssets/Skins/Default/Character/skin-default-character-2.png"; sourceTree = "<group>"; };
@@ -1587,6 +1591,14 @@
 			name = JumpUP;
 			sourceTree = "<group>";
 		};
+		772394091E499BF700C8BC43 /* Structure */ = {
+			isa = PBXGroup;
+			children = (
+				7723940A1E499C1E00C8BC43 /* UIModalView.swift */,
+			);
+			name = Structure;
+			sourceTree = "<group>";
+		};
 		772BB18F1DE8BA220054B3EF /* AIAstroLeft */ = {
 			isa = PBXGroup;
 			children = (
@@ -1694,6 +1706,7 @@
 		774C56251C59246A00421F06 /* ModalView */ = {
 			isa = PBXGroup;
 			children = (
+				772394091E499BF700C8BC43 /* Structure */,
 				032318C71CFA4F570052732F /* NoNavModals */,
 				03425B9D1CD090FB00243B28 /* ExperimentsPopView */,
 				03425B9A1CD082B200243B28 /* PopView */,
@@ -1704,6 +1717,7 @@
 				03DDD7D71CEB921E007C026D /* SettingsView.swift */,
 				032318BA1CF9BABC0052732F /* GamePlayView.swift */,
 				775487D41DEA880900D2DCE5 /* ModalWebView.swift */,
+				771977741E490A670018EE00 /* BuyExPackView.swift */,
 			);
 			name = ModalView;
 			sourceTree = "<group>";
@@ -2827,6 +2841,7 @@
 				03DDD7D31CEB91D4007C026D /* StatisticsView.swift in Sources */,
 				03DDD80E1CEB9990007C026D /* CustomTableCell.swift in Sources */,
 				77782E6E1C92B0B00016EE1B /* SKTEffects.swift in Sources */,
+				771977751E490A670018EE00 /* BuyExPackView.swift in Sources */,
 				032318AF1CF8BA4D0052732F /* AchievementElement.swift in Sources */,
 				771ABC6D1D466D5500938D1B /* GeneralMenuUI.swift in Sources */,
 				03DDD8181CEB9999007C026D /* AlarmSettingsCell.swift in Sources */,
@@ -2852,6 +2867,7 @@
 				03DDD8211CEB99F0007C026D /* JumpUPGame.swift in Sources */,
 				03DDD80F1CEB9990007C026D /* UISingleSegmentControl.swift in Sources */,
 				03DDD7E21CEB929F007C026D /* AlarmSoundListView.swift in Sources */,
+				7723940B1E499C1E00C8BC43 /* UIModalView.swift in Sources */,
 				03DDD8171CEB9999007C026D /* AlarmRepeatDayCell.swift in Sources */,
 				03DDD8071CEB992D007C026D /* UPUtils.swift in Sources */,
 				77782E701C92B0B00016EE1B /* Vector3.swift in Sources */,

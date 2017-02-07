@@ -10,16 +10,11 @@ import Foundation;
 import UIKit;
 import GameKit;
 
-class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
+class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 	
 	//Pop views
 	var achievementsView:CharacterAchievementsView = CharacterAchievementsView()
 	var themeMainView:CharacterSkinMainView = CharacterSkinMainView()
-	
-	//Inner-modal view
-	var modalView:UIViewController = UIViewController()
-	//Navigationbar view
-	var navigationCtrl:UINavigationController = UINavigationController()
 	
 	//Background img
 	var charInfoBGView:UIImageView = UIImageView()
@@ -42,64 +37,12 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	
 	//화면 레이어 가이드
 	var upLayerGuide:CharacterOverlayGuideView = CharacterOverlayGuideView()
-	//레이어가이드 보이기 버튼
-	var upLayerGuideShowButton:UIImageView = UIImageView()
-	
-	
-	//Mask view
-	var maskUIView:UIView = UIView()
-	let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"))
-	let upLayerGuideMaskView:UIImageView = UIImageView()
-	
 	
 	override func viewDidLoad() {
-		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.clear
+		super.viewDidLoad( LanguagesManager.$("userCharacterInformation"), barColor: UPUtils.colorWithHexString("#232D4B"), showOverlayGuideButton: true )
 		
-		//ModalView
-		modalView.view.backgroundColor = UIColor.white
-		modalView.view.frame = DeviceManager.defaultModalSizeRect
-		
-		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
-		navigationCtrl = UINavigationController.init(rootViewController: modalView)
-		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#232D4B")
-		navigationCtrl.view.frame = modalView.view.frame
-		modalView.title = LanguagesManager.$("userCharacterInformation")
-		
-		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-		navLeftPadding.width = -12 //Button left padding
-		let navCloseButton:UIButton = UIButton() //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-close"), for: UIControlState())
-		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45) //Image frame size
-		navCloseButton.addTarget(self, action: #selector(CharacterInfoView.viewCloseAction), for: .touchUpInside)
-		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ]
-		///////// Nav items fin
-		
-		self.view.addSubview(navigationCtrl.view)
-		
-		//get data from local (stat data)
+		//get data from local
 		DataManager.initDefaults()
-		
-		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false
-		
-		////////// 모달 밖에 배치하는 리소스
-		upLayerGuideShowButton.image = UIImage( named: "comp-showguide-icon.png" )
-		self.view.addSubview(upLayerGuideShowButton)
-		
-		//SET MASK for dot eff
-		modalMaskImageView.frame = modalView.view.frame
-		modalMaskImageView.contentMode = .scaleAspectFit
-		
-		upLayerGuideMaskView.image = UIImage( named: "comp-showguide-icon.png" )
-		
-		maskUIView.addSubview(modalMaskImageView)
-		maskUIView.addSubview(upLayerGuideMaskView)
-		
-		self.view.mask = maskUIView
-		/////////////////////
 		
 		//bg이미지 박아야함!
 		charInfoBGView.image = UIImage( named: "modal-background-characterinfo.png" )
@@ -162,7 +105,6 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		charExpProgressImageView.animationDuration = 1.1; charExpProgressImageView.animationRepeatCount = -1;
 		charExpProgressImageView.startAnimating()
 		
-		//charExpProgressImageView.image = UIImage( named: "characterinfo-exp-deco.png" );
 		charExpMaskView.addSubview(charExpProgress)
 		charExpMaskView.addSubview(charExpProgressImageView) // 마스크 씌울 것이기 때문에 이 안에다.
 		
@@ -175,8 +117,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 					width: 19.15 * DeviceManager.modalRatioC, height: 26.80 * DeviceManager.modalRatioC )
 			modalView.view.addSubview(tmpView)
 			charLevelDigitalArr += [tmpView]
-		}
-		
+		} //end for [leveling]
 		
 		//게임 센터 아이콘 터치
 		var tGesture = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.showGameCenter(_:)))
@@ -193,14 +134,9 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		charCurrentCharacter.isUserInteractionEnabled = true
 		charCurrentCharacter.addGestureRecognizer(tGesture)
 		
-		//오버레이 도움말 터치.
-		tGesture = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.showOverlayGuide(_:)))
-		upLayerGuideShowButton.isUserInteractionEnabled = true
-		upLayerGuideShowButton.addGestureRecognizer(tGesture)
-		
 		upLayerGuide.modalNavHeight = navigationCtrl.navigationBar.frame.size.height
-		FitModalLocationToCenter()
-	}
+	} //end init func
+	//////////////////
 	
 	func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
 		gameCenterViewController.dismiss(animated: true, completion: nil)
@@ -235,7 +171,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	}
 	
 	//오버레이 가이드 열기
-	func showOverlayGuide(_ gst: UITapGestureRecognizer? ) {
+	override func overlayGuideShowHandler(_ gst: UITapGestureRecognizer? ) {
 		upLayerGuide.modalPresentationStyle = .overFullScreen
 		self.present(upLayerGuide, animated: true, completion: nil)
 	} //end func
@@ -243,8 +179,7 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 	
 	/////// View transition animation
 	override func viewWillAppear(_ animated: Bool) {
-		//setup bounce animation
-		self.view.alpha = 0;
+		super.viewWillAppear( animated )
 		
 		//test
 		//CharacterManager.currentCharInfo.characterLevel = 4;
@@ -268,74 +203,21 @@ class CharacterInfoView:UIViewController, GKGameCenterControllerDelegate {
 		                                   width: (82 * DeviceManager.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
 			, height: 49 * DeviceManager.modalRatioC);
 		charExpProgressImageView.frame = CGRect(x: charExpProgress.frame.maxX, y: 49 * DeviceManager.modalRatioC - 47.5 * DeviceManager.modalRatioC, width: 47.5 * DeviceManager.modalRatioC, height: 47.5 * DeviceManager.modalRatioC);
-		
-	}
+	} //end func
 	
-	override func viewWillDisappear(_ animated: Bool) {
-		
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		//queue bounce animation
-		self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
-		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
-		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
-			self.view.frame = CGRect(x: 0, y: 0,
-				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
-			self.view.alpha = 1
-		}) { _ in
-			//캐릭터 오버레이 가이드 표시
-			if (DataManager.getSavedDataBool( DataManager.settingsKeys.overlayGuideCharacterInfoFlag ) == false) {
-				self.showOverlayGuide( nil )
-			} //end if [check character overlay guide flag]
-			
-		} //end block [complete animation]
-		fadeInGuideButton()
+	override func viewAppearedCompleteHandler() {
+		//캐릭터 오버레이 가이드 표시
+		if (DataManager.getSavedDataBool( DataManager.settingsKeys.overlayGuideCharacterInfoFlag ) == false) {
+			self.overlayGuideShowHandler( nil )
+		} //end if [check character overlay guide flag]
 	} ///////////////////////////////
 	
-	//function으로 분리
-	func fadeInGuideButton( _ withDelay:Bool = true ) {
-		upLayerGuideShowButton.alpha = 0
-		UIView.animate(withDuration: 0.5, delay: withDelay ? 0.56 : 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-			self.upLayerGuideShowButton.alpha = 1
-		}, completion: {_ in
-		})
-	} //end func
-	func fadeOutGuideButton( ) {
-		upLayerGuideShowButton.alpha = 1
-		UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-			self.upLayerGuideShowButton.alpha = 0
-		}, completion: {_ in
-		})
-	} //end func
-	
-	////////////////
-	
-	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect
-		if (self.view.mask != nil) {
-			modalMaskImageView.frame = DeviceManager.defaultModalSizeRect
-			upLayerGuideMaskView.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: 34 * DeviceManager.maxScrRatioC, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
-		}
-		
-		// 모달 밖 리소스 프레임 맞춤
-		upLayerGuideShowButton.frame = upLayerGuideMaskView.frame
+	override func FitModalLocationToCenter() {
+		super.FitModalLocationToCenter()
 		upLayerGuide.fitFrames()
-	}
+	} //end if (override)
 	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-	
-	func viewCloseAction() {
-		self.upLayerGuideShowButton.alpha = 0
-		
-		(self.presentingViewController as! ViewController).showHideBlurview(false)
-		self.dismiss(animated: true, completion: nil)
-	} //end close func
-	
-	
+	///////////////////////////////////////////////////
 	func createCellWithNextArrow( _ name:String, menuID:String ) -> CustomTableCell {
 		let tCell:CustomTableCell = CustomTableCell();
 		let tLabel:UILabel = UILabel();

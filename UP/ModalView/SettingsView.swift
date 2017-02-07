@@ -12,17 +12,12 @@ import QuartzCore
 import StoreKit
 import SwiftyStoreKit
 
-class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 	
 	static var selfView:SettingsView?
 	
-	//Inner-modal view
-	var modalView:UIViewController = UIViewController()
-	//Navigationbar view
-	var navigationCtrl:UINavigationController = UINavigationController()
-	
     //Table for menu
-    internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped)
+	var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.grouped)
     
     var settingsArray:Array<SettingsElement> = []
     var tablesArray:Array<Array<AnyObject>> = []
@@ -30,7 +25,7 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	///////// Test experiments views
 	var experimentAlarmSettingsView:ExperimentsAlarmsSetupView = ExperimentsAlarmsSetupView()
 	var experimentTestingInfoView:ExperimentsTestInfo = ExperimentsTestInfo()
-	/////
+	///////////////////////////////////////////
 	
 	/// InSettings Views
 	var creditsView:CreditsPopView = CreditsPopView()
@@ -41,34 +36,8 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 	var testersWebView:TestersWebView = TestersWebView()
 	
     override func viewDidLoad() {
-        super.viewDidLoad()
-		self.view.backgroundColor = UIColor.clear
-		
+		super.viewDidLoad( LanguagesManager.$("settingsMenu"), barColor: UPUtils.colorWithHexString("#333333") )
 		SettingsView.selfView = self
-		
-		//ModalView
-        modalView.view.backgroundColor = UIColor.white;
-		modalView.view.frame = DeviceManager.defaultModalSizeRect;
-		
-		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white];
-		navigationCtrl = UINavigationController.init(rootViewController: modalView);
-		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject];
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#333333");
-		navigationCtrl.view.frame = modalView.view.frame;
-		modalView.title = LanguagesManager.$("settingsMenu"); //Modal title
-		
-		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
-		navLeftPadding.width = -12; //Button left padding
-		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-close"), for: UIControlState());
-		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(SettingsView.viewCloseAction), for: .touchUpInside);
-		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
-		///////// Nav items fin
-		
-		//Nvctrl add
-		self.view.addSubview(navigationCtrl.view);
 		
         //add table to modal
         tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height);
@@ -100,84 +69,54 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 			[ /* section 5 */
 				createSettingsOnlyLabel( "Debug info", menuID: "debug-test-info"),
 				createSettingsOnlyLabel( "UP Testers web", menuID: "notice-fortesters")
-			]
-            
-        ];
-        tableView.delegate = self
+			] ///////////////////////////////////
+        ]
+		
+		tableView.delegate = self
 		tableView.dataSource = self
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA")
         
-        //get data from local
+        //get data from local for load settings
 		DataManager.initDefaults()
-		var tmpOption:Bool = DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.showBadge)
+		var tmpOption:Bool = DataManager.getSavedDataBool(DataManager.settingsKeys.showBadge)
 		if (tmpOption == true) { /* badge option is true? */
 			setSwitchData("showIconBadge", value: true)
 		}
 		//icloud chk
-		tmpOption = DataManager.nsDefaults.bool(forKey: DataManager.settingsKeys.syncToiCloud)
+		tmpOption = DataManager.getSavedDataBool(DataManager.settingsKeys.syncToiCloud)
 		if (tmpOption == true) { /* icloud option is true? */
 			setSwitchData("syncToiCloud", value: true)
 		}
-		
-		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false
-		
-		//SET MASK for dot eff
-		let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"))
-		modalMaskImageView.frame = modalView.view.frame
-		modalMaskImageView.contentMode = .scaleAspectFit
-		self.view.mask = modalMaskImageView
-		
-		FitModalLocationToCenter()
 	}
 	
 	/////// View transition animation
 	override func viewWillAppear(_ animated: Bool) {
-		//setup bounce animation
-		self.view.alpha = 0;
-		
+		super.viewWillAppear( animated )
 		//iCloud 가능 여부에 따른 설정 활성/비활성
-		setSwitchEnabled("syncToiCloud", value: DataManager.iCloudAvailable);
+		setSwitchEnabled("syncToiCloud", value: DataManager.iCloudAvailable)
 	}
-	
-	override func viewWillDisappear(_ animated: Bool) {
-		
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		//queue bounce animation
-		self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
-		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
-		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
-			self.view.frame = CGRect(x: 0, y: 0,
-				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
-			self.view.alpha = 1
-		}) { _ in
-		}
-	} ///////////////////////////////
 	
 	func setSwitchData(_ settingsID:String, value:Bool) {
 		for i:Int in 0 ..< settingsArray.count {
 			if (settingsArray[i].settingsID == settingsID) {
-				(settingsArray[i].settingsElement as! UISwitch).isOn = true;
-				print("Saved data is on:", settingsArray[i].settingsID);
+				(settingsArray[i].settingsElement as! UISwitch).isOn = true
+				print("Saved data is on:", settingsArray[i].settingsID)
 				break;
 			}
 		} //end for
-	}
+	} //end func
 	func setSwitchEnabled(_ settingsID:String, value:Bool) {
 		for i:Int in 0 ..< settingsArray.count {
 			if (settingsArray[i].settingsID == settingsID) {
-				(settingsArray[i].settingsElement as! UISwitch).isEnabled = value;
-				break;
+				(settingsArray[i].settingsElement as! UISwitch).isEnabled = value
+				break
 			}
 		} //end for
-	}
-	
+	} //end func
 	
     /// table setup
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let cell:CustomTableCell = tableView.cellForRow(at: indexPath) as! CustomTableCell;
+		let cell:CustomTableCell = tableView.cellForRow(at: indexPath) as! CustomTableCell
 		//element touch handler
 		
 		switch (cell.cellID) {
@@ -299,99 +238,91 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
     
     ////////////////
 	
-	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect
-		if (self.view.mask != nil) {
-			self.view.mask!.frame = DeviceManager.defaultModalSizeRect
-		}
-	}
-	
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func viewCloseAction() {
+    override func viewCloseAction() {
 		//Save changes
 		saveChasngesToSystem()
 		
-		ViewController.selfView!.showHideBlurview(false)
-        self.dismiss(animated: true, completion: nil)
-    }
+		super.viewCloseAction()
+    } //end func
+	
 	
 	func saveChasngesToSystem() {
 		for i:Int in 0 ..< settingsArray.count {
 			switch(settingsArray[i].settingsID) {
 				case "showIconBadge":
-					DataManager.nsDefaults.set((settingsArray[i].settingsElement as! UISwitch).isOn, forKey: DataManager.settingsKeys.showBadge);
-					break;
+					DataManager.setDataBool((settingsArray[i].settingsElement as! UISwitch).isOn, key: DataManager.settingsKeys.showBadge)
+					break
 				case "syncToiCloud":
-					DataManager.nsDefaults.set((settingsArray[i].settingsElement as! UISwitch).isOn, forKey: DataManager.settingsKeys.syncToiCloud);
+					DataManager.setDataBool((settingsArray[i].settingsElement as! UISwitch).isOn, key: DataManager.settingsKeys.syncToiCloud)
 					if ((settingsArray[i].settingsElement as! UISwitch).isOn == true) {
-						print("Settings-Changed iCloud vals");
-						DataManager.loadiCloudDefaults();
-					}
-					break;
+						print("Settings-Changed iCloud vals")
+						DataManager.loadiCloudDefaults()
+					} //end if
+					break
 				default: //잉어킹: 잉어.. 잉어!! 그러나 아무 일도 일어나지 않았다
-					break;
-			}
-		}
-		
+					break
+			} //end switch [settingsID]
+		} //end for [i]
 		DataManager.save()
-	}
+	} //end func
 	
 	func switchChangedEvent( _ target:UISwitch ) {
 		print("switch changed. saving.")
 		saveChasngesToSystem()
-	}
+	} //end func
 	
     //Tableview cell view create
     func createSettingsToggle(_ name:String, defaultState:Bool, settingsID:String ) -> CustomTableCell {
-        let tCell:CustomTableCell = CustomTableCell();
-        let tLabel:UILabel = UILabel(); let tSwitch:UISwitch = UISwitch();
+        let tCell:CustomTableCell = CustomTableCell()
+        let tLabel:UILabel = UILabel()
+		let tSwitch:UISwitch = UISwitch()
 		
 		//아이콘 표시 관련
 		let tIconImg:UIImageView = UIImageView(); var tIconFileStr:String = ""; var tIconWPadding:CGFloat = 0;
-		tIconImg.frame = CGRect(x: 12, y: 6, width: 31.3, height: 31.3);
+		tIconImg.frame = CGRect(x: 12, y: 6, width: 31.3, height: 31.3)
 		switch(settingsID) { //특정 조건으로 아이콘 구분
-			case "showIconBadge": tIconFileStr = "comp-icons-settings-badge"; break;
-			case "syncToiCloud": tIconFileStr = "comp-icons-settings-icloud"; break;
+			case "showIconBadge": tIconFileStr = "comp-icons-settings-badge"; break
+			case "syncToiCloud": tIconFileStr = "comp-icons-settings-icloud"; break
 			default:
 				if (settingsID.range(of: "experiments-") != nil) {
 					//실험실 아이콘?
-					tIconFileStr = "comp-icons-settings-experiments";
+					tIconFileStr = "comp-icons-settings-experiments"
 				} else {
-					tIconFileStr = "comp-icons-blank";
-				}
-			break;
-		}; tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8;
-		tIconImg.image = UIImage( named: tIconFileStr + ".png" ); tCell.addSubview(tIconImg);
+					tIconFileStr = "comp-icons-blank"
+				} //end if
+			break
+		} //end switch
 		
-        let settingsObj:SettingsElement = SettingsElement();
-        settingsObj.settingsID = settingsID; tCell.cellID = settingsID;
-        settingsObj.settingsElement = tSwitch; //Anyobject
+		tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8
+		tIconImg.image = UIImage( named: tIconFileStr + ".png" )
+		tCell.addSubview(tIconImg)
+		
+        let settingsObj:SettingsElement = SettingsElement()
+        settingsObj.settingsID = settingsID
+		tCell.cellID = settingsID
+        settingsObj.settingsElement = tSwitch //Anyobject
         
         //해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
-        tLabel.frame = CGRect(x: tIconWPadding, y: 0, width: self.modalView.view.frame.width * 0.6, height: 45);
-        tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 45 /*CGFloat(45 * maxDeviceGeneral.scrRatio)*/ );
-        tCell.backgroundColor = UIColor.white;
+        tLabel.frame = CGRect(x: tIconWPadding, y: 0, width: self.modalView.view.frame.width * 0.6, height: 45)
+        tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 45)
+        tCell.backgroundColor = UIColor.white
 		
-        tSwitch.frame.origin.x = self.modalView.view.frame.width - tSwitch.frame.width - 8;
-        tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2;
-        //tSwitch.selected = defaultState;
-        
-        tCell.addSubview(tLabel); tCell.addSubview(tSwitch);
+        tSwitch.frame.origin.x = self.modalView.view.frame.width - tSwitch.frame.width - 8
+        tSwitch.frame.origin.y = (tCell.frame.height - tSwitch.frame.height) / 2
 		
-		tSwitch.addTarget(self, action: #selector(SettingsView.switchChangedEvent(_:)), for: .valueChanged);
+        tCell.addSubview(tLabel)
+		tCell.addSubview(tSwitch)
 		
-        tLabel.text = name;
-		tLabel.font = UIFont.systemFont(ofSize: 16);
+		tSwitch.addTarget(self, action: #selector(SettingsView.switchChangedEvent(_:)), for: .valueChanged)
+		
+        tLabel.text = name
+		tLabel.font = UIFont.systemFont(ofSize: 16)
 		
         //push to settingselement
-        settingsArray += [settingsObj];
+        settingsArray += [settingsObj]
         
-        return tCell;
-    }
+        return tCell
+    } //end func
 	
     func createSettingsOnlyLabel(_ name:String, menuID:String ) -> CustomTableCell {
         let tCell:CustomTableCell = CustomTableCell()
@@ -428,31 +359,32 @@ class SettingsView:UIViewController, UITableViewDataSource, UITableViewDelegate 
 					tIconFileStr = "comp-icons-blank"
 				}
 				break
-		}
+		} //end switch [menuID]
 		tIconWPadding = tIconImg.frame.minX + tIconImg.frame.width + 8
 		tIconImg.image = UIImage( named: tIconFileStr + ".png" )
 		tCell.addSubview(tIconImg)
 		
-        let settingsObj:SettingsElement = SettingsElement();
-        settingsObj.settingsID = menuID; tCell.cellID = menuID;
-        settingsObj.settingsElement = nil; //Anyobject
+        let settingsObj:SettingsElement = SettingsElement()
+        settingsObj.settingsID = menuID
+		tCell.cellID = menuID
+		
+        settingsObj.settingsElement = nil //Anyobject
         
         //해상도에 따라 작을수록 커져야하기때문에 ratio 곱을 뺌
-        tLabel.frame = CGRect(x: tIconWPadding, y: 0, width: self.modalView.view.frame.width, height: 45);
-        tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 45);
-        tCell.backgroundColor = UIColor.white;
+        tLabel.frame = CGRect(x: tIconWPadding, y: 0, width: self.modalView.view.frame.width, height: 45)
+        tCell.frame = CGRect(x: 0, y: 0, width: self.modalView.view.frame.width, height: 45)
+        tCell.backgroundColor = UIColor.white
         
-        tCell.addSubview(tLabel);
-        tLabel.text = name;
-        //tCell.selectionStyle = UITableViewCellSelectionStyle.None;
-        tCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
-        tLabel.font = UIFont.systemFont(ofSize: 16);
+        tCell.addSubview(tLabel)
+		tLabel.text = name
+		
+        tCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+        tLabel.font = UIFont.systemFont(ofSize: 16)
         
-        settingsArray += [settingsObj];
+        settingsArray += [settingsObj]
         
-        return tCell;
-    }
-	
+        return tCell
+    } //end func
 	////////////////
 	
 	func showProductNotAvailable() {

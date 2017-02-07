@@ -10,16 +10,11 @@
 import Foundation
 import UIKit
 
-class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate {
+class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate {
 	
 	//for access
 	static var selfView:AlarmListView?
 	static var alarmListInited:Bool = false
-	
-	//Inner-modal view
-	var modalView:UIViewController = UIViewController()
-	//Navigationbar view
-	var navigationCtrl:UINavigationController = UINavigationController()
 	
 	//Alarm guide label and image
 	var alarmAddGuideImageView:UIImageView = UIImageView()
@@ -32,7 +27,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	var alarmsCell:Array<AlarmListCell> = []
 	
 	//Alarm-add view
-	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView;
+	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView
 	
 	//List delete confirm alert
 	var listConfirmAction:UIAlertController = UIAlertController()
@@ -47,54 +42,20 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	
 	//화면 레이어 가이드
 	var upLayerGuide:AlarmListOverlayGuideView = AlarmListOverlayGuideView()
-	//레이어가이드 보이기 버튼
-	var upLayerGuideShowButton:UIImageView = UIImageView()
-	
-	//// Mask views
-	var maskUIView:UIView = UIView()
-	let modalMaskImageView:UIImageView = UIImageView(image: UIImage(named: "modal-mask.png"))
-	let modalUpperMaskView:UIView = UIView()
 	
     override func viewDidLoad() {
-        super.viewDidLoad()
-		self.view.backgroundColor = UIColor.clear
-		
+		super.viewDidLoad( LanguagesManager.$("alarmList"), barColor: UPUtils.colorWithHexString("#535B66"), showOverlayGuideButton: true )
 		AlarmListView.selfView = self
-		//DISABLE AUTORESIZE
-		self.view.autoresizesSubviews = false
 		
-        //ModalView
-        modalView.view.backgroundColor = UIColor.white
-		modalView.view.frame = DeviceManager.defaultModalSizeRect
-		
-		let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.white]
-		navigationCtrl = UINavigationController.init(rootViewController: modalView)
-		navigationCtrl.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
-		navigationCtrl.navigationBar.barTintColor = UPUtils.colorWithHexString("#535B66")
-		navigationCtrl.view.frame = modalView.view.frame
-		modalView.title = LanguagesManager.$("alarmList")
-		
-		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-		navLeftPadding.width = -12 //Button left padding
-		let navCloseButton:UIButton = UIButton() //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-close"), for: UIControlState())
-		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45) //Image frame size
-		navCloseButton.addTarget(self, action: #selector(AlarmListView.viewCloseAction), for: .touchUpInside)
-		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ]
-		
-		//add right items
+		//Add [Alarm add] button in navigation controller
 		let navRightPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
 		navRightPadding.width = -12 //Button right padding
 		let navFuncButton:UIButton = UIButton() //Add image into UIButton
 		navFuncButton.setImage( UIImage(named: "modal-add"), for: UIControlState())
 		navFuncButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45) //Image frame size
-		navFuncButton.addTarget(self, action: #selector(AlarmListView.alarmAddAction), for: .touchUpInside)
+		navFuncButton.addTarget(self, action: #selector(self.alarmAddAction), for: .touchUpInside)
 		modalView.navigationItem.rightBarButtonItems = [ navRightPadding, UIBarButtonItem(customView: navFuncButton) ]
-		///////// Nav items fin
-		
-		//Add Ctrl vw
-		self.view.addSubview(navigationCtrl.view)
+		/////////////////////////////////////////// Nav items fin
 		
 		//add table to modal
         tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height)
@@ -136,7 +97,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		alarmAddIfEmptyButton.layer.borderColor = UPUtils.colorWithHexString("#BBBBBB").cgColor
 		modalView.view.addSubview(alarmAddIfEmptyButton)
 		
-		alarmAddIfEmptyButton.addTarget(self, action: #selector(AlarmListView.alarmAddAction), for: .touchUpInside)
+		alarmAddIfEmptyButton.addTarget(self, action: #selector(self.alarmAddAction), for: .touchUpInside)
 		/////////////////////
 		
         tableView.delegate = self
@@ -156,8 +117,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		listConfirmAction.addAction(cancelAct)
 		listConfirmAction.addAction(deleteSureAct)
 		
-		AlarmListView.alarmListInited = true
-		
 		///////
 		//Upside message initial
 		upAlarmMessageView.backgroundColor = UIColor.white //color initial
@@ -173,37 +132,12 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		self.view.addSubview( upAlarmMessageView )
 		upAlarmMessageView.isHidden = true
 		///// upside message inital
-		
-		////////// 모달 밖에 배치하는 리소스
-		upLayerGuideShowButton.image = UIImage( named: "comp-showguide-icon.png" )
-		self.view.addSubview(upLayerGuideShowButton)
-		
-		//오버레이 도움말 터치.
-		let tGesture = UITapGestureRecognizer(target:self, action: #selector(AlarmListView.showOverlayGuide(_:)))
-		upLayerGuideShowButton.isUserInteractionEnabled = true
-		upLayerGuideShowButton.addGestureRecognizer(tGesture)
+		////////////////////////////////////
 		
 		upLayerGuide.modalNavHeight = navigationCtrl.navigationBar.frame.size.height
 		
-		//SET MASK for dot eff
-		modalMaskImageView.frame = modalView.view.frame
-		modalMaskImageView.contentMode = .scaleAspectFit
-		
-		modalUpperMaskView.backgroundColor = UIColor.white
-		
-		maskUIView.addSubview(modalMaskImageView)
-		maskUIView.addSubview(modalUpperMaskView)
-		
-		self.view.mask = maskUIView
-		
-		FitModalLocationToCenter()
+		AlarmListView.alarmListInited = true
     } //end init func
-	
-	//오버레이 가이드 열기
-	func showOverlayGuide(_ gst: UITapGestureRecognizer? ) {
-		upLayerGuide.modalPresentationStyle = .overFullScreen
-		self.present(upLayerGuide, animated: true, completion: nil)
-	} //end func
 	
 	////////////////////
 	func deleteAlarmConfirm() {
@@ -221,25 +155,25 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 	} //end func
 	//iPad Alarm Delete Question
 	func showAlarmDelAlert() {
-		let alarmDelAlertController = UIAlertController(title: LanguagesManager.$("alarmDelete"), message: LanguagesManager.$("alarmDeleteSure"), preferredStyle: UIAlertControllerStyle.alert);
+		let alarmDelAlertController = UIAlertController(title: LanguagesManager.$("alarmDelete"), message: LanguagesManager.$("alarmDeleteSure"), preferredStyle: UIAlertControllerStyle.alert)
 		alarmDelAlertController.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
 			//Alarm delete
-			self.deleteAlarmConfirm();
-		}));
+			self.deleteAlarmConfirm()
+		}))
 		
 		alarmDelAlertController.addAction(UIAlertAction(title: LanguagesManager.$("generalCancel"), style: .default, handler: { (action: UIAlertAction!) in
 			//Cancel
-		}));
-		present(alarmDelAlertController, animated: true, completion: nil);
+		}))
+		present(alarmDelAlertController, animated: true, completion: nil)
 		
 	} //end function
 	
 	//iOS7 & iPad Alert fallback
 	func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
 		if (buttonIndex == alertView.cancelButtonIndex) { //cancel
-			print("ios7 fallback - alarm del canceled");
+			print("ios7 fallback - alarm del canceled")
 		} else { //ok confirm
-			self.deleteAlarmConfirm();
+			self.deleteAlarmConfirm()
 		}
 	}
 	
@@ -255,10 +189,11 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		} //end switch [buttonIndex]
 	} //end func
 	
+	
 	/////// View transition animation
 	override func viewWillAppear(_ animated: Bool) {
-		//setup bounce animation
-		self.view.alpha = 0
+		super.viewWillAppear( animated )
+		
 		//Check alarm limit and disable/enable button
 		checkAlarmLimitExceed()
 		checkAlarmIsEmpty()
@@ -267,45 +202,17 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		createTableList()
 	} //end func
 	
-	override func viewWillDisappear(_ animated: Bool) {
-		
-	} //end func
-	
-	override func viewDidAppear(_ animated: Bool) {
-		//queue bounce animation
-		self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
-		                             width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height);
-		UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
-			self.view.frame = CGRect(x: 0, y: 0,
-				width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
-			self.view.alpha = 1
-		}) { _ in
-			//알람 리스트 가이드 표시
-			if (DataManager.getSavedDataBool( DataManager.settingsKeys.overlayGuideAlarmListFlag ) == false) {
-				self.showOverlayGuide( nil )
-			} //end if [check alarmlist overlay guide flag]
-		} //end animate
-		
-		fadeInGuideButton()
+	override func viewAppearedCompleteHandler( ) {
+		//알람 리스트 가이드 표시
+		if (DataManager.getSavedDataBool( DataManager.settingsKeys.overlayGuideAlarmListFlag ) == false) {
+			overlayGuideShowHandler( nil )
+		} //end if [check alarmlist overlay guide flag]
 	} ///////////////////////////////
 	
-	//function으로 분리
-	func fadeInGuideButton( _ withDelay:Bool = true ) {
-		upLayerGuideShowButton.alpha = 0
-		UIView.animate(withDuration: 0.5, delay: withDelay ? 0.56 : 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-			self.upLayerGuideShowButton.alpha = 1
-		}, completion: {_ in
-		})
+	override func overlayGuideShowHandler(_ gst:UIGestureRecognizer?) {
+		upLayerGuide.modalPresentationStyle = .overFullScreen
+		self.present(upLayerGuide, animated: true, completion: nil)
 	} //end func
-	func fadeOutGuideButton( ) {
-		upLayerGuideShowButton.alpha = 1
-		UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-			self.upLayerGuideShowButton.alpha = 0
-		}, completion: {_ in
-		})
-	} //end func
-	
-	//////////////
 	
 	//table list create method
 	func createTableList() {
@@ -432,17 +339,8 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
     /////////////////////////////////////////////////////////
 	
 	// Frame resize
-	func FitModalLocationToCenter() {
-		navigationCtrl.view.frame = DeviceManager.defaultModalSizeRect
-		
-		if (self.view.mask != nil) {
-			modalMaskImageView.frame = DeviceManager.defaultModalSizeRect
-			
-			modalUpperMaskView.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: 34 * DeviceManager.maxScrRatioC, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
-		}
-		
-		// 모달 밖 리소스 프레임 맞춤
-		upLayerGuideShowButton.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: 34 * DeviceManager.maxScrRatioC, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
+	override func FitModalLocationToCenter() {
+		super.FitModalLocationToCenter()
 		upLayerGuide.fitFrames()
 		
 		//알람 텍스트 및 배경의 조절
@@ -451,11 +349,7 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		upAlarmMessageText.frame = CGRect(x: 0, y: 12, width: DeviceManager.scrSize!.width, height: 24)
 	} //end func
 	
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+	/////////////////////////////////////
     func alarmAddAction() {
         //Show alarm-add view
 		//뷰는 단 하나의 추가 뷰만 present가 가능한 관계로..
@@ -478,19 +372,17 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		} //end if [alarm limit]
     } //end func
     
-    func viewCloseAction() {
-        //Close this view
-		upLayerGuideShowButton.alpha = 0
+	override func viewCloseAction() {
 		if (upAlarmMessageView.isHidden == false) {
 			//바로 가려야 함
 			upAlarmMessageView.alpha = 0
 		}
-		
 		modalAddViewCalled = false
-		(self.presentingViewController as! ViewController).showHideBlurview(false)
-        self.dismiss(animated: true, completion: nil)
+		
+		super.viewCloseAction()
     } //end func
 	
+	////////////////////////////////
 	func checkAlarmLimitExceed() {
 		//informationAlarmExceed
 		if ( AlarmManager.alarmsArray.count >= AlarmManager.alarmMaxRegisterCount ) {
@@ -729,9 +621,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		UIApplication.shared.setStatusBarHidden(true, with: .fade) //statusbar hidden
 		self.upAlarmMessageView.frame = CGRect(x: 0, y: -self.upAlarmMessageView.frame.height, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height)
 		
-		//마스크 범위 임시 조절
-		
-		modalUpperMaskView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: (34 + 50.5) * DeviceManager.maxScrRatioC)
 		
 		//Message animation
 		UIView.animate(withDuration: 0.32, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
@@ -741,7 +630,6 @@ class AlarmListView:UIViewController, UITableViewDataSource, UITableViewDelegate
 		
 		//animation fin.
 		UIView.animate(withDuration: 0.32, delay: 1, options: UIViewAnimationOptions.curveEaseIn, animations: {
-			self.modalUpperMaskView.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: 34 * DeviceManager.maxScrRatioC, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
 			self.upAlarmMessageView.frame = CGRect(x: 0, y: -self.upAlarmMessageView.frame.height, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height);
 			}, completion: {_ in
 				self.upAlarmMessageView.isHidden = true;
