@@ -233,8 +233,8 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 	} //end func
 	
 	override func viewCloseAction() {
-		viewCloseAction(false)
-	} //end func
+		viewCloseAction( false )
+	}
 	func viewCloseAction(_ addedAlarm:Bool = false) {
 		//if parent is main or not
 		if (self.presentingViewController is ViewController) {

@@ -425,7 +425,7 @@ class ViewController: UIViewController {
 		self.present(modalPlayGameview, animated: false, completion: nil)
 	} //end func
 	
-	func showUPBuyView( _ gst:UITapGestureRecognizer ) {
+	func showUPBuyView( _ gst:UITapGestureRecognizer? ) {
 		modalBuyExPackView.modalPresentationStyle = .overFullScreen
 		showHideBlurview(true)
 		

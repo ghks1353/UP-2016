@@ -22,6 +22,9 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
     var settingsArray:Array<SettingsElement> = []
     var tablesArray:Array<Array<AnyObject>> = []
 	
+	///////// 종료하면서 구매 창을 열어야 하는 경우
+	var runBuyEXPackModal:Bool = false
+	
 	///////// Test experiments views
 	var experimentAlarmSettingsView:ExperimentsAlarmsSetupView = ExperimentsAlarmsSetupView()
 	var experimentTestingInfoView:ExperimentsTestInfo = ExperimentsTestInfo()
@@ -87,13 +90,14 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 		if (tmpOption == true) { /* icloud option is true? */
 			setSwitchData("syncToiCloud", value: true)
 		}
-	}
+	} ////end init func
 	
 	/////// View transition animation
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear( animated )
 		//iCloud 가능 여부에 따른 설정 활성/비활성
 		setSwitchEnabled("syncToiCloud", value: DataManager.iCloudAvailable)
+		runBuyEXPackModal = false
 	}
 	
 	func setSwitchData(_ settingsID:String, value:Bool) {
@@ -121,22 +125,8 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 		
 		switch (cell.cellID) {
 			case "buyUP":
-				if (RemoteConfigManager.rConfig![RemoteConfigManager.configs.CanPurchase.rawValue].boolValue != true) {
-					showProductNotAvailable()
-				} else {
-					//product buy phase
-					SwiftyStoreKit.purchaseProduct(PurchaseManager.ProductsID.ExpansionPack.rawValue, atomically: true) { result in
-						switch result {
-							case .success(let product):
-								print("Purchase Success: \(product)")
-								PurchaseManager.autoVerifyPurchases()
-								break
-							case .error(let error):
-								print("Purchase Failed: \(error)")
-								break
-						} //end switch
-					} //end purchase
-				} //end if
+				runBuyEXPackModal = true
+				viewCloseAction( )
 				break
 			case "restorePurchases":
 				let restoreConfirmAlert:UIAlertController =
@@ -196,22 +186,22 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 	/////////////////
 	
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5; //최대 섹션보다 적게하면 그 섹션이 안보임.
+        return 5 //최대 섹션보다 적게하면 그 섹션이 안보임.
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
             case 0:
-                return LanguagesManager.$("generalSettings");
+                return LanguagesManager.$("generalSettings")
 			case 1:
-				return LanguagesManager.$("generalBuySettings");
+				return LanguagesManager.$("generalBuySettings")
             case 2:
-                return LanguagesManager.$("generalGuide");
+                return LanguagesManager.$("generalGuide")
 			case 3: //DEV, TEST
-				return LanguagesManager.$("settingsExperiments");
+				return LanguagesManager.$("settingsExperiments")
             default:
-                return "-";
-        }
-    }
+                return "-"
+        } //end switch [section labels]
+    } //end func
 	func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch(section) {
 			//case 3: //DEV, TEST
@@ -238,12 +228,21 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
     
     ////////////////
 	
-    override func viewCloseAction() {
+	override func viewCloseAction() {
 		//Save changes
 		saveChasngesToSystem()
 		
 		super.viewCloseAction()
     } //end func
+	////////////////
+	override func viewDisappearedCompleteHandler() {
+		if (runBuyEXPackModal == true) {
+			//Buy Modal 열기
+			
+			ViewController.selfView!.showUPBuyView( nil )
+			runBuyEXPackModal = false
+		} //end if
+	} //end func
 	
 	
 	func saveChasngesToSystem() {

@@ -178,18 +178,18 @@ class FullScreenGuideView:UIViewController, UIScrollViewDelegate {
 		latestPage = pageNumber;
 		guideUIPageControl.currentPage = pageNumber;
 		
-		var goalAlpha:CGFloat = 0;
+		var goalAlpha:CGFloat = 0
 		if (pageNumber == guidePages - 1) {
 			//마지막 페이지이면 안내를 추가
-			goalAlpha = 1;
+			goalAlpha = 1
 		} else {
-			goalAlpha = 0;
+			goalAlpha = 0
 		}
 		
 		if (guideExitInformationLabel.alpha != goalAlpha ) {
 			UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
-				self.guideExitInformationLabel.alpha = goalAlpha;
-				self.guideUIPageControl.alpha = goalAlpha == 1 ? 0 : 1;
+				self.guideExitInformationLabel.alpha = goalAlpha
+				self.guideUIPageControl.alpha = goalAlpha == 1 ? 0 : 1
 			}) { _ in
 			}
 		} //end if

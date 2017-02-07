@@ -15,6 +15,7 @@ class UIModalView:UIViewController {
 	var modalView:UIViewController = UIViewController()
 	//Navigationbar view
 	var navigationCtrl:UINavigationController = UINavigationController()
+	var navigationBarHeight:CGFloat = 0
 	
 	//Mask view
 	var maskUIView:UIView = UIView()
@@ -50,6 +51,8 @@ class UIModalView:UIViewController {
 		modalView.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ]
 		///////// Nav items fin
 		self.view.addSubview(navigationCtrl.view)
+		
+		navigationBarHeight = navigationCtrl.navigationBar.frame.size.height
 		
 		//SET MASK for dot eff
 		modalMaskImageView.frame = CGRect(x: 0, y: 0, width: navigationCtrl.view.frame.width, height: navigationCtrl.view.frame.height)
@@ -160,12 +163,30 @@ class UIModalView:UIViewController {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-	func viewCloseAction() {
+	func viewCloseAction( ) {
 		upLayerGuideShowButton.alpha = 0
 		
 		if (self.presentingViewController is ViewController) {
-			(self.presentingViewController as! ViewController).showHideBlurview(false)
-		}
+			(self.presentingViewController as! ViewController).showHideBlurview( false )
+		} //end if
+		
+		/*
+		UIView.animate(withDuration: 0.17, delay: 0, options: .curveEaseOut, animations: {
+			self.view.frame = CGRect(x: 0, y: -32 * DeviceManager.maxScrRatioC,
+			                         width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
+		}) { _ in ///////////////
+			
+			UIView.animate(withDuration: 0.26, delay: 0, options: .curveEaseOut, animations: {
+				self.view.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
+				                         width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
+			}) { _ in
+				self.dismiss(animated: false, completion: {
+					self.viewDisappearedCompleteHandler()
+				})
+			} //end second animate block
+		} //end first animate block
+		*/
+		
 		self.dismiss(animated: true, completion: {
 			self.viewDisappearedCompleteHandler()
 		})
