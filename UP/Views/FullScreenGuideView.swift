@@ -178,13 +178,8 @@ class FullScreenGuideView:UIViewController, UIScrollViewDelegate {
 		latestPage = pageNumber;
 		guideUIPageControl.currentPage = pageNumber;
 		
-		var goalAlpha:CGFloat = 0
-		if (pageNumber == guidePages - 1) {
-			//마지막 페이지이면 안내를 추가
-			goalAlpha = 1
-		} else {
-			goalAlpha = 0
-		}
+		//마지막 페이지이면 안내를 추가
+		let goalAlpha:CGFloat = pageNumber == guidePages - 1 ? 1 : 0
 		
 		if (guideExitInformationLabel.alpha != goalAlpha ) {
 			UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {

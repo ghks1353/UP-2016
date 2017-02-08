@@ -907,6 +907,7 @@ class ViewController: UIViewController {
 		modalGameResultView.FitModalLocationToCenter( )
 		modalGamePlayWindowView.FitModalLocationToCenter( )
 		modalWebView.FitModalLocationToCenter( )
+		modalBuyExPackView.FitModalLocationToCenter()
 		
 		overlayGuideView.fitFrames()
 		
