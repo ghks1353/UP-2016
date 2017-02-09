@@ -26,7 +26,7 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 		instance!.initInstance()
 	}
 	
-	static func showUnityAD( _ viewController:UIViewController, placementID:String, callbackFunction:@escaping (() -> Void) ) {
+	static func showUnityAD( _ viewController:UIViewController, placementID:String, callbackFunction:@escaping (() -> Void), showFailCallbackFunction:@escaping(() -> Void) ) {
 		#if DEBUG
 			unityAdsTestMode = true
 		#else
@@ -37,6 +37,9 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 			UnityAds.show(viewController, placementId: placementID)
 			callbackFunc = callbackFunction
 		} else {
+			//UnityAd Show failed
+			showFailCallbackFunction()
+			
 			print("UnityAds " + placementID + " not ready")
 		}
 	}

@@ -1600,13 +1600,26 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	func gameADWatchCallb() {
 		//광고 보고 게임 이어하기 기능
 		SoundManager.pauseResumeBGMSound( false )
-		UnityAdsManager.showUnityAD(GameModeView.jumpUPStartupViewController!, placementID: UnityAdsManager.PlacementAds.gameContinueAD.rawValue, callbackFunction: gameADWatchFinishedCallback)
+		UnityAdsManager.showUnityAD(GameModeView.jumpUPStartupViewController!, placementID: UnityAdsManager.PlacementAds.gameContinueAD.rawValue, callbackFunction: gameADWatchFinishedCallback, showFailCallbackFunction: gameADLoadErrorCallback)
 	} //end func GameAD Show button handler
 	func gameADWatchFinishedCallback() {
 		print("AD Finished")
 		SoundManager.pauseResumeBGMSound( true )
 		gameRestartWithAD()
 	} //end func AD Finished Callback
+	func gameADLoadErrorCallback() {
+		//광고 불러오기가 불가능할 때
+		
+		/// 게임 모드에서 실행하는 것이므로,
+		if ( GameModeView.jumpUPStartupViewController != nil ) {
+			let alertWindow:UIAlertController = UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("generalCheckInternetConnection"), preferredStyle: UIAlertControllerStyle.alert)
+			alertWindow.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+			}))
+			
+			GameModeView.jumpUPStartupViewController!.present(alertWindow, animated: true, completion: nil)
+		} //end if
+		
+	} //end func
 	
 	//////////////////////////////////
 	
@@ -1680,11 +1693,16 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				alarmADFinishedCallback()
 			} else {
 				//광고 보고 가실게요!
-				UnityAdsManager.showUnityAD(AlarmRingView.jumpUPStartupViewController!, placementID: UnityAdsManager.PlacementAds.alarmFinishAD.rawValue, callbackFunction: alarmADFinishedCallback)
+				UnityAdsManager.showUnityAD(AlarmRingView.jumpUPStartupViewController!, placementID: UnityAdsManager.PlacementAds.alarmFinishAD.rawValue, callbackFunction: alarmADFinishedCallback, showFailCallbackFunction: alarmOffWithoutADsCallback)
 			} //end if [Purchase]
 		} //end if [gameStartupType]
 		
 	} //end func exit
+	
+	func alarmOffWithoutADsCallback() {
+		print("No ads presented because ads not ready.")
+		alarmADFinishedCallback()
+	} //end func
 	
 	func alarmADFinishedCallback() {
 		//광고 본 후의 알람 해제 및 화면 이동

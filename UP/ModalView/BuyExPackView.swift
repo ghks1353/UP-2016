@@ -20,6 +20,8 @@ class BuyExPackView:UIModalView, UIScrollViewDelegate {
 	var informationScrollView:UIScrollView = UIScrollView()
 	var scrollViewPageControl:UIPageControl = UIPageControl()
 	
+	var scrollViewDescriptionLabels:Array<UILabel> = []
+	
 	var buyButtonUIButton:UIButton = UIButton()
 	
 	///////////// HOS 뷰 (UIView를 풀로 띄우고 이미지만 animation)
@@ -96,18 +98,24 @@ class BuyExPackView:UIModalView, UIScrollViewDelegate {
 		
 		
 		//////////////// Scroll labels 추가
-		
 		for i:Int in 0 ..< infoScrollPages {
 			let tmpDesUILabel:UILabel = UILabel()
 			
 			tmpDesUILabel.textAlignment = .center
-			tmpDesUILabel.font = UIFont.systemFont(ofSize: 15)
 			tmpDesUILabel.numberOfLines = 0
 			
-			tmpDesUILabel.text = "확장팩을 구매하면\n여러분의 삶이 좋아집니다!\n(문구작성중)"
+			if (UIDevice.current.userInterfaceIdiom == .pad) {
+				tmpDesUILabel.font = UIFont.systemFont(ofSize: 15)
+			} else {
+				tmpDesUILabel.font = UIFont.systemFont(ofSize: 14)
+			}
+			
+			tmpDesUILabel.text = LanguagesManager.$("guide-buypack-description-" + String(i))
 			
 			tmpDesUILabel.frame = CGRect(x: informationScrollView.frame.width * CGFloat(i), y: (28 * DeviceManager.maxScrRatioC), width: informationScrollView.frame.width, height: informationScrollView.frame.height - (28 * DeviceManager.maxScrRatioC))
 			informationScrollView.addSubview(tmpDesUILabel)
+			
+			scrollViewDescriptionLabels.append(tmpDesUILabel)
 		} //end for
 		
 		//TEST
@@ -213,6 +221,7 @@ class BuyExPackView:UIModalView, UIScrollViewDelegate {
 				self.productAvaliable = true
 				
 				self.buyButtonUIButton.backgroundColor = UPUtils.colorWithHexString("#0FAA81")
+				self.scrollViewDescriptionLabels[2].text = LanguagesManager.parseStr(LanguagesManager.$("guide-buypack-description-2"), args: product.localizedPrice! as AnyObject)
 				//이미 결제 된 상태이면 관리 문구를 띄움
 				if (PurchaseManager.purchasedItems[PurchaseManager.ProductsID.ExpansionPack.rawValue] == true) {
 					//관리하기 문구
@@ -296,6 +305,7 @@ class BuyExPackView:UIModalView, UIScrollViewDelegate {
 			self.realHOSImage.transform = self.greenHeroesOfTheStormImage.transform
 		}, completion: {_ in
 			
+			////////////////////////////
 			// 히오스 코드
 			if (self.heroesOfTheStormsSpeed >= 8 && self.hosShowed == false) {
 				//speed 9.5이상일경우 히오스 보여줌
@@ -319,7 +329,7 @@ class BuyExPackView:UIModalView, UIScrollViewDelegate {
 				
 				self.rotateDecorationImage()
 			} else {
-				
+				/////////////////////////////////////////
 				// 아래 함수는 complete시 실행해야 일반 꾸밈 사진도 돌아감
 				self.rotateDecorationImage()
 			} //end if
@@ -329,10 +339,12 @@ class BuyExPackView:UIModalView, UIScrollViewDelegate {
 	
 	// Heroes of the storm
 	func heroesOfTheStromSpeedyFunction( _ gst:UIGestureRecognizer ) {
-		print("touching")
+		if (LanguagesManager.currentLocaleCode != LanguagesManager.LanguageCode.Korean) {
+			return //한국에서만 통하는 거니까.. 다른 로케일이면 막음
+		} //end if
 		if (hosShowed == true) {
 			return
-		}
+		} //////////////////////////////////////////////////////
 		
 		if (self.heroesOfTheStormsSpeed > self.heroesOfTheStormPassSpeed) {
 			self.view.layer.removeAllAnimations()

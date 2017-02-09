@@ -10,64 +10,43 @@ import Foundation;
 import UIKit;
 import WebKit;
 
-class TestersWebView:UIViewController {
+class TestersWebView:UIModalPopView {
 	
 	//클래스 외부접근을 위함
-	static var selfView:TestersWebView?;
+	static var selfView:TestersWebView?
 	
-	var wbView:WKWebView = WKWebView();
-	var wbProgress:UIProgressView = UIProgressView( progressViewStyle: .bar );
+	var wbView:WKWebView = WKWebView()
+	var wbProgress:UIProgressView = UIProgressView( progressViewStyle: .bar )
 	
 	override func viewDidLoad() {
-		super.viewDidLoad();
-		TestersWebView.selfView = self;
-		
-		self.view.backgroundColor = UIColor.clear;
-		
-		//ModalView
-		self.view.backgroundColor = UIColor.white;
-		self.title = "UP Testers";
-		
-		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
-		navLeftPadding.width = -12; //Button left padding
-		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-back"), for: UIControlState());
-		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(TestersWebView.popToRootAction), for: .touchUpInside);
-		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
-		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
+		super.viewDidLoad( title: "UP Testers" )
+		TestersWebView.selfView = self
 		
 		wbView.frame = CGRect(x: 0, y: 0,
 			width: DeviceManager.defaultModalSizeRect.width,
-			height: DeviceManager.defaultModalSizeRect.height);
-		self.view.addSubview(wbView);
+			height: DeviceManager.defaultModalSizeRect.height)
+		self.view.addSubview(wbView)
 		
 		//add progressbar for show loading states
 		wbProgress.center = CGPoint(
 			x: DeviceManager.defaultModalSizeRect.width / 2,
 			y: DeviceManager.defaultModalSizeRect.height / 2 + self.navigationController!.navigationBar.frame.size.height / 2
-		);
-		self.view.addSubview(wbProgress);
+		)
+		self.view.addSubview(wbProgress)
 		
-		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil);
-		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil);
-	}
-	
-	func popToRootAction() {
-		//Pop to root by back button
-		_ = self.navigationController?.popViewController(animated: true);
-	}
+		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+		wbView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
+	} ///////// end func
 	
 	override func viewWillAppear(_ animated: Bool) {
 		//load url
-		clearWebCache();
+		clearWebCache()
 		
-		let url:String = "https://up.avngraphic.kr/inapp/testers/";
+		let url:String = "https://up.avngraphic.kr/inapp/testers/"
 		wbView.load(URLRequest( url: URL( string:
 			url.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed )!
-			)!));
-	}
+			)!))
+	} //end func
 	
 	//EventListener for Progressbar
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -109,11 +88,6 @@ class TestersWebView:UIViewController {
 		} //end switch
 	} //end observe ovv
 	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-	
 	func clearWebCache() {
 		if #available(iOS 9.0, *) {
 			let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
@@ -130,6 +104,6 @@ class TestersWebView:UIViewController {
 			}
 			URLCache.shared.removeAllCachedResponses()
 		}
-	}
+	} ////end func
 	
 }

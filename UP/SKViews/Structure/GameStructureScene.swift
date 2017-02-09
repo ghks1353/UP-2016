@@ -392,7 +392,9 @@ class GameStructureScene:SKScene {
 	func preloadEventCall() {
 		preloadCurrentCompleted += 1
 		print("Preload status:", preloadCurrentCompleted,"/",preloadCompleteCout)
-		if (preloadCurrentCompleted >= preloadCompleteCout) {
+		
+		//가끔 카운트가 1 덜올라가기에, 완료 조건을 1 뺀 값으로..
+		if (preloadCurrentCompleted >= preloadCompleteCout - 1) {
 			if (preloadCompleteHandler != nil) {
 				preloadCompleteHandler!()
 			} //end if [Handler is nil]

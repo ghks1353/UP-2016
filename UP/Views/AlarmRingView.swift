@@ -143,9 +143,11 @@ class AlarmRingView:UIViewController {
 			cMotionManager = nil
 		}
 		
-		//Refresh tables
-		AlarmListView.selfView!.createTableList()
-	}
+		//Refresh tables if avail
+		if (AlarmListView.selfView != nil) {
+			AlarmListView.selfView!.createTableList()
+		}
+	} //end func
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()

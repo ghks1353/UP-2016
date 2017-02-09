@@ -198,6 +198,7 @@
 		770B5A6E1E488A8100A4941E /* AlarmListOverlayGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770B5A6D1E488A8100A4941E /* AlarmListOverlayGuideView.swift */; };
 		7714CAB71E4B99F800E447E9 /* modal-buy-heroes-real.png in Resources */ = {isa = PBXBuildFile; fileRef = 7714CAB61E4B99F800E447E9 /* modal-buy-heroes-real.png */; };
 		7714CAB91E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7714CAB81E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png */; };
+		7714CABB1E4C956E00E447E9 /* UIModalPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7714CABA1E4C956E00E447E9 /* UIModalPopView.swift */; };
 		7717A6EE1E41BB8D00076E16 /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */; };
 		7717A6F21E41CF8900076E16 /* bgm-game-jumpup-field.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F01E41CF8900076E16 /* bgm-game-jumpup-field.mp3 */; };
 		7717A6F31E41CF8900076E16 /* bgm-game-waiting.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F11E41CF8900076E16 /* bgm-game-waiting.mp3 */; };
@@ -687,6 +688,7 @@
 		770B5A6D1E488A8100A4941E /* AlarmListOverlayGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmListOverlayGuideView.swift; path = Views/AlarmListOverlayGuideView.swift; sourceTree = "<group>"; };
 		7714CAB61E4B99F800E447E9 /* modal-buy-heroes-real.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-heroes-real.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-heroes-real.png"; sourceTree = "<group>"; };
 		7714CAB81E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-heroes-full-logo.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-heroes-full-logo.png"; sourceTree = "<group>"; };
+		7714CABA1E4C956E00E447E9 /* UIModalPopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIModalPopView.swift; path = ModalView/Structure/UIModalPopView.swift; sourceTree = "<group>"; };
 		7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteConfigManager.swift; path = Managers/RemoteConfigManager.swift; sourceTree = "<group>"; };
 		7717A6F01E41CF8900076E16 /* bgm-game-jumpup-field.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-jumpup-field.mp3"; path = "SoundAssets/BGMSounds/bgm-game-jumpup-field.mp3"; sourceTree = "<group>"; };
 		7717A6F11E41CF8900076E16 /* bgm-game-waiting.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-waiting.mp3"; path = "SoundAssets/BGMSounds/bgm-game-waiting.mp3"; sourceTree = "<group>"; };
@@ -1604,6 +1606,7 @@
 			isa = PBXGroup;
 			children = (
 				7723940A1E499C1E00C8BC43 /* UIModalView.swift */,
+				7714CABA1E4C956E00E447E9 /* UIModalPopView.swift */,
 			);
 			name = Structure;
 			sourceTree = "<group>";
@@ -2840,6 +2843,7 @@
 				032536B11D187C19004C6293 /* GamePlayWindowView.swift in Sources */,
 				771ABC411D45DE8700938D1B /* CharacterSkinMainView.swift in Sources */,
 				771977731E48F8CB0018EE00 /* GameGozaUPView.swift in Sources */,
+				7714CABB1E4C956E00E447E9 /* UIModalPopView.swift in Sources */,
 				03DDD8001CEB990D007C026D /* SoundInfoObj.swift in Sources */,
 				03DDD8021CEB990D007C026D /* UIAlarmIDSwitch.swift in Sources */,
 				771CD1471E478CBE00574AD8 /* AlarmSetupGuideView.swift in Sources */,

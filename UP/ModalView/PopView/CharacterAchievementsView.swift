@@ -9,67 +9,48 @@
 import Foundation
 import UIKit;
 
-class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CharacterAchievementsView:UIModalPopView, UITableViewDataSource, UITableViewDelegate {
 	
 	//클래스 외부접근을 위함
-	static var selfView:CharacterAchievementsView?;
+	static var selfView:CharacterAchievementsView?
 	
 	//Table for view
-	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.plain);
-	var tablesArray:Array<AnyObject> = [];
-	var achievementsCell:Array<UPAchievementsCell> = [];
+	internal var tableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 42), style: UITableViewStyle.plain)
+	var tablesArray:Array<AnyObject> = []
+	var achievementsCell:Array<UPAchievementsCell> = []
 	
 	override func viewDidLoad() {
-		super.viewDidLoad();
-		CharacterAchievementsView.selfView = self;
-		
-		self.view.backgroundColor = UIColor.clear;
-		
-		//ModalView
-		self.view.backgroundColor = UIColor.white;
-		self.title = LanguagesManager.$("achievements");
-		
-		// Make modal custom image buttons
-		let navLeftPadding:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
-		navLeftPadding.width = -12; //Button left padding
-		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
-		navCloseButton.setImage( UIImage(named: "modal-back"), for: UIControlState());
-		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(CharacterAchievementsView.popToRootAction), for: .touchUpInside);
-		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
-		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
+		super.viewDidLoad( title: LanguagesManager.$("achievements") )
+		CharacterAchievementsView.selfView = self
 		
 		//background add
-		let achievementBackground:UIImageView = UIImageView( image: UIImage( named: "modal-background-characterinfo-blank.png" ));
-		achievementBackground.frame = CGRect( x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height );
-		//self.view.addSubview(achievementBackground);
+		let achievementBackground:UIImageView = UIImageView( image: UIImage( named: "modal-background-characterinfo-blank.png" ))
+		achievementBackground.frame = CGRect( x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height )
 		
 		//add table to modals
-		tableView.frame = CGRect(x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height);
-		tableView.backgroundView = achievementBackground;
-		self.view.addSubview(tableView);
+		tableView.frame = CGRect(x: 0, y: 0, width: DeviceManager.defaultModalSizeRect.width, height: DeviceManager.defaultModalSizeRect.height)
+		tableView.backgroundView = achievementBackground
+		self.view.addSubview(tableView)
 		
 		//도전과제 추가
 		for i:Int in 0 ..< AchievementManager.achievementList.count {
-			achievementsCell += [ createAchievementCell(i) ];
-		}
+			achievementsCell += [ createAchievementCell(i) ]
+		} //end for
 		
-		tablesArray = [ achievementsCell as AnyObject ];
+		tablesArray = [ achievementsCell as AnyObject ]
 		
-		tableView.separatorStyle = .none;
-		tableView.delegate = self; tableView.dataSource = self;
-		tableView.backgroundColor = UIColor.clear;
-	}
+		tableView.separatorStyle = .none
+		tableView.delegate = self
+		tableView.dataSource = self
+		tableView.backgroundColor = UIColor.clear
+	} ///////// end func
 	
-	func popToRootAction() {
+	
+	override func popToRootAction() {
 		//Pop to root by back button
 		ViewController.selfView!.modalCharacterInformationView.fadeInGuideButton( false )
-		_ = self.navigationController?.popViewController(animated: true);
-	}
-	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
+		
+		super.popToRootAction()
 	}
 	
 	///// for table func
@@ -78,41 +59,41 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 		//let currCell:UPAchievementsCell = tableView.cellForRowAtIndexPath(indexPath) as! UPAchievementsCell;
 		
 		
-		tableView.deselectRow(at: indexPath, animated: true);
+		tableView.deselectRow(at: indexPath, animated: true)
 	}
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 1;
+		return 1
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return (tablesArray[section] as! Array<AnyObject>).count;
+		return (tablesArray[section] as! Array<AnyObject>).count
 	}
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 86.4 + 8;
+		return 86.4 + 8
 	}
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell;
-		return cell;
+		let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] as! Array<AnyObject>)[(indexPath as NSIndexPath).row] as! UITableViewCell
+		return cell
 	}
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 4;
+		return 4
 	}
 	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 0;
+		return 0
 	}
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0));
 		headerView.backgroundColor = UIColor.clear
 		return headerView
-	}
+	} ////////////////////////////////
 	
 	//////////////////////////
 	func createAchievementCell( _ achievementIndex:Int ) -> UPAchievementsCell {
-		let achievementCell:UPAchievementsCell = UPAchievementsCell();
-		achievementCell.backgroundColor = UIColor.clear;
+		let achievementCell:UPAchievementsCell = UPAchievementsCell()
+		achievementCell.backgroundColor = UIColor.clear
 		
 		//BG
-		let achievementItemBackground:UIImageView = UIImageView();
+		let achievementItemBackground:UIImageView = UIImageView()
 		
 		//클리어 여부에 따라 배경이 좀 다름
 		if ( AchievementManager.achievementList[achievementIndex].isCleared ) {
@@ -160,13 +141,13 @@ class CharacterAchievementsView:UIViewController, UITableViewDataSource, UITable
 		
 		
 		//Add to view
-		achievementCell.addSubview(achievementItemBackground);
-		achievementCell.addSubview(achievementItemIcon);
+		achievementCell.addSubview(achievementItemBackground)
+		achievementCell.addSubview(achievementItemIcon)
 
-		achievementCell.addSubview(aText);
-		achievementCell.addSubview(aDescription);
+		achievementCell.addSubview(aText)
+		achievementCell.addSubview(aDescription)
 		
-		return achievementCell;
-	}
+		return achievementCell
+	} ////////////////// end func
 	
 }

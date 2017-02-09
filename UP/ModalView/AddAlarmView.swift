@@ -327,7 +327,8 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 				self.alarmGameListView.selectCell( gameSelectedID )
 				navigationCtrl.pushViewController(self.alarmGameListView, animated: true)
 				break
-			case "alarmSound": //알람 사운드 선택 뷰				self.alarmSoundListView.setSelectedCell( alarmSoundSelectedObj )
+			case "alarmSound": //알람 사운드 선택 뷰
+				self.alarmSoundListView.setSelectedCell( alarmSoundSelectedObj )
 				self.alarmSoundListView.soundSliderPointer!.value = Float(alarmCurrentSoundLevel) / 100 //0~1 scale
 				self.alarmSoundListView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false) //scroll to top
 				navigationCtrl.pushViewController(self.alarmSoundListView, animated: true)
