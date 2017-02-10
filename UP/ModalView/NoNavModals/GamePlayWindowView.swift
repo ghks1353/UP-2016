@@ -67,7 +67,7 @@ class GamePlayWindowView:UIViewController {
 		
 		//리소스 제작
 		for i:Int in 0 ..< 10 {
-			blackNumbers += [ UIImage( named: SkinManager.getDefaultAssetPresets() + "black-" + String(i) + ".png" )! ];
+			blackNumbers += [ UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) + "black-" + String(i) + ".png" )! ];
 		}
 		
 		// ** 레이아웃들 패드의 경우 특수처리 필요 **

@@ -37,13 +37,13 @@ class CharacterOverlayGuideView:UIOverlayGuideView {
 		super.viewDidLoad()
 		
 		///// Image setup
-		guideGameCenterImage.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "guide-characters-gamecenter.png" )
-		guideAchievementsImage.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "guide-characters-achevements.png" )
+		guideGameCenterImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-characters-gamecenter.png" )
+		guideAchievementsImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-characters-achevements.png" )
 		
-		guideEXPImage.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "guide-characters-exp.png" )
-		guideLevelImage.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "guide-characters-level.png" )
+		guideEXPImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-characters-exp.png" )
+		guideLevelImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-characters-level.png" )
 		
-		guideCharacterImage.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "guide-characters-astro.png" )
+		guideCharacterImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-characters-astro.png" )
 		
 		///// Label setup
 		

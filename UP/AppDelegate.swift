@@ -31,18 +31,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		LanguagesManager.initLanugages( (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String )
 		//Init DataManager
 		DataManager.initDataManager()
-		//Init CharacterMgr
-		CharacterManager.merge()
+		//Theme init
+		ThemeManager.initManager()
 		//Startup alarm merge
 		AlarmManager.mergeAlarm()
+		//Init CharacterMgr
+		CharacterManager.merge()
 		//achievementmanager init
 		AchievementManager.initManager()
 		//purchase init
 		PurchaseManager.initManager()
-		
 		//Unityads init
 		UnityAdsManager.initManager()
-		
 		//Firebase init
 		FIRApp.configure()
 		//Firebase remoteconfig init

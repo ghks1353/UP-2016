@@ -193,11 +193,11 @@ class ViewController: UIViewController {
 		upLayerGuideShowButton.image = UIImage( named: "comp-showguide-icon.png" )
 		
 		//디지털시계 이미지 기본 설정
-		DigitalCol.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "col.png" )
-		DigitalNum0.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" )
-		DigitalNum1.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" )
-		DigitalNum2.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" )
-		DigitalNum3.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" )
+		DigitalCol.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "col.png" )
+		DigitalNum0.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "0.png" )
+		DigitalNum1.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "0.png" )
+		DigitalNum2.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "0.png" )
+		DigitalNum3.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "0.png" )
 		DigitalCol.frame.size = CGSize( width: 43.5, height: 60.9 ); //디바이스별 크기 설정은 밑에서 하므로 여긴 원본 크기를 입력함.
 		
 		if (DeviceManager.is24HourMode == true) {
@@ -454,16 +454,18 @@ class ViewController: UIViewController {
 			hourString = String(components.hour! > 12 ? components.hour! - 12 : (components.hour! == 0 ? 12 : components.hour)!);
 		}
 		
+		let digitalClockAssetPreset:String = ThemeManager.getAssetPresets(themeGroup: .DigitalClock)
+		
 		//AMPM check
 		if (components.hour! >= 12) {
 			if (digitalCurrentIsPM != 1) {
-				digitalAMPMIndicator.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "pm.png" );
+				digitalAMPMIndicator.image = UIImage( named: digitalClockAssetPreset + "pm.png" );
 			}
 			digitalCurrentIsPM = 1;
 		} else {
 			if (digitalCurrentIsPM != 0) {
 				//change
-				digitalAMPMIndicator.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "am.png" );
+				digitalAMPMIndicator.image = UIImage( named: digitalClockAssetPreset + "am.png" );
 			}
 			digitalCurrentIsPM = 0;
 		}
@@ -471,8 +473,8 @@ class ViewController: UIViewController {
 		
 		//hour str time
         if (hourString.characters.count) == 1 {
-            DigitalNum0.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
-            DigitalNum1.image = UIImage( named: SkinManager.getDefaultAssetPresets() + hourString[0] + ".png" );
+            DigitalNum0.image = UIImage( named: digitalClockAssetPreset + "0.png" );
+            DigitalNum1.image = UIImage( named: digitalClockAssetPreset + hourString[0] + ".png" );
             
             if (hourString[0] == "1") {
                 //숫자1의경우 오른쪽으로 당김.
@@ -485,8 +487,8 @@ class ViewController: UIViewController {
             }
             
         } else { //첫자리 밑 둘째자리는 각 시간에 맞게
-            DigitalNum0.image = UIImage( named: SkinManager.getDefaultAssetPresets() + hourString[0] + ".png" );
-            DigitalNum1.image = UIImage( named: SkinManager.getDefaultAssetPresets() + hourString[1] + ".png" );
+            DigitalNum0.image = UIImage( named: digitalClockAssetPreset + hourString[0] + ".png" );
+            DigitalNum1.image = UIImage( named: digitalClockAssetPreset + hourString[1] + ".png" );
             
             var movesRightOffset:Double = 0;
              if (hourString[0] == "1") {
@@ -508,8 +510,8 @@ class ViewController: UIViewController {
 		//min str
 		
         if (minString.characters.count == 1) {
-            DigitalNum2.image = UIImage( named: SkinManager.getDefaultAssetPresets() + "0.png" );
-            DigitalNum3.image = UIImage( named: SkinManager.getDefaultAssetPresets() + minString[0] + ".png" );
+            DigitalNum2.image = UIImage( named: digitalClockAssetPreset + "0.png" );
+            DigitalNum3.image = UIImage( named: digitalClockAssetPreset + minString[0] + ".png" );
             
             if (minString[0] == "1") {
                 //숫자1의경우 왼쪽으로 당김.
@@ -524,8 +526,8 @@ class ViewController: UIViewController {
             }
             
         } else { //첫자리 밑 둘째자리는 각 시간에 맞게
-            DigitalNum2.image = UIImage( named: SkinManager.getDefaultAssetPresets() + minString[0] + ".png" );
-            DigitalNum3.image = UIImage( named: SkinManager.getDefaultAssetPresets() + minString[1] + ".png" );
+            DigitalNum2.image = UIImage( named: digitalClockAssetPreset + minString[0] + ".png" );
+            DigitalNum3.image = UIImage( named: digitalClockAssetPreset + minString[1] + ".png" );
             
             var movesLeftOffset:Double = 0;
             if (minString[1] == "1") {
@@ -535,13 +537,13 @@ class ViewController: UIViewController {
             
             if (minString[0] == "1") {
                 //왼쪽으로 당김
-                DigitalNum2.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + (6 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height);
-                movesLeftOffset += 6;
-                DigitalNum3.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat((14 - movesLeftOffset) * DeviceManager.maxScrRatio), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height);
+                DigitalNum2.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + (6 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
+                movesLeftOffset += 6
+                DigitalNum3.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat((14 - movesLeftOffset) * DeviceManager.maxScrRatio), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
                 
             } else {
-                DigitalNum2.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + (12 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height);
-                DigitalNum3.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat((20 - movesLeftOffset) * DeviceManager.maxScrRatio), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height);
+                DigitalNum2.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + (12 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
+                DigitalNum3.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + CGFloat((20 - movesLeftOffset) * DeviceManager.maxScrRatio), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
             }
             
         } //end of min str
@@ -549,13 +551,13 @@ class ViewController: UIViewController {
 		//col animation
         if (DigitalCol.isHidden) {
             //1초주기 실행
-            let secondmov:Double = Double(components.minute!) / 60 / 12;
-            AnalogHours.transform = CGAffineTransform(rotationAngle: CGFloat(((Double(components.hour!) / 12) + secondmov) * 360) * CGFloat(M_PI) / 180 );
-            AnalogMinutes.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.minute!) / 60) * 360) * CGFloat(M_PI) / 180 );
-			AnalogSeconds.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.second!) / 60) * 360) * CGFloat(M_PI) / 180 );
+            let secondmov:Double = Double(components.minute!) / 60 / 12
+            AnalogHours.transform = CGAffineTransform(rotationAngle: CGFloat(((Double(components.hour!) / 12) + secondmov) * 360) * CGFloat(M_PI) / 180 )
+            AnalogMinutes.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.minute!) / 60) * 360) * CGFloat(M_PI) / 180 )
+			AnalogSeconds.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.second!) / 60) * 360) * CGFloat(M_PI) / 180 )
 			
         }
-        DigitalCol.isHidden = !DigitalCol.isHidden;
+        DigitalCol.isHidden = !DigitalCol.isHidden
 		
 		
 		if (GroundObj.image == nil) {
@@ -563,10 +565,10 @@ class ViewController: UIViewController {
 			currentGroundImage = getBackgroundFileNameFromTime(components.hour!);
 			if (UIDevice.current.userInterfaceIdiom == .phone) {
 				GroundObj.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + "ground-" + currentGroundImage + ".png" );
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "ground-" + currentGroundImage + ".png" );
 			} else {
 				GroundObj.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + "ground-" + currentBackgroundImage + (
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "ground-" + currentBackgroundImage + (
 						(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 					) );
 			}
@@ -577,10 +579,10 @@ class ViewController: UIViewController {
 				currentGroundImage = getBackgroundFileNameFromTime(components.hour!); //시간대 이미지 변경
 				if (UIDevice.current.userInterfaceIdiom == .phone) {
 					GroundObj.image = UIImage( named:
-						SkinManager.getDefaultAssetPresets() + "ground-" + currentGroundImage + ".png" );
+						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "ground-" + currentGroundImage + ".png" );
 				} else {
 					GroundObj.image = UIImage( named:
-						SkinManager.getDefaultAssetPresets() + "ground-" + currentBackgroundImage + (
+						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "ground-" + currentBackgroundImage + (
 							(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 						) );
 				}
@@ -595,27 +597,27 @@ class ViewController: UIViewController {
 			if (UIDevice.current.userInterfaceIdiom == .phone) {
 				print("showing phone bg")
 				backgroundImageView.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "-back" + (
-					DeviceManager.scrSize!.height <= 480.0 ? "-4s" : ""
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "-back" + (
+					DeviceManager.isiPhone4S ? "-4s" : ""
 					) )
 				backgroundImageFadeView.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "-back" + (
-					DeviceManager.scrSize!.height <= 480.0 ? "-4s" : ""
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "-back" + (
+					DeviceManager.isiPhone4S ? "-4s" : ""
 					) )
 			} else {
 				print("showing pad bg")
 				backgroundImageView.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "-back" + (
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "-back" + (
 					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 					) )
 				backgroundImageFadeView.image = UIImage( named:
-					SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "_back" + (
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "_back" + (
 					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 					) )
 			}
 			
 			backgroundImageFadeView.alpha = 0
-			print("Scrsize",DeviceManager.scrSize!.height, (DeviceManager.scrSize?.height <= 480.0 ? "-4s" : ""))
+			print("Scrsize",DeviceManager.scrSize!.height, (DeviceManager.isiPhone4S ? "-4s" : ""))
 		} else {
 			//이미지가 있을 경우, 시간대가 바뀌는 경우 바꾸고 페이드
 			if (currentBackgroundImage != getBackgroundFileNameFromTime(components.hour!)) {
@@ -624,12 +626,12 @@ class ViewController: UIViewController {
 				backgroundImageFadeView.alpha = 1
 				if (UIDevice.current.userInterfaceIdiom == .phone) {
 					backgroundImageView.image = UIImage( named:
-						SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "-back" + (
-						DeviceManager.scrSize!.height <= 480.0 ? "-4s" : ""
+						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "-back" + (
+						DeviceManager.isiPhone4S ? "-4s" : ""
 						) )
 				} else {
 					backgroundImageView.image = UIImage( named:
-						SkinManager.getDefaultAssetPresets() + currentBackgroundImage + "-back" + (
+						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "-back" + (
 						(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 						) )
 				}
@@ -640,12 +642,12 @@ class ViewController: UIViewController {
 						
 						if (UIDevice.current.userInterfaceIdiom == .phone) {
 							self.backgroundImageFadeView.image = UIImage( named:
-								SkinManager.getDefaultAssetPresets() + self.currentBackgroundImage + "-back" + (
-								DeviceManager.scrSize!.height <= 480.0 ? "-4s" : ""
+								ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + self.currentBackgroundImage + "-back" + (
+								DeviceManager.isiPhone4S ? "-4s" : ""
 								) )
 						} else {
 							self.backgroundImageFadeView.image = UIImage( named:
-								SkinManager.getDefaultAssetPresets() + self.currentBackgroundImage + "-back" + (
+								ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + self.currentBackgroundImage + "-back" + (
 								(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
 								) )
 						}
@@ -749,24 +751,24 @@ class ViewController: UIViewController {
 			case 0: //기본 up 스킨
 				
 				//시계
-				AnalogBody.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-body.png" )
+				AnalogBody.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-body.png" )
 				
-				AnalogHours.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-hh.png" )
-				AnalogMinutes.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-mh.png" )
-				AnalogSeconds.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-sh.png" )
-				AnalogCenter.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-ch.png" )
+				AnalogHours.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-hh.png" )
+				AnalogMinutes.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-mh.png" )
+				AnalogSeconds.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-sh.png" )
+				AnalogCenter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-ch.png" )
 				
 				//떠있는 버튼
-				SettingsImg.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object-st.png" )
-				AlarmListImg.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object-list.png" )
+				SettingsImg.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "object-st.png" )
+				AlarmListImg.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "object-list.png" )
 				
-				GroundStatSign.image = UIImage( named: SkinManager.getAssetPresetsStatistics() + "stat-object.png" )
-				GroundStandingBox.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "standing-box.png" )
-				GroundFloatingBox.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "floating-box.png" )
+				GroundStatSign.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .StatsSign) + "stat-object.png" )
+				GroundStandingBox.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + "standing-box.png" )
+				GroundFloatingBox.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + "floating-box.png" )
 				
 				//기본 스킨 아스트로 애니메이션 (텍스쳐)
 				for i in 0...3 { //부동
-					let fileName:String = SkinManager.getAssetPresetsCharacter() + "character-" + String(i) + ".png"
+					let fileName:String = ThemeManager.getAssetPresets(themeGroup: .Character) + "character-" + String(i) + ".png"
 					let fImage:UIImage = UIImage( named: fileName )!
 					astroMotionsStanding += [fImage]
 				}
@@ -781,15 +783,15 @@ class ViewController: UIViewController {
 	//주의: 패드와 폰 둘다 동작하게 일단 만들어 놔야함. 물론, 실제로 화면이 회전될 때는 패드에서만 작동함.
 	//(단, init시 iPhone에서 작동함)
 	func fitViewControllerElementsToScreen( _ animated:Bool = false ) {
-		
-		var scrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 - (DigitalCol.bounds.width / 2))
+		//DigitalCol
+		var scrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 - ((40 * DeviceManager.maxScrRatioC) / 2))
 		var digiClockYAxis:CGFloat = 90 * DeviceManager.scrRatioC
 		scrX += 4 * DeviceManager.maxScrRatioC
 		
 		//가로로 누워있는 경우, 조정이 필요한 경우에 조금 조정
 		if (UIDevice.current.userInterfaceIdiom == .phone) {
 			//iPhone일 시, 4s이외의 경우 조금 더 위치를 내림
-			if (DeviceManager.scrSize!.height > 480.0) { //iPhone 4, 4s는 이 크기임
+			if (DeviceManager.isiPhone4S == false) { //iPhone 4, 4s는 이 크기임
 				//그래서 이 외의 경우임
 				digiClockYAxis = 110 * DeviceManager.scrRatioC
 
@@ -801,7 +803,8 @@ class ViewController: UIViewController {
 		}
 		
 		//디지털시계 이미지 스케일 조정
-		DigitalCol.frame = CGRect(x: scrX, y: digiClockYAxis, width: DigitalCol.bounds.width * DeviceManager.maxScrRatioC, height: DigitalCol.bounds.height * DeviceManager.maxScrRatioC)
+		//DigitalCol.frame = CGRect(x: scrX, y: digiClockYAxis, width: DigitalCol.bounds.width * DeviceManager.maxScrRatioC, height: DigitalCol.bounds.height * DeviceManager.maxScrRatioC)
+		DigitalCol.frame = CGRect(x: scrX, y: digiClockYAxis, width: 40 * DeviceManager.maxScrRatioC, height: 56 * DeviceManager.maxScrRatioC)
 		
 		//x위치를 제외한 나머지 통일
 		DigitalNum0.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width * 2 - 20 * DeviceManager.maxScrRatioC, y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
@@ -857,7 +860,7 @@ class ViewController: UIViewController {
 			//show pad ground
 			GroundObj.frame = CGRect( x: 0, y: (DeviceManager.scrSize?.height)! - 86 * DeviceManager.maxScrRatioC, width: (DeviceManager.scrSize!.width) , height: 86 * DeviceManager.maxScrRatioC )
 			GroundObj.image = UIImage( named:
-				SkinManager.getDefaultAssetPresets() + "ground-pad" + ((DeviceManager.scrSize!.width > DeviceManager.scrSize!.height) ? "34" : "43") + ".png" )
+				ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "ground-pad" + ((DeviceManager.scrSize!.width > DeviceManager.scrSize!.height) ? "34" : "43") + ".png" )
 		}
 		
 		//캐릭터 크기 및 위치조정

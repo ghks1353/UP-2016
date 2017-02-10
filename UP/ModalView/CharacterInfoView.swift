@@ -56,7 +56,7 @@ class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" )
 		charGameCenterIcon.image = UIImage( named: "characterinfo-gamecenter.png" )
 		charAchievementsIcon.image = UIImage( named: "characterinfo-achievements.png" )
-		charCurrentCharacter.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character-" + "0" + ".png" ) //현재 캐릭터 스킨 불러오기
+		charCurrentCharacter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Character) + "character-" + "0" + ".png" ) //현재 캐릭터 스킨 불러오기
 		
 		//기타 컴포넌트 배치.
 		modalView.view.addSubview(charLevelWrapper)
@@ -111,7 +111,7 @@ class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 		//레벨 숫자 배치
 		for i:Int in 0 ..< 3 {
 			let tmpView:UIImageView = UIImageView()
-			tmpView.image = UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  )
+			tmpView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) +  "0" + ".png"  )
 			tmpView.frame = CGRect( x: (215 * DeviceManager.modalRatioC) + ((24 * CGFloat(i)) * DeviceManager.maxModalRatioC)
 				, y: charLevelWrapper.frame.minY + 19 * DeviceManager.modalRatioC,
 					width: 19.15 * DeviceManager.modalRatioC, height: 26.80 * DeviceManager.modalRatioC )
@@ -120,17 +120,17 @@ class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 		} //end for [leveling]
 		
 		//게임 센터 아이콘 터치
-		var tGesture = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.showGameCenter(_:)))
+		var tGesture = UITapGestureRecognizer(target:self, action: #selector(self.showGameCenter(_:)))
 		charGameCenterIcon.isUserInteractionEnabled = true
 		charGameCenterIcon.addGestureRecognizer(tGesture)
 		
 		//도전과제 터치
-		tGesture = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.showAchievements(_:)))
+		tGesture = UITapGestureRecognizer(target:self, action: #selector(self.showAchievements(_:)))
 		charAchievementsIcon.isUserInteractionEnabled = true
 		charAchievementsIcon.addGestureRecognizer(tGesture)
 		
 		//캐릭터 (스킨) 터치
-		tGesture = UITapGestureRecognizer(target:self, action: #selector(CharacterInfoView.popToCharacterThemeSel(_:)))
+		tGesture = UITapGestureRecognizer(target:self, action: #selector(self.popToCharacterThemeSel(_:)))
 		charCurrentCharacter.isUserInteractionEnabled = true
 		charCurrentCharacter.addGestureRecognizer(tGesture)
 		
@@ -189,13 +189,13 @@ class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 		charLevelDigitalArr[0].alpha = levStr.characters.count < 3 ? 0.6 : 1;
 		charLevelDigitalArr[1].alpha = levStr.characters.count < 2 ? 0.6 : 1;
 		//Render text
-		charLevelDigitalArr[2].image = UIImage(named: SkinManager.getDefaultAssetPresets() + String(validatingUTF8: levStr[ levStr.characters.count - 1 ])! + ".png" );
+		charLevelDigitalArr[2].image = UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + String(validatingUTF8: levStr[ levStr.characters.count - 1 ])! + ".png" );
 		charLevelDigitalArr[1].image =
-			levStr.characters.count < 2 ? UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  )
-			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(validatingUTF8: levStr[ levStr.characters.count - 2 ])! + ".png" )
+			levStr.characters.count < 2 ? UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) +  "0" + ".png"  )
+			: UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + String(validatingUTF8: levStr[ levStr.characters.count - 2 ])! + ".png" )
 		charLevelDigitalArr[0].image =
-			levStr.characters.count < 3 ? UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  )
-			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(validatingUTF8: levStr[ levStr.characters.count - 3 ])! + ".png" )
+			levStr.characters.count < 3 ? UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) +  "0" + ".png"  )
+			: UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + String(validatingUTF8: levStr[ levStr.characters.count - 3 ])! + ".png" )
 		
 		//경험치량 표시
 		//CharacterManager.currentCharInfo.characterExp = 4;

@@ -170,7 +170,7 @@ class GameStructureScene:SKScene {
 		//게임 숫자 표시용 이미지 추가
 		if (gameNumberTexturesArray.count == 0) {
 			for i:Int in 0 ..< 10 {
-				gameNumberTexturesArray += [ SKTexture( imageNamed: SkinManager.getDefaultAssetPresets() + String(i) + ".png" ) ]
+				gameNumberTexturesArray += [ SKTexture( imageNamed: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) + String(i) + ".png" ) ]
 			} //0~9에 대한 숫자 데이터 텍스쳐
 			for i:Int in 0 ..< gameScoreNm {
 				gameNumberSpriteNodesArray += [ SKSpriteNode( texture: gameNumberTexturesArray[0] ) ]

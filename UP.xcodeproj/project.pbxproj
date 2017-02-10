@@ -132,7 +132,7 @@
 		03DDD7F11CEB98D2007C026D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7EA1CEB98D2007C026D /* DataManager.swift */; };
 		03DDD7F21CEB98D2007C026D /* GlobalSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7EB1CEB98D2007C026D /* GlobalSubView.swift */; };
 		03DDD7F31CEB98D2007C026D /* LanguagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7EC1CEB98D2007C026D /* LanguagesManager.swift */; };
-		03DDD7F41CEB98D2007C026D /* SkinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7ED1CEB98D2007C026D /* SkinManager.swift */; };
+		03DDD7F41CEB98D2007C026D /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7ED1CEB98D2007C026D /* ThemeManager.swift */; };
 		03DDD7F51CEB98D2007C026D /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7EE1CEB98D2007C026D /* SoundManager.swift */; };
 		03DDD7FD1CEB990D007C026D /* AnimatedImg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7F61CEB990D007C026D /* AnimatedImg.swift */; };
 		03DDD7FE1CEB990D007C026D /* GameInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7F71CEB990D007C026D /* GameInfoObj.swift */; };
@@ -157,9 +157,6 @@
 		03DDD8211CEB99F0007C026D /* JumpUPGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD81F1CEB99F0007C026D /* JumpUPGame.swift */; };
 		03DDD8231CEB9A0F007C026D /* AlarmElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8221CEB9A0F007C026D /* AlarmElements.swift */; };
 		03DDD8251CEB9A2B007C026D /* TKTimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8241CEB9A2B007C026D /* TKTimingFunction.swift */; };
-		03DDD82A1CEB9A49007C026D /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8261CEB9A49007C026D /* en.json */; };
-		03DDD82B1CEB9A49007C026D /* ja.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8271CEB9A49007C026D /* ja.json */; };
-		03DDD82C1CEB9A49007C026D /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8281CEB9A49007C026D /* ko.json */; };
 		03DDD8371CEB9D07007C026D /* comp-icons-datacategory-alltouches.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8301CEB9D07007C026D /* comp-icons-datacategory-alltouches.png */; };
 		03DDD8381CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8311CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png */; };
 		03DDD8391CEB9D07007C026D /* comp-icons-datacategory-compratio.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DDD8321CEB9D07007C026D /* comp-icons-datacategory-compratio.png */; };
@@ -299,6 +296,13 @@
 		772BB1EF1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1EC1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png */; };
 		772BB1F01DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1ED1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png */; };
 		7732D2D11DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */; };
+		7739EA7A1E4DE54500F62B59 /* CharacterThemeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7739EA791E4DE54500F62B59 /* CharacterThemeSelectView.swift */; };
+		7739EA7D1E4DF07600F62B59 /* themes-select-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA7C1E4DF07600F62B59 /* themes-select-background.png */; };
+		7739EA821E4E2F8100F62B59 /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA7F1E4E2F8100F62B59 /* en.json */; };
+		7739EA831E4E2F8100F62B59 /* ja.json in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA801E4E2F8100F62B59 /* ja.json */; };
+		7739EA841E4E2F8100F62B59 /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA811E4E2F8100F62B59 /* ko.json */; };
+		7739EA871E4E2FCC00F62B59 /* themes.json in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA861E4E2FCC00F62B59 /* themes.json */; };
+		7739EA8A1E4E31EB00F62B59 /* ThemeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7739EA891E4E31EB00F62B59 /* ThemeData.swift */; };
 		775487D51DEA880900D2DCE5 /* ModalWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775487D41DEA880900D2DCE5 /* ModalWebView.swift */; };
 		77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */; };
 		77561DAF1D5066D0002EB26B /* comp-icons-settings-language-ja.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */; };
@@ -622,7 +626,7 @@
 		03DDD7EA1CEB98D2007C026D /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Managers/DataManager.swift; sourceTree = "<group>"; };
 		03DDD7EB1CEB98D2007C026D /* GlobalSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalSubView.swift; path = Managers/GlobalSubView.swift; sourceTree = "<group>"; };
 		03DDD7EC1CEB98D2007C026D /* LanguagesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguagesManager.swift; path = Managers/LanguagesManager.swift; sourceTree = "<group>"; };
-		03DDD7ED1CEB98D2007C026D /* SkinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinManager.swift; path = Managers/SkinManager.swift; sourceTree = "<group>"; };
+		03DDD7ED1CEB98D2007C026D /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeManager.swift; path = Managers/ThemeManager.swift; sourceTree = "<group>"; };
 		03DDD7EE1CEB98D2007C026D /* SoundManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundManager.swift; path = Managers/SoundManager.swift; sourceTree = "<group>"; };
 		03DDD7F61CEB990D007C026D /* AnimatedImg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimatedImg.swift; path = Classes/AnimatedImg.swift; sourceTree = "<group>"; };
 		03DDD7F71CEB990D007C026D /* GameInfoObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameInfoObj.swift; path = Classes/GameInfoObj.swift; sourceTree = "<group>"; };
@@ -647,9 +651,6 @@
 		03DDD81F1CEB99F0007C026D /* JumpUPGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JumpUPGame.swift; path = SKViews/JumpUP/JumpUPGame.swift; sourceTree = "<group>"; };
 		03DDD8221CEB9A0F007C026D /* AlarmElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmElements.swift; path = NSClasses/AlarmElements.swift; sourceTree = "<group>"; };
 		03DDD8241CEB9A2B007C026D /* TKTimingFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TKTimingFunction.swift; path = TKTUtils/TKTimingFunction.swift; sourceTree = "<group>"; };
-		03DDD8261CEB9A49007C026D /* en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = en.json; path = LangResources/en.json; sourceTree = "<group>"; };
-		03DDD8271CEB9A49007C026D /* ja.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ja.json; path = LangResources/ja.json; sourceTree = "<group>"; };
-		03DDD8281CEB9A49007C026D /* ko.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ko.json; path = LangResources/ko.json; sourceTree = "<group>"; };
 		03DDD8301CEB9D07007C026D /* comp-icons-datacategory-alltouches.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-datacategory-alltouches.png"; path = "ImageAssets/Components/Icons/comp-icons-datacategory-alltouches.png"; sourceTree = "<group>"; };
 		03DDD8311CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-datacategory-asleepcount.png"; path = "ImageAssets/Components/Icons/comp-icons-datacategory-asleepcount.png"; sourceTree = "<group>"; };
 		03DDD8321CEB9D07007C026D /* comp-icons-datacategory-compratio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-datacategory-compratio.png"; path = "ImageAssets/Components/Icons/comp-icons-datacategory-compratio.png"; sourceTree = "<group>"; };
@@ -789,6 +790,13 @@
 		772BB1EC1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-1.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-1.png"; sourceTree = "<group>"; };
 		772BB1ED1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-2.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-2.png"; sourceTree = "<group>"; };
 		7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-sokyepsokyep.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-sokyepsokyep.aiff"; sourceTree = "<group>"; };
+		7739EA791E4DE54500F62B59 /* CharacterThemeSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterThemeSelectView.swift; path = ModalView/PopView/CharacterThemeSelectView.swift; sourceTree = "<group>"; };
+		7739EA7C1E4DF07600F62B59 /* themes-select-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-background.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-background.png"; sourceTree = "<group>"; };
+		7739EA7F1E4E2F8100F62B59 /* en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = en.json; path = AppPresets/Languages/en.json; sourceTree = "<group>"; };
+		7739EA801E4E2F8100F62B59 /* ja.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ja.json; path = AppPresets/Languages/ja.json; sourceTree = "<group>"; };
+		7739EA811E4E2F8100F62B59 /* ko.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ko.json; path = AppPresets/Languages/ko.json; sourceTree = "<group>"; };
+		7739EA861E4E2FCC00F62B59 /* themes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themes.json; path = AppPresets/Themes/themes.json; sourceTree = "<group>"; };
+		7739EA891E4E31EB00F62B59 /* ThemeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeData.swift; path = Managers/StructureClass/ThemeData.swift; sourceTree = "<group>"; };
 		775487D41DEA880900D2DCE5 /* ModalWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalWebView.swift; path = ModalView/ModalWebView.swift; sourceTree = "<group>"; };
 		77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-en.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-en.png"; sourceTree = "<group>"; };
 		77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ja.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ja.png"; sourceTree = "<group>"; };
@@ -1239,6 +1247,7 @@
 				032536C51D1B5333004C6293 /* CreditsPopView.swift */,
 				032536D41D1ED333004C6293 /* IndieGamesView.swift */,
 				771ABC401D45DE8700938D1B /* CharacterSkinMainView.swift */,
+				7739EA791E4DE54500F62B59 /* CharacterThemeSelectView.swift */,
 				77F9487D1D8585DE00B33F5F /* TestersWebView.swift */,
 			);
 			name = PopView;
@@ -1510,6 +1519,7 @@
 		771ABC481D45DFD000938D1B /* Themes */ = {
 			isa = PBXGroup;
 			children = (
+				7739EA7B1E4DF06A00F62B59 /* SelectView */,
 				771ABC491D45DFDB00938D1B /* themes-main-background.png */,
 			);
 			name = Themes;
@@ -1635,6 +1645,40 @@
 			name = AIJAstroLeft;
 			sourceTree = "<group>";
 		};
+		7739EA7B1E4DF06A00F62B59 /* SelectView */ = {
+			isa = PBXGroup;
+			children = (
+				7739EA7C1E4DF07600F62B59 /* themes-select-background.png */,
+			);
+			name = SelectView;
+			sourceTree = "<group>";
+		};
+		7739EA7E1E4E2F7600F62B59 /* Languages */ = {
+			isa = PBXGroup;
+			children = (
+				7739EA7F1E4E2F8100F62B59 /* en.json */,
+				7739EA801E4E2F8100F62B59 /* ja.json */,
+				7739EA811E4E2F8100F62B59 /* ko.json */,
+			);
+			name = Languages;
+			sourceTree = "<group>";
+		};
+		7739EA851E4E2F9600F62B59 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				7739EA861E4E2FCC00F62B59 /* themes.json */,
+			);
+			name = Themes;
+			sourceTree = "<group>";
+		};
+		7739EA881E4E31C500F62B59 /* StructureClass */ = {
+			isa = PBXGroup;
+			children = (
+				7739EA891E4E31EB00F62B59 /* ThemeData.swift */,
+			);
+			name = StructureClass;
+			sourceTree = "<group>";
+		};
 		773E91071C59FB9E0084EB07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1648,14 +1692,13 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		773E910A1C5A1E6D0084EB07 /* Languages */ = {
+		773E910A1C5A1E6D0084EB07 /* AppPresets */ = {
 			isa = PBXGroup;
 			children = (
-				03DDD8261CEB9A49007C026D /* en.json */,
-				03DDD8271CEB9A49007C026D /* ja.json */,
-				03DDD8281CEB9A49007C026D /* ko.json */,
+				7739EA851E4E2F9600F62B59 /* Themes */,
+				7739EA7E1E4E2F7600F62B59 /* Languages */,
 			);
-			name = Languages;
+			name = AppPresets;
 			sourceTree = "<group>";
 		};
 		7740E2271C507AC800B11A24 /* Resources */ = {
@@ -1663,7 +1706,7 @@
 			children = (
 				0383DB871CF616C60009D5DE /* Achievements */,
 				77802D311C8097DB00766DB0 /* Fonts */,
-				773E910A1C5A1E6D0084EB07 /* Languages */,
+				773E910A1C5A1E6D0084EB07 /* AppPresets */,
 				7740E2291C507C8E00B11A24 /* Sounds */,
 				7740E2281C507C8700B11A24 /* Sprites */,
 			);
@@ -2122,6 +2165,7 @@
 		77E23BFD1C6996EE005F0B03 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				7739EA881E4E31C500F62B59 /* StructureClass */,
 				03DDD8041CEB992D007C026D /* DeviceManager.swift */,
 				032318B81CF8BA6A0052732F /* AchievementManager.swift */,
 				03DDD7E81CEB98D2007C026D /* AlarmManager.swift */,
@@ -2129,7 +2173,7 @@
 				03DDD7EA1CEB98D2007C026D /* DataManager.swift */,
 				03DDD7EB1CEB98D2007C026D /* GlobalSubView.swift */,
 				03DDD7EC1CEB98D2007C026D /* LanguagesManager.swift */,
-				03DDD7ED1CEB98D2007C026D /* SkinManager.swift */,
+				03DDD7ED1CEB98D2007C026D /* ThemeManager.swift */,
 				03DDD7EE1CEB98D2007C026D /* SoundManager.swift */,
 				03E1D1341CF32DB600B552FC /* CharacterManager.swift */,
 				032318BC1CFA05BF0052732F /* GameManager.swift */,
@@ -2376,7 +2420,6 @@
 				775EAFBE1D51E3D200BE8C4A /* game-jumpup-astro-default-move-4.png in Resources */,
 				03E1D12E1CF1BCF000B552FC /* characterinfo-achievements.png in Resources */,
 				771CD14D1E478D4800574AD8 /* modal-guide-images-all-0-general.png in Resources */,
-				03DDD82C1CEB9A49007C026D /* ko.json in Resources */,
 				032319181CFB5C7B0052732F /* characterinfo-exp-deco-14.png in Resources */,
 				77561E4D1D50C2F2002EB26B /* skin-default-black-6.png in Resources */,
 				032536B31D187D23004C6293 /* modal-mask-result-sns.png in Resources */,
@@ -2384,7 +2427,6 @@
 				77561E8D1D50C86B002EB26B /* d-time-off-pad.png in Resources */,
 				776FF7BE1D55B15600E88B1A /* game-jumpup-assets-background.png in Resources */,
 				77561E7E1D50C85D002EB26B /* d-time-on.png in Resources */,
-				03DDD82B1CEB9A49007C026D /* ja.json in Resources */,
 				77561E681D50C354002EB26B /* skin-default-ground-c-pad43.png in Resources */,
 				032319201CFB5C7B0052732F /* characterinfo-exp-deco-22.png in Resources */,
 				03425B901CD0635700243B28 /* comp-icons-settings-icloud.png in Resources */,
@@ -2486,6 +2528,7 @@
 				7717A6F31E41CF8900076E16 /* bgm-game-waiting.mp3 in Resources */,
 				7717A6FA1E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png in Resources */,
 				775EAFB31D51E3B900BE8C4A /* game-jumpup-astro-default-jump-4.png in Resources */,
+				7739EA821E4E2F8100F62B59 /* en.json in Resources */,
 				779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */,
 				775EB0241D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect0.png in Resources */,
 				776FF7C31D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png in Resources */,
@@ -2552,6 +2595,7 @@
 				03425B911CD0635700243B28 /* comp-icons-settings-newgames.png in Resources */,
 				7717A7121E439DB100076E16 /* skin-default-guide-center.png in Resources */,
 				772BB1C51DE8BD250054B3EF /* game-jumpup-ai-astro-fly-0.png in Resources */,
+				7739EA841E4E2F8100F62B59 /* ko.json in Resources */,
 				7717A7071E439D7900076E16 /* comp-guideclose-icon.png in Resources */,
 				775EAF9B1D51E2EF00BE8C4A /* game-jumpup-assets-box.png in Resources */,
 				032319131CFB5C7B0052732F /* characterinfo-exp-deco-9.png in Resources */,
@@ -2563,6 +2607,7 @@
 				772BB1CF1DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-1.png in Resources */,
 				03B18E761D22CC3200972101 /* game-general-menu-retry.png in Resources */,
 				772BB1C61DE8BD250054B3EF /* game-jumpup-ai-astro-fly-1.png in Resources */,
+				7739EA7D1E4DF07600F62B59 /* themes-select-background.png in Resources */,
 				032319301CFCAC170052732F /* result-btn-list.png in Resources */,
 				77561E9A1D50C884002EB26B /* b-time-on-small.png in Resources */,
 				77561E7C1D50C85D002EB26B /* c-time-on.png in Resources */,
@@ -2639,6 +2684,7 @@
 				77561E8A1D50C86B002EB26B /* b-time-on-pad.png in Resources */,
 				775C60221E46250C00DF5241 /* skin-default-guide-characters-exp.png in Resources */,
 				03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */,
+				7739EA871E4E2FCC00F62B59 /* themes.json in Resources */,
 				03DDD8391CEB9D07007C026D /* comp-icons-datacategory-compratio.png in Resources */,
 				772BB1DE1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-5.png in Resources */,
 				032536D11D1E890C004C6293 /* modal-credits-logo.png in Resources */,
@@ -2684,6 +2730,7 @@
 				77561E7D1D50C85D002EB26B /* d-time-off.png in Resources */,
 				776FF7C21D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png in Resources */,
 				77561DCD1D50C1BF002EB26B /* skin-default-c-back-pad43.png in Resources */,
+				7739EA831E4E2F8100F62B59 /* ja.json in Resources */,
 				77561E641D50C354002EB26B /* skin-default-ground-b-pad34.png in Resources */,
 				772BB1E61DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-1.png in Resources */,
 				03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */,
@@ -2709,7 +2756,6 @@
 				03E1D12F1CF1BCF000B552FC /* characterinfo-exp-deco.png in Resources */,
 				03425BA11CD099C800243B28 /* comp-alarm-notfound.png in Resources */,
 				771CD14E1E478D4800574AD8 /* modal-guide-images-all-1-general.png in Resources */,
-				03DDD82A1CEB9A49007C026D /* en.json in Resources */,
 				03425B8E1CD0635700243B28 /* comp-icons-settings-developers.png in Resources */,
 				03425B981CD0670800243B28 /* comp-cell-arrow.png in Resources */,
 				77561DD11D50C1BF002EB26B /* skin-default-d-back-pad43.png in Resources */,
@@ -2863,6 +2909,7 @@
 				03DDD8111CEB9990007C026D /* UPGamesListCell.swift in Sources */,
 				03DDD8161CEB9999007C026D /* AlarmListCell.swift in Sources */,
 				03DDD7F31CEB98D2007C026D /* LanguagesManager.swift in Sources */,
+				7739EA7A1E4DE54500F62B59 /* CharacterThemeSelectView.swift in Sources */,
 				77FEEA0C1DC104450069F78B /* GameStructureScene.swift in Sources */,
 				032318B91CF8BA6A0052732F /* AchievementManager.swift in Sources */,
 				03DDD81B1CEB99C9007C026D /* GameTitleViewJumpUP.swift in Sources */,
@@ -2889,9 +2936,10 @@
 				035BAAC81D34F3D700B4D43F /* PurchaseManager.swift in Sources */,
 				03DDD8251CEB9A2B007C026D /* TKTimingFunction.swift in Sources */,
 				77050FF21E473610005A891B /* FullScreenGuideView.swift in Sources */,
+				7739EA8A1E4E31EB00F62B59 /* ThemeData.swift in Sources */,
 				032536C41D1B4174004C6293 /* GameModeView.swift in Sources */,
 				032318C91CFA4F860052732F /* GameResultView.swift in Sources */,
-				03DDD7F41CEB98D2007C026D /* SkinManager.swift in Sources */,
+				03DDD7F41CEB98D2007C026D /* ThemeManager.swift in Sources */,
 				03DDD8211CEB99F0007C026D /* JumpUPGame.swift in Sources */,
 				03DDD80F1CEB9990007C026D /* UISingleSegmentControl.swift in Sources */,
 				03DDD7E21CEB929F007C026D /* AlarmSoundListView.swift in Sources */,

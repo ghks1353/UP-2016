@@ -6,14 +6,16 @@
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
-import Foundation;
-import UIKit;
-
+import Foundation
+import UIKit
 
 class CharacterSkinMainView:UIModalPopView {
 	
 	//클래스 외부접근을 위함
 	static var selfView:CharacterSkinMainView?
+	
+	////// 스킨 상세보기 pop view
+	var skinSelectView:CharacterThemeSelectView = CharacterThemeSelectView()
 	
 	//스킨 종류들 이미지.
 	var analogClockImageView:UIImageView = UIImageView()
@@ -98,26 +100,51 @@ class CharacterSkinMainView:UIModalPopView {
 		self.view.addSubview(groundGamesFloatingImageView)
 		self.view.addSubview(groundCharacterImageView)
 		
+		////////// listener add
+		//skinSelectView
+		var tGesture = UITapGestureRecognizer(target:self, action: #selector(self.selectThemeMain(_:)))
+		analogClockCenterImageView.isUserInteractionEnabled = true
+		analogClockCenterImageView.addGestureRecognizer(tGesture)
+		
+		tGesture = UITapGestureRecognizer(target:self, action: #selector(self.selectThemeMain(_:)))
+		menuSettingsImageView.isUserInteractionEnabled = true
+		menuSettingsImageView.addGestureRecognizer(tGesture)
+		
+		tGesture = UITapGestureRecognizer(target:self, action: #selector(self.selectThemeMain(_:)))
+		menuListImageView.isUserInteractionEnabled = true
+		menuListImageView.addGestureRecognizer(tGesture)
+		
 	} /////////// end func
 	
+	func selectThemeMain( _ gst:UITapGestureRecognizer ) {
+		openThemeSelectView( 0 )
+	} //end func
+	
+	/////////////////////////////
+	func openThemeSelectView( _ themeCategoryID:Int ) {
+		self.navigationController!.pushViewController(skinSelectView, animated: true)
+	} //end func
+	
+	
+	////////////////////////////
 	func setImagesToCurrentSkin() {
 		
-		analogClockImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-body.png" )
+		analogClockImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-body.png" )
 		
-		analogClockHoursImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-hh.png" )
-		analogClockMinutesImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-mh.png" )
-		analogClockSecondsImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-sh.png" )
-		analogClockCenterImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "time-ch.png" )
+		analogClockHoursImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-hh.png" )
+		analogClockMinutesImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-mh.png" )
+		analogClockSecondsImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-sh.png" )
+		analogClockCenterImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-ch.png" )
 		
 		//떠있는 버튼
-		menuSettingsImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object-st.png" )
-		menuListImageView.image = UIImage( named: SkinManager.getAssetPresetsMenus() + "object-list.png" )
+		menuSettingsImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "object-st.png" )
+		menuListImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "object-list.png" )
 		
-		groundStatisticsImageView.image = UIImage( named: SkinManager.getAssetPresetsStatistics() + "stat-object.png" )
-		groundGamesStandingImageView.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "standing-box.png" )
-		groundGamesFloatingImageView.image = UIImage( named: SkinManager.getAssetPresetsPlay() + "floating-box.png" )
+		groundStatisticsImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .StatsSign) + "stat-object.png" )
+		groundGamesStandingImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + "standing-box.png" )
+		groundGamesFloatingImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + "floating-box.png" )
 		
-		groundCharacterImageView.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character-" + "0" + ".png" )
+		groundCharacterImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Character) + "character-" + "0" + ".png" )
 		
 	} /// end func
 	

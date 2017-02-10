@@ -97,7 +97,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		
 		//리소스 제작
 		for i:Int in 0 ..< 10 {
-			blackNumbers += [ UIImage( named: SkinManager.getDefaultAssetPresets() + "black-" + String(i) + ".png" )! ];
+			blackNumbers += [ UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) + "black-" + String(i) + ".png" )! ];
 		}
 		
 		// ** 레이아웃들 패드의 경우 특수처리 필요 **
@@ -160,7 +160,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		charLevelWrapper.image = UIImage( named: "characterinfo-level-wrapper.png" );
 		charLevelIndicator.image = UIImage( named: "characterinfo-level.png" );
 		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" );
-		charCurrentCharacter.image = UIImage( named: SkinManager.getAssetPresetsCharacter() + "character-" + "0" + ".png" ); //현재 캐릭터 스킨 불러오기
+		charCurrentCharacter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Character) + "character-" + "0" + ".png" ); //현재 캐릭터 스킨 불러오기
 		modalView.addSubview(charLevelWrapper); modalView.addSubview(charLevelIndicator); modalView.addSubview(charExpWrapper);
 		modalView.addSubview(charCurrentCharacter);
 		//마스크 레이어
@@ -197,8 +197,8 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		
 		//레벨 숫자 배치
 		for i:Int in 0 ..< 3 {
-			let tmpView:UIImageView = UIImageView();
-			tmpView.image = UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  );
+			let tmpView:UIImageView = UIImageView()
+			tmpView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) +  "0" + ".png"  );
 			tmpView.frame = CGRect( x: ((205.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC) + ((24 * CGFloat(i)) * DeviceManager.maxModalRatioC)
 				, y: (171 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
 				  width: 19.15 * DeviceManager.modalRatioC, height: 26.80 * DeviceManager.modalRatioC );
@@ -280,13 +280,13 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		charLevelDigitalArr[0].alpha = levStr.characters.count < 3 ? 0.6 : 1;
 		charLevelDigitalArr[1].alpha = levStr.characters.count < 2 ? 0.6 : 1;
 		//Render text
-		charLevelDigitalArr[2].image = UIImage(named: SkinManager.getDefaultAssetPresets() + String(validatingUTF8: levStr[ levStr.characters.count - 1 ])! + ".png" );
+		charLevelDigitalArr[2].image = UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) + String(validatingUTF8: levStr[ levStr.characters.count - 1 ])! + ".png" );
 		charLevelDigitalArr[1].image =
-			levStr.characters.count < 2 ? UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  )
-			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(validatingUTF8: levStr[ levStr.characters.count - 2 ])! + ".png" )
+			levStr.characters.count < 2 ? UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) +  "0" + ".png"  )
+			: UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) + String(validatingUTF8: levStr[ levStr.characters.count - 2 ])! + ".png" )
 		charLevelDigitalArr[0].image =
-			levStr.characters.count < 3 ? UIImage( named: SkinManager.getDefaultAssetPresets() +  "0" + ".png"  )
-			: UIImage(named: SkinManager.getDefaultAssetPresets() + String(validatingUTF8: levStr[ levStr.characters.count - 3 ])! + ".png" )
+			levStr.characters.count < 3 ? UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) +  "0" + ".png"  )
+			: UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) + String(validatingUTF8: levStr[ levStr.characters.count - 3 ])! + ".png" )
 		
 		//경험치량 표시
 		//CharacterManager.currentCharInfo.characterExp = 4;
