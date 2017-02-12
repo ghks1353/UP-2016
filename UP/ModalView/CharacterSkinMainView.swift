@@ -117,11 +117,12 @@ class CharacterSkinMainView:UIModalPopView {
 	} /////////// end func
 	
 	func selectThemeMain( _ gst:UITapGestureRecognizer ) {
-		openThemeSelectView( 0 )
+		openThemeSelectView( .Main )
 	} //end func
 	
 	/////////////////////////////
-	func openThemeSelectView( _ themeCategoryID:Int ) {
+	func openThemeSelectView( _ themeCategory:ThemeManager.ThemeGroup ) {
+		skinSelectView.setThemeCategory( themeCategory: themeCategory )
 		self.navigationController!.pushViewController(skinSelectView, animated: true)
 	} //end func
 	

@@ -303,6 +303,15 @@
 		7739EA841E4E2F8100F62B59 /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA811E4E2F8100F62B59 /* ko.json */; };
 		7739EA871E4E2FCC00F62B59 /* themes.json in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA861E4E2FCC00F62B59 /* themes.json */; };
 		7739EA8A1E4E31EB00F62B59 /* ThemeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7739EA891E4E31EB00F62B59 /* ThemeData.swift */; };
+		774549F11E504B1F003B9678 /* themes-select-info-locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549EA1E504B1F003B9678 /* themes-select-info-locked.png */; };
+		774549F21E504B1F003B9678 /* themes-select-item-locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549EB1E504B1F003B9678 /* themes-select-item-locked.png */; };
+		774549F31E504B1F003B9678 /* themes-select-item.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549EC1E504B1F003B9678 /* themes-select-item.png */; };
+		774549F41E504B1F003B9678 /* themes-select-side-down-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549ED1E504B1F003B9678 /* themes-select-side-down-left.png */; };
+		774549F51E504B1F003B9678 /* themes-select-side-down.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549EE1E504B1F003B9678 /* themes-select-side-down.png */; };
+		774549F61E504B1F003B9678 /* themes-select-side-up-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549EF1E504B1F003B9678 /* themes-select-side-up-left.png */; };
+		774549F71E504B1F003B9678 /* themes-select-side-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549F01E504B1F003B9678 /* themes-select-side-up.png */; };
+		774549FA1E506404003B9678 /* themes-select-side-down-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549F81E506404003B9678 /* themes-select-side-down-right.png */; };
+		774549FB1E506404003B9678 /* themes-select-side-up-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549F91E506404003B9678 /* themes-select-side-up-right.png */; };
 		775487D51DEA880900D2DCE5 /* ModalWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775487D41DEA880900D2DCE5 /* ModalWebView.swift */; };
 		77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */; };
 		77561DAF1D5066D0002EB26B /* comp-icons-settings-language-ja.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */; };
@@ -797,6 +806,15 @@
 		7739EA811E4E2F8100F62B59 /* ko.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ko.json; path = AppPresets/Languages/ko.json; sourceTree = "<group>"; };
 		7739EA861E4E2FCC00F62B59 /* themes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themes.json; path = AppPresets/Themes/themes.json; sourceTree = "<group>"; };
 		7739EA891E4E31EB00F62B59 /* ThemeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeData.swift; path = Managers/StructureClass/ThemeData.swift; sourceTree = "<group>"; };
+		774549EA1E504B1F003B9678 /* themes-select-info-locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-info-locked.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-info-locked.png"; sourceTree = "<group>"; };
+		774549EB1E504B1F003B9678 /* themes-select-item-locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-item-locked.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-item-locked.png"; sourceTree = "<group>"; };
+		774549EC1E504B1F003B9678 /* themes-select-item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-item.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-item.png"; sourceTree = "<group>"; };
+		774549ED1E504B1F003B9678 /* themes-select-side-down-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-down-left.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-down-left.png"; sourceTree = "<group>"; };
+		774549EE1E504B1F003B9678 /* themes-select-side-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-down.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-down.png"; sourceTree = "<group>"; };
+		774549EF1E504B1F003B9678 /* themes-select-side-up-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-up-left.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-up-left.png"; sourceTree = "<group>"; };
+		774549F01E504B1F003B9678 /* themes-select-side-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-up.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-up.png"; sourceTree = "<group>"; };
+		774549F81E506404003B9678 /* themes-select-side-down-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-down-right.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-down-right.png"; sourceTree = "<group>"; };
+		774549F91E506404003B9678 /* themes-select-side-up-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-up-right.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-up-right.png"; sourceTree = "<group>"; };
 		775487D41DEA880900D2DCE5 /* ModalWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalWebView.swift; path = ModalView/ModalWebView.swift; sourceTree = "<group>"; };
 		77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-en.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-en.png"; sourceTree = "<group>"; };
 		77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ja.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ja.png"; sourceTree = "<group>"; };
@@ -1649,6 +1667,15 @@
 			isa = PBXGroup;
 			children = (
 				7739EA7C1E4DF07600F62B59 /* themes-select-background.png */,
+				774549F81E506404003B9678 /* themes-select-side-down-right.png */,
+				774549F91E506404003B9678 /* themes-select-side-up-right.png */,
+				774549EA1E504B1F003B9678 /* themes-select-info-locked.png */,
+				774549EB1E504B1F003B9678 /* themes-select-item-locked.png */,
+				774549EC1E504B1F003B9678 /* themes-select-item.png */,
+				774549ED1E504B1F003B9678 /* themes-select-side-down-left.png */,
+				774549EE1E504B1F003B9678 /* themes-select-side-down.png */,
+				774549EF1E504B1F003B9678 /* themes-select-side-up-left.png */,
+				774549F01E504B1F003B9678 /* themes-select-side-up.png */,
 			);
 			name = SelectView;
 			sourceTree = "<group>";
@@ -2455,6 +2482,7 @@
 				032536CD1D1C4D1D004C6293 /* modal-credits-people-graphic.png in Resources */,
 				77561E661D50C354002EB26B /* skin-default-ground-b.png in Resources */,
 				77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */,
+				774549F41E504B1F003B9678 /* themes-select-side-down-left.png in Resources */,
 				032318C11CFA1D010052732F /* achievements-icon-blank.png in Resources */,
 				77561E9B1D50C884002EB26B /* c-time-off-small.png in Resources */,
 				775EB02C1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect8.png in Resources */,
@@ -2472,6 +2500,7 @@
 				03C14D0F1D2539D60078D10C /* game-general-window-exit.png in Resources */,
 				03B18E691D22C54600972101 /* comp-icons-shop-restore.png in Resources */,
 				771977661E48DFE40018EE00 /* effect-game-gozaup-ef1.mp3 in Resources */,
+				774549F31E504B1F003B9678 /* themes-select-item.png in Resources */,
 				0323190A1CFB5C7B0052732F /* characterinfo-exp-deco-0.png in Resources */,
 				032319271CFB5C7B0052732F /* characterinfo-exp-deco-29.png in Resources */,
 				771CD15B1E478DB600574AD8 /* modal-guide-alarm-images-all-4-general.png in Resources */,
@@ -2506,6 +2535,7 @@
 				771977591E48DFBD0018EE00 /* game-gozaup-assets-duhan.jpg in Resources */,
 				775EAFA91D51E2EF00BE8C4A /* game-jumpup-assets-trap.png in Resources */,
 				775EAFA21D51E2EF00BE8C4A /* game-jumpup-assets-cloud-6.png in Resources */,
+				774549F61E504B1F003B9678 /* themes-select-side-up-left.png in Resources */,
 				775EAF991D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png in Resources */,
 				7717A7111E439DB100076E16 /* skin-default-guide-buy.png in Resources */,
 				0323191E1CFB5C7B0052732F /* characterinfo-exp-deco-20.png in Resources */,
@@ -2540,6 +2570,7 @@
 				77561E381D50C2E1002EB26B /* skin-default-8.png in Resources */,
 				032319101CFB5C7B0052732F /* characterinfo-exp-deco-6.png in Resources */,
 				77561E871D50C86B002EB26B /* a-time-off-pad.png in Resources */,
+				774549F51E504B1F003B9678 /* themes-select-side-down.png in Resources */,
 				03DDD83B1CEB9D07007C026D /* comp-icons-datacategory-untiloff.png in Resources */,
 				03DDD83A1CEB9D07007C026D /* comp-icons-datacategory-playtime.png in Resources */,
 				772BB1D11DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-3.png in Resources */,
@@ -2574,6 +2605,7 @@
 				775EAFBB1D51E3D200BE8C4A /* game-jumpup-astro-default-move-1.png in Resources */,
 				77561DB21D5066DA002EB26B /* comp-icons-settings-language.png in Resources */,
 				03425BA91CD389E100243B28 /* comp-icons-settings-experiments.png in Resources */,
+				774549FB1E506404003B9678 /* themes-select-side-up-right.png in Resources */,
 				7717A7151E439DB100076E16 /* skin-default-guide-stats.png in Resources */,
 				032319211CFB5C7B0052732F /* characterinfo-exp-deco-23.png in Resources */,
 				775C60211E46250C00DF5241 /* skin-default-guide-characters-astro.png in Resources */,
@@ -2585,6 +2617,7 @@
 				772BB1D21DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-4.png in Resources */,
 				775EB0281D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect4.png in Resources */,
 				77561E471D50C2F2002EB26B /* skin-default-black-0.png in Resources */,
+				774549F11E504B1F003B9678 /* themes-select-info-locked.png in Resources */,
 				7714CAB91E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png in Resources */,
 				03DEB7C21D25D7A40086BEAD /* game-general-guide-right.png in Resources */,
 				772BB1EE1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png in Resources */,
@@ -2598,6 +2631,7 @@
 				7739EA841E4E2F8100F62B59 /* ko.json in Resources */,
 				7717A7071E439D7900076E16 /* comp-guideclose-icon.png in Resources */,
 				775EAF9B1D51E2EF00BE8C4A /* game-jumpup-assets-box.png in Resources */,
+				774549F71E504B1F003B9678 /* themes-select-side-up.png in Resources */,
 				032319131CFB5C7B0052732F /* characterinfo-exp-deco-9.png in Resources */,
 				77561DC91D50C1BF002EB26B /* skin-default-b-back-pad43.png in Resources */,
 				77561EAE1D50CAB9002EB26B /* skin-default-time-hh.png in Resources */,
@@ -2645,6 +2679,7 @@
 				77561E481D50C2F2002EB26B /* skin-default-black-1.png in Resources */,
 				03425B7A1CCEB2E400243B28 /* modal-close.png in Resources */,
 				77561E311D50C2E1002EB26B /* skin-default-1.png in Resources */,
+				774549F21E504B1F003B9678 /* themes-select-item-locked.png in Resources */,
 				772BB1D01DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-2.png in Resources */,
 				77561E6A1D50C354002EB26B /* skin-default-ground-d-pad34.png in Resources */,
 				032319231CFB5C7B0052732F /* characterinfo-exp-deco-25.png in Resources */,
@@ -2689,6 +2724,7 @@
 				772BB1DE1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-5.png in Resources */,
 				032536D11D1E890C004C6293 /* modal-credits-logo.png in Resources */,
 				772BB1E91DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-4.png in Resources */,
+				774549FA1E506404003B9678 /* themes-select-side-down-right.png in Resources */,
 				03425B811CD01A3B00243B28 /* comp-slider-track.png in Resources */,
 				032319111CFB5C7B0052732F /* characterinfo-exp-deco-7.png in Resources */,
 				775EB0271D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect3.png in Resources */,

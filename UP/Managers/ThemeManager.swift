@@ -32,6 +32,48 @@ class ThemeManager {
 		case DigitalClock = "digitalclock"
 	} //end enum
 	
+	//// 스킨 표시 시 사용할 String enum (Filename)
+	public enum ThemeFileNames {
+		/// AnalogClock
+		static let AnalogClockBody:String = "time-clock"
+		static let AnalogClockCenter:String = "time-center"
+		static let AnalogClockHour:String = "time-hour"
+		static let AnalogClockMinute:String = "time-minute"
+		static let AnalogClockSecond:String = "time-second"
+		
+		//Object
+		static let ObjectSettings:String = "object-settings"
+		static let ObjectSettingsShadow:String = "object-settings-shadow"
+		static let ObjectList:String = "object-list"
+		static let ObjectListShadow:String = "object-list-shadow"
+		
+		// Background
+		static let BackgroundMorning:String = "back-morning"
+		static let BackgroundDaytime:String = "back-daytime"
+		static let BackgroundSunset:String = "back-sunset"
+		static let BackgroundNight:String = "back-night"
+		
+		// Main character
+		static let Character:String = "character"
+		
+		// DigitalClock (White and Black)
+		static let DigitalClock:String = "" //empty (currently)
+		static let DigitalClockBlack:String = "black"
+		
+		// Ground
+		static let GroundMorning:String = "ground-morning"
+		static let GroundDaytime:String = "ground-daytime"
+		static let GroundSunset:String = "ground-sunset"
+		static let GroundNight:String = "ground-night"
+		
+		// Floating-standing game box
+		static let ObjectGameStanding:String = "object-standing"
+		static let ObjectGameFloating:String = "object-floating"
+		// Statistics sign
+		static let ObjectStatistics:String = "object-statistics"
+		
+	} //end enum
+	
 	/////////////////////////
 	
 	//// 스킨이 선택되어있지 않거나 오류가 발생했을 때 기본 스킨.
@@ -90,7 +132,9 @@ class ThemeManager {
 				case ThemeGroupParseStr.DigitalClock.rawValue:
 					tmpThemeData.themeCategory = ThemeGroup.DigitalClock
 					break
-				default: break
+				default:
+					print("Error: ThemeCategory is unknown: ", jData[i]["category"].string!)
+					break
 			} //end switch
 			
 			tmpThemeData.themeForceUnlocked = jData[i]["force-unlocked"].bool!
