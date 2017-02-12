@@ -59,6 +59,9 @@ class ThemeManager {
 		// DigitalClock (White and Black)
 		static let DigitalClock:String = "" //empty (currently)
 		static let DigitalClockBlack:String = "black"
+		static let DigitalClockCol:String = "col"
+		static let DigitalClockAM:String = "am"
+		static let DigitalClockPM:String = "pm"
 		
 		// Ground
 		static let GroundMorning:String = "ground-morning"
@@ -73,6 +76,12 @@ class ThemeManager {
 		static let ObjectStatistics:String = "object-statistics"
 		
 	} //end enum
+	public enum ThemePresets {
+		static let BundlePreset:String = "theme-"
+		static let iPhone4S:String = "-4s"
+		static let PadPortrait:String = "-pad43"
+		static let PadLandscape:String = "-pad34"
+	} //end enum
 	
 	/////////////////////////
 	
@@ -83,9 +92,6 @@ class ThemeManager {
 	static var selectedThemes:[ThemeGroup:String] = [:]
 	///// 스킨들 데이터.
 	static var themesData:[ThemeGroup:Array<ThemeData>] = [:]
-	
-	//스킨 접두어.
-	static var themePresetStr:String = "skin-"
 	
 	static func initManager() {
 		//load theme presets, and init
@@ -171,13 +177,15 @@ class ThemeManager {
 		//// group에서 해당하는 id에 대한 프리셋 값 얻어옴
 		for i:Int in 0 ..< themesData[themeGroup]!.count {
 			if (themesData[themeGroup]![i].themeID == themeID) {
-				return bundleIDOnly ? themesData[themeGroup]![i].themeBundleImageID : themePresetStr + themesData[themeGroup]![i].themeBundleImageID + "-"
+				return bundleIDOnly ? themesData[themeGroup]![i].themeBundleImageID : ThemePresets.BundlePreset + themesData[themeGroup]![i].themeBundleImageID + "-"
 			}
 		} //end for
 		
 		print("[ThemeManager] Error: Can not find themeID", themeID, ": returned legacy theme ID.")
-		return bundleIDOnly ? legacyDefaultThemeBundleID : themePresetStr + legacyDefaultThemeBundleID + "-"
+		return bundleIDOnly ? legacyDefaultThemeBundleID : ThemePresets.BundlePreset + legacyDefaultThemeBundleID + "-"
 	} //end func
 	
-	
+	static func getName( _ themeFileName:String ) -> String {
+		return themeFileName + ".png"
+	} //end func
 }

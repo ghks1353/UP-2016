@@ -88,8 +88,8 @@ class ViewController: UIViewController {
 	//뒷 배경 이미지 (시간에 따라 변경되며 변경 시간대마다 한번씩 fade)
 	var backgroundImageView:UIImageView = UIImageView()
 	var backgroundImageFadeView:UIImageView = UIImageView()
-	var currentBackgroundImage:String = "a" //default background
-	var currentGroundImage:String = "a" //default ground
+	var currentBackgroundImage:String = ThemeManager.ThemeFileNames.BackgroundMorning //default background
+	var currentGroundImage:String = ThemeManager.ThemeFileNames.GroundMorning //default ground
 	
 	///// 메인 애니메이션용 값 저장 배열.
 	var mainAnimatedObjs:Array<AnimatedImg> = Array<AnimatedImg>()
@@ -560,54 +560,50 @@ class ViewController: UIViewController {
         DigitalCol.isHidden = !DigitalCol.isHidden
 		
 		if (GroundObj.image == nil) { // 이미지 없을 경우 땅 표시
-			currentGroundImage = getBackgroundFileNameFromTime(components.hour!)
+			currentGroundImage = getBackground(components.hour!, isGround: true)
 			if (UIDevice.current.userInterfaceIdiom == .phone) {
 				GroundObj.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "ground-" + currentGroundImage + ".png" )
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + ThemeManager.getName(currentGroundImage) )
 			} else {
 				GroundObj.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "ground-" + currentBackgroundImage + (
-						(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
-					) )
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentGroundImage + ThemeManager.getName( (DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape) )
 			} //end if
 		} else {
 			// 이미지 있을 경우 변경
-			if (currentGroundImage != getBackgroundFileNameFromTime(components.hour!)) {
+			if (currentGroundImage != getBackground(components.hour!, isGround: true)) {
 				//시간대가 바뀌어야 하는 경우
-				currentGroundImage = getBackgroundFileNameFromTime(components.hour!) //시간대 이미지 변경
+				currentGroundImage = getBackground(components.hour!, isGround: true) //시간대 이미지 변경
 				if (UIDevice.current.userInterfaceIdiom == .phone) {
 					GroundObj.image = UIImage( named:
-						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "ground-" + currentGroundImage + ".png" )
+						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + ThemeManager.getName(currentGroundImage) )
 				} else {
 					GroundObj.image = UIImage( named:
-						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "ground-" + currentBackgroundImage + (
-							(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
-						) )
+						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentGroundImage + ThemeManager.getName( (DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape) )
 				} //end if
 			} //end if [background time mismatch]
 		} //end if [ground image is null or not]
 		if (backgroundImageView.image == nil) { //이미지가 없을 경우 새로 표시.
-			currentBackgroundImage = getBackgroundFileNameFromTime(components.hour!)
+			currentBackgroundImage = getBackground(components.hour!)
 			print("current", UIApplication.shared.statusBarOrientation == .portrait)
 			if (UIDevice.current.userInterfaceIdiom == .phone) {
 				print("showing phone bg")
 				backgroundImageView.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "-back" + (
-					DeviceManager.isiPhone4S ? "-4s" : ""
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+					DeviceManager.isiPhone4S ? ThemeManager.ThemePresets.iPhone4S : ""
 					) )
 				backgroundImageFadeView.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "-back" + (
-					DeviceManager.isiPhone4S ? "-4s" : ""
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+					DeviceManager.isiPhone4S ? ThemeManager.ThemePresets.iPhone4S : ""
 					) )
 			} else {
 				print("showing pad bg")
 				backgroundImageView.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "-back" + (
-					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape
 					) )
 				backgroundImageFadeView.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "_back" + (
-					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
+					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape
 					) )
 			} //end if [phone or not]
 			
@@ -615,19 +611,19 @@ class ViewController: UIViewController {
 			print("Scrsize",DeviceManager.scrSize!.height, (DeviceManager.isiPhone4S ? "-4s" : ""))
 		} else {
 			//이미지가 있을 경우, 시간대가 바뀌는 경우 바꾸고 페이드
-			if (currentBackgroundImage != getBackgroundFileNameFromTime(components.hour!)) {
+			if (currentBackgroundImage != getBackground(components.hour!)) {
 				//시간대가 바뀌어야 하는 경우
-				currentBackgroundImage = getBackgroundFileNameFromTime(components.hour!); //시간대 이미지 변경
+				currentBackgroundImage = getBackground(components.hour!) //시간대 이미지 변경
 				backgroundImageFadeView.alpha = 1
 				if (UIDevice.current.userInterfaceIdiom == .phone) {
 					backgroundImageView.image = UIImage( named:
-						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "-back" + (
-						DeviceManager.isiPhone4S ? "-4s" : ""
+						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+						DeviceManager.isiPhone4S ? ThemeManager.ThemePresets.iPhone4S : ""
 						) )
 				} else {
 					backgroundImageView.image = UIImage( named:
-						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + "-back" + (
-						(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
+						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+						(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape
 						) )
 				} //end if [phone or not]
 				
@@ -637,13 +633,13 @@ class ViewController: UIViewController {
 						
 						if (UIDevice.current.userInterfaceIdiom == .phone) {
 							self.backgroundImageFadeView.image = UIImage( named:
-								ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + self.currentBackgroundImage + "-back" + (
-								DeviceManager.isiPhone4S ? "-4s" : ""
+								ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + self.currentBackgroundImage + (
+								DeviceManager.isiPhone4S ? ThemeManager.ThemePresets.iPhone4S : ""
 								) )
 						} else {
 							self.backgroundImageFadeView.image = UIImage( named:
-								ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + self.currentBackgroundImage + "-back" + (
-								(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
+								ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + self.currentBackgroundImage + (
+								(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape
 								) )
 						} //end if [phone or not]
 				}) //end animation block
@@ -671,18 +667,18 @@ class ViewController: UIViewController {
 	
 	
 	//get str from time
-	func getBackgroundFileNameFromTime(_ timeHour:Int)->String {
+	func getBackground(_ timeHour:Int, isGround:Bool = false) -> String {
 		if (timeHour >= 22 || timeHour < 6) {
-			return "d"
+			return isGround ? ThemeManager.ThemeFileNames.GroundNight : ThemeManager.ThemeFileNames.BackgroundNight
 		} else if (timeHour >= 6 && timeHour < 11) {
-			return "a"
+			return isGround ? ThemeManager.ThemeFileNames.GroundMorning : ThemeManager.ThemeFileNames.BackgroundMorning
 		} else if (timeHour >= 11 && timeHour < 18) {
-			return "b"
+			return isGround ? ThemeManager.ThemeFileNames.GroundDaytime : ThemeManager.ThemeFileNames.BackgroundDaytime
 		} else if (timeHour >= 18 && timeHour <= 21) {
-			return "c"
+			return isGround ? ThemeManager.ThemeFileNames.GroundSunset : ThemeManager.ThemeFileNames.BackgroundSunset
 		}
-		return "a"
-	}
+		return isGround ? ThemeManager.ThemeFileNames.GroundMorning : ThemeManager.ThemeFileNames.BackgroundMorning
+	} //end func
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -746,32 +742,33 @@ class ViewController: UIViewController {
 		digitalClockAMPMCached.removeAll()
 		
 		/// index 0 is am, 1 is pm
-		digitalClockAMPMCached.append( UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "am.png")! )
-		digitalClockAMPMCached.append( UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "pm.png")! )
+		digitalClockAMPMCached.append( UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName(ThemeManager.ThemeFileNames.DigitalClockAM))! )
+		digitalClockAMPMCached.append( UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName(ThemeManager.ThemeFileNames.DigitalClockPM))! )
 		///////////////
 		
 		///// Make clock image
-		DigitalCol.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "col.png" )
+		DigitalCol.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName(ThemeManager.ThemeFileNames.DigitalClockCol) )
 		
 		////// Make analog-clock image
-		AnalogBody.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-body.png" )
+		AnalogBody.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockBody) )
 		
-		AnalogHours.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-hh.png" )
-		AnalogMinutes.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-mh.png" )
-		AnalogSeconds.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-sh.png" )
-		AnalogCenter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "time-ch.png" )
+		AnalogCenter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockCenter) )
+		AnalogHours.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockHour) )
+		AnalogMinutes.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockMinute) )
+		AnalogSeconds.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockSecond) )
 		
 		//떠있는 버튼
-		SettingsImg.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "object-st.png" )
-		AlarmListImg.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + "object-list.png" )
+		SettingsImg.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectSettings) )
+		AlarmListImg.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectList) )
 		
-		GroundStatSign.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .StatsSign) + "stat-object.png" )
-		GroundStandingBox.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + "standing-box.png" )
-		GroundFloatingBox.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + "floating-box.png" )
+		GroundStatSign.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .StatsSign) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectStatistics) )
+		GroundStandingBox.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectGameStanding) )
+		GroundFloatingBox.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectGameFloating) )
 		
 		//기본 스킨 아스트로 애니메이션 (텍스쳐)
 		for i in 0...3 { //부동
-			let fileName:String = ThemeManager.getAssetPresets(themeGroup: .Character) + "character-" + String(i) + ".png"
+			//Character는 번호 뒤에 확장자를 붙이므로 getname함수 사용안함
+			let fileName:String = ThemeManager.getAssetPresets(themeGroup: .Character) + ThemeManager.ThemeFileNames.Character + "-" + String(i) + ".png"
 			let fImage:UIImage = UIImage( named: fileName )!
 			astroMotionsStanding += [fImage]
 		} //end for
@@ -846,20 +843,19 @@ class ViewController: UIViewController {
 		SettingsImg.frame = CGRect( x: clockScrX - ((150 * DeviceManager.maxScrRatioC) / 2), y: clockScrY + (140 * DeviceManager.maxScrRatioC) , width: (148 * DeviceManager.maxScrRatioC), height: (148 * DeviceManager.maxScrRatioC) )
 		AlarmListImg.frame = CGRect( x: clockRightScrX - ((76 * DeviceManager.maxScrRatioC) / 2), y: clockScrY - (18 * DeviceManager.maxScrRatioC), width: (102 * DeviceManager.maxScrRatioC), height: (146 * DeviceManager.maxScrRatioC) )
 		
-		
 		if (UIDevice.current.userInterfaceIdiom == .phone) {
 			//배경화면 프레임도 같이 조절 (패드는 끝부분의 회전처리와 동시에 함)
-			backgroundImageView.frame = CGRect(x: 0, y: 0, width: (DeviceManager.scrSize?.width)!, height: (DeviceManager.scrSize?.height)!)
+			backgroundImageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
 			backgroundImageFadeView.frame = backgroundImageView.frame
 			
 			//땅 크기 조절
-			GroundObj.frame = CGRect( x: 0, y: (DeviceManager.scrSize?.height)! - 86 * DeviceManager.maxScrRatioC, width: CGFloat((DeviceManager.scrSize?.width)!) , height: 86 * DeviceManager.maxScrRatioC )
+			GroundObj.frame = CGRect( x: 0, y: DeviceManager.scrSize!.height - 86 * DeviceManager.maxScrRatioC, width: CGFloat((DeviceManager.scrSize?.width)!) , height: 86 * DeviceManager.maxScrRatioC )
 		} else { //패드에서의 땅 크기 조절
 			//show pad ground
-			GroundObj.frame = CGRect( x: 0, y: (DeviceManager.scrSize?.height)! - 86 * DeviceManager.maxScrRatioC, width: (DeviceManager.scrSize!.width) , height: 86 * DeviceManager.maxScrRatioC )
+			GroundObj.frame = CGRect( x: 0, y: DeviceManager.scrSize!.height - 86 * DeviceManager.maxScrRatioC, width: (DeviceManager.scrSize!.width) , height: 86 * DeviceManager.maxScrRatioC )
 			GroundObj.image = UIImage( named:
-				ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "ground-pad" + ((DeviceManager.scrSize!.width > DeviceManager.scrSize!.height) ? "34" : "43") + ".png" )
-		}
+				ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentGroundImage + ThemeManager.getName((DeviceManager.scrSize!.width > DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadLandscape : ThemeManager.ThemePresets.PadPortrait) )
+		} //end if [isPhone]
 		
 		//캐릭터 크기 및 위치조정
 		AstroCharacter.frame =
@@ -938,16 +934,16 @@ class ViewController: UIViewController {
 		//시간대의 변경은 아니지만, 배경의 배율에 따라서 달라지는 부분이 있으므로 변경
 		if (UIDevice.current.userInterfaceIdiom == .pad) {
 			//배경의 자연스러운 변경 연출을 위한 애니메이션 효과 적용
-			currentBackgroundImage = getBackgroundFileNameFromTime(components.hour!)
+			currentBackgroundImage = getBackground(components.hour!)
 			backgroundImageFadeView.image = backgroundImageView.image
-			backgroundImageView.image = UIImage( named: currentBackgroundImage + "-back" + (
-				(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? "-pad43" : "-pad34"
+			backgroundImageView.image = UIImage( named: ThemeManager.ThemePresets.BundlePreset + currentBackgroundImage + ThemeManager.getName(
+				(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape
 				))
 			backgroundImageFadeView.alpha = 1
 			backgroundImageView.alpha = 0
 			
 			//Background image scale
-			backgroundImageView.frame = CGRect(x: 0, y: 0, width: (DeviceManager.scrSize?.width)!, height: (DeviceManager.scrSize?.height)!)
+			backgroundImageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: DeviceManager.scrSize!.height)
 			
 			UIView.animate(withDuration: 0.48, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
 				self.backgroundImageFadeView.alpha = 0

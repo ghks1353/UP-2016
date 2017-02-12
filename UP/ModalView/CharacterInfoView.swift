@@ -56,7 +56,7 @@ class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" )
 		charGameCenterIcon.image = UIImage( named: "characterinfo-gamecenter.png" )
 		charAchievementsIcon.image = UIImage( named: "characterinfo-achievements.png" )
-		charCurrentCharacter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Character) + "character-" + "0" + ".png" ) //현재 캐릭터 스킨 불러오기
+		charCurrentCharacter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Character) + ThemeManager.ThemeFileNames.Character + "-0" + ".png" ) //현재 캐릭터 스킨 불러오기
 		
 		//기타 컴포넌트 배치.
 		modalView.view.addSubview(charLevelWrapper)

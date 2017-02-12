@@ -184,14 +184,6 @@
 		770973041DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */; };
 		770973051DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */; };
 		770B5A5B1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A5A1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff */; };
-		770B5A651E4889C300A4941E /* skin-default-guide-list-add.png in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A5D1E4889C300A4941E /* skin-default-guide-list-add.png */; };
-		770B5A661E4889C300A4941E /* skin-default-guide-list-del.png in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A5E1E4889C300A4941E /* skin-default-guide-list-del.png */; };
-		770B5A671E4889C300A4941E /* skin-default-guide-list-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A5F1E4889C300A4941E /* skin-default-guide-list-off.png */; };
-		770B5A681E4889C300A4941E /* skin-default-guide-list-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A601E4889C300A4941E /* skin-default-guide-list-on.png */; };
-		770B5A691E4889C300A4941E /* skin-default-guide-list-swipe-del.png in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A611E4889C300A4941E /* skin-default-guide-list-swipe-del.png */; };
-		770B5A6A1E4889C300A4941E /* skin-default-guide-list-swipe-edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A621E4889C300A4941E /* skin-default-guide-list-swipe-edit.png */; };
-		770B5A6B1E4889C300A4941E /* skin-default-guide-list-time-half.png in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A631E4889C300A4941E /* skin-default-guide-list-time-half.png */; };
-		770B5A6C1E4889C300A4941E /* skin-default-guide-list-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A641E4889C300A4941E /* skin-default-guide-list-time.png */; };
 		770B5A6E1E488A8100A4941E /* AlarmListOverlayGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770B5A6D1E488A8100A4941E /* AlarmListOverlayGuideView.swift */; };
 		7714CAB71E4B99F800E447E9 /* modal-buy-heroes-real.png in Resources */ = {isa = PBXBuildFile; fileRef = 7714CAB61E4B99F800E447E9 /* modal-buy-heroes-real.png */; };
 		7714CAB91E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7714CAB81E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png */; };
@@ -207,12 +199,6 @@
 		7717A7031E43885900076E16 /* UIOverlayGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7717A7021E43885900076E16 /* UIOverlayGuideView.swift */; };
 		7717A7051E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */; };
 		7717A7071E439D7900076E16 /* comp-guideclose-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A7061E439D7900076E16 /* comp-guideclose-icon.png */; };
-		7717A7101E439DB100076E16 /* skin-default-guide-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70A1E439DB100076E16 /* skin-default-guide-astro.png */; };
-		7717A7111E439DB100076E16 /* skin-default-guide-buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70B1E439DB100076E16 /* skin-default-guide-buy.png */; };
-		7717A7121E439DB100076E16 /* skin-default-guide-center.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70C1E439DB100076E16 /* skin-default-guide-center.png */; };
-		7717A7131E439DB100076E16 /* skin-default-guide-ground-hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70D1E439DB100076E16 /* skin-default-guide-ground-hover.png */; };
-		7717A7141E439DB100076E16 /* skin-default-guide-ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70E1E439DB100076E16 /* skin-default-guide-ground.png */; };
-		7717A7151E439DB100076E16 /* skin-default-guide-stats.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A70F1E439DB100076E16 /* skin-default-guide-stats.png */; };
 		7717A7171E43A99F00076E16 /* MainOverlayGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7717A7161E43A99F00076E16 /* MainOverlayGuideView.swift */; };
 		771977521E48DAEA0018EE00 /* game-general-start.png in Resources */ = {isa = PBXBuildFile; fileRef = 771977511E48DAEA0018EE00 /* game-general-start.png */; };
 		771977581E48DFBD0018EE00 /* game-gozaup-assets-cheeta.png in Resources */ = {isa = PBXBuildFile; fileRef = 771977541E48DFBD0018EE00 /* game-gozaup-assets-cheeta.png */; };
@@ -253,10 +239,6 @@
 		771CD15A1E478DB600574AD8 /* modal-guide-alarm-images-all-3-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 771CD1551E478DB600574AD8 /* modal-guide-alarm-images-all-3-general.png */; };
 		771CD15B1E478DB600574AD8 /* modal-guide-alarm-images-all-4-general.png in Resources */ = {isa = PBXBuildFile; fileRef = 771CD1561E478DB600574AD8 /* modal-guide-alarm-images-all-4-general.png */; };
 		7723940B1E499C1E00C8BC43 /* UIModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7723940A1E499C1E00C8BC43 /* UIModalView.swift */; };
-		772BB18B1DE8B9590054B3EF /* skin-default-character-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1871DE8B9590054B3EF /* skin-default-character-0.png */; };
-		772BB18C1DE8B9590054B3EF /* skin-default-character-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1881DE8B9590054B3EF /* skin-default-character-1.png */; };
-		772BB18D1DE8B9590054B3EF /* skin-default-character-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1891DE8B9590054B3EF /* skin-default-character-2.png */; };
-		772BB18E1DE8B9590054B3EF /* skin-default-character-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB18A1DE8B9590054B3EF /* skin-default-character-3.png */; };
 		772BB1AB1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1A51DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-0.png */; };
 		772BB1AC1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1A61DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-1.png */; };
 		772BB1AD1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1A71DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-2.png */; };
@@ -312,65 +294,97 @@
 		774549F71E504B1F003B9678 /* themes-select-side-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549F01E504B1F003B9678 /* themes-select-side-up.png */; };
 		774549FA1E506404003B9678 /* themes-select-side-down-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549F81E506404003B9678 /* themes-select-side-down-right.png */; };
 		774549FB1E506404003B9678 /* themes-select-side-up-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549F91E506404003B9678 /* themes-select-side-up-right.png */; };
+		77454A051E50CDB2003B9678 /* theme-default-object-list-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549FC1E50CDB2003B9678 /* theme-default-object-list-shadow.png */; };
+		77454A061E50CDB2003B9678 /* theme-default-object-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549FD1E50CDB2003B9678 /* theme-default-object-list.png */; };
+		77454A071E50CDB2003B9678 /* theme-default-object-settings-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549FE1E50CDB2003B9678 /* theme-default-object-settings-shadow.png */; };
+		77454A081E50CDB2003B9678 /* theme-default-object-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549FF1E50CDB2003B9678 /* theme-default-object-settings.png */; };
+		77454A091E50CDB2003B9678 /* theme-default-time-center.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A001E50CDB2003B9678 /* theme-default-time-center.png */; };
+		77454A0A1E50CDB2003B9678 /* theme-default-time-clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A011E50CDB2003B9678 /* theme-default-time-clock.png */; };
+		77454A0B1E50CDB2003B9678 /* theme-default-time-hour.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A021E50CDB2003B9678 /* theme-default-time-hour.png */; };
+		77454A0C1E50CDB2003B9678 /* theme-default-time-minute.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A031E50CDB2003B9678 /* theme-default-time-minute.png */; };
+		77454A0D1E50CDB2003B9678 /* theme-default-time-second.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A041E50CDB2003B9678 /* theme-default-time-second.png */; };
+		77454A1E1E50D646003B9678 /* theme-default-back-daytime-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A0E1E50D646003B9678 /* theme-default-back-daytime-4s.png */; };
+		77454A1F1E50D646003B9678 /* theme-default-back-daytime-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A0F1E50D646003B9678 /* theme-default-back-daytime-pad34.png */; };
+		77454A201E50D646003B9678 /* theme-default-back-daytime-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A101E50D646003B9678 /* theme-default-back-daytime-pad43.png */; };
+		77454A211E50D646003B9678 /* theme-default-back-daytime.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A111E50D646003B9678 /* theme-default-back-daytime.png */; };
+		77454A221E50D646003B9678 /* theme-default-back-morning-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A121E50D646003B9678 /* theme-default-back-morning-4s.png */; };
+		77454A231E50D646003B9678 /* theme-default-back-morning-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A131E50D646003B9678 /* theme-default-back-morning-pad34.png */; };
+		77454A241E50D646003B9678 /* theme-default-back-morning-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A141E50D646003B9678 /* theme-default-back-morning-pad43.png */; };
+		77454A251E50D646003B9678 /* theme-default-back-morning.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A151E50D646003B9678 /* theme-default-back-morning.png */; };
+		77454A261E50D646003B9678 /* theme-default-back-night-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A161E50D646003B9678 /* theme-default-back-night-4s.png */; };
+		77454A271E50D646003B9678 /* theme-default-back-night-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A171E50D646003B9678 /* theme-default-back-night-pad34.png */; };
+		77454A281E50D646003B9678 /* theme-default-back-night-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A181E50D646003B9678 /* theme-default-back-night-pad43.png */; };
+		77454A291E50D646003B9678 /* theme-default-back-night.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A191E50D646003B9678 /* theme-default-back-night.png */; };
+		77454A2A1E50D646003B9678 /* theme-default-back-sunset-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A1A1E50D646003B9678 /* theme-default-back-sunset-4s.png */; };
+		77454A2B1E50D646003B9678 /* theme-default-back-sunset-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A1B1E50D646003B9678 /* theme-default-back-sunset-pad34.png */; };
+		77454A2C1E50D646003B9678 /* theme-default-back-sunset-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A1C1E50D646003B9678 /* theme-default-back-sunset-pad43.png */; };
+		77454A2D1E50D646003B9678 /* theme-default-back-sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A1D1E50D646003B9678 /* theme-default-back-sunset.png */; };
+		77454A3D1E50D93D003B9678 /* theme-default-ground-daytime-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A2E1E50D93D003B9678 /* theme-default-ground-daytime-pad34.png */; };
+		77454A3E1E50D93D003B9678 /* theme-default-ground-daytime-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A2F1E50D93D003B9678 /* theme-default-ground-daytime-pad43.png */; };
+		77454A3F1E50D93D003B9678 /* theme-default-ground-daytime.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A301E50D93D003B9678 /* theme-default-ground-daytime.png */; };
+		77454A401E50D93D003B9678 /* theme-default-ground-morning-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A311E50D93D003B9678 /* theme-default-ground-morning-pad34.png */; };
+		77454A411E50D93D003B9678 /* theme-default-ground-morning-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A321E50D93D003B9678 /* theme-default-ground-morning-pad43.png */; };
+		77454A421E50D93D003B9678 /* theme-default-ground-morning.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A331E50D93D003B9678 /* theme-default-ground-morning.png */; };
+		77454A431E50D93D003B9678 /* theme-default-ground-night-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A341E50D93D003B9678 /* theme-default-ground-night-pad34.png */; };
+		77454A441E50D93D003B9678 /* theme-default-ground-night-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A351E50D93D003B9678 /* theme-default-ground-night-pad43.png */; };
+		77454A451E50D93D003B9678 /* theme-default-ground-night.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A361E50D93D003B9678 /* theme-default-ground-night.png */; };
+		77454A461E50D93D003B9678 /* theme-default-ground-sunset-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A371E50D93D003B9678 /* theme-default-ground-sunset-pad34.png */; };
+		77454A471E50D93D003B9678 /* theme-default-ground-sunset-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A381E50D93D003B9678 /* theme-default-ground-sunset-pad43.png */; };
+		77454A481E50D93D003B9678 /* theme-default-ground-sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A391E50D93D003B9678 /* theme-default-ground-sunset.png */; };
+		77454A491E50D93D003B9678 /* theme-default-object-floating.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A3A1E50D93D003B9678 /* theme-default-object-floating.png */; };
+		77454A4A1E50D93D003B9678 /* theme-default-object-standing.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A3B1E50D93D003B9678 /* theme-default-object-standing.png */; };
+		77454A4B1E50D93D003B9678 /* theme-default-object-statistics.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A3C1E50D93D003B9678 /* theme-default-object-statistics.png */; };
+		77454A591E50E946003B9678 /* theme-default-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A4C1E50E946003B9678 /* theme-default-0.png */; };
+		77454A5A1E50E946003B9678 /* theme-default-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A4D1E50E946003B9678 /* theme-default-1.png */; };
+		77454A5B1E50E946003B9678 /* theme-default-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A4E1E50E946003B9678 /* theme-default-2.png */; };
+		77454A5C1E50E946003B9678 /* theme-default-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A4F1E50E946003B9678 /* theme-default-3.png */; };
+		77454A5D1E50E946003B9678 /* theme-default-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A501E50E946003B9678 /* theme-default-4.png */; };
+		77454A5E1E50E946003B9678 /* theme-default-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A511E50E946003B9678 /* theme-default-5.png */; };
+		77454A5F1E50E946003B9678 /* theme-default-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A521E50E946003B9678 /* theme-default-6.png */; };
+		77454A601E50E946003B9678 /* theme-default-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A531E50E946003B9678 /* theme-default-7.png */; };
+		77454A611E50E946003B9678 /* theme-default-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A541E50E946003B9678 /* theme-default-8.png */; };
+		77454A621E50E946003B9678 /* theme-default-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A551E50E946003B9678 /* theme-default-9.png */; };
+		77454A631E50E946003B9678 /* theme-default-am.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A561E50E946003B9678 /* theme-default-am.png */; };
+		77454A641E50E946003B9678 /* theme-default-col.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A571E50E946003B9678 /* theme-default-col.png */; };
+		77454A651E50E946003B9678 /* theme-default-pm.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A581E50E946003B9678 /* theme-default-pm.png */; };
+		77454A701E50E956003B9678 /* theme-default-black-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A661E50E956003B9678 /* theme-default-black-0.png */; };
+		77454A711E50E956003B9678 /* theme-default-black-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A671E50E956003B9678 /* theme-default-black-1.png */; };
+		77454A721E50E956003B9678 /* theme-default-black-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A681E50E956003B9678 /* theme-default-black-2.png */; };
+		77454A731E50E956003B9678 /* theme-default-black-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A691E50E956003B9678 /* theme-default-black-3.png */; };
+		77454A741E50E956003B9678 /* theme-default-black-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6A1E50E956003B9678 /* theme-default-black-4.png */; };
+		77454A751E50E956003B9678 /* theme-default-black-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6B1E50E956003B9678 /* theme-default-black-5.png */; };
+		77454A761E50E956003B9678 /* theme-default-black-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6C1E50E956003B9678 /* theme-default-black-6.png */; };
+		77454A771E50E956003B9678 /* theme-default-black-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6D1E50E956003B9678 /* theme-default-black-7.png */; };
+		77454A781E50E956003B9678 /* theme-default-black-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6E1E50E956003B9678 /* theme-default-black-8.png */; };
+		77454A791E50E956003B9678 /* theme-default-black-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6F1E50E956003B9678 /* theme-default-black-9.png */; };
+		77454A7E1E50E96C003B9678 /* theme-default-character-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A7A1E50E96C003B9678 /* theme-default-character-0.png */; };
+		77454A7F1E50E96C003B9678 /* theme-default-character-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A7B1E50E96C003B9678 /* theme-default-character-1.png */; };
+		77454A801E50E96C003B9678 /* theme-default-character-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A7C1E50E96C003B9678 /* theme-default-character-2.png */; };
+		77454A811E50E96C003B9678 /* theme-default-character-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A7D1E50E96C003B9678 /* theme-default-character-3.png */; };
+		77454A881E50E9A0003B9678 /* theme-default-guide-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A821E50E9A0003B9678 /* theme-default-guide-astro.png */; };
+		77454A891E50E9A0003B9678 /* theme-default-guide-buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A831E50E9A0003B9678 /* theme-default-guide-buy.png */; };
+		77454A8A1E50E9A0003B9678 /* theme-default-guide-center.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A841E50E9A0003B9678 /* theme-default-guide-center.png */; };
+		77454A8B1E50E9A0003B9678 /* theme-default-guide-ground-hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A851E50E9A0003B9678 /* theme-default-guide-ground-hover.png */; };
+		77454A8C1E50E9A0003B9678 /* theme-default-guide-ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A861E50E9A0003B9678 /* theme-default-guide-ground.png */; };
+		77454A8D1E50E9A0003B9678 /* theme-default-guide-stats.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A871E50E9A0003B9678 /* theme-default-guide-stats.png */; };
+		77454A961E50E9B2003B9678 /* theme-default-guide-list-add.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A8E1E50E9B2003B9678 /* theme-default-guide-list-add.png */; };
+		77454A971E50E9B2003B9678 /* theme-default-guide-list-del.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A8F1E50E9B2003B9678 /* theme-default-guide-list-del.png */; };
+		77454A981E50E9B2003B9678 /* theme-default-guide-list-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A901E50E9B2003B9678 /* theme-default-guide-list-off.png */; };
+		77454A991E50E9B2003B9678 /* theme-default-guide-list-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A911E50E9B2003B9678 /* theme-default-guide-list-on.png */; };
+		77454A9A1E50E9B2003B9678 /* theme-default-guide-list-swipe-del.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A921E50E9B2003B9678 /* theme-default-guide-list-swipe-del.png */; };
+		77454A9B1E50E9B2003B9678 /* theme-default-guide-list-swipe-edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A931E50E9B2003B9678 /* theme-default-guide-list-swipe-edit.png */; };
+		77454A9C1E50E9B2003B9678 /* theme-default-guide-list-time-half.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A941E50E9B2003B9678 /* theme-default-guide-list-time-half.png */; };
+		77454A9D1E50E9B2003B9678 /* theme-default-guide-list-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A951E50E9B2003B9678 /* theme-default-guide-list-time.png */; };
+		77454AA31E50E9C7003B9678 /* theme-default-guide-characters-achevements.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A9E1E50E9C7003B9678 /* theme-default-guide-characters-achevements.png */; };
+		77454AA41E50E9C7003B9678 /* theme-default-guide-characters-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A9F1E50E9C7003B9678 /* theme-default-guide-characters-astro.png */; };
+		77454AA51E50E9C7003B9678 /* theme-default-guide-characters-exp.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AA01E50E9C7003B9678 /* theme-default-guide-characters-exp.png */; };
+		77454AA61E50E9C7003B9678 /* theme-default-guide-characters-gamecenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AA11E50E9C7003B9678 /* theme-default-guide-characters-gamecenter.png */; };
+		77454AA71E50E9C7003B9678 /* theme-default-guide-characters-level.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AA21E50E9C7003B9678 /* theme-default-guide-characters-level.png */; };
 		775487D51DEA880900D2DCE5 /* ModalWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775487D41DEA880900D2DCE5 /* ModalWebView.swift */; };
 		77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */; };
 		77561DAF1D5066D0002EB26B /* comp-icons-settings-language-ja.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */; };
 		77561DB01D5066D0002EB26B /* comp-icons-settings-language-ko.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */; };
 		77561DB21D5066DA002EB26B /* comp-icons-settings-language.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DB11D5066DA002EB26B /* comp-icons-settings-language.png */; };
-		77561DC31D50C1BF002EB26B /* skin-default-a-back-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DB31D50C1BF002EB26B /* skin-default-a-back-4s.png */; };
-		77561DC41D50C1BF002EB26B /* skin-default-a-back-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DB41D50C1BF002EB26B /* skin-default-a-back-pad34.png */; };
-		77561DC51D50C1BF002EB26B /* skin-default-a-back-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DB51D50C1BF002EB26B /* skin-default-a-back-pad43.png */; };
-		77561DC61D50C1BF002EB26B /* skin-default-a-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DB61D50C1BF002EB26B /* skin-default-a-back.png */; };
-		77561DC71D50C1BF002EB26B /* skin-default-b-back-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DB71D50C1BF002EB26B /* skin-default-b-back-4s.png */; };
-		77561DC81D50C1BF002EB26B /* skin-default-b-back-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DB81D50C1BF002EB26B /* skin-default-b-back-pad34.png */; };
-		77561DC91D50C1BF002EB26B /* skin-default-b-back-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DB91D50C1BF002EB26B /* skin-default-b-back-pad43.png */; };
-		77561DCA1D50C1BF002EB26B /* skin-default-b-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DBA1D50C1BF002EB26B /* skin-default-b-back.png */; };
-		77561DCB1D50C1BF002EB26B /* skin-default-c-back-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DBB1D50C1BF002EB26B /* skin-default-c-back-4s.png */; };
-		77561DCC1D50C1BF002EB26B /* skin-default-c-back-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DBC1D50C1BF002EB26B /* skin-default-c-back-pad34.png */; };
-		77561DCD1D50C1BF002EB26B /* skin-default-c-back-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DBD1D50C1BF002EB26B /* skin-default-c-back-pad43.png */; };
-		77561DCE1D50C1BF002EB26B /* skin-default-c-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DBE1D50C1BF002EB26B /* skin-default-c-back.png */; };
-		77561DCF1D50C1BF002EB26B /* skin-default-d-back-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DBF1D50C1BF002EB26B /* skin-default-d-back-4s.png */; };
-		77561DD01D50C1BF002EB26B /* skin-default-d-back-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DC01D50C1BF002EB26B /* skin-default-d-back-pad34.png */; };
-		77561DD11D50C1BF002EB26B /* skin-default-d-back-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DC11D50C1BF002EB26B /* skin-default-d-back-pad43.png */; };
-		77561DD21D50C1BF002EB26B /* skin-default-d-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DC21D50C1BF002EB26B /* skin-default-d-back.png */; };
-		77561E301D50C2E1002EB26B /* skin-default-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E231D50C2E1002EB26B /* skin-default-0.png */; };
-		77561E311D50C2E1002EB26B /* skin-default-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E241D50C2E1002EB26B /* skin-default-1.png */; };
-		77561E321D50C2E1002EB26B /* skin-default-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E251D50C2E1002EB26B /* skin-default-2.png */; };
-		77561E331D50C2E1002EB26B /* skin-default-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E261D50C2E1002EB26B /* skin-default-3.png */; };
-		77561E341D50C2E1002EB26B /* skin-default-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E271D50C2E1002EB26B /* skin-default-4.png */; };
-		77561E351D50C2E1002EB26B /* skin-default-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E281D50C2E1002EB26B /* skin-default-5.png */; };
-		77561E361D50C2E1002EB26B /* skin-default-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E291D50C2E1002EB26B /* skin-default-6.png */; };
-		77561E371D50C2E1002EB26B /* skin-default-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E2A1D50C2E1002EB26B /* skin-default-7.png */; };
-		77561E381D50C2E1002EB26B /* skin-default-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E2B1D50C2E1002EB26B /* skin-default-8.png */; };
-		77561E391D50C2E1002EB26B /* skin-default-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E2C1D50C2E1002EB26B /* skin-default-9.png */; };
-		77561E3A1D50C2E1002EB26B /* skin-default-am.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E2D1D50C2E1002EB26B /* skin-default-am.png */; };
-		77561E3B1D50C2E1002EB26B /* skin-default-col.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E2E1D50C2E1002EB26B /* skin-default-col.png */; };
-		77561E3C1D50C2E1002EB26B /* skin-default-pm.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E2F1D50C2E1002EB26B /* skin-default-pm.png */; };
-		77561E471D50C2F2002EB26B /* skin-default-black-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E3D1D50C2F2002EB26B /* skin-default-black-0.png */; };
-		77561E481D50C2F2002EB26B /* skin-default-black-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E3E1D50C2F2002EB26B /* skin-default-black-1.png */; };
-		77561E491D50C2F2002EB26B /* skin-default-black-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E3F1D50C2F2002EB26B /* skin-default-black-2.png */; };
-		77561E4A1D50C2F2002EB26B /* skin-default-black-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E401D50C2F2002EB26B /* skin-default-black-3.png */; };
-		77561E4B1D50C2F2002EB26B /* skin-default-black-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E411D50C2F2002EB26B /* skin-default-black-4.png */; };
-		77561E4C1D50C2F2002EB26B /* skin-default-black-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E421D50C2F2002EB26B /* skin-default-black-5.png */; };
-		77561E4D1D50C2F2002EB26B /* skin-default-black-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E431D50C2F2002EB26B /* skin-default-black-6.png */; };
-		77561E4E1D50C2F2002EB26B /* skin-default-black-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E441D50C2F2002EB26B /* skin-default-black-7.png */; };
-		77561E4F1D50C2F2002EB26B /* skin-default-black-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E451D50C2F2002EB26B /* skin-default-black-8.png */; };
-		77561E501D50C2F2002EB26B /* skin-default-black-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E461D50C2F2002EB26B /* skin-default-black-9.png */; };
-		77561E601D50C354002EB26B /* skin-default-floating-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E511D50C354002EB26B /* skin-default-floating-box.png */; };
-		77561E611D50C354002EB26B /* skin-default-ground-a-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E521D50C354002EB26B /* skin-default-ground-a-pad34.png */; };
-		77561E621D50C354002EB26B /* skin-default-ground-a-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E531D50C354002EB26B /* skin-default-ground-a-pad43.png */; };
-		77561E631D50C354002EB26B /* skin-default-ground-a.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E541D50C354002EB26B /* skin-default-ground-a.png */; };
-		77561E641D50C354002EB26B /* skin-default-ground-b-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E551D50C354002EB26B /* skin-default-ground-b-pad34.png */; };
-		77561E651D50C354002EB26B /* skin-default-ground-b-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E561D50C354002EB26B /* skin-default-ground-b-pad43.png */; };
-		77561E661D50C354002EB26B /* skin-default-ground-b.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E571D50C354002EB26B /* skin-default-ground-b.png */; };
-		77561E671D50C354002EB26B /* skin-default-ground-c-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E581D50C354002EB26B /* skin-default-ground-c-pad34.png */; };
-		77561E681D50C354002EB26B /* skin-default-ground-c-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E591D50C354002EB26B /* skin-default-ground-c-pad43.png */; };
-		77561E691D50C354002EB26B /* skin-default-ground-c.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E5A1D50C354002EB26B /* skin-default-ground-c.png */; };
-		77561E6A1D50C354002EB26B /* skin-default-ground-d-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E5B1D50C354002EB26B /* skin-default-ground-d-pad34.png */; };
-		77561E6B1D50C354002EB26B /* skin-default-ground-d-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E5C1D50C354002EB26B /* skin-default-ground-d-pad43.png */; };
-		77561E6C1D50C354002EB26B /* skin-default-ground-d.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E5D1D50C354002EB26B /* skin-default-ground-d.png */; };
-		77561E6D1D50C354002EB26B /* skin-default-standing-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E5E1D50C354002EB26B /* skin-default-standing-box.png */; };
-		77561E6E1D50C354002EB26B /* skin-default-stat-object.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E5F1D50C354002EB26B /* skin-default-stat-object.png */; };
 		77561E771D50C85D002EB26B /* a-time-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E6F1D50C85D002EB26B /* a-time-off.png */; };
 		77561E781D50C85D002EB26B /* a-time-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E701D50C85D002EB26B /* a-time-on.png */; };
 		77561E791D50C85D002EB26B /* b-time-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E711D50C85D002EB26B /* b-time-off.png */; };
@@ -395,25 +409,11 @@
 		77561E9C1D50C884002EB26B /* c-time-on-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E941D50C884002EB26B /* c-time-on-small.png */; };
 		77561E9D1D50C884002EB26B /* d-time-off-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E951D50C884002EB26B /* d-time-off-small.png */; };
 		77561E9E1D50C884002EB26B /* d-time-on-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E961D50C884002EB26B /* d-time-on-small.png */; };
-		77561EA81D50CAB9002EB26B /* skin-default-object-list-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E9F1D50CAB9002EB26B /* skin-default-object-list-shadow.png */; };
-		77561EA91D50CAB9002EB26B /* skin-default-object-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA01D50CAB9002EB26B /* skin-default-object-list.png */; };
-		77561EAA1D50CAB9002EB26B /* skin-default-object-st-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA11D50CAB9002EB26B /* skin-default-object-st-shadow.png */; };
-		77561EAB1D50CAB9002EB26B /* skin-default-object-st.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA21D50CAB9002EB26B /* skin-default-object-st.png */; };
-		77561EAC1D50CAB9002EB26B /* skin-default-time-body.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA31D50CAB9002EB26B /* skin-default-time-body.png */; };
-		77561EAD1D50CAB9002EB26B /* skin-default-time-ch.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA41D50CAB9002EB26B /* skin-default-time-ch.png */; };
-		77561EAE1D50CAB9002EB26B /* skin-default-time-hh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA51D50CAB9002EB26B /* skin-default-time-hh.png */; };
-		77561EAF1D50CAB9002EB26B /* skin-default-time-mh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA61D50CAB9002EB26B /* skin-default-time-mh.png */; };
-		77561EB01D50CAB9002EB26B /* skin-default-time-sh.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561EA71D50CAB9002EB26B /* skin-default-time-sh.png */; };
 		77561EB21D50E741002EB26B /* ExperimentsTestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77561EB11D50E741002EB26B /* ExperimentsTestInfo.swift */; };
 		775ADBE81C4FC4C700B52552 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775ADBE71C4FC4C700B52552 /* AppDelegate.swift */; };
 		775ADBEA1C4FC4C700B52552 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775ADBE91C4FC4C700B52552 /* ViewController.swift */; };
 		775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBEB1C4FC4C700B52552 /* Main.storyboard */; };
 		775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 775ADBEE1C4FC4C700B52552 /* Assets.xcassets */; };
-		775C60201E46250C00DF5241 /* skin-default-guide-characters-achevements.png in Resources */ = {isa = PBXBuildFile; fileRef = 775C601B1E46250C00DF5241 /* skin-default-guide-characters-achevements.png */; };
-		775C60211E46250C00DF5241 /* skin-default-guide-characters-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 775C601C1E46250C00DF5241 /* skin-default-guide-characters-astro.png */; };
-		775C60221E46250C00DF5241 /* skin-default-guide-characters-exp.png in Resources */ = {isa = PBXBuildFile; fileRef = 775C601D1E46250C00DF5241 /* skin-default-guide-characters-exp.png */; };
-		775C60231E46250C00DF5241 /* skin-default-guide-characters-gamecenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 775C601E1E46250C00DF5241 /* skin-default-guide-characters-gamecenter.png */; };
-		775C60241E46250C00DF5241 /* skin-default-guide-characters-level.png in Resources */ = {isa = PBXBuildFile; fileRef = 775C601F1E46250C00DF5241 /* skin-default-guide-characters-level.png */; };
 		775C60261E4625D300DF5241 /* CharacterOverlayGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775C60251E4625D300DF5241 /* CharacterOverlayGuideView.swift */; };
 		775EAF981D51E2EF00BE8C4A /* game-jumpup-assets-alram-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF861D51E2EF00BE8C4A /* game-jumpup-assets-alram-off.png */; };
 		775EAF991D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EAF871D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png */; };
@@ -687,14 +687,6 @@
 		770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-guide-alarm-0.png"; path = "ImageAssets/GameAssets/JumpUP/guides/game-jumpup-assets-guide-alarm-0.png"; sourceTree = "<group>"; };
 		770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-guide-alarm-1.png"; path = "ImageAssets/GameAssets/JumpUP/guides/game-jumpup-assets-guide-alarm-1.png"; sourceTree = "<group>"; };
 		770B5A5A1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-playplayplay.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-playplayplay.aiff"; sourceTree = "<group>"; };
-		770B5A5D1E4889C300A4941E /* skin-default-guide-list-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-list-add.png"; path = "ImageAssets/Skins/Default/Guides/list/skin-default-guide-list-add.png"; sourceTree = "<group>"; };
-		770B5A5E1E4889C300A4941E /* skin-default-guide-list-del.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-list-del.png"; path = "ImageAssets/Skins/Default/Guides/list/skin-default-guide-list-del.png"; sourceTree = "<group>"; };
-		770B5A5F1E4889C300A4941E /* skin-default-guide-list-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-list-off.png"; path = "ImageAssets/Skins/Default/Guides/list/skin-default-guide-list-off.png"; sourceTree = "<group>"; };
-		770B5A601E4889C300A4941E /* skin-default-guide-list-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-list-on.png"; path = "ImageAssets/Skins/Default/Guides/list/skin-default-guide-list-on.png"; sourceTree = "<group>"; };
-		770B5A611E4889C300A4941E /* skin-default-guide-list-swipe-del.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-list-swipe-del.png"; path = "ImageAssets/Skins/Default/Guides/list/skin-default-guide-list-swipe-del.png"; sourceTree = "<group>"; };
-		770B5A621E4889C300A4941E /* skin-default-guide-list-swipe-edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-list-swipe-edit.png"; path = "ImageAssets/Skins/Default/Guides/list/skin-default-guide-list-swipe-edit.png"; sourceTree = "<group>"; };
-		770B5A631E4889C300A4941E /* skin-default-guide-list-time-half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-list-time-half.png"; path = "ImageAssets/Skins/Default/Guides/list/skin-default-guide-list-time-half.png"; sourceTree = "<group>"; };
-		770B5A641E4889C300A4941E /* skin-default-guide-list-time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-list-time.png"; path = "ImageAssets/Skins/Default/Guides/list/skin-default-guide-list-time.png"; sourceTree = "<group>"; };
 		770B5A6D1E488A8100A4941E /* AlarmListOverlayGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmListOverlayGuideView.swift; path = Views/AlarmListOverlayGuideView.swift; sourceTree = "<group>"; };
 		7714CAB61E4B99F800E447E9 /* modal-buy-heroes-real.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-heroes-real.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-heroes-real.png"; sourceTree = "<group>"; };
 		7714CAB81E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-heroes-full-logo.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-heroes-full-logo.png"; sourceTree = "<group>"; };
@@ -710,12 +702,6 @@
 		7717A7021E43885900076E16 /* UIOverlayGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIOverlayGuideView.swift; path = Views/UIOverlayGuideView.swift; sourceTree = "<group>"; };
 		7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-nyancat.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-nyancat.aiff"; sourceTree = "<group>"; };
 		7717A7061E439D7900076E16 /* comp-guideclose-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-guideclose-icon.png"; path = "ImageAssets/Components/comp-guideclose-icon.png"; sourceTree = "<group>"; };
-		7717A70A1E439DB100076E16 /* skin-default-guide-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-astro.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-astro.png"; sourceTree = "<group>"; };
-		7717A70B1E439DB100076E16 /* skin-default-guide-buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-buy.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-buy.png"; sourceTree = "<group>"; };
-		7717A70C1E439DB100076E16 /* skin-default-guide-center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-center.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-center.png"; sourceTree = "<group>"; };
-		7717A70D1E439DB100076E16 /* skin-default-guide-ground-hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-ground-hover.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-ground-hover.png"; sourceTree = "<group>"; };
-		7717A70E1E439DB100076E16 /* skin-default-guide-ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-ground.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-ground.png"; sourceTree = "<group>"; };
-		7717A70F1E439DB100076E16 /* skin-default-guide-stats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-stats.png"; path = "ImageAssets/Skins/Default/Guides/skin-default-guide-stats.png"; sourceTree = "<group>"; };
 		7717A7161E43A99F00076E16 /* MainOverlayGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainOverlayGuideView.swift; path = Views/MainOverlayGuideView.swift; sourceTree = "<group>"; };
 		771977511E48DAEA0018EE00 /* game-general-start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-general-start.png"; path = "ImageAssets/GameAssets/General/game-general-start.png"; sourceTree = "<group>"; };
 		771977541E48DFBD0018EE00 /* game-gozaup-assets-cheeta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-gozaup-assets-cheeta.png"; path = "ImageAssets/GameAssets/GozaUP/game-gozaup-assets-cheeta.png"; sourceTree = "<group>"; };
@@ -756,10 +742,6 @@
 		771CD1551E478DB600574AD8 /* modal-guide-alarm-images-all-3-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-alarm-images-all-3-general.png"; path = "ImageAssets/Guides/AlarmGuide/modal-guide-alarm-images-all-3-general.png"; sourceTree = "<group>"; };
 		771CD1561E478DB600574AD8 /* modal-guide-alarm-images-all-4-general.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-guide-alarm-images-all-4-general.png"; path = "ImageAssets/Guides/AlarmGuide/modal-guide-alarm-images-all-4-general.png"; sourceTree = "<group>"; };
 		7723940A1E499C1E00C8BC43 /* UIModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIModalView.swift; path = ModalView/Structure/UIModalView.swift; sourceTree = "<group>"; };
-		772BB1871DE8B9590054B3EF /* skin-default-character-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-character-0.png"; path = "ImageAssets/Skins/Default/Character/skin-default-character-0.png"; sourceTree = "<group>"; };
-		772BB1881DE8B9590054B3EF /* skin-default-character-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-character-1.png"; path = "ImageAssets/Skins/Default/Character/skin-default-character-1.png"; sourceTree = "<group>"; };
-		772BB1891DE8B9590054B3EF /* skin-default-character-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-character-2.png"; path = "ImageAssets/Skins/Default/Character/skin-default-character-2.png"; sourceTree = "<group>"; };
-		772BB18A1DE8B9590054B3EF /* skin-default-character-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-character-3.png"; path = "ImageAssets/Skins/Default/Character/skin-default-character-3.png"; sourceTree = "<group>"; };
 		772BB1A51DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-ai-astro-left-move-0.png"; path = "ImageAssets/GameAssets/JumpUP/motions/ai-astro-left-move/game-jumpup-ai-astro-left-move-0.png"; sourceTree = "<group>"; };
 		772BB1A61DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-ai-astro-left-move-1.png"; path = "ImageAssets/GameAssets/JumpUP/motions/ai-astro-left-move/game-jumpup-ai-astro-left-move-1.png"; sourceTree = "<group>"; };
 		772BB1A71DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-ai-astro-left-move-2.png"; path = "ImageAssets/GameAssets/JumpUP/motions/ai-astro-left-move/game-jumpup-ai-astro-left-move-2.png"; sourceTree = "<group>"; };
@@ -815,65 +797,97 @@
 		774549F01E504B1F003B9678 /* themes-select-side-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-up.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-up.png"; sourceTree = "<group>"; };
 		774549F81E506404003B9678 /* themes-select-side-down-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-down-right.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-down-right.png"; sourceTree = "<group>"; };
 		774549F91E506404003B9678 /* themes-select-side-up-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-up-right.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-up-right.png"; sourceTree = "<group>"; };
+		774549FC1E50CDB2003B9678 /* theme-default-object-list-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-list-shadow.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-object-list-shadow.png"; sourceTree = "<group>"; };
+		774549FD1E50CDB2003B9678 /* theme-default-object-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-list.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-object-list.png"; sourceTree = "<group>"; };
+		774549FE1E50CDB2003B9678 /* theme-default-object-settings-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-settings-shadow.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-object-settings-shadow.png"; sourceTree = "<group>"; };
+		774549FF1E50CDB2003B9678 /* theme-default-object-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-settings.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-object-settings.png"; sourceTree = "<group>"; };
+		77454A001E50CDB2003B9678 /* theme-default-time-center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-center.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-time-center.png"; sourceTree = "<group>"; };
+		77454A011E50CDB2003B9678 /* theme-default-time-clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-clock.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-time-clock.png"; sourceTree = "<group>"; };
+		77454A021E50CDB2003B9678 /* theme-default-time-hour.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-hour.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-time-hour.png"; sourceTree = "<group>"; };
+		77454A031E50CDB2003B9678 /* theme-default-time-minute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-minute.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-time-minute.png"; sourceTree = "<group>"; };
+		77454A041E50CDB2003B9678 /* theme-default-time-second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-second.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-time-second.png"; sourceTree = "<group>"; };
+		77454A0E1E50D646003B9678 /* theme-default-back-daytime-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-daytime-4s.png"; sourceTree = "<group>"; };
+		77454A0F1E50D646003B9678 /* theme-default-back-daytime-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-daytime-pad34.png"; sourceTree = "<group>"; };
+		77454A101E50D646003B9678 /* theme-default-back-daytime-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-daytime-pad43.png"; sourceTree = "<group>"; };
+		77454A111E50D646003B9678 /* theme-default-back-daytime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-daytime.png"; sourceTree = "<group>"; };
+		77454A121E50D646003B9678 /* theme-default-back-morning-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-morning-4s.png"; sourceTree = "<group>"; };
+		77454A131E50D646003B9678 /* theme-default-back-morning-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-morning-pad34.png"; sourceTree = "<group>"; };
+		77454A141E50D646003B9678 /* theme-default-back-morning-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-morning-pad43.png"; sourceTree = "<group>"; };
+		77454A151E50D646003B9678 /* theme-default-back-morning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-morning.png"; sourceTree = "<group>"; };
+		77454A161E50D646003B9678 /* theme-default-back-night-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-night-4s.png"; sourceTree = "<group>"; };
+		77454A171E50D646003B9678 /* theme-default-back-night-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-night-pad34.png"; sourceTree = "<group>"; };
+		77454A181E50D646003B9678 /* theme-default-back-night-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-night-pad43.png"; sourceTree = "<group>"; };
+		77454A191E50D646003B9678 /* theme-default-back-night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-night.png"; sourceTree = "<group>"; };
+		77454A1A1E50D646003B9678 /* theme-default-back-sunset-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-sunset-4s.png"; sourceTree = "<group>"; };
+		77454A1B1E50D646003B9678 /* theme-default-back-sunset-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-sunset-pad34.png"; sourceTree = "<group>"; };
+		77454A1C1E50D646003B9678 /* theme-default-back-sunset-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-sunset-pad43.png"; sourceTree = "<group>"; };
+		77454A1D1E50D646003B9678 /* theme-default-back-sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-sunset.png"; sourceTree = "<group>"; };
+		77454A2E1E50D93D003B9678 /* theme-default-ground-daytime-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-daytime-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-daytime-pad34.png"; sourceTree = "<group>"; };
+		77454A2F1E50D93D003B9678 /* theme-default-ground-daytime-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-daytime-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-daytime-pad43.png"; sourceTree = "<group>"; };
+		77454A301E50D93D003B9678 /* theme-default-ground-daytime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-daytime.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-daytime.png"; sourceTree = "<group>"; };
+		77454A311E50D93D003B9678 /* theme-default-ground-morning-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-morning-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-morning-pad34.png"; sourceTree = "<group>"; };
+		77454A321E50D93D003B9678 /* theme-default-ground-morning-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-morning-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-morning-pad43.png"; sourceTree = "<group>"; };
+		77454A331E50D93D003B9678 /* theme-default-ground-morning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-morning.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-morning.png"; sourceTree = "<group>"; };
+		77454A341E50D93D003B9678 /* theme-default-ground-night-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-night-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-night-pad34.png"; sourceTree = "<group>"; };
+		77454A351E50D93D003B9678 /* theme-default-ground-night-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-night-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-night-pad43.png"; sourceTree = "<group>"; };
+		77454A361E50D93D003B9678 /* theme-default-ground-night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-night.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-night.png"; sourceTree = "<group>"; };
+		77454A371E50D93D003B9678 /* theme-default-ground-sunset-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-sunset-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-sunset-pad34.png"; sourceTree = "<group>"; };
+		77454A381E50D93D003B9678 /* theme-default-ground-sunset-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-sunset-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-sunset-pad43.png"; sourceTree = "<group>"; };
+		77454A391E50D93D003B9678 /* theme-default-ground-sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-sunset.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-sunset.png"; sourceTree = "<group>"; };
+		77454A3A1E50D93D003B9678 /* theme-default-object-floating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-floating.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-object-floating.png"; sourceTree = "<group>"; };
+		77454A3B1E50D93D003B9678 /* theme-default-object-standing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-standing.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-object-standing.png"; sourceTree = "<group>"; };
+		77454A3C1E50D93D003B9678 /* theme-default-object-statistics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-statistics.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-object-statistics.png"; sourceTree = "<group>"; };
+		77454A4C1E50E946003B9678 /* theme-default-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-0.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-0.png"; sourceTree = "<group>"; };
+		77454A4D1E50E946003B9678 /* theme-default-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-1.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-1.png"; sourceTree = "<group>"; };
+		77454A4E1E50E946003B9678 /* theme-default-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-2.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-2.png"; sourceTree = "<group>"; };
+		77454A4F1E50E946003B9678 /* theme-default-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-3.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-3.png"; sourceTree = "<group>"; };
+		77454A501E50E946003B9678 /* theme-default-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-4.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-4.png"; sourceTree = "<group>"; };
+		77454A511E50E946003B9678 /* theme-default-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-5.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-5.png"; sourceTree = "<group>"; };
+		77454A521E50E946003B9678 /* theme-default-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-6.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-6.png"; sourceTree = "<group>"; };
+		77454A531E50E946003B9678 /* theme-default-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-7.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-7.png"; sourceTree = "<group>"; };
+		77454A541E50E946003B9678 /* theme-default-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-8.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-8.png"; sourceTree = "<group>"; };
+		77454A551E50E946003B9678 /* theme-default-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-9.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-9.png"; sourceTree = "<group>"; };
+		77454A561E50E946003B9678 /* theme-default-am.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-am.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-am.png"; sourceTree = "<group>"; };
+		77454A571E50E946003B9678 /* theme-default-col.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-col.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-col.png"; sourceTree = "<group>"; };
+		77454A581E50E946003B9678 /* theme-default-pm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-pm.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-pm.png"; sourceTree = "<group>"; };
+		77454A661E50E956003B9678 /* theme-default-black-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-0.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-0.png"; sourceTree = "<group>"; };
+		77454A671E50E956003B9678 /* theme-default-black-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-1.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-1.png"; sourceTree = "<group>"; };
+		77454A681E50E956003B9678 /* theme-default-black-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-2.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-2.png"; sourceTree = "<group>"; };
+		77454A691E50E956003B9678 /* theme-default-black-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-3.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-3.png"; sourceTree = "<group>"; };
+		77454A6A1E50E956003B9678 /* theme-default-black-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-4.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-4.png"; sourceTree = "<group>"; };
+		77454A6B1E50E956003B9678 /* theme-default-black-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-5.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-5.png"; sourceTree = "<group>"; };
+		77454A6C1E50E956003B9678 /* theme-default-black-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-6.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-6.png"; sourceTree = "<group>"; };
+		77454A6D1E50E956003B9678 /* theme-default-black-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-7.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-7.png"; sourceTree = "<group>"; };
+		77454A6E1E50E956003B9678 /* theme-default-black-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-8.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-8.png"; sourceTree = "<group>"; };
+		77454A6F1E50E956003B9678 /* theme-default-black-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-9.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-9.png"; sourceTree = "<group>"; };
+		77454A7A1E50E96C003B9678 /* theme-default-character-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-0.png"; path = "ImageAssets/Skins/Default/Character/theme-default-character-0.png"; sourceTree = "<group>"; };
+		77454A7B1E50E96C003B9678 /* theme-default-character-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-1.png"; path = "ImageAssets/Skins/Default/Character/theme-default-character-1.png"; sourceTree = "<group>"; };
+		77454A7C1E50E96C003B9678 /* theme-default-character-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-2.png"; path = "ImageAssets/Skins/Default/Character/theme-default-character-2.png"; sourceTree = "<group>"; };
+		77454A7D1E50E96C003B9678 /* theme-default-character-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-3.png"; path = "ImageAssets/Skins/Default/Character/theme-default-character-3.png"; sourceTree = "<group>"; };
+		77454A821E50E9A0003B9678 /* theme-default-guide-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-astro.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-astro.png"; sourceTree = "<group>"; };
+		77454A831E50E9A0003B9678 /* theme-default-guide-buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-buy.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-buy.png"; sourceTree = "<group>"; };
+		77454A841E50E9A0003B9678 /* theme-default-guide-center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-center.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-center.png"; sourceTree = "<group>"; };
+		77454A851E50E9A0003B9678 /* theme-default-guide-ground-hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-ground-hover.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-ground-hover.png"; sourceTree = "<group>"; };
+		77454A861E50E9A0003B9678 /* theme-default-guide-ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-ground.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-ground.png"; sourceTree = "<group>"; };
+		77454A871E50E9A0003B9678 /* theme-default-guide-stats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-stats.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-stats.png"; sourceTree = "<group>"; };
+		77454A8E1E50E9B2003B9678 /* theme-default-guide-list-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-add.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-add.png"; sourceTree = "<group>"; };
+		77454A8F1E50E9B2003B9678 /* theme-default-guide-list-del.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-del.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-del.png"; sourceTree = "<group>"; };
+		77454A901E50E9B2003B9678 /* theme-default-guide-list-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-off.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-off.png"; sourceTree = "<group>"; };
+		77454A911E50E9B2003B9678 /* theme-default-guide-list-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-on.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-on.png"; sourceTree = "<group>"; };
+		77454A921E50E9B2003B9678 /* theme-default-guide-list-swipe-del.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-swipe-del.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-swipe-del.png"; sourceTree = "<group>"; };
+		77454A931E50E9B2003B9678 /* theme-default-guide-list-swipe-edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-swipe-edit.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-swipe-edit.png"; sourceTree = "<group>"; };
+		77454A941E50E9B2003B9678 /* theme-default-guide-list-time-half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-time-half.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-time-half.png"; sourceTree = "<group>"; };
+		77454A951E50E9B2003B9678 /* theme-default-guide-list-time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-time.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-time.png"; sourceTree = "<group>"; };
+		77454A9E1E50E9C7003B9678 /* theme-default-guide-characters-achevements.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-achevements.png"; path = "ImageAssets/Skins/Default/Guides/characters/theme-default-guide-characters-achevements.png"; sourceTree = "<group>"; };
+		77454A9F1E50E9C7003B9678 /* theme-default-guide-characters-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-astro.png"; path = "ImageAssets/Skins/Default/Guides/characters/theme-default-guide-characters-astro.png"; sourceTree = "<group>"; };
+		77454AA01E50E9C7003B9678 /* theme-default-guide-characters-exp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-exp.png"; path = "ImageAssets/Skins/Default/Guides/characters/theme-default-guide-characters-exp.png"; sourceTree = "<group>"; };
+		77454AA11E50E9C7003B9678 /* theme-default-guide-characters-gamecenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-gamecenter.png"; path = "ImageAssets/Skins/Default/Guides/characters/theme-default-guide-characters-gamecenter.png"; sourceTree = "<group>"; };
+		77454AA21E50E9C7003B9678 /* theme-default-guide-characters-level.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-level.png"; path = "ImageAssets/Skins/Default/Guides/characters/theme-default-guide-characters-level.png"; sourceTree = "<group>"; };
 		775487D41DEA880900D2DCE5 /* ModalWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalWebView.swift; path = ModalView/ModalWebView.swift; sourceTree = "<group>"; };
 		77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-en.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-en.png"; sourceTree = "<group>"; };
 		77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ja.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ja.png"; sourceTree = "<group>"; };
 		77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ko.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ko.png"; sourceTree = "<group>"; };
 		77561DB11D5066DA002EB26B /* comp-icons-settings-language.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language.png"; sourceTree = "<group>"; };
-		77561DB31D50C1BF002EB26B /* skin-default-a-back-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-a-back-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-a-back-4s.png"; sourceTree = "<group>"; };
-		77561DB41D50C1BF002EB26B /* skin-default-a-back-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-a-back-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-a-back-pad34.png"; sourceTree = "<group>"; };
-		77561DB51D50C1BF002EB26B /* skin-default-a-back-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-a-back-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-a-back-pad43.png"; sourceTree = "<group>"; };
-		77561DB61D50C1BF002EB26B /* skin-default-a-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-a-back.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-a-back.png"; sourceTree = "<group>"; };
-		77561DB71D50C1BF002EB26B /* skin-default-b-back-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-b-back-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-b-back-4s.png"; sourceTree = "<group>"; };
-		77561DB81D50C1BF002EB26B /* skin-default-b-back-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-b-back-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-b-back-pad34.png"; sourceTree = "<group>"; };
-		77561DB91D50C1BF002EB26B /* skin-default-b-back-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-b-back-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-b-back-pad43.png"; sourceTree = "<group>"; };
-		77561DBA1D50C1BF002EB26B /* skin-default-b-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-b-back.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-b-back.png"; sourceTree = "<group>"; };
-		77561DBB1D50C1BF002EB26B /* skin-default-c-back-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-c-back-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-c-back-4s.png"; sourceTree = "<group>"; };
-		77561DBC1D50C1BF002EB26B /* skin-default-c-back-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-c-back-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-c-back-pad34.png"; sourceTree = "<group>"; };
-		77561DBD1D50C1BF002EB26B /* skin-default-c-back-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-c-back-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-c-back-pad43.png"; sourceTree = "<group>"; };
-		77561DBE1D50C1BF002EB26B /* skin-default-c-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-c-back.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-c-back.png"; sourceTree = "<group>"; };
-		77561DBF1D50C1BF002EB26B /* skin-default-d-back-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-d-back-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-d-back-4s.png"; sourceTree = "<group>"; };
-		77561DC01D50C1BF002EB26B /* skin-default-d-back-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-d-back-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-d-back-pad34.png"; sourceTree = "<group>"; };
-		77561DC11D50C1BF002EB26B /* skin-default-d-back-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-d-back-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-d-back-pad43.png"; sourceTree = "<group>"; };
-		77561DC21D50C1BF002EB26B /* skin-default-d-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-d-back.png"; path = "ImageAssets/Skins/Default/Backgrounds/skin-default-d-back.png"; sourceTree = "<group>"; };
-		77561E231D50C2E1002EB26B /* skin-default-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-0.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-0.png"; sourceTree = "<group>"; };
-		77561E241D50C2E1002EB26B /* skin-default-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-1.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-1.png"; sourceTree = "<group>"; };
-		77561E251D50C2E1002EB26B /* skin-default-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-2.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-2.png"; sourceTree = "<group>"; };
-		77561E261D50C2E1002EB26B /* skin-default-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-3.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-3.png"; sourceTree = "<group>"; };
-		77561E271D50C2E1002EB26B /* skin-default-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-4.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-4.png"; sourceTree = "<group>"; };
-		77561E281D50C2E1002EB26B /* skin-default-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-5.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-5.png"; sourceTree = "<group>"; };
-		77561E291D50C2E1002EB26B /* skin-default-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-6.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-6.png"; sourceTree = "<group>"; };
-		77561E2A1D50C2E1002EB26B /* skin-default-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-7.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-7.png"; sourceTree = "<group>"; };
-		77561E2B1D50C2E1002EB26B /* skin-default-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-8.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-8.png"; sourceTree = "<group>"; };
-		77561E2C1D50C2E1002EB26B /* skin-default-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-9.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-9.png"; sourceTree = "<group>"; };
-		77561E2D1D50C2E1002EB26B /* skin-default-am.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-am.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-am.png"; sourceTree = "<group>"; };
-		77561E2E1D50C2E1002EB26B /* skin-default-col.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-col.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-col.png"; sourceTree = "<group>"; };
-		77561E2F1D50C2E1002EB26B /* skin-default-pm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-pm.png"; path = "ImageAssets/Skins/Default/DigitalClock/skin-default-pm.png"; sourceTree = "<group>"; };
-		77561E3D1D50C2F2002EB26B /* skin-default-black-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-black-0.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/skin-default-black-0.png"; sourceTree = "<group>"; };
-		77561E3E1D50C2F2002EB26B /* skin-default-black-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-black-1.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/skin-default-black-1.png"; sourceTree = "<group>"; };
-		77561E3F1D50C2F2002EB26B /* skin-default-black-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-black-2.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/skin-default-black-2.png"; sourceTree = "<group>"; };
-		77561E401D50C2F2002EB26B /* skin-default-black-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-black-3.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/skin-default-black-3.png"; sourceTree = "<group>"; };
-		77561E411D50C2F2002EB26B /* skin-default-black-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-black-4.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/skin-default-black-4.png"; sourceTree = "<group>"; };
-		77561E421D50C2F2002EB26B /* skin-default-black-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-black-5.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/skin-default-black-5.png"; sourceTree = "<group>"; };
-		77561E431D50C2F2002EB26B /* skin-default-black-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-black-6.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/skin-default-black-6.png"; sourceTree = "<group>"; };
-		77561E441D50C2F2002EB26B /* skin-default-black-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-black-7.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/skin-default-black-7.png"; sourceTree = "<group>"; };
-		77561E451D50C2F2002EB26B /* skin-default-black-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-black-8.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/skin-default-black-8.png"; sourceTree = "<group>"; };
-		77561E461D50C2F2002EB26B /* skin-default-black-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-black-9.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/skin-default-black-9.png"; sourceTree = "<group>"; };
-		77561E511D50C354002EB26B /* skin-default-floating-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-floating-box.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-floating-box.png"; sourceTree = "<group>"; };
-		77561E521D50C354002EB26B /* skin-default-ground-a-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-a-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-a-pad34.png"; sourceTree = "<group>"; };
-		77561E531D50C354002EB26B /* skin-default-ground-a-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-a-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-a-pad43.png"; sourceTree = "<group>"; };
-		77561E541D50C354002EB26B /* skin-default-ground-a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-a.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-a.png"; sourceTree = "<group>"; };
-		77561E551D50C354002EB26B /* skin-default-ground-b-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-b-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-b-pad34.png"; sourceTree = "<group>"; };
-		77561E561D50C354002EB26B /* skin-default-ground-b-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-b-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-b-pad43.png"; sourceTree = "<group>"; };
-		77561E571D50C354002EB26B /* skin-default-ground-b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-b.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-b.png"; sourceTree = "<group>"; };
-		77561E581D50C354002EB26B /* skin-default-ground-c-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-c-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-c-pad34.png"; sourceTree = "<group>"; };
-		77561E591D50C354002EB26B /* skin-default-ground-c-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-c-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-c-pad43.png"; sourceTree = "<group>"; };
-		77561E5A1D50C354002EB26B /* skin-default-ground-c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-c.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-c.png"; sourceTree = "<group>"; };
-		77561E5B1D50C354002EB26B /* skin-default-ground-d-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-d-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-d-pad34.png"; sourceTree = "<group>"; };
-		77561E5C1D50C354002EB26B /* skin-default-ground-d-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-d-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-d-pad43.png"; sourceTree = "<group>"; };
-		77561E5D1D50C354002EB26B /* skin-default-ground-d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-ground-d.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-ground-d.png"; sourceTree = "<group>"; };
-		77561E5E1D50C354002EB26B /* skin-default-standing-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-standing-box.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-standing-box.png"; sourceTree = "<group>"; };
-		77561E5F1D50C354002EB26B /* skin-default-stat-object.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-stat-object.png"; path = "ImageAssets/Skins/Default/GroundAssets/skin-default-stat-object.png"; sourceTree = "<group>"; };
 		77561E6F1D50C85D002EB26B /* a-time-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a-time-off.png"; path = "ImageAssets/TimeListAssets/a-time-off.png"; sourceTree = "<group>"; };
 		77561E701D50C85D002EB26B /* a-time-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a-time-on.png"; path = "ImageAssets/TimeListAssets/a-time-on.png"; sourceTree = "<group>"; };
 		77561E711D50C85D002EB26B /* b-time-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "b-time-off.png"; path = "ImageAssets/TimeListAssets/b-time-off.png"; sourceTree = "<group>"; };
@@ -898,15 +912,6 @@
 		77561E941D50C884002EB26B /* c-time-on-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "c-time-on-small.png"; path = "ImageAssets/TimeListAssets/LQ/c-time-on-small.png"; sourceTree = "<group>"; };
 		77561E951D50C884002EB26B /* d-time-off-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "d-time-off-small.png"; path = "ImageAssets/TimeListAssets/LQ/d-time-off-small.png"; sourceTree = "<group>"; };
 		77561E961D50C884002EB26B /* d-time-on-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "d-time-on-small.png"; path = "ImageAssets/TimeListAssets/LQ/d-time-on-small.png"; sourceTree = "<group>"; };
-		77561E9F1D50CAB9002EB26B /* skin-default-object-list-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-object-list-shadow.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-object-list-shadow.png"; sourceTree = "<group>"; };
-		77561EA01D50CAB9002EB26B /* skin-default-object-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-object-list.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-object-list.png"; sourceTree = "<group>"; };
-		77561EA11D50CAB9002EB26B /* skin-default-object-st-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-object-st-shadow.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-object-st-shadow.png"; sourceTree = "<group>"; };
-		77561EA21D50CAB9002EB26B /* skin-default-object-st.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-object-st.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-object-st.png"; sourceTree = "<group>"; };
-		77561EA31D50CAB9002EB26B /* skin-default-time-body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-time-body.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-time-body.png"; sourceTree = "<group>"; };
-		77561EA41D50CAB9002EB26B /* skin-default-time-ch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-time-ch.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-time-ch.png"; sourceTree = "<group>"; };
-		77561EA51D50CAB9002EB26B /* skin-default-time-hh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-time-hh.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-time-hh.png"; sourceTree = "<group>"; };
-		77561EA61D50CAB9002EB26B /* skin-default-time-mh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-time-mh.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-time-mh.png"; sourceTree = "<group>"; };
-		77561EA71D50CAB9002EB26B /* skin-default-time-sh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-time-sh.png"; path = "ImageAssets/Skins/Default/AnalogClock/skin-default-time-sh.png"; sourceTree = "<group>"; };
 		77561EB11D50E741002EB26B /* ExperimentsTestInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExperimentsTestInfo.swift; path = ModalView/ExperimentsTestInfo.swift; sourceTree = "<group>"; };
 		775ADBE41C4FC4C700B52552 /* UP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		775ADBE71C4FC4C700B52552 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -915,11 +920,6 @@
 		775ADBEE1C4FC4C700B52552 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		775ADBF31C4FC4C700B52552 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		775ADBF91C4FC78100B52552 /* UP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = UP.entitlements; sourceTree = "<group>"; };
-		775C601B1E46250C00DF5241 /* skin-default-guide-characters-achevements.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-characters-achevements.png"; path = "ImageAssets/Skins/Default/Guides/characters/skin-default-guide-characters-achevements.png"; sourceTree = "<group>"; };
-		775C601C1E46250C00DF5241 /* skin-default-guide-characters-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-characters-astro.png"; path = "ImageAssets/Skins/Default/Guides/characters/skin-default-guide-characters-astro.png"; sourceTree = "<group>"; };
-		775C601D1E46250C00DF5241 /* skin-default-guide-characters-exp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-characters-exp.png"; path = "ImageAssets/Skins/Default/Guides/characters/skin-default-guide-characters-exp.png"; sourceTree = "<group>"; };
-		775C601E1E46250C00DF5241 /* skin-default-guide-characters-gamecenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-characters-gamecenter.png"; path = "ImageAssets/Skins/Default/Guides/characters/skin-default-guide-characters-gamecenter.png"; sourceTree = "<group>"; };
-		775C601F1E46250C00DF5241 /* skin-default-guide-characters-level.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "skin-default-guide-characters-level.png"; path = "ImageAssets/Skins/Default/Guides/characters/skin-default-guide-characters-level.png"; sourceTree = "<group>"; };
 		775C60251E4625D300DF5241 /* CharacterOverlayGuideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterOverlayGuideView.swift; path = Views/CharacterOverlayGuideView.swift; sourceTree = "<group>"; };
 		775EAF861D51E2EF00BE8C4A /* game-jumpup-assets-alram-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-alram-off.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-alram-off.png"; sourceTree = "<group>"; };
 		775EAF871D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-alram-reset.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-alram-reset.png"; sourceTree = "<group>"; };
@@ -1091,16 +1091,16 @@
 		032318D11CFA911C0052732F /* Black */ = {
 			isa = PBXGroup;
 			children = (
-				77561E3D1D50C2F2002EB26B /* skin-default-black-0.png */,
-				77561E3E1D50C2F2002EB26B /* skin-default-black-1.png */,
-				77561E3F1D50C2F2002EB26B /* skin-default-black-2.png */,
-				77561E401D50C2F2002EB26B /* skin-default-black-3.png */,
-				77561E411D50C2F2002EB26B /* skin-default-black-4.png */,
-				77561E421D50C2F2002EB26B /* skin-default-black-5.png */,
-				77561E431D50C2F2002EB26B /* skin-default-black-6.png */,
-				77561E441D50C2F2002EB26B /* skin-default-black-7.png */,
-				77561E451D50C2F2002EB26B /* skin-default-black-8.png */,
-				77561E461D50C2F2002EB26B /* skin-default-black-9.png */,
+				77454A661E50E956003B9678 /* theme-default-black-0.png */,
+				77454A671E50E956003B9678 /* theme-default-black-1.png */,
+				77454A681E50E956003B9678 /* theme-default-black-2.png */,
+				77454A691E50E956003B9678 /* theme-default-black-3.png */,
+				77454A6A1E50E956003B9678 /* theme-default-black-4.png */,
+				77454A6B1E50E956003B9678 /* theme-default-black-5.png */,
+				77454A6C1E50E956003B9678 /* theme-default-black-6.png */,
+				77454A6D1E50E956003B9678 /* theme-default-black-7.png */,
+				77454A6E1E50E956003B9678 /* theme-default-black-8.png */,
+				77454A6F1E50E956003B9678 /* theme-default-black-9.png */,
 			);
 			name = Black;
 			sourceTree = "<group>";
@@ -1436,14 +1436,14 @@
 		770B5A5C1E4889B600A4941E /* List */ = {
 			isa = PBXGroup;
 			children = (
-				770B5A5D1E4889C300A4941E /* skin-default-guide-list-add.png */,
-				770B5A5E1E4889C300A4941E /* skin-default-guide-list-del.png */,
-				770B5A5F1E4889C300A4941E /* skin-default-guide-list-off.png */,
-				770B5A601E4889C300A4941E /* skin-default-guide-list-on.png */,
-				770B5A611E4889C300A4941E /* skin-default-guide-list-swipe-del.png */,
-				770B5A621E4889C300A4941E /* skin-default-guide-list-swipe-edit.png */,
-				770B5A631E4889C300A4941E /* skin-default-guide-list-time-half.png */,
-				770B5A641E4889C300A4941E /* skin-default-guide-list-time.png */,
+				77454A8E1E50E9B2003B9678 /* theme-default-guide-list-add.png */,
+				77454A8F1E50E9B2003B9678 /* theme-default-guide-list-del.png */,
+				77454A901E50E9B2003B9678 /* theme-default-guide-list-off.png */,
+				77454A911E50E9B2003B9678 /* theme-default-guide-list-on.png */,
+				77454A921E50E9B2003B9678 /* theme-default-guide-list-swipe-del.png */,
+				77454A931E50E9B2003B9678 /* theme-default-guide-list-swipe-edit.png */,
+				77454A941E50E9B2003B9678 /* theme-default-guide-list-time-half.png */,
+				77454A951E50E9B2003B9678 /* theme-default-guide-list-time.png */,
 			);
 			name = List;
 			sourceTree = "<group>";
@@ -1904,11 +1904,11 @@
 		775C60191E4624FA00DF5241 /* Characters */ = {
 			isa = PBXGroup;
 			children = (
-				775C601B1E46250C00DF5241 /* skin-default-guide-characters-achevements.png */,
-				775C601C1E46250C00DF5241 /* skin-default-guide-characters-astro.png */,
-				775C601D1E46250C00DF5241 /* skin-default-guide-characters-exp.png */,
-				775C601E1E46250C00DF5241 /* skin-default-guide-characters-gamecenter.png */,
-				775C601F1E46250C00DF5241 /* skin-default-guide-characters-level.png */,
+				77454A9E1E50E9C7003B9678 /* theme-default-guide-characters-achevements.png */,
+				77454A9F1E50E9C7003B9678 /* theme-default-guide-characters-astro.png */,
+				77454AA01E50E9C7003B9678 /* theme-default-guide-characters-exp.png */,
+				77454AA11E50E9C7003B9678 /* theme-default-guide-characters-gamecenter.png */,
+				77454AA21E50E9C7003B9678 /* theme-default-guide-characters-level.png */,
 			);
 			name = Characters;
 			sourceTree = "<group>";
@@ -1916,12 +1916,12 @@
 		775C601A1E4624FF00DF5241 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				7717A70A1E439DB100076E16 /* skin-default-guide-astro.png */,
-				7717A70B1E439DB100076E16 /* skin-default-guide-buy.png */,
-				7717A70C1E439DB100076E16 /* skin-default-guide-center.png */,
-				7717A70D1E439DB100076E16 /* skin-default-guide-ground-hover.png */,
-				7717A70E1E439DB100076E16 /* skin-default-guide-ground.png */,
-				7717A70F1E439DB100076E16 /* skin-default-guide-stats.png */,
+				77454A821E50E9A0003B9678 /* theme-default-guide-astro.png */,
+				77454A831E50E9A0003B9678 /* theme-default-guide-buy.png */,
+				77454A841E50E9A0003B9678 /* theme-default-guide-center.png */,
+				77454A851E50E9A0003B9678 /* theme-default-guide-ground-hover.png */,
+				77454A861E50E9A0003B9678 /* theme-default-guide-ground.png */,
+				77454A871E50E9A0003B9678 /* theme-default-guide-stats.png */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -1982,22 +1982,22 @@
 		77AC4FBA1CABE5B30044F5C8 /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				77561DB31D50C1BF002EB26B /* skin-default-a-back-4s.png */,
-				77561DB41D50C1BF002EB26B /* skin-default-a-back-pad34.png */,
-				77561DB51D50C1BF002EB26B /* skin-default-a-back-pad43.png */,
-				77561DB61D50C1BF002EB26B /* skin-default-a-back.png */,
-				77561DB71D50C1BF002EB26B /* skin-default-b-back-4s.png */,
-				77561DB81D50C1BF002EB26B /* skin-default-b-back-pad34.png */,
-				77561DB91D50C1BF002EB26B /* skin-default-b-back-pad43.png */,
-				77561DBA1D50C1BF002EB26B /* skin-default-b-back.png */,
-				77561DBB1D50C1BF002EB26B /* skin-default-c-back-4s.png */,
-				77561DBC1D50C1BF002EB26B /* skin-default-c-back-pad34.png */,
-				77561DBD1D50C1BF002EB26B /* skin-default-c-back-pad43.png */,
-				77561DBE1D50C1BF002EB26B /* skin-default-c-back.png */,
-				77561DBF1D50C1BF002EB26B /* skin-default-d-back-4s.png */,
-				77561DC01D50C1BF002EB26B /* skin-default-d-back-pad34.png */,
-				77561DC11D50C1BF002EB26B /* skin-default-d-back-pad43.png */,
-				77561DC21D50C1BF002EB26B /* skin-default-d-back.png */,
+				77454A0E1E50D646003B9678 /* theme-default-back-daytime-4s.png */,
+				77454A0F1E50D646003B9678 /* theme-default-back-daytime-pad34.png */,
+				77454A101E50D646003B9678 /* theme-default-back-daytime-pad43.png */,
+				77454A111E50D646003B9678 /* theme-default-back-daytime.png */,
+				77454A121E50D646003B9678 /* theme-default-back-morning-4s.png */,
+				77454A131E50D646003B9678 /* theme-default-back-morning-pad34.png */,
+				77454A141E50D646003B9678 /* theme-default-back-morning-pad43.png */,
+				77454A151E50D646003B9678 /* theme-default-back-morning.png */,
+				77454A161E50D646003B9678 /* theme-default-back-night-4s.png */,
+				77454A171E50D646003B9678 /* theme-default-back-night-pad34.png */,
+				77454A181E50D646003B9678 /* theme-default-back-night-pad43.png */,
+				77454A191E50D646003B9678 /* theme-default-back-night.png */,
+				77454A1A1E50D646003B9678 /* theme-default-back-sunset-4s.png */,
+				77454A1B1E50D646003B9678 /* theme-default-back-sunset-pad34.png */,
+				77454A1C1E50D646003B9678 /* theme-default-back-sunset-pad43.png */,
+				77454A1D1E50D646003B9678 /* theme-default-back-sunset.png */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -2034,10 +2034,10 @@
 		77C54D681C9EC01200013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				772BB1871DE8B9590054B3EF /* skin-default-character-0.png */,
-				772BB1881DE8B9590054B3EF /* skin-default-character-1.png */,
-				772BB1891DE8B9590054B3EF /* skin-default-character-2.png */,
-				772BB18A1DE8B9590054B3EF /* skin-default-character-3.png */,
+				77454A7A1E50E96C003B9678 /* theme-default-character-0.png */,
+				77454A7B1E50E96C003B9678 /* theme-default-character-1.png */,
+				77454A7C1E50E96C003B9678 /* theme-default-character-2.png */,
+				77454A7D1E50E96C003B9678 /* theme-default-character-3.png */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -2069,21 +2069,21 @@
 		77C54E541C9EC05900013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				77561E511D50C354002EB26B /* skin-default-floating-box.png */,
-				77561E521D50C354002EB26B /* skin-default-ground-a-pad34.png */,
-				77561E531D50C354002EB26B /* skin-default-ground-a-pad43.png */,
-				77561E541D50C354002EB26B /* skin-default-ground-a.png */,
-				77561E551D50C354002EB26B /* skin-default-ground-b-pad34.png */,
-				77561E561D50C354002EB26B /* skin-default-ground-b-pad43.png */,
-				77561E571D50C354002EB26B /* skin-default-ground-b.png */,
-				77561E581D50C354002EB26B /* skin-default-ground-c-pad34.png */,
-				77561E591D50C354002EB26B /* skin-default-ground-c-pad43.png */,
-				77561E5A1D50C354002EB26B /* skin-default-ground-c.png */,
-				77561E5B1D50C354002EB26B /* skin-default-ground-d-pad34.png */,
-				77561E5C1D50C354002EB26B /* skin-default-ground-d-pad43.png */,
-				77561E5D1D50C354002EB26B /* skin-default-ground-d.png */,
-				77561E5E1D50C354002EB26B /* skin-default-standing-box.png */,
-				77561E5F1D50C354002EB26B /* skin-default-stat-object.png */,
+				77454A2E1E50D93D003B9678 /* theme-default-ground-daytime-pad34.png */,
+				77454A2F1E50D93D003B9678 /* theme-default-ground-daytime-pad43.png */,
+				77454A301E50D93D003B9678 /* theme-default-ground-daytime.png */,
+				77454A311E50D93D003B9678 /* theme-default-ground-morning-pad34.png */,
+				77454A321E50D93D003B9678 /* theme-default-ground-morning-pad43.png */,
+				77454A331E50D93D003B9678 /* theme-default-ground-morning.png */,
+				77454A341E50D93D003B9678 /* theme-default-ground-night-pad34.png */,
+				77454A351E50D93D003B9678 /* theme-default-ground-night-pad43.png */,
+				77454A361E50D93D003B9678 /* theme-default-ground-night.png */,
+				77454A371E50D93D003B9678 /* theme-default-ground-sunset-pad34.png */,
+				77454A381E50D93D003B9678 /* theme-default-ground-sunset-pad43.png */,
+				77454A391E50D93D003B9678 /* theme-default-ground-sunset.png */,
+				77454A3A1E50D93D003B9678 /* theme-default-object-floating.png */,
+				77454A3B1E50D93D003B9678 /* theme-default-object-standing.png */,
+				77454A3C1E50D93D003B9678 /* theme-default-object-statistics.png */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -2091,15 +2091,15 @@
 		77C54E551C9EC07500013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				77561E9F1D50CAB9002EB26B /* skin-default-object-list-shadow.png */,
-				77561EA01D50CAB9002EB26B /* skin-default-object-list.png */,
-				77561EA11D50CAB9002EB26B /* skin-default-object-st-shadow.png */,
-				77561EA21D50CAB9002EB26B /* skin-default-object-st.png */,
-				77561EA31D50CAB9002EB26B /* skin-default-time-body.png */,
-				77561EA41D50CAB9002EB26B /* skin-default-time-ch.png */,
-				77561EA51D50CAB9002EB26B /* skin-default-time-hh.png */,
-				77561EA61D50CAB9002EB26B /* skin-default-time-mh.png */,
-				77561EA71D50CAB9002EB26B /* skin-default-time-sh.png */,
+				774549FC1E50CDB2003B9678 /* theme-default-object-list-shadow.png */,
+				774549FD1E50CDB2003B9678 /* theme-default-object-list.png */,
+				774549FE1E50CDB2003B9678 /* theme-default-object-settings-shadow.png */,
+				774549FF1E50CDB2003B9678 /* theme-default-object-settings.png */,
+				77454A001E50CDB2003B9678 /* theme-default-time-center.png */,
+				77454A011E50CDB2003B9678 /* theme-default-time-clock.png */,
+				77454A021E50CDB2003B9678 /* theme-default-time-hour.png */,
+				77454A031E50CDB2003B9678 /* theme-default-time-minute.png */,
+				77454A041E50CDB2003B9678 /* theme-default-time-second.png */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -2107,19 +2107,19 @@
 		77C54E621C9EC08A00013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				77561E231D50C2E1002EB26B /* skin-default-0.png */,
-				77561E241D50C2E1002EB26B /* skin-default-1.png */,
-				77561E251D50C2E1002EB26B /* skin-default-2.png */,
-				77561E261D50C2E1002EB26B /* skin-default-3.png */,
-				77561E271D50C2E1002EB26B /* skin-default-4.png */,
-				77561E281D50C2E1002EB26B /* skin-default-5.png */,
-				77561E291D50C2E1002EB26B /* skin-default-6.png */,
-				77561E2A1D50C2E1002EB26B /* skin-default-7.png */,
-				77561E2B1D50C2E1002EB26B /* skin-default-8.png */,
-				77561E2C1D50C2E1002EB26B /* skin-default-9.png */,
-				77561E2D1D50C2E1002EB26B /* skin-default-am.png */,
-				77561E2E1D50C2E1002EB26B /* skin-default-col.png */,
-				77561E2F1D50C2E1002EB26B /* skin-default-pm.png */,
+				77454A4C1E50E946003B9678 /* theme-default-0.png */,
+				77454A4D1E50E946003B9678 /* theme-default-1.png */,
+				77454A4E1E50E946003B9678 /* theme-default-2.png */,
+				77454A4F1E50E946003B9678 /* theme-default-3.png */,
+				77454A501E50E946003B9678 /* theme-default-4.png */,
+				77454A511E50E946003B9678 /* theme-default-5.png */,
+				77454A521E50E946003B9678 /* theme-default-6.png */,
+				77454A531E50E946003B9678 /* theme-default-7.png */,
+				77454A541E50E946003B9678 /* theme-default-8.png */,
+				77454A551E50E946003B9678 /* theme-default-9.png */,
+				77454A561E50E946003B9678 /* theme-default-am.png */,
+				77454A571E50E946003B9678 /* theme-default-col.png */,
+				77454A581E50E946003B9678 /* theme-default-pm.png */,
 				032318D11CFA911C0052732F /* Black */,
 			);
 			name = Default;
@@ -2427,20 +2427,21 @@
 			files = (
 				03E1D12B1CF0D6BE00B552FC /* SF-UI-Display-Ultralight.otf in Resources */,
 				772BB1B61DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-1.png in Resources */,
-				77561E3A1D50C2E1002EB26B /* skin-default-am.png in Resources */,
-				77561E621D50C354002EB26B /* skin-default-ground-a-pad43.png in Resources */,
-				77561E601D50C354002EB26B /* skin-default-floating-box.png in Resources */,
+				77454A981E50E9B2003B9678 /* theme-default-guide-list-off.png in Resources */,
 				03C14D101D2539D60078D10C /* game-general-window-gameover.png in Resources */,
-				772BB18E1DE8B9590054B3EF /* skin-default-character-3.png in Resources */,
 				775EB0251D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect1.png in Resources */,
 				0323190B1CFB5C7B0052732F /* characterinfo-exp-deco-1.png in Resources */,
 				03E1D1241CEC70A600B552FC /* comp-icons-alarm-repeat.png in Resources */,
 				775EB02F1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect11.png in Resources */,
-				77561EAD1D50CAB9002EB26B /* skin-default-time-ch.png in Resources */,
-				77561E341D50C2E1002EB26B /* skin-default-4.png in Resources */,
-				770B5A661E4889C300A4941E /* skin-default-guide-list-del.png in Resources */,
+				77454A4B1E50D93D003B9678 /* theme-default-object-statistics.png in Resources */,
+				77454AA61E50E9C7003B9678 /* theme-default-guide-characters-gamecenter.png in Resources */,
 				775EAFBC1D51E3D200BE8C4A /* game-jumpup-astro-default-move-2.png in Resources */,
+				77454A731E50E956003B9678 /* theme-default-black-3.png in Resources */,
+				77454A891E50E9A0003B9678 /* theme-default-guide-buy.png in Resources */,
+				77454A8B1E50E9A0003B9678 /* theme-default-guide-ground-hover.png in Resources */,
 				032319161CFB5C7B0052732F /* characterinfo-exp-deco-12.png in Resources */,
+				77454A5D1E50E946003B9678 /* theme-default-4.png in Resources */,
+				77454A0C1E50CDB2003B9678 /* theme-default-time-minute.png in Resources */,
 				77561E8C1D50C86B002EB26B /* c-time-on-pad.png in Resources */,
 				03B18E781D22CC3200972101 /* game-general-menu-soundon.png in Resources */,
 				032319291CFB5C7B0052732F /* characterinfo-exp-deco-31.png in Resources */,
@@ -2448,18 +2449,15 @@
 				03E1D12E1CF1BCF000B552FC /* characterinfo-achievements.png in Resources */,
 				771CD14D1E478D4800574AD8 /* modal-guide-images-all-0-general.png in Resources */,
 				032319181CFB5C7B0052732F /* characterinfo-exp-deco-14.png in Resources */,
-				77561E4D1D50C2F2002EB26B /* skin-default-black-6.png in Resources */,
 				032536B31D187D23004C6293 /* modal-mask-result-sns.png in Resources */,
 				77561E981D50C884002EB26B /* a-time-on-small.png in Resources */,
 				77561E8D1D50C86B002EB26B /* d-time-off-pad.png in Resources */,
 				776FF7BE1D55B15600E88B1A /* game-jumpup-assets-background.png in Resources */,
 				77561E7E1D50C85D002EB26B /* d-time-on.png in Resources */,
-				77561E681D50C354002EB26B /* skin-default-ground-c-pad43.png in Resources */,
 				032319201CFB5C7B0052732F /* characterinfo-exp-deco-22.png in Resources */,
 				03425B901CD0635700243B28 /* comp-icons-settings-icloud.png in Resources */,
 				772BB1C01DE8BCBB0054B3EF /* game-jumpup-ai-j-astro-fly-3.png in Resources */,
 				772BB1BD1DE8BCBB0054B3EF /* game-jumpup-ai-j-astro-fly-0.png in Resources */,
-				77561E671D50C354002EB26B /* skin-default-ground-c-pad34.png in Resources */,
 				775EB0361D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect18.png in Resources */,
 				0323190F1CFB5C7B0052732F /* characterinfo-exp-deco-5.png in Resources */,
 				03DDD83D1CEB9D07007C026D /* comp-icons-datacategory-validratio.png in Resources */,
@@ -2467,20 +2465,19 @@
 				775EB0291D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect5.png in Resources */,
 				032319261CFB5C7B0052732F /* characterinfo-exp-deco-28.png in Resources */,
 				771CD1501E478D4800574AD8 /* modal-guide-images-all-3-general.png in Resources */,
-				770B5A651E4889C300A4941E /* skin-default-guide-list-add.png in Resources */,
 				775EB0391D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect21.png in Resources */,
 				772BB1E81DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-3.png in Resources */,
 				032536B51D1978E3004C6293 /* result-btn-close.png in Resources */,
 				77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */,
+				77454A3D1E50D93D003B9678 /* theme-default-ground-daytime-pad34.png in Resources */,
 				7719775A1E48DFBD0018EE00 /* game-gozaup-assets-enemy.jpg in Resources */,
-				77561E501D50C2F2002EB26B /* skin-default-black-9.png in Resources */,
 				03425BAF1CD391E500243B28 /* GoogleService-Info.plist in Resources */,
 				775EAFA11D51E2EF00BE8C4A /* game-jumpup-assets-cloud-5.png in Resources */,
 				775EAFBF1D51E3D200BE8C4A /* game-jumpup-astro-default-move-5.png in Resources */,
 				032536CF1D1C4D1D004C6293 /* modal-credits-people-programmer.png in Resources */,
-				77561E6D1D50C354002EB26B /* skin-default-standing-box.png in Resources */,
+				77454A5F1E50E946003B9678 /* theme-default-6.png in Resources */,
+				77454A0D1E50CDB2003B9678 /* theme-default-time-second.png in Resources */,
 				032536CD1D1C4D1D004C6293 /* modal-credits-people-graphic.png in Resources */,
-				77561E661D50C354002EB26B /* skin-default-ground-b.png in Resources */,
 				77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */,
 				774549F41E504B1F003B9678 /* themes-select-side-down-left.png in Resources */,
 				032318C11CFA1D010052732F /* achievements-icon-blank.png in Resources */,
@@ -2488,6 +2485,7 @@
 				775EB02C1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect8.png in Resources */,
 				0323190D1CFB5C7B0052732F /* characterinfo-exp-deco-3.png in Resources */,
 				772BB1DB1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-2.png in Resources */,
+				77454A9C1E50E9B2003B9678 /* theme-default-guide-list-time-half.png in Resources */,
 				779154561E4A05300049C4A9 /* modal-buy-astro.png in Resources */,
 				032319241CFB5C7B0052732F /* characterinfo-exp-deco-26.png in Resources */,
 				775EAF9D1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-1.png in Resources */,
@@ -2495,9 +2493,8 @@
 				03DEB7C11D25D7A40086BEAD /* game-general-guide-left.png in Resources */,
 				032319321CFCAC170052732F /* result-btn-retry.png in Resources */,
 				770973041DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png in Resources */,
-				77561EA91D50CAB9002EB26B /* skin-default-object-list.png in Resources */,
-				770B5A681E4889C300A4941E /* skin-default-guide-list-on.png in Resources */,
 				03C14D0F1D2539D60078D10C /* game-general-window-exit.png in Resources */,
+				77454A451E50D93D003B9678 /* theme-default-ground-night.png in Resources */,
 				03B18E691D22C54600972101 /* comp-icons-shop-restore.png in Resources */,
 				771977661E48DFE40018EE00 /* effect-game-gozaup-ef1.mp3 in Resources */,
 				774549F31E504B1F003B9678 /* themes-select-item.png in Resources */,
@@ -2505,28 +2502,26 @@
 				032319271CFB5C7B0052732F /* characterinfo-exp-deco-29.png in Resources */,
 				771CD15B1E478DB600574AD8 /* modal-guide-alarm-images-all-4-general.png in Resources */,
 				7717A6F71E4267D000076E16 /* comp-icons-settings-donate.png in Resources */,
-				77561E611D50C354002EB26B /* skin-default-ground-a-pad34.png in Resources */,
-				775C60231E46250C00DF5241 /* skin-default-guide-characters-gamecenter.png in Resources */,
 				77561E791D50C85D002EB26B /* b-time-off.png in Resources */,
 				032536CE1D1C4D1D004C6293 /* modal-credits-people-plan.png in Resources */,
-				77561E391D50C2E1002EB26B /* skin-default-9.png in Resources */,
-				77561DC41D50C1BF002EB26B /* skin-default-a-back-pad34.png in Resources */,
 				03425B791CCEB2E400243B28 /* modal-check.png in Resources */,
 				032319311CFCAC170052732F /* result-btn-ranking.png in Resources */,
 				772BB1AF1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-4.png in Resources */,
-				77561E3C1D50C2E1002EB26B /* skin-default-pm.png in Resources */,
-				77561E6C1D50C354002EB26B /* skin-default-ground-d.png in Resources */,
-				77561E691D50C354002EB26B /* skin-default-ground-c.png in Resources */,
+				77454A0A1E50CDB2003B9678 /* theme-default-time-clock.png in Resources */,
 				771CD15A1E478DB600574AD8 /* modal-guide-alarm-images-all-3-general.png in Resources */,
 				03B18E731D22CC3200972101 /* game-general-menu-list.png in Resources */,
 				77802D1F1C805E1A00766DB0 /* game-thumb-random.png in Resources */,
 				03425B8D1CD0635700243B28 /* comp-icons-settings-badge.png in Resources */,
 				771ABC4A1D45DFDB00938D1B /* themes-main-background.png in Resources */,
+				77454A291E50D646003B9678 /* theme-default-back-night.png in Resources */,
+				77454A791E50E956003B9678 /* theme-default-black-9.png in Resources */,
 				032319281CFB5C7B0052732F /* characterinfo-exp-deco-30.png in Resources */,
 				775EAFA01D51E2EF00BE8C4A /* game-jumpup-assets-cloud-4.png in Resources */,
 				032536B71D1978E7004C6293 /* result-time.png in Resources */,
+				77454A271E50D646003B9678 /* theme-default-back-night-pad34.png in Resources */,
 				772BB1C81DE8BD250054B3EF /* game-jumpup-ai-astro-fly-3.png in Resources */,
 				772BB1EF1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png in Resources */,
+				77454A211E50D646003B9678 /* theme-default-back-daytime.png in Resources */,
 				0383DB891CF617010009D5DE /* AchievementList.json in Resources */,
 				032318E71CFB4B670052732F /* result-game-background.png in Resources */,
 				77561E971D50C884002EB26B /* a-time-off-small.png in Resources */,
@@ -2537,19 +2532,15 @@
 				775EAFA21D51E2EF00BE8C4A /* game-jumpup-assets-cloud-6.png in Resources */,
 				774549F61E504B1F003B9678 /* themes-select-side-up-left.png in Resources */,
 				775EAF991D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png in Resources */,
-				7717A7111E439DB100076E16 /* skin-default-guide-buy.png in Resources */,
 				0323191E1CFB5C7B0052732F /* characterinfo-exp-deco-20.png in Resources */,
+				77454A201E50D646003B9678 /* theme-default-back-daytime-pad43.png in Resources */,
 				77561E891D50C86B002EB26B /* b-time-off-pad.png in Resources */,
 				7732D2D11DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff in Resources */,
 				771CD1581E478DB600574AD8 /* modal-guide-alarm-images-all-1-general.png in Resources */,
-				77561EAA1D50CAB9002EB26B /* skin-default-object-st-shadow.png in Resources */,
 				0323191F1CFB5C7B0052732F /* characterinfo-exp-deco-21.png in Resources */,
 				775EAFB21D51E3B900BE8C4A /* game-jumpup-astro-default-jump-3.png in Resources */,
-				772BB18C1DE8B9590054B3EF /* skin-default-character-1.png in Resources */,
 				770973051DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png in Resources */,
-				770B5A6C1E4889C300A4941E /* skin-default-guide-list-time.png in Resources */,
 				775EB05B1D524C7800BE8C4A /* game-jumpup-assets-warning.png in Resources */,
-				77561EAC1D50CAB9002EB26B /* skin-default-time-body.png in Resources */,
 				77F9487C1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png in Resources */,
 				772BB1E51DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-0.png in Resources */,
 				771977581E48DFBD0018EE00 /* game-gozaup-assets-cheeta.png in Resources */,
@@ -2559,15 +2550,21 @@
 				7717A6FA1E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png in Resources */,
 				775EAFB31D51E3B900BE8C4A /* game-jumpup-astro-default-jump-4.png in Resources */,
 				7739EA821E4E2F8100F62B59 /* en.json in Resources */,
+				77454A061E50CDB2003B9678 /* theme-default-object-list.png in Resources */,
+				77454A091E50CDB2003B9678 /* theme-default-time-center.png in Resources */,
 				779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */,
 				775EB0241D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect0.png in Resources */,
+				77454A481E50D93D003B9678 /* theme-default-ground-sunset.png in Resources */,
 				776FF7C31D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png in Resources */,
+				77454A751E50E956003B9678 /* theme-default-black-5.png in Resources */,
+				77454A5C1E50E946003B9678 /* theme-default-3.png in Resources */,
 				77561E8E1D50C86B002EB26B /* d-time-on-pad.png in Resources */,
 				775EB0301D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect12.png in Resources */,
 				771977651E48DFE40018EE00 /* effect-game-gozaup-ef0.mp3 in Resources */,
 				775EAFA41D51E2EF00BE8C4A /* game-jumpup-assets-retire.png in Resources */,
 				77561E9D1D50C884002EB26B /* d-time-off-small.png in Resources */,
-				77561E381D50C2E1002EB26B /* skin-default-8.png in Resources */,
+				77454A221E50D646003B9678 /* theme-default-back-morning-4s.png in Resources */,
+				77454A471E50D93D003B9678 /* theme-default-ground-sunset-pad43.png in Resources */,
 				032319101CFB5C7B0052732F /* characterinfo-exp-deco-6.png in Resources */,
 				77561E871D50C86B002EB26B /* a-time-off-pad.png in Resources */,
 				774549F51E504B1F003B9678 /* themes-select-side-down.png in Resources */,
@@ -2577,148 +2574,155 @@
 				775EAFA71D51E2EF00BE8C4A /* game-jumpup-assets-time.png in Resources */,
 				7717A6FC1E43510000076E16 /* comp-loading-preloader.gif in Resources */,
 				0323191A1CFB5C7B0052732F /* characterinfo-exp-deco-16.png in Resources */,
+				77454A2B1E50D646003B9678 /* theme-default-back-sunset-pad34.png in Resources */,
+				77454A251E50D646003B9678 /* theme-default-back-morning.png in Resources */,
 				77561E991D50C884002EB26B /* b-time-off-small.png in Resources */,
 				03B18E771D22CC3200972101 /* game-general-menu-soundoff.png in Resources */,
+				77454A9A1E50E9B2003B9678 /* theme-default-guide-list-swipe-del.png in Resources */,
+				77454A771E50E956003B9678 /* theme-default-black-7.png in Resources */,
+				77454A591E50E946003B9678 /* theme-default-0.png in Resources */,
 				772BB1C71DE8BD250054B3EF /* game-jumpup-ai-astro-fly-2.png in Resources */,
 				0323190C1CFB5C7B0052732F /* characterinfo-exp-deco-2.png in Resources */,
+				77454A761E50E956003B9678 /* theme-default-black-6.png in Resources */,
 				03DDD8371CEB9D07007C026D /* comp-icons-datacategory-alltouches.png in Resources */,
-				77561E3B1D50C2E1002EB26B /* skin-default-col.png in Resources */,
+				77454A401E50D93D003B9678 /* theme-default-ground-morning-pad34.png in Resources */,
 				775EB0581D51E64F00BE8C4A /* game-jumpup-assets-guide-2.png in Resources */,
 				032319221CFB5C7B0052732F /* characterinfo-exp-deco-24.png in Resources */,
 				032318C61CFA4A4C0052732F /* achievements-item-disabled.png in Resources */,
 				032536D31D1E8963004C6293 /* comp-icons-settings-projectup.png in Resources */,
+				77454A8C1E50E9A0003B9678 /* theme-default-guide-ground.png in Resources */,
 				032319151CFB5C7B0052732F /* characterinfo-exp-deco-11.png in Resources */,
 				7719776B1E48DFE40018EE00 /* effect-game-gozaup-ef6.mp3 in Resources */,
 				7719776E1E48DFFD0018EE00 /* bgm-game-gozaup-field.mp3 in Resources */,
+				77454A631E50E946003B9678 /* theme-default-am.png in Resources */,
+				77454A461E50D93D003B9678 /* theme-default-ground-sunset-pad34.png in Resources */,
 				77561DB01D5066D0002EB26B /* comp-icons-settings-language-ko.png in Resources */,
 				775EB0311D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect13.png in Resources */,
 				772BB1AB1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-0.png in Resources */,
-				77561E4A1D50C2F2002EB26B /* skin-default-black-3.png in Resources */,
 				032319251CFB5C7B0052732F /* characterinfo-exp-deco-27.png in Resources */,
-				77561DCE1D50C1BF002EB26B /* skin-default-c-back.png in Resources */,
 				03E1D1291CF0BC7000B552FC /* characterinfo-level-wrapper.png in Resources */,
 				775EAF981D51E2EF00BE8C4A /* game-jumpup-assets-alram-off.png in Resources */,
 				771CD1591E478DB600574AD8 /* modal-guide-alarm-images-all-2-general.png in Resources */,
 				7717A7051E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff in Resources */,
 				0391ABCD1D25B4A00051F3A6 /* game-general-window-btn-close.png in Resources */,
-				775C60241E46250C00DF5241 /* skin-default-guide-characters-level.png in Resources */,
 				775EAFBB1D51E3D200BE8C4A /* game-jumpup-astro-default-move-1.png in Resources */,
 				77561DB21D5066DA002EB26B /* comp-icons-settings-language.png in Resources */,
 				03425BA91CD389E100243B28 /* comp-icons-settings-experiments.png in Resources */,
+				77454A721E50E956003B9678 /* theme-default-black-2.png in Resources */,
+				77454A781E50E956003B9678 /* theme-default-black-8.png in Resources */,
 				774549FB1E506404003B9678 /* themes-select-side-up-right.png in Resources */,
-				7717A7151E439DB100076E16 /* skin-default-guide-stats.png in Resources */,
 				032319211CFB5C7B0052732F /* characterinfo-exp-deco-23.png in Resources */,
-				775C60211E46250C00DF5241 /* skin-default-guide-characters-astro.png in Resources */,
+				77454A491E50D93D003B9678 /* theme-default-object-floating.png in Resources */,
+				77454A711E50E956003B9678 /* theme-default-black-1.png in Resources */,
 				0323191B1CFB5C7B0052732F /* characterinfo-exp-deco-17.png in Resources */,
 				03B18E721D22CC3200972101 /* game-general-menu-info.png in Resources */,
-				7717A7101E439DB100076E16 /* skin-default-guide-astro.png in Resources */,
+				77454A601E50E946003B9678 /* theme-default-7.png in Resources */,
 				7719776A1E48DFE40018EE00 /* effect-game-gozaup-ef5.mp3 in Resources */,
-				770B5A6B1E4889C300A4941E /* skin-default-guide-list-time-half.png in Resources */,
+				77454A431E50D93D003B9678 /* theme-default-ground-night-pad34.png in Resources */,
 				772BB1D21DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-4.png in Resources */,
+				77454A971E50E9B2003B9678 /* theme-default-guide-list-del.png in Resources */,
+				77454A421E50D93D003B9678 /* theme-default-ground-morning.png in Resources */,
+				77454A7E1E50E96C003B9678 /* theme-default-character-0.png in Resources */,
 				775EB0281D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect4.png in Resources */,
-				77561E471D50C2F2002EB26B /* skin-default-black-0.png in Resources */,
 				774549F11E504B1F003B9678 /* themes-select-info-locked.png in Resources */,
 				7714CAB91E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png in Resources */,
+				77454A9D1E50E9B2003B9678 /* theme-default-guide-list-time.png in Resources */,
+				77454AA41E50E9C7003B9678 /* theme-default-guide-characters-astro.png in Resources */,
 				03DEB7C21D25D7A40086BEAD /* game-general-guide-right.png in Resources */,
 				772BB1EE1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png in Resources */,
 				770B5A5B1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff in Resources */,
+				77454A741E50E956003B9678 /* theme-default-black-4.png in Resources */,
 				772BB1E71DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-2.png in Resources */,
-				77561E301D50C2E1002EB26B /* skin-default-0.png in Resources */,
 				775EAF9F1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-3.png in Resources */,
+				77454A1F1E50D646003B9678 /* theme-default-back-daytime-pad34.png in Resources */,
+				77454A9B1E50E9B2003B9678 /* theme-default-guide-list-swipe-edit.png in Resources */,
 				03425B911CD0635700243B28 /* comp-icons-settings-newgames.png in Resources */,
-				7717A7121E439DB100076E16 /* skin-default-guide-center.png in Resources */,
 				772BB1C51DE8BD250054B3EF /* game-jumpup-ai-astro-fly-0.png in Resources */,
+				77454A2D1E50D646003B9678 /* theme-default-back-sunset.png in Resources */,
 				7739EA841E4E2F8100F62B59 /* ko.json in Resources */,
+				77454A441E50D93D003B9678 /* theme-default-ground-night-pad43.png in Resources */,
 				7717A7071E439D7900076E16 /* comp-guideclose-icon.png in Resources */,
 				775EAF9B1D51E2EF00BE8C4A /* game-jumpup-assets-box.png in Resources */,
 				774549F71E504B1F003B9678 /* themes-select-side-up.png in Resources */,
 				032319131CFB5C7B0052732F /* characterinfo-exp-deco-9.png in Resources */,
-				77561DC91D50C1BF002EB26B /* skin-default-b-back-pad43.png in Resources */,
-				77561EAE1D50CAB9002EB26B /* skin-default-time-hh.png in Resources */,
 				775EAF9C1D51E2EF00BE8C4A /* game-jumpup-assets-box2.png in Resources */,
 				03C14D111D2539D60078D10C /* game-general-window-mask.png in Resources */,
 				775EAFBA1D51E3D200BE8C4A /* game-jumpup-astro-default-move-0.png in Resources */,
 				772BB1CF1DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-1.png in Resources */,
 				03B18E761D22CC3200972101 /* game-general-menu-retry.png in Resources */,
+				77454A051E50CDB2003B9678 /* theme-default-object-list-shadow.png in Resources */,
 				772BB1C61DE8BD250054B3EF /* game-jumpup-ai-astro-fly-1.png in Resources */,
 				7739EA7D1E4DF07600F62B59 /* themes-select-background.png in Resources */,
 				032319301CFCAC170052732F /* result-btn-list.png in Resources */,
 				77561E9A1D50C884002EB26B /* b-time-on-small.png in Resources */,
+				77454A081E50CDB2003B9678 /* theme-default-object-settings.png in Resources */,
 				77561E7C1D50C85D002EB26B /* c-time-on.png in Resources */,
+				77454A5B1E50E946003B9678 /* theme-default-2.png in Resources */,
 				03E1D1311CF1BCF400B552FC /* characterinfo-gamecenter.png in Resources */,
 				7717A6FE1E4382C200076E16 /* comp-showguide-icon.png in Resources */,
 				772BB1B51DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-0.png in Resources */,
 				771CD14F1E478D4800574AD8 /* modal-guide-images-all-2-general.png in Resources */,
+				77454AA51E50E9C7003B9678 /* theme-default-guide-characters-exp.png in Resources */,
 				032319171CFB5C7B0052732F /* characterinfo-exp-deco-13.png in Resources */,
 				775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */,
 				03C14D0B1D2539D60078D10C /* game-general-window-btn-ads.png in Resources */,
-				77561E371D50C2E1002EB26B /* skin-default-7.png in Resources */,
-				772BB18B1DE8B9590054B3EF /* skin-default-character-0.png in Resources */,
-				77561DCC1D50C1BF002EB26B /* skin-default-c-back-pad34.png in Resources */,
 				775EAFAF1D51E3B900BE8C4A /* game-jumpup-astro-default-jump-0.png in Resources */,
 				775EB0381D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect20.png in Resources */,
+				77454A411E50D93D003B9678 /* theme-default-ground-morning-pad43.png in Resources */,
 				77FBE6841C6DCBAA00E251A2 /* game-thumb-background.png in Resources */,
+				77454AA31E50E9C7003B9678 /* theme-default-guide-characters-achevements.png in Resources */,
 				775EB02A1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect6.png in Resources */,
 				779154571E4A05300049C4A9 /* modal-buy-heroesofthestorm.png in Resources */,
 				772BB1B01DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-5.png in Resources */,
 				03E1D12A1CF0BC7000B552FC /* characterinfo-level.png in Resources */,
-				77561DCB1D50C1BF002EB26B /* skin-default-c-back-4s.png in Resources */,
 				0323191C1CFB5C7B0052732F /* characterinfo-exp-deco-18.png in Resources */,
 				772BB1B71DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-2.png in Resources */,
-				77561E361D50C2E1002EB26B /* skin-default-6.png in Resources */,
-				77561E491D50C2F2002EB26B /* skin-default-black-2.png in Resources */,
 				032318CB1CFA52B90052732F /* modal-mask-result.png in Resources */,
 				03425BAB1CD38D4E00243B28 /* Podfile in Resources */,
 				032319191CFB5C7B0052732F /* characterinfo-exp-deco-15.png in Resources */,
 				775EAFBD1D51E3D200BE8C4A /* game-jumpup-astro-default-move-3.png in Resources */,
 				775EB0341D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect16.png in Resources */,
 				032318D01CFA686E0052732F /* result-score.png in Resources */,
+				77454A3E1E50D93D003B9678 /* theme-default-ground-daytime-pad43.png in Resources */,
 				771977681E48DFE40018EE00 /* effect-game-gozaup-ef3.mp3 in Resources */,
 				775EB02E1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect10.png in Resources */,
-				77561E6E1D50C354002EB26B /* skin-default-stat-object.png in Resources */,
-				77561E481D50C2F2002EB26B /* skin-default-black-1.png in Resources */,
 				03425B7A1CCEB2E400243B28 /* modal-close.png in Resources */,
-				77561E311D50C2E1002EB26B /* skin-default-1.png in Resources */,
 				774549F21E504B1F003B9678 /* themes-select-item-locked.png in Resources */,
 				772BB1D01DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-2.png in Resources */,
-				77561E6A1D50C354002EB26B /* skin-default-ground-d-pad34.png in Resources */,
 				032319231CFB5C7B0052732F /* characterinfo-exp-deco-25.png in Resources */,
-				77561E4B1D50C2F2002EB26B /* skin-default-black-4.png in Resources */,
-				77561EB01D50CAB9002EB26B /* skin-default-time-sh.png in Resources */,
 				779A1F361DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png in Resources */,
 				032318CF1CFA686E0052732F /* result-best.png in Resources */,
-				772BB18D1DE8B9590054B3EF /* skin-default-character-2.png in Resources */,
+				77454A2C1E50D646003B9678 /* theme-default-back-sunset-pad43.png in Resources */,
 				775EB0571D51E64F00BE8C4A /* game-jumpup-assets-guide-1.png in Resources */,
 				775EAFA81D51E2EF00BE8C4A /* game-jumpup-assets-trap-2.png in Resources */,
 				03425B7C1CCEBD0000243B28 /* modal-add.png in Resources */,
-				77561DC61D50C1BF002EB26B /* skin-default-a-back.png in Resources */,
 				77561DAF1D5066D0002EB26B /* comp-icons-settings-language-ja.png in Resources */,
 				03DDD8401CEBA089007C026D /* modal-background-characterinfo.png in Resources */,
 				03DDD83C1CEB9D07007C026D /* comp-icons-datacategory-untilstart.png in Resources */,
 				03425B921CD0635700243B28 /* comp-icons-settings-rating.png in Resources */,
 				0323190E1CFB5C7B0052732F /* characterinfo-exp-deco-4.png in Resources */,
 				772BB1AE1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-3.png in Resources */,
-				77561EA81D50CAB9002EB26B /* skin-default-object-list-shadow.png in Resources */,
+				77454A4A1E50D93D003B9678 /* theme-default-object-standing.png in Resources */,
+				77454A651E50E946003B9678 /* theme-default-pm.png in Resources */,
 				772BB1B81DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-3.png in Resources */,
-				7717A7141E439DB100076E16 /* skin-default-guide-ground.png in Resources */,
 				03B18E681D22C54600972101 /* comp-icons-shop-buy.png in Resources */,
 				775EAFB01D51E3B900BE8C4A /* game-jumpup-astro-default-jump-1.png in Resources */,
-				77561DC31D50C1BF002EB26B /* skin-default-a-back-4s.png in Resources */,
 				0323191D1CFB5C7B0052732F /* characterinfo-exp-deco-19.png in Resources */,
 				03B18E751D22CC3200972101 /* game-general-menu-play.png in Resources */,
+				77454A261E50D646003B9678 /* theme-default-back-night-4s.png in Resources */,
 				775EB0371D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect19.png in Resources */,
-				77561E4F1D50C2F2002EB26B /* skin-default-black-8.png in Resources */,
 				0323192C1CFB5E340052732F /* characterinfo-exp-deco-32.png in Resources */,
-				77561DC81D50C1BF002EB26B /* skin-default-b-back-pad34.png in Resources */,
+				77454A621E50E946003B9678 /* theme-default-9.png in Resources */,
 				03425B8C1CD0635700243B28 /* comp-icons-blank.png in Resources */,
 				77561E771D50C85D002EB26B /* a-time-off.png in Resources */,
 				772BB1AD1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-2.png in Resources */,
-				77561DCF1D50C1BF002EB26B /* skin-default-d-back-4s.png in Resources */,
 				03DDD8381CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png in Resources */,
 				032319141CFB5C7B0052732F /* characterinfo-exp-deco-10.png in Resources */,
 				77561E8A1D50C86B002EB26B /* b-time-on-pad.png in Resources */,
-				775C60221E46250C00DF5241 /* skin-default-guide-characters-exp.png in Resources */,
+				77454A8D1E50E9A0003B9678 /* theme-default-guide-stats.png in Resources */,
+				77454A641E50E946003B9678 /* theme-default-col.png in Resources */,
 				03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */,
+				77454A3F1E50D93D003B9678 /* theme-default-ground-daytime.png in Resources */,
 				7739EA871E4E2FCC00F62B59 /* themes.json in Resources */,
 				03DDD8391CEB9D07007C026D /* comp-icons-datacategory-compratio.png in Resources */,
 				772BB1DE1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-5.png in Resources */,
@@ -2728,13 +2732,10 @@
 				03425B811CD01A3B00243B28 /* comp-slider-track.png in Resources */,
 				032319111CFB5C7B0052732F /* characterinfo-exp-deco-7.png in Resources */,
 				775EB0271D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect3.png in Resources */,
-				77561DD21D50C1BF002EB26B /* skin-default-d-back.png in Resources */,
 				77561E9E1D50C884002EB26B /* d-time-on-small.png in Resources */,
 				771977521E48DAEA0018EE00 /* game-general-start.png in Resources */,
 				7714CAB71E4B99F800E447E9 /* modal-buy-heroes-real.png in Resources */,
 				771CD1571E478DB600574AD8 /* modal-guide-alarm-images-all-0-general.png in Resources */,
-				77561DC71D50C1BF002EB26B /* skin-default-b-back-4s.png in Resources */,
-				77561E631D50C354002EB26B /* skin-default-ground-a.png in Resources */,
 				032536B91D19BA23004C6293 /* result-btn-play.png in Resources */,
 				77F948721D80ADEE00B33F5F /* comp-icons-settings-memo.png in Resources */,
 				03C14D0C1D2539D60078D10C /* game-general-window-btn-cancel.png in Resources */,
@@ -2742,19 +2743,19 @@
 				772BB1DA1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-1.png in Resources */,
 				77561E7B1D50C85D002EB26B /* c-time-off.png in Resources */,
 				772BB1AC1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-1.png in Resources */,
-				77561EAF1D50CAB9002EB26B /* skin-default-time-mh.png in Resources */,
 				77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */,
 				03C14D0D1D2539D60078D10C /* game-general-window-btn-ok.png in Resources */,
 				032318C21CFA1D010052732F /* achievements-item.png in Resources */,
 				7717A6F51E42679200076E16 /* comp-buyup-icon.png in Resources */,
 				03E1D1231CEC70A600B552FC /* comp-icons-alarm-music.png in Resources */,
+				77454A881E50E9A0003B9678 /* theme-default-guide-astro.png in Resources */,
 				03425B9C1CD08B1C00243B28 /* comp-icons-settings-avn.png in Resources */,
 				772BB1BF1DE8BCBB0054B3EF /* game-jumpup-ai-j-astro-fly-2.png in Resources */,
-				77561E651D50C354002EB26B /* skin-default-ground-b-pad43.png in Resources */,
+				77454A5A1E50E946003B9678 /* theme-default-1.png in Resources */,
 				77F9487A1D80ADFD00B33F5F /* comp-icons-shop-code.png in Resources */,
 				771977691E48DFE40018EE00 /* effect-game-gozaup-ef4.mp3 in Resources */,
-				77561DCA1D50C1BF002EB26B /* skin-default-b-back.png in Resources */,
-				770B5A6A1E4889C300A4941E /* skin-default-guide-list-swipe-edit.png in Resources */,
+				77454A801E50E96C003B9678 /* theme-default-character-2.png in Resources */,
+				77454A8A1E50E9A0003B9678 /* theme-default-guide-center.png in Resources */,
 				77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */,
 				775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */,
 				772BB1DC1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-3.png in Resources */,
@@ -2765,57 +2766,56 @@
 				776FF7BC1D545C0800E88B1A /* game-jumpup-assets-playpreview.gif in Resources */,
 				77561E7D1D50C85D002EB26B /* d-time-off.png in Resources */,
 				776FF7C21D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png in Resources */,
-				77561DCD1D50C1BF002EB26B /* skin-default-c-back-pad43.png in Resources */,
+				77454AA71E50E9C7003B9678 /* theme-default-guide-characters-level.png in Resources */,
 				7739EA831E4E2F8100F62B59 /* ja.json in Resources */,
-				77561E641D50C354002EB26B /* skin-default-ground-b-pad34.png in Resources */,
+				77454A0B1E50CDB2003B9678 /* theme-default-time-hour.png in Resources */,
 				772BB1E61DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-1.png in Resources */,
 				03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */,
 				772BB1F01DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png in Resources */,
-				77561DD01D50C1BF002EB26B /* skin-default-d-back-pad34.png in Resources */,
 				03E1D1281CF0BC7000B552FC /* characterinfo-exp-wrapper.png in Resources */,
 				03C14D0E1D2539D60078D10C /* game-general-window-continue.png in Resources */,
 				775EAF9E1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-2.png in Resources */,
-				77561E4C1D50C2F2002EB26B /* skin-default-black-5.png in Resources */,
 				77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */,
 				032319121CFB5C7B0052732F /* characterinfo-exp-deco-8.png in Resources */,
+				77454A701E50E956003B9678 /* theme-default-black-0.png in Resources */,
 				775EAFB11D51E3B900BE8C4A /* game-jumpup-astro-default-jump-2.png in Resources */,
 				03B18E741D22CC3200972101 /* game-general-menu-pause.png in Resources */,
 				03425B8F1CD0635700243B28 /* comp-icons-settings-guide.png in Resources */,
 				775EB05D1D52544900BE8C4A /* game-jumpup-assets-life-on.png in Resources */,
+				77454A241E50D646003B9678 /* theme-default-back-morning-pad43.png in Resources */,
+				77454A991E50E9B2003B9678 /* theme-default-guide-list-on.png in Resources */,
 				77561E881D50C86B002EB26B /* a-time-on-pad.png in Resources */,
-				775C60201E46250C00DF5241 /* skin-default-guide-characters-achevements.png in Resources */,
 				775EB02D1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect9.png in Resources */,
+				77454A611E50E946003B9678 /* theme-default-8.png in Resources */,
 				775EB0351D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect17.png in Resources */,
+				77454A961E50E9B2003B9678 /* theme-default-guide-list-add.png in Resources */,
 				772BB1EA1DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-5.png in Resources */,
-				77561EAB1D50CAB9002EB26B /* skin-default-object-st.png in Resources */,
-				77561E331D50C2E1002EB26B /* skin-default-3.png in Resources */,
+				77454A2A1E50D646003B9678 /* theme-default-back-sunset-4s.png in Resources */,
 				03E1D12F1CF1BCF000B552FC /* characterinfo-exp-deco.png in Resources */,
 				03425BA11CD099C800243B28 /* comp-alarm-notfound.png in Resources */,
 				771CD14E1E478D4800574AD8 /* modal-guide-images-all-1-general.png in Resources */,
 				03425B8E1CD0635700243B28 /* comp-icons-settings-developers.png in Resources */,
+				77454A811E50E96C003B9678 /* theme-default-character-3.png in Resources */,
 				03425B981CD0670800243B28 /* comp-cell-arrow.png in Resources */,
-				77561DD11D50C1BF002EB26B /* skin-default-d-back-pad43.png in Resources */,
-				7717A7131E439DB100076E16 /* skin-default-guide-ground-hover.png in Resources */,
-				77561E351D50C2E1002EB26B /* skin-default-5.png in Resources */,
 				77561E8B1D50C86B002EB26B /* c-time-off-pad.png in Resources */,
 				03425B781CCEB2E400243B28 /* modal-back.png in Resources */,
-				77561DC51D50C1BF002EB26B /* skin-default-a-back-pad43.png in Resources */,
-				77561E6B1D50C354002EB26B /* skin-default-ground-d-pad43.png in Resources */,
-				770B5A671E4889C300A4941E /* skin-default-guide-list-off.png in Resources */,
 				032318C41CFA24D90052732F /* modal-background-characterinfo-blank.png in Resources */,
 				775EB02B1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect7.png in Resources */,
+				77454A7F1E50E96C003B9678 /* theme-default-character-1.png in Resources */,
 				775EB05F1D5255DC00BE8C4A /* game-jumpup-assets-life-off.png in Resources */,
+				77454A1E1E50D646003B9678 /* theme-default-back-daytime-4s.png in Resources */,
 				77561E9C1D50C884002EB26B /* c-time-on-small.png in Resources */,
 				03C14D121D2539D60078D10C /* game-general-window-retry.png in Resources */,
+				77454A5E1E50E946003B9678 /* theme-default-5.png in Resources */,
+				77454A231E50D646003B9678 /* theme-default-back-morning-pad34.png in Resources */,
 				77561E781D50C85D002EB26B /* a-time-on.png in Resources */,
-				77561E4E1D50C2F2002EB26B /* skin-default-black-7.png in Resources */,
-				770B5A691E4889C300A4941E /* skin-default-guide-list-swipe-del.png in Resources */,
+				77454A281E50D646003B9678 /* theme-default-back-night-pad43.png in Resources */,
 				03425B991CD0670800243B28 /* comp-cell-check.png in Resources */,
-				77561E321D50C2E1002EB26B /* skin-default-2.png in Resources */,
 				772BB1CE1DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-0.png in Resources */,
 				03E1D11F1CEC707A00B552FC /* comp-icons-datacategory-icon.png in Resources */,
 				775EB0331D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect15.png in Resources */,
 				7719776C1E48DFE40018EE00 /* effect-game-gozaup-ef7.mp3 in Resources */,
+				77454A071E50CDB2003B9678 /* theme-default-object-settings-shadow.png in Resources */,
 				775EB0261D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
