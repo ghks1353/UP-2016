@@ -45,15 +45,16 @@ class AlarmRepeatSettingsView:UIModalPopView, UITableViewDataSource, UITableView
 		} //end for
 		tablesArray = [ alarmSoundListsTableArr as AnyObject ]
 		
-		tableView.delegate = self; tableView.dataSource = self;
-		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA");
+		tableView.delegate = self
+		tableView.dataSource = self
+		tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA")
 	} //end func
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		//돌아가기 직전에 설정값을 parent view에 저장해야 함.
-		var tmpRepeatArr:Array<Bool> = [false, false, false, false, false, false, false];
+		var tmpRepeatArr:Array<Bool> = [false, false, false, false, false, false, false]
 		for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
-			tmpRepeatArr[i - 1] = (tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .checkmark;
+			tmpRepeatArr[i - 1] = (tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .checkmark
 		}
 		
 		AddAlarmView.selfView!.autoSelectRepeatElement( tmpRepeatArr )
@@ -85,23 +86,23 @@ class AlarmRepeatSettingsView:UIModalPopView, UITableViewDataSource, UITableView
 	
 	//Check auto segment status.
 	func checkAutoSegmentStatus() {
-		var repeatInfo:Array<Bool> = Array<Bool>();
+		var repeatInfo:Array<Bool> = Array<Bool>()
 		for i:Int in 1 ..< (tablesArray[0] as! Array<AlarmRepeatDayCell>).count {
-			repeatInfo += [(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .checkmark ? true : false];
+			repeatInfo += [(tablesArray[0] as! Array<AlarmRepeatDayCell>)[i].accessoryType == .checkmark ? true : false]
 		} //end for
 		
 		if (repeatInfo[0] == true && repeatInfo[1] == true && repeatInfo[2] == true &&
 		repeatInfo[3] == true && repeatInfo[4] == true && repeatInfo[5] == true && repeatInfo[6] == true) { //everyday
-			selSegmetDaysGroup!.selectedSegmentIndex = 0; //every
+			selSegmetDaysGroup!.selectedSegmentIndex = 0 //every
 		} else if (repeatInfo[0] == false && repeatInfo[1] == true && repeatInfo[2] == true &&
 			repeatInfo[3] == true && repeatInfo[4] == true && repeatInfo[5] == true && repeatInfo[6] == false) { //weekday
-			selSegmetDaysGroup!.selectedSegmentIndex = 1; //day
+			selSegmetDaysGroup!.selectedSegmentIndex = 1 //day
 		} else if (repeatInfo[0] == true && repeatInfo[1] == false && repeatInfo[2] == false && repeatInfo[3] == false &&
 			repeatInfo[4] == false && repeatInfo[5] == false && repeatInfo[6] == true) { //weekend
-			selSegmetDaysGroup!.selectedSegmentIndex = 2; //wend
+			selSegmetDaysGroup!.selectedSegmentIndex = 2 //wend
 		} else {
 			//else
-			selSegmetDaysGroup!.selectedSegmentIndex = -1;
+			selSegmetDaysGroup!.selectedSegmentIndex = -1
 		} //end if
 	} //// end func
 	

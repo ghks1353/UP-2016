@@ -145,8 +145,10 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
 		
 		print("del start of", self.alarmTargetID)
 		AlarmManager.removeAlarm(self.alarmTargetID)
+		
 		//Update table with animation
-		self.alarmsCell.remove(at: (self.alarmTargetIndexPath! as NSIndexPath).row); self.tablesArray = [self.alarmsCell as AnyObject]
+		self.alarmsCell.remove(at: (self.alarmTargetIndexPath! as NSIndexPath).row)
+		self.tablesArray = [self.alarmsCell as AnyObject]
 		self.tableView.deleteRows(at: [self.alarmTargetIndexPath!], with: UITableViewRowAnimation.top)
 		
 		//chk alarm make available
@@ -165,7 +167,6 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
 			//Cancel
 		}))
 		present(alarmDelAlertController, animated: true, completion: nil)
-		
 	} //end function
 	
 	//iOS7 & iPad Alert fallback
@@ -426,10 +427,16 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
 				}
 				alarmsCell[i].alarmToggled = targetElement.isOn // on = true / off = false
 				
-				let bgFileName:String = getBackgroundFileNameFromTime(alarmsCell[i].timeHour)
-				let bgFileState:String = (targetElement.isOn == true ? "on" : "off") + (UIDevice.current.userInterfaceIdiom == .pad ? "-pad" : "")
-				let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "-small" : ""
-				tImage = bgFileName + "-time-" + bgFileState + fileUsesSmallPrefix + ".png"
+				let bgFileName:String = getBackground(alarmsCell[i].timeHour)
+				let switchStatus:String = (targetElement.isOn ? ThemeManager.ThemePresets.On : ThemeManager.ThemePresets.Off)
+				var fileUsesSmallPrefix:String = ""
+				if (UIDevice.current.userInterfaceIdiom == .pad) {
+					fileUsesSmallPrefix = ThemeManager.ThemePresets.iPad
+				} else if ( DeviceManager.usesLowQualityImage == true ) {
+					fileUsesSmallPrefix = ThemeManager.ThemePresets.LDPI
+				} //end if
+				
+				tImage = ThemeManager.getAssetPresets(themeGroup: .Background, themeID: ThemeManager.legacyDefaultTheme) + ThemeManager.getName(bgFileName + fileUsesSmallPrefix + switchStatus)
 				
 				alarmsCell[i].alarmName!.alpha = targetElement.isOn ? 1 : 0.8
 				alarmsCell[i].timeText!.alpha = alarmsCell[i].alarmName!.alpha
@@ -469,17 +476,17 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
 	} //end func
 	
 	//get str from time
-	func getBackgroundFileNameFromTime(_ timeHour:Int)->String {
+	func getBackground(_ timeHour:Int ) -> String {
 		if (timeHour >= 22 || timeHour < 6) {
-			return "d"
+			return ThemeManager.ThemeFileNames.BackgroundAlarmNight
 		} else if (timeHour >= 6 && timeHour < 11) {
-			return "a"
+			return ThemeManager.ThemeFileNames.BackgroundAlarmMorning
 		} else if (timeHour >= 11 && timeHour < 18) {
-			return "b"
+			return ThemeManager.ThemeFileNames.BackgroundAlarmDaytime
 		} else if (timeHour >= 18 && timeHour <= 21) {
-			return "c"
+			return ThemeManager.ThemeFileNames.BackgroundAlarmSunset
 		}
-		return "a"
+		return ThemeManager.ThemeFileNames.BackgroundAlarmMorning
 	} //end func
 	
 	///////////////////////////////
@@ -515,10 +522,16 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
 		tCell.alarmToggled = defaultState
 		tSwitch.elementID = uuid
 		
-		let tTimeImgName:String = (defaultState == true ? "on" : "off") + (UIDevice.current.userInterfaceIdiom == .pad ? "-pad" : "")
-		let bgFileName:String = getBackgroundFileNameFromTime(timeHour)
-		let fileUsesSmallPrefix:String = DeviceManager.usesLowQualityImage == true ? "-small" : ""
-		tTimeBackground.image = UIImage(named: bgFileName + "-time-" + tTimeImgName + fileUsesSmallPrefix + ".png")
+		let switchStatus:String = (defaultState == true ? ThemeManager.ThemePresets.On : ThemeManager.ThemePresets.Off)
+		var fileUsesSmallPrefix:String = ""
+		if (UIDevice.current.userInterfaceIdiom == .pad) {
+			fileUsesSmallPrefix = ThemeManager.ThemePresets.iPad
+		} else if ( DeviceManager.usesLowQualityImage == true ) {
+			fileUsesSmallPrefix = ThemeManager.ThemePresets.LDPI
+		} //end if
+		
+		let bgFileName:String = getBackground(timeHour)
+		tTimeBackground.image = UIImage(named: ThemeManager.getAssetPresets(themeGroup: .Background, themeID: ThemeManager.legacyDefaultTheme) +  ThemeManager.getName(bgFileName + fileUsesSmallPrefix + switchStatus))
 		tTimeBackground.contentMode = .scaleAspectFill
 		
 		tLabel.frame = CGRect(x: 15, y: 50, width: self.modalView.view.frame.width * 0.7, height: 24) //알람 이름

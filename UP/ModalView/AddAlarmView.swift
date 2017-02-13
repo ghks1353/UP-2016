@@ -519,48 +519,42 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 	//components fill for modify alarm
 	func fillComponentsWithEditMode( _ alarmID:Int, alarmName:String, alarmMemo:String, alarmFireDate:Date, selectedGameID:Int, scaledSoundLevel:Int, selectedSoundFileName:String, repeatInfo:Array<Bool>, alarmDefaultToggle:Bool) {
 		//set alarm name
-		(self.getElementFromTable("alarmName") as! UITextField).text = alarmName;
-		(self.getElementFromTable("alarmMemo") as! UITextField).text = alarmMemo;
-		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = alarmFireDate; //uipicker
-		self.setSoundElement(SoundManager.findSoundObjectWithFileName(selectedSoundFileName)!); //set sound
-		self.setGameElement(selectedGameID); //set game
-		self.resetAlarmRepeatCell();
+		(self.getElementFromTable("alarmName") as! UITextField).text = alarmName
+		(self.getElementFromTable("alarmMemo") as! UITextField).text = alarmMemo
+		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = alarmFireDate //uipicker
+		self.setSoundElement(SoundManager.findSoundObjectWithFileName(selectedSoundFileName)!) //set sound
+		self.setGameElement(selectedGameID) //set game
+		self.resetAlarmRepeatCell()
 		
 		//set alarm repeat element
-		autoSelectRepeatElement( repeatInfo );
-		currentRepeatMode = repeatInfo;
+		autoSelectRepeatElement( repeatInfo )
+		currentRepeatMode = repeatInfo
 		
-		//alarmRepeatSelectListView.setSelectedCell( currentRepeatMode );
+		gameSelectedID = selectedGameID
+		confirmed = false
 		
-		gameSelectedID = selectedGameID;
-		confirmed = false;
+		modalView.title = LanguagesManager.$("alarmEditTitle") //Modal title set to alarmedit
 		
-		modalView.title = LanguagesManager.$("alarmEditTitle"); //Modal title set to alarmedit
+		isAlarmEditMode = true //EditMode
+		alarmDefaultStatus = alarmDefaultToggle //Default toggle status
+		editingAlarmID = alarmID
 		
-		isAlarmEditMode = true; //EditMode
-		alarmDefaultStatus = alarmDefaultToggle; //Default toggle status
-		editingAlarmID = alarmID;
+		alarmCurrentSoundLevel = scaledSoundLevel
 		
-		alarmCurrentSoundLevel = scaledSoundLevel;
-		//scaledSoundLevel
-		
-		self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false); //scroll to top
-	}
+		self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false) //scroll to top
+	} ////end func
 	
 	//UITextfield del
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool { //Returnkey to hide
-		self.view.endEditing(true);
-		return false;
-	}
-	
+		self.view.endEditing(true)
+		return false
+	} //end func
 	//Alarm element reset func
 	func resetAlarmRepeatCell() {
-		let resetedRepeatInfo:Array<Bool> = [false, false, false, false, false, false, false];
-		autoSelectRepeatElement( resetedRepeatInfo );
-		currentRepeatMode = resetedRepeatInfo;
-		
-		//alarmRepeatSelectListView.setSelectedCell( resetedRepeatInfo );
-	}
+		let resetedRepeatInfo:Array<Bool> = [false, false, false, false, false, false, false]
+		autoSelectRepeatElement( resetedRepeatInfo )
+		currentRepeatMode = resetedRepeatInfo
+	} //end func
 	
 	
 }

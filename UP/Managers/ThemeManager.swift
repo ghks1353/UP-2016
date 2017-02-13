@@ -21,6 +21,7 @@ class ThemeManager {
 		case GameIcon
 		case Character
 		case DigitalClock
+		case Background
 	} //end enum
 	
 	// Parse할 때 사용할 enum.
@@ -30,6 +31,7 @@ class ThemeManager {
 		case GameIcon = "games"
 		case Character = "character"
 		case DigitalClock = "digitalclock"
+		case Background = "background"
 	} //end enum
 	
 	//// 스킨 표시 시 사용할 String enum (Filename)
@@ -53,6 +55,18 @@ class ThemeManager {
 		static let BackgroundSunset:String = "back-sunset"
 		static let BackgroundNight:String = "back-night"
 		
+		// Ground
+		static let GroundMorning:String = "ground-morning"
+		static let GroundDaytime:String = "ground-daytime"
+		static let GroundSunset:String = "ground-sunset"
+		static let GroundNight:String = "ground-night"
+		
+		//Time list background
+		static let BackgroundAlarmMorning:String = "list-back-morning"
+		static let BackgroundAlarmDaytime:String = "list-back-daytime"
+		static let BackgroundAlarmSunset:String = "list-back-sunset"
+		static let BackgroundAlarmNight:String = "list-back-night"
+		
 		// Main character
 		static let Character:String = "character"
 		
@@ -63,12 +77,6 @@ class ThemeManager {
 		static let DigitalClockAM:String = "am"
 		static let DigitalClockPM:String = "pm"
 		
-		// Ground
-		static let GroundMorning:String = "ground-morning"
-		static let GroundDaytime:String = "ground-daytime"
-		static let GroundSunset:String = "ground-sunset"
-		static let GroundNight:String = "ground-night"
-		
 		// Floating-standing game box
 		static let ObjectGameStanding:String = "object-standing"
 		static let ObjectGameFloating:String = "object-floating"
@@ -78,9 +86,15 @@ class ThemeManager {
 	} //end enum
 	public enum ThemePresets {
 		static let BundlePreset:String = "theme-"
+		
 		static let iPhone4S:String = "-4s"
+		static let iPad:String = "-ipad"
 		static let PadPortrait:String = "-pad43"
 		static let PadLandscape:String = "-pad34"
+		
+		static let LDPI:String = "-ldpi"
+		static let On:String = "-on"
+		static let Off:String = "-off"
 	} //end enum
 	
 	/////////////////////////
@@ -111,6 +125,7 @@ class ThemeManager {
 		themesData[ThemeGroup.GameIcon] = []
 		themesData[ThemeGroup.Character] = []
 		themesData[ThemeGroup.DigitalClock] = []
+		themesData[ThemeGroup.Background] = []
 		
 		///// fetch and parse JSON data
 		let jData:JSON = JSON.parse(jStr)
@@ -137,6 +152,9 @@ class ThemeManager {
 					break
 				case ThemeGroupParseStr.DigitalClock.rawValue:
 					tmpThemeData.themeCategory = ThemeGroup.DigitalClock
+					break
+				case ThemeGroupParseStr.Background.rawValue:
+					tmpThemeData.themeCategory = ThemeGroup.Background
 					break
 				default:
 					print("Error: ThemeCategory is unknown: ", jData[i]["category"].string!)
@@ -165,6 +183,7 @@ class ThemeManager {
 		
 		/////////////////
 		selectedThemes[ThemeGroup.DigitalClock] = legacyDefaultTheme
+		selectedThemes[ThemeGroup.Background] = legacyDefaultTheme
 		
 		print("[ThemeManager] inited")
 	} //end func

@@ -51,17 +51,17 @@ class TestersWebView:UIModalPopView {
 	//EventListener for Progressbar
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 		if (keyPath == nil) {
-			return;
+			return
 		}
 		
 		switch(keyPath!) {
 			//Title change event
 			case "title":
-				self.title = wbView.title;
+				self.title = wbView.title
 				break;
 			//Progressbar event
 			case "estimatedProgress":
-				wbProgress.progress = Float(wbView.estimatedProgress);
+				wbProgress.progress = Float(wbView.estimatedProgress)
 				
 				//Progressbar hide/show animate
 				if (wbView.estimatedProgress == 1) {

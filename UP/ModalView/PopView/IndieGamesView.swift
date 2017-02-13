@@ -69,15 +69,14 @@ class IndieGamesView:UIModalPopView {
 						wbProgress.isHidden = false;
 						self.wbProgress.alpha = 0;
 						UIView.animate(withDuration: 0.48, delay: 0, options: .curveEaseOut, animations: {
-							self.wbProgress.alpha = 1;
+							self.wbProgress.alpha = 1
 						}) { _ in
-						}
-					}
-				}
-				break;
+						} //end animation block
+					} //end if
+				} //end if
+				break
 			default:
-				
-				break;
+				break
 		} //end switch
 	} //end observe ovv
 	

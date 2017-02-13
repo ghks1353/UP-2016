@@ -55,6 +55,8 @@ class ViewController: UIViewController {
 	var DigitalNum0:UIImageView = UIImageView(); var DigitalNum1:UIImageView = UIImageView();
 	var DigitalNum2:UIImageView = UIImageView(); var DigitalNum3:UIImageView = UIImageView();
 	var DigitalCol:UIImageView = UIImageView()
+	//Digital clock wrapper for align to center
+	var digitalClockUIView:UIView = UIView()
 	
 	//Digital clock image cache block
 	var digitalClockImageCached:Array<UIImage> = []
@@ -95,7 +97,8 @@ class ViewController: UIViewController {
 	var mainAnimatedObjs:Array<AnimatedImg> = Array<AnimatedImg>()
 	
 	//위쪽에서 내려오는 알람 메시지를 위한 뷰
-	var upAlarmMessageView:UIView = UIView(); var upAlarmMessageText:UILabel = UILabel();
+	var upAlarmMessageView:UIView = UIView()
+	var upAlarmMessageText:UILabel = UILabel()
 	
 	//UP 확장팩 구매 유도 버튼 및 도움말 표시 버튼
 	var upExtPackButton:UIImageView = UIImageView()
@@ -145,9 +148,14 @@ class ViewController: UIViewController {
 		self.view.sendSubview(toBack: backgroundImageFadeView); self.view.sendSubview(toBack: backgroundImageView);
 		
 		//리소스 뷰에 추가
-		self.view.addSubview(DigitalNum0); self.view.addSubview(DigitalNum1);
-		self.view.addSubview(DigitalNum2); self.view.addSubview(DigitalNum3); self.view.addSubview(DigitalCol);
-		self.view.addSubview(digitalAMPMIndicator);
+		digitalClockUIView.addSubview(DigitalNum0)
+		digitalClockUIView.addSubview(DigitalNum1)
+		digitalClockUIView.addSubview(DigitalNum2)
+		digitalClockUIView.addSubview(DigitalNum3)
+		digitalClockUIView.addSubview(DigitalCol)
+		
+		self.view.addSubview( digitalClockUIView )
+		self.view.addSubview(digitalAMPMIndicator)
 		
 		self.view.addSubview(AnalogBody); self.view.addSubview(AnalogHours);
 		self.view.addSubview(AnalogMinutes); self.view.addSubview(AnalogSeconds);
@@ -175,9 +183,7 @@ class ViewController: UIViewController {
 		self.view.addSubview(AnalogBodyToucharea)
 		
 		//리소스 우선순위 설정
-		self.view.bringSubview(toFront: DigitalCol)
-		self.view.bringSubview(toFront: DigitalNum0); self.view.bringSubview(toFront: DigitalNum1);
-		self.view.bringSubview(toFront: DigitalNum2); self.view.bringSubview(toFront: DigitalNum3);
+		self.view.bringSubview(toFront: digitalClockUIView)
 		self.view.bringSubview(toFront: digitalAMPMIndicator)
 		
 		self.view.bringSubview(toFront: AnalogBody)
@@ -451,14 +457,11 @@ class ViewController: UIViewController {
 		checkToCallAlarmRingingView()
 		
         //get time and calcuate
-        let date = Date()
-		let calendar = Calendar.current
-        let components = calendar.dateComponents([ .hour, .minute, .second], from: date)
+        let components = Calendar.current.dateComponents([ .hour, .minute, .second], from: Date())
         
 		var hourString:String = ""
 		var minString:String = ""
 		
-		minString = String(describing: components.minute!)
 		if (DeviceManager.is24HourMode == true) {
 			//24시간 시, 문자 그대로 표시
 			hourString = String(describing: components.hour!)
@@ -466,9 +469,12 @@ class ViewController: UIViewController {
 			//12시간 시, 12만큼 짜름
 			hourString = String(components.hour! > 12 ? components.hour! - 12 : (components.hour! == 0 ? 12 : components.hour)!)
 		} //end if [is 24h or not]
+		minString = String(describing: components.minute!)
+		//minString = String(describing: components.second!)
 		
-		//let digitalClockAssetPreset:String = ThemeManager.getAssetPresets(themeGroup: .DigitalClock)
-		let clockCenterPosition:CGFloat = DigitalCol.frame.minX + (DigitalCol.frame.width / 2)
+		//fix string if length is 1
+		hourString = hourString.characters.count == 1 ? "0" + hourString : hourString
+		minString = minString.characters.count == 1 ? "0" + minString : minString
 		
 		//AMPM check
 		if (components.hour! >= 12) {
@@ -484,71 +490,38 @@ class ViewController: UIViewController {
 			digitalCurrentIsPM = 0
 		} //end if is am/pm
 		
-		//hour str time
-        if (hourString.characters.count) == 1 {
-            DigitalNum0.image = digitalClockImageCached[0]
-            DigitalNum1.image = digitalClockImageCached[ Int(hourString[0])! ]
-            
-            if (hourString[0] == "1") { //숫자1의경우 오른쪽으로 당김.
-                DigitalNum0.frame = CGRect(x: clockCenterPosition - DigitalCol.frame.width*2 - (14 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-                DigitalNum1.frame = CGRect(x: clockCenterPosition - DigitalCol.frame.width - (6 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-            } else { //원래 위치로
-                DigitalNum0.frame = CGRect(x: clockCenterPosition - DigitalCol.frame.width*2 - (20 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-                DigitalNum1.frame = CGRect(x: clockCenterPosition - DigitalCol.frame.width - (12 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-            } //end if
-            
-        } else { //첫자리 밑 둘째자리는 각 시간에 맞게
-            DigitalNum0.image = digitalClockImageCached[ Int(hourString[0])! ]
-            DigitalNum1.image = digitalClockImageCached[ Int(hourString[1])! ]
-            
-            var movesRightOffset:Double = 0
-			if (hourString[0] == "1") { //오른쪽으로 당김
-                movesRightOffset += 6
-            } //end if
-            if (hourString[1] == "1") {
-                //가능한 경우 최대 두번 당김
-                DigitalNum0.frame = CGRect(x: clockCenterPosition - DigitalCol.frame.width*2 - CGFloat(((8 - movesRightOffset) - movesRightOffset) * DeviceManager.maxScrRatio), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-                movesRightOffset += 6
-                DigitalNum1.frame = CGRect(x: clockCenterPosition - DigitalCol.frame.width - CGFloat((14 - movesRightOffset) * DeviceManager.maxScrRatio), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-            } else {
-                DigitalNum0.frame = CGRect(x: clockCenterPosition - DigitalCol.frame.width*2 - CGFloat((20 - movesRightOffset) * DeviceManager.maxScrRatio), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-                DigitalNum1.frame = CGRect(x: clockCenterPosition - DigitalCol.frame.width - (12 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-            } //end if
-        } //end of hour str
+		//Time image attach
+		DigitalNum0.image = digitalClockImageCached[ Int(hourString[0])! ]
+		DigitalNum1.image = digitalClockImageCached[ Int(hourString[1])! ]
+		DigitalNum2.image = digitalClockImageCached[ Int(minString[0])! ]
+		DigitalNum3.image = digitalClockImageCached[ Int(minString[1])! ]
 		
-		//min str
+		////// 숫자 1 크기: 24
+		////// : 크기: 8
+		/////// 나머지 크기: 40
+		//1칸 간격은 8.
 		
-        if (minString.characters.count == 1) {
-            DigitalNum2.image = digitalClockImageCached[0]
-            DigitalNum3.image = digitalClockImageCached[ Int(minString[0])! ]
-            
-            if (minString[0] == "1") {
-                //숫자1의경우 왼쪽으로 당김.
-                DigitalNum3.frame = CGRect(x: clockCenterPosition + DigitalCol.frame.width + (14 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-                DigitalNum2.frame = CGRect(x: clockCenterPosition + (12 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-            } else {
-                //원래 위치로
-                DigitalNum3.frame = CGRect(x: clockCenterPosition + DigitalCol.frame.width + (20 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-                DigitalNum2.frame = CGRect(x: clockCenterPosition + (12 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-            } //end if
-        } else { //첫자리 밑 둘째자리는 각 시간에 맞게
-            DigitalNum2.image = digitalClockImageCached[ Int(minString[0])! ]
-            DigitalNum3.image = digitalClockImageCached[ Int(minString[1])! ]
-            
-            var movesLeftOffset:Double = 0
-            if (minString[1] == "1") { //가능한 경우 최대 두번 당김
-                movesLeftOffset += 6
-            } //end if
-            if (minString[0] == "1") { //왼쪽으로 당김
-                DigitalNum2.frame = CGRect(x: clockCenterPosition + (6 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-                movesLeftOffset += 6
-                DigitalNum3.frame = CGRect(x: clockCenterPosition + DigitalCol.frame.width + CGFloat((14 - movesLeftOffset) * DeviceManager.maxScrRatio), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-            } else {
-                DigitalNum2.frame = CGRect(x: clockCenterPosition + (12 * DeviceManager.maxScrRatioC), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-                DigitalNum3.frame = CGRect(x: clockCenterPosition + DigitalCol.frame.width + CGFloat((20 - movesLeftOffset) * DeviceManager.maxScrRatio), y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-            } //end if
-        } //end of min str
-
+		//숫자 1 배치시 (40 - 24) / 2
+		//: 배치시 (40 - 8) / 2
+		//y: DigitalCol.frame.minY
+		let tNumFMargin:CGFloat = -((40 - 24) / 2) * DeviceManager.maxScrRatioC
+		let tColMargin:CGFloat = -((40 - 8) / 2) * DeviceManager.maxScrRatioC
+		let tNumMargin:CGFloat = 8 * DeviceManager.maxScrRatioC
+		
+		DigitalNum0.frame = CGRect(x: hourString[0] == "1" ? tNumFMargin : 0
+			, y: 0, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
+		DigitalNum1.frame = CGRect(x: hourString[1] == "1" ? DigitalNum0.frame.maxX + tNumFMargin + (tNumMargin * ( hourString[0] == "1" ? 0 : 1 )) : DigitalNum0.frame.maxX + (tNumMargin * ( hourString[0] == "1" ? 0 : 1 ))
+			, y: 0, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
+		
+		// : 위치 조절
+		DigitalCol.frame = CGRect(x: DigitalNum1.frame.maxX + tColMargin + (tNumMargin * ( hourString[1] == "1" ? 0 : 1 ))
+			, y: 0, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
+		
+		DigitalNum2.frame = CGRect(x: minString[0] == "1" ? (DigitalCol.frame.maxX + tColMargin) + tNumFMargin + tNumMargin : (DigitalCol.frame.maxX + tColMargin) + tNumMargin
+			, y: 0, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
+		DigitalNum3.frame = CGRect(x: minString[1] == "1" ? DigitalNum2.frame.maxX + tNumFMargin + (tNumMargin * ( minString[0] == "1" ? 0 : 1 )) : DigitalNum2.frame.maxX + (tNumMargin * ( minString[0] == "1" ? 0 : 1 ))
+			, y: 0, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
+		
 		//col animation
         if (DigitalCol.isHidden) {
             //1초주기 실행
@@ -558,6 +531,13 @@ class ViewController: UIViewController {
 			AnalogSeconds.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.second!) / 60) * 360) * CGFloat(M_PI) / 180 )
         } //end if
         DigitalCol.isHidden = !DigitalCol.isHidden
+		
+		let dClockMinX:CGFloat = hourString[0] == "1" ? DigitalNum0.frame.minX + tNumMargin : DigitalNum0.frame.minX
+		let dClockMaxX:CGFloat = minString[1] == "1" ? DigitalNum3.frame.maxX - tNumMargin : DigitalNum3.frame.maxX
+		
+		/// align to center 
+		digitalClockUIView.frame = CGRect( x: DeviceManager.scrSize!.width / 2 - (dClockMaxX - dClockMinX) / 2, y: digitalClockUIView.frame.minY, width: dClockMaxX - dClockMinX, height: DigitalNum0.frame.height )
+		
 		
 		if (GroundObj.image == nil) { // 이미지 없을 경우 땅 표시
 			currentGroundImage = getBackground(components.hour!, isGround: true)
@@ -736,7 +716,6 @@ class ViewController: UIViewController {
 		digitalClockImageCached.removeAll()
 		for i:Int in 0 ... 9 {
 			digitalClockImageCached.append( UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + String(i) + ".png" )! )
-			//print("Adding clock: ", ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + String(i) + ".png" )
 		} //end for
 		//// Make AMPM digital indicator
 		digitalClockAMPMCached.removeAll()
@@ -795,20 +774,35 @@ class ViewController: UIViewController {
 			if (UIDevice.current.orientation.isLandscape == true) {
 				digiClockYAxis = 60 * DeviceManager.scrRatioC
 			}
-		}
+		} //end if
+		
+		let cForCalcuate:DateComponents = Calendar.current.dateComponents([ .hour, .minute, .second], from: Date())
+		
+		var hourString:String = ""
+		var minString:String = ""
+		
+		if (DeviceManager.is24HourMode == true) {
+			hourString = String(describing: cForCalcuate.hour!)
+		} else {
+			hourString = String(cForCalcuate.hour! > 12 ? cForCalcuate.hour! - 12 : (cForCalcuate.hour! == 0 ? 12 : cForCalcuate.hour)!)
+		} //end if [is 24h or not]
+		minString = String(describing: cForCalcuate.minute!)
+		//fix string if length is 1
+		hourString = hourString.characters.count == 1 ? "0" + hourString : hourString
+		minString = minString.characters.count == 1 ? "0" + minString : minString
+		
+		let tNumMargin:CGFloat = 8 * DeviceManager.maxScrRatioC
+		let dClockMinX:CGFloat = hourString[0] == "1" ? DigitalNum0.frame.minX + tNumMargin : DigitalNum0.frame.minX
+		let dClockMaxX:CGFloat = minString[1] == "1" ? DigitalNum3.frame.maxX - tNumMargin : DigitalNum3.frame.maxX
 		
 		//디지털시계 이미지 스케일 조정
-		//DigitalCol.frame = CGRect(x: scrX, y: digiClockYAxis, width: DigitalCol.bounds.width * DeviceManager.maxScrRatioC, height: DigitalCol.bounds.height * DeviceManager.maxScrRatioC)
-		DigitalCol.frame = CGRect(x: scrX, y: digiClockYAxis, width: 40 * DeviceManager.maxScrRatioC, height: 56 * DeviceManager.maxScrRatioC)
+		digitalClockUIView.frame = CGRect(x: DeviceManager.scrSize!.width / 2 - (dClockMaxX - dClockMinX) / 2, y: digiClockYAxis, width: (dClockMaxX - dClockMinX), height: 56 * DeviceManager.maxScrRatioC)
+		DigitalCol.frame = CGRect(x: DigitalCol.frame.minX, y: 0, width: 40 * DeviceManager.maxScrRatioC, height: 56 * DeviceManager.maxScrRatioC)
 		
 		//x위치를 제외한 나머지 통일
-		DigitalNum0.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width * 2 - 20 * DeviceManager.maxScrRatioC, y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-		DigitalNum1.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) - DigitalCol.frame.width - 12 * DeviceManager.maxScrRatioC, y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-		DigitalNum3.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + DigitalCol.frame.width + 20 * DeviceManager.maxScrRatioC, y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
-		DigitalNum2.frame = CGRect(x: (DigitalCol.frame.minX + (DigitalCol.frame.width / 2)) + 12 * DeviceManager.maxScrRatioC, y: DigitalCol.frame.minY, width: DigitalCol.frame.width, height: DigitalCol.frame.height)
 		digitalAMPMIndicator.frame = CGRect(
 			x: (DeviceManager.scrSize!.width / 2) - (28 * DeviceManager.maxScrRatioC / 2),
-			y: DigitalCol.frame.minY - 31 * DeviceManager.maxScrRatioC,
+			y: digitalClockUIView.frame.minY - 31 * DeviceManager.maxScrRatioC,
 			width: 28 * DeviceManager.maxScrRatioC, height: 14 * DeviceManager.maxScrRatioC)
 		
 		//UP 구매 버튼 위치 및 크기지정

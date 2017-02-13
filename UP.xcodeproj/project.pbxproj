@@ -294,121 +294,121 @@
 		774549F71E504B1F003B9678 /* themes-select-side-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549F01E504B1F003B9678 /* themes-select-side-up.png */; };
 		774549FA1E506404003B9678 /* themes-select-side-down-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549F81E506404003B9678 /* themes-select-side-down-right.png */; };
 		774549FB1E506404003B9678 /* themes-select-side-up-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549F91E506404003B9678 /* themes-select-side-up-right.png */; };
-		77454A051E50CDB2003B9678 /* theme-default-object-list-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549FC1E50CDB2003B9678 /* theme-default-object-list-shadow.png */; };
-		77454A061E50CDB2003B9678 /* theme-default-object-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549FD1E50CDB2003B9678 /* theme-default-object-list.png */; };
-		77454A071E50CDB2003B9678 /* theme-default-object-settings-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549FE1E50CDB2003B9678 /* theme-default-object-settings-shadow.png */; };
-		77454A081E50CDB2003B9678 /* theme-default-object-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549FF1E50CDB2003B9678 /* theme-default-object-settings.png */; };
-		77454A091E50CDB2003B9678 /* theme-default-time-center.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A001E50CDB2003B9678 /* theme-default-time-center.png */; };
-		77454A0A1E50CDB2003B9678 /* theme-default-time-clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A011E50CDB2003B9678 /* theme-default-time-clock.png */; };
-		77454A0B1E50CDB2003B9678 /* theme-default-time-hour.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A021E50CDB2003B9678 /* theme-default-time-hour.png */; };
-		77454A0C1E50CDB2003B9678 /* theme-default-time-minute.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A031E50CDB2003B9678 /* theme-default-time-minute.png */; };
-		77454A0D1E50CDB2003B9678 /* theme-default-time-second.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A041E50CDB2003B9678 /* theme-default-time-second.png */; };
-		77454A1E1E50D646003B9678 /* theme-default-back-daytime-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A0E1E50D646003B9678 /* theme-default-back-daytime-4s.png */; };
-		77454A1F1E50D646003B9678 /* theme-default-back-daytime-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A0F1E50D646003B9678 /* theme-default-back-daytime-pad34.png */; };
-		77454A201E50D646003B9678 /* theme-default-back-daytime-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A101E50D646003B9678 /* theme-default-back-daytime-pad43.png */; };
-		77454A211E50D646003B9678 /* theme-default-back-daytime.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A111E50D646003B9678 /* theme-default-back-daytime.png */; };
-		77454A221E50D646003B9678 /* theme-default-back-morning-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A121E50D646003B9678 /* theme-default-back-morning-4s.png */; };
-		77454A231E50D646003B9678 /* theme-default-back-morning-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A131E50D646003B9678 /* theme-default-back-morning-pad34.png */; };
-		77454A241E50D646003B9678 /* theme-default-back-morning-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A141E50D646003B9678 /* theme-default-back-morning-pad43.png */; };
-		77454A251E50D646003B9678 /* theme-default-back-morning.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A151E50D646003B9678 /* theme-default-back-morning.png */; };
-		77454A261E50D646003B9678 /* theme-default-back-night-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A161E50D646003B9678 /* theme-default-back-night-4s.png */; };
-		77454A271E50D646003B9678 /* theme-default-back-night-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A171E50D646003B9678 /* theme-default-back-night-pad34.png */; };
-		77454A281E50D646003B9678 /* theme-default-back-night-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A181E50D646003B9678 /* theme-default-back-night-pad43.png */; };
-		77454A291E50D646003B9678 /* theme-default-back-night.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A191E50D646003B9678 /* theme-default-back-night.png */; };
-		77454A2A1E50D646003B9678 /* theme-default-back-sunset-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A1A1E50D646003B9678 /* theme-default-back-sunset-4s.png */; };
-		77454A2B1E50D646003B9678 /* theme-default-back-sunset-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A1B1E50D646003B9678 /* theme-default-back-sunset-pad34.png */; };
-		77454A2C1E50D646003B9678 /* theme-default-back-sunset-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A1C1E50D646003B9678 /* theme-default-back-sunset-pad43.png */; };
-		77454A2D1E50D646003B9678 /* theme-default-back-sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A1D1E50D646003B9678 /* theme-default-back-sunset.png */; };
-		77454A3D1E50D93D003B9678 /* theme-default-ground-daytime-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A2E1E50D93D003B9678 /* theme-default-ground-daytime-pad34.png */; };
-		77454A3E1E50D93D003B9678 /* theme-default-ground-daytime-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A2F1E50D93D003B9678 /* theme-default-ground-daytime-pad43.png */; };
-		77454A3F1E50D93D003B9678 /* theme-default-ground-daytime.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A301E50D93D003B9678 /* theme-default-ground-daytime.png */; };
-		77454A401E50D93D003B9678 /* theme-default-ground-morning-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A311E50D93D003B9678 /* theme-default-ground-morning-pad34.png */; };
-		77454A411E50D93D003B9678 /* theme-default-ground-morning-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A321E50D93D003B9678 /* theme-default-ground-morning-pad43.png */; };
-		77454A421E50D93D003B9678 /* theme-default-ground-morning.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A331E50D93D003B9678 /* theme-default-ground-morning.png */; };
-		77454A431E50D93D003B9678 /* theme-default-ground-night-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A341E50D93D003B9678 /* theme-default-ground-night-pad34.png */; };
-		77454A441E50D93D003B9678 /* theme-default-ground-night-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A351E50D93D003B9678 /* theme-default-ground-night-pad43.png */; };
-		77454A451E50D93D003B9678 /* theme-default-ground-night.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A361E50D93D003B9678 /* theme-default-ground-night.png */; };
-		77454A461E50D93D003B9678 /* theme-default-ground-sunset-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A371E50D93D003B9678 /* theme-default-ground-sunset-pad34.png */; };
-		77454A471E50D93D003B9678 /* theme-default-ground-sunset-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A381E50D93D003B9678 /* theme-default-ground-sunset-pad43.png */; };
-		77454A481E50D93D003B9678 /* theme-default-ground-sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A391E50D93D003B9678 /* theme-default-ground-sunset.png */; };
-		77454A491E50D93D003B9678 /* theme-default-object-floating.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A3A1E50D93D003B9678 /* theme-default-object-floating.png */; };
-		77454A4A1E50D93D003B9678 /* theme-default-object-standing.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A3B1E50D93D003B9678 /* theme-default-object-standing.png */; };
-		77454A4B1E50D93D003B9678 /* theme-default-object-statistics.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A3C1E50D93D003B9678 /* theme-default-object-statistics.png */; };
-		77454A591E50E946003B9678 /* theme-default-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A4C1E50E946003B9678 /* theme-default-0.png */; };
-		77454A5A1E50E946003B9678 /* theme-default-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A4D1E50E946003B9678 /* theme-default-1.png */; };
-		77454A5B1E50E946003B9678 /* theme-default-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A4E1E50E946003B9678 /* theme-default-2.png */; };
-		77454A5C1E50E946003B9678 /* theme-default-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A4F1E50E946003B9678 /* theme-default-3.png */; };
-		77454A5D1E50E946003B9678 /* theme-default-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A501E50E946003B9678 /* theme-default-4.png */; };
-		77454A5E1E50E946003B9678 /* theme-default-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A511E50E946003B9678 /* theme-default-5.png */; };
-		77454A5F1E50E946003B9678 /* theme-default-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A521E50E946003B9678 /* theme-default-6.png */; };
-		77454A601E50E946003B9678 /* theme-default-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A531E50E946003B9678 /* theme-default-7.png */; };
-		77454A611E50E946003B9678 /* theme-default-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A541E50E946003B9678 /* theme-default-8.png */; };
-		77454A621E50E946003B9678 /* theme-default-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A551E50E946003B9678 /* theme-default-9.png */; };
-		77454A631E50E946003B9678 /* theme-default-am.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A561E50E946003B9678 /* theme-default-am.png */; };
-		77454A641E50E946003B9678 /* theme-default-col.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A571E50E946003B9678 /* theme-default-col.png */; };
-		77454A651E50E946003B9678 /* theme-default-pm.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A581E50E946003B9678 /* theme-default-pm.png */; };
-		77454A701E50E956003B9678 /* theme-default-black-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A661E50E956003B9678 /* theme-default-black-0.png */; };
-		77454A711E50E956003B9678 /* theme-default-black-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A671E50E956003B9678 /* theme-default-black-1.png */; };
-		77454A721E50E956003B9678 /* theme-default-black-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A681E50E956003B9678 /* theme-default-black-2.png */; };
-		77454A731E50E956003B9678 /* theme-default-black-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A691E50E956003B9678 /* theme-default-black-3.png */; };
-		77454A741E50E956003B9678 /* theme-default-black-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6A1E50E956003B9678 /* theme-default-black-4.png */; };
-		77454A751E50E956003B9678 /* theme-default-black-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6B1E50E956003B9678 /* theme-default-black-5.png */; };
-		77454A761E50E956003B9678 /* theme-default-black-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6C1E50E956003B9678 /* theme-default-black-6.png */; };
-		77454A771E50E956003B9678 /* theme-default-black-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6D1E50E956003B9678 /* theme-default-black-7.png */; };
-		77454A781E50E956003B9678 /* theme-default-black-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6E1E50E956003B9678 /* theme-default-black-8.png */; };
-		77454A791E50E956003B9678 /* theme-default-black-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A6F1E50E956003B9678 /* theme-default-black-9.png */; };
-		77454A7E1E50E96C003B9678 /* theme-default-character-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A7A1E50E96C003B9678 /* theme-default-character-0.png */; };
-		77454A7F1E50E96C003B9678 /* theme-default-character-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A7B1E50E96C003B9678 /* theme-default-character-1.png */; };
-		77454A801E50E96C003B9678 /* theme-default-character-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A7C1E50E96C003B9678 /* theme-default-character-2.png */; };
-		77454A811E50E96C003B9678 /* theme-default-character-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A7D1E50E96C003B9678 /* theme-default-character-3.png */; };
-		77454A881E50E9A0003B9678 /* theme-default-guide-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A821E50E9A0003B9678 /* theme-default-guide-astro.png */; };
-		77454A891E50E9A0003B9678 /* theme-default-guide-buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A831E50E9A0003B9678 /* theme-default-guide-buy.png */; };
-		77454A8A1E50E9A0003B9678 /* theme-default-guide-center.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A841E50E9A0003B9678 /* theme-default-guide-center.png */; };
-		77454A8B1E50E9A0003B9678 /* theme-default-guide-ground-hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A851E50E9A0003B9678 /* theme-default-guide-ground-hover.png */; };
-		77454A8C1E50E9A0003B9678 /* theme-default-guide-ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A861E50E9A0003B9678 /* theme-default-guide-ground.png */; };
-		77454A8D1E50E9A0003B9678 /* theme-default-guide-stats.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A871E50E9A0003B9678 /* theme-default-guide-stats.png */; };
-		77454A961E50E9B2003B9678 /* theme-default-guide-list-add.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A8E1E50E9B2003B9678 /* theme-default-guide-list-add.png */; };
-		77454A971E50E9B2003B9678 /* theme-default-guide-list-del.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A8F1E50E9B2003B9678 /* theme-default-guide-list-del.png */; };
-		77454A981E50E9B2003B9678 /* theme-default-guide-list-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A901E50E9B2003B9678 /* theme-default-guide-list-off.png */; };
-		77454A991E50E9B2003B9678 /* theme-default-guide-list-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A911E50E9B2003B9678 /* theme-default-guide-list-on.png */; };
-		77454A9A1E50E9B2003B9678 /* theme-default-guide-list-swipe-del.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A921E50E9B2003B9678 /* theme-default-guide-list-swipe-del.png */; };
-		77454A9B1E50E9B2003B9678 /* theme-default-guide-list-swipe-edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A931E50E9B2003B9678 /* theme-default-guide-list-swipe-edit.png */; };
-		77454A9C1E50E9B2003B9678 /* theme-default-guide-list-time-half.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A941E50E9B2003B9678 /* theme-default-guide-list-time-half.png */; };
-		77454A9D1E50E9B2003B9678 /* theme-default-guide-list-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A951E50E9B2003B9678 /* theme-default-guide-list-time.png */; };
-		77454AA31E50E9C7003B9678 /* theme-default-guide-characters-achevements.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A9E1E50E9C7003B9678 /* theme-default-guide-characters-achevements.png */; };
-		77454AA41E50E9C7003B9678 /* theme-default-guide-characters-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454A9F1E50E9C7003B9678 /* theme-default-guide-characters-astro.png */; };
-		77454AA51E50E9C7003B9678 /* theme-default-guide-characters-exp.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AA01E50E9C7003B9678 /* theme-default-guide-characters-exp.png */; };
-		77454AA61E50E9C7003B9678 /* theme-default-guide-characters-gamecenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AA11E50E9C7003B9678 /* theme-default-guide-characters-gamecenter.png */; };
-		77454AA71E50E9C7003B9678 /* theme-default-guide-characters-level.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AA21E50E9C7003B9678 /* theme-default-guide-characters-level.png */; };
+		77454AAD1E51B836003B9678 /* theme-default-guide-characters-achevements.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AA81E51B836003B9678 /* theme-default-guide-characters-achevements.png */; };
+		77454AAE1E51B836003B9678 /* theme-default-guide-characters-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AA91E51B836003B9678 /* theme-default-guide-characters-astro.png */; };
+		77454AAF1E51B836003B9678 /* theme-default-guide-characters-exp.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AAA1E51B836003B9678 /* theme-default-guide-characters-exp.png */; };
+		77454AB01E51B836003B9678 /* theme-default-guide-characters-gamecenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AAB1E51B836003B9678 /* theme-default-guide-characters-gamecenter.png */; };
+		77454AB11E51B836003B9678 /* theme-default-guide-characters-level.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AAC1E51B836003B9678 /* theme-default-guide-characters-level.png */; };
+		77454AB81E51B84A003B9678 /* theme-default-guide-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AB21E51B84A003B9678 /* theme-default-guide-astro.png */; };
+		77454AB91E51B84A003B9678 /* theme-default-guide-buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AB31E51B84A003B9678 /* theme-default-guide-buy.png */; };
+		77454ABA1E51B84A003B9678 /* theme-default-guide-center.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AB41E51B84A003B9678 /* theme-default-guide-center.png */; };
+		77454ABB1E51B84A003B9678 /* theme-default-guide-ground-hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AB51E51B84A003B9678 /* theme-default-guide-ground-hover.png */; };
+		77454ABC1E51B84A003B9678 /* theme-default-guide-ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AB61E51B84A003B9678 /* theme-default-guide-ground.png */; };
+		77454ABD1E51B84A003B9678 /* theme-default-guide-stats.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AB71E51B84A003B9678 /* theme-default-guide-stats.png */; };
+		77454AC61E51B861003B9678 /* theme-default-guide-list-add.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454ABE1E51B861003B9678 /* theme-default-guide-list-add.png */; };
+		77454AC71E51B861003B9678 /* theme-default-guide-list-del.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454ABF1E51B861003B9678 /* theme-default-guide-list-del.png */; };
+		77454AC81E51B861003B9678 /* theme-default-guide-list-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AC01E51B861003B9678 /* theme-default-guide-list-off.png */; };
+		77454AC91E51B861003B9678 /* theme-default-guide-list-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AC11E51B861003B9678 /* theme-default-guide-list-on.png */; };
+		77454ACA1E51B861003B9678 /* theme-default-guide-list-swipe-del.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AC21E51B861003B9678 /* theme-default-guide-list-swipe-del.png */; };
+		77454ACB1E51B861003B9678 /* theme-default-guide-list-swipe-edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AC31E51B861003B9678 /* theme-default-guide-list-swipe-edit.png */; };
+		77454ACC1E51B861003B9678 /* theme-default-guide-list-time-half.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AC41E51B861003B9678 /* theme-default-guide-list-time-half.png */; };
+		77454ACD1E51B861003B9678 /* theme-default-guide-list-time.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AC51E51B861003B9678 /* theme-default-guide-list-time.png */; };
+		77454ADE1E51B880003B9678 /* theme-default-back-daytime-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454ACE1E51B880003B9678 /* theme-default-back-daytime-4s.png */; };
+		77454ADF1E51B880003B9678 /* theme-default-back-daytime-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454ACF1E51B880003B9678 /* theme-default-back-daytime-pad34.png */; };
+		77454AE01E51B880003B9678 /* theme-default-back-daytime-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AD01E51B880003B9678 /* theme-default-back-daytime-pad43.png */; };
+		77454AE11E51B880003B9678 /* theme-default-back-daytime.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AD11E51B880003B9678 /* theme-default-back-daytime.png */; };
+		77454AE21E51B880003B9678 /* theme-default-back-morning-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AD21E51B880003B9678 /* theme-default-back-morning-4s.png */; };
+		77454AE31E51B880003B9678 /* theme-default-back-morning-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AD31E51B880003B9678 /* theme-default-back-morning-pad34.png */; };
+		77454AE41E51B880003B9678 /* theme-default-back-morning-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AD41E51B880003B9678 /* theme-default-back-morning-pad43.png */; };
+		77454AE51E51B880003B9678 /* theme-default-back-morning.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AD51E51B880003B9678 /* theme-default-back-morning.png */; };
+		77454AE61E51B880003B9678 /* theme-default-back-night-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AD61E51B880003B9678 /* theme-default-back-night-4s.png */; };
+		77454AE71E51B880003B9678 /* theme-default-back-night-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AD71E51B880003B9678 /* theme-default-back-night-pad34.png */; };
+		77454AE81E51B880003B9678 /* theme-default-back-night-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AD81E51B880003B9678 /* theme-default-back-night-pad43.png */; };
+		77454AE91E51B880003B9678 /* theme-default-back-night.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AD91E51B880003B9678 /* theme-default-back-night.png */; };
+		77454AEA1E51B880003B9678 /* theme-default-back-sunset-4s.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454ADA1E51B880003B9678 /* theme-default-back-sunset-4s.png */; };
+		77454AEB1E51B880003B9678 /* theme-default-back-sunset-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454ADB1E51B880003B9678 /* theme-default-back-sunset-pad34.png */; };
+		77454AEC1E51B880003B9678 /* theme-default-back-sunset-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454ADC1E51B880003B9678 /* theme-default-back-sunset-pad43.png */; };
+		77454AED1E51B880003B9678 /* theme-default-back-sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454ADD1E51B880003B9678 /* theme-default-back-sunset.png */; };
+		77454AF21E51B894003B9678 /* theme-default-character-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AEE1E51B894003B9678 /* theme-default-character-0.png */; };
+		77454AF31E51B894003B9678 /* theme-default-character-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AEF1E51B894003B9678 /* theme-default-character-1.png */; };
+		77454AF41E51B894003B9678 /* theme-default-character-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AF01E51B894003B9678 /* theme-default-character-2.png */; };
+		77454AF51E51B894003B9678 /* theme-default-character-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454AF11E51B894003B9678 /* theme-default-character-3.png */; };
+		77454B1E1E51B8D0003B9678 /* theme-default-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B111E51B8D0003B9678 /* theme-default-0.png */; };
+		77454B1F1E51B8D0003B9678 /* theme-default-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B121E51B8D0003B9678 /* theme-default-1.png */; };
+		77454B201E51B8D0003B9678 /* theme-default-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B131E51B8D0003B9678 /* theme-default-2.png */; };
+		77454B211E51B8D0003B9678 /* theme-default-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B141E51B8D0003B9678 /* theme-default-3.png */; };
+		77454B221E51B8D0003B9678 /* theme-default-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B151E51B8D0003B9678 /* theme-default-4.png */; };
+		77454B231E51B8D0003B9678 /* theme-default-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B161E51B8D0003B9678 /* theme-default-5.png */; };
+		77454B241E51B8D0003B9678 /* theme-default-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B171E51B8D0003B9678 /* theme-default-6.png */; };
+		77454B251E51B8D0003B9678 /* theme-default-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B181E51B8D0003B9678 /* theme-default-7.png */; };
+		77454B261E51B8D0003B9678 /* theme-default-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B191E51B8D0003B9678 /* theme-default-8.png */; };
+		77454B271E51B8D0003B9678 /* theme-default-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B1A1E51B8D0003B9678 /* theme-default-9.png */; };
+		77454B281E51B8D0003B9678 /* theme-default-am.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B1B1E51B8D0003B9678 /* theme-default-am.png */; };
+		77454B291E51B8D0003B9678 /* theme-default-col.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B1C1E51B8D0003B9678 /* theme-default-col.png */; };
+		77454B2A1E51B8D0003B9678 /* theme-default-pm.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B1D1E51B8D0003B9678 /* theme-default-pm.png */; };
+		77454B351E51B8DD003B9678 /* theme-default-black-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B2B1E51B8DD003B9678 /* theme-default-black-0.png */; };
+		77454B361E51B8DD003B9678 /* theme-default-black-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B2C1E51B8DD003B9678 /* theme-default-black-1.png */; };
+		77454B371E51B8DD003B9678 /* theme-default-black-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B2D1E51B8DD003B9678 /* theme-default-black-2.png */; };
+		77454B381E51B8DD003B9678 /* theme-default-black-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B2E1E51B8DD003B9678 /* theme-default-black-3.png */; };
+		77454B391E51B8DD003B9678 /* theme-default-black-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B2F1E51B8DD003B9678 /* theme-default-black-4.png */; };
+		77454B3A1E51B8DD003B9678 /* theme-default-black-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B301E51B8DD003B9678 /* theme-default-black-5.png */; };
+		77454B3B1E51B8DD003B9678 /* theme-default-black-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B311E51B8DD003B9678 /* theme-default-black-6.png */; };
+		77454B3C1E51B8DD003B9678 /* theme-default-black-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B321E51B8DD003B9678 /* theme-default-black-7.png */; };
+		77454B3D1E51B8DD003B9678 /* theme-default-black-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B331E51B8DD003B9678 /* theme-default-black-8.png */; };
+		77454B3E1E51B8DD003B9678 /* theme-default-black-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B341E51B8DD003B9678 /* theme-default-black-9.png */; };
+		77454B441E51B8F8003B9678 /* theme-default-time-center.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B3F1E51B8F8003B9678 /* theme-default-time-center.png */; };
+		77454B451E51B8F8003B9678 /* theme-default-time-clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B401E51B8F8003B9678 /* theme-default-time-clock.png */; };
+		77454B461E51B8F8003B9678 /* theme-default-time-hour.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B411E51B8F8003B9678 /* theme-default-time-hour.png */; };
+		77454B471E51B8F8003B9678 /* theme-default-time-minute.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B421E51B8F8003B9678 /* theme-default-time-minute.png */; };
+		77454B481E51B8F8003B9678 /* theme-default-time-second.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B431E51B8F8003B9678 /* theme-default-time-second.png */; };
+		77454B5C1E51B91B003B9678 /* theme-default-ground-daytime-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B491E51B91B003B9678 /* theme-default-ground-daytime-pad34.png */; };
+		77454B5D1E51B91B003B9678 /* theme-default-ground-daytime-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B4A1E51B91B003B9678 /* theme-default-ground-daytime-pad43.png */; };
+		77454B5E1E51B91B003B9678 /* theme-default-ground-daytime.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B4B1E51B91B003B9678 /* theme-default-ground-daytime.png */; };
+		77454B5F1E51B91B003B9678 /* theme-default-ground-morning-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B4C1E51B91B003B9678 /* theme-default-ground-morning-pad34.png */; };
+		77454B601E51B91B003B9678 /* theme-default-ground-morning-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B4D1E51B91B003B9678 /* theme-default-ground-morning-pad43.png */; };
+		77454B611E51B91B003B9678 /* theme-default-ground-morning.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B4E1E51B91B003B9678 /* theme-default-ground-morning.png */; };
+		77454B621E51B91B003B9678 /* theme-default-ground-night-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B4F1E51B91B003B9678 /* theme-default-ground-night-pad34.png */; };
+		77454B631E51B91B003B9678 /* theme-default-ground-night-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B501E51B91B003B9678 /* theme-default-ground-night-pad43.png */; };
+		77454B641E51B91B003B9678 /* theme-default-ground-night.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B511E51B91B003B9678 /* theme-default-ground-night.png */; };
+		77454B651E51B91B003B9678 /* theme-default-ground-sunset-pad34.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B521E51B91B003B9678 /* theme-default-ground-sunset-pad34.png */; };
+		77454B661E51B91B003B9678 /* theme-default-ground-sunset-pad43.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B531E51B91B003B9678 /* theme-default-ground-sunset-pad43.png */; };
+		77454B671E51B91B003B9678 /* theme-default-ground-sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B541E51B91B003B9678 /* theme-default-ground-sunset.png */; };
+		77454B681E51B91B003B9678 /* theme-default-object-floating.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B551E51B91B003B9678 /* theme-default-object-floating.png */; };
+		77454B691E51B91B003B9678 /* theme-default-object-list-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B561E51B91B003B9678 /* theme-default-object-list-shadow.png */; };
+		77454B6A1E51B91B003B9678 /* theme-default-object-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B571E51B91B003B9678 /* theme-default-object-list.png */; };
+		77454B6B1E51B91B003B9678 /* theme-default-object-settings-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B581E51B91B003B9678 /* theme-default-object-settings-shadow.png */; };
+		77454B6C1E51B91B003B9678 /* theme-default-object-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B591E51B91B003B9678 /* theme-default-object-settings.png */; };
+		77454B6D1E51B91B003B9678 /* theme-default-object-standing.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B5A1E51B91B003B9678 /* theme-default-object-standing.png */; };
+		77454B6E1E51B91B003B9678 /* theme-default-object-statistics.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B5B1E51B91B003B9678 /* theme-default-object-statistics.png */; };
+		77454B7C1E51C4ED003B9678 /* theme-default-list-back-daytime-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B741E51C4ED003B9678 /* theme-default-list-back-daytime-off.png */; };
+		77454B7D1E51C4ED003B9678 /* theme-default-list-back-daytime-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B751E51C4ED003B9678 /* theme-default-list-back-daytime-on.png */; };
+		77454B7E1E51C4ED003B9678 /* theme-default-list-back-morning-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B761E51C4ED003B9678 /* theme-default-list-back-morning-off.png */; };
+		77454B7F1E51C4ED003B9678 /* theme-default-list-back-morning-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B771E51C4ED003B9678 /* theme-default-list-back-morning-on.png */; };
+		77454B801E51C4ED003B9678 /* theme-default-list-back-night-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B781E51C4ED003B9678 /* theme-default-list-back-night-off.png */; };
+		77454B811E51C4ED003B9678 /* theme-default-list-back-night-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B791E51C4ED003B9678 /* theme-default-list-back-night-on.png */; };
+		77454B821E51C4ED003B9678 /* theme-default-list-back-sunset-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B7A1E51C4ED003B9678 /* theme-default-list-back-sunset-off.png */; };
+		77454B831E51C4ED003B9678 /* theme-default-list-back-sunset-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B7B1E51C4ED003B9678 /* theme-default-list-back-sunset-on.png */; };
+		77454B8C1E51C4F4003B9678 /* theme-default-list-back-daytime-ipad-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B841E51C4F4003B9678 /* theme-default-list-back-daytime-ipad-off.png */; };
+		77454B8D1E51C4F4003B9678 /* theme-default-list-back-daytime-ipad-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B851E51C4F4003B9678 /* theme-default-list-back-daytime-ipad-on.png */; };
+		77454B8E1E51C4F4003B9678 /* theme-default-list-back-morning-ipad-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B861E51C4F4003B9678 /* theme-default-list-back-morning-ipad-off.png */; };
+		77454B8F1E51C4F4003B9678 /* theme-default-list-back-morning-ipad-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B871E51C4F4003B9678 /* theme-default-list-back-morning-ipad-on.png */; };
+		77454B901E51C4F4003B9678 /* theme-default-list-back-night-ipad-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B881E51C4F4003B9678 /* theme-default-list-back-night-ipad-off.png */; };
+		77454B911E51C4F4003B9678 /* theme-default-list-back-night-ipad-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B891E51C4F4003B9678 /* theme-default-list-back-night-ipad-on.png */; };
+		77454B921E51C4F4003B9678 /* theme-default-list-back-sunset-ipad-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B8A1E51C4F4003B9678 /* theme-default-list-back-sunset-ipad-off.png */; };
+		77454B931E51C4F4003B9678 /* theme-default-list-back-sunset-ipad-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B8B1E51C4F4003B9678 /* theme-default-list-back-sunset-ipad-on.png */; };
+		77454B9C1E51C4FC003B9678 /* theme-default-list-back-daytime-ldpi-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B941E51C4FC003B9678 /* theme-default-list-back-daytime-ldpi-off.png */; };
+		77454B9D1E51C4FC003B9678 /* theme-default-list-back-daytime-ldpi-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B951E51C4FC003B9678 /* theme-default-list-back-daytime-ldpi-on.png */; };
+		77454B9E1E51C4FC003B9678 /* theme-default-list-back-morning-ldpi-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B961E51C4FC003B9678 /* theme-default-list-back-morning-ldpi-off.png */; };
+		77454B9F1E51C4FC003B9678 /* theme-default-list-back-morning-ldpi-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B971E51C4FC003B9678 /* theme-default-list-back-morning-ldpi-on.png */; };
+		77454BA01E51C4FC003B9678 /* theme-default-list-back-night-ldpi-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B981E51C4FC003B9678 /* theme-default-list-back-night-ldpi-off.png */; };
+		77454BA11E51C4FC003B9678 /* theme-default-list-back-night-ldpi-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B991E51C4FC003B9678 /* theme-default-list-back-night-ldpi-on.png */; };
+		77454BA21E51C4FC003B9678 /* theme-default-list-back-sunset-ldpi-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B9A1E51C4FC003B9678 /* theme-default-list-back-sunset-ldpi-off.png */; };
+		77454BA31E51C4FC003B9678 /* theme-default-list-back-sunset-ldpi-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77454B9B1E51C4FC003B9678 /* theme-default-list-back-sunset-ldpi-on.png */; };
 		775487D51DEA880900D2DCE5 /* ModalWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775487D41DEA880900D2DCE5 /* ModalWebView.swift */; };
 		77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */; };
 		77561DAF1D5066D0002EB26B /* comp-icons-settings-language-ja.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */; };
 		77561DB01D5066D0002EB26B /* comp-icons-settings-language-ko.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */; };
 		77561DB21D5066DA002EB26B /* comp-icons-settings-language.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561DB11D5066DA002EB26B /* comp-icons-settings-language.png */; };
-		77561E771D50C85D002EB26B /* a-time-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E6F1D50C85D002EB26B /* a-time-off.png */; };
-		77561E781D50C85D002EB26B /* a-time-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E701D50C85D002EB26B /* a-time-on.png */; };
-		77561E791D50C85D002EB26B /* b-time-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E711D50C85D002EB26B /* b-time-off.png */; };
-		77561E7A1D50C85D002EB26B /* b-time-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E721D50C85D002EB26B /* b-time-on.png */; };
-		77561E7B1D50C85D002EB26B /* c-time-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E731D50C85D002EB26B /* c-time-off.png */; };
-		77561E7C1D50C85D002EB26B /* c-time-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E741D50C85D002EB26B /* c-time-on.png */; };
-		77561E7D1D50C85D002EB26B /* d-time-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E751D50C85D002EB26B /* d-time-off.png */; };
-		77561E7E1D50C85D002EB26B /* d-time-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E761D50C85D002EB26B /* d-time-on.png */; };
-		77561E871D50C86B002EB26B /* a-time-off-pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E7F1D50C86B002EB26B /* a-time-off-pad.png */; };
-		77561E881D50C86B002EB26B /* a-time-on-pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E801D50C86B002EB26B /* a-time-on-pad.png */; };
-		77561E891D50C86B002EB26B /* b-time-off-pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E811D50C86B002EB26B /* b-time-off-pad.png */; };
-		77561E8A1D50C86B002EB26B /* b-time-on-pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E821D50C86B002EB26B /* b-time-on-pad.png */; };
-		77561E8B1D50C86B002EB26B /* c-time-off-pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E831D50C86B002EB26B /* c-time-off-pad.png */; };
-		77561E8C1D50C86B002EB26B /* c-time-on-pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E841D50C86B002EB26B /* c-time-on-pad.png */; };
-		77561E8D1D50C86B002EB26B /* d-time-off-pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E851D50C86B002EB26B /* d-time-off-pad.png */; };
-		77561E8E1D50C86B002EB26B /* d-time-on-pad.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E861D50C86B002EB26B /* d-time-on-pad.png */; };
-		77561E971D50C884002EB26B /* a-time-off-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E8F1D50C884002EB26B /* a-time-off-small.png */; };
-		77561E981D50C884002EB26B /* a-time-on-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E901D50C884002EB26B /* a-time-on-small.png */; };
-		77561E991D50C884002EB26B /* b-time-off-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E911D50C884002EB26B /* b-time-off-small.png */; };
-		77561E9A1D50C884002EB26B /* b-time-on-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E921D50C884002EB26B /* b-time-on-small.png */; };
-		77561E9B1D50C884002EB26B /* c-time-off-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E931D50C884002EB26B /* c-time-off-small.png */; };
-		77561E9C1D50C884002EB26B /* c-time-on-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E941D50C884002EB26B /* c-time-on-small.png */; };
-		77561E9D1D50C884002EB26B /* d-time-off-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E951D50C884002EB26B /* d-time-off-small.png */; };
-		77561E9E1D50C884002EB26B /* d-time-on-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 77561E961D50C884002EB26B /* d-time-on-small.png */; };
 		77561EB21D50E741002EB26B /* ExperimentsTestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77561EB11D50E741002EB26B /* ExperimentsTestInfo.swift */; };
 		775ADBE81C4FC4C700B52552 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775ADBE71C4FC4C700B52552 /* AppDelegate.swift */; };
 		775ADBEA1C4FC4C700B52552 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775ADBE91C4FC4C700B52552 /* ViewController.swift */; };
@@ -497,7 +497,6 @@
 		77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */; };
 		77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */; };
 		77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */; };
-		77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */; };
 		77F948721D80ADEE00B33F5F /* comp-icons-settings-memo.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F948711D80ADEE00B33F5F /* comp-icons-settings-memo.png */; };
 		77F9487A1D80ADFD00B33F5F /* comp-icons-shop-code.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F948791D80ADFD00B33F5F /* comp-icons-shop-code.png */; };
 		77F9487C1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9487B1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png */; };
@@ -797,121 +796,121 @@
 		774549F01E504B1F003B9678 /* themes-select-side-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-up.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-up.png"; sourceTree = "<group>"; };
 		774549F81E506404003B9678 /* themes-select-side-down-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-down-right.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-down-right.png"; sourceTree = "<group>"; };
 		774549F91E506404003B9678 /* themes-select-side-up-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-side-up-right.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-side-up-right.png"; sourceTree = "<group>"; };
-		774549FC1E50CDB2003B9678 /* theme-default-object-list-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-list-shadow.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-object-list-shadow.png"; sourceTree = "<group>"; };
-		774549FD1E50CDB2003B9678 /* theme-default-object-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-list.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-object-list.png"; sourceTree = "<group>"; };
-		774549FE1E50CDB2003B9678 /* theme-default-object-settings-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-settings-shadow.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-object-settings-shadow.png"; sourceTree = "<group>"; };
-		774549FF1E50CDB2003B9678 /* theme-default-object-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-settings.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-object-settings.png"; sourceTree = "<group>"; };
-		77454A001E50CDB2003B9678 /* theme-default-time-center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-center.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-time-center.png"; sourceTree = "<group>"; };
-		77454A011E50CDB2003B9678 /* theme-default-time-clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-clock.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-time-clock.png"; sourceTree = "<group>"; };
-		77454A021E50CDB2003B9678 /* theme-default-time-hour.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-hour.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-time-hour.png"; sourceTree = "<group>"; };
-		77454A031E50CDB2003B9678 /* theme-default-time-minute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-minute.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-time-minute.png"; sourceTree = "<group>"; };
-		77454A041E50CDB2003B9678 /* theme-default-time-second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-second.png"; path = "ImageAssets/Skins/Default/AnalogClock/theme-default-time-second.png"; sourceTree = "<group>"; };
-		77454A0E1E50D646003B9678 /* theme-default-back-daytime-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-daytime-4s.png"; sourceTree = "<group>"; };
-		77454A0F1E50D646003B9678 /* theme-default-back-daytime-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-daytime-pad34.png"; sourceTree = "<group>"; };
-		77454A101E50D646003B9678 /* theme-default-back-daytime-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-daytime-pad43.png"; sourceTree = "<group>"; };
-		77454A111E50D646003B9678 /* theme-default-back-daytime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-daytime.png"; sourceTree = "<group>"; };
-		77454A121E50D646003B9678 /* theme-default-back-morning-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-morning-4s.png"; sourceTree = "<group>"; };
-		77454A131E50D646003B9678 /* theme-default-back-morning-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-morning-pad34.png"; sourceTree = "<group>"; };
-		77454A141E50D646003B9678 /* theme-default-back-morning-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-morning-pad43.png"; sourceTree = "<group>"; };
-		77454A151E50D646003B9678 /* theme-default-back-morning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-morning.png"; sourceTree = "<group>"; };
-		77454A161E50D646003B9678 /* theme-default-back-night-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-night-4s.png"; sourceTree = "<group>"; };
-		77454A171E50D646003B9678 /* theme-default-back-night-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-night-pad34.png"; sourceTree = "<group>"; };
-		77454A181E50D646003B9678 /* theme-default-back-night-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-night-pad43.png"; sourceTree = "<group>"; };
-		77454A191E50D646003B9678 /* theme-default-back-night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-night.png"; sourceTree = "<group>"; };
-		77454A1A1E50D646003B9678 /* theme-default-back-sunset-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset-4s.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-sunset-4s.png"; sourceTree = "<group>"; };
-		77454A1B1E50D646003B9678 /* theme-default-back-sunset-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset-pad34.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-sunset-pad34.png"; sourceTree = "<group>"; };
-		77454A1C1E50D646003B9678 /* theme-default-back-sunset-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset-pad43.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-sunset-pad43.png"; sourceTree = "<group>"; };
-		77454A1D1E50D646003B9678 /* theme-default-back-sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset.png"; path = "ImageAssets/Skins/Default/Backgrounds/theme-default-back-sunset.png"; sourceTree = "<group>"; };
-		77454A2E1E50D93D003B9678 /* theme-default-ground-daytime-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-daytime-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-daytime-pad34.png"; sourceTree = "<group>"; };
-		77454A2F1E50D93D003B9678 /* theme-default-ground-daytime-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-daytime-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-daytime-pad43.png"; sourceTree = "<group>"; };
-		77454A301E50D93D003B9678 /* theme-default-ground-daytime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-daytime.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-daytime.png"; sourceTree = "<group>"; };
-		77454A311E50D93D003B9678 /* theme-default-ground-morning-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-morning-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-morning-pad34.png"; sourceTree = "<group>"; };
-		77454A321E50D93D003B9678 /* theme-default-ground-morning-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-morning-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-morning-pad43.png"; sourceTree = "<group>"; };
-		77454A331E50D93D003B9678 /* theme-default-ground-morning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-morning.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-morning.png"; sourceTree = "<group>"; };
-		77454A341E50D93D003B9678 /* theme-default-ground-night-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-night-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-night-pad34.png"; sourceTree = "<group>"; };
-		77454A351E50D93D003B9678 /* theme-default-ground-night-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-night-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-night-pad43.png"; sourceTree = "<group>"; };
-		77454A361E50D93D003B9678 /* theme-default-ground-night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-night.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-night.png"; sourceTree = "<group>"; };
-		77454A371E50D93D003B9678 /* theme-default-ground-sunset-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-sunset-pad34.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-sunset-pad34.png"; sourceTree = "<group>"; };
-		77454A381E50D93D003B9678 /* theme-default-ground-sunset-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-sunset-pad43.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-sunset-pad43.png"; sourceTree = "<group>"; };
-		77454A391E50D93D003B9678 /* theme-default-ground-sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-sunset.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-ground-sunset.png"; sourceTree = "<group>"; };
-		77454A3A1E50D93D003B9678 /* theme-default-object-floating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-floating.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-object-floating.png"; sourceTree = "<group>"; };
-		77454A3B1E50D93D003B9678 /* theme-default-object-standing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-standing.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-object-standing.png"; sourceTree = "<group>"; };
-		77454A3C1E50D93D003B9678 /* theme-default-object-statistics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-statistics.png"; path = "ImageAssets/Skins/Default/GroundAssets/theme-default-object-statistics.png"; sourceTree = "<group>"; };
-		77454A4C1E50E946003B9678 /* theme-default-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-0.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-0.png"; sourceTree = "<group>"; };
-		77454A4D1E50E946003B9678 /* theme-default-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-1.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-1.png"; sourceTree = "<group>"; };
-		77454A4E1E50E946003B9678 /* theme-default-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-2.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-2.png"; sourceTree = "<group>"; };
-		77454A4F1E50E946003B9678 /* theme-default-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-3.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-3.png"; sourceTree = "<group>"; };
-		77454A501E50E946003B9678 /* theme-default-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-4.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-4.png"; sourceTree = "<group>"; };
-		77454A511E50E946003B9678 /* theme-default-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-5.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-5.png"; sourceTree = "<group>"; };
-		77454A521E50E946003B9678 /* theme-default-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-6.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-6.png"; sourceTree = "<group>"; };
-		77454A531E50E946003B9678 /* theme-default-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-7.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-7.png"; sourceTree = "<group>"; };
-		77454A541E50E946003B9678 /* theme-default-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-8.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-8.png"; sourceTree = "<group>"; };
-		77454A551E50E946003B9678 /* theme-default-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-9.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-9.png"; sourceTree = "<group>"; };
-		77454A561E50E946003B9678 /* theme-default-am.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-am.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-am.png"; sourceTree = "<group>"; };
-		77454A571E50E946003B9678 /* theme-default-col.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-col.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-col.png"; sourceTree = "<group>"; };
-		77454A581E50E946003B9678 /* theme-default-pm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-pm.png"; path = "ImageAssets/Skins/Default/DigitalClock/theme-default-pm.png"; sourceTree = "<group>"; };
-		77454A661E50E956003B9678 /* theme-default-black-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-0.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-0.png"; sourceTree = "<group>"; };
-		77454A671E50E956003B9678 /* theme-default-black-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-1.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-1.png"; sourceTree = "<group>"; };
-		77454A681E50E956003B9678 /* theme-default-black-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-2.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-2.png"; sourceTree = "<group>"; };
-		77454A691E50E956003B9678 /* theme-default-black-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-3.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-3.png"; sourceTree = "<group>"; };
-		77454A6A1E50E956003B9678 /* theme-default-black-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-4.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-4.png"; sourceTree = "<group>"; };
-		77454A6B1E50E956003B9678 /* theme-default-black-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-5.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-5.png"; sourceTree = "<group>"; };
-		77454A6C1E50E956003B9678 /* theme-default-black-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-6.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-6.png"; sourceTree = "<group>"; };
-		77454A6D1E50E956003B9678 /* theme-default-black-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-7.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-7.png"; sourceTree = "<group>"; };
-		77454A6E1E50E956003B9678 /* theme-default-black-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-8.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-8.png"; sourceTree = "<group>"; };
-		77454A6F1E50E956003B9678 /* theme-default-black-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-9.png"; path = "ImageAssets/Skins/Default/DigitalClock/Black/theme-default-black-9.png"; sourceTree = "<group>"; };
-		77454A7A1E50E96C003B9678 /* theme-default-character-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-0.png"; path = "ImageAssets/Skins/Default/Character/theme-default-character-0.png"; sourceTree = "<group>"; };
-		77454A7B1E50E96C003B9678 /* theme-default-character-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-1.png"; path = "ImageAssets/Skins/Default/Character/theme-default-character-1.png"; sourceTree = "<group>"; };
-		77454A7C1E50E96C003B9678 /* theme-default-character-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-2.png"; path = "ImageAssets/Skins/Default/Character/theme-default-character-2.png"; sourceTree = "<group>"; };
-		77454A7D1E50E96C003B9678 /* theme-default-character-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-3.png"; path = "ImageAssets/Skins/Default/Character/theme-default-character-3.png"; sourceTree = "<group>"; };
-		77454A821E50E9A0003B9678 /* theme-default-guide-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-astro.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-astro.png"; sourceTree = "<group>"; };
-		77454A831E50E9A0003B9678 /* theme-default-guide-buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-buy.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-buy.png"; sourceTree = "<group>"; };
-		77454A841E50E9A0003B9678 /* theme-default-guide-center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-center.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-center.png"; sourceTree = "<group>"; };
-		77454A851E50E9A0003B9678 /* theme-default-guide-ground-hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-ground-hover.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-ground-hover.png"; sourceTree = "<group>"; };
-		77454A861E50E9A0003B9678 /* theme-default-guide-ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-ground.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-ground.png"; sourceTree = "<group>"; };
-		77454A871E50E9A0003B9678 /* theme-default-guide-stats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-stats.png"; path = "ImageAssets/Skins/Default/Guides/main/theme-default-guide-stats.png"; sourceTree = "<group>"; };
-		77454A8E1E50E9B2003B9678 /* theme-default-guide-list-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-add.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-add.png"; sourceTree = "<group>"; };
-		77454A8F1E50E9B2003B9678 /* theme-default-guide-list-del.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-del.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-del.png"; sourceTree = "<group>"; };
-		77454A901E50E9B2003B9678 /* theme-default-guide-list-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-off.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-off.png"; sourceTree = "<group>"; };
-		77454A911E50E9B2003B9678 /* theme-default-guide-list-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-on.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-on.png"; sourceTree = "<group>"; };
-		77454A921E50E9B2003B9678 /* theme-default-guide-list-swipe-del.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-swipe-del.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-swipe-del.png"; sourceTree = "<group>"; };
-		77454A931E50E9B2003B9678 /* theme-default-guide-list-swipe-edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-swipe-edit.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-swipe-edit.png"; sourceTree = "<group>"; };
-		77454A941E50E9B2003B9678 /* theme-default-guide-list-time-half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-time-half.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-time-half.png"; sourceTree = "<group>"; };
-		77454A951E50E9B2003B9678 /* theme-default-guide-list-time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-time.png"; path = "ImageAssets/Skins/Default/Guides/list/theme-default-guide-list-time.png"; sourceTree = "<group>"; };
-		77454A9E1E50E9C7003B9678 /* theme-default-guide-characters-achevements.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-achevements.png"; path = "ImageAssets/Skins/Default/Guides/characters/theme-default-guide-characters-achevements.png"; sourceTree = "<group>"; };
-		77454A9F1E50E9C7003B9678 /* theme-default-guide-characters-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-astro.png"; path = "ImageAssets/Skins/Default/Guides/characters/theme-default-guide-characters-astro.png"; sourceTree = "<group>"; };
-		77454AA01E50E9C7003B9678 /* theme-default-guide-characters-exp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-exp.png"; path = "ImageAssets/Skins/Default/Guides/characters/theme-default-guide-characters-exp.png"; sourceTree = "<group>"; };
-		77454AA11E50E9C7003B9678 /* theme-default-guide-characters-gamecenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-gamecenter.png"; path = "ImageAssets/Skins/Default/Guides/characters/theme-default-guide-characters-gamecenter.png"; sourceTree = "<group>"; };
-		77454AA21E50E9C7003B9678 /* theme-default-guide-characters-level.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-level.png"; path = "ImageAssets/Skins/Default/Guides/characters/theme-default-guide-characters-level.png"; sourceTree = "<group>"; };
+		77454AA81E51B836003B9678 /* theme-default-guide-characters-achevements.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-achevements.png"; path = "ImageAssets/Themes/Default/Guides/GuideCharacter/theme-default-guide-characters-achevements.png"; sourceTree = "<group>"; };
+		77454AA91E51B836003B9678 /* theme-default-guide-characters-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-astro.png"; path = "ImageAssets/Themes/Default/Guides/GuideCharacter/theme-default-guide-characters-astro.png"; sourceTree = "<group>"; };
+		77454AAA1E51B836003B9678 /* theme-default-guide-characters-exp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-exp.png"; path = "ImageAssets/Themes/Default/Guides/GuideCharacter/theme-default-guide-characters-exp.png"; sourceTree = "<group>"; };
+		77454AAB1E51B836003B9678 /* theme-default-guide-characters-gamecenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-gamecenter.png"; path = "ImageAssets/Themes/Default/Guides/GuideCharacter/theme-default-guide-characters-gamecenter.png"; sourceTree = "<group>"; };
+		77454AAC1E51B836003B9678 /* theme-default-guide-characters-level.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-characters-level.png"; path = "ImageAssets/Themes/Default/Guides/GuideCharacter/theme-default-guide-characters-level.png"; sourceTree = "<group>"; };
+		77454AB21E51B84A003B9678 /* theme-default-guide-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-astro.png"; path = "ImageAssets/Themes/Default/Guides/GuideMain/theme-default-guide-astro.png"; sourceTree = "<group>"; };
+		77454AB31E51B84A003B9678 /* theme-default-guide-buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-buy.png"; path = "ImageAssets/Themes/Default/Guides/GuideMain/theme-default-guide-buy.png"; sourceTree = "<group>"; };
+		77454AB41E51B84A003B9678 /* theme-default-guide-center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-center.png"; path = "ImageAssets/Themes/Default/Guides/GuideMain/theme-default-guide-center.png"; sourceTree = "<group>"; };
+		77454AB51E51B84A003B9678 /* theme-default-guide-ground-hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-ground-hover.png"; path = "ImageAssets/Themes/Default/Guides/GuideMain/theme-default-guide-ground-hover.png"; sourceTree = "<group>"; };
+		77454AB61E51B84A003B9678 /* theme-default-guide-ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-ground.png"; path = "ImageAssets/Themes/Default/Guides/GuideMain/theme-default-guide-ground.png"; sourceTree = "<group>"; };
+		77454AB71E51B84A003B9678 /* theme-default-guide-stats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-stats.png"; path = "ImageAssets/Themes/Default/Guides/GuideMain/theme-default-guide-stats.png"; sourceTree = "<group>"; };
+		77454ABE1E51B861003B9678 /* theme-default-guide-list-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-add.png"; path = "ImageAssets/Themes/Default/Guides/GuideList/theme-default-guide-list-add.png"; sourceTree = "<group>"; };
+		77454ABF1E51B861003B9678 /* theme-default-guide-list-del.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-del.png"; path = "ImageAssets/Themes/Default/Guides/GuideList/theme-default-guide-list-del.png"; sourceTree = "<group>"; };
+		77454AC01E51B861003B9678 /* theme-default-guide-list-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-off.png"; path = "ImageAssets/Themes/Default/Guides/GuideList/theme-default-guide-list-off.png"; sourceTree = "<group>"; };
+		77454AC11E51B861003B9678 /* theme-default-guide-list-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-on.png"; path = "ImageAssets/Themes/Default/Guides/GuideList/theme-default-guide-list-on.png"; sourceTree = "<group>"; };
+		77454AC21E51B861003B9678 /* theme-default-guide-list-swipe-del.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-swipe-del.png"; path = "ImageAssets/Themes/Default/Guides/GuideList/theme-default-guide-list-swipe-del.png"; sourceTree = "<group>"; };
+		77454AC31E51B861003B9678 /* theme-default-guide-list-swipe-edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-swipe-edit.png"; path = "ImageAssets/Themes/Default/Guides/GuideList/theme-default-guide-list-swipe-edit.png"; sourceTree = "<group>"; };
+		77454AC41E51B861003B9678 /* theme-default-guide-list-time-half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-time-half.png"; path = "ImageAssets/Themes/Default/Guides/GuideList/theme-default-guide-list-time-half.png"; sourceTree = "<group>"; };
+		77454AC51E51B861003B9678 /* theme-default-guide-list-time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-guide-list-time.png"; path = "ImageAssets/Themes/Default/Guides/GuideList/theme-default-guide-list-time.png"; sourceTree = "<group>"; };
+		77454ACE1E51B880003B9678 /* theme-default-back-daytime-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime-4s.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-daytime-4s.png"; sourceTree = "<group>"; };
+		77454ACF1E51B880003B9678 /* theme-default-back-daytime-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime-pad34.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-daytime-pad34.png"; sourceTree = "<group>"; };
+		77454AD01E51B880003B9678 /* theme-default-back-daytime-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime-pad43.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-daytime-pad43.png"; sourceTree = "<group>"; };
+		77454AD11E51B880003B9678 /* theme-default-back-daytime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-daytime.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-daytime.png"; sourceTree = "<group>"; };
+		77454AD21E51B880003B9678 /* theme-default-back-morning-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning-4s.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-morning-4s.png"; sourceTree = "<group>"; };
+		77454AD31E51B880003B9678 /* theme-default-back-morning-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning-pad34.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-morning-pad34.png"; sourceTree = "<group>"; };
+		77454AD41E51B880003B9678 /* theme-default-back-morning-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning-pad43.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-morning-pad43.png"; sourceTree = "<group>"; };
+		77454AD51E51B880003B9678 /* theme-default-back-morning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-morning.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-morning.png"; sourceTree = "<group>"; };
+		77454AD61E51B880003B9678 /* theme-default-back-night-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night-4s.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-night-4s.png"; sourceTree = "<group>"; };
+		77454AD71E51B880003B9678 /* theme-default-back-night-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night-pad34.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-night-pad34.png"; sourceTree = "<group>"; };
+		77454AD81E51B880003B9678 /* theme-default-back-night-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night-pad43.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-night-pad43.png"; sourceTree = "<group>"; };
+		77454AD91E51B880003B9678 /* theme-default-back-night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-night.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-night.png"; sourceTree = "<group>"; };
+		77454ADA1E51B880003B9678 /* theme-default-back-sunset-4s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset-4s.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-sunset-4s.png"; sourceTree = "<group>"; };
+		77454ADB1E51B880003B9678 /* theme-default-back-sunset-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset-pad34.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-sunset-pad34.png"; sourceTree = "<group>"; };
+		77454ADC1E51B880003B9678 /* theme-default-back-sunset-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset-pad43.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-sunset-pad43.png"; sourceTree = "<group>"; };
+		77454ADD1E51B880003B9678 /* theme-default-back-sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-back-sunset.png"; path = "ImageAssets/Themes/Default/Backgrounds/theme-default-back-sunset.png"; sourceTree = "<group>"; };
+		77454AEE1E51B894003B9678 /* theme-default-character-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-0.png"; path = "ImageAssets/Themes/Default/Character/theme-default-character-0.png"; sourceTree = "<group>"; };
+		77454AEF1E51B894003B9678 /* theme-default-character-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-1.png"; path = "ImageAssets/Themes/Default/Character/theme-default-character-1.png"; sourceTree = "<group>"; };
+		77454AF01E51B894003B9678 /* theme-default-character-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-2.png"; path = "ImageAssets/Themes/Default/Character/theme-default-character-2.png"; sourceTree = "<group>"; };
+		77454AF11E51B894003B9678 /* theme-default-character-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-character-3.png"; path = "ImageAssets/Themes/Default/Character/theme-default-character-3.png"; sourceTree = "<group>"; };
+		77454B111E51B8D0003B9678 /* theme-default-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-0.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-0.png"; sourceTree = "<group>"; };
+		77454B121E51B8D0003B9678 /* theme-default-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-1.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-1.png"; sourceTree = "<group>"; };
+		77454B131E51B8D0003B9678 /* theme-default-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-2.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-2.png"; sourceTree = "<group>"; };
+		77454B141E51B8D0003B9678 /* theme-default-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-3.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-3.png"; sourceTree = "<group>"; };
+		77454B151E51B8D0003B9678 /* theme-default-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-4.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-4.png"; sourceTree = "<group>"; };
+		77454B161E51B8D0003B9678 /* theme-default-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-5.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-5.png"; sourceTree = "<group>"; };
+		77454B171E51B8D0003B9678 /* theme-default-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-6.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-6.png"; sourceTree = "<group>"; };
+		77454B181E51B8D0003B9678 /* theme-default-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-7.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-7.png"; sourceTree = "<group>"; };
+		77454B191E51B8D0003B9678 /* theme-default-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-8.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-8.png"; sourceTree = "<group>"; };
+		77454B1A1E51B8D0003B9678 /* theme-default-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-9.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-9.png"; sourceTree = "<group>"; };
+		77454B1B1E51B8D0003B9678 /* theme-default-am.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-am.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-am.png"; sourceTree = "<group>"; };
+		77454B1C1E51B8D0003B9678 /* theme-default-col.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-col.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-col.png"; sourceTree = "<group>"; };
+		77454B1D1E51B8D0003B9678 /* theme-default-pm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-pm.png"; path = "ImageAssets/Themes/Default/DigitalClock/White/theme-default-pm.png"; sourceTree = "<group>"; };
+		77454B2B1E51B8DD003B9678 /* theme-default-black-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-0.png"; path = "ImageAssets/Themes/Default/DigitalClock/Black/theme-default-black-0.png"; sourceTree = "<group>"; };
+		77454B2C1E51B8DD003B9678 /* theme-default-black-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-1.png"; path = "ImageAssets/Themes/Default/DigitalClock/Black/theme-default-black-1.png"; sourceTree = "<group>"; };
+		77454B2D1E51B8DD003B9678 /* theme-default-black-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-2.png"; path = "ImageAssets/Themes/Default/DigitalClock/Black/theme-default-black-2.png"; sourceTree = "<group>"; };
+		77454B2E1E51B8DD003B9678 /* theme-default-black-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-3.png"; path = "ImageAssets/Themes/Default/DigitalClock/Black/theme-default-black-3.png"; sourceTree = "<group>"; };
+		77454B2F1E51B8DD003B9678 /* theme-default-black-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-4.png"; path = "ImageAssets/Themes/Default/DigitalClock/Black/theme-default-black-4.png"; sourceTree = "<group>"; };
+		77454B301E51B8DD003B9678 /* theme-default-black-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-5.png"; path = "ImageAssets/Themes/Default/DigitalClock/Black/theme-default-black-5.png"; sourceTree = "<group>"; };
+		77454B311E51B8DD003B9678 /* theme-default-black-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-6.png"; path = "ImageAssets/Themes/Default/DigitalClock/Black/theme-default-black-6.png"; sourceTree = "<group>"; };
+		77454B321E51B8DD003B9678 /* theme-default-black-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-7.png"; path = "ImageAssets/Themes/Default/DigitalClock/Black/theme-default-black-7.png"; sourceTree = "<group>"; };
+		77454B331E51B8DD003B9678 /* theme-default-black-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-8.png"; path = "ImageAssets/Themes/Default/DigitalClock/Black/theme-default-black-8.png"; sourceTree = "<group>"; };
+		77454B341E51B8DD003B9678 /* theme-default-black-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-black-9.png"; path = "ImageAssets/Themes/Default/DigitalClock/Black/theme-default-black-9.png"; sourceTree = "<group>"; };
+		77454B3F1E51B8F8003B9678 /* theme-default-time-center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-center.png"; path = "ImageAssets/Themes/Default/AnalogClock/theme-default-time-center.png"; sourceTree = "<group>"; };
+		77454B401E51B8F8003B9678 /* theme-default-time-clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-clock.png"; path = "ImageAssets/Themes/Default/AnalogClock/theme-default-time-clock.png"; sourceTree = "<group>"; };
+		77454B411E51B8F8003B9678 /* theme-default-time-hour.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-hour.png"; path = "ImageAssets/Themes/Default/AnalogClock/theme-default-time-hour.png"; sourceTree = "<group>"; };
+		77454B421E51B8F8003B9678 /* theme-default-time-minute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-minute.png"; path = "ImageAssets/Themes/Default/AnalogClock/theme-default-time-minute.png"; sourceTree = "<group>"; };
+		77454B431E51B8F8003B9678 /* theme-default-time-second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-time-second.png"; path = "ImageAssets/Themes/Default/AnalogClock/theme-default-time-second.png"; sourceTree = "<group>"; };
+		77454B491E51B91B003B9678 /* theme-default-ground-daytime-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-daytime-pad34.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-daytime-pad34.png"; sourceTree = "<group>"; };
+		77454B4A1E51B91B003B9678 /* theme-default-ground-daytime-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-daytime-pad43.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-daytime-pad43.png"; sourceTree = "<group>"; };
+		77454B4B1E51B91B003B9678 /* theme-default-ground-daytime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-daytime.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-daytime.png"; sourceTree = "<group>"; };
+		77454B4C1E51B91B003B9678 /* theme-default-ground-morning-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-morning-pad34.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-morning-pad34.png"; sourceTree = "<group>"; };
+		77454B4D1E51B91B003B9678 /* theme-default-ground-morning-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-morning-pad43.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-morning-pad43.png"; sourceTree = "<group>"; };
+		77454B4E1E51B91B003B9678 /* theme-default-ground-morning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-morning.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-morning.png"; sourceTree = "<group>"; };
+		77454B4F1E51B91B003B9678 /* theme-default-ground-night-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-night-pad34.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-night-pad34.png"; sourceTree = "<group>"; };
+		77454B501E51B91B003B9678 /* theme-default-ground-night-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-night-pad43.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-night-pad43.png"; sourceTree = "<group>"; };
+		77454B511E51B91B003B9678 /* theme-default-ground-night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-night.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-night.png"; sourceTree = "<group>"; };
+		77454B521E51B91B003B9678 /* theme-default-ground-sunset-pad34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-sunset-pad34.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-sunset-pad34.png"; sourceTree = "<group>"; };
+		77454B531E51B91B003B9678 /* theme-default-ground-sunset-pad43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-sunset-pad43.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-sunset-pad43.png"; sourceTree = "<group>"; };
+		77454B541E51B91B003B9678 /* theme-default-ground-sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-ground-sunset.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-ground-sunset.png"; sourceTree = "<group>"; };
+		77454B551E51B91B003B9678 /* theme-default-object-floating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-floating.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-object-floating.png"; sourceTree = "<group>"; };
+		77454B561E51B91B003B9678 /* theme-default-object-list-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-list-shadow.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-object-list-shadow.png"; sourceTree = "<group>"; };
+		77454B571E51B91B003B9678 /* theme-default-object-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-list.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-object-list.png"; sourceTree = "<group>"; };
+		77454B581E51B91B003B9678 /* theme-default-object-settings-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-settings-shadow.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-object-settings-shadow.png"; sourceTree = "<group>"; };
+		77454B591E51B91B003B9678 /* theme-default-object-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-settings.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-object-settings.png"; sourceTree = "<group>"; };
+		77454B5A1E51B91B003B9678 /* theme-default-object-standing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-standing.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-object-standing.png"; sourceTree = "<group>"; };
+		77454B5B1E51B91B003B9678 /* theme-default-object-statistics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-object-statistics.png"; path = "ImageAssets/Themes/Default/GroundAssets/theme-default-object-statistics.png"; sourceTree = "<group>"; };
+		77454B741E51C4ED003B9678 /* theme-default-list-back-daytime-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-daytime-off.png"; path = "ImageAssets/Themes/Default/AlarmList/General/theme-default-list-back-daytime-off.png"; sourceTree = "<group>"; };
+		77454B751E51C4ED003B9678 /* theme-default-list-back-daytime-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-daytime-on.png"; path = "ImageAssets/Themes/Default/AlarmList/General/theme-default-list-back-daytime-on.png"; sourceTree = "<group>"; };
+		77454B761E51C4ED003B9678 /* theme-default-list-back-morning-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-morning-off.png"; path = "ImageAssets/Themes/Default/AlarmList/General/theme-default-list-back-morning-off.png"; sourceTree = "<group>"; };
+		77454B771E51C4ED003B9678 /* theme-default-list-back-morning-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-morning-on.png"; path = "ImageAssets/Themes/Default/AlarmList/General/theme-default-list-back-morning-on.png"; sourceTree = "<group>"; };
+		77454B781E51C4ED003B9678 /* theme-default-list-back-night-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-night-off.png"; path = "ImageAssets/Themes/Default/AlarmList/General/theme-default-list-back-night-off.png"; sourceTree = "<group>"; };
+		77454B791E51C4ED003B9678 /* theme-default-list-back-night-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-night-on.png"; path = "ImageAssets/Themes/Default/AlarmList/General/theme-default-list-back-night-on.png"; sourceTree = "<group>"; };
+		77454B7A1E51C4ED003B9678 /* theme-default-list-back-sunset-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-sunset-off.png"; path = "ImageAssets/Themes/Default/AlarmList/General/theme-default-list-back-sunset-off.png"; sourceTree = "<group>"; };
+		77454B7B1E51C4ED003B9678 /* theme-default-list-back-sunset-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-sunset-on.png"; path = "ImageAssets/Themes/Default/AlarmList/General/theme-default-list-back-sunset-on.png"; sourceTree = "<group>"; };
+		77454B841E51C4F4003B9678 /* theme-default-list-back-daytime-ipad-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-daytime-ipad-off.png"; path = "ImageAssets/Themes/Default/AlarmList/iPad/theme-default-list-back-daytime-ipad-off.png"; sourceTree = "<group>"; };
+		77454B851E51C4F4003B9678 /* theme-default-list-back-daytime-ipad-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-daytime-ipad-on.png"; path = "ImageAssets/Themes/Default/AlarmList/iPad/theme-default-list-back-daytime-ipad-on.png"; sourceTree = "<group>"; };
+		77454B861E51C4F4003B9678 /* theme-default-list-back-morning-ipad-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-morning-ipad-off.png"; path = "ImageAssets/Themes/Default/AlarmList/iPad/theme-default-list-back-morning-ipad-off.png"; sourceTree = "<group>"; };
+		77454B871E51C4F4003B9678 /* theme-default-list-back-morning-ipad-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-morning-ipad-on.png"; path = "ImageAssets/Themes/Default/AlarmList/iPad/theme-default-list-back-morning-ipad-on.png"; sourceTree = "<group>"; };
+		77454B881E51C4F4003B9678 /* theme-default-list-back-night-ipad-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-night-ipad-off.png"; path = "ImageAssets/Themes/Default/AlarmList/iPad/theme-default-list-back-night-ipad-off.png"; sourceTree = "<group>"; };
+		77454B891E51C4F4003B9678 /* theme-default-list-back-night-ipad-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-night-ipad-on.png"; path = "ImageAssets/Themes/Default/AlarmList/iPad/theme-default-list-back-night-ipad-on.png"; sourceTree = "<group>"; };
+		77454B8A1E51C4F4003B9678 /* theme-default-list-back-sunset-ipad-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-sunset-ipad-off.png"; path = "ImageAssets/Themes/Default/AlarmList/iPad/theme-default-list-back-sunset-ipad-off.png"; sourceTree = "<group>"; };
+		77454B8B1E51C4F4003B9678 /* theme-default-list-back-sunset-ipad-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-sunset-ipad-on.png"; path = "ImageAssets/Themes/Default/AlarmList/iPad/theme-default-list-back-sunset-ipad-on.png"; sourceTree = "<group>"; };
+		77454B941E51C4FC003B9678 /* theme-default-list-back-daytime-ldpi-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-daytime-ldpi-off.png"; path = "ImageAssets/Themes/Default/AlarmList/LDPI/theme-default-list-back-daytime-ldpi-off.png"; sourceTree = "<group>"; };
+		77454B951E51C4FC003B9678 /* theme-default-list-back-daytime-ldpi-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-daytime-ldpi-on.png"; path = "ImageAssets/Themes/Default/AlarmList/LDPI/theme-default-list-back-daytime-ldpi-on.png"; sourceTree = "<group>"; };
+		77454B961E51C4FC003B9678 /* theme-default-list-back-morning-ldpi-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-morning-ldpi-off.png"; path = "ImageAssets/Themes/Default/AlarmList/LDPI/theme-default-list-back-morning-ldpi-off.png"; sourceTree = "<group>"; };
+		77454B971E51C4FC003B9678 /* theme-default-list-back-morning-ldpi-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-morning-ldpi-on.png"; path = "ImageAssets/Themes/Default/AlarmList/LDPI/theme-default-list-back-morning-ldpi-on.png"; sourceTree = "<group>"; };
+		77454B981E51C4FC003B9678 /* theme-default-list-back-night-ldpi-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-night-ldpi-off.png"; path = "ImageAssets/Themes/Default/AlarmList/LDPI/theme-default-list-back-night-ldpi-off.png"; sourceTree = "<group>"; };
+		77454B991E51C4FC003B9678 /* theme-default-list-back-night-ldpi-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-night-ldpi-on.png"; path = "ImageAssets/Themes/Default/AlarmList/LDPI/theme-default-list-back-night-ldpi-on.png"; sourceTree = "<group>"; };
+		77454B9A1E51C4FC003B9678 /* theme-default-list-back-sunset-ldpi-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-sunset-ldpi-off.png"; path = "ImageAssets/Themes/Default/AlarmList/LDPI/theme-default-list-back-sunset-ldpi-off.png"; sourceTree = "<group>"; };
+		77454B9B1E51C4FC003B9678 /* theme-default-list-back-sunset-ldpi-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-list-back-sunset-ldpi-on.png"; path = "ImageAssets/Themes/Default/AlarmList/LDPI/theme-default-list-back-sunset-ldpi-on.png"; sourceTree = "<group>"; };
 		775487D41DEA880900D2DCE5 /* ModalWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalWebView.swift; path = ModalView/ModalWebView.swift; sourceTree = "<group>"; };
 		77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-en.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-en.png"; sourceTree = "<group>"; };
 		77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ja.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ja.png"; sourceTree = "<group>"; };
 		77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-ko.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-ko.png"; sourceTree = "<group>"; };
 		77561DB11D5066DA002EB26B /* comp-icons-settings-language.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language.png"; sourceTree = "<group>"; };
-		77561E6F1D50C85D002EB26B /* a-time-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a-time-off.png"; path = "ImageAssets/TimeListAssets/a-time-off.png"; sourceTree = "<group>"; };
-		77561E701D50C85D002EB26B /* a-time-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a-time-on.png"; path = "ImageAssets/TimeListAssets/a-time-on.png"; sourceTree = "<group>"; };
-		77561E711D50C85D002EB26B /* b-time-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "b-time-off.png"; path = "ImageAssets/TimeListAssets/b-time-off.png"; sourceTree = "<group>"; };
-		77561E721D50C85D002EB26B /* b-time-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "b-time-on.png"; path = "ImageAssets/TimeListAssets/b-time-on.png"; sourceTree = "<group>"; };
-		77561E731D50C85D002EB26B /* c-time-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "c-time-off.png"; path = "ImageAssets/TimeListAssets/c-time-off.png"; sourceTree = "<group>"; };
-		77561E741D50C85D002EB26B /* c-time-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "c-time-on.png"; path = "ImageAssets/TimeListAssets/c-time-on.png"; sourceTree = "<group>"; };
-		77561E751D50C85D002EB26B /* d-time-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "d-time-off.png"; path = "ImageAssets/TimeListAssets/d-time-off.png"; sourceTree = "<group>"; };
-		77561E761D50C85D002EB26B /* d-time-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "d-time-on.png"; path = "ImageAssets/TimeListAssets/d-time-on.png"; sourceTree = "<group>"; };
-		77561E7F1D50C86B002EB26B /* a-time-off-pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a-time-off-pad.png"; path = "ImageAssets/TimeListAssets/Pad/a-time-off-pad.png"; sourceTree = "<group>"; };
-		77561E801D50C86B002EB26B /* a-time-on-pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a-time-on-pad.png"; path = "ImageAssets/TimeListAssets/Pad/a-time-on-pad.png"; sourceTree = "<group>"; };
-		77561E811D50C86B002EB26B /* b-time-off-pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "b-time-off-pad.png"; path = "ImageAssets/TimeListAssets/Pad/b-time-off-pad.png"; sourceTree = "<group>"; };
-		77561E821D50C86B002EB26B /* b-time-on-pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "b-time-on-pad.png"; path = "ImageAssets/TimeListAssets/Pad/b-time-on-pad.png"; sourceTree = "<group>"; };
-		77561E831D50C86B002EB26B /* c-time-off-pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "c-time-off-pad.png"; path = "ImageAssets/TimeListAssets/Pad/c-time-off-pad.png"; sourceTree = "<group>"; };
-		77561E841D50C86B002EB26B /* c-time-on-pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "c-time-on-pad.png"; path = "ImageAssets/TimeListAssets/Pad/c-time-on-pad.png"; sourceTree = "<group>"; };
-		77561E851D50C86B002EB26B /* d-time-off-pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "d-time-off-pad.png"; path = "ImageAssets/TimeListAssets/Pad/d-time-off-pad.png"; sourceTree = "<group>"; };
-		77561E861D50C86B002EB26B /* d-time-on-pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "d-time-on-pad.png"; path = "ImageAssets/TimeListAssets/Pad/d-time-on-pad.png"; sourceTree = "<group>"; };
-		77561E8F1D50C884002EB26B /* a-time-off-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a-time-off-small.png"; path = "ImageAssets/TimeListAssets/LQ/a-time-off-small.png"; sourceTree = "<group>"; };
-		77561E901D50C884002EB26B /* a-time-on-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a-time-on-small.png"; path = "ImageAssets/TimeListAssets/LQ/a-time-on-small.png"; sourceTree = "<group>"; };
-		77561E911D50C884002EB26B /* b-time-off-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "b-time-off-small.png"; path = "ImageAssets/TimeListAssets/LQ/b-time-off-small.png"; sourceTree = "<group>"; };
-		77561E921D50C884002EB26B /* b-time-on-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "b-time-on-small.png"; path = "ImageAssets/TimeListAssets/LQ/b-time-on-small.png"; sourceTree = "<group>"; };
-		77561E931D50C884002EB26B /* c-time-off-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "c-time-off-small.png"; path = "ImageAssets/TimeListAssets/LQ/c-time-off-small.png"; sourceTree = "<group>"; };
-		77561E941D50C884002EB26B /* c-time-on-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "c-time-on-small.png"; path = "ImageAssets/TimeListAssets/LQ/c-time-on-small.png"; sourceTree = "<group>"; };
-		77561E951D50C884002EB26B /* d-time-off-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "d-time-off-small.png"; path = "ImageAssets/TimeListAssets/LQ/d-time-off-small.png"; sourceTree = "<group>"; };
-		77561E961D50C884002EB26B /* d-time-on-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "d-time-on-small.png"; path = "ImageAssets/TimeListAssets/LQ/d-time-on-small.png"; sourceTree = "<group>"; };
 		77561EB11D50E741002EB26B /* ExperimentsTestInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExperimentsTestInfo.swift; path = ModalView/ExperimentsTestInfo.swift; sourceTree = "<group>"; };
 		775ADBE41C4FC4C700B52552 /* UP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		775ADBE71C4FC4C700B52552 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1003,7 +1002,6 @@
 		77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsoda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsoda.aiff"; sourceTree = "<group>"; };
 		77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumbs-check.png"; path = "ImageAssets/game-thumbs-check.png"; sourceTree = "<group>"; };
-		77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumb-sample.png"; path = "ImageAssets/GameThumbs/game-thumb-sample.png"; sourceTree = "<group>"; };
 		77F948711D80ADEE00B33F5F /* comp-icons-settings-memo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-memo.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-memo.png"; sourceTree = "<group>"; };
 		77F948791D80ADFD00B33F5F /* comp-icons-shop-code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-shop-code.png"; path = "ImageAssets/Components/Icons/comp-icons-shop-code.png"; sourceTree = "<group>"; };
 		77F9487B1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-special-testers.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-special-testers.png"; sourceTree = "<group>"; };
@@ -1091,16 +1089,16 @@
 		032318D11CFA911C0052732F /* Black */ = {
 			isa = PBXGroup;
 			children = (
-				77454A661E50E956003B9678 /* theme-default-black-0.png */,
-				77454A671E50E956003B9678 /* theme-default-black-1.png */,
-				77454A681E50E956003B9678 /* theme-default-black-2.png */,
-				77454A691E50E956003B9678 /* theme-default-black-3.png */,
-				77454A6A1E50E956003B9678 /* theme-default-black-4.png */,
-				77454A6B1E50E956003B9678 /* theme-default-black-5.png */,
-				77454A6C1E50E956003B9678 /* theme-default-black-6.png */,
-				77454A6D1E50E956003B9678 /* theme-default-black-7.png */,
-				77454A6E1E50E956003B9678 /* theme-default-black-8.png */,
-				77454A6F1E50E956003B9678 /* theme-default-black-9.png */,
+				77454B2B1E51B8DD003B9678 /* theme-default-black-0.png */,
+				77454B2C1E51B8DD003B9678 /* theme-default-black-1.png */,
+				77454B2D1E51B8DD003B9678 /* theme-default-black-2.png */,
+				77454B2E1E51B8DD003B9678 /* theme-default-black-3.png */,
+				77454B2F1E51B8DD003B9678 /* theme-default-black-4.png */,
+				77454B301E51B8DD003B9678 /* theme-default-black-5.png */,
+				77454B311E51B8DD003B9678 /* theme-default-black-6.png */,
+				77454B321E51B8DD003B9678 /* theme-default-black-7.png */,
+				77454B331E51B8DD003B9678 /* theme-default-black-8.png */,
+				77454B341E51B8DD003B9678 /* theme-default-black-9.png */,
 			);
 			name = Black;
 			sourceTree = "<group>";
@@ -1436,14 +1434,14 @@
 		770B5A5C1E4889B600A4941E /* List */ = {
 			isa = PBXGroup;
 			children = (
-				77454A8E1E50E9B2003B9678 /* theme-default-guide-list-add.png */,
-				77454A8F1E50E9B2003B9678 /* theme-default-guide-list-del.png */,
-				77454A901E50E9B2003B9678 /* theme-default-guide-list-off.png */,
-				77454A911E50E9B2003B9678 /* theme-default-guide-list-on.png */,
-				77454A921E50E9B2003B9678 /* theme-default-guide-list-swipe-del.png */,
-				77454A931E50E9B2003B9678 /* theme-default-guide-list-swipe-edit.png */,
-				77454A941E50E9B2003B9678 /* theme-default-guide-list-time-half.png */,
-				77454A951E50E9B2003B9678 /* theme-default-guide-list-time.png */,
+				77454ABE1E51B861003B9678 /* theme-default-guide-list-add.png */,
+				77454ABF1E51B861003B9678 /* theme-default-guide-list-del.png */,
+				77454AC01E51B861003B9678 /* theme-default-guide-list-off.png */,
+				77454AC11E51B861003B9678 /* theme-default-guide-list-on.png */,
+				77454AC21E51B861003B9678 /* theme-default-guide-list-swipe-del.png */,
+				77454AC31E51B861003B9678 /* theme-default-guide-list-swipe-edit.png */,
+				77454AC41E51B861003B9678 /* theme-default-guide-list-time-half.png */,
+				77454AC51E51B861003B9678 /* theme-default-guide-list-time.png */,
 			);
 			name = List;
 			sourceTree = "<group>";
@@ -1541,21 +1539,6 @@
 				771ABC491D45DFDB00938D1B /* themes-main-background.png */,
 			);
 			name = Themes;
-			sourceTree = "<group>";
-		};
-		771ABC4B1D46127500938D1B /* Pad */ = {
-			isa = PBXGroup;
-			children = (
-				77561E7F1D50C86B002EB26B /* a-time-off-pad.png */,
-				77561E801D50C86B002EB26B /* a-time-on-pad.png */,
-				77561E811D50C86B002EB26B /* b-time-off-pad.png */,
-				77561E821D50C86B002EB26B /* b-time-on-pad.png */,
-				77561E831D50C86B002EB26B /* c-time-off-pad.png */,
-				77561E841D50C86B002EB26B /* c-time-on-pad.png */,
-				77561E851D50C86B002EB26B /* d-time-off-pad.png */,
-				77561E861D50C86B002EB26B /* d-time-on-pad.png */,
-			);
-			name = Pad;
 			sourceTree = "<group>";
 		};
 		771CD1481E478D4100574AD8 /* StartGuide */ = {
@@ -1743,10 +1726,11 @@
 		7740E2281C507C8700B11A24 /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				03425B7F1CD01A2600243B28 /* Components */,
+				03425B6A1CCEAD8500243B28 /* Modals */,
 				03B18E301D20DB4E00972101 /* Guides */,
-				77FBE6721C6DCB8F00E251A2 /* TimeListAssets */,
 				77EB7B081C6B9D07008247DD /* Games */,
-				7740E22C1C507CAC00B11A24 /* Main */,
+				7740E22C1C507CAC00B11A24 /* Themes */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -1762,11 +1746,10 @@
 			name = Sounds;
 			sourceTree = "<group>";
 		};
-		7740E22C1C507CAC00B11A24 /* Main */ = {
+		7740E22C1C507CAC00B11A24 /* Themes */ = {
 			isa = PBXGroup;
 			children = (
-				03425B7F1CD01A2600243B28 /* Components */,
-				03425B6A1CCEAD8500243B28 /* Modals */,
+				77454B6F1E51C4BE003B9678 /* AlarmList */,
 				77C54E4F1C9EC04800013F9D /* GroundAssets */,
 				77C54E4E1C9EC03700013F9D /* AnalogClock */,
 				77C54E4D1C9EC02B00013F9D /* DigitalClock */,
@@ -1774,7 +1757,7 @@
 				77802D201C8060A100766DB0 /* Backgrounds */,
 				7717A7081E439D9100076E16 /* Guides */,
 			);
-			name = Main;
+			name = Themes;
 			sourceTree = "<group>";
 		};
 		7740E22E1C507D0000B11A24 /* Effects */ = {
@@ -1783,6 +1766,89 @@
 				7719775C1E48DFD70018EE00 /* GozaUP */,
 			);
 			name = Effects;
+			sourceTree = "<group>";
+		};
+		77454B101E51B8C5003B9678 /* White */ = {
+			isa = PBXGroup;
+			children = (
+				77454B111E51B8D0003B9678 /* theme-default-0.png */,
+				77454B121E51B8D0003B9678 /* theme-default-1.png */,
+				77454B131E51B8D0003B9678 /* theme-default-2.png */,
+				77454B141E51B8D0003B9678 /* theme-default-3.png */,
+				77454B151E51B8D0003B9678 /* theme-default-4.png */,
+				77454B161E51B8D0003B9678 /* theme-default-5.png */,
+				77454B171E51B8D0003B9678 /* theme-default-6.png */,
+				77454B181E51B8D0003B9678 /* theme-default-7.png */,
+				77454B191E51B8D0003B9678 /* theme-default-8.png */,
+				77454B1A1E51B8D0003B9678 /* theme-default-9.png */,
+				77454B1B1E51B8D0003B9678 /* theme-default-am.png */,
+				77454B1C1E51B8D0003B9678 /* theme-default-col.png */,
+				77454B1D1E51B8D0003B9678 /* theme-default-pm.png */,
+			);
+			name = White;
+			sourceTree = "<group>";
+		};
+		77454B6F1E51C4BE003B9678 /* AlarmList */ = {
+			isa = PBXGroup;
+			children = (
+				77454B701E51C4C7003B9678 /* Default */,
+			);
+			name = AlarmList;
+			sourceTree = "<group>";
+		};
+		77454B701E51C4C7003B9678 /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				77454B731E51C4DB003B9678 /* iPad */,
+				77454B721E51C4D6003B9678 /* LDPI */,
+				77454B711E51C4CE003B9678 /* General */,
+			);
+			name = Default;
+			sourceTree = "<group>";
+		};
+		77454B711E51C4CE003B9678 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				77454B741E51C4ED003B9678 /* theme-default-list-back-daytime-off.png */,
+				77454B751E51C4ED003B9678 /* theme-default-list-back-daytime-on.png */,
+				77454B761E51C4ED003B9678 /* theme-default-list-back-morning-off.png */,
+				77454B771E51C4ED003B9678 /* theme-default-list-back-morning-on.png */,
+				77454B781E51C4ED003B9678 /* theme-default-list-back-night-off.png */,
+				77454B791E51C4ED003B9678 /* theme-default-list-back-night-on.png */,
+				77454B7A1E51C4ED003B9678 /* theme-default-list-back-sunset-off.png */,
+				77454B7B1E51C4ED003B9678 /* theme-default-list-back-sunset-on.png */,
+			);
+			name = General;
+			sourceTree = "<group>";
+		};
+		77454B721E51C4D6003B9678 /* LDPI */ = {
+			isa = PBXGroup;
+			children = (
+				77454B941E51C4FC003B9678 /* theme-default-list-back-daytime-ldpi-off.png */,
+				77454B951E51C4FC003B9678 /* theme-default-list-back-daytime-ldpi-on.png */,
+				77454B961E51C4FC003B9678 /* theme-default-list-back-morning-ldpi-off.png */,
+				77454B971E51C4FC003B9678 /* theme-default-list-back-morning-ldpi-on.png */,
+				77454B981E51C4FC003B9678 /* theme-default-list-back-night-ldpi-off.png */,
+				77454B991E51C4FC003B9678 /* theme-default-list-back-night-ldpi-on.png */,
+				77454B9A1E51C4FC003B9678 /* theme-default-list-back-sunset-ldpi-off.png */,
+				77454B9B1E51C4FC003B9678 /* theme-default-list-back-sunset-ldpi-on.png */,
+			);
+			name = LDPI;
+			sourceTree = "<group>";
+		};
+		77454B731E51C4DB003B9678 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				77454B841E51C4F4003B9678 /* theme-default-list-back-daytime-ipad-off.png */,
+				77454B851E51C4F4003B9678 /* theme-default-list-back-daytime-ipad-on.png */,
+				77454B861E51C4F4003B9678 /* theme-default-list-back-morning-ipad-off.png */,
+				77454B871E51C4F4003B9678 /* theme-default-list-back-morning-ipad-on.png */,
+				77454B881E51C4F4003B9678 /* theme-default-list-back-night-ipad-off.png */,
+				77454B891E51C4F4003B9678 /* theme-default-list-back-night-ipad-on.png */,
+				77454B8A1E51C4F4003B9678 /* theme-default-list-back-sunset-ipad-off.png */,
+				77454B8B1E51C4F4003B9678 /* theme-default-list-back-sunset-ipad-on.png */,
+			);
+			name = iPad;
 			sourceTree = "<group>";
 		};
 		774C56251C59246A00421F06 /* ModalView */ = {
@@ -1904,11 +1970,11 @@
 		775C60191E4624FA00DF5241 /* Characters */ = {
 			isa = PBXGroup;
 			children = (
-				77454A9E1E50E9C7003B9678 /* theme-default-guide-characters-achevements.png */,
-				77454A9F1E50E9C7003B9678 /* theme-default-guide-characters-astro.png */,
-				77454AA01E50E9C7003B9678 /* theme-default-guide-characters-exp.png */,
-				77454AA11E50E9C7003B9678 /* theme-default-guide-characters-gamecenter.png */,
-				77454AA21E50E9C7003B9678 /* theme-default-guide-characters-level.png */,
+				77454AA81E51B836003B9678 /* theme-default-guide-characters-achevements.png */,
+				77454AA91E51B836003B9678 /* theme-default-guide-characters-astro.png */,
+				77454AAA1E51B836003B9678 /* theme-default-guide-characters-exp.png */,
+				77454AAB1E51B836003B9678 /* theme-default-guide-characters-gamecenter.png */,
+				77454AAC1E51B836003B9678 /* theme-default-guide-characters-level.png */,
 			);
 			name = Characters;
 			sourceTree = "<group>";
@@ -1916,12 +1982,12 @@
 		775C601A1E4624FF00DF5241 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				77454A821E50E9A0003B9678 /* theme-default-guide-astro.png */,
-				77454A831E50E9A0003B9678 /* theme-default-guide-buy.png */,
-				77454A841E50E9A0003B9678 /* theme-default-guide-center.png */,
-				77454A851E50E9A0003B9678 /* theme-default-guide-ground-hover.png */,
-				77454A861E50E9A0003B9678 /* theme-default-guide-ground.png */,
-				77454A871E50E9A0003B9678 /* theme-default-guide-stats.png */,
+				77454AB21E51B84A003B9678 /* theme-default-guide-astro.png */,
+				77454AB31E51B84A003B9678 /* theme-default-guide-buy.png */,
+				77454AB41E51B84A003B9678 /* theme-default-guide-center.png */,
+				77454AB51E51B84A003B9678 /* theme-default-guide-ground-hover.png */,
+				77454AB61E51B84A003B9678 /* theme-default-guide-ground.png */,
+				77454AB71E51B84A003B9678 /* theme-default-guide-stats.png */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -1982,22 +2048,22 @@
 		77AC4FBA1CABE5B30044F5C8 /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				77454A0E1E50D646003B9678 /* theme-default-back-daytime-4s.png */,
-				77454A0F1E50D646003B9678 /* theme-default-back-daytime-pad34.png */,
-				77454A101E50D646003B9678 /* theme-default-back-daytime-pad43.png */,
-				77454A111E50D646003B9678 /* theme-default-back-daytime.png */,
-				77454A121E50D646003B9678 /* theme-default-back-morning-4s.png */,
-				77454A131E50D646003B9678 /* theme-default-back-morning-pad34.png */,
-				77454A141E50D646003B9678 /* theme-default-back-morning-pad43.png */,
-				77454A151E50D646003B9678 /* theme-default-back-morning.png */,
-				77454A161E50D646003B9678 /* theme-default-back-night-4s.png */,
-				77454A171E50D646003B9678 /* theme-default-back-night-pad34.png */,
-				77454A181E50D646003B9678 /* theme-default-back-night-pad43.png */,
-				77454A191E50D646003B9678 /* theme-default-back-night.png */,
-				77454A1A1E50D646003B9678 /* theme-default-back-sunset-4s.png */,
-				77454A1B1E50D646003B9678 /* theme-default-back-sunset-pad34.png */,
-				77454A1C1E50D646003B9678 /* theme-default-back-sunset-pad43.png */,
-				77454A1D1E50D646003B9678 /* theme-default-back-sunset.png */,
+				77454ACE1E51B880003B9678 /* theme-default-back-daytime-4s.png */,
+				77454ACF1E51B880003B9678 /* theme-default-back-daytime-pad34.png */,
+				77454AD01E51B880003B9678 /* theme-default-back-daytime-pad43.png */,
+				77454AD11E51B880003B9678 /* theme-default-back-daytime.png */,
+				77454AD21E51B880003B9678 /* theme-default-back-morning-4s.png */,
+				77454AD31E51B880003B9678 /* theme-default-back-morning-pad34.png */,
+				77454AD41E51B880003B9678 /* theme-default-back-morning-pad43.png */,
+				77454AD51E51B880003B9678 /* theme-default-back-morning.png */,
+				77454AD61E51B880003B9678 /* theme-default-back-night-4s.png */,
+				77454AD71E51B880003B9678 /* theme-default-back-night-pad34.png */,
+				77454AD81E51B880003B9678 /* theme-default-back-night-pad43.png */,
+				77454AD91E51B880003B9678 /* theme-default-back-night.png */,
+				77454ADA1E51B880003B9678 /* theme-default-back-sunset-4s.png */,
+				77454ADB1E51B880003B9678 /* theme-default-back-sunset-pad34.png */,
+				77454ADC1E51B880003B9678 /* theme-default-back-sunset-pad43.png */,
+				77454ADD1E51B880003B9678 /* theme-default-back-sunset.png */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -2034,10 +2100,10 @@
 		77C54D681C9EC01200013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				77454A7A1E50E96C003B9678 /* theme-default-character-0.png */,
-				77454A7B1E50E96C003B9678 /* theme-default-character-1.png */,
-				77454A7C1E50E96C003B9678 /* theme-default-character-2.png */,
-				77454A7D1E50E96C003B9678 /* theme-default-character-3.png */,
+				77454AEE1E51B894003B9678 /* theme-default-character-0.png */,
+				77454AEF1E51B894003B9678 /* theme-default-character-1.png */,
+				77454AF01E51B894003B9678 /* theme-default-character-2.png */,
+				77454AF11E51B894003B9678 /* theme-default-character-3.png */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -2069,21 +2135,25 @@
 		77C54E541C9EC05900013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				77454A2E1E50D93D003B9678 /* theme-default-ground-daytime-pad34.png */,
-				77454A2F1E50D93D003B9678 /* theme-default-ground-daytime-pad43.png */,
-				77454A301E50D93D003B9678 /* theme-default-ground-daytime.png */,
-				77454A311E50D93D003B9678 /* theme-default-ground-morning-pad34.png */,
-				77454A321E50D93D003B9678 /* theme-default-ground-morning-pad43.png */,
-				77454A331E50D93D003B9678 /* theme-default-ground-morning.png */,
-				77454A341E50D93D003B9678 /* theme-default-ground-night-pad34.png */,
-				77454A351E50D93D003B9678 /* theme-default-ground-night-pad43.png */,
-				77454A361E50D93D003B9678 /* theme-default-ground-night.png */,
-				77454A371E50D93D003B9678 /* theme-default-ground-sunset-pad34.png */,
-				77454A381E50D93D003B9678 /* theme-default-ground-sunset-pad43.png */,
-				77454A391E50D93D003B9678 /* theme-default-ground-sunset.png */,
-				77454A3A1E50D93D003B9678 /* theme-default-object-floating.png */,
-				77454A3B1E50D93D003B9678 /* theme-default-object-standing.png */,
-				77454A3C1E50D93D003B9678 /* theme-default-object-statistics.png */,
+				77454B491E51B91B003B9678 /* theme-default-ground-daytime-pad34.png */,
+				77454B4A1E51B91B003B9678 /* theme-default-ground-daytime-pad43.png */,
+				77454B4B1E51B91B003B9678 /* theme-default-ground-daytime.png */,
+				77454B4C1E51B91B003B9678 /* theme-default-ground-morning-pad34.png */,
+				77454B4D1E51B91B003B9678 /* theme-default-ground-morning-pad43.png */,
+				77454B4E1E51B91B003B9678 /* theme-default-ground-morning.png */,
+				77454B4F1E51B91B003B9678 /* theme-default-ground-night-pad34.png */,
+				77454B501E51B91B003B9678 /* theme-default-ground-night-pad43.png */,
+				77454B511E51B91B003B9678 /* theme-default-ground-night.png */,
+				77454B521E51B91B003B9678 /* theme-default-ground-sunset-pad34.png */,
+				77454B531E51B91B003B9678 /* theme-default-ground-sunset-pad43.png */,
+				77454B541E51B91B003B9678 /* theme-default-ground-sunset.png */,
+				77454B551E51B91B003B9678 /* theme-default-object-floating.png */,
+				77454B561E51B91B003B9678 /* theme-default-object-list-shadow.png */,
+				77454B571E51B91B003B9678 /* theme-default-object-list.png */,
+				77454B581E51B91B003B9678 /* theme-default-object-settings-shadow.png */,
+				77454B591E51B91B003B9678 /* theme-default-object-settings.png */,
+				77454B5A1E51B91B003B9678 /* theme-default-object-standing.png */,
+				77454B5B1E51B91B003B9678 /* theme-default-object-statistics.png */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -2091,15 +2161,11 @@
 		77C54E551C9EC07500013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				774549FC1E50CDB2003B9678 /* theme-default-object-list-shadow.png */,
-				774549FD1E50CDB2003B9678 /* theme-default-object-list.png */,
-				774549FE1E50CDB2003B9678 /* theme-default-object-settings-shadow.png */,
-				774549FF1E50CDB2003B9678 /* theme-default-object-settings.png */,
-				77454A001E50CDB2003B9678 /* theme-default-time-center.png */,
-				77454A011E50CDB2003B9678 /* theme-default-time-clock.png */,
-				77454A021E50CDB2003B9678 /* theme-default-time-hour.png */,
-				77454A031E50CDB2003B9678 /* theme-default-time-minute.png */,
-				77454A041E50CDB2003B9678 /* theme-default-time-second.png */,
+				77454B3F1E51B8F8003B9678 /* theme-default-time-center.png */,
+				77454B401E51B8F8003B9678 /* theme-default-time-clock.png */,
+				77454B411E51B8F8003B9678 /* theme-default-time-hour.png */,
+				77454B421E51B8F8003B9678 /* theme-default-time-minute.png */,
+				77454B431E51B8F8003B9678 /* theme-default-time-second.png */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -2107,19 +2173,7 @@
 		77C54E621C9EC08A00013F9D /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				77454A4C1E50E946003B9678 /* theme-default-0.png */,
-				77454A4D1E50E946003B9678 /* theme-default-1.png */,
-				77454A4E1E50E946003B9678 /* theme-default-2.png */,
-				77454A4F1E50E946003B9678 /* theme-default-3.png */,
-				77454A501E50E946003B9678 /* theme-default-4.png */,
-				77454A511E50E946003B9678 /* theme-default-5.png */,
-				77454A521E50E946003B9678 /* theme-default-6.png */,
-				77454A531E50E946003B9678 /* theme-default-7.png */,
-				77454A541E50E946003B9678 /* theme-default-8.png */,
-				77454A551E50E946003B9678 /* theme-default-9.png */,
-				77454A561E50E946003B9678 /* theme-default-am.png */,
-				77454A571E50E946003B9678 /* theme-default-col.png */,
-				77454A581E50E946003B9678 /* theme-default-pm.png */,
+				77454B101E51B8C5003B9678 /* White */,
 				032318D11CFA911C0052732F /* Black */,
 			);
 			name = Default;
@@ -2240,27 +2294,11 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
-		77E287FA1C73349B0020B766 /* LQ */ = {
-			isa = PBXGroup;
-			children = (
-				77561E8F1D50C884002EB26B /* a-time-off-small.png */,
-				77561E901D50C884002EB26B /* a-time-on-small.png */,
-				77561E911D50C884002EB26B /* b-time-off-small.png */,
-				77561E921D50C884002EB26B /* b-time-on-small.png */,
-				77561E931D50C884002EB26B /* c-time-off-small.png */,
-				77561E941D50C884002EB26B /* c-time-on-small.png */,
-				77561E951D50C884002EB26B /* d-time-off-small.png */,
-				77561E961D50C884002EB26B /* d-time-on-small.png */,
-			);
-			name = LQ;
-			sourceTree = "<group>";
-		};
 		77E3F4831C74B79B002BBDA6 /* Thumbnails */ = {
 			isa = PBXGroup;
 			children = (
 				77802D1C1C805E1A00766DB0 /* game-thumb-jumpup.png */,
 				77802D1D1C805E1A00766DB0 /* game-thumb-random.png */,
-				77EB7B091C6B9D1D008247DD /* game-thumb-sample.png */,
 				77FBE6831C6DCBAA00E251A2 /* game-thumb-background.png */,
 			);
 			name = Thumbnails;
@@ -2297,23 +2335,6 @@
 				77CAE0991C90798000FBA714 /* AIAstroMove */,
 			);
 			name = Motions;
-			sourceTree = "<group>";
-		};
-		77FBE6721C6DCB8F00E251A2 /* TimeListAssets */ = {
-			isa = PBXGroup;
-			children = (
-				77561E6F1D50C85D002EB26B /* a-time-off.png */,
-				77561E701D50C85D002EB26B /* a-time-on.png */,
-				77561E711D50C85D002EB26B /* b-time-off.png */,
-				77561E721D50C85D002EB26B /* b-time-on.png */,
-				77561E731D50C85D002EB26B /* c-time-off.png */,
-				77561E741D50C85D002EB26B /* c-time-on.png */,
-				77561E751D50C85D002EB26B /* d-time-off.png */,
-				77561E761D50C85D002EB26B /* d-time-on.png */,
-				771ABC4B1D46127500938D1B /* Pad */,
-				77E287FA1C73349B0020B766 /* LQ */,
-			);
-			name = TimeListAssets;
 			sourceTree = "<group>";
 		};
 		77FEEA0A1DC1041B0069F78B /* Structure */ = {
@@ -2427,74 +2448,74 @@
 			files = (
 				03E1D12B1CF0D6BE00B552FC /* SF-UI-Display-Ultralight.otf in Resources */,
 				772BB1B61DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-1.png in Resources */,
-				77454A981E50E9B2003B9678 /* theme-default-guide-list-off.png in Resources */,
 				03C14D101D2539D60078D10C /* game-general-window-gameover.png in Resources */,
 				775EB0251D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect1.png in Resources */,
+				77454B7E1E51C4ED003B9678 /* theme-default-list-back-morning-off.png in Resources */,
 				0323190B1CFB5C7B0052732F /* characterinfo-exp-deco-1.png in Resources */,
 				03E1D1241CEC70A600B552FC /* comp-icons-alarm-repeat.png in Resources */,
 				775EB02F1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect11.png in Resources */,
-				77454A4B1E50D93D003B9678 /* theme-default-object-statistics.png in Resources */,
-				77454AA61E50E9C7003B9678 /* theme-default-guide-characters-gamecenter.png in Resources */,
+				77454AAD1E51B836003B9678 /* theme-default-guide-characters-achevements.png in Resources */,
 				775EAFBC1D51E3D200BE8C4A /* game-jumpup-astro-default-move-2.png in Resources */,
-				77454A731E50E956003B9678 /* theme-default-black-3.png in Resources */,
-				77454A891E50E9A0003B9678 /* theme-default-guide-buy.png in Resources */,
-				77454A8B1E50E9A0003B9678 /* theme-default-guide-ground-hover.png in Resources */,
 				032319161CFB5C7B0052732F /* characterinfo-exp-deco-12.png in Resources */,
-				77454A5D1E50E946003B9678 /* theme-default-4.png in Resources */,
-				77454A0C1E50CDB2003B9678 /* theme-default-time-minute.png in Resources */,
-				77561E8C1D50C86B002EB26B /* c-time-on-pad.png in Resources */,
+				77454B381E51B8DD003B9678 /* theme-default-black-3.png in Resources */,
+				77454B7C1E51C4ED003B9678 /* theme-default-list-back-daytime-off.png in Resources */,
+				77454B221E51B8D0003B9678 /* theme-default-4.png in Resources */,
+				77454ACC1E51B861003B9678 /* theme-default-guide-list-time-half.png in Resources */,
 				03B18E781D22CC3200972101 /* game-general-menu-soundon.png in Resources */,
 				032319291CFB5C7B0052732F /* characterinfo-exp-deco-31.png in Resources */,
 				775EAFBE1D51E3D200BE8C4A /* game-jumpup-astro-default-move-4.png in Resources */,
+				77454B821E51C4ED003B9678 /* theme-default-list-back-sunset-off.png in Resources */,
 				03E1D12E1CF1BCF000B552FC /* characterinfo-achievements.png in Resources */,
+				77454B601E51B91B003B9678 /* theme-default-ground-morning-pad43.png in Resources */,
+				77454BA21E51C4FC003B9678 /* theme-default-list-back-sunset-ldpi-off.png in Resources */,
+				77454AE61E51B880003B9678 /* theme-default-back-night-4s.png in Resources */,
 				771CD14D1E478D4800574AD8 /* modal-guide-images-all-0-general.png in Resources */,
 				032319181CFB5C7B0052732F /* characterinfo-exp-deco-14.png in Resources */,
 				032536B31D187D23004C6293 /* modal-mask-result-sns.png in Resources */,
-				77561E981D50C884002EB26B /* a-time-on-small.png in Resources */,
-				77561E8D1D50C86B002EB26B /* d-time-off-pad.png in Resources */,
 				776FF7BE1D55B15600E88B1A /* game-jumpup-assets-background.png in Resources */,
-				77561E7E1D50C85D002EB26B /* d-time-on.png in Resources */,
 				032319201CFB5C7B0052732F /* characterinfo-exp-deco-22.png in Resources */,
 				03425B901CD0635700243B28 /* comp-icons-settings-icloud.png in Resources */,
+				77454ADF1E51B880003B9678 /* theme-default-back-daytime-pad34.png in Resources */,
 				772BB1C01DE8BCBB0054B3EF /* game-jumpup-ai-j-astro-fly-3.png in Resources */,
 				772BB1BD1DE8BCBB0054B3EF /* game-jumpup-ai-j-astro-fly-0.png in Resources */,
 				775EB0361D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect18.png in Resources */,
 				0323190F1CFB5C7B0052732F /* characterinfo-exp-deco-5.png in Resources */,
 				03DDD83D1CEB9D07007C026D /* comp-icons-datacategory-validratio.png in Resources */,
+				77454ABD1E51B84A003B9678 /* theme-default-guide-stats.png in Resources */,
 				775EB0321D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect14.png in Resources */,
 				775EB0291D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect5.png in Resources */,
 				032319261CFB5C7B0052732F /* characterinfo-exp-deco-28.png in Resources */,
 				771CD1501E478D4800574AD8 /* modal-guide-images-all-3-general.png in Resources */,
+				77454AB11E51B836003B9678 /* theme-default-guide-characters-level.png in Resources */,
 				775EB0391D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect21.png in Resources */,
 				772BB1E81DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-3.png in Resources */,
 				032536B51D1978E3004C6293 /* result-btn-close.png in Resources */,
 				77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */,
-				77454A3D1E50D93D003B9678 /* theme-default-ground-daytime-pad34.png in Resources */,
+				77454B9E1E51C4FC003B9678 /* theme-default-list-back-morning-ldpi-off.png in Resources */,
+				77454AC61E51B861003B9678 /* theme-default-guide-list-add.png in Resources */,
 				7719775A1E48DFBD0018EE00 /* game-gozaup-assets-enemy.jpg in Resources */,
 				03425BAF1CD391E500243B28 /* GoogleService-Info.plist in Resources */,
+				77454B241E51B8D0003B9678 /* theme-default-6.png in Resources */,
+				77454B661E51B91B003B9678 /* theme-default-ground-sunset-pad43.png in Resources */,
 				775EAFA11D51E2EF00BE8C4A /* game-jumpup-assets-cloud-5.png in Resources */,
 				775EAFBF1D51E3D200BE8C4A /* game-jumpup-astro-default-move-5.png in Resources */,
 				032536CF1D1C4D1D004C6293 /* modal-credits-people-programmer.png in Resources */,
-				77454A5F1E50E946003B9678 /* theme-default-6.png in Resources */,
-				77454A0D1E50CDB2003B9678 /* theme-default-time-second.png in Resources */,
 				032536CD1D1C4D1D004C6293 /* modal-credits-people-graphic.png in Resources */,
 				77561DAE1D5066D0002EB26B /* comp-icons-settings-language-en.png in Resources */,
 				774549F41E504B1F003B9678 /* themes-select-side-down-left.png in Resources */,
 				032318C11CFA1D010052732F /* achievements-icon-blank.png in Resources */,
-				77561E9B1D50C884002EB26B /* c-time-off-small.png in Resources */,
 				775EB02C1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect8.png in Resources */,
 				0323190D1CFB5C7B0052732F /* characterinfo-exp-deco-3.png in Resources */,
 				772BB1DB1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-2.png in Resources */,
-				77454A9C1E50E9B2003B9678 /* theme-default-guide-list-time-half.png in Resources */,
 				779154561E4A05300049C4A9 /* modal-buy-astro.png in Resources */,
 				032319241CFB5C7B0052732F /* characterinfo-exp-deco-26.png in Resources */,
 				775EAF9D1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-1.png in Resources */,
+				77454AED1E51B880003B9678 /* theme-default-back-sunset.png in Resources */,
 				772BB1BE1DE8BCBB0054B3EF /* game-jumpup-ai-j-astro-fly-1.png in Resources */,
 				03DEB7C11D25D7A40086BEAD /* game-general-guide-left.png in Resources */,
 				032319321CFCAC170052732F /* result-btn-retry.png in Resources */,
 				770973041DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png in Resources */,
 				03C14D0F1D2539D60078D10C /* game-general-window-exit.png in Resources */,
-				77454A451E50D93D003B9678 /* theme-default-ground-night.png in Resources */,
 				03B18E691D22C54600972101 /* comp-icons-shop-restore.png in Resources */,
 				771977661E48DFE40018EE00 /* effect-game-gozaup-ef1.mp3 in Resources */,
 				774549F31E504B1F003B9678 /* themes-select-item.png in Resources */,
@@ -2502,100 +2523,100 @@
 				032319271CFB5C7B0052732F /* characterinfo-exp-deco-29.png in Resources */,
 				771CD15B1E478DB600574AD8 /* modal-guide-alarm-images-all-4-general.png in Resources */,
 				7717A6F71E4267D000076E16 /* comp-icons-settings-donate.png in Resources */,
-				77561E791D50C85D002EB26B /* b-time-off.png in Resources */,
 				032536CE1D1C4D1D004C6293 /* modal-credits-people-plan.png in Resources */,
+				77454B911E51C4F4003B9678 /* theme-default-list-back-night-ipad-on.png in Resources */,
 				03425B791CCEB2E400243B28 /* modal-check.png in Resources */,
+				77454B641E51B91B003B9678 /* theme-default-ground-night.png in Resources */,
 				032319311CFCAC170052732F /* result-btn-ranking.png in Resources */,
 				772BB1AF1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-4.png in Resources */,
-				77454A0A1E50CDB2003B9678 /* theme-default-time-clock.png in Resources */,
 				771CD15A1E478DB600574AD8 /* modal-guide-alarm-images-all-3-general.png in Resources */,
 				03B18E731D22CC3200972101 /* game-general-menu-list.png in Resources */,
 				77802D1F1C805E1A00766DB0 /* game-thumb-random.png in Resources */,
+				77454B3E1E51B8DD003B9678 /* theme-default-black-9.png in Resources */,
+				77454AEC1E51B880003B9678 /* theme-default-back-sunset-pad43.png in Resources */,
+				77454B7D1E51C4ED003B9678 /* theme-default-list-back-daytime-on.png in Resources */,
 				03425B8D1CD0635700243B28 /* comp-icons-settings-badge.png in Resources */,
+				77454B8D1E51C4F4003B9678 /* theme-default-list-back-daytime-ipad-on.png in Resources */,
 				771ABC4A1D45DFDB00938D1B /* themes-main-background.png in Resources */,
-				77454A291E50D646003B9678 /* theme-default-back-night.png in Resources */,
-				77454A791E50E956003B9678 /* theme-default-black-9.png in Resources */,
+				77454AE11E51B880003B9678 /* theme-default-back-daytime.png in Resources */,
+				77454ACD1E51B861003B9678 /* theme-default-guide-list-time.png in Resources */,
 				032319281CFB5C7B0052732F /* characterinfo-exp-deco-30.png in Resources */,
+				77454AF41E51B894003B9678 /* theme-default-character-2.png in Resources */,
 				775EAFA01D51E2EF00BE8C4A /* game-jumpup-assets-cloud-4.png in Resources */,
 				032536B71D1978E7004C6293 /* result-time.png in Resources */,
-				77454A271E50D646003B9678 /* theme-default-back-night-pad34.png in Resources */,
 				772BB1C81DE8BD250054B3EF /* game-jumpup-ai-astro-fly-3.png in Resources */,
 				772BB1EF1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png in Resources */,
-				77454A211E50D646003B9678 /* theme-default-back-daytime.png in Resources */,
+				77454B671E51B91B003B9678 /* theme-default-ground-sunset.png in Resources */,
 				0383DB891CF617010009D5DE /* AchievementList.json in Resources */,
+				77454B8C1E51C4F4003B9678 /* theme-default-list-back-daytime-ipad-off.png in Resources */,
 				032318E71CFB4B670052732F /* result-game-background.png in Resources */,
-				77561E971D50C884002EB26B /* a-time-off-small.png in Resources */,
+				77454AC81E51B861003B9678 /* theme-default-guide-list-off.png in Resources */,
 				7719775B1E48DFBD0018EE00 /* game-gozaup-assets-player.png in Resources */,
+				77454ABC1E51B84A003B9678 /* theme-default-guide-ground.png in Resources */,
 				772BB1DD1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-4.png in Resources */,
+				77454B6A1E51B91B003B9678 /* theme-default-object-list.png in Resources */,
 				771977591E48DFBD0018EE00 /* game-gozaup-assets-duhan.jpg in Resources */,
 				775EAFA91D51E2EF00BE8C4A /* game-jumpup-assets-trap.png in Resources */,
 				775EAFA21D51E2EF00BE8C4A /* game-jumpup-assets-cloud-6.png in Resources */,
+				77454B811E51C4ED003B9678 /* theme-default-list-back-night-on.png in Resources */,
 				774549F61E504B1F003B9678 /* themes-select-side-up-left.png in Resources */,
 				775EAF991D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png in Resources */,
 				0323191E1CFB5C7B0052732F /* characterinfo-exp-deco-20.png in Resources */,
-				77454A201E50D646003B9678 /* theme-default-back-daytime-pad43.png in Resources */,
-				77561E891D50C86B002EB26B /* b-time-off-pad.png in Resources */,
 				7732D2D11DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff in Resources */,
 				771CD1581E478DB600574AD8 /* modal-guide-alarm-images-all-1-general.png in Resources */,
 				0323191F1CFB5C7B0052732F /* characterinfo-exp-deco-21.png in Resources */,
 				775EAFB21D51E3B900BE8C4A /* game-jumpup-astro-default-jump-3.png in Resources */,
 				770973051DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png in Resources */,
+				77454B921E51C4F4003B9678 /* theme-default-list-back-sunset-ipad-off.png in Resources */,
 				775EB05B1D524C7800BE8C4A /* game-jumpup-assets-warning.png in Resources */,
 				77F9487C1D80AE0E00B33F5F /* comp-icons-settings-special-testers.png in Resources */,
 				772BB1E51DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-0.png in Resources */,
+				77454AE51E51B880003B9678 /* theme-default-back-morning.png in Resources */,
 				771977581E48DFBD0018EE00 /* game-gozaup-assets-cheeta.png in Resources */,
 				775EB0561D51E64F00BE8C4A /* game-jumpup-assets-guide-0.png in Resources */,
 				7717A6F21E41CF8900076E16 /* bgm-game-jumpup-field.mp3 in Resources */,
 				7717A6F31E41CF8900076E16 /* bgm-game-waiting.mp3 in Resources */,
+				77454B6E1E51B91B003B9678 /* theme-default-object-statistics.png in Resources */,
 				7717A6FA1E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png in Resources */,
 				775EAFB31D51E3B900BE8C4A /* game-jumpup-astro-default-jump-4.png in Resources */,
 				7739EA821E4E2F8100F62B59 /* en.json in Resources */,
-				77454A061E50CDB2003B9678 /* theme-default-object-list.png in Resources */,
-				77454A091E50CDB2003B9678 /* theme-default-time-center.png in Resources */,
 				779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */,
+				77454B3A1E51B8DD003B9678 /* theme-default-black-5.png in Resources */,
+				77454B211E51B8D0003B9678 /* theme-default-3.png in Resources */,
 				775EB0241D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect0.png in Resources */,
-				77454A481E50D93D003B9678 /* theme-default-ground-sunset.png in Resources */,
 				776FF7C31D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png in Resources */,
-				77454A751E50E956003B9678 /* theme-default-black-5.png in Resources */,
-				77454A5C1E50E946003B9678 /* theme-default-3.png in Resources */,
-				77561E8E1D50C86B002EB26B /* d-time-on-pad.png in Resources */,
+				77454B5D1E51B91B003B9678 /* theme-default-ground-daytime-pad43.png in Resources */,
 				775EB0301D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect12.png in Resources */,
 				771977651E48DFE40018EE00 /* effect-game-gozaup-ef0.mp3 in Resources */,
 				775EAFA41D51E2EF00BE8C4A /* game-jumpup-assets-retire.png in Resources */,
-				77561E9D1D50C884002EB26B /* d-time-off-small.png in Resources */,
-				77454A221E50D646003B9678 /* theme-default-back-morning-4s.png in Resources */,
-				77454A471E50D93D003B9678 /* theme-default-ground-sunset-pad43.png in Resources */,
 				032319101CFB5C7B0052732F /* characterinfo-exp-deco-6.png in Resources */,
-				77561E871D50C86B002EB26B /* a-time-off-pad.png in Resources */,
+				77454B901E51C4F4003B9678 /* theme-default-list-back-night-ipad-off.png in Resources */,
 				774549F51E504B1F003B9678 /* themes-select-side-down.png in Resources */,
+				77454ABB1E51B84A003B9678 /* theme-default-guide-ground-hover.png in Resources */,
 				03DDD83B1CEB9D07007C026D /* comp-icons-datacategory-untiloff.png in Resources */,
 				03DDD83A1CEB9D07007C026D /* comp-icons-datacategory-playtime.png in Resources */,
 				772BB1D11DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-3.png in Resources */,
 				775EAFA71D51E2EF00BE8C4A /* game-jumpup-assets-time.png in Resources */,
 				7717A6FC1E43510000076E16 /* comp-loading-preloader.gif in Resources */,
 				0323191A1CFB5C7B0052732F /* characterinfo-exp-deco-16.png in Resources */,
-				77454A2B1E50D646003B9678 /* theme-default-back-sunset-pad34.png in Resources */,
-				77454A251E50D646003B9678 /* theme-default-back-morning.png in Resources */,
-				77561E991D50C884002EB26B /* b-time-off-small.png in Resources */,
+				77454B1E1E51B8D0003B9678 /* theme-default-0.png in Resources */,
+				77454B3C1E51B8DD003B9678 /* theme-default-black-7.png in Resources */,
 				03B18E771D22CC3200972101 /* game-general-menu-soundoff.png in Resources */,
-				77454A9A1E50E9B2003B9678 /* theme-default-guide-list-swipe-del.png in Resources */,
-				77454A771E50E956003B9678 /* theme-default-black-7.png in Resources */,
-				77454A591E50E946003B9678 /* theme-default-0.png in Resources */,
+				77454B5C1E51B91B003B9678 /* theme-default-ground-daytime-pad34.png in Resources */,
 				772BB1C71DE8BD250054B3EF /* game-jumpup-ai-astro-fly-2.png in Resources */,
+				77454B3B1E51B8DD003B9678 /* theme-default-black-6.png in Resources */,
 				0323190C1CFB5C7B0052732F /* characterinfo-exp-deco-2.png in Resources */,
-				77454A761E50E956003B9678 /* theme-default-black-6.png in Resources */,
 				03DDD8371CEB9D07007C026D /* comp-icons-datacategory-alltouches.png in Resources */,
-				77454A401E50D93D003B9678 /* theme-default-ground-morning-pad34.png in Resources */,
 				775EB0581D51E64F00BE8C4A /* game-jumpup-assets-guide-2.png in Resources */,
 				032319221CFB5C7B0052732F /* characterinfo-exp-deco-24.png in Resources */,
 				032318C61CFA4A4C0052732F /* achievements-item-disabled.png in Resources */,
+				77454B281E51B8D0003B9678 /* theme-default-am.png in Resources */,
 				032536D31D1E8963004C6293 /* comp-icons-settings-projectup.png in Resources */,
-				77454A8C1E50E9A0003B9678 /* theme-default-guide-ground.png in Resources */,
 				032319151CFB5C7B0052732F /* characterinfo-exp-deco-11.png in Resources */,
 				7719776B1E48DFE40018EE00 /* effect-game-gozaup-ef6.mp3 in Resources */,
 				7719776E1E48DFFD0018EE00 /* bgm-game-gozaup-field.mp3 in Resources */,
-				77454A631E50E946003B9678 /* theme-default-am.png in Resources */,
-				77454A461E50D93D003B9678 /* theme-default-ground-sunset-pad34.png in Resources */,
+				77454AAE1E51B836003B9678 /* theme-default-guide-characters-astro.png in Resources */,
+				77454ABA1E51B84A003B9678 /* theme-default-guide-center.png in Resources */,
 				77561DB01D5066D0002EB26B /* comp-icons-settings-language-ko.png in Resources */,
 				775EB0311D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect13.png in Resources */,
 				772BB1AB1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-0.png in Resources */,
@@ -2606,71 +2627,72 @@
 				7717A7051E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff in Resources */,
 				0391ABCD1D25B4A00051F3A6 /* game-general-window-btn-close.png in Resources */,
 				775EAFBB1D51E3D200BE8C4A /* game-jumpup-astro-default-move-1.png in Resources */,
+				77454B9C1E51C4FC003B9678 /* theme-default-list-back-daytime-ldpi-off.png in Resources */,
+				77454B371E51B8DD003B9678 /* theme-default-black-2.png in Resources */,
+				77454B3D1E51B8DD003B9678 /* theme-default-black-8.png in Resources */,
+				77454BA31E51C4FC003B9678 /* theme-default-list-back-sunset-ldpi-on.png in Resources */,
 				77561DB21D5066DA002EB26B /* comp-icons-settings-language.png in Resources */,
 				03425BA91CD389E100243B28 /* comp-icons-settings-experiments.png in Resources */,
-				77454A721E50E956003B9678 /* theme-default-black-2.png in Resources */,
-				77454A781E50E956003B9678 /* theme-default-black-8.png in Resources */,
 				774549FB1E506404003B9678 /* themes-select-side-up-right.png in Resources */,
+				77454B251E51B8D0003B9678 /* theme-default-7.png in Resources */,
+				77454B6B1E51B91B003B9678 /* theme-default-object-settings-shadow.png in Resources */,
+				77454ACB1E51B861003B9678 /* theme-default-guide-list-swipe-edit.png in Resources */,
+				77454B611E51B91B003B9678 /* theme-default-ground-morning.png in Resources */,
+				77454B361E51B8DD003B9678 /* theme-default-black-1.png in Resources */,
 				032319211CFB5C7B0052732F /* characterinfo-exp-deco-23.png in Resources */,
-				77454A491E50D93D003B9678 /* theme-default-object-floating.png in Resources */,
-				77454A711E50E956003B9678 /* theme-default-black-1.png in Resources */,
 				0323191B1CFB5C7B0052732F /* characterinfo-exp-deco-17.png in Resources */,
 				03B18E721D22CC3200972101 /* game-general-menu-info.png in Resources */,
-				77454A601E50E946003B9678 /* theme-default-7.png in Resources */,
 				7719776A1E48DFE40018EE00 /* effect-game-gozaup-ef5.mp3 in Resources */,
-				77454A431E50D93D003B9678 /* theme-default-ground-night-pad34.png in Resources */,
+				77454B5F1E51B91B003B9678 /* theme-default-ground-morning-pad34.png in Resources */,
+				77454B831E51C4ED003B9678 /* theme-default-list-back-sunset-on.png in Resources */,
 				772BB1D21DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-4.png in Resources */,
-				77454A971E50E9B2003B9678 /* theme-default-guide-list-del.png in Resources */,
-				77454A421E50D93D003B9678 /* theme-default-ground-morning.png in Resources */,
-				77454A7E1E50E96C003B9678 /* theme-default-character-0.png in Resources */,
 				775EB0281D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect4.png in Resources */,
+				77454AF21E51B894003B9678 /* theme-default-character-0.png in Resources */,
+				77454AB91E51B84A003B9678 /* theme-default-guide-buy.png in Resources */,
 				774549F11E504B1F003B9678 /* themes-select-info-locked.png in Resources */,
 				7714CAB91E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png in Resources */,
-				77454A9D1E50E9B2003B9678 /* theme-default-guide-list-time.png in Resources */,
-				77454AA41E50E9C7003B9678 /* theme-default-guide-characters-astro.png in Resources */,
 				03DEB7C21D25D7A40086BEAD /* game-general-guide-right.png in Resources */,
+				77454B461E51B8F8003B9678 /* theme-default-time-hour.png in Resources */,
 				772BB1EE1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png in Resources */,
+				77454B391E51B8DD003B9678 /* theme-default-black-4.png in Resources */,
+				77454B8E1E51C4F4003B9678 /* theme-default-list-back-morning-ipad-off.png in Resources */,
 				770B5A5B1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff in Resources */,
-				77454A741E50E956003B9678 /* theme-default-black-4.png in Resources */,
+				77454AE01E51B880003B9678 /* theme-default-back-daytime-pad43.png in Resources */,
 				772BB1E71DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-2.png in Resources */,
+				77454B801E51C4ED003B9678 /* theme-default-list-back-night-off.png in Resources */,
 				775EAF9F1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-3.png in Resources */,
-				77454A1F1E50D646003B9678 /* theme-default-back-daytime-pad34.png in Resources */,
-				77454A9B1E50E9B2003B9678 /* theme-default-guide-list-swipe-edit.png in Resources */,
 				03425B911CD0635700243B28 /* comp-icons-settings-newgames.png in Resources */,
 				772BB1C51DE8BD250054B3EF /* game-jumpup-ai-astro-fly-0.png in Resources */,
-				77454A2D1E50D646003B9678 /* theme-default-back-sunset.png in Resources */,
 				7739EA841E4E2F8100F62B59 /* ko.json in Resources */,
-				77454A441E50D93D003B9678 /* theme-default-ground-night-pad43.png in Resources */,
+				77454AE41E51B880003B9678 /* theme-default-back-morning-pad43.png in Resources */,
 				7717A7071E439D7900076E16 /* comp-guideclose-icon.png in Resources */,
 				775EAF9B1D51E2EF00BE8C4A /* game-jumpup-assets-box.png in Resources */,
 				774549F71E504B1F003B9678 /* themes-select-side-up.png in Resources */,
 				032319131CFB5C7B0052732F /* characterinfo-exp-deco-9.png in Resources */,
 				775EAF9C1D51E2EF00BE8C4A /* game-jumpup-assets-box2.png in Resources */,
 				03C14D111D2539D60078D10C /* game-general-window-mask.png in Resources */,
+				77454B8F1E51C4F4003B9678 /* theme-default-list-back-morning-ipad-on.png in Resources */,
 				775EAFBA1D51E3D200BE8C4A /* game-jumpup-astro-default-move-0.png in Resources */,
 				772BB1CF1DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-1.png in Resources */,
+				77454B621E51B91B003B9678 /* theme-default-ground-night-pad34.png in Resources */,
 				03B18E761D22CC3200972101 /* game-general-menu-retry.png in Resources */,
-				77454A051E50CDB2003B9678 /* theme-default-object-list-shadow.png in Resources */,
 				772BB1C61DE8BD250054B3EF /* game-jumpup-ai-astro-fly-1.png in Resources */,
+				77454B201E51B8D0003B9678 /* theme-default-2.png in Resources */,
 				7739EA7D1E4DF07600F62B59 /* themes-select-background.png in Resources */,
 				032319301CFCAC170052732F /* result-btn-list.png in Resources */,
-				77561E9A1D50C884002EB26B /* b-time-on-small.png in Resources */,
-				77454A081E50CDB2003B9678 /* theme-default-object-settings.png in Resources */,
-				77561E7C1D50C85D002EB26B /* c-time-on.png in Resources */,
-				77454A5B1E50E946003B9678 /* theme-default-2.png in Resources */,
 				03E1D1311CF1BCF400B552FC /* characterinfo-gamecenter.png in Resources */,
+				77454B451E51B8F8003B9678 /* theme-default-time-clock.png in Resources */,
+				77454B651E51B91B003B9678 /* theme-default-ground-sunset-pad34.png in Resources */,
 				7717A6FE1E4382C200076E16 /* comp-showguide-icon.png in Resources */,
 				772BB1B51DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-0.png in Resources */,
 				771CD14F1E478D4800574AD8 /* modal-guide-images-all-2-general.png in Resources */,
-				77454AA51E50E9C7003B9678 /* theme-default-guide-characters-exp.png in Resources */,
 				032319171CFB5C7B0052732F /* characterinfo-exp-deco-13.png in Resources */,
 				775ADBEF1C4FC4C700B52552 /* Assets.xcassets in Resources */,
 				03C14D0B1D2539D60078D10C /* game-general-window-btn-ads.png in Resources */,
+				77454B5E1E51B91B003B9678 /* theme-default-ground-daytime.png in Resources */,
 				775EAFAF1D51E3B900BE8C4A /* game-jumpup-astro-default-jump-0.png in Resources */,
 				775EB0381D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect20.png in Resources */,
-				77454A411E50D93D003B9678 /* theme-default-ground-morning-pad43.png in Resources */,
 				77FBE6841C6DCBAA00E251A2 /* game-thumb-background.png in Resources */,
-				77454AA31E50E9C7003B9678 /* theme-default-guide-characters-achevements.png in Resources */,
 				775EB02A1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect6.png in Resources */,
 				779154571E4A05300049C4A9 /* modal-buy-heroesofthestorm.png in Resources */,
 				772BB1B01DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-5.png in Resources */,
@@ -2680,10 +2702,11 @@
 				032318CB1CFA52B90052732F /* modal-mask-result.png in Resources */,
 				03425BAB1CD38D4E00243B28 /* Podfile in Resources */,
 				032319191CFB5C7B0052732F /* characterinfo-exp-deco-15.png in Resources */,
+				77454AE91E51B880003B9678 /* theme-default-back-night.png in Resources */,
 				775EAFBD1D51E3D200BE8C4A /* game-jumpup-astro-default-move-3.png in Resources */,
 				775EB0341D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect16.png in Resources */,
 				032318D01CFA686E0052732F /* result-score.png in Resources */,
-				77454A3E1E50D93D003B9678 /* theme-default-ground-daytime-pad43.png in Resources */,
+				77454AAF1E51B836003B9678 /* theme-default-guide-characters-exp.png in Resources */,
 				771977681E48DFE40018EE00 /* effect-game-gozaup-ef3.mp3 in Resources */,
 				775EB02E1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect10.png in Resources */,
 				03425B7A1CCEB2E400243B28 /* modal-close.png in Resources */,
@@ -2692,130 +2715,127 @@
 				032319231CFB5C7B0052732F /* characterinfo-exp-deco-25.png in Resources */,
 				779A1F361DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png in Resources */,
 				032318CF1CFA686E0052732F /* result-best.png in Resources */,
-				77454A2C1E50D646003B9678 /* theme-default-back-sunset-pad43.png in Resources */,
+				77454AEA1E51B880003B9678 /* theme-default-back-sunset-4s.png in Resources */,
 				775EB0571D51E64F00BE8C4A /* game-jumpup-assets-guide-1.png in Resources */,
+				77454B471E51B8F8003B9678 /* theme-default-time-minute.png in Resources */,
 				775EAFA81D51E2EF00BE8C4A /* game-jumpup-assets-trap-2.png in Resources */,
+				77454B931E51C4F4003B9678 /* theme-default-list-back-sunset-ipad-on.png in Resources */,
 				03425B7C1CCEBD0000243B28 /* modal-add.png in Resources */,
 				77561DAF1D5066D0002EB26B /* comp-icons-settings-language-ja.png in Resources */,
 				03DDD8401CEBA089007C026D /* modal-background-characterinfo.png in Resources */,
 				03DDD83C1CEB9D07007C026D /* comp-icons-datacategory-untilstart.png in Resources */,
 				03425B921CD0635700243B28 /* comp-icons-settings-rating.png in Resources */,
 				0323190E1CFB5C7B0052732F /* characterinfo-exp-deco-4.png in Resources */,
+				77454B2A1E51B8D0003B9678 /* theme-default-pm.png in Resources */,
 				772BB1AE1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-3.png in Resources */,
-				77454A4A1E50D93D003B9678 /* theme-default-object-standing.png in Resources */,
-				77454A651E50E946003B9678 /* theme-default-pm.png in Resources */,
+				77454AE21E51B880003B9678 /* theme-default-back-morning-4s.png in Resources */,
+				77454BA01E51C4FC003B9678 /* theme-default-list-back-night-ldpi-off.png in Resources */,
 				772BB1B81DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-3.png in Resources */,
 				03B18E681D22C54600972101 /* comp-icons-shop-buy.png in Resources */,
 				775EAFB01D51E3B900BE8C4A /* game-jumpup-astro-default-jump-1.png in Resources */,
 				0323191D1CFB5C7B0052732F /* characterinfo-exp-deco-19.png in Resources */,
 				03B18E751D22CC3200972101 /* game-general-menu-play.png in Resources */,
-				77454A261E50D646003B9678 /* theme-default-back-night-4s.png in Resources */,
 				775EB0371D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect19.png in Resources */,
 				0323192C1CFB5E340052732F /* characterinfo-exp-deco-32.png in Resources */,
-				77454A621E50E946003B9678 /* theme-default-9.png in Resources */,
+				77454B271E51B8D0003B9678 /* theme-default-9.png in Resources */,
+				77454AF51E51B894003B9678 /* theme-default-character-3.png in Resources */,
 				03425B8C1CD0635700243B28 /* comp-icons-blank.png in Resources */,
-				77561E771D50C85D002EB26B /* a-time-off.png in Resources */,
+				77454AC71E51B861003B9678 /* theme-default-guide-list-del.png in Resources */,
 				772BB1AD1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-2.png in Resources */,
 				03DDD8381CEB9D07007C026D /* comp-icons-datacategory-asleepcount.png in Resources */,
 				032319141CFB5C7B0052732F /* characterinfo-exp-deco-10.png in Resources */,
-				77561E8A1D50C86B002EB26B /* b-time-on-pad.png in Resources */,
-				77454A8D1E50E9A0003B9678 /* theme-default-guide-stats.png in Resources */,
-				77454A641E50E946003B9678 /* theme-default-col.png in Resources */,
+				77454B291E51B8D0003B9678 /* theme-default-col.png in Resources */,
+				77454ADE1E51B880003B9678 /* theme-default-back-daytime-4s.png in Resources */,
+				77454B6D1E51B91B003B9678 /* theme-default-object-standing.png in Resources */,
 				03425B741CCEB2BF00243B28 /* modal-mask.png in Resources */,
-				77454A3F1E50D93D003B9678 /* theme-default-ground-daytime.png in Resources */,
 				7739EA871E4E2FCC00F62B59 /* themes.json in Resources */,
+				77454B7F1E51C4ED003B9678 /* theme-default-list-back-morning-on.png in Resources */,
 				03DDD8391CEB9D07007C026D /* comp-icons-datacategory-compratio.png in Resources */,
 				772BB1DE1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-5.png in Resources */,
+				77454B631E51B91B003B9678 /* theme-default-ground-night-pad43.png in Resources */,
 				032536D11D1E890C004C6293 /* modal-credits-logo.png in Resources */,
 				772BB1E91DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-4.png in Resources */,
 				774549FA1E506404003B9678 /* themes-select-side-down-right.png in Resources */,
 				03425B811CD01A3B00243B28 /* comp-slider-track.png in Resources */,
 				032319111CFB5C7B0052732F /* characterinfo-exp-deco-7.png in Resources */,
 				775EB0271D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect3.png in Resources */,
-				77561E9E1D50C884002EB26B /* d-time-on-small.png in Resources */,
+				77454AE71E51B880003B9678 /* theme-default-back-night-pad34.png in Resources */,
 				771977521E48DAEA0018EE00 /* game-general-start.png in Resources */,
+				77454AC91E51B861003B9678 /* theme-default-guide-list-on.png in Resources */,
 				7714CAB71E4B99F800E447E9 /* modal-buy-heroes-real.png in Resources */,
+				77454BA11E51C4FC003B9678 /* theme-default-list-back-night-ldpi-on.png in Resources */,
 				771CD1571E478DB600574AD8 /* modal-guide-alarm-images-all-0-general.png in Resources */,
 				032536B91D19BA23004C6293 /* result-btn-play.png in Resources */,
 				77F948721D80ADEE00B33F5F /* comp-icons-settings-memo.png in Resources */,
 				03C14D0C1D2539D60078D10C /* game-general-window-btn-cancel.png in Resources */,
 				772BB1D91DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-0.png in Resources */,
 				772BB1DA1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-1.png in Resources */,
-				77561E7B1D50C85D002EB26B /* c-time-off.png in Resources */,
 				772BB1AC1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-1.png in Resources */,
 				77802D1E1C805E1A00766DB0 /* game-thumb-jumpup.png in Resources */,
 				03C14D0D1D2539D60078D10C /* game-general-window-btn-ok.png in Resources */,
+				77454B441E51B8F8003B9678 /* theme-default-time-center.png in Resources */,
 				032318C21CFA1D010052732F /* achievements-item.png in Resources */,
+				77454B1F1E51B8D0003B9678 /* theme-default-1.png in Resources */,
 				7717A6F51E42679200076E16 /* comp-buyup-icon.png in Resources */,
 				03E1D1231CEC70A600B552FC /* comp-icons-alarm-music.png in Resources */,
-				77454A881E50E9A0003B9678 /* theme-default-guide-astro.png in Resources */,
 				03425B9C1CD08B1C00243B28 /* comp-icons-settings-avn.png in Resources */,
 				772BB1BF1DE8BCBB0054B3EF /* game-jumpup-ai-j-astro-fly-2.png in Resources */,
-				77454A5A1E50E946003B9678 /* theme-default-1.png in Resources */,
 				77F9487A1D80ADFD00B33F5F /* comp-icons-shop-code.png in Resources */,
 				771977691E48DFE40018EE00 /* effect-game-gozaup-ef4.mp3 in Resources */,
-				77454A801E50E96C003B9678 /* theme-default-character-2.png in Resources */,
-				77454A8A1E50E9A0003B9678 /* theme-default-guide-center.png in Resources */,
-				77EB7B0A1C6B9D1D008247DD /* game-thumb-sample.png in Resources */,
+				77454AB01E51B836003B9678 /* theme-default-guide-characters-gamecenter.png in Resources */,
+				77454AF31E51B894003B9678 /* theme-default-character-1.png in Resources */,
 				775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */,
 				772BB1DC1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-3.png in Resources */,
 				775EAFA51D51E2EF00BE8C4A /* game-jumpup-assets-score.png in Resources */,
-				77561E7A1D50C85D002EB26B /* b-time-on.png in Resources */,
 				775EB0591D51E64F00BE8C4A /* game-jumpup-assets-guide-3.png in Resources */,
 				771977671E48DFE40018EE00 /* effect-game-gozaup-ef2.mp3 in Resources */,
 				776FF7BC1D545C0800E88B1A /* game-jumpup-assets-playpreview.gif in Resources */,
-				77561E7D1D50C85D002EB26B /* d-time-off.png in Resources */,
 				776FF7C21D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png in Resources */,
-				77454AA71E50E9C7003B9678 /* theme-default-guide-characters-level.png in Resources */,
+				77454AE81E51B880003B9678 /* theme-default-back-night-pad43.png in Resources */,
 				7739EA831E4E2F8100F62B59 /* ja.json in Resources */,
-				77454A0B1E50CDB2003B9678 /* theme-default-time-hour.png in Resources */,
 				772BB1E61DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-1.png in Resources */,
 				03425BD31CD6648D00243B28 /* comp-icons-settings-experiments-alarm.png in Resources */,
 				772BB1F01DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png in Resources */,
+				77454B351E51B8DD003B9678 /* theme-default-black-0.png in Resources */,
 				03E1D1281CF0BC7000B552FC /* characterinfo-exp-wrapper.png in Resources */,
 				03C14D0E1D2539D60078D10C /* game-general-window-continue.png in Resources */,
 				775EAF9E1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-2.png in Resources */,
+				77454B9D1E51C4FC003B9678 /* theme-default-list-back-daytime-ldpi-on.png in Resources */,
 				77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */,
+				77454AB81E51B84A003B9678 /* theme-default-guide-astro.png in Resources */,
 				032319121CFB5C7B0052732F /* characterinfo-exp-deco-8.png in Resources */,
-				77454A701E50E956003B9678 /* theme-default-black-0.png in Resources */,
 				775EAFB11D51E3B900BE8C4A /* game-jumpup-astro-default-jump-2.png in Resources */,
+				77454B261E51B8D0003B9678 /* theme-default-8.png in Resources */,
 				03B18E741D22CC3200972101 /* game-general-menu-pause.png in Resources */,
+				77454B481E51B8F8003B9678 /* theme-default-time-second.png in Resources */,
 				03425B8F1CD0635700243B28 /* comp-icons-settings-guide.png in Resources */,
 				775EB05D1D52544900BE8C4A /* game-jumpup-assets-life-on.png in Resources */,
-				77454A241E50D646003B9678 /* theme-default-back-morning-pad43.png in Resources */,
-				77454A991E50E9B2003B9678 /* theme-default-guide-list-on.png in Resources */,
-				77561E881D50C86B002EB26B /* a-time-on-pad.png in Resources */,
 				775EB02D1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect9.png in Resources */,
-				77454A611E50E946003B9678 /* theme-default-8.png in Resources */,
 				775EB0351D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect17.png in Resources */,
-				77454A961E50E9B2003B9678 /* theme-default-guide-list-add.png in Resources */,
 				772BB1EA1DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-5.png in Resources */,
-				77454A2A1E50D646003B9678 /* theme-default-back-sunset-4s.png in Resources */,
+				77454B691E51B91B003B9678 /* theme-default-object-list-shadow.png in Resources */,
+				77454B6C1E51B91B003B9678 /* theme-default-object-settings.png in Resources */,
 				03E1D12F1CF1BCF000B552FC /* characterinfo-exp-deco.png in Resources */,
 				03425BA11CD099C800243B28 /* comp-alarm-notfound.png in Resources */,
+				77454AE31E51B880003B9678 /* theme-default-back-morning-pad34.png in Resources */,
+				77454B9F1E51C4FC003B9678 /* theme-default-list-back-morning-ldpi-on.png in Resources */,
 				771CD14E1E478D4800574AD8 /* modal-guide-images-all-1-general.png in Resources */,
+				77454ACA1E51B861003B9678 /* theme-default-guide-list-swipe-del.png in Resources */,
 				03425B8E1CD0635700243B28 /* comp-icons-settings-developers.png in Resources */,
-				77454A811E50E96C003B9678 /* theme-default-character-3.png in Resources */,
 				03425B981CD0670800243B28 /* comp-cell-arrow.png in Resources */,
-				77561E8B1D50C86B002EB26B /* c-time-off-pad.png in Resources */,
 				03425B781CCEB2E400243B28 /* modal-back.png in Resources */,
 				032318C41CFA24D90052732F /* modal-background-characterinfo-blank.png in Resources */,
 				775EB02B1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect7.png in Resources */,
-				77454A7F1E50E96C003B9678 /* theme-default-character-1.png in Resources */,
+				77454B231E51B8D0003B9678 /* theme-default-5.png in Resources */,
+				77454AEB1E51B880003B9678 /* theme-default-back-sunset-pad34.png in Resources */,
 				775EB05F1D5255DC00BE8C4A /* game-jumpup-assets-life-off.png in Resources */,
-				77454A1E1E50D646003B9678 /* theme-default-back-daytime-4s.png in Resources */,
-				77561E9C1D50C884002EB26B /* c-time-on-small.png in Resources */,
 				03C14D121D2539D60078D10C /* game-general-window-retry.png in Resources */,
-				77454A5E1E50E946003B9678 /* theme-default-5.png in Resources */,
-				77454A231E50D646003B9678 /* theme-default-back-morning-pad34.png in Resources */,
-				77561E781D50C85D002EB26B /* a-time-on.png in Resources */,
-				77454A281E50D646003B9678 /* theme-default-back-night-pad43.png in Resources */,
 				03425B991CD0670800243B28 /* comp-cell-check.png in Resources */,
+				77454B681E51B91B003B9678 /* theme-default-object-floating.png in Resources */,
 				772BB1CE1DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-0.png in Resources */,
 				03E1D11F1CEC707A00B552FC /* comp-icons-datacategory-icon.png in Resources */,
 				775EB0331D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect15.png in Resources */,
 				7719776C1E48DFE40018EE00 /* effect-game-gozaup-ef7.mp3 in Resources */,
-				77454A071E50CDB2003B9678 /* theme-default-object-settings-shadow.png in Resources */,
 				775EB0261D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

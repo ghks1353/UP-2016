@@ -60,7 +60,7 @@ class AlarmGameListView:UIModalPopView, UITableViewDataSource, UITableViewDelega
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		//table sel evt
 		let currCell:UPGamesListCell = tableView.cellForRow(at: indexPath) as! UPGamesListCell
-		AddAlarmView.selfView?.setGameElement( currCell.gameID )
+		AddAlarmView.selfView!.setGameElement( currCell.gameID )
 		
 		selectCell( currCell.gameID )
 		tableView.deselectRow(at: indexPath, animated: true)
