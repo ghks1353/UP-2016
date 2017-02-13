@@ -71,17 +71,19 @@ class ViewController: UIViewController {
 	var AnalogMinutes:UIImageView = UIImageView(); var AnalogSeconds:UIImageView = UIImageView();
 	var AnalogCenter:UIImageView = UIImageView();
 	
-	var AnalogBodyToucharea:UIView = UIView() //시계 터치 부분에 대해 fix하기 위해 생성
 	//아날로그 시계 좌우 버튼
 	var SettingsImg:UIImageView = UIImageView(); var AlarmListImg:UIImageView = UIImageView();
+	
 	//땅 부분
 	var GroundObj:UIImageView = UIImageView(); var AstroCharacter:UIImageView = UIImageView();
 	var GroundStatSign:UIImageView = UIImageView(); //통계 사인
 	//고정 박스와 떠있는 박스 (게임쪽)
 	var GroundStandingBox:UIImageView = UIImageView(); var GroundFloatingBox:UIImageView = UIImageView();
 	
-	//고정 박스 터치에어리어
-	var groundBoxToucharea:UIView = UIView()
+	///////////// Touch areas
+	var touchAreaPlayGame:UIView = UIView() //게임하기 touch area
+	var touchAreaAnalogBody:UIView = UIView() //시계 touch area
+	var touchAreaStatistics:UIView = UIView() //통계 touch area
 	
 	//스탠딩 모션
     var astroMotionsStanding:Array<UIImage> = []
@@ -155,7 +157,7 @@ class ViewController: UIViewController {
 		digitalClockUIView.addSubview(DigitalCol)
 		
 		self.view.addSubview( digitalClockUIView )
-		self.view.addSubview(digitalAMPMIndicator)
+		self.view.addSubview( digitalAMPMIndicator )
 		
 		self.view.addSubview(AnalogBody); self.view.addSubview(AnalogHours);
 		self.view.addSubview(AnalogMinutes); self.view.addSubview(AnalogSeconds);
@@ -172,15 +174,15 @@ class ViewController: UIViewController {
 		self.view.addSubview(upExtPackButton)
 		self.view.addSubview(upLayerGuideShowButton)
 		
-		//약간 투명하게 조정
-		SettingsImg.alpha = 1
-		AlarmListImg.alpha = 1
+		//////////////////
+		//Add toucharea
+		touchAreaAnalogBody.backgroundColor = UIColor.clear
+		touchAreaPlayGame.backgroundColor = UIColor.clear
+		touchAreaStatistics.backgroundColor = UIColor.clear
 		
-		//toucharea view add
-		AnalogBodyToucharea.backgroundColor = UIColor.clear
-		groundBoxToucharea.backgroundColor = UIColor.clear
-		self.view.addSubview(groundBoxToucharea)
-		self.view.addSubview(AnalogBodyToucharea)
+		self.view.addSubview(touchAreaPlayGame)
+		self.view.addSubview(touchAreaAnalogBody)
+		self.view.addSubview(touchAreaStatistics)
 		
 		//리소스 우선순위 설정
 		self.view.bringSubview(toFront: digitalClockUIView)
@@ -192,10 +194,13 @@ class ViewController: UIViewController {
 		
 		self.view.bringSubview(toFront: GroundObj); self.view.bringSubview(toFront: AstroCharacter);
 		self.view.bringSubview(toFront: GroundStatSign)
-		self.view.bringSubview(toFront: AnalogBodyToucharea)
 		
 		self.view.bringSubview(toFront: GroundStandingBox); self.view.bringSubview(toFront: GroundFloatingBox);
-		self.view.bringSubview(toFront: groundBoxToucharea)
+		
+		
+		self.view.bringSubview(toFront: touchAreaAnalogBody)
+		self.view.bringSubview(toFront: touchAreaPlayGame)
+		self.view.bringSubview(toFront: touchAreaStatistics)
 		
 		/////////
 		//일부 리소스 이미지 미리 지정
@@ -231,8 +236,8 @@ class ViewController: UIViewController {
 		
         //시계 이미지 터치시
         var tGests = UITapGestureRecognizer(target:self, action:#selector(self.openAlarmaddView(_:))) //openAlarmaddView
-        AnalogBodyToucharea.isUserInteractionEnabled = true
-        AnalogBodyToucharea.addGestureRecognizer(tGests)
+        touchAreaAnalogBody.isUserInteractionEnabled = true
+        touchAreaAnalogBody.addGestureRecognizer(tGests)
         
         //환경설정 아이콘 터치시
         tGests = UITapGestureRecognizer(target:self, action:#selector(self.openSettingsView(_:)))
@@ -246,8 +251,8 @@ class ViewController: UIViewController {
 		
 		//통계 아이콘 터치시
 		tGests = UITapGestureRecognizer(target:self, action:#selector(self.openStatisticsView(_:)))
-		GroundStatSign.isUserInteractionEnabled = true
-		GroundStatSign.addGestureRecognizer(tGests)
+		touchAreaStatistics.isUserInteractionEnabled = true
+		touchAreaStatistics.addGestureRecognizer(tGests)
 		
 		//Astro 터치 시
 		tGests = UITapGestureRecognizer(target:self, action:#selector(self.openCharacterInformationView(_:)))
@@ -256,8 +261,8 @@ class ViewController: UIViewController {
 		
 		//게임 박스 터치시
 		tGests = UITapGestureRecognizer(target:self, action:#selector(self.openGamePlayView(_:)))
-		groundBoxToucharea.isUserInteractionEnabled = true
-		groundBoxToucharea.addGestureRecognizer(tGests)
+		touchAreaPlayGame.isUserInteractionEnabled = true
+		touchAreaPlayGame.addGestureRecognizer(tGests)
 		
 		//가이드 버튼 터치시
 		tGests = UITapGestureRecognizer(target:self, action:#selector(self.showGuideView(_:)))
@@ -543,10 +548,10 @@ class ViewController: UIViewController {
 			currentGroundImage = getBackground(components.hour!, isGround: true)
 			if (UIDevice.current.userInterfaceIdiom == .phone) {
 				GroundObj.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + ThemeManager.getName(currentGroundImage) )
+					ThemeManager.getAssetPresets(themeGroup: .Background) + ThemeManager.getName(currentGroundImage) )
 			} else {
 				GroundObj.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentGroundImage + ThemeManager.getName( (DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape) )
+					ThemeManager.getAssetPresets(themeGroup: .Background) + currentGroundImage + ThemeManager.getName( (DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape) )
 			} //end if
 		} else {
 			// 이미지 있을 경우 변경
@@ -555,10 +560,10 @@ class ViewController: UIViewController {
 				currentGroundImage = getBackground(components.hour!, isGround: true) //시간대 이미지 변경
 				if (UIDevice.current.userInterfaceIdiom == .phone) {
 					GroundObj.image = UIImage( named:
-						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + ThemeManager.getName(currentGroundImage) )
+						ThemeManager.getAssetPresets(themeGroup: .Background) + ThemeManager.getName(currentGroundImage) )
 				} else {
 					GroundObj.image = UIImage( named:
-						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentGroundImage + ThemeManager.getName( (DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape) )
+						ThemeManager.getAssetPresets(themeGroup: .Background) + currentGroundImage + ThemeManager.getName( (DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape) )
 				} //end if
 			} //end if [background time mismatch]
 		} //end if [ground image is null or not]
@@ -568,21 +573,21 @@ class ViewController: UIViewController {
 			if (UIDevice.current.userInterfaceIdiom == .phone) {
 				print("showing phone bg")
 				backgroundImageView.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+					ThemeManager.getAssetPresets(themeGroup: .Background) + currentBackgroundImage + (
 					DeviceManager.isiPhone4S ? ThemeManager.ThemePresets.iPhone4S : ""
 					) )
 				backgroundImageFadeView.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+					ThemeManager.getAssetPresets(themeGroup: .Background) + currentBackgroundImage + (
 					DeviceManager.isiPhone4S ? ThemeManager.ThemePresets.iPhone4S : ""
 					) )
 			} else {
 				print("showing pad bg")
 				backgroundImageView.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+					ThemeManager.getAssetPresets(themeGroup: .Background) + currentBackgroundImage + (
 					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape
 					) )
 				backgroundImageFadeView.image = UIImage( named:
-					ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+					ThemeManager.getAssetPresets(themeGroup: .Background) + currentBackgroundImage + (
 					(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape
 					) )
 			} //end if [phone or not]
@@ -597,12 +602,12 @@ class ViewController: UIViewController {
 				backgroundImageFadeView.alpha = 1
 				if (UIDevice.current.userInterfaceIdiom == .phone) {
 					backgroundImageView.image = UIImage( named:
-						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+						ThemeManager.getAssetPresets(themeGroup: .Background) + currentBackgroundImage + (
 						DeviceManager.isiPhone4S ? ThemeManager.ThemePresets.iPhone4S : ""
 						) )
 				} else {
 					backgroundImageView.image = UIImage( named:
-						ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentBackgroundImage + (
+						ThemeManager.getAssetPresets(themeGroup: .Background) + currentBackgroundImage + (
 						(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape
 						) )
 				} //end if [phone or not]
@@ -610,15 +615,14 @@ class ViewController: UIViewController {
 				UIView.animate(withDuration: 1, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
 					self.backgroundImageFadeView.alpha = 0
 					}, completion: {_ in
-						
 						if (UIDevice.current.userInterfaceIdiom == .phone) {
 							self.backgroundImageFadeView.image = UIImage( named:
-								ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + self.currentBackgroundImage + (
+								ThemeManager.getAssetPresets(themeGroup: .Background) + self.currentBackgroundImage + (
 								DeviceManager.isiPhone4S ? ThemeManager.ThemePresets.iPhone4S : ""
 								) )
 						} else {
 							self.backgroundImageFadeView.image = UIImage( named:
-								ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + self.currentBackgroundImage + (
+								ThemeManager.getAssetPresets(themeGroup: .Background) + self.currentBackgroundImage + (
 								(DeviceManager.scrSize!.width < DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadPortrait : ThemeManager.ThemePresets.PadLandscape
 								) )
 						} //end if [phone or not]
@@ -630,7 +634,7 @@ class ViewController: UIViewController {
 		//Animate objects on Main
 		for i:Int in 0 ..< mainAnimatedObjs.count {
 			if (mainAnimatedObjs[i].target == nil) {
-				continue;
+				continue
 			} //ignore nil target
 			mainAnimatedObjs[i].movY(2)
 		} //end for
@@ -811,31 +815,34 @@ class ViewController: UIViewController {
 		upLayerGuideShowButton.frame = CGRect( x: DeviceManager.scrSize!.width - ((50.5 + 18) * DeviceManager.maxScrRatioC), y: upExtPackButton.frame.minY, width: 50.5 * DeviceManager.maxScrRatioC, height: 50.5 * DeviceManager.maxScrRatioC)
 		
 		//시계 바디 및 시침 분침 위치/크기조절
-		let clockScrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 - (CGFloat(240 * DeviceManager.maxScrRatioC) / 2))
-		let clockRightScrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 + (CGFloat(240 * DeviceManager.maxScrRatioC) / 2))
-		let clockScrY:CGFloat = CGFloat(DeviceManager.scrSize!.height / 2 - (CGFloat(240 * DeviceManager.maxScrRatio) / 2))
+		let clockScrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 - (CGFloat(300 * DeviceManager.maxScrRatioC) / 2))
+		let clockRightScrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 + (CGFloat(300 * DeviceManager.maxScrRatioC) / 2))
+		let clockScrY:CGFloat = CGFloat(DeviceManager.scrSize!.height / 2 - (CGFloat(300 * DeviceManager.maxScrRatio) / 2))
 		//clockScrY += 10 * DeviceManager.maxScrRatioC;
 		
 		AnalogHours.transform = CGAffineTransform.identity
 		AnalogMinutes.transform = CGAffineTransform.identity
 		AnalogSeconds.transform = CGAffineTransform.identity
 
-		AnalogBody.frame = CGRect( x: clockScrX, y: clockScrY, width: 240 * DeviceManager.maxScrRatioC, height: 240 * DeviceManager.maxScrRatioC )
+		AnalogBody.frame = CGRect( x: clockScrX, y: clockScrY, width: 300 * DeviceManager.maxScrRatioC, height: 300 * DeviceManager.maxScrRatioC )
 		
+		///////////////////
 		//터치 에어리어를 위한 별도의 프레임
-		AnalogBodyToucharea.frame =
+		touchAreaAnalogBody.frame =
 			CGRect( x: DeviceManager.scrSize!.width / 2 - (CGFloat(168 * DeviceManager.maxScrRatioC) / 2),
 			            y: CGFloat(DeviceManager.scrSize!.height / 2 - (CGFloat(200 * DeviceManager.maxScrRatio) / 2))
 				+ 20 * DeviceManager.maxScrRatioC
 				, width: 168 * DeviceManager.maxScrRatioC, height: 168 * DeviceManager.maxScrRatioC )
+		
+		//////////////////////
 		
 		AnalogHours.frame = CGRect( x: clockScrX, y: clockScrY, width: AnalogBody.frame.width, height: AnalogBody.frame.height )
 		AnalogMinutes.frame = CGRect( x: clockScrX, y: clockScrY, width: AnalogBody.frame.width, height: AnalogBody.frame.height )
 		AnalogSeconds.frame = CGRect( x: clockScrX, y: clockScrY, width: AnalogBody.frame.width, height: AnalogBody.frame.height )
 		AnalogCenter.frame = CGRect( x: clockScrX, y: clockScrY, width: AnalogBody.frame.width, height: AnalogBody.frame.height )
 		
-		SettingsImg.frame = CGRect( x: clockScrX - ((150 * DeviceManager.maxScrRatioC) / 2), y: clockScrY + (140 * DeviceManager.maxScrRatioC) , width: (148 * DeviceManager.maxScrRatioC), height: (148 * DeviceManager.maxScrRatioC) )
-		AlarmListImg.frame = CGRect( x: clockRightScrX - ((76 * DeviceManager.maxScrRatioC) / 2), y: clockScrY - (18 * DeviceManager.maxScrRatioC), width: (102 * DeviceManager.maxScrRatioC), height: (146 * DeviceManager.maxScrRatioC) )
+		SettingsImg.frame = CGRect( x: clockScrX - ((240 * DeviceManager.maxScrRatioC) / 2), y: clockScrY + (72 * DeviceManager.maxScrRatioC) , width: (300 * DeviceManager.maxScrRatioC), height: (300 * DeviceManager.maxScrRatioC) )
+		AlarmListImg.frame = CGRect( x: clockRightScrX - ((340 * DeviceManager.maxScrRatioC) / 2), y: clockScrY - (64 * DeviceManager.maxScrRatioC), width: (300 * DeviceManager.maxScrRatioC), height: (300 * DeviceManager.maxScrRatioC) )
 		
 		if (UIDevice.current.userInterfaceIdiom == .phone) {
 			//배경화면 프레임도 같이 조절 (패드는 끝부분의 회전처리와 동시에 함)
@@ -858,26 +865,29 @@ class ViewController: UIViewController {
 			            width: 300 * DeviceManager.maxScrRatioC,
 			            height: 300 * DeviceManager.maxScrRatioC )
 		GroundStatSign.frame =
-			CGRect( x: 48 * DeviceManager.maxScrRatioC,
-			            y: GroundObj.frame.origin.y - (86 * DeviceManager.maxScrRatioC),
-			            width: 102 * DeviceManager.maxScrRatioC,
-			            height: 102 * DeviceManager.maxScrRatioC )
+			CGRect( x: -52 * DeviceManager.maxScrRatioC,
+			            y: GroundObj.frame.origin.y - (185 * DeviceManager.maxScrRatioC),
+			            width: 300 * DeviceManager.maxScrRatioC,
+			            height: 300 * DeviceManager.maxScrRatioC )
 		GroundStandingBox.frame =
-			CGRect( x: AstroCharacter.frame.midX - (120 * DeviceManager.maxScrRatioC),
-			            y: GroundObj.frame.origin.y - (2 * DeviceManager.maxScrRatioC),
-			            width: 72 * DeviceManager.maxScrRatioC,
-			            height: 18 * DeviceManager.maxScrRatioC )
+			CGRect( x: AstroCharacter.frame.midX - (240 * DeviceManager.maxScrRatioC),
+			            y: GroundObj.frame.origin.y - (144 * DeviceManager.maxScrRatioC),
+			            width: 300 * DeviceManager.maxScrRatioC,
+			            height: 300 * DeviceManager.maxScrRatioC )
 		GroundFloatingBox.frame =
-			CGRect( x: GroundStandingBox.frame.origin.x + (16 * DeviceManager.maxScrRatioC),
-			            y: GroundStandingBox.frame.origin.y - (52 * DeviceManager.maxScrRatioC),
-			            width: 40 * DeviceManager.maxScrRatioC,
-			            height: 44 * DeviceManager.maxScrRatioC )
+			CGRect( x: GroundStandingBox.frame.minX,
+			            y: GroundStandingBox.frame.origin.y - (38 * DeviceManager.maxScrRatioC),
+			            width: 300 * DeviceManager.maxScrRatioC,
+			            height: 300 * DeviceManager.maxScrRatioC )
+		////////////////////
+		
+		touchAreaStatistics.frame = CGRect( x: 0, y: GroundObj.frame.minY - (92 * DeviceManager.maxScrRatioC), width: 180 * DeviceManager.maxScrRatioC, height: 160 * DeviceManager.maxScrRatioC  )
 		
 		//터치용 투명박스 조정
-		groundBoxToucharea.frame =
+		touchAreaPlayGame.frame =
 			CGRect(
-				x: GroundStandingBox.frame.origin.x - (44 * DeviceManager.maxScrRatioC),
-				y: GroundStandingBox.frame.origin.y - (80 * DeviceManager.maxScrRatioC),
+				x: GroundStandingBox.frame.midX - (62 * DeviceManager.maxScrRatioC),
+				y: GroundStandingBox.frame.midY - (132 * DeviceManager.maxScrRatioC),
 				width: 100 * DeviceManager.maxScrRatioC, height: 160 * DeviceManager.maxScrRatioC )
 		
 		///////////////////////////

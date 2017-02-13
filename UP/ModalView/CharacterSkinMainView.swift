@@ -42,15 +42,15 @@ class CharacterSkinMainView:UIModalPopView {
 		self.view.addSubview(skinBackground) //subview for background
 		
 		//Set size
-		let clockScrX:CGFloat = CGFloat(DeviceManager.defaultModalSizeRect.width / 2 - (CGFloat(202.1 * DeviceManager.modalRatioC) / 2))
-		let clockRightScrX:CGFloat = CGFloat(DeviceManager.defaultModalSizeRect.width / 2 + (CGFloat(202.1 * DeviceManager.modalRatioC) / 2))
+		let clockScrX:CGFloat = CGFloat(DeviceManager.defaultModalSizeRect.width / 2 - (CGFloat(252 * DeviceManager.modalRatioC) / 2))
+		let clockRightScrX:CGFloat = CGFloat(DeviceManager.defaultModalSizeRect.width / 2 + (CGFloat(252 * DeviceManager.modalRatioC) / 2))
 		let clockScrY:CGFloat = self.navigationController!.navigationBar.frame.size.height +
-			CGFloat(skinBackground.frame.height / 2 - (CGFloat(350 * DeviceManager.modalRatioC) / 2))
+			CGFloat(skinBackground.frame.height / 2 - (CGFloat(392 * DeviceManager.modalRatioC) / 2))
 		
 		analogClockHoursImageView.transform = CGAffineTransform.identity; analogClockMinutesImageView.transform = CGAffineTransform.identity;
 		analogClockSecondsImageView.transform = CGAffineTransform.identity;
 		
-		analogClockImageView.frame = CGRect( x: clockScrX, y: clockScrY, width: 202.1 * DeviceManager.modalRatioC, height: 202.1 * DeviceManager.modalRatioC )
+		analogClockImageView.frame = CGRect( x: clockScrX, y: clockScrY, width: 252 * DeviceManager.modalRatioC, height: 252 * DeviceManager.modalRatioC )
 		
 		
 		analogClockHoursImageView.frame = CGRect( x: clockScrX, y: clockScrY, width: analogClockImageView.frame.width, height: analogClockImageView.frame.height )
@@ -58,8 +58,8 @@ class CharacterSkinMainView:UIModalPopView {
 		analogClockSecondsImageView.frame = CGRect( x: clockScrX, y: clockScrY, width: analogClockImageView.frame.width, height: analogClockImageView.frame.height )
 		analogClockCenterImageView.frame = CGRect( x: clockScrX, y: clockScrY, width: analogClockImageView.frame.width, height: analogClockImageView.frame.height )
 		
-		menuSettingsImageView.frame = CGRect( x: clockScrX - ((86 * DeviceManager.modalRatioC) / 2), y: clockScrY + (100 * DeviceManager.modalRatioC) , width: (109.5 * DeviceManager.modalRatioC), height: (109.5 * DeviceManager.modalRatioC) );
-		menuListImageView.frame = CGRect( x: clockRightScrX - ((86 * DeviceManager.modalRatioC) / 2), y: menuSettingsImageView.frame.minY, width: (74.05 * DeviceManager.modalRatioC), height: (105.5 * DeviceManager.modalRatioC) );
+		menuSettingsImageView.frame = CGRect( x: clockScrX - ((140 * DeviceManager.modalRatioC) / 2), y: clockScrY + (70 * DeviceManager.modalRatioC) , width: (220 * DeviceManager.modalRatioC), height: (220 * DeviceManager.modalRatioC) );
+		menuListImageView.frame = CGRect( x: clockRightScrX - ((280 * DeviceManager.modalRatioC) / 2), y: menuSettingsImageView.frame.minY, width: (220 * DeviceManager.modalRatioC), height: (220 * DeviceManager.modalRatioC) );
 		
 		let groundMinY:CGFloat = self.navigationController!.navigationBar.frame.size.height + skinBackground.frame.height;
 		
@@ -69,20 +69,20 @@ class CharacterSkinMainView:UIModalPopView {
 			            width: 300 * DeviceManager.modalRatioC,
 			            height: 300 * DeviceManager.modalRatioC )
 		groundStatisticsImageView.frame =
-			CGRect( x: 18 * DeviceManager.modalRatioC,
-			            y: groundMinY - (159 * DeviceManager.modalRatioC),
-			            width: 102 * DeviceManager.modalRatioC,
-			            height: 102 * DeviceManager.modalRatioC )
+			CGRect( x: -72 * DeviceManager.modalRatioC,
+			            y: groundMinY - (258 * DeviceManager.modalRatioC),
+			            width: 300 * DeviceManager.modalRatioC,
+			            height: 300 * DeviceManager.modalRatioC )
 		groundGamesStandingImageView.frame =
-			CGRect( x: groundCharacterImageView.frame.midX - (120 * DeviceManager.modalRatioC),
-			            y: groundMinY - (74 * DeviceManager.modalRatioC),
-			            width: 72 * DeviceManager.modalRatioC,
-			            height: 18 * DeviceManager.modalRatioC )
+			CGRect( x: groundCharacterImageView.frame.midX - (234 * DeviceManager.modalRatioC),
+			            y: groundMinY - (216 * DeviceManager.modalRatioC),
+			            width: 300 * DeviceManager.modalRatioC,
+			            height: 300 * DeviceManager.modalRatioC )
 		groundGamesFloatingImageView.frame =
-			CGRect( x: groundGamesStandingImageView.frame.origin.x + (16 * DeviceManager.modalRatioC),
-			            y: groundMinY - (130 * DeviceManager.modalRatioC),
-			            width: 40 * DeviceManager.modalRatioC,
-			            height: 44 * DeviceManager.modalRatioC )
+			CGRect( x: groundGamesStandingImageView.frame.minX ,
+			            y: groundMinY - (260 * DeviceManager.modalRatioC),
+			            width: 300 * DeviceManager.modalRatioC,
+			            height: 300 * DeviceManager.modalRatioC )
 		
 		
 		self.view.addSubview(analogClockImageView)

@@ -24,7 +24,7 @@ class ThemeManager {
 		case Background
 	} //end enum
 	
-	// Parse할 때 사용할 enum.
+	// Parse할 때 혹은 bundle에서 찾을 때 사용할 enum.
 	public enum ThemeGroupParseStr:String {
 		case Main = "main"
 		case StatsSign = "stats"
