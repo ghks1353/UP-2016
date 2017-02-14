@@ -344,7 +344,9 @@ class ViewController: UIViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		//Check alarms
-		checkToCallAlarmRingingView()
+		if (checkToCallAlarmRingingView()) {
+			return
+		} //end if
 		
 		//스타트가이드를 안 보았으면 강제로 보여주기
 		if (DataManager.getSavedDataBool( DataManager.settingsKeys.startGuideFlag ) == false) {
@@ -354,8 +356,8 @@ class ViewController: UIViewController {
 		} else {
 			//스타트가이드를 이미 본 상태이면
 			callShowNoticeModal()
-		}
-	}
+		} //end if
+	} //end func
 	
 	func showHideBlurview( _ show:Bool ) {
 		
@@ -459,7 +461,9 @@ class ViewController: UIViewController {
 			return
 		} //알람 실행 중이면 함수 무시
 		//// Check ringing alarm
-		checkToCallAlarmRingingView()
+		if (checkToCallAlarmRingingView()) {
+			return
+		} //end if
 		
         //get time and calcuate
         let components = Calendar.current.dateComponents([ .hour, .minute, .second], from: Date())
@@ -671,28 +675,33 @@ class ViewController: UIViewController {
 	
 	/////////////////////////////////////////
 	
-	internal func checkToCallAlarmRingingView() {
+	func checkToCallAlarmRingingView() -> Bool {
 		//알람 뷰 콜을 체크하고, 불러와야 하면 표시함.
 		//울린 후 안꺼진 알람이 있는지 체크한다.
 		let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm()
-		if (ringingAlarm == nil) {
-			//안꺼진 알람이 없음.
-			
-		} else {
-			//알람이 울리고 있음
+		if (ringingAlarm == nil) { //안꺼진 알람이 없음.
+			return false
+		} else { //알람이 울리고 있음
 			print("Alarm is ringing")
 			
-			if (AlarmManager.alarmRingActivated == true) {
-				print("Alarm ring progress is already running. skipping")
-			} else {
-				closeAllModalsForce()
-				
-				GlobalSubView.alarmRingViewcontroller.modalTransitionStyle = .crossDissolve
-				self.present(GlobalSubView.alarmRingViewcontroller, animated: true, completion: nil)
-				AlarmManager.alarmRingActivated = true
-			} //end check is running
+			if (self.presentedViewController != nil) {
+				if (self.presentedViewController! is AlarmRingView) {
+					AlarmManager.alarmRingActivated = true
+					print("Alarm ring progress is already running. skipping")
+					
+					return true
+				}
+			} //end if
+			
+			closeAllModalsForce()
+			
+			GlobalSubView.alarmRingViewcontroller.modalTransitionStyle = .crossDissolve
+			self.present(GlobalSubView.alarmRingViewcontroller, animated: true, completion: nil)
+			
+			return true
 		} //end check
 		
+		//return false
 	} //end if
 	
 	//모든 modal 강제로 닫기 (바로 다음 뷰를 열때 사용)
@@ -708,7 +717,7 @@ class ViewController: UIViewController {
 		modalWebView.dismiss(animated: false, completion: nil)
 		
 		overlayGuideView.dismiss(animated: false, completion: nil)
-		
+
 		if (!ignoreBlurView) {
 			self.showHideBlurview(false)
 		} //end if

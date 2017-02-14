@@ -188,10 +188,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		connectToFcm()
 		
 		SoundManager.setAudioPlayback( .NormalMode )
-		
+		/*
 		if (ViewController.selfView != nil) {
 			ViewController.selfView!.checkToCallAlarmRingingView()
-		}
+		}*/
 		
 		//알람이 울리고 있었다면 꺼줌.
 		AlarmManager.stopSoundAlarm()
