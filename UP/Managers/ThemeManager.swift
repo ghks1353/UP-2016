@@ -83,6 +83,9 @@ class ThemeManager {
 		// Statistics sign
 		static let ObjectStatistics:String = "object-statistics"
 		
+		//Skin-select thumbnail
+		static let Thumbnails:String = "thumbnails"
+		
 	} //end enum
 	public enum ThemePresets {
 		static let BundlePreset:String = "theme-"
@@ -202,6 +205,23 @@ class ThemeManager {
 		
 		print("[ThemeManager] Error: Can not find themeID", themeID, ": returned legacy theme ID.")
 		return bundleIDOnly ? legacyDefaultThemeBundleID : ThemePresets.BundlePreset + legacyDefaultThemeBundleID + "-"
+	} //end func
+	
+	static func getGroupStr(_ themeGroup:ThemeGroup ) -> String {
+		switch(themeGroup) {
+			case .Main:
+				return ThemeGroupParseStr.Main.rawValue
+			case .StatsSign:
+				return ThemeGroupParseStr.StatsSign.rawValue
+			case .GameIcon:
+				return ThemeGroupParseStr.GameIcon.rawValue
+			case .Character:
+				return ThemeGroupParseStr.Character.rawValue
+			case .DigitalClock:
+				return ThemeGroupParseStr.DigitalClock.rawValue
+			case .Background:
+				return ThemeGroupParseStr.Background.rawValue
+		} //end switch
 	} //end func
 	
 	static func getName( _ themeFileName:String ) -> String {

@@ -32,6 +32,11 @@ class CharacterSkinMainView:UIModalPopView {
 	var groundGamesFloatingImageView:UIImageView = UIImageView()
 	var groundCharacterImageView:UIImageView = UIImageView()
 	
+	/// 테마 toucharea (통계, 게임, 캐릭터)
+	var themeTouchareaStatistics:UIView = UIView()
+	var themeTouchareaGame:UIView = UIView()
+	var themeTouchareaCharacter:UIView = UIView()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad( title: LanguagesManager.$("userTheme") )
 		CharacterSkinMainView.selfView = self
@@ -100,8 +105,23 @@ class CharacterSkinMainView:UIModalPopView {
 		self.view.addSubview(groundGamesFloatingImageView)
 		self.view.addSubview(groundCharacterImageView)
 		
+		/////////////////// Toucharea
+		themeTouchareaStatistics.backgroundColor = UIColor.clear
+		themeTouchareaGame.backgroundColor = UIColor.clear
+		themeTouchareaCharacter.backgroundColor = UIColor.clear
+		
+		themeTouchareaStatistics.frame = CGRect( x: groundStatisticsImageView.frame.midX - (64 * DeviceManager.modalRatioC), y: groundStatisticsImageView.frame.midY - (64 * DeviceManager.modalRatioC), width: 120 * DeviceManager.modalRatioC, height: 120 * DeviceManager.modalRatioC )
+		
+		themeTouchareaGame.frame = CGRect( x: groundGamesFloatingImageView.frame.midX - (42 * DeviceManager.modalRatioC), y: groundGamesFloatingImageView.frame.midY - (64 * DeviceManager.modalRatioC), width: 82 * DeviceManager.modalRatioC, height: 120 * DeviceManager.modalRatioC )
+		
+		themeTouchareaCharacter.frame = CGRect( x: groundCharacterImageView.frame.midX - (52 * DeviceManager.modalRatioC), y: groundCharacterImageView.frame.midY - (70 * DeviceManager.modalRatioC), width: 100 * DeviceManager.modalRatioC, height: 120 * DeviceManager.modalRatioC )
+		
+		self.view.addSubview(themeTouchareaStatistics)
+		self.view.addSubview(themeTouchareaGame)
+		self.view.addSubview(themeTouchareaCharacter)
+		
 		////////// listener add
-		//skinSelectView
+		/////////////////// Main theme
 		var tGesture = UITapGestureRecognizer(target:self, action: #selector(self.selectThemeMain(_:)))
 		analogClockCenterImageView.isUserInteractionEnabled = true
 		analogClockCenterImageView.addGestureRecognizer(tGesture)
@@ -113,12 +133,33 @@ class CharacterSkinMainView:UIModalPopView {
 		tGesture = UITapGestureRecognizer(target:self, action: #selector(self.selectThemeMain(_:)))
 		menuListImageView.isUserInteractionEnabled = true
 		menuListImageView.addGestureRecognizer(tGesture)
+		//////////////////////// Statistics theme
+		tGesture = UITapGestureRecognizer(target:self, action: #selector(self.selectThemeStatistics(_:)))
+		themeTouchareaStatistics.isUserInteractionEnabled = true
+		themeTouchareaStatistics.addGestureRecognizer(tGesture)
+		//////////////////////// GamePlay theme
+		tGesture = UITapGestureRecognizer(target:self, action: #selector(self.selectThemeGame(_:)))
+		themeTouchareaGame.isUserInteractionEnabled = true
+		themeTouchareaGame.addGestureRecognizer(tGesture)
+		//////////////////////// Character theme
+		tGesture = UITapGestureRecognizer(target:self, action: #selector(self.selectThemeCharacter(_:)))
+		themeTouchareaCharacter.isUserInteractionEnabled = true
+		themeTouchareaCharacter.addGestureRecognizer(tGesture)
 		
 	} /////////// end func
 	
-	func selectThemeMain( _ gst:UITapGestureRecognizer ) {
+	func selectThemeMain(_ gst:UITapGestureRecognizer ) {
 		openThemeSelectView( .Main )
 	} //end func
+	func selectThemeStatistics(_ gst:UITapGestureRecognizer ) {
+		openThemeSelectView( .StatsSign )
+	}
+	func selectThemeGame(_ gst:UITapGestureRecognizer ) {
+		openThemeSelectView( .GameIcon )
+	}
+	func selectThemeCharacter(_ gst:UITapGestureRecognizer ) {
+		openThemeSelectView( .Character )
+	} ////////////////
 	
 	/////////////////////////////
 	func openThemeSelectView( _ themeCategory:ThemeManager.ThemeGroup ) {
