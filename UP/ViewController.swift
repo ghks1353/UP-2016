@@ -728,18 +728,19 @@ class ViewController: UIViewController {
 		///Update digital clock image cached
 		digitalClockImageCached.removeAll()
 		for i:Int in 0 ... 9 {
-			digitalClockImageCached.append( UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + String(i) + ".png" )! )
+			print("name", ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + String(i) + ".png")
+			digitalClockImageCached.append( UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName( ThemeManager.ThemeFileNames.DigitalClock + "-" + String(i)) )! )
 		} //end for
 		//// Make AMPM digital indicator
 		digitalClockAMPMCached.removeAll()
 		
 		/// index 0 is am, 1 is pm
-		digitalClockAMPMCached.append( UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName(ThemeManager.ThemeFileNames.DigitalClockAM))! )
-		digitalClockAMPMCached.append( UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName(ThemeManager.ThemeFileNames.DigitalClockPM))! )
+		digitalClockAMPMCached.append( UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName(ThemeManager.ThemeFileNames.DigitalClock + "-" + ThemeManager.ThemeFileNames.DigitalClockAM))! )
+		digitalClockAMPMCached.append( UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName(ThemeManager.ThemeFileNames.DigitalClock + "-" + ThemeManager.ThemeFileNames.DigitalClockPM))! )
 		///////////////
 		
 		///// Make clock image
-		DigitalCol.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName(ThemeManager.ThemeFileNames.DigitalClockCol) )
+		DigitalCol.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName(ThemeManager.ThemeFileNames.DigitalClock + "-" + ThemeManager.ThemeFileNames.DigitalClockCol) )
 		
 		////// Make analog-clock image
 		AnalogBody.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockBody) )
@@ -760,7 +761,7 @@ class ViewController: UIViewController {
 		//기본 스킨 아스트로 애니메이션 (텍스쳐)
 		for i in 0...3 { //부동
 			//Character는 번호 뒤에 확장자를 붙이므로 getname함수 사용안함
-			let fileName:String = ThemeManager.getAssetPresets(themeGroup: .Character) + ThemeManager.ThemeFileNames.Character + "-" + String(i) + ".png"
+			let fileName:String = ThemeManager.getAssetPresets(themeGroup: .Character) + ThemeManager.getName(ThemeManager.ThemeFileNames.Character + "-" + String(i))
 			let fImage:UIImage = UIImage( named: fileName )!
 			astroMotionsStanding += [fImage]
 		} //end for
@@ -770,7 +771,6 @@ class ViewController: UIViewController {
 	//주의: 패드와 폰 둘다 동작하게 일단 만들어 놔야함. 물론, 실제로 화면이 회전될 때는 패드에서만 작동함.
 	//(단, init시 iPhone에서 작동함)
 	func fitViewControllerElementsToScreen( _ animated:Bool = false ) {
-		//DigitalCol
 		var scrX:CGFloat = CGFloat(DeviceManager.scrSize!.width / 2 - ((40 * DeviceManager.maxScrRatioC) / 2))
 		var digiClockYAxis:CGFloat = 90 * DeviceManager.scrRatioC
 		scrX += 4 * DeviceManager.maxScrRatioC

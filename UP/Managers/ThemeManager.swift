@@ -71,7 +71,7 @@ class ThemeManager {
 		static let Character:String = "character"
 		
 		// DigitalClock (White and Black)
-		static let DigitalClock:String = "" //empty (currently)
+		static let DigitalClock:String = "digital"
 		static let DigitalClockBlack:String = "black"
 		static let DigitalClockCol:String = "col"
 		static let DigitalClockAM:String = "am"
