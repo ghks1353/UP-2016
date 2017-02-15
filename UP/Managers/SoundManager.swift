@@ -158,16 +158,15 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	} //end func
 	
 	////////////// alarm sounds
-	static var list:Array<SoundInfoObj> = [
-		SoundInfoObj(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff"),
-		SoundInfoObj(soundName: "Play Play Play (UP test sound)", fileName: "sounds-alarms-test-playplayplay.aiff"),
-		SoundInfoObj(soundName: "占쏙옙占쏙옙", fileName: "sounds-alarms-test-sokyepsokyep.aiff"),
-		SoundInfoObj(soundName: "냥냥-냐냐-냐냐냐냥", fileName: "sounds-alarms-test-nyancat.aiff")
-		
+	static var list:Array<SoundData> = [
+		SoundData(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff"),
+		SoundData(soundName: "Play Play Play (UP test sound)", fileName: "sounds-alarms-test-playplayplay.aiff"),
+		SoundData(soundName: "占쏙옙占쏙옙", fileName: "sounds-alarms-test-sokyepsokyep.aiff"),
+		SoundData(soundName: "냥냥-냐냐-냐냐냐냥", fileName: "sounds-alarms-test-nyancat.aiff")
 	]
 	
 	//사운드 이름에 대한 실제 사운드 오브젝트 반환
-	static func findSoundObjectWithFileName(_ soundFileName:String) -> SoundInfoObj? {
+	static func findSoundObjectWithFileName(_ soundFileName:String) -> SoundData? {
 		for i:Int in 0 ..< list.count {
 			if (list[i].soundFileName == soundFileName) {
 				return list[i]

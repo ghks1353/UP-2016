@@ -37,14 +37,14 @@ class MainOverlayGuideView:UIOverlayGuideView {
 		super.viewDidLoad()
 		
 		///// Image setup
-		guideMainClockImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-center.png" )
-		guideMainBuyUPImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-buy.png" )
-		guideMainStatsImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .StatsSign, themeID: ThemeManager.legacyDefaultTheme) + "guide-stats.png" )
+		guideMainClockImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-center.png" )
+		guideMainBuyUPImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-buy.png" )
+		guideMainStatsImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-stats.png" )
 		
-		guideGameFloatingImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon, themeID: ThemeManager.legacyDefaultTheme) + "guide-ground-hover.png" )
-		guideGameStandingImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon, themeID: ThemeManager.legacyDefaultTheme) + "guide-ground.png" )
+		guideGameFloatingImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-ground-hover.png" )
+		guideGameStandingImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-ground.png" )
 		
-		guideCharacterImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Character, themeID: ThemeManager.legacyDefaultTheme) + "guide-astro.png" )
+		guideCharacterImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-astro.png" )
 		
 		///// Label setup
 		

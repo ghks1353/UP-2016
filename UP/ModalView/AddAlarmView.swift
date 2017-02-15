@@ -27,7 +27,7 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 	//Current sound level
 	var alarmCurrentSoundLevel:Int = 0
 	//Alarm sound selected
-	var alarmSoundSelectedObj:SoundInfoObj = SoundInfoObj(soundName: "", fileName: "")
+	var alarmSoundSelectedObj:SoundData = SoundData(soundName: "", fileName: "")
 	//Game selected
 	var gameSelectedID:Int = -1
 	
@@ -134,7 +134,7 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 	} ///////////////////////////////
 	
 	//set sound element from other view
-	internal func setSoundElement(_ sInfo:SoundInfoObj) {
+	internal func setSoundElement(_ sInfo:SoundData) {
 		(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundLangName
 		alarmSoundSelectedObj = sInfo
 	}

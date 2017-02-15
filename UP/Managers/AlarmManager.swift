@@ -547,22 +547,22 @@ class AlarmManager {
 						
 					}
 					
-					alarmsArray[i].alarmToggle = false; //alarm toggle to off.
+					alarmsArray[i].alarmToggle = false //alarm toggle to off.
 				} else {
 					//알람 켜기 (addalarm 재탕)
-					let tmpsInfoObj = SoundInfoObj(soundName: "", fileName: alarmsArray[i].alarmSound);
-					let tmpNSDate:Date = Date();
-					var tmpNSComp:DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: tmpNSDate);
-					let tComp:DateComponents = Calendar.current.dateComponents([.hour, .minute], from: alarmsArray[i].alarmFireDate as Date);
-					tmpNSComp.hour = tComp.hour;
-					tmpNSComp.minute = tComp.minute;
-					tmpNSComp.second = 0;
-					alarmsArray[i].alarmFireDate = Calendar.current.date(from: tmpNSComp)!;
+					let tmpsInfoObj = SoundData(soundName: "", fileName: alarmsArray[i].alarmSound)
+					let tmpNSDate:Date = Date()
+					var tmpNSComp:DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: tmpNSDate)
+					let tComp:DateComponents = Calendar.current.dateComponents([.hour, .minute], from: alarmsArray[i].alarmFireDate as Date)
+					tmpNSComp.hour = tComp.hour
+					tmpNSComp.minute = tComp.minute
+					tmpNSComp.second = 0
+					alarmsArray[i].alarmFireDate = Calendar.current.date(from: tmpNSComp)!
 					
 					print("Comp changed date to", alarmsArray[i].alarmFireDate);
 					
-					let alarmsArrTmpPointer:AlarmElements = alarmsArray[i];
-					alarmsArray.remove(at: i);
+					let alarmsArrTmpPointer:AlarmElements = alarmsArray[i]
+					alarmsArray.remove(at: i)
 					addAlarm(alarmsArrTmpPointer.alarmFireDate as Date, funcAlarmTitle: alarmsArrTmpPointer.alarmName,
 						funcAlarmMemo: alarmsArrTmpPointer.alarmMemo,
 						gameID: alarmsArrTmpPointer.gameSelected,
@@ -634,7 +634,7 @@ class AlarmManager {
 	
 	//Edit alarm from system
 	static func editAlarm(_ alarmID:Int, funcDate:Date, alarmTitle:String, alarmMemo:String, gameID:Int,
-	                      soundLevel:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, toggleStatus:Bool) {
+	                      soundLevel:Int, soundFile:SoundData, repeatArr:Array<Bool>, toggleStatus:Bool) {
 		var date:Date = funcDate;
 		if (!isAlarmMergedFirst) {
 			mergeAlarm();
@@ -691,7 +691,7 @@ class AlarmManager {
 	}
 	
 	//Add alarm to system
-	static func addAlarm(_ funcDate:Date, funcAlarmTitle:String, funcAlarmMemo:String, gameID:Int, alarmLevel:Int, soundFile:SoundInfoObj, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1, isToggled:Bool = true, redrawList:Bool = true) {
+	static func addAlarm(_ funcDate:Date, funcAlarmTitle:String, funcAlarmMemo:String, gameID:Int, alarmLevel:Int, soundFile:SoundData, repeatArr:Array<Bool>, insertAt:Int = -1, alarmID:Int = -1, isToggled:Bool = true, redrawList:Bool = true) {
 		//repeatarr에 일,월,화,수,목,금,토 순으로 채움
 		
 		var date:Date = funcDate;

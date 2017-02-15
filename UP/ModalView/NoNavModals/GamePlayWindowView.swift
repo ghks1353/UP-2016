@@ -55,32 +55,34 @@ class GamePlayWindowView:UIViewController {
 	var currentGameID:Int = 0
 	
 	override func viewDidLoad() {
-		super.viewDidLoad();
-		self.view.backgroundColor = UIColor.clear;
+		super.viewDidLoad()
+		self.view.backgroundColor = UIColor.clear
 		
-		GamePlayWindowView.selfView = self;
+		GamePlayWindowView.selfView = self
 		
 		//ModalView
-		modalView.backgroundColor = UIColor.white;
-		modalView.frame = DeviceManager.resultModalSizeRect;
-		self.view.addSubview(modalView);
+		modalView.backgroundColor = UIColor.white
+		modalView.frame = DeviceManager.resultModalSizeRect
+		self.view.addSubview(modalView)
 		
 		//리소스 제작
 		for i:Int in 0 ..< 10 {
-			blackNumbers += [ UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) + "black-" + String(i) + ".png" )! ];
+			blackNumbers += [ UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName( ThemeManager.ThemeFileNames.DigitalClockBlack + "-" + String(i))  )! ]
 		}
 		
 		// ** 레이아웃들 패드의 경우 특수처리 필요 **
 		if (UIDevice.current.userInterfaceIdiom == .phone) {
-			XAXIS_PRESET_PAD = 0; YAXIS_PRESET_PAD = 0;
-			XAXIS_PRESET_LV_PAD = 0; YAXIS_PRESET_LV_PAD = 0;
-			XAXIS_PRESET_LV_R_PAD = 0;
+			XAXIS_PRESET_PAD = 0
+			YAXIS_PRESET_PAD = 0
+			XAXIS_PRESET_LV_PAD = 0
+			YAXIS_PRESET_LV_PAD = 0
+			XAXIS_PRESET_LV_R_PAD = 0
 		}
 		
 		//ScrollView create.
-		scrollView.isPagingEnabled = true;
-		scrollView.frame = CGRect(x: 0, y: 0, width: modalView.frame.width, height: 146 * DeviceManager.resultModalRatioC);
-		scrollView.contentSize = CGSize(width: scrollView.frame.width * 1, height: scrollView.frame.height);
+		scrollView.isPagingEnabled = true
+		scrollView.frame = CGRect(x: 0, y: 0, width: modalView.frame.width, height: 146 * DeviceManager.resultModalRatioC)
+		scrollView.contentSize = CGSize(width: scrollView.frame.width * 1, height: scrollView.frame.height)
 		
 		///// best 부분 만들기
 		let bestUIView:UIView = UIView(); bestUIView.frame = CGRect(x: scrollView.frame.width * 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.height);

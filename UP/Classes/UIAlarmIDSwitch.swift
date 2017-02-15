@@ -11,6 +11,6 @@ import UIKit;
 
 class UIAlarmIDSwitch:UISwitch {
 	
-	internal var elementID:Int = 0;
+	var elementID:Int = 0
 	
 }

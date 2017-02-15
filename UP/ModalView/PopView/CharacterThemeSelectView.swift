@@ -12,7 +12,7 @@ import UIKit
 class CharacterThemeSelectView:UIModalPopView {
 	
 	//// Theme category (default value is main)
-	var currentThemeCategory:ThemeManager.ThemeGroup = ThemeManager.ThemeGroup.Main
+	var currentThemeCategory:ThemeManager.ThemeGroup = ThemeManager.ThemeGroup.Default
 	var selectedThemeData:ThemeData?
 	
 	////////// Draw Skin window
@@ -154,17 +154,8 @@ class CharacterThemeSelectView:UIModalPopView {
 		//// draw and load skin lists.
 		
 		switch (currentThemeCategory) {
-			case .Main:
+			case .Default:
 				self.title = LanguagesManager.$("userThemeGroupMain")
-				break
-			case .StatsSign:
-				self.title = LanguagesManager.$("userThemeGroupStats")
-				break
-			case .GameIcon:
-				self.title = LanguagesManager.$("userThemeGroupGame")
-				break
-			case .Character:
-				self.title = LanguagesManager.$("userThemeGroupCharacter")
 				break
 			default: break
 		} //end switch
@@ -175,17 +166,17 @@ class CharacterThemeSelectView:UIModalPopView {
 	
 	////////////////////////////////
 	func drawItems( themeCategory:ThemeManager.ThemeGroup ) {
-		if (ThemeManager.themesData[ themeCategory ] == nil) {
+		/*if (ThemeManager.themesData[ themeCategory ] == nil) {
 			print("Error: themes data not found for group", themeCategory)
 			return
-		} //end if
+		} *///end if
 		//// Remove existing views
 		for i:Int in 0 ..< tItemsArray.count {
 			tItemsArray[i].removeFromSuperview()
 		} //end for
 		tItemsArray.removeAll()
 		
-		let listData:Array<ThemeData> = ThemeManager.themesData[ themeCategory ]!
+		let listData:Array<ThemeData> = ThemeManager.themesData
 		
 		/// 몇개를 배열할지 정함.
 		//tWindowSelectView.frame.width
@@ -201,7 +192,7 @@ class CharacterThemeSelectView:UIModalPopView {
 			} //////////////////////////////////
 			
 			//선택된 테마는 인덱스를 저장해서 자동선택 되도록.
-			if (listData[i].themeID == ThemeManager.selectedThemes[ themeCategory ]) {
+			if (listData[i].themeID == ThemeManager.selectedThemeID[ themeCategory ]) {
 				selectedThemeIndex = i
 			} //end if
 			
@@ -239,12 +230,12 @@ class CharacterThemeSelectView:UIModalPopView {
 	} //end func
 	
 	func showThemeDetails( index:Int ) {
-		if (ThemeManager.themesData[ currentThemeCategory ]!.count < index) {
+		if (ThemeManager.themesData.count < index) {
 			print("Error: detail show failed. out of index.")
 			return
 		} //end if
 		
-		selectedThemeData = ThemeManager.themesData[ currentThemeCategory ]![index]
+		selectedThemeData = ThemeManager.themesData[index]
 		print("You selected theme",selectedThemeData!.themeID)
 		
 		//Category별 대표 이미지 가져와야 함
@@ -253,20 +244,8 @@ class CharacterThemeSelectView:UIModalPopView {
 		var previewImageScaleFactor:CGFloat = 1
 		
 		switch( currentThemeCategory ) {
-			case .Main:
+			case .Default:
 				previewImageForCategory = ThemeManager.ThemeFileNames.AnalogClockBody
-				break
-			case .StatsSign:
-				previewImageForCategory = ThemeManager.ThemeFileNames.ObjectStatistics
-				previewImageScaleFactor = 2
-				break
-			case .GameIcon:
-				previewImageForCategory = ThemeManager.ThemeFileNames.ObjectGameFloating
-				previewImageScaleFactor = 4
-				break
-			case .Character:
-				previewImageForCategory = ThemeManager.ThemeFileNames.Character
-				previewImageScaleFactor = 2
 				break
 			default: break
 		} //end switch
@@ -275,7 +254,7 @@ class CharacterThemeSelectView:UIModalPopView {
 		
 		if (previewImageForCategory == ThemeManager.ThemeFileNames.Character) {
 			//캐릭터의 경우, 캐릭터 1프레임에 있는 모습으로 보여줌
-			selectedImageNameStr = ThemeManager.getAssetPresets(themeGroup: .Character) + ThemeManager.ThemeFileNames.Character + "-0" + ".png"
+			selectedImageNameStr = ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.ThemeFileNames.Character + "-0" + ".png"
 		} else {
 			//다른 테마의 경우 기존 에셋 표시
 			selectedImageNameStr = ThemeManager.getAssetPresets(themeGroup: currentThemeCategory, themeID: selectedThemeData!.themeID) + ThemeManager.getName( previewImageForCategory )

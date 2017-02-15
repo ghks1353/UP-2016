@@ -8,14 +8,15 @@
 
 import Foundation
 
-class SoundInfoObj {
+class SoundData {
 	
 	init(soundName:String, fileName:String) {
 		//Name from Language files
-		soundLangName = LanguagesManager.$(soundName); soundFileName = fileName;
+		soundLangName = LanguagesManager.$(soundName)
+		soundFileName = fileName
 	}
 	
-	internal var soundLangName:String = "";
-	internal var soundFileName:String = "";
+	internal var soundLangName:String = ""
+	internal var soundFileName:String = ""
 	
 }

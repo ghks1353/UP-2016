@@ -159,7 +159,7 @@ class AlarmSoundListView:UIModalPopView, UITableViewDataSource, UITableViewDeleg
 		return tCell;
 	}
 	
-	func createCell( _ soundObj:SoundInfoObj ) -> AlarmSoundListCell {
+	func createCell( _ soundObj:SoundData ) -> AlarmSoundListCell {
 		let tCell:AlarmSoundListCell = AlarmSoundListCell();
 		tCell.backgroundColor = UIColor.white;
 		tCell.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 45); //default cell size
@@ -178,7 +178,7 @@ class AlarmSoundListView:UIModalPopView, UITableViewDataSource, UITableViewDeleg
 	}
 	
 	//Set selected style from other view (accessable)
-	func setSelectedCell( _ soundObj:SoundInfoObj ) {
+	func setSelectedCell( _ soundObj:SoundData ) {
 		for i:Int in 0 ..< (tablesArray[1] as! Array<AlarmSoundListCell>).count {
 			if ((tablesArray[1] as! Array<AlarmSoundListCell>)[i].soundInfoObject?.soundFileName == soundObj.soundFileName) {
 				(tablesArray[1] as! Array<AlarmSoundListCell>)[i].accessoryType = .checkmark

@@ -11,12 +11,12 @@ import UIKit
 
 class UPGamesListCell:UITableViewCell {
 	
-	internal var gameID:Int = -1;
-	internal var gameCheckImageView:UIImageView?;
-	internal var gameInfoObj:GameInfoObj?;
+	var gameID:Int = -1
+	var gameCheckImageView:UIImageView?
+	var gameInfoObj:GameData?
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesBegan(touches, with: event);
+		super.touchesBegan(touches, with: event)
 	}
 	
 }

@@ -80,24 +80,24 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad();
-		self.view.backgroundColor = UIColor.clear;
+		self.view.backgroundColor = UIColor.clear
 		
-		GameResultView.selfView = self;
+		GameResultView.selfView = self
 		
 		//ModalView
 		modalView.backgroundColor = UIColor.white;
 		modalView.frame = CGRect(x: DeviceManager.resultModalSizeRect.minX, y: DeviceManager.resultModalSizeRect.minY - 36 * DeviceManager.resultModalRatioC,
-		width: DeviceManager.resultModalSizeRect.width, height: DeviceManager.resultModalSizeRect.height);
-		self.view.addSubview(modalView);
+		width: DeviceManager.resultModalSizeRect.width, height: DeviceManager.resultModalSizeRect.height)
+		self.view.addSubview(modalView)
 		//ModalView (SNS)
 		modalSNSView.backgroundColor = UIColor.white;
 		modalSNSView.frame = CGRect(x: DeviceManager.resultModalSizeRect.minX, y: modalView.frame.maxY + 18 * DeviceManager.resultModalRatioC,
 		                             width: DeviceManager.resultModalSizeRect.width, height: 72 * DeviceManager.resultModalRatioC);
-		self.view.addSubview(modalSNSView);
+		self.view.addSubview(modalSNSView)
 		
 		//리소스 제작
 		for i:Int in 0 ..< 10 {
-			blackNumbers += [ UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) + "black-" + String(i) + ".png" )! ];
+			blackNumbers += [ UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName( ThemeManager.ThemeFileNames.DigitalClockBlack + "-" + String(i))  )! ]
 		}
 		
 		// ** 레이아웃들 패드의 경우 특수처리 필요 **
@@ -160,7 +160,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		charLevelWrapper.image = UIImage( named: "characterinfo-level-wrapper.png" );
 		charLevelIndicator.image = UIImage( named: "characterinfo-level.png" );
 		charExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" );
-		charCurrentCharacter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Character) + "character-" + "0" + ".png" ); //현재 캐릭터 스킨 불러오기
+		charCurrentCharacter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + "character-" + "0" + ".png" ); //현재 캐릭터 스킨 불러오기
 		modalView.addSubview(charLevelWrapper); modalView.addSubview(charLevelIndicator); modalView.addSubview(charExpWrapper);
 		modalView.addSubview(charCurrentCharacter);
 		//마스크 레이어
@@ -243,15 +243,15 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		modalMaskImageView.frame = CGRect(x: 0, y: 0, width: modalSNSView.frame.width, height: modalSNSView.frame.height);
 		modalMaskImageView.contentMode = .scaleAspectFit; modalSNSView.mask = modalMaskImageView;
 		
-		FitModalLocationToCenter();
+		FitModalLocationToCenter()
 		
 		//버튼 이벤트 바인딩
-		resultButtonClose.addTarget(self, action: #selector(GameResultView.viewCloseAction), for: .touchUpInside);
+		resultButtonClose.addTarget(self, action: #selector(self.viewCloseAction), for: .touchUpInside)
 		
 		//이쪽은 게임으로 실행된 경우 버튼들
-		resultButtonList.addTarget(self, action: #selector(GameResultView.goToGameMain), for: .touchUpInside);
-		resultButtonRetry.addTarget(self, action: #selector(GameResultView.goRetryGame), for: .touchUpInside);
-		resultButtonRanking.addTarget(self, action: #selector(GameResultView.showRankingGameCenter), for: .touchUpInside);
+		resultButtonList.addTarget(self, action: #selector(self.goToGameMain), for: .touchUpInside)
+		resultButtonRetry.addTarget(self, action: #selector(self.goRetryGame), for: .touchUpInside)
+		resultButtonRanking.addTarget(self, action: #selector(self.showRankingGameCenter), for: .touchUpInside)
 	}
 	
 	func setVariables( _ gameID:Int = 0, windowType:Int = 0, showingScore:Int = 0, showingBest:Int = 0 ) {

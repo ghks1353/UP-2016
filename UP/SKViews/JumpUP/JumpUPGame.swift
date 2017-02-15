@@ -297,7 +297,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		if (characterElement!.motions_walking.count == 0) {
 			for i:Int in 0 ..< 6 {
 				characterElement!.motions_walking += [
-					SKTexture( imageNamed: "game-jumpup-astro-" + ThemeManager.getAssetPresets(themeGroup: .Character, bundleIDOnly: true) + "-move-" + String(i) + ".png" )
+					SKTexture( imageNamed: ThemeManager.getAssetPresets(gameName: ThemeManager.ThemeGameNames.JumpUP, themeTarget: ThemeManager.ThemeFileNames.Character, gamePreset: ThemeManager.ThemeGamePresets.Move, index: i) )
 				] //Character motions preload
 				(characterElement!.motions_walking[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}
@@ -305,7 +305,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		if (characterElement!.motions_jumping.count == 0) {
 			for i:Int in 0 ..< 5 {
 				characterElement!.motions_jumping += [
-					SKTexture( imageNamed: "game-jumpup-astro-" + ThemeManager.getAssetPresets(themeGroup: .Character, bundleIDOnly: true) + "-jump-" + String(i) + ".png" )
+					SKTexture( imageNamed: ThemeManager.getAssetPresets(gameName: ThemeManager.ThemeGameNames.JumpUP, themeTarget: ThemeManager.ThemeFileNames.Character, gamePreset: ThemeManager.ThemeGamePresets.Jump, index: i) )
 				] //Character motions preload
 				(characterElement!.motions_jumping[i] as SKTexture).preload(completionHandler: preloadEventCall)
 			}

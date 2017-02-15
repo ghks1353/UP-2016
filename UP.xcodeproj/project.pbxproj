@@ -135,9 +135,7 @@
 		03DDD7F41CEB98D2007C026D /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7ED1CEB98D2007C026D /* ThemeManager.swift */; };
 		03DDD7F51CEB98D2007C026D /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7EE1CEB98D2007C026D /* SoundManager.swift */; };
 		03DDD7FD1CEB990D007C026D /* AnimatedImg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7F61CEB990D007C026D /* AnimatedImg.swift */; };
-		03DDD7FE1CEB990D007C026D /* GameInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7F71CEB990D007C026D /* GameInfoObj.swift */; };
 		03DDD7FF1CEB990D007C026D /* SettingsElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7F81CEB990D007C026D /* SettingsElement.swift */; };
-		03DDD8001CEB990D007C026D /* SoundInfoObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7F91CEB990D007C026D /* SoundInfoObj.swift */; };
 		03DDD8011CEB990D007C026D /* StatsDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */; };
 		03DDD8021CEB990D007C026D /* UIAlarmIDSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */; };
 		03DDD8061CEB992D007C026D /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DDD8041CEB992D007C026D /* DeviceManager.swift */; };
@@ -500,6 +498,9 @@
 		77A0583C1E3D07A200E04968 /* ALDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0583B1E3D07A200E04968 /* ALDManager.swift */; };
 		77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */; };
 		77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */; };
+		77BFB47E1E54F4E200470CEE /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BFB47D1E54F4E200470CEE /* ResourceManager.swift */; };
+		77BFB4811E54F5BB00470CEE /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BFB47F1E54F5BB00470CEE /* GameData.swift */; };
+		77BFB4821E54F5BB00470CEE /* SoundData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BFB4801E54F5BB00470CEE /* SoundData.swift */; };
 		77E3F4861C74B7AD002BBDA6 /* game-thumbs-check.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */; };
 		77F948721D80ADEE00B33F5F /* comp-icons-settings-memo.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F948711D80ADEE00B33F5F /* comp-icons-settings-memo.png */; };
 		77F9487A1D80ADFD00B33F5F /* comp-icons-shop-code.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F948791D80ADFD00B33F5F /* comp-icons-shop-code.png */; };
@@ -641,9 +642,7 @@
 		03DDD7ED1CEB98D2007C026D /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeManager.swift; path = Managers/ThemeManager.swift; sourceTree = "<group>"; };
 		03DDD7EE1CEB98D2007C026D /* SoundManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundManager.swift; path = Managers/SoundManager.swift; sourceTree = "<group>"; };
 		03DDD7F61CEB990D007C026D /* AnimatedImg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimatedImg.swift; path = Classes/AnimatedImg.swift; sourceTree = "<group>"; };
-		03DDD7F71CEB990D007C026D /* GameInfoObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameInfoObj.swift; path = Classes/GameInfoObj.swift; sourceTree = "<group>"; };
 		03DDD7F81CEB990D007C026D /* SettingsElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsElement.swift; path = Classes/SettingsElement.swift; sourceTree = "<group>"; };
-		03DDD7F91CEB990D007C026D /* SoundInfoObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundInfoObj.swift; path = Classes/SoundInfoObj.swift; sourceTree = "<group>"; };
 		03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatsDataElement.swift; path = Classes/StatsDataElement.swift; sourceTree = "<group>"; };
 		03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIAlarmIDSwitch.swift; path = Classes/UIAlarmIDSwitch.swift; sourceTree = "<group>"; };
 		03DDD8041CEB992D007C026D /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceManager.swift; path = Utils/DeviceManager.swift; sourceTree = "<group>"; };
@@ -1009,6 +1008,9 @@
 		77A0583B1E3D07A200E04968 /* ALDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ALDManager.swift; path = Managers/ALDManager.swift; sourceTree = "<group>"; };
 		77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsoda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsoda.aiff"; sourceTree = "<group>"; };
+		77BFB47D1E54F4E200470CEE /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResourceManager.swift; path = Managers/ResourceManager.swift; sourceTree = "<group>"; };
+		77BFB47F1E54F5BB00470CEE /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameData.swift; path = Managers/StructureClass/GameData.swift; sourceTree = "<group>"; };
+		77BFB4801E54F5BB00470CEE /* SoundData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundData.swift; path = Managers/StructureClass/SoundData.swift; sourceTree = "<group>"; };
 		77E3F4851C74B7AD002BBDA6 /* game-thumbs-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-thumbs-check.png"; path = "ImageAssets/game-thumbs-check.png"; sourceTree = "<group>"; };
 		77F948711D80ADEE00B33F5F /* comp-icons-settings-memo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-memo.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-memo.png"; sourceTree = "<group>"; };
 		77F948791D80ADFD00B33F5F /* comp-icons-shop-code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-shop-code.png"; path = "ImageAssets/Components/Icons/comp-icons-shop-code.png"; sourceTree = "<group>"; };
@@ -1627,6 +1629,8 @@
 			isa = PBXGroup;
 			children = (
 				7739EA891E4E31EB00F62B59 /* ThemeData.swift */,
+				77BFB47F1E54F5BB00470CEE /* GameData.swift */,
+				77BFB4801E54F5BB00470CEE /* SoundData.swift */,
 			);
 			name = StructureClass;
 			sourceTree = "<group>";
@@ -1635,9 +1639,7 @@
 			isa = PBXGroup;
 			children = (
 				032318AE1CF8BA4D0052732F /* AchievementElement.swift */,
-				03DDD7F71CEB990D007C026D /* GameInfoObj.swift */,
 				03DDD7F81CEB990D007C026D /* SettingsElement.swift */,
-				03DDD7F91CEB990D007C026D /* SoundInfoObj.swift */,
 				03DDD7FA1CEB990D007C026D /* StatsDataElement.swift */,
 				03DDD7FB1CEB990D007C026D /* UIAlarmIDSwitch.swift */,
 			);
@@ -2356,6 +2358,7 @@
 				77A058381E3CC2F800E04968 /* FirebaseTopicManager.swift */,
 				77A0583B1E3D07A200E04968 /* ALDManager.swift */,
 				7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */,
+				77BFB47D1E54F4E200470CEE /* ResourceManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -3015,7 +3018,6 @@
 				03DDD81D1CEB99D1007C026D /* AlarmRingView.swift in Sources */,
 				7717A7171E43A99F00076E16 /* MainOverlayGuideView.swift in Sources */,
 				03E1D1331CF3020B00B552FC /* CharacterInfo.swift in Sources */,
-				03DDD7FE1CEB990D007C026D /* GameInfoObj.swift in Sources */,
 				03DDD7F21CEB98D2007C026D /* GlobalSubView.swift in Sources */,
 				032318BD1CFA05BF0052732F /* GameManager.swift in Sources */,
 				03DDD7E71CEB9884007C026D /* LanguageSetupView.swift in Sources */,
@@ -3030,6 +3032,7 @@
 				03DDD7F51CEB98D2007C026D /* SoundManager.swift in Sources */,
 				775ADBE81C4FC4C700B52552 /* AppDelegate.swift in Sources */,
 				03DDD7FF1CEB990D007C026D /* SettingsElement.swift in Sources */,
+				77BFB4821E54F5BB00470CEE /* SoundData.swift in Sources */,
 				77F9487E1D8585DE00B33F5F /* TestersWebView.swift in Sources */,
 				77782E681C92B0B00016EE1B /* Int+Extensions.swift in Sources */,
 				03DDD7DB1CEB921E007C026D /* SettingsView.swift in Sources */,
@@ -3042,7 +3045,6 @@
 				771ABC411D45DE8700938D1B /* CharacterSkinMainView.swift in Sources */,
 				771977731E48F8CB0018EE00 /* GameGozaUPView.swift in Sources */,
 				7714CABB1E4C956E00E447E9 /* UIModalPopView.swift in Sources */,
-				03DDD8001CEB990D007C026D /* SoundInfoObj.swift in Sources */,
 				03DDD8021CEB990D007C026D /* UIAlarmIDSwitch.swift in Sources */,
 				771CD1471E478CBE00574AD8 /* AlarmSetupGuideView.swift in Sources */,
 				03DDD7EF1CEB98D2007C026D /* AlarmManager.swift in Sources */,
@@ -3066,6 +3068,7 @@
 				032318B91CF8BA6A0052732F /* AchievementManager.swift in Sources */,
 				03DDD81B1CEB99C9007C026D /* GameTitleViewJumpUP.swift in Sources */,
 				03DDD7D31CEB91D4007C026D /* StatisticsView.swift in Sources */,
+				77BFB4811E54F5BB00470CEE /* GameData.swift in Sources */,
 				03DDD80E1CEB9990007C026D /* CustomTableCell.swift in Sources */,
 				77782E6E1C92B0B00016EE1B /* SKTEffects.swift in Sources */,
 				771977751E490A670018EE00 /* BuyExPackView.swift in Sources */,
@@ -3079,6 +3082,7 @@
 				77782E6B1C92B0B00016EE1B /* SKColor+Extensions.swift in Sources */,
 				032318BB1CF9BABC0052732F /* GamePlayView.swift in Sources */,
 				03DDD7F01CEB98D2007C026D /* AnalyticsManager.swift in Sources */,
+				77BFB47E1E54F4E200470CEE /* ResourceManager.swift in Sources */,
 				03DDD7F11CEB98D2007C026D /* DataManager.swift in Sources */,
 				03DEB7CA1D25E0260086BEAD /* StartGuideView.swift in Sources */,
 				03DDD7DA1CEB921E007C026D /* CharacterInfoView.swift in Sources */,

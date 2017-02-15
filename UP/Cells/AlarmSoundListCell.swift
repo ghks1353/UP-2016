@@ -11,12 +11,12 @@ import UIKit
 
 class AlarmSoundListCell:UITableDottedCell {
 	
-	internal var cellID:String = "";
-	internal var soundInfoObject:SoundInfoObj?;
+	var cellID:String = ""
+	var soundInfoObject:SoundData?
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		//AlarmSoundListView.selfView!.cellFunc(self.soundInfoObject!);
-		super.touchesBegan(touches, with: event);
+		super.touchesBegan(touches, with: event)
 	}
 	
 }

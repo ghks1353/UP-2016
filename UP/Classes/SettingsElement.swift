@@ -11,7 +11,7 @@ import UIKit
 
 class SettingsElement:AnyObject {
     
-    internal var settingsID:String = "";
-    internal var settingsElement:AnyObject?;
+	var settingsID:String = ""
+	var settingsElement:AnyObject?
     
 }

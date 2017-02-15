@@ -16,7 +16,7 @@ class ThemeData {
 	var description:[String:String] = [:]
 	
 	//////////////
-	var themeCategory:ThemeManager.ThemeGroup = ThemeManager.ThemeGroup.Main
+	var additionalThemes:Array<ThemeManager.ThemeGroup> = []
 	
 	var themeID:String = ""
 	var themeBundleImageID:String = "" //optional

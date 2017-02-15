@@ -132,7 +132,7 @@ class AlarmGameListView:UIModalPopView, UITableViewDataSource, UITableViewDelega
 	
 	//////////////////////////////////////////////////////////
 	//Tableview cell view create
-	func createCell( _ gameObj:GameInfoObj ) -> UPGamesListCell {
+	func createCell( _ gameObj:GameData ) -> UPGamesListCell {
 		let tCell:UPGamesListCell = UPGamesListCell()
 		tCell.backgroundColor = gameObj.gameBackgroundUIColor
 		tCell.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 140) //default cell size

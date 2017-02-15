@@ -12,24 +12,24 @@ import SwiftyJSON
 
 class ThemeManager {
 	
-	//todo: 스킨같은 경우 통합 관리하도록 했지만 따로 관리할 수 있도록도 수정해야 함.
-	//따로 관리 항목: character(astro), background, clock 등
+	////////// Theme 기존에서 변경
+	//// 
+	//// Main - 메인 전부 및 캐릭터 포함
+	//// DigitalClock - 시계
+	//// Background - 배경
+	
+	//// 테마 정보는 기본적으로 Main 카테고리 포함.
+	//// Additional Category에서 추가적으로 같이 적용되는 카테고리로 적용됨.
 	
 	public enum ThemeGroup {
-		case Main
-		case StatsSign
-		case GameIcon
-		case Character
+		case Default
 		case DigitalClock
 		case Background
 	} //end enum
 	
 	// Parse할 때 혹은 bundle에서 찾을 때 사용할 enum.
 	public enum ThemeGroupParseStr:String {
-		case Main = "main"
-		case StatsSign = "stats"
-		case GameIcon = "games"
-		case Character = "character"
+		case Default = "default"
 		case DigitalClock = "digitalclock"
 		case Background = "background"
 	} //end enum
@@ -72,7 +72,7 @@ class ThemeManager {
 		
 		// DigitalClock (White and Black)
 		static let DigitalClock:String = "digital"
-		static let DigitalClockBlack:String = "black"
+		static let DigitalClockBlack:String = "digital-black"
 		static let DigitalClockCol:String = "col"
 		static let DigitalClockAM:String = "am"
 		static let DigitalClockPM:String = "pm"
@@ -98,7 +98,17 @@ class ThemeManager {
 		static let LDPI:String = "-ldpi"
 		static let On:String = "-on"
 		static let Off:String = "-off"
+		
+		static let Game:String = "-games"
+		static let GameStrOnly:String = "games"
 	} //end enum
+	public enum ThemeGameNames {
+		static let JumpUP:String = "jumpup"
+	}
+	public enum ThemeGamePresets {
+		static let Jump:String = "-jump"
+		static let Move:String = "-move"
+	}
 	
 	/////////////////////////
 	
@@ -106,9 +116,9 @@ class ThemeManager {
 	static var legacyDefaultTheme:String = "theme-default"
 	static var legacyDefaultThemeBundleID:String = "default"
 	///// 선택된 스킨 딕셔너리
-	static var selectedThemes:[ThemeGroup:String] = [:]
+	static var selectedThemeID:[ThemeGroup:String] = [:]
 	///// 스킨들 데이터.
-	static var themesData:[ThemeGroup:Array<ThemeData>] = [:]
+	static var themesData:Array<ThemeData> = []
 	
 	static func initManager() {
 		//load theme presets, and init
@@ -122,14 +132,6 @@ class ThemeManager {
 			} //end try-catch
 		} //end if
 		
-		///// initalize each themegroup themedata array
-		themesData[ThemeGroup.Main] = []
-		themesData[ThemeGroup.StatsSign] = []
-		themesData[ThemeGroup.GameIcon] = []
-		themesData[ThemeGroup.Character] = []
-		themesData[ThemeGroup.DigitalClock] = []
-		themesData[ThemeGroup.Background] = []
-		
 		///// fetch and parse JSON data
 		let jData:JSON = JSON.parse(jStr)
 		
@@ -140,29 +142,21 @@ class ThemeManager {
 			tmpThemeData.themeBundleImageID = jData[i]["bundle-image-id"].string!
 			tmpThemeData.themeProductID = jData[i]["product-id"].string!
 			
-			switch(jData[i]["category"].string!) {
-				case ThemeGroupParseStr.Main.rawValue:
-					tmpThemeData.themeCategory = ThemeGroup.Main
-					break
-				case ThemeGroupParseStr.StatsSign.rawValue:
-					tmpThemeData.themeCategory = ThemeGroup.StatsSign
-					break
-				case ThemeGroupParseStr.GameIcon.rawValue:
-					tmpThemeData.themeCategory = ThemeGroup.GameIcon
-					break
-				case ThemeGroupParseStr.Character.rawValue:
-					tmpThemeData.themeCategory = ThemeGroup.Character
-					break
+			/////// Array for additional-category supported
+			let tAdditionalArr:[String] = jData[i]["additional"].arrayValue.map { $0.string! }
+			for j:Int in 0 ..< tAdditionalArr.count {
+				switch(tAdditionalArr[j]) {
 				case ThemeGroupParseStr.DigitalClock.rawValue:
-					tmpThemeData.themeCategory = ThemeGroup.DigitalClock
+					tmpThemeData.additionalThemes.append( ThemeGroup.DigitalClock )
 					break
 				case ThemeGroupParseStr.Background.rawValue:
-					tmpThemeData.themeCategory = ThemeGroup.Background
+					tmpThemeData.additionalThemes.append( ThemeGroup.Background )
 					break
 				default:
-					print("Error: ThemeCategory is unknown: ", jData[i]["category"].string!)
+					print("Error: ThemeCategory is unknown: ", tAdditionalArr[j])
 					break
-			} //end switch
+				} //end switch
+			} //end for
 			
 			tmpThemeData.themeForceUnlocked = jData[i]["force-unlocked"].bool!
 			tmpThemeData.themeHidden = jData[i]["hidden-theme"].bool!
@@ -175,48 +169,55 @@ class ThemeManager {
 			} //// end for
 			
 			//push new data
-			themesData[ tmpThemeData.themeCategory ]!.append( tmpThemeData )
+			themesData.append( tmpThemeData )
 		} //end for
 		
 		//Default setup- skin by default
-		selectedThemes[ThemeGroup.Main] = legacyDefaultTheme
-		selectedThemes[ThemeGroup.Character] = legacyDefaultTheme
-		selectedThemes[ThemeGroup.GameIcon] = legacyDefaultTheme
-		selectedThemes[ThemeGroup.StatsSign] = legacyDefaultTheme
-		
-		/////////////////
-		selectedThemes[ThemeGroup.DigitalClock] = legacyDefaultTheme
-		selectedThemes[ThemeGroup.Background] = legacyDefaultTheme
+		selectedThemeID[ThemeGroup.Default] = legacyDefaultTheme
+		selectedThemeID[ThemeGroup.DigitalClock] = legacyDefaultTheme
+		selectedThemeID[ThemeGroup.Background] = legacyDefaultTheme
 		
 		print("[ThemeManager] inited")
 	} //end func
 	
 	static func getAssetPresets( themeGroup:ThemeGroup, bundleIDOnly:Bool = false ) -> String {
 		//return Selected preset
-		return getAssetPresets( themeGroup: themeGroup, themeID: selectedThemes[ themeGroup ]!, bundleIDOnly: bundleIDOnly )
+		return getAssetPresets( themeGroup: themeGroup, themeID: selectedThemeID[ themeGroup ]!, bundleIDOnly: bundleIDOnly )
 	}
 	static func getAssetPresets( themeGroup:ThemeGroup, themeID:String, bundleIDOnly:Bool = false ) -> String {
 		//// group에서 해당하는 id에 대한 프리셋 값 얻어옴
-		for i:Int in 0 ..< themesData[themeGroup]!.count {
-			if (themesData[themeGroup]![i].themeID == themeID) {
-				return bundleIDOnly ? themesData[themeGroup]![i].themeBundleImageID : ThemePresets.BundlePreset + themesData[themeGroup]![i].themeBundleImageID + "-"
+		for i:Int in 0 ..< themesData.count {
+			if (themesData[i].themeID == themeID) {
+				
+				return bundleIDOnly ? themesData[i].themeBundleImageID : ThemePresets.BundlePreset + themesData[i].themeBundleImageID + "-"
 			}
 		} //end for
 		
 		print("[ThemeManager] Error: Can not find themeID", themeID, ": returned legacy theme ID.")
 		return bundleIDOnly ? legacyDefaultThemeBundleID : ThemePresets.BundlePreset + legacyDefaultThemeBundleID + "-"
 	} //end func
+	static func getAssetPresets( gameName:String, themeTarget:String, gamePreset:String, index:Int = -1 ) -> String {
+		//index가 있을 경우, -1 -2 -3 ..같이 번호를 부여해줌
+		//이 함수는 .png확장자까지 같이 반환함
+		let indexPreset:String = index == -1 ? "" : "-" + String(index)
+		
+		return ThemePresets.BundlePreset + ThemePresets.GameStrOnly + "-" + gameName + "-" + themeTarget + "-" + getThemeInformation(selectedThemeID[ThemeGroup.Default]!)!.themeBundleImageID + gamePreset + indexPreset + ".png"
+		
+	} //end func
+	
+	static func getThemeInformation(_ themeID:String ) -> ThemeData? {
+		for i:Int in 0 ..< themesData.count {
+			if (themesData[i].themeID == themeID) {
+				return themesData[i]
+			}
+		}
+		return nil
+	}
 	
 	static func getGroupStr(_ themeGroup:ThemeGroup ) -> String {
 		switch(themeGroup) {
-			case .Main:
-				return ThemeGroupParseStr.Main.rawValue
-			case .StatsSign:
-				return ThemeGroupParseStr.StatsSign.rawValue
-			case .GameIcon:
-				return ThemeGroupParseStr.GameIcon.rawValue
-			case .Character:
-				return ThemeGroupParseStr.Character.rawValue
+			case .Default:
+				return ThemeGroupParseStr.Default.rawValue
 			case .DigitalClock:
 				return ThemeGroupParseStr.DigitalClock.rawValue
 			case .Background:

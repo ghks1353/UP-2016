@@ -149,16 +149,16 @@ class CharacterSkinMainView:UIModalPopView {
 	} /////////// end func
 	
 	func selectThemeMain(_ gst:UITapGestureRecognizer ) {
-		openThemeSelectView( .Main )
+		openThemeSelectView( .Default )
 	} //end func
 	func selectThemeStatistics(_ gst:UITapGestureRecognizer ) {
-		openThemeSelectView( .StatsSign )
+		openThemeSelectView( .Default )
 	}
 	func selectThemeGame(_ gst:UITapGestureRecognizer ) {
-		openThemeSelectView( .GameIcon )
+		openThemeSelectView( .Default )
 	}
 	func selectThemeCharacter(_ gst:UITapGestureRecognizer ) {
-		openThemeSelectView( .Character )
+		openThemeSelectView( .Default )
 	} ////////////////
 	
 	/////////////////////////////
@@ -171,22 +171,22 @@ class CharacterSkinMainView:UIModalPopView {
 	////////////////////////////
 	func setImagesToCurrentSkin() {
 		
-		analogClockImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName( ThemeManager.ThemeFileNames.AnalogClockBody ) )
+		analogClockImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName( ThemeManager.ThemeFileNames.AnalogClockBody ) )
 		
-		analogClockHoursImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName( ThemeManager.ThemeFileNames.AnalogClockHour ) )
-		analogClockMinutesImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName( ThemeManager.ThemeFileNames.AnalogClockMinute ) )
-		analogClockSecondsImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName( ThemeManager.ThemeFileNames.AnalogClockSecond ) )
-		analogClockCenterImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName( ThemeManager.ThemeFileNames.AnalogClockCenter ) )
+		analogClockHoursImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName( ThemeManager.ThemeFileNames.AnalogClockHour ) )
+		analogClockMinutesImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName( ThemeManager.ThemeFileNames.AnalogClockMinute ) )
+		analogClockSecondsImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName( ThemeManager.ThemeFileNames.AnalogClockSecond ) )
+		analogClockCenterImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName( ThemeManager.ThemeFileNames.AnalogClockCenter ) )
 		
 		//떠있는 버튼
-		menuSettingsImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName( ThemeManager.ThemeFileNames.ObjectSettings ) )
-		menuListImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName( ThemeManager.ThemeFileNames.ObjectList ) )
+		menuSettingsImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName( ThemeManager.ThemeFileNames.ObjectSettings ) )
+		menuListImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName( ThemeManager.ThemeFileNames.ObjectList ) )
 		
-		groundStatisticsImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .StatsSign) + ThemeManager.getName( ThemeManager.ThemeFileNames.ObjectStatistics ) )
-		groundGamesStandingImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + ThemeManager.getName( ThemeManager.ThemeFileNames.ObjectGameStanding ) )
-		groundGamesFloatingImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + ThemeManager.getName( ThemeManager.ThemeFileNames.ObjectGameFloating ) )
+		groundStatisticsImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName( ThemeManager.ThemeFileNames.ObjectStatistics ) )
+		groundGamesStandingImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName( ThemeManager.ThemeFileNames.ObjectGameStanding ) )
+		groundGamesFloatingImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName( ThemeManager.ThemeFileNames.ObjectGameFloating ) )
 		
-		groundCharacterImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Character) + ThemeManager.ThemeFileNames.Character + "-0" + ".png" )
+		groundCharacterImageView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.ThemeFileNames.Character + "-0" + ".png" )
 		
 	} /// end func
 	

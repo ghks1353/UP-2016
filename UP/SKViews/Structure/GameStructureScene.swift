@@ -170,7 +170,7 @@ class GameStructureScene:SKScene {
 		//게임 숫자 표시용 이미지 추가
 		if (gameNumberTexturesArray.count == 0) {
 			for i:Int in 0 ..< 10 {
-				gameNumberTexturesArray += [ SKTexture( imageNamed: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) + String(i) + ".png" ) ]
+				gameNumberTexturesArray += [ SKTexture( imageNamed: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName( ThemeManager.ThemeFileNames.DigitalClock + "-" + String(i)) ) ]
 			} //0~9에 대한 숫자 데이터 텍스쳐
 			for i:Int in 0 ..< gameScoreNm {
 				gameNumberSpriteNodesArray += [ SKSpriteNode( texture: gameNumberTexturesArray[0] ) ]
@@ -200,15 +200,15 @@ class GameStructureScene:SKScene {
 					SKAction.group( [
 						SKAction.afterDelay(
 							Double((gameStartupType == .AlarmMode ? 2 : 4) - i) * 0.1, performAction: SKAction.actionWithEffect(moveEffect)
-						), SKAction.fadeIn(withDuration: 0.5) ]));
+						), SKAction.fadeIn(withDuration: 0.5) ]))
 				
 			} //숫자 표시용 디지털 숫자 노드 3개
 		} //end if [numbertextures]
 		
 		// 일시정지 / 재생 혹은 버그 (나와도 타이머 흐름) 방지를 위한 코드
 		let nCenter = NotificationCenter.default;
-		nCenter.addObserver(self, selector: #selector(GameStructureScene.appEnteredToBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-		nCenter.addObserver(self, selector: #selector(GameStructureScene.appEnteredToForeground), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		nCenter.addObserver(self, selector: #selector(self.appEnteredToBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+		nCenter.addObserver(self, selector: #selector(self.appEnteredToForeground), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 		//////////////////////////////////
 		
 		//버튼 배치
@@ -216,9 +216,9 @@ class GameStructureScene:SKScene {
 			//아이폰 (상대크기)
 			buttonRetireSprite.size = CGSize( width: 242.05 * DeviceManager.scrRatioC, height: 70.75 * DeviceManager.scrRatioC );
 			if (DeviceManager.isiPhone4S == false) { //iPhone 4, 4s 이외
-				buttonYAxis = buttonYAxisCenter - (128 * DeviceManager.scrRatioC);
+				buttonYAxis = buttonYAxisCenter - (128 * DeviceManager.scrRatioC)
 			} else { //iPhone 4시리즈
-				buttonYAxis = buttonYAxisCenter - (86 * DeviceManager.scrRatioC);
+				buttonYAxis = buttonYAxisCenter - (86 * DeviceManager.scrRatioC)
 			}
 		} else { //아이패드 (절대크기)
 			buttonRetireSprite.size = CGSize( width: 336.75, height: 98.45 );

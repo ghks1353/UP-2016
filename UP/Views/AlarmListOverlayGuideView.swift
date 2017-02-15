@@ -46,20 +46,20 @@ class AlarmListOverlayGuideView:UIOverlayGuideView {
 		super.viewDidLoad()
 		
 		///// Image setup
-		guideAddAlarmImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-add.png" )
-		guideRemoveButtonImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-del.png" )
+		guideAddAlarmImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-add.png" )
+		guideRemoveButtonImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-del.png" )
 		
 		/// 시간 데코
-		guideTimeDecorationFirstImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-time.png" )
-		guideTimeDecorationSecondImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-time-half.png" )
+		guideTimeDecorationFirstImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-time.png" )
+		guideTimeDecorationSecondImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-time-half.png" )
 		
 		//스위치 이미지
-		guideOnOFFSwitchImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-on.png" )
-		guideOnOFFSwitchSecondImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-off.png" )
+		guideOnOFFSwitchImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-on.png" )
+		guideOnOFFSwitchSecondImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-off.png" )
 		
 		//탭 및 스와이프 가이드
-		guideTapEditImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-swipe-edit.png" )
-		guideSwipeDeleteImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-swipe-del.png" )
+		guideTapEditImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-swipe-edit.png" )
+		guideSwipeDeleteImage.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + "guide-list-swipe-del.png" )
 		
 		///// Label setup
 		

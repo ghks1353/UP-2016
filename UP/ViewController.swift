@@ -429,10 +429,10 @@ class ViewController: UIViewController {
 	
 	func openCharacterInformationView(_ gst: UITapGestureRecognizer) {
 		//Character information 열기
-		modalCharacterInformationView.modalPresentationStyle = .overFullScreen
-		showHideBlurview(true)
+		//modalCharacterInformationView.modalPresentationStyle = .overFullScreen
+		//showHideBlurview(true)
 		
-		self.present(modalCharacterInformationView, animated: false, completion: nil)
+		//self.present(modalCharacterInformationView, animated: false, completion: nil)
 	} //end func
 	
 	func openGamePlayView(_ gst: UITapGestureRecognizer!) {
@@ -743,25 +743,25 @@ class ViewController: UIViewController {
 		DigitalCol.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName(ThemeManager.ThemeFileNames.DigitalClock + "-" + ThemeManager.ThemeFileNames.DigitalClockCol) )
 		
 		////// Make analog-clock image
-		AnalogBody.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockBody) )
+		AnalogBody.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockBody) )
 		
-		AnalogCenter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockCenter) )
-		AnalogHours.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockHour) )
-		AnalogMinutes.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockMinute) )
-		AnalogSeconds.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockSecond) )
+		AnalogCenter.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockCenter) )
+		AnalogHours.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockHour) )
+		AnalogMinutes.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockMinute) )
+		AnalogSeconds.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.AnalogClockSecond) )
 		
 		//떠있는 버튼
-		SettingsImg.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectSettings) )
-		AlarmListImg.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Main) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectList) )
+		SettingsImg.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectSettings) )
+		AlarmListImg.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectList) )
 		
-		GroundStatSign.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .StatsSign) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectStatistics) )
-		GroundStandingBox.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectGameStanding) )
-		GroundFloatingBox.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .GameIcon) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectGameFloating) )
+		GroundStatSign.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectStatistics) )
+		GroundStandingBox.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectGameStanding) )
+		GroundFloatingBox.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.ObjectGameFloating) )
 		
 		//기본 스킨 아스트로 애니메이션 (텍스쳐)
 		for i in 0...3 { //부동
 			//Character는 번호 뒤에 확장자를 붙이므로 getname함수 사용안함
-			let fileName:String = ThemeManager.getAssetPresets(themeGroup: .Character) + ThemeManager.getName(ThemeManager.ThemeFileNames.Character + "-" + String(i))
+			let fileName:String = ThemeManager.getAssetPresets(themeGroup: .Default) + ThemeManager.getName(ThemeManager.ThemeFileNames.Character + "-" + String(i))
 			let fImage:UIImage = UIImage( named: fileName )!
 			astroMotionsStanding += [fImage]
 		} //end for
@@ -864,7 +864,7 @@ class ViewController: UIViewController {
 			//show pad ground
 			GroundObj.frame = CGRect( x: 0, y: DeviceManager.scrSize!.height - 86 * DeviceManager.maxScrRatioC, width: (DeviceManager.scrSize!.width) , height: 86 * DeviceManager.maxScrRatioC )
 			GroundObj.image = UIImage( named:
-				ThemeManager.getAssetPresets(themeGroup: .Main, themeID: ThemeManager.legacyDefaultTheme) + currentGroundImage + ThemeManager.getName((DeviceManager.scrSize!.width > DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadLandscape : ThemeManager.ThemePresets.PadPortrait) )
+				ThemeManager.getAssetPresets(themeGroup: .Default, themeID: ThemeManager.legacyDefaultTheme) + currentGroundImage + ThemeManager.getName((DeviceManager.scrSize!.width > DeviceManager.scrSize!.height) ? ThemeManager.ThemePresets.PadLandscape : ThemeManager.ThemePresets.PadPortrait) )
 		} //end if [isPhone]
 		
 		//캐릭터 크기 및 위치조정
