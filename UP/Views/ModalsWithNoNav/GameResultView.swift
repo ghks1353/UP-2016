@@ -12,74 +12,78 @@ import GameKit;
 
 class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	
-	var XAXIS_PRESET_PAD:CGFloat = 0;
-	var YAXIS_PRESET_PAD:CGFloat = 6;
+	var XAXIS_PRESET_PAD:CGFloat = 0
+	var YAXIS_PRESET_PAD:CGFloat = 6
 	
-	var XAXIS_PRESET_LV_PAD:CGFloat = -8;
-	var XAXIS_PRESET_LV_R_PAD:CGFloat = -13;
-	var YAXIS_PRESET_LV_PAD:CGFloat = -10;
+	var XAXIS_PRESET_LV_PAD:CGFloat = -8
+	var XAXIS_PRESET_LV_R_PAD:CGFloat = -13
+	var YAXIS_PRESET_LV_PAD:CGFloat = -10
 	
 	//for access
-	static var selfView:GameResultView?;
+	static var selfView:GameResultView?
 	
 	//Floating view
-	var modalView:UIView = UIView();
+	var modalView:UIView = UIView()
 	//Floating SNS
-	var modalSNSView:UIView = UIView();
+	var modalSNSView:UIView = UIView()
 	
 	//숫자 리소스 추가
-	var blackNumbers:Array<UIImage> = [];
+	var blackNumbers:Array<UIImage> = []
 	
 	//숫자 조작을 위한 포인터
-	var scoreNumPointers:Array<UIImageView> = [];
-	var bestNumPointers:Array<UIImageView> = [];
+	var scoreNumPointers:Array<UIImageView> = []
+	var bestNumPointers:Array<UIImageView> = []
 	
 	//Score/Best 표시를 위한 페이징 뷰
-	var scrollView:UIScrollView = UIScrollView();
+	var scrollView:UIScrollView = UIScrollView()
 	
 	//가운데 결과창 데코 배경, 배경 색
-	var resultDecoBGMask:UIView = UIView();
-	var resultDecorationBG:UIImageView = UIImageView();
+	var resultDecoBGMask:UIView = UIView()
+	var resultDecorationBG:UIImageView = UIImageView()
 	
 	//버튼 (일반 게임 결과창)
-	var resultButtonList:UIButton = UIButton();
-	var resultButtonRanking:UIButton = UIButton();
-	var resultButtonRetry:UIButton = UIButton(); //<- 일반게임 시 가운데
+	var resultButtonList:UIButton = UIButton()
+	var resultButtonRanking:UIButton = UIButton()
+	var resultButtonRetry:UIButton = UIButton() //<- 일반게임 시 가운데
 	//버튼 (알람 결과창. 닫기버튼만)
-	var resultButtonClose:UIButton = UIButton();
+	var resultButtonClose:UIButton = UIButton()
 	
 	//버튼 활성화 여부
-	var rbuttonEnabled:Bool = false;
+	var rbuttonEnabled:Bool = false
 	
 	//경험치, 레벨 인디케이터
-	var charLevelWrapper:UIImageView = UIImageView();
-	var charLevelIndicator:UIImageView = UIImageView();
+	var charLevelWrapper:UIImageView = UIImageView()
+	var charLevelIndicator:UIImageView = UIImageView()
 	
-	var charExpWrapper:UIImageView = UIImageView(); var charExpMaskView:UIView = UIView(); //Exp 내용물 마스크 처리를 위함
-	var charExpProgress:UIView = UIView(); var charExpProgressImageView:UIImageView = UIImageView();
-	var charExpProgressAnimationImages:Array<UIImage> = [];
-	var charCurrentCharacter:UIImageView = UIImageView();
+	var charExpWrapper:UIImageView = UIImageView()
+	var charExpMaskView:UIView = UIView() //Exp 내용물 마스크 처리를 위함
+	var charExpProgress:UIView = UIView()
+	var charExpProgressImageView:UIImageView = UIImageView()
+	var charExpProgressAnimationImages:Array<UIImage> = []
+	var charCurrentCharacter:UIImageView = UIImageView()
 	
 	//number up timers
-	var numUPTimer:Timer?;
+	var numUPTimer:Timer?
 	
 	//레벨 표시를 위한 인디케이터 배열
-	var charLevelDigitalArr:Array<UIImageView> = Array<UIImageView>();
+	var charLevelDigitalArr:Array<UIImageView> = Array<UIImageView>()
 	
 	//창 타입에 따른 이미지 (타임, 스코어)
-	var imgScoreUIView:UIImageView = UIImageView(); var imgTimeUIView:UIImageView = UIImageView();
+	var imgScoreUIView:UIImageView = UIImageView()
+	var imgTimeUIView:UIImageView = UIImageView()
 	
 	//보여줄 점수
-	var currentType:Int = 0;
-	var gameScore:Int = 0; var gameBestScore:Int = 0;
+	var currentType:Int = 0
+	var gameScore:Int = 0
+	var gameBestScore:Int = 0
 	
 	//목록, 다시하기, 랭킹에 대해 작동하려면 게임 ID가 입력되어 있어야함
-	var currentGameID:Int = 0;
+	var currentGameID:Int = 0
 	
 	///////////////
 	
 	override func viewDidLoad() {
-		super.viewDidLoad();
+		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.clear
 		
 		GameResultView.selfView = self
@@ -176,7 +180,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		//마스크용 프레임 배치
 		charExpMaskView.frame = CGRect(x: (25.4 - XAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC, y: (173.5 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
 		                                   width: 80.5 * DeviceManager.modalRatioC, height: 47 * DeviceManager.modalRatioC);
-		charCurrentCharacter.frame = CGRect( x: 6 * DeviceManager.modalRatioC, y: resultDecorationBG.frame.maxY - 195 * DeviceManager.modalRatioC, width: 300 * DeviceManager.modalRatioC, height: 300 * DeviceManager.modalRatioC );
+		charCurrentCharacter.frame = CGRect( x: 6 * DeviceManager.modalRatioC, y: resultDecorationBG.frame.maxY - 201 * DeviceManager.modalRatioC, width: 300 * DeviceManager.modalRatioC, height: 300 * DeviceManager.modalRatioC );
 		
 		let maskLayer:CAShapeLayer = CAShapeLayer();
 		let cMaskRect = CGRect(x: 0, y: 0, width: 82 * DeviceManager.modalRatioC, height: 49 * DeviceManager.modalRatioC);
@@ -198,22 +202,22 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		//레벨 숫자 배치
 		for i:Int in 0 ..< 3 {
 			let tmpView:UIImageView = UIImageView()
-			tmpView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) +  "0" + ".png"  );
+			tmpView.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName( ThemeManager.ThemeFileNames.DigitalClock + "-" + "0") )
 			tmpView.frame = CGRect( x: ((205.5 - XAXIS_PRESET_LV_R_PAD) * DeviceManager.modalRatioC) + ((24 * CGFloat(i)) * DeviceManager.maxModalRatioC)
 				, y: (171 - YAXIS_PRESET_LV_PAD) * DeviceManager.modalRatioC,
-				  width: 19.15 * DeviceManager.modalRatioC, height: 26.80 * DeviceManager.modalRatioC );
-			modalView.addSubview(tmpView);
-			charLevelDigitalArr += [tmpView];
+				  width: 19.15 * DeviceManager.modalRatioC, height: 26.80 * DeviceManager.modalRatioC )
+			modalView.addSubview(tmpView)
+			charLevelDigitalArr += [tmpView]
 		}
 		/////////////////
 		
 		//// 버튼 추가
-		resultButtonList.setImage(UIImage(named: "result-btn-list.png"), for: UIControlState());
-		resultButtonRanking.setImage(UIImage(named: "result-btn-ranking.png"), for: UIControlState());
-		resultButtonRetry.setImage(UIImage(named: "result-btn-retry.png"), for: UIControlState());
+		resultButtonList.setImage(UIImage(named: "result-btn-list.png"), for: UIControlState())
+		resultButtonRanking.setImage(UIImage(named: "result-btn-ranking.png"), for: UIControlState())
+		resultButtonRetry.setImage(UIImage(named: "result-btn-retry.png"), for: UIControlState())
 		
 		//닫기 버튼
-		resultButtonClose.setImage(UIImage(named: "result-btn-close.png"), for: UIControlState());
+		resultButtonClose.setImage(UIImage(named: "result-btn-close.png"), for: UIControlState())
 		
 		resultButtonList.frame = CGRect(x: modalView.frame.width / 2 - (62 * DeviceManager.resultModalRatioC) * 2,
 		                                    y: resultDecorationBG.frame.maxY + (22 - YAXIS_PRESET_PAD) * DeviceManager.resultModalRatioC,
@@ -276,6 +280,8 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	
 	func refreshExpLevels() {
 		//캐릭터 레벨에 대한 숫자 표시
+		/*
+		
 		let levStr = String(CharacterManager.currentCharInfo.characterLevel);
 		charLevelDigitalArr[0].alpha = levStr.characters.count < 3 ? 0.6 : 1;
 		charLevelDigitalArr[1].alpha = levStr.characters.count < 2 ? 0.6 : 1;
@@ -287,13 +293,13 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		charLevelDigitalArr[0].image =
 			levStr.characters.count < 3 ? UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) +  "0" + ".png"  )
 			: UIImage(named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock, themeID: ThemeManager.legacyDefaultTheme) + String(validatingUTF8: levStr[ levStr.characters.count - 3 ])! + ".png" )
-		
+		*/
 		//경험치량 표시
 		//CharacterManager.currentCharInfo.characterExp = 4;
 		charExpProgress.frame = CGRect( x: (-14 * DeviceManager.modalRatioC), y: 0,
 		                                    width: (80.5 * DeviceManager.modalRatioC) * CGFloat(CharacterManager.getExpProgress())
-			, height: 47 * DeviceManager.modalRatioC);
-		charExpProgressImageView.frame = CGRect(x: charExpProgress.frame.maxX, y: 0, width: 47 * DeviceManager.modalRatioC, height: 47 * DeviceManager.modalRatioC);
+			, height: 47 * DeviceManager.modalRatioC)
+		charExpProgressImageView.frame = CGRect(x: charExpProgress.frame.maxX, y: 0, width: 47 * DeviceManager.modalRatioC, height: 47 * DeviceManager.modalRatioC)
 		
 	}
 	
@@ -331,22 +337,22 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	}
 	
 	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning();
+		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
 	
 	func viewCloseAction() {
 		//Close this view
 		if (!rbuttonEnabled) {
-			return;
+			return
 		}
-		ViewController.selfView!.showHideBlurview(false);
-		self.dismiss(animated: true, completion: nil);
+		ViewController.selfView!.showHideBlurview(false)
+		self.dismiss(animated: true, completion: nil)
 	} //end func
 	
 	override func viewWillAppear(_ animated: Bool) {
 		//setup bounce animation
-		self.view.alpha = 0;
+		self.view.alpha = 0
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -501,7 +507,7 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 	}
 	func showRankingGameCenter() {
 		//게임센터 랭킹 표시
-		
+		/*
 		let gcViewController: GKGameCenterViewController = GKGameCenterViewController();
 		gcViewController.gameCenterDelegate = self;
 		gcViewController.viewState = GKGameCenterViewControllerState.leaderboards;
@@ -510,12 +516,12 @@ class GameResultView:UIViewController, GKGameCenterControllerDelegate {
 		gcViewController.leaderboardIdentifier = GameManager.getLeadboardIDWithGameID( currentGameID );
 		
 		self.show(gcViewController, sender: self);
-		self.present(gcViewController, animated: true, completion: nil);
+		self.present(gcViewController, animated: true, completion: nil);*/
 	}
 	
 	//////////////
 	func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-		gameCenterViewController.dismiss(animated: true, completion: nil);
+		gameCenterViewController.dismiss(animated: true, completion: nil)
 	}
 	
 }

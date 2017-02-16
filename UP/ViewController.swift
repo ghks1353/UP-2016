@@ -728,7 +728,6 @@ class ViewController: UIViewController {
 		///Update digital clock image cached
 		digitalClockImageCached.removeAll()
 		for i:Int in 0 ... 9 {
-			print("name", ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + String(i) + ".png")
 			digitalClockImageCached.append( UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + ThemeManager.getName( ThemeManager.ThemeFileNames.DigitalClock + "-" + String(i)) )! )
 		} //end for
 		//// Make AMPM digital indicator
@@ -850,8 +849,8 @@ class ViewController: UIViewController {
 		AnalogSeconds.frame = CGRect( x: clockScrX, y: clockScrY, width: AnalogBody.frame.width, height: AnalogBody.frame.height )
 		AnalogCenter.frame = CGRect( x: clockScrX, y: clockScrY, width: AnalogBody.frame.width, height: AnalogBody.frame.height )
 		
-		SettingsImg.frame = CGRect( x: clockScrX - ((240 * DeviceManager.maxScrRatioC) / 2), y: clockScrY + (72 * DeviceManager.maxScrRatioC) , width: (300 * DeviceManager.maxScrRatioC), height: (300 * DeviceManager.maxScrRatioC) )
-		AlarmListImg.frame = CGRect( x: clockRightScrX - ((340 * DeviceManager.maxScrRatioC) / 2), y: clockScrY - (64 * DeviceManager.maxScrRatioC), width: (300 * DeviceManager.maxScrRatioC), height: (300 * DeviceManager.maxScrRatioC) )
+		SettingsImg.frame = CGRect( x: clockScrX - ((240 * DeviceManager.maxScrRatioC) / 2), y: clockScrY + (96 * DeviceManager.maxScrRatioC) , width: (300 * DeviceManager.maxScrRatioC), height: (300 * DeviceManager.maxScrRatioC) )
+		AlarmListImg.frame = CGRect( x: clockRightScrX - ((332 * DeviceManager.maxScrRatioC) / 2), y: clockScrY - (64 * DeviceManager.maxScrRatioC), width: (300 * DeviceManager.maxScrRatioC), height: (300 * DeviceManager.maxScrRatioC) )
 		
 		if (UIDevice.current.userInterfaceIdiom == .phone) {
 			//배경화면 프레임도 같이 조절 (패드는 끝부분의 회전처리와 동시에 함)
@@ -870,7 +869,7 @@ class ViewController: UIViewController {
 		//캐릭터 크기 및 위치조정
 		AstroCharacter.frame =
 			CGRect( x: DeviceManager.scrSize!.width - (220 * DeviceManager.maxScrRatioC),
-			            y: GroundObj.frame.origin.y - (178 * DeviceManager.maxScrRatioC),
+			            y: GroundObj.frame.origin.y - (186 * DeviceManager.maxScrRatioC),
 			            width: 300 * DeviceManager.maxScrRatioC,
 			            height: 300 * DeviceManager.maxScrRatioC )
 		GroundStatSign.frame =
