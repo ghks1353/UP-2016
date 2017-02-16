@@ -853,18 +853,18 @@ class AlarmManager {
 		
 		if (insertAt == -1) {
 			//add to arr and save
-			alarmsArray += [tmpAlarmEle];
+			alarmsArray += [tmpAlarmEle]
 		} else {
-			alarmsArray.insert(tmpAlarmEle, at: insertAt);
+			alarmsArray.insert(tmpAlarmEle, at: insertAt)
 		}
 		
-		DataManager.nsDefaults.set(NSKeyedArchiver.archivedData(withRootObject: alarmsArray), forKey: "alarmsList");
+		DataManager.nsDefaults.set(NSKeyedArchiver.archivedData(withRootObject: alarmsArray), forKey: "alarmsList")
 		DataManager.save();
 		
 		
 		//refresh another view
 		if (redrawList) {
-			AlarmListView.selfView?.createTableList();
+			AlarmListView.selfView?.createTableList()
 		}
 	}
 	

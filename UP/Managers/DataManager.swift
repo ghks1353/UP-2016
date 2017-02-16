@@ -285,14 +285,14 @@ class DataManager {
 	
 	//init된 경우에만 제대로 받아올 수 있도록 함수 지정
 	static func db() -> Connection? {
-		return upDatabaseConnection;
+		return upDatabaseConnection
 	}
 	//Stats Collection fetch
 	static func statsTable() -> Table {
-		return upDBTableStats;
+		return upDBTableStats
 	}
 	static func gameResultTable() -> Table {
-		return upDBTableGameResults;
+		return upDBTableGameResults
 	}
 	
 	/////////// Data 가져오는 함수. (형태에 따라)
@@ -310,17 +310,17 @@ class DataManager {
 	static func covertToStringArray(_ intObj:Array<Int>) -> String {
 		var tmpStr:String = "";
 		for i:Int in 0 ..< intObj.count {
-			tmpStr += String(intObj[i]);
+			tmpStr += String(intObj[i])
 			if (i != intObj.count - 1) {
-				tmpStr += ",";
+				tmpStr += ","
 			}
 		}
 		
-		return tmpStr;
+		return tmpStr
 	} //end func
 	
 	//// 타임스탬프를 계산하여 연, 월, 일을 나누고 같은 날은 평균으로 계산한다.
-	static func getAlarmGraphData( _ daysCategory:Int = 0, dataPointSelection:Int = 0 ) -> Array<StatsDataElement>? {
+	static func getAlarmGraphData( _ daysCategory:Int = 0, dataPointSelection:Int = 0 ) -> Array<StatisticsData>? {
 		//daysCategory 0 - 주, 1 - 월, 2 - 년, 3 - All
 		//id가 큰것 하나만 얻어서 (id desc limit 1), 해당 날짜를 구한 다음, 해당 날짜의 타임스탬프 첫 시작일을 구함
 		//그 다음, 거기서 카테고리에 따라 3600 * 일 만큼 뺀 부분부터 데이터 집계를 시작하면 됨.
@@ -331,51 +331,51 @@ class DataManager {
 		dataPointSelection에 따라 밑 3개 배열 중 뭘 줄지 결정해야 함
 		*/
 		
-		var dataBeforeStartArray:Array<StatsDataElement> = Array<StatsDataElement>();
-		var dataClearReducedArray:Array<StatsDataElement> = Array<StatsDataElement>();
-		var dataUntilAlarmOff:Array<StatsDataElement> = Array<StatsDataElement>(); //이 변수는 위 두 값을 합친 형태임
-		var dataGameResults:Array<StatsDataElement> = Array<StatsDataElement>();
+		var dataBeforeStartArray:Array<StatisticsData> = Array<StatisticsData>()
+		var dataClearReducedArray:Array<StatisticsData> = Array<StatisticsData>()
+		var dataUntilAlarmOff:Array<StatisticsData> = Array<StatisticsData>() //이 변수는 위 두 값을 합친 형태임
+		var dataGameResults:Array<StatisticsData> = Array<StatisticsData>()
 		
 		//돌려줄 데이터 모음.
-		var toReturnDatasArray:Array<StatsDataElement>?;
-		var seekTablePointer:Table?;
+		var toReturnDatasArray:Array<StatisticsData>?
+		var seekTablePointer:Table?
 		
-		var goalToFetchDataDays:Int = -1;
+		var goalToFetchDataDays:Int = -1
 		switch(daysCategory) {
 			case 0:
-				goalToFetchDataDays = 7; //일주일 데이터
-				break;
+				goalToFetchDataDays = 7 //일주일 데이터
+				break
 			case 1:
-				goalToFetchDataDays = 30; //한달치 데이터.
-				break;
+				goalToFetchDataDays = 30 //한달치 데이터.
+				break
 			case 2:
-				goalToFetchDataDays = 365; //1년치 데이터.
-				break;
+				goalToFetchDataDays = 365 //1년치 데이터.
+				break
 			case 3:
-				goalToFetchDataDays = -1;
-				break;
-			default: break;
-		}
+				goalToFetchDataDays = -1
+				break
+			default: break
+		} //end switch
 		
-		var isGameTable:Bool = false;
+		var isGameTable:Bool = false
 		
 		//데이터 셀렉션에 따른 참조 테이블 변경 및 필터링 생성
 		switch(dataPointSelection) {
 			case 0, 1, 2:
-				seekTablePointer = DataManager.statsTable();
-				break;
+				seekTablePointer = DataManager.statsTable()
+				break
 			case 3, 4, 5, 6: //완주 비율, 전체 행동 수, 행동 비율, 잠든 횟수
-				seekTablePointer = DataManager.gameResultTable();
-				isGameTable = true;
-				break;
-			default: break;
-		}
+				seekTablePointer = DataManager.gameResultTable()
+				isGameTable = true
+				break
+			default: break
+		} //end switch
 		
 		////////////////////
 		
-		print("Starting to get latest log for extract log data");
+		print("[DataManager] Starting to get latest log for extract data")
 		do {
-			var dataSeekStartTimeStamp:Int = 0;
+			var dataSeekStartTimeStamp:Int = 0
 			
 			//1. 맨 마지막 데이터를 얻어옴
 			for dbResult in try DataManager.db()!.prepare(
@@ -385,19 +385,22 @@ class DataManager {
 					.order( Expression<Int64>("id").desc )
 					.limit( 1, offset: 1 )
 			) {
-				var targetDate:Date = Date(timeIntervalSince1970: TimeInterval(dbResult[ Expression<Int64>("date") ]) );
-				var components = Calendar.current.dateComponents([Calendar.Component.year, Calendar.Component.month, Calendar.Component.day, Calendar.Component.hour, Calendar.Component.minute, Calendar.Component.second], from: targetDate as Date);
-				components.hour = 0; components.minute = 0; components.second = 0;
-				targetDate = Calendar.current.date(from: components)!;
+				var targetDate:Date = Date(timeIntervalSince1970: TimeInterval(dbResult[ Expression<Int64>("date") ]) )
+				var components = Calendar.current.dateComponents([Calendar.Component.year, Calendar.Component.month, Calendar.Component.day, Calendar.Component.hour, Calendar.Component.minute, Calendar.Component.second], from: targetDate as Date)
+				
+				components.hour = 0
+				components.minute = 0
+				components.second = 0
+				targetDate = Calendar.current.date(from: components)!
 				
 				//1일치 시간 * (구할 시간 - 1) + 23시간 59분 59초치 시간
 				if (goalToFetchDataDays == -1) {
-					dataSeekStartTimeStamp = 0;
+					dataSeekStartTimeStamp = 0
 				} else {
-					dataSeekStartTimeStamp = Int(targetDate.timeIntervalSince1970) - (86400 * goalToFetchDataDays);
-				}
-				print( "Latest id:", dbResult[ Expression<Int64>("id") ], ", time:", dbResult[ Expression<Int64>("date") ], "days start:", targetDate.timeIntervalSince1970 );
-				print(" Data time seek start is:", dataSeekStartTimeStamp);
+					dataSeekStartTimeStamp = Int(targetDate.timeIntervalSince1970) - (86400 * goalToFetchDataDays)
+				} //end if
+				//print( "Latest id:", dbResult[ Expression<Int64>("id") ], ", time:", dbResult[ Expression<Int64>("date") ], "days start:", targetDate.timeIntervalSince1970 );
+				//print(" Data time seek start is:", dataSeekStartTimeStamp);
 			} //end for
 			//2. 시작할 Seektime을 얻어온 것을 기반으로 데이터 검색을 시작함.
 			for dbResult in try DataManager.db()!.prepare(
@@ -415,56 +418,55 @@ class DataManager {
 				//Date별로 작은순부터 정렬해서 받아오기 때문에, i - 1할 수 있는 경우
 				//전 컴포넌트의 날짜랑 비교해서 같은 경우, 전 컴포넌트를 수정해주는 방식으로 해보자.
 				
-				var targetArrayPointer:Array<StatsDataElement> = /* 타겟 배열 포인터. */
+				var targetArrayPointer:Array<StatisticsData> = /* 타겟 배열 포인터. */
 					isGameTable ? dataGameResults : (
-					dbResult[ Expression<Int64>("type") ] == 0 ? dataBeforeStartArray : dataClearReducedArray
-				);
+					dbResult[ Expression<Int64>("type") ] == 0 ? dataBeforeStartArray : dataClearReducedArray )
 				
 				let dateComp:DateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
-				                                                       from: Date( timeIntervalSince1970: TimeInterval(dbResult[ Expression<Int64>("date") ]) ) );
+				                                                       from: Date( timeIntervalSince1970: TimeInterval(dbResult[ Expression<Int64>("date") ]) ) )
 				
-				let tmpDataElements:StatsDataElement = StatsDataElement();
+				let tmpDataElements:StatisticsData = StatisticsData()
 				var tmpDataResult:Float = 0;
 				switch(dataPointSelection) { //값에 따른 데이터 참조값 변경
 					case 3: //포기했니 성공했니에 대한 비율. 이건 클리어개수를 ... 아 아니다.
 						//클리어비율은 그냥 1인지 0인지만 저장하고. 이전날짜랑 겹치면 평균구해서 50% 기준으로
 						//해당날짜에 한해 그 이하일 경우 포기 이상일 경우 성공으로 처리하죠 ㅇㅋ ㄲ
-						tmpDataResult = Float( dbResult[Expression<Int64>("gameCleared")] );
-						break;
+						tmpDataResult = Float( dbResult[Expression<Int64>("gameCleared")] )
+						break
 					case 4: //전체 행동 수
-						tmpDataResult = Float( dbResult[Expression<Int64>("touchAll")] );
-						break;
+						tmpDataResult = Float( dbResult[Expression<Int64>("touchAll")] )
+						break
 					case 5: //유효 행동 비율
 						tmpDataResult =
-							(Float(dbResult[Expression<Int64>("touchValid")]) / Float( dbResult[Expression<Int64>("touchAll")] )) * 100;
-						break;
+							(Float(dbResult[Expression<Int64>("touchValid")]) / Float( dbResult[Expression<Int64>("touchAll")] )) * 100
+						break
 					case 6: //잠든 횟수
-						tmpDataResult = Float( dbResult[Expression<Int64>("backgroundExitCount")] );
-						break;
+						tmpDataResult = Float( dbResult[Expression<Int64>("backgroundExitCount")] )
+						break
 					default: //기타 참조하는 데이터는...
-						tmpDataResult = Float( dbResult[Expression<Int64>("statsDataInt")] ) / 60; //초 단위를 분으로 계산하기 위해 나눔.
-						break;
+						tmpDataResult = Float( dbResult[Expression<Int64>("statsDataInt")] ) / 60 //초 단위를 분으로 계산하기 위해 나눔.
+						break
 				} //end switch
 				
-				tmpDataElements.dataType = isGameTable ? 0 : Int( dbResult[ Expression<Int64>("type") ] );
-				tmpDataElements.dataID = Int( dbResult[ Expression<Int64>("id") ] ); //같은 ID끼리 취합할때 사용
+				tmpDataElements.dataType = isGameTable ? 0 : Int( dbResult[ Expression<Int64>("type") ] )
+				tmpDataElements.dataID = Int( dbResult[ Expression<Int64>("id") ] ) //같은 ID끼리 취합할때 사용
 				
-				tmpDataElements.dateComponents = dateComp as DateComponents;
-				tmpDataElements.numberData = tmpDataResult;
+				tmpDataElements.dateComponents = dateComp as DateComponents
+				tmpDataElements.numberData = tmpDataResult
 				
 				//날짜 중복 방지를 위한 계산
 				if (targetArrayPointer.count == 0) {
 					//배열에 아무것도 없는 경우 새로 추가
 					if (isGameTable) {
-						dataGameResults += [tmpDataElements];
+						dataGameResults += [tmpDataElements]
 					} else if (dbResult[ Expression<Int64>("type") ] == 0) {
-						dataBeforeStartArray += [tmpDataElements];
+						dataBeforeStartArray += [tmpDataElements]
 					} else {
-						dataClearReducedArray += [tmpDataElements];
+						dataClearReducedArray += [tmpDataElements]
 					}
 				} else {
-					let tmpCount:Int = targetArrayPointer.count - 1;
-					let toCompareComp:DateComponents = targetArrayPointer[tmpCount].dateComponents!;
+					let tmpCount:Int = targetArrayPointer.count - 1
+					let toCompareComp:DateComponents = targetArrayPointer[tmpCount].dateComponents!
 					
 					if ( /* 이전 항목과 날짜가 일치하는지를 검사함. 전 element 참고를 위해 1 뺌. (2를 안 빼는 이유는 배열에 추가 안했거든.) */
 						toCompareComp.year == dateComp.year && toCompareComp.month == dateComp.month && toCompareComp.day == dateComp.day ) {
@@ -473,66 +475,62 @@ class DataManager {
 						//print("Same day of last element. adding result to last element:", tmpDataResult);
 						//DB 검색 추가 반복문이 끝난 후, 평균계산 반복문을 한번 더 돌릴거임.
 						if (targetArrayPointer[targetArrayPointer.count - 1].numberDataArray == nil) {
-							targetArrayPointer[targetArrayPointer.count - 1].numberDataArray = Array<Float>();
-						}
-						targetArrayPointer[targetArrayPointer.count - 1].numberDataArray! += [ tmpDataResult ];
+							targetArrayPointer[targetArrayPointer.count - 1].numberDataArray = Array<Float>()
+						} //end if
 						
-					} else {
-						//안하면 다른날짜 취급하여 그냥 추가함
+						targetArrayPointer[targetArrayPointer.count - 1].numberDataArray! += [ tmpDataResult ]
+					} else { //안하면 다른날짜 취급하여 그냥 추가함
 						if (isGameTable) {
-							dataGameResults += [tmpDataElements];
+							dataGameResults += [tmpDataElements]
 						} else if (dbResult[ Expression<Int64>("type") ] == 0) {
-							dataBeforeStartArray += [tmpDataElements];
+							dataBeforeStartArray += [tmpDataElements]
 						} else {
-							dataClearReducedArray += [tmpDataElements];
-						}
-						//print("Element adding:", tmpDataResult);
+							dataClearReducedArray += [tmpDataElements]
+						} //end if
 					} //end if chk comps
 				} //end if chk empty array or not
-				
 			} //end for for dbresult
 			
 			//평균 배열에 들어가있는 값을 정리
 			for tmpLr:Int in 0 ..< 2 { //loop 0 ~ 1
-				var targetArrayPointer:Array<StatsDataElement> = /* 타겟 배열 포인터. */
+				var targetArrayPointer:Array<StatisticsData> = /* 타겟 배열 포인터. */
 					isGameTable ? dataGameResults : ( /* 게임 테이블이면 테이블배열 참조 */
-						tmpLr == 0 ? dataBeforeStartArray : dataClearReducedArray
-					);
+						tmpLr == 0 ? dataBeforeStartArray : dataClearReducedArray )
 				
 				for i:Int in 0 ..< targetArrayPointer.count {
 					if (targetArrayPointer[i].numberDataArray == nil) {
-						continue;
+						continue
 					} //평균취할게 없으면 넘김.
+					
 					//평균취해야 하는경우
 					var nResult:Float = targetArrayPointer[i].numberData; //초기값은 배열에 없으므로 미리 추기함
 					for j:Int in 0 ..< targetArrayPointer[i].numberDataArray!.count {
-						nResult += targetArrayPointer[i].numberDataArray![j];
-					}
+						nResult += targetArrayPointer[i].numberDataArray![j]
+					} //end for
 					
 					switch(dataPointSelection) {
 						case 3: //성공 비율은 다음과 같이 계산함
 							//1. 다른 평균을 구하는 것 처럼 똑같이 나누고
 							//2. 그 나눈 값이 50% 이상이면 성공 이하면 실패
 							//값은 0또는 1이니까 잘 되겠지
-							nResult /= Float(targetArrayPointer[i].numberDataArray!.count + 1);
+							nResult /= Float(targetArrayPointer[i].numberDataArray!.count + 1)
 							
 							if (nResult >= 0.555) {
-								nResult = 1; //성공
+								nResult = 1 //성공
 							} else {
-								nResult = 0; //실패
+								nResult = 0 //실패
 							} //0 = 실패, 1 = 성공으로 전달하여 2카테고리로 나누게 표시해야함
-							
-							break;
+							break
 						case 4: //총 터치 수는 나눌 필요가 없음
 							//nothing to do
-							break;
+							break
 						default: //평균 구함. 1을 더하는 이유는 배열에 하나가 추가가 안 되어 있는 상태라서.
-							nResult /= Float(targetArrayPointer[i].numberDataArray!.count + 1);
-							break;
-					}
+							nResult /= Float(targetArrayPointer[i].numberDataArray!.count + 1)
+							break
+					} //end switch [dataPointSelection]
 					
-					targetArrayPointer[i].numberData = nResult; //평균값 대입
-					targetArrayPointer[i].numberDataArray = nil; //배열 초기화
+					targetArrayPointer[i].numberData = nResult //평균값 대입
+					targetArrayPointer[i].numberDataArray = nil //배열 초기화
 				} //end for
 				
 			} //end for
@@ -543,47 +541,45 @@ class DataManager {
 					//이제 같은 ID끼리 묶어서 배열에 정리하자.
 					for i:Int in 0 ..< dataBeforeStartArray.count {
 						//start를 돌면서 end랑 같은걸 찾아 하나의 배열에 합쳐 넣을거임
-						let statsElement:StatsDataElement = StatsDataElement();
+						let statsElement:StatisticsData = StatisticsData()
 						//시간 합산. 통계에서 요구하는게 따로따로면 합산 필요가 없음
-						statsElement.numberData = dataBeforeStartArray[i].numberData + dataClearReducedArray[i].numberData;
-						statsElement.dataID = dataBeforeStartArray[i].dataID;
-						statsElement.dateComponents = dataBeforeStartArray[i].dateComponents;
-						dataUntilAlarmOff += [statsElement]; //통계 배열에 추가
+						statsElement.numberData = dataBeforeStartArray[i].numberData + dataClearReducedArray[i].numberData
+						statsElement.dataID = dataBeforeStartArray[i].dataID
+						statsElement.dateComponents = dataBeforeStartArray[i].dateComponents
+						dataUntilAlarmOff += [statsElement] //통계 배열에 추가
 						
-						print("STATS id:", statsElement.dataID, ", result:", statsElement.numberData, ", date:",
-						      statsElement.dateComponents!.year!,"-",statsElement.dateComponents!.month!,"-",statsElement.dateComponents!.day!);
+						//print("STATS id:", statsElement.dataID, ", result:", statsElement.numberData, ", date:",
+						  //    statsElement.dateComponents!.year!,"-",statsElement.dateComponents!.month!,"-",statsElement.dateComponents!.day!)
 					} //end for
-					toReturnDatasArray = dataUntilAlarmOff; //Return pointer
 					
-					break;
+					toReturnDatasArray = dataUntilAlarmOff //Return pointer
+					break
 				case 1: //게임 시작 전까지 걸린 시간
-					toReturnDatasArray = dataBeforeStartArray;
-					break;
+					toReturnDatasArray = dataBeforeStartArray
+					break
 				case 2: //게임 플레이 시간
-					toReturnDatasArray = dataClearReducedArray;
-					break;
+					toReturnDatasArray = dataClearReducedArray
+					break
 				case 3, 4, 5, 6: //게임 데이터 리턴
-					toReturnDatasArray = dataGameResults;
-					break;
-				default: break;
-			}
-			
+					toReturnDatasArray = dataGameResults
+					break
+				default: break
+			} //end switch [dataPointSelection]
 		} catch {
-			
-		}
+			//Error
+		} //end try catch
 		
 		if (toReturnDatasArray!.count == 0) {
 			//빈 배열 리턴
 		} else {
 			//데이터값 일수에 맞게 자르기
 			if (goalToFetchDataDays != -1) {
-				toReturnDatasArray = Array(toReturnDatasArray![ max(0,toReturnDatasArray!.count-goalToFetchDataDays)...(toReturnDatasArray!.count-1) ]);
-			}
-		}
+				toReturnDatasArray = Array(toReturnDatasArray![ max(0,toReturnDatasArray!.count-goalToFetchDataDays)...(toReturnDatasArray!.count-1) ])
+			} //end if
+		} //end if[array is empty or not]
 		
 		//통계 데이터값 return
-		return toReturnDatasArray;
-		
+		return toReturnDatasArray
 	} //end func
 	
-}
+} //end class

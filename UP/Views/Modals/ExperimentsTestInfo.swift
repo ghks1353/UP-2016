@@ -39,7 +39,7 @@ class ExperimentsTestInfo:UIViewController {
 		let navCloseButton:UIButton = UIButton(); //Add image into UIButton
 		navCloseButton.setImage( UIImage(named: "modal-back"), for: UIControlState());
 		navCloseButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45); //Image frame size
-		navCloseButton.addTarget(self, action: #selector(ExperimentsTestInfo.popToRootAction), for: .touchUpInside);
+		navCloseButton.addTarget(self, action: #selector(self.popToRootAction), for: .touchUpInside);
 		self.navigationItem.leftBarButtonItems = [ navLeftPadding, UIBarButtonItem(customView: navCloseButton) ];
 		self.navigationItem.hidesBackButton = true; //뒤로 버튼을 커스텀했기 때문에, 가림
 		

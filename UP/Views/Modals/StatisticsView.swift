@@ -120,10 +120,13 @@ class StatisticsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 		rootViewRightLSecondTitle!.isHidden = true; rootViewRightLSecondValue!.isHidden = true;
 		
 		//Data fetch from datamanager
-		let statsDataResult:Array<StatsDataElement>? = DataManager.getAlarmGraphData( rootViewChartSelectedCategory, dataPointSelection: selDataPointInt )
+		let statsDataResult:Array<StatisticsData>? = DataManager.getAlarmGraphData( rootViewChartSelectedCategory, dataPointSelection: selDataPointInt )
 		
 		//Set pointers
-		var barChartPointer:BarChartView?; var lineChartPointer:LineChartView?; var pieChartPointer:PieChartView?;
+		var barChartPointer:BarChartView?
+		var lineChartPointer:LineChartView?
+		var pieChartPointer:PieChartView?
+		
 		//BGColor
 		var currentBGColor:String = ""
 		

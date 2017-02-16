@@ -146,15 +146,15 @@ class ThemeManager {
 			let tAdditionalArr:[String] = jData[i]["additional"].arrayValue.map { $0.string! }
 			for j:Int in 0 ..< tAdditionalArr.count {
 				switch(tAdditionalArr[j]) {
-				case ThemeGroupParseStr.DigitalClock.rawValue:
-					tmpThemeData.additionalThemes.append( ThemeGroup.DigitalClock )
-					break
-				case ThemeGroupParseStr.Background.rawValue:
-					tmpThemeData.additionalThemes.append( ThemeGroup.Background )
-					break
-				default:
-					print("Error: ThemeCategory is unknown: ", tAdditionalArr[j])
-					break
+					case ThemeGroupParseStr.DigitalClock.rawValue:
+						tmpThemeData.additionalThemes.append( ThemeGroup.DigitalClock )
+						break
+					case ThemeGroupParseStr.Background.rawValue:
+						tmpThemeData.additionalThemes.append( ThemeGroup.Background )
+						break
+					default:
+						print("Error: ThemeCategory is unknown: ", tAdditionalArr[j])
+						break
 				} //end switch
 			} //end for
 			

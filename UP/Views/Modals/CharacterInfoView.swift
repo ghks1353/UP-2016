@@ -10,11 +10,11 @@ import Foundation;
 import UIKit;
 import GameKit;
 
-class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
+class CharacterInfoView:UIModalView {
 	
 	//Pop views
-	var achievementsView:CharacterAchievementsView = CharacterAchievementsView()
-	var themeMainView:CharacterSkinMainView = CharacterSkinMainView()
+	//var achievementsView:CharacterAchievementsView = CharacterAchievementsView()
+	//var themeMainView:CharacterSkinMainView = CharacterSkinMainView()
 	
 	//Background img
 	var charInfoBGView:UIImageView = UIImageView()
@@ -40,7 +40,7 @@ class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad( LanguagesManager.$("userCharacterInformation"), barColor: UPUtils.colorWithHexString("#232D4B"), showOverlayGuideButton: true )
-		
+		/*
 		//get data from local
 		DataManager.initDefaults()
 		
@@ -134,18 +134,18 @@ class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 		charCurrentCharacter.isUserInteractionEnabled = true
 		charCurrentCharacter.addGestureRecognizer(tGesture)
 		
-		upLayerGuide.modalNavHeight = navigationCtrl.navigationBar.frame.size.height
+		upLayerGuide.modalNavHeight = navigationCtrl.navigationBar.frame.size.height*/
 	} //end init func
 	//////////////////
-	
+	/*
 	func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
 		gameCenterViewController.dismiss(animated: true, completion: nil)
-	}
+	}*/
 	
 	//스킨 선택으로 팝
 	func popToCharacterThemeSel(_ gst: UITapGestureRecognizer) {
-		fadeOutGuideButton()
-		navigationCtrl.pushViewController(self.themeMainView, animated: true)
+		//fadeOutGuideButton()
+		//navigationCtrl.pushViewController(self.themeMainView, animated: true)
 	} //end func
 	
 	//게임센터 창 띄우기
@@ -163,7 +163,7 @@ class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 		*/
 	}
 	
-			
+	/*
 	//도전과제 열기
 	func showAchievements(_ gst: UITapGestureRecognizer) {
 		fadeOutGuideButton()
@@ -175,8 +175,8 @@ class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 		upLayerGuide.modalPresentationStyle = .overFullScreen
 		self.present(upLayerGuide, animated: true, completion: nil)
 	} //end func
-	
-	
+	*/
+	/*
 	/////// View transition animation
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear( animated )
@@ -235,5 +235,5 @@ class CharacterInfoView:UIModalView, GKGameCenterControllerDelegate {
 		
 		return tCell
 	} //end func
-	
+	*/
 }
