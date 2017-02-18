@@ -284,7 +284,22 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
 		
 		fadeOutGuideButton()
 		let isCustomSound:Bool = targetAlarm.alarmSoundURLString == "" ? false : true
-		let tSoundData:SoundData = SoundManager.findSoundObjectWithFileName(isCustomSound ? targetAlarm.alarmSoundURLString : targetAlarm.alarmSound, isCustomSound: isCustomSound)!
+		var tSoundData:SoundData = SoundManager.findSoundObjectWithFileName(isCustomSound ? targetAlarm.alarmSoundURLString : targetAlarm.alarmSound, isCustomSound: isCustomSound)!
+		if (isCustomSound) {
+			//Custom sound인 경우, 사운드가 존재하는지 검사하고 없으면 기본 번들 사운드로 변경
+			SoundManager.fetchCustomSoundsList()
+			var customSoundAvaliable:Bool = false
+			for i:Int in 0 ..< SoundManager.userSoundsURL.count {
+				if (SoundManager.userSoundsURL[i].lastPathComponent == tSoundData.soundURL!.lastPathComponent) {
+					customSoundAvaliable = true
+					break
+				} //end if
+			} //end for
+			
+			if (customSoundAvaliable == false) {
+				tSoundData = SoundManager.list[0] //Change to bundle sound
+			} //end if
+		} //end if
 		
 		print("[AlarmListView] Modifing", targetAlarm.alarmName, targetAlarm.alarmID)
 		modalAlarmAddView.fillComponentsWithEditMode(cell.alarmID,

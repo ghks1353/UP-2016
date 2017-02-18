@@ -66,7 +66,12 @@ class AlarmSoundListView:UIModalPopView, UITableViewDataSource, UITableViewDeleg
 			
 			customSoundsCellArr += [ createCell( tmpObj ) ]
 		} //end for
-			
+		
+		// custom sound 없을경우 메시지.
+		if (customSoundsCellArr.count == 0) {
+			customSoundsCellArr += [ createCustomSoundNoExistsCell() ]
+		} //end if
+		
 		tablesArray = [ [ /* section 1 */
 			createSliderCell()
 			],
@@ -161,10 +166,15 @@ class AlarmSoundListView:UIModalPopView, UITableViewDataSource, UITableViewDeleg
 		return (tablesArray[section] ).count
 	}
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 45
+		switch(indexPath.section) {
+			case 2:
+				return SoundManager.userSoundsURL.count == 0 ? 90 : 45
+			default:
+				return 45
+		} //end switch
 	}
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell:AlarmSoundListCell = (tablesArray[(indexPath as NSIndexPath).section] )[(indexPath as NSIndexPath).row]
+		let cell:AlarmSoundListCell = (tablesArray[indexPath.section] )[indexPath.row]
 		return cell as UITableViewCell
 	}
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -182,6 +192,25 @@ class AlarmSoundListView:UIModalPopView, UITableViewDataSource, UITableViewDeleg
 	
 	/////////////////////////////////
 	//Tableview cell view create
+	func createCustomSoundNoExistsCell() -> AlarmSoundListCell {
+		let tCell:AlarmSoundListCell = AlarmSoundListCell()
+		
+		tCell.backgroundColor = UIColor.white
+		tCell.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 90)
+		
+		let infoLabel:UILabel = UILabel()
+		infoLabel.frame = CGRect(x: 12, y: 0, width: tCell.frame.width - 24, height: 90)
+		infoLabel.font = UIFont.systemFont(ofSize: 14)
+		infoLabel.textColor = UPUtils.colorWithHexString("#333333")
+		infoLabel.textAlignment = .center
+		infoLabel.numberOfLines = 0
+		infoLabel.text = LanguagesManager.$("alarmCustomSoundNotFound")
+		
+		tCell.addSubview(infoLabel)
+		
+		return tCell
+	} //end func
+	
 	func createSliderCell( ) -> AlarmSoundListCell {
 		let tCell:AlarmSoundListCell = AlarmSoundListCell()
 		tCell.backgroundColor = UIColor.white
@@ -233,6 +262,10 @@ class AlarmSoundListView:UIModalPopView, UITableViewDataSource, UITableViewDeleg
 		alarmListCells[0].accessoryType = .checkmark
 		
 		for i:Int in 0 ..< alarmListCells.count {
+			if (alarmListCells[i].soundInfoObject == nil) {
+				continue
+			} //end if
+			
 			////////// sound file 이름 없을경우 custom sound 사용
 			var checkStr:String = "" //리스트에서.
 			var soundDataFileStr:String = "" //현재 파라메터에서.
