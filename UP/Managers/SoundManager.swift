@@ -13,6 +13,7 @@ import AudioToolbox
 class SoundManager:NSObject, AVAudioPlayerDelegate {
 	
 	static var sharedInstance:SoundManager = SoundManager()
+	static var userSoundsURL:[URL] = []
 	
 	public enum bundleSounds:String {
 		case GameReadyBGM = "bgm-game-waiting.mp3"
@@ -157,6 +158,25 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 		previousPlaybackMode = playMode
 	} //end func
 	
+	////////////////// Fetch document sound list
+	static func fetchCustomSoundsList() {
+		let documentsUrl:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+		
+		do {
+			// Get the directory contents urls (including subfolders urls)
+			let directoryContents = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: [])
+			
+			userSoundsURL = directoryContents.filter{ $0.pathExtension == "mp3" || $0.pathExtension == "aac" || $0.pathExtension == "m4a" || $0.pathExtension == "wav" }
+			print("[SoundManager] Loaded ",userSoundsURL.count,"custom sound files")
+			//let mp3FileNames = mp3Files.map{ $0.deletingPathExtension().lastPathComponent }
+			//print("mp3 list:", mp3FileNames)
+			
+		} catch let error as NSError {
+			userSoundsURL.removeAll()
+			print("[SoundManager] Failed to load custom sound files: ", error.localizedDescription)
+		} //end try-catch
+	} //end func
+	
 	////////////// alarm sounds
 	static var list:Array<SoundData> = [
 		SoundData(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff"),
@@ -166,7 +186,14 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	]
 	
 	//사운드 이름에 대한 실제 사운드 오브젝트 반환
-	static func findSoundObjectWithFileName(_ soundFileName:String) -> SoundData? {
+	static func findSoundObjectWithFileName(_ soundFileName:String, isCustomSound:Bool = false) -> SoundData? {
+		if (isCustomSound) {
+			//CustomSound의 경우, 오브젝트를 새로 만듬.
+			let tmpSoundData:SoundData = SoundData(soundName: "", fileName: "")
+			tmpSoundData.soundURL = URL(fileURLWithPath: soundFileName)
+			return tmpSoundData
+		} //end if
+		
 		for i:Int in 0 ..< list.count {
 			if (list[i].soundFileName == soundFileName) {
 				return list[i]

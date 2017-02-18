@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//앱 실행시
 		
 		//Startup language initial
-		print("Pref lang", (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String )
+		//print("Pref lang", (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String )
 		LanguagesManager.initLanugages( (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as! String )
 		//Init DataManager
 		DataManager.initDataManager()
@@ -48,6 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//Firebase remoteconfig init
 		RemoteConfigManager.initManager()
 		
+		//Fetch custom sound list
+		SoundManager.fetchCustomSoundsList()
+		
 		//add observer to fir
 		NotificationCenter.default.addObserver(self,
 		                                       selector: #selector(self.tokenRefreshNotification),
@@ -62,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		
 		
 		//게임센터 초기화 및 뷰 표시
+		/*
 		if (window?.rootViewController) != nil {
 			//let targetVC = presentVC;
 			let player = GKLocalPlayer.localPlayer()
@@ -78,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 				}
 			}
 		} //fin
-		
+		*/
 		
 		let nsURL:URL = Bundle.main.url( forResource: "up_background_task_alarm" , withExtension: "mp3")!
 		do {
@@ -88,13 +92,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		}
 		alarmBackgroundTaskPlayer!.prepareToPlay()
 		
+		print("[UP] Application inited!")
 		return true
-    }
+    } //end func
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-		print("App will background")
+		print("[UP] App will background")
 		DeviceManager.appIsBackground = true
 		AlarmManager.mergeAlarm()
 		FIRMessaging.messaging().disconnect()
@@ -105,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-		print("App is now running to background")
+		print("[UP] App is now running to background")
 		DeviceManager.appIsBackground = true
 		
 		SoundManager.setAudioPlayback( .AlarmMode )
@@ -122,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 				let nextAlarmLeft:Int = nextfieInSeconds == -1 ? -1 : (nextfieInSeconds - Int(Date().timeIntervalSince1970))
 				let ringingAlarm:AlarmElements? = AlarmManager.getRingingAlarm()
 				
-				print( "thread remaining:", UIApplication.shared.backgroundTimeRemaining, ", remaining next alarm:", nextAlarmLeft )
+				print( "[Background] t:", UIApplication.shared.backgroundTimeRemaining, "/ next:", nextAlarmLeft )
 				
 				//1. 알람이 울리는 중일 경우, 2. 백그라운드에 앱이 있을 경우.
 				if (ringingAlarm != nil) {
@@ -154,11 +159,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 							Thread.sleep(forTimeInterval: 5) //5
 						} else if (nextAlarmLeft > 3) {
 							Thread.sleep(forTimeInterval: 1) //1
-						} else if (nextAlarmLeft > 1) {
-							Thread.sleep(forTimeInterval: 0.5) //0.5
 						} else {
-							Thread.sleep(forTimeInterval: 0.25) //0.25
-						} //end if
+							AlarmManager.refreshLocalNotifications()
+							Thread.sleep(forTimeInterval: 0.5) //0.5
+						}
 					} else {
 						Thread.sleep(forTimeInterval: 30) //30초 주기 실행
 					} //end if [alarm left]
@@ -171,8 +175,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		
 		
 		
-		
-		
     } //end func
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -182,19 +184,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-		print("App is active now")
+		print("[UP] App is active now")
 		DeviceManager.appIsBackground = false
-		AlarmManager.mergeAlarm()
-		connectToFcm()
 		
+		//Merge alarms
+		AlarmManager.mergeAlarm()
+		//Force add notifications
+		AlarmManager.refreshLocalNotifications( true )
 		SoundManager.setAudioPlayback( .NormalMode )
-		/*
-		if (ViewController.selfView != nil) {
-			ViewController.selfView!.checkToCallAlarmRingingView()
-		}*/
 		
 		//알람이 울리고 있었다면 꺼줌.
 		AlarmManager.stopSoundAlarm()
+		
+		//Connect to FCM Server
+		connectToFcm()
+		
 		//알람 게임뷰가 켜져있는 경우, 터치 지연 시간을 0으로 초기화
 		if (AlarmRingView.selfView != nil) {
 			AlarmRingView.selfView!.lastActivatedTimeAfter = 0
@@ -213,11 +217,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	//func notific
 	@available(iOS 10.0, *)
 	func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-		print("Notifi called")
+		print("[UP] Notifi called")
 	}
 	@available(iOS 10.0, *)
 	func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-		print("Notifi responsed")
+		print("[UP] Notifi responsed")
 		
 		let usrInfo = response.notification.request.content.userInfo
 		handlePushMessage( usrInfo )
@@ -231,25 +235,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//배터리가 이상하게 광탈함. 구글쪽 문제임
 		
 		#if DEBUG
-			print("Using debug mode.")
+			print("[UP] FIRInstance APS using debug mode.")
 			//usb 연결해서 테스트하는거면 sandbox 사용
 			FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.sandbox)
 		#else
-			print("Using release mode.")
+			print("[UP] FIRInstance APS using release mode.")
 			//앱스토어에 올리거나 애드혹인 경우 prod 사용
 			FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.prod)
 		#endif
 	} //end func
 	/////////// FCM Receive
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-		print("Received pushmsg")
+		print("[UP] Received pushmsg")
 		
 		FIRMessaging.messaging().appDidReceiveMessage( userInfo )
 		handlePushMessage( userInfo )
 	} //end func
 	func tokenRefreshNotification(_ notification: Notification) {
 		if let refreshedToken = FIRInstanceID.instanceID().token() {
-			print("InstanceID token: \(refreshedToken)")
+			print("[UP] InstanceID token: \(refreshedToken)")
 		}
 		
 		// Connect to FCM since connection may have failed when attempted before having a token.
@@ -266,9 +270,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		
 		FIRMessaging.messaging().connect { (error) in
 			if error != nil {
-				print("Unable to connect with FCM. \(error)")
+				print("[UP] Unable to connect with FCM. \(error)")
 			} else {
-				print("Connected to FCM.")
+				print("[UP] Connected to FCM.")
 				FIRMessaging.messaging().subscribe(toTopic: FirebaseTopicManager.Topics.GeneralUser.rawValue)
 			}
 		}
@@ -277,12 +281,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	func handlePushMessage(_ usrInfo:[AnyHashable : Any]? ) {
 		//Handling push/local notify
 		if (usrInfo == nil) {
-			print("Can't handle push message because userinfo is null")
+			print("[UP] Can't handle push message because userinfo is null")
 			return
 		}
 		
 		if (usrInfo!["type"] == nil) {
-			print("Can't handle push message because type is null")
+			print("[UP] Can't handle push message because type is null")
 			return
 		}
 		
@@ -294,15 +298,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 						ViewController.selfView!.showWebViewModal( url: targetURL! )
 					} //end if [viewcontroller instance is nil or not]
 					else {
-						print("ViewController instance is not inited")
+						print("[UP] ViewController instance is not inited")
 					}
 				} //end if [targeturl is nil or not]
 				break
 			default:
-				print("Can't handle push message because type is unknown. type:", usrInfo!["type"]!)
+				print("[UP] Can't handle push message because type is unknown. type:", usrInfo!["type"]!)
 				break
 		} //end switch
 		
 	} //end func
-}
-
+} //end class

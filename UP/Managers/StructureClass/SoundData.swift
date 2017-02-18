@@ -16,7 +16,10 @@ class SoundData {
 		soundFileName = fileName
 	}
 	
-	internal var soundLangName:String = ""
-	internal var soundFileName:String = ""
+	var soundLangName:String = ""
+	var soundFileName:String = ""
+	
+	/// if sound is custom sound, use this variable
+	var soundURL:URL?
 	
 }

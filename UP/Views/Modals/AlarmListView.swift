@@ -283,15 +283,17 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
 		self.present(modalAlarmAddView, animated: false, completion: nil)
 		
 		fadeOutGuideButton()
+		let isCustomSound:Bool = targetAlarm.alarmSoundURLString == "" ? false : true
+		let tSoundData:SoundData = SoundManager.findSoundObjectWithFileName(isCustomSound ? targetAlarm.alarmSoundURLString : targetAlarm.alarmSound, isCustomSound: isCustomSound)!
 		
-		print("Modifing", targetAlarm.alarmName, targetAlarm.alarmID)
+		print("[AlarmListView] Modifing", targetAlarm.alarmName, targetAlarm.alarmID)
 		modalAlarmAddView.fillComponentsWithEditMode(cell.alarmID,
 			alarmName: targetAlarm.alarmName,
 			alarmMemo: targetAlarm.alarmMemo,
 			alarmFireDate: targetAlarm.alarmFireDate,
 			selectedGameID: targetAlarm.gameSelected,
 			scaledSoundLevel: targetAlarm.alarmSoundLevel,
-			selectedSoundFileName: targetAlarm.alarmSound,
+			soundData: tSoundData,
 			repeatInfo: targetAlarm.alarmRepeat,
 			alarmDefaultToggle: targetAlarm.alarmToggle)
 		

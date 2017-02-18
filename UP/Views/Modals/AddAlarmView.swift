@@ -134,10 +134,17 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 	} ///////////////////////////////
 	
 	//set sound element from other view
-	internal func setSoundElement(_ sInfo:SoundData) {
-		(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundLangName
+	func setSoundElement(_ sInfo:SoundData) {
+		if (sInfo.soundFileName == "") {
+			//custom sound
+			(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundURL!.deletingPathExtension().lastPathComponent
+		} else {
+			//bundle sound
+			(getElementFromTable("alarmSound") as! UILabel).text = sInfo.soundLangName
+		} //end if
+		
 		alarmSoundSelectedObj = sInfo
-	}
+	} //end func
 	
 	//set game id from other view
 	internal func setGameElement(_ gameID:Int) {
@@ -328,6 +335,9 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 				navigationCtrl.pushViewController(self.alarmGameListView, animated: true)
 				break
 			case "alarmSound": //알람 사운드 선택 뷰
+				SoundManager.fetchCustomSoundsList()
+				self.alarmSoundListView.refreshCell()
+				
 				self.alarmSoundListView.setSelectedCell( alarmSoundSelectedObj )
 				self.alarmSoundListView.soundSliderPointer!.value = Float(alarmCurrentSoundLevel) / 100 //0~1 scale
 				self.alarmSoundListView.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false) //scroll to top
@@ -517,12 +527,14 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 	} ///// end func
 	
 	//components fill for modify alarm
-	func fillComponentsWithEditMode( _ alarmID:Int, alarmName:String, alarmMemo:String, alarmFireDate:Date, selectedGameID:Int, scaledSoundLevel:Int, selectedSoundFileName:String, repeatInfo:Array<Bool>, alarmDefaultToggle:Bool) {
+	func fillComponentsWithEditMode( _ alarmID:Int, alarmName:String, alarmMemo:String, alarmFireDate:Date, selectedGameID:Int, scaledSoundLevel:Int, soundData:SoundData, repeatInfo:Array<Bool>, alarmDefaultToggle:Bool) {
 		//set alarm name
 		(self.getElementFromTable("alarmName") as! UITextField).text = alarmName
 		(self.getElementFromTable("alarmMemo") as! UITextField).text = alarmMemo
 		(self.getElementFromTable("alarmDatePicker") as! UIDatePicker).date = alarmFireDate //uipicker
-		self.setSoundElement(SoundManager.findSoundObjectWithFileName(selectedSoundFileName)!) //set sound
+		
+		self.setSoundElement(soundData) //set sound
+		
 		self.setGameElement(selectedGameID) //set game
 		self.resetAlarmRepeatCell()
 		
