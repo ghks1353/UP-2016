@@ -41,7 +41,7 @@ class ViewController: UIViewController {
 	var modalAlarmListView:AlarmListView = AlarmListView()
 	var modalAlarmAddView:AddAlarmView = GlobalSubView.alarmAddView
 	var modalAlarmStatsView:StatisticsView = StatisticsView()
-	var modalCharacterInformationView:CharacterInfoView = CharacterInfoView()
+	var characterInformationFullView:CharacterInfoView = CharacterInfoView()
 	var modalPlayGameview:GamePlayView = GamePlayView()
 	var modalGameResultView:GameResultView = GlobalSubView.alarmGameResultView
 	var modalGamePlayWindowView:GamePlayWindowView = GlobalSubView.alarmGamePlayWindowView
@@ -429,10 +429,10 @@ class ViewController: UIViewController {
 	
 	func openCharacterInformationView(_ gst: UITapGestureRecognizer) {
 		//Character information 열기
-		//modalCharacterInformationView.modalPresentationStyle = .overFullScreen
-		//showHideBlurview(true)
+		characterInformationFullView.modalPresentationStyle = .overFullScreen
+		showHideBlurview(true)
 		
-		//self.present(modalCharacterInformationView, animated: false, completion: nil)
+		self.present(characterInformationFullView, animated: false, completion: nil)
 	} //end func
 	
 	func openGamePlayView(_ gst: UITapGestureRecognizer!) {
@@ -710,7 +710,7 @@ class ViewController: UIViewController {
 		modalAlarmAddView.dismiss(animated: false, completion: nil)
 		modalAlarmListView.dismiss(animated: false, completion: nil)
 		modalAlarmStatsView.dismiss(animated: false, completion: nil)
-		modalCharacterInformationView.dismiss(animated: false, completion: nil)
+		characterInformationFullView.dismiss(animated: false, completion: nil)
 		modalPlayGameview.dismiss(animated: false, completion: nil)
 		modalGameResultView.dismiss(animated: false, completion: nil)
 		modalGamePlayWindowView.dismiss(animated: false, completion: nil)
@@ -911,7 +911,6 @@ class ViewController: UIViewController {
 		modalAlarmListView.FitModalLocationToCenter( )
 		modalAlarmAddView.FitModalLocationToCenter( )
 		modalAlarmStatsView.FitModalLocationToCenter( )
-		modalCharacterInformationView.FitModalLocationToCenter( )
 		modalPlayGameview.FitModalLocationToCenter( )
 		modalGameResultView.FitModalLocationToCenter( )
 		modalGamePlayWindowView.FitModalLocationToCenter( )
@@ -919,6 +918,7 @@ class ViewController: UIViewController {
 		modalBuyExPackView.FitModalLocationToCenter()
 		
 		overlayGuideView.fitFrames()
+		characterInformationFullView.fitFrames()
 		
 		//Blur view 조절
 		scrBlurView.frame = DeviceManager.scrSize!
