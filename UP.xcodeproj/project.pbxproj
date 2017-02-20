@@ -451,6 +451,7 @@
 		778FCD7C1E59C536000B7FD0 /* characterinfo-themes-unknown.gif in Resources */ = {isa = PBXBuildFile; fileRef = 778FCD751E59C536000B7FD0 /* characterinfo-themes-unknown.gif */; };
 		778FCD7E1E59C63C000B7FD0 /* CharacterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778FCD7D1E59C63C000B7FD0 /* CharacterInfoView.swift */; };
 		778FCD801E5A0D2B000B7FD0 /* theme-default-thumbnails.png in Resources */ = {isa = PBXBuildFile; fileRef = 778FCD7F1E5A0D2B000B7FD0 /* theme-default-thumbnails.png */; };
+		778FCD821E5B14B5000B7FD0 /* characterinfo-exp.gif in Resources */ = {isa = PBXBuildFile; fileRef = 778FCD811E5B14B5000B7FD0 /* characterinfo-exp.gif */; };
 		779154561E4A05300049C4A9 /* modal-buy-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 779154541E4A05300049C4A9 /* modal-buy-astro.png */; };
 		779154571E4A05300049C4A9 /* modal-buy-heroesofthestorm.png in Resources */ = {isa = PBXBuildFile; fileRef = 779154551E4A05300049C4A9 /* modal-buy-heroesofthestorm.png */; };
 		779A1F361DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png in Resources */ = {isa = PBXBuildFile; fileRef = 779A1F351DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png */; };
@@ -958,6 +959,7 @@
 		778FCD751E59C536000B7FD0 /* characterinfo-themes-unknown.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "characterinfo-themes-unknown.gif"; path = "ImageAssets/ModalWindows/CharacterInfo/characterinfo-themes-unknown.gif"; sourceTree = "<group>"; };
 		778FCD7D1E59C63C000B7FD0 /* CharacterInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterInfoView.swift; path = Views/FullView/CharacterInfoView.swift; sourceTree = "<group>"; };
 		778FCD7F1E5A0D2B000B7FD0 /* theme-default-thumbnails.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme-default-thumbnails.png"; path = "ImageAssets/Themes/Thumbnails/Default/theme-default-thumbnails.png"; sourceTree = "<group>"; };
+		778FCD811E5B14B5000B7FD0 /* characterinfo-exp.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "characterinfo-exp.gif"; path = "ImageAssets/ModalWindows/CharacterInfo/characterinfo-exp.gif"; sourceTree = "<group>"; };
 		779154541E4A05300049C4A9 /* modal-buy-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-astro.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-astro.png"; sourceTree = "<group>"; };
 		779154551E4A05300049C4A9 /* modal-buy-heroesofthestorm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-heroesofthestorm.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-heroesofthestorm.png"; sourceTree = "<group>"; };
 		779A1F351DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-wakeuponly.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-wakeuponly.png"; sourceTree = "<group>"; };
@@ -1339,6 +1341,7 @@
 				03E1D1251CF0BC7000B552FC /* characterinfo-exp-wrapper.png */,
 				03E1D1261CF0BC7000B552FC /* characterinfo-level-wrapper.png */,
 				03E1D1271CF0BC7000B552FC /* characterinfo-level.png */,
+				778FCD811E5B14B5000B7FD0 /* characterinfo-exp.gif */,
 			);
 			name = CharacterInfo;
 			sourceTree = "<group>";
@@ -2662,6 +2665,7 @@
 				775EB0561D51E64F00BE8C4A /* game-jumpup-assets-guide-0.png in Resources */,
 				7717A6F21E41CF8900076E16 /* bgm-game-jumpup-field.mp3 in Resources */,
 				7717A6F31E41CF8900076E16 /* bgm-game-waiting.mp3 in Resources */,
+				778FCD821E5B14B5000B7FD0 /* characterinfo-exp.gif in Resources */,
 				7717A6FA1E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png in Resources */,
 				77454C0C1E5447DE003B9678 /* theme-default-object-standing.png in Resources */,
 				77454C7D1E544A5A003B9678 /* theme-default-guide-list-swipe-edit.png in Resources */,

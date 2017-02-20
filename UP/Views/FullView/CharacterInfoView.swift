@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import GameKit
+import Gifu
 
 class CharacterInfoView:UIViewController {
 	
@@ -19,9 +20,7 @@ class CharacterInfoView:UIViewController {
 	var cExpWrapper:UIImageView = UIImageView()
 	var cExpMaskView:UIView = UIView() //Exp 내용물 마스크 처리를 위함
 	var cExpProgress:UIView = UIView()
-	var cExpProgressImageView:UIImageView = UIImageView()
-	
-	var cExpProgressAnimationImages:[UIImage] = []
+	var cExpProgressAnimation:GIFImageView = GIFImageView()
 	
 	//////// 위쪽 백그라운드
 	var cTopBackgroundView:UIImageView = UIImageView()
@@ -103,7 +102,7 @@ class CharacterInfoView:UIViewController {
 		
 		//// draw top background
 		cTopBackgroundView.image = UIImage( named: "characterinfo-background.png" )
-		cTopBackgroundView.frame = CGRect( x: DeviceManager.scrSize!.width / 2 - (414 * DeviceManager.maxScrRatioC) / 2, y: 0, width: 414 * DeviceManager.maxScrRatioC, height: 226.8 * DeviceManager.maxScrRatioC )
+		cTopBackgroundView.frame = CGRect( x: DeviceManager.scrSize!.width / 2 - (414 * DeviceManager.maxScrRatioC) / 2, y: 0, width: 414 * DeviceManager.maxScrRatioC, height: 247.85 * DeviceManager.maxScrRatioC )
 		self.view.addSubview(cTopBackgroundView)
 		
 		/////////////// Draw battery, level and indicator
@@ -114,15 +113,15 @@ class CharacterInfoView:UIViewController {
 		/// Mask for Exp
 		cExpMaskView.backgroundColor = UIColor.clear
 		
-		cLevelWrapper.frame = CGRect( x: cTopBackgroundView.frame.maxX - 38 * DeviceManager.maxScrRatioC - 105.65 * DeviceManager.maxScrRatioC,
-		                                 y: 21 * DeviceManager.maxScrRatioC
-			, width: 105.65 * DeviceManager.maxScrRatioC, height: 63.65 * DeviceManager.maxScrRatioC)
-		cLevelIndicator.frame = CGRect( x: cLevelWrapper.frame.minX - 27 * DeviceManager.maxScrRatioC - 43.85 * DeviceManager.maxScrRatioC,
-		                                   y: 54 * DeviceManager.maxScrRatioC
-			, width: 43.85 * DeviceManager.maxScrRatioC, height: 33.9 * DeviceManager.maxScrRatioC)
-		cExpWrapper.frame = CGRect( x: cTopBackgroundView.frame.minX + 48 * DeviceManager.maxScrRatioC,
-		                               y: 75 * DeviceManager.maxScrRatioC
-			,width: 93.7 * DeviceManager.maxScrRatioC, height: 55.8 * DeviceManager.maxScrRatioC)
+		cLevelWrapper.frame = CGRect( x: cTopBackgroundView.frame.maxX - 21 * DeviceManager.maxScrRatioC - 139.8 * DeviceManager.maxScrRatioC,
+		                                 y: 40.5 * DeviceManager.maxScrRatioC
+			, width: 139.8 * DeviceManager.maxScrRatioC, height: 84.35 * DeviceManager.maxScrRatioC)
+		cLevelIndicator.frame = CGRect( x: cLevelWrapper.frame.minX - 10 * DeviceManager.maxScrRatioC - 58.05 * DeviceManager.maxScrRatioC,
+		                                   y: 79 * DeviceManager.maxScrRatioC
+			, width: 58.05 * DeviceManager.maxScrRatioC, height: 44.8 * DeviceManager.maxScrRatioC)
+		cExpWrapper.frame = CGRect( x: cTopBackgroundView.frame.minX + 34 * DeviceManager.maxScrRatioC,
+		                               y: 95.5 * DeviceManager.maxScrRatioC
+			,width: 123.95 * DeviceManager.maxScrRatioC, height: 73.85 * DeviceManager.maxScrRatioC)
 		
 		self.view.addSubview(cLevelWrapper)
 		self.view.addSubview(cLevelIndicator)
