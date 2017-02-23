@@ -167,6 +167,7 @@ class GameTitleViewJumpUP:UIViewController {
 			SoundManager.playBGMSound(SoundManager.bundleSounds.GameReadyBGM.rawValue, repeatCount: -1)
 			gameStartButtonImage.isHidden = false //Start hidden false
 		} else { //Start auto 3-2-1 counter in Game Mode
+			SoundManager.playEffectSound( SoundManager.bundleEffectsGeneralGame.Countdown.rawValue )
 			aStartTimer = UPUtils.setInterval(1, block: autoGameStartTimer)
 		} //end if [Alarm mode or game mode]
 		

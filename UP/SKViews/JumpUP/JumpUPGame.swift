@@ -433,35 +433,41 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						
 						//급강하 (체공 중일때만 가능)
 						if (characterElement!.jumpFlaggedCount != 0 && !characterElement!.shadow_on_air) {
-							characterElement!.ySpeed = -20;
+							characterElement!.ySpeed = -20
 							// 그림자 효과
-							characterElement!.shadow_on_air = true;
-							characterElement!.shadow_on_frame = 0;
-							characterElement!.shadow_per_frame_current = 0;
-						}
+							characterElement!.shadow_on_air = true
+							characterElement!.shadow_on_frame = 0
+							characterElement!.shadow_per_frame_current = 0
+							
+							//효과음
+							SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.CloudFall.rawValue )
+						} // end if
 						
 					} else {
 						//위로 스와이프
 						
 						//슈퍼점프 (스와이프로)
 						if (characterElement!.jumpFlaggedCount < 2) { //점프 가능 횟수가 남아있을 경우
-							characterElement!.ySpeed = 16 * max(1, CGFloat(gameGravity / 1.25));
-							characterElement!.jumpFlaggedCount += 2;
+							characterElement!.ySpeed = 16 * max(1, CGFloat(gameGravity / 1.25))
+							characterElement!.jumpFlaggedCount += 2
 							
 							// 체공중 그림자 효과
-							characterElement!.shadow_on_air = false;
-							characterElement!.shadow_on_frame = 30;
-							characterElement!.shadow_per_frame_current = 0;
-						}
+							characterElement!.shadow_on_air = false
+							characterElement!.shadow_on_frame = 30
+							characterElement!.shadow_per_frame_current = 0
+							
+							//효과음
+							SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.CharacterJump.rawValue )
+						} //end if
 						
-					}
-				}
+					} //end if [swipe direction]
+				} //end if [isSwipeValid]
 				
-				swipeGestureMoved *= 0.75;
+				swipeGestureMoved *= 0.75
 				if (abs(swipeGestureMoved) < 0.1) {
-					swipeGestureMoved = 0;
-				}
-			}
+					swipeGestureMoved = 0
+				} //end if
+			} //end if [isGameMode]
 		} //////// 제스처 처리 끝
 		
 		//백그라운드 흐름 효과
@@ -478,35 +484,34 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		let defWid:CGFloat = (mapObject.zRotation / MATHPI) * (self.view!.frame.width);
 		if (gameScreenShakeEventDelay > 0) {
 			if (gameScreenShakeEventDelay % 2 == 0) {
-				
 				mapObject.position.x =
-					( mapObject.position.x < defWid ? (12 * (CGFloat(gameScreenShakeEventDelay) / 60)) : (-12 * (CGFloat(gameScreenShakeEventDelay) / 60)) );
-				mapObject.position.x = mapObject.position.x * DeviceManager.scrRatioC;
-				mapObject.position.x += defWid;
+					( mapObject.position.x < defWid ? (12 * (CGFloat(gameScreenShakeEventDelay) / 60)) : (-12 * (CGFloat(gameScreenShakeEventDelay) / 60)) )
+				mapObject.position.x = mapObject.position.x * DeviceManager.scrRatioC
+				mapObject.position.x += defWid
 			}
-			gameScreenShakeEventDelay -= 1;
+			gameScreenShakeEventDelay -= 1
 		} else {
-			gameScreenShakeEventDelay = 0;
-			mapObject.position.x = defWid;
-		}
-		mapObject.position.y = (mapObject.zRotation / MATHPI) * (self.view!.frame.height);
+			gameScreenShakeEventDelay = 0
+			mapObject.position.x = defWid
+		} //end if [screen needs shake]
+		mapObject.position.y = (mapObject.zRotation / MATHPI) * (self.view!.frame.height)
 		
 		//화면 회전 효과
 		if ( hellModeScreenReversed == false ) {
 			if (mapObject.zRotation > 0) {
-				mapObject.zRotation -= MATHPI / 16;
+				mapObject.zRotation -= MATHPI / 16
 				if (mapObject.zRotation <= 0) {
-					mapObject.zRotation = 0;
-				}
-			}
+					mapObject.zRotation = 0
+				} //end if
+			} //end if
 		} else {
 			if (mapObject.zRotation < MATHPI) {
-				mapObject.zRotation += MATHPI / 16;
+				mapObject.zRotation += MATHPI / 16
 				if (mapObject.zRotation >= MATHPI) {
-					mapObject.zRotation = MATHPI;
+					mapObject.zRotation = MATHPI
 				}
 			}
-		}
+		} //end if [HellModeScreenReversedOrNot]
 		
 		//라이프 인디케이터 갱신
 		if (maxScoreGameLife > 0) {
@@ -514,11 +519,11 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			for i:Int in 0 ..< gameLifeNodesArray.count {
 				if ((scoreGameLife-1) >= i) { //라이프 있음 체크
 					if (gameLifeNodesArray[(gameLifeNodesArray.count-1) - i].texture == gameLifeOffTexture) {
-						gameLifeNodesArray[(gameLifeNodesArray.count-1) - i].texture = gameLifeOnTexture;
+						gameLifeNodesArray[(gameLifeNodesArray.count-1) - i].texture = gameLifeOnTexture
 					}
 				} else { //라이프 없음 체크
 					if (gameLifeNodesArray[(gameLifeNodesArray.count-1) - i].texture == gameLifeOnTexture) {
-						gameLifeNodesArray[(gameLifeNodesArray.count-1) - i].texture = gameLifeOffTexture;
+						gameLifeNodesArray[(gameLifeNodesArray.count-1) - i].texture = gameLifeOffTexture
 					}
 				} //라이프 체크 끝
 			} //반복문 종료
@@ -531,30 +536,30 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			if (hellMode == true) {
 				if (hellModeBackgroundCurrentDelay <= 0) {
 					self.backgroundColor = hellModeBackgroundColours[hellModeBackgroundCurrentIndex];
-					hellModeBackgroundCurrentIndex += 1;
+					hellModeBackgroundCurrentIndex += 1
 					if (hellModeBackgroundCurrentIndex >= hellModeBackgroundColours.count) {
-						hellModeBackgroundCurrentIndex = 0;
+						hellModeBackgroundCurrentIndex = 0
 					}
-					hellModeBackgroundCurrentDelay = 8;
+					hellModeBackgroundCurrentDelay = 8
 				} else {
-					hellModeBackgroundCurrentDelay -= 1;
+					hellModeBackgroundCurrentDelay -= 1
 				}
-				repeatBackgroundContainer.alpha = repeatBackgroundContainer.alpha > 0 ? repeatBackgroundContainer.alpha - 0.01 : 0;
+				repeatBackgroundContainer.alpha = repeatBackgroundContainer.alpha > 0 ? repeatBackgroundContainer.alpha - 0.01 : 0
 			} //헬모드 효과 끝
 			
 			if (gameCharacterRetryADScoreTerm <= 0) {
 				if (scoreUPDelayCurrent <= 0) {
-					scoreUPDelayCurrent = Int(round(scoreUPDelayMax));
+					scoreUPDelayCurrent = Int(round(scoreUPDelayMax))
 					
 					if (scoreUPLevel > 10) {
-						gameScore += min(9, Int(round(scoreUPLevel / 5)));
+						gameScore += min(9, Int(round(scoreUPLevel / 5)))
 					} else {
-						gameScore += 1;
-					}
+						gameScore += 1
+					} //end if scoreup level is 10 above.
 					
 					if (gameScore >= 10000 && hellMode == false) {
 						//헬모드 트리거 조건: 게임 점수 1만점 이상
-						hellMode = true;
+						hellMode = true
 					} else {
 						//헬모드 중일 때
 						
@@ -665,6 +670,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 									
 									//경고등 점등
 									characterWarningSprite.isHidden = false
+									
+									//경고등 점등과 함께 효과음
+									SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.EnemyWarning.rawValue )
 								} else if (rdmVars <= 0.05) { //0.5/10 확률로 떨어지는 구름 생성
 									gameRdmElementNum = 7
 									scoreNodesRandomArray = [ 1, 2, 3 ]
@@ -750,56 +758,54 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//Node motion queue
 		// - CharacterMotionQueue
 		if (characterElement!.motions_frame_delay_left <= 0) {
-			characterElement!.motions_current_frame += 1;
+			characterElement!.motions_current_frame += 1
 			switch( characterElement!.motions_current ) {
 				case 0: //walking motion
-					characterElement!.texture = characterElement!.motions_walking[characterElement!.motions_current_frame];
-					characterElement!.motions_frame_delay_left = max(1, 5 - (Int(round(additionalGameScrollSpeed)) - 1)); //per 5f
+					characterElement!.texture = characterElement!.motions_walking[characterElement!.motions_current_frame]
+					characterElement!.motions_frame_delay_left = max(1, 5 - (Int(round(additionalGameScrollSpeed)) - 1)) //per 5f
 					if (characterElement!.motions_current_frame >= characterElement!.motions_walking.count - 1) {
-						characterElement!.motions_current_frame = -1; //frame reset to 0 (-1 > next frame < 0)
+						characterElement!.motions_current_frame = -1 //frame reset to 0 (-1 > next frame < 0)
 					}
-					break;
+					break
 				case 1: //Jump motion
-					characterElement!.texture = characterElement!.motions_jumping[characterElement!.motions_current_frame];
-					characterElement!.motions_frame_delay_left = 5; //per 5f
+					characterElement!.texture = characterElement!.motions_jumping[characterElement!.motions_current_frame]
+					characterElement!.motions_frame_delay_left = 5 //per 5f
 					if (characterElement!.motions_current_frame >= characterElement!.motions_jumping.count - 1) {
-						characterElement!.motions_current_frame = -1; //frame reset to 0 (-1 > next frame < 0)
+						characterElement!.motions_current_frame = -1 //frame reset to 0 (-1 > next frame < 0)
 					}
-					break;
-				default: break;
-			}
+					break
+				default: break
+			} //end switch current motion
 		} else {
 			//delay min
-			characterElement!.motions_frame_delay_left -= 1;
-		}
+			characterElement!.motions_frame_delay_left -= 1
+		} //end if character motion delay
 		
 		//Character jump queue
 		characterElement!.position.y += (characterElement!.ySpeed / 2) * DeviceManager.scrRatioC;
 							/// 1을 더하는 이유는 기종마다 미세한 픽셀 차이로 인해 모션이 안나오는 버그가 있기 때문임
 		if (characterElement!.position.y <= 1 + characterMinYAxis) {
-			characterElement!.position.y = characterMinYAxis;
-			characterElement!.ySpeed = 0;
-			characterElement!.changeMotion(0); //walking motion
-			characterElement!.jumpFlaggedCount = 0; //점프횟수 초기화
-			characterElement!.shadow_on_air = false; //체공 쉐도우 있으면 해제.
+			characterElement!.position.y = characterMinYAxis
+			characterElement!.ySpeed = 0
+			characterElement!.changeMotion(0) //walking motion
+			characterElement!.jumpFlaggedCount = 0 //점프횟수 초기화
+			characterElement!.shadow_on_air = false //체공 쉐도우 있으면 해제.
 		} else {
-			characterElement!.ySpeed -= 0.5 * CGFloat(gameGravity);
-			characterElement!.changeMotion(1); //jumping motion
-		}
+			characterElement!.ySpeed -= 0.5 * CGFloat(gameGravity)
+			characterElement!.changeMotion(1) //jumping motion
+		} //end if
 		
 		//Character-warning queue
 		if (characterWarningSprite.isHidden == false) {
-			characterWarningSprite.position.y = characterElement!.position.y + characterElement!.size.height / 8 + 18 * DeviceManager.scrRatioC;
+			characterWarningSprite.position.y = characterElement!.position.y + characterElement!.size.height / 8 + 18 * DeviceManager.scrRatioC
 		}
 		
 		//캐릭터 무적 처리
 		if (gameCharacterUnlimitedLife > 0) {
-			gameCharacterUnlimitedLife -= 1;
-			
-			characterElement!.alpha = characterElement!.alpha == 0 ? 1 : 0;
-			
+			gameCharacterUnlimitedLife -= 1
+			characterElement!.alpha = characterElement!.alpha == 0 ? 1 : 0
 		} else if (gameCharacterUnlimitedLife <= 0) {
-			characterElement!.alpha = 1;
+			characterElement!.alpha = 1
 		} //end if
 		
 		//캐릭터 Shadow효과 처리
@@ -1043,30 +1049,45 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						addNodes( 10000, posX: gameNodesArray[i]!.position.x, posY: gameNodesArray[i]!.position.y, targetElement: gameNodesArray[i] )
 						gameNodesArray[i]!.elementTickFlag = 1
 					} else if (gameNodesArray[i]!.elementTickFlag == 1 && gameNodesArray[i]!.position.x < distanceFlagOne ) {
+						//점프하는 적 점프 트리거
 						gameNodesArray[i]!.ySpeed = 14 * max(1, CGFloat(gameGravity / 1.1))
 						gameNodesArray[i]!.elementTickFlag = 2
-					}
-					break;
+						
+						//점프하는 적 효과음.
+						SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.EnemyJump.rawValue )
+					} //end if
+					break
 				case 2: break; //물리 영향 없음
 				case 3: //일정 좌표 이후 형태가 변경되는 경우. (구름?)
 					if (gameNodesArray[i]!.position.x < (230 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.65))) * DeviceManager.scrRatioC ) {
 						gameNodesArray[i]!.elementSpeed = 1.8
 						gameNodesArray[i]!.elementFlag = 0
-					}
+						
+						//구름 등 떨어짐 효과음
+						SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.CloudFall.rawValue )
+					} //end if
 					break;
 				case 4: //페이크 가시같은 것들
 					if (gameNodesArray[i]!.position.x < ((260 + speedyObjectAlarmFix) * max(1.0, CGFloat(additionalGameScrollSpeed / 1.85))) * DeviceManager.scrRatioC ) {
 						gameNodesArray[i]!.ySpeed = 21 * max(1, CGFloat(gameGravity / 1.3))
 						gameNodesArray[i]!.elementFlag = 5
 						gameNodesArray[i]!.zRotation = 0
-					}
+						
+						//페이크 가시 점프
+						SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.NiddleJump.rawValue )
+					} //end if
 					break;
 				case 5: //페이크 가시가 거의 올라가면
 					if (gameNodesArray[i]!.ySpeed < 12) {
 						if (gameNodesArray[i]!.zRotation < MATHPI) {
 							gameNodesArray[i]!.zRotation += MATHPI / 16
-						}
-					}
+						} else if (gameNodesArray[i]!.elementTickFlag == 0) {
+							gameNodesArray[i]!.elementTickFlag = 1
+							
+							//가시 떨어짐 효과음
+							SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.NiddleFall.rawValue )
+						} //end if
+					} //end if
 					break;
 				case 6: //날아다니는 AI가 중간에 착지하는 경우
 					if (gameNodesArray[i]!.position.x < (220 * max(1.0, CGFloat(additionalGameScrollSpeed / 1.8))) * DeviceManager.scrRatioC ) {
@@ -1074,7 +1095,10 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						gameNodesArray[i]!.elementFlag = 0
 						gameNodesArray[i]!.motions_walking = gameTexturesAIJMoveTexturesArray
 						gameNodesArray[i]!.motions_jumping = gameTexturesAIJJumpTexturesArray
-					}
+						
+						//날아다니는 AI 착지 효과음
+						SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.EnemyFall.rawValue )
+					} //end if
 					break;
 				case 7: break //반대로 달리는 놈.
 				default: break
@@ -1263,6 +1287,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				toAddelement!.motions_current = 0
 				toAddelement!.motions_walking = gameTexturesAIFlyTexturesArray
 				toAddelement!.elementFlag = 2 //고정형 (물리 안받음)
+				
+				//나는 AI 효과음
+				SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.EnemyFly.rawValue )
 				break
 			case 10:
 				//날다가 땅으로 착지해서 평범하게 걸어가는 미친놈
@@ -1503,6 +1530,11 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		isGamePaused = false
 		uiContents!.menuPausedOverlay.isHidden = false //오버레이는 띄움
 		
+		//Gameover effect
+		SoundManager.playEffectSound( SoundManager.bundleEffectsGeneralGame.Gameover.rawValue )
+		//pause bgm
+		SoundManager.pauseResumeBGMSound( false )
+		
 		//게임오버 창 띄우기
 		externalLifeLeft -= 1
 		if (externalLifeLeft == 0) {
@@ -1547,7 +1579,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	} // end func [Update per 1 seconds]
 	
 	//////// touch evt handler
-	//Swift 2용
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		for touch in touches {
 			let location:CGPoint = (touch as UITouch).location(in: self)
@@ -1575,6 +1606,17 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						characterElement!.ySpeed = CGFloat(characterJumpPower) * max(1, CGFloat(gameGravity / 1.5))
 						characterElement!.jumpFlaggedCount += 1
 						gameUserJumpCount += 1 //점프 횟수 카운트
+						
+						switch(characterElement!.jumpFlaggedCount) {
+							case 1: //1단 점프시 효과음
+								SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.CharacterJump.rawValue )
+								break
+							case 2: //2단 점프시 효과음
+								SoundManager.playEffectSound( SoundManager.bundleEffectsJumpUP.CharacterDoubleJump.rawValue )
+								break
+							default: break
+						} //end switch
+						
 						//통계값 추가 (유효터치)
 						statsGameValidTouchCount += 1
 					} //end if [Jump count limit]

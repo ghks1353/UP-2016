@@ -33,6 +33,25 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 		case GameEffect7 = "effect-game-gozaup-ef7.mp3"
 	} //bundleeffects for GozaUP
 	
+	public enum bundleEffectsJumpUP:String {
+		case CharacterJump = "effect-game-jumpup-jump.wav"
+		case CharacterDoubleJump = "effect-game-jumpup-double-jump.wav"
+		case EnemyJump = "effect-game-jumpup-enemy-jump.wav"
+		case EnemyFall = "effect-game-jumpup-enemy-fall.wav"
+		case EnemyFly = "effect-game-jumpup-ememy-flying.wav"
+		case EnemyWarning = "effect-game-jumpup-warning.wav"
+		
+		case CloudFall = "effect-game-jumpup-cloud-fall.wav"
+		case NiddleJump = "effect-game-jumpup-niddle-jump.wav"
+		case NiddleFall = "effect-game-jumpup-niddle-fall.wav"
+		
+	} //bundleeffects for JumpUP
+	
+	public enum bundleEffectsGeneralGame:String {
+		case Countdown = "effect-game-general-countdown.wav"
+		case Gameover = "effect-game-general-gameover.wav"
+	} //end bundleeffects (general)
+	
 	public enum PlaybackPlayMode {
 		case Default
 		case NormalMode
@@ -42,7 +61,7 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	////////////// system bgm sounds
 	//(중첩불가)
 	static var systemBGMPlayer:AVAudioPlayer?
-	static var effectPlayers:Array<AVAudioPlayer> = []
+	static var cachedEffectSounds:[String:AVAudioPlayer] = [:]
 	static var playingSoundName:String?
 	
 	static var previousPlaybackMode:PlaybackPlayMode = .Default
@@ -52,7 +71,7 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 		
 		if (playingSoundName != nil && systemBGMPlayer != nil) {
 			if (playingSoundName! == soundName) {
-				systemBGMPlayer!.numberOfLoops = repeatCount;
+				systemBGMPlayer!.numberOfLoops = repeatCount
 				return //같은 BGM은 끊었다 재생하지 않음
 			}
 		} //end if
@@ -92,7 +111,7 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 			//일시정지
 			if (systemBGMPlayer != nil) {
 				if (systemBGMPlayer!.isPlaying == true) {
-					systemBGMPlayer!.pause();
+					systemBGMPlayer!.pause()
 				}
 			}
 		} else { //계속
@@ -106,23 +125,40 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	
 	
 	/// Effect
-	static func playEffectSound(_ soundName:String ) {
+	static func playEffectSound(_ soundName:String, destroyAfterCompleted:Bool = false ) {
 		//이펙트는 임시객체가 생성됨.
+		var effectSoundPlayer:AVAudioPlayer?
 		
-		let effectSoundPlayer:AVAudioPlayer = try! AVAudioPlayer( contentsOf: Bundle.main.url(forResource: soundName, withExtension: nil)! )
-		effectSoundPlayer.delegate = sharedInstance
-		effectSoundPlayer.prepareToPlay()
-		effectSoundPlayer.play()
+		if (cachedEffectSounds[ soundName ] == nil) {
+			//Create new object
+			effectSoundPlayer = try! AVAudioPlayer( contentsOf: Bundle.main.url(forResource: soundName, withExtension: nil)! )
+			
+			effectSoundPlayer!.prepareToPlay()
+			
+			cachedEffectSounds[ soundName ] = effectSoundPlayer
+		} else {
+			//Use cached object
+			effectSoundPlayer = cachedEffectSounds[ soundName ]
+		} //end if
 		
-		effectPlayers.append(effectSoundPlayer)
+		if (destroyAfterCompleted) {
+			effectSoundPlayer!.delegate = sharedInstance
+		} //end if
+		
+		effectSoundPlayer!.play()
 	} //end func
 	
 	////////// Audio playback settings
 	
 	////effect delegate
 	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-		SoundManager.effectPlayers.remove( at: SoundManager.effectPlayers.index(of: player)! )
-	}
+		for (k, v) in SoundManager.cachedEffectSounds {
+			if (v == player) {
+				SoundManager.cachedEffectSounds.remove(at: SoundManager.cachedEffectSounds.index(forKey: k)!)
+				break
+			} //end if
+		} //end for
+	} //end func
 	
 	static func setAudioPlayback(_ playMode:PlaybackPlayMode ) {
 		if (playMode == previousPlaybackMode) {

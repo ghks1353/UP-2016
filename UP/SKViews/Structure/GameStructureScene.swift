@@ -31,9 +31,9 @@ class GameStructureScene:SKScene {
 	
 	//Touch handling (this class only handles swipe gesture check)
 	var swipeTouchLayer:SKSpriteNode = SKSpriteNode(color: UIColor.white, size: CGSize(width: 0,height: 0))
-	var touchesLatestPoint:CGPoint = CGPoint(x: 0, y: 0);
+	var touchesLatestPoint:CGPoint = CGPoint(x: 0, y: 0)
 	var swipeGestureMoved:CGFloat = 0; //위 혹은 아래로 이동한 양. 순식간에 사라지도록 해야함
-	var swipeGestureValid:CGFloat = 50 * DeviceManager.maxScrRatioC; //이동한 양에 대한 허용치. scrRatioC로만 하면 패드에서 힘들어질듯
+	var swipeGestureValid:CGFloat = 50 * DeviceManager.maxScrRatioC //이동한 양에 대한 허용치. scrRatioC로만 하면 패드에서 힘들어질듯
 	
 	//Preloader
 	var preloadCompleteCout:Int = 0

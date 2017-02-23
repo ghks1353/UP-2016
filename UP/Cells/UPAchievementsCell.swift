@@ -11,10 +11,10 @@ import UIKit
 
 class UPAchievementsCell:UITableViewCell {
 	
-	internal var achievementID:String = "";
+	var achievementID:String = ""
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesBegan(touches, with: event);
+		super.touchesBegan(touches, with: event)
 	}
 	
 }

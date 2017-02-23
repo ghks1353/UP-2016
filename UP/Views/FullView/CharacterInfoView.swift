@@ -74,19 +74,19 @@ class CharacterInfoView:UIViewController {
 		cBottomButtonsWrapper.addSubview(cAchievement)
 		cBottomButtonsWrapper.addSubview(cTheme)
 		
-		labelAchievement.frame = CGRect(x: cAchievementBackgroundView.frame.minX + -10 * DeviceManager.maxScrRatioC, y: cAchievementBackgroundView.frame.maxY + 6 * DeviceManager.maxScrRatioC, width: 96 * DeviceManager.maxScrRatioC, height: 24)
+		labelAchievement.frame = CGRect(x: cAchievementBackgroundView.frame.minX + -15 * DeviceManager.maxScrRatioC, y: cAchievementBackgroundView.frame.maxY + 6 * DeviceManager.maxScrRatioC, width: 106 * DeviceManager.maxScrRatioC, height: 24)
 		labelAchievement.font = UIFont.systemFont(ofSize: 14)
 		labelAchievement.textColor = UIColor.white
 		labelAchievement.textAlignment = .center
 		labelAchievement.text = LanguagesManager.$("achievements")
 		
-		labelClose.frame = CGRect(x: cClose.frame.minX + -10 * DeviceManager.maxScrRatioC, y: labelAchievement.frame.minY, width: labelAchievement.frame.width, height: labelAchievement.frame.height)
+		labelClose.frame = CGRect(x: cClose.frame.minX + -15 * DeviceManager.maxScrRatioC, y: labelAchievement.frame.minY, width: labelAchievement.frame.width, height: labelAchievement.frame.height)
 		labelClose.font = UIFont.systemFont(ofSize: 14)
 		labelClose.textColor = UIColor.white
 		labelClose.textAlignment = .center
 		labelClose.text = LanguagesManager.$("generalClose")
 		
-		labelTheme.frame = CGRect(x: cThemeBackgroundView.frame.minX + -10 * DeviceManager.maxScrRatioC, y: labelAchievement.frame.minY, width: labelAchievement.frame.width, height: labelAchievement.frame.height)
+		labelTheme.frame = CGRect(x: cThemeBackgroundView.frame.minX + -15 * DeviceManager.maxScrRatioC, y: labelAchievement.frame.minY, width: labelAchievement.frame.width, height: labelAchievement.frame.height)
 		labelTheme.font = UIFont.systemFont(ofSize: 14)
 		labelTheme.textColor = UIColor.white
 		labelTheme.textAlignment = .center
@@ -110,38 +110,47 @@ class CharacterInfoView:UIViewController {
 		cLevelIndicator.image = UIImage( named: "characterinfo-level.png" )
 		cExpWrapper.image = UIImage( named: "characterinfo-exp-wrapper.png" )
 		
-		/// Mask for Exp
-		cExpMaskView.backgroundColor = UIColor.clear
-		
 		cLevelWrapper.frame = CGRect( x: cTopBackgroundView.frame.maxX - 21 * DeviceManager.maxScrRatioC - 139.8 * DeviceManager.maxScrRatioC,
-		                                 y: 40.5 * DeviceManager.maxScrRatioC
+		                                 y: 40 * DeviceManager.maxScrRatioC
 			, width: 139.8 * DeviceManager.maxScrRatioC, height: 84.35 * DeviceManager.maxScrRatioC)
 		cLevelIndicator.frame = CGRect( x: cLevelWrapper.frame.minX - 10 * DeviceManager.maxScrRatioC - 58.05 * DeviceManager.maxScrRatioC,
 		                                   y: 79 * DeviceManager.maxScrRatioC
 			, width: 58.05 * DeviceManager.maxScrRatioC, height: 44.8 * DeviceManager.maxScrRatioC)
-		cExpWrapper.frame = CGRect( x: cTopBackgroundView.frame.minX + 34 * DeviceManager.maxScrRatioC,
-		                               y: 95.5 * DeviceManager.maxScrRatioC
+		cExpWrapper.frame = CGRect( x: cTopBackgroundView.frame.minX + 34 * DeviceManager.maxScrRatioC, y: 95 * DeviceManager.maxScrRatioC
 			,width: 123.95 * DeviceManager.maxScrRatioC, height: 73.85 * DeviceManager.maxScrRatioC)
 		
 		self.view.addSubview(cLevelWrapper)
 		self.view.addSubview(cLevelIndicator)
 		self.view.addSubview(cExpWrapper)
 		
+		//////// MaskView
+		cExpMaskView.frame = CGRect( x: cExpWrapper.frame.minX + 6 * DeviceManager.maxScrRatioC, y: cExpWrapper.frame.minY + 6 * DeviceManager.maxScrRatioC, width: cExpWrapper.frame.width - 17 * DeviceManager.maxScrRatioC, height: cExpWrapper.frame.height - 12 * DeviceManager.maxScrRatioC )
+		cExpMaskView.backgroundColor = UIColor.clear
+		
+		self.view.addSubview(cExpMaskView)
+		
+		let cExpMaskLayer:CAShapeLayer = CAShapeLayer()
+		let cExpMaskRect:CGRect = CGRect(x: 0, y: 0, width: cExpMaskView.frame.width, height: cExpMaskView.frame.height )
+		let cExpMaskPath:CGPath = CGPath(rect: cExpMaskRect, transform: nil)
+		cExpMaskLayer.path = cExpMaskPath
+		cExpMaskView.layer.mask = cExpMaskLayer
+		
+		///// Exp progress bar
+		cExpProgress.backgroundColor = UPUtils.colorWithHexString("#00CC33")
+		
+		//width 100% => 100%
+		cExpProgress.frame = CGRect(x: 0, y: 0, width: cExpMaskView.frame.width, height: cExpMaskView.frame.height)
+		cExpMaskView.addSubview(cExpProgress)
+		
+		//x position to progress maxX
+		cExpProgressAnimation.frame = CGRect( x: 0, y: 0, width: 62 * DeviceManager.maxScrRatioC, height: 62 * DeviceManager.maxScrRatioC )
+		cExpProgressAnimation.animate(withGIFNamed: "characterinfo-exp.gif")
+		//cExpProgressAnimation.
+		cExpMaskView.addSubview(cExpProgressAnimation)
+		
+		
+		
 		/*
-		
-		
-		
-		//마스크용 프레임 배치
-		charExpMaskView.frame = CGRect(x: 30.5 * DeviceManager.modalRatioC, y: charExpWrapper.frame.minY + 3 * DeviceManager.modalRatioC,
-		                                   width: 82 * DeviceManager.modalRatioC, height: 48 * DeviceManager.modalRatioC)
-		let maskLayer:CAShapeLayer = CAShapeLayer()
-		let cMaskRect = CGRect(x: 0, y: 0, width: 82 * DeviceManager.modalRatioC, height: 49 * DeviceManager.modalRatioC)
-		let cPath:CGPath = CGPath(rect: cMaskRect, transform: nil)
-		maskLayer.path = cPath
-		charExpMaskView.layer.mask = maskLayer
-		//charExpMaskView.backgroundColor = UIColor.whiteColor();
-		//경험치 막대
-		charExpProgress.backgroundColor = UPUtils.colorWithHexString("#00CC33");
 		//경험치 막대 옆에 붙는 데코
 		for i:Int in 0 ..< 33 {
 			charExpProgressAnimationImages += [ UIImage( named: "characterinfo-exp-deco-" + String(i) + ".png" )! ];
