@@ -429,10 +429,11 @@ class ViewController: UIViewController {
 	
 	func openCharacterInformationView(_ gst: UITapGestureRecognizer) {
 		//Character information 열기
+		characterInformationFullView.modalTransitionStyle = .crossDissolve
 		characterInformationFullView.modalPresentationStyle = .overFullScreen
 		showHideBlurview(true)
 		
-		self.present(characterInformationFullView, animated: false, completion: nil)
+		self.present(characterInformationFullView, animated: true, completion: nil)
 	} //end func
 	
 	func openGamePlayView(_ gst: UITapGestureRecognizer!) {

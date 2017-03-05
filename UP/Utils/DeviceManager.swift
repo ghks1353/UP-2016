@@ -37,83 +37,84 @@ class DeviceManager {
 	
 	//is 4s or not
 	static var isiPhone4S:Bool = false
+	// is iPad or not
+	static var isiPad:Bool = false
 	
     static func initialDeviceSize() {
         //화면 사이즈를 얻어옴.
-        scrSize = UIScreen.main.bounds;
-		scrSizeForCalcuate = scrSize;
+        scrSize = UIScreen.main.bounds
+		scrSizeForCalcuate = scrSize
 		//가로로 init되는 경우, 세로로init되게 함. (왜냐면 디자인은 다 세로의 배율 기준이기 때문임)
 		//print("Initing device. state landscape is ", UIDevice.currentDevice().orientation.isLandscape == true);
 		if (UIDevice.current.orientation.isLandscape == true || scrSize!.width > scrSize!.height) {
-			scrSizeForCalcuate = CGRect( x: 0, y: 0, width: scrSize!.height, height: scrSize!.width );
-		}
+			scrSizeForCalcuate = CGRect( x: 0, y: 0, width: scrSize!.height, height: scrSize!.width )
+		} //end if
 		
-		scrRatio = Double((scrSizeForCalcuate!.width) / workSize.width);
+		scrRatio = Double((scrSizeForCalcuate!.width) / workSize.width)
 
-		print("Width", scrSize!.width, "Height", scrSize!.height, "Ratio", scrRatio);
+		print("[DeviceManager] Width", scrSize!.width, "Height", scrSize!.height, "Ratio", scrRatio)
 		
-        scrRatioC = CGFloat(scrRatio);
+        scrRatioC = CGFloat(scrRatio)
         //패드에서 거하게 커지는 현상방지
-		maxScrRatio = min(1, scrRatio); maxScrRatioC = CGFloat(maxScrRatio);
+		maxScrRatio = min(1, scrRatio)
+		maxScrRatioC = CGFloat(maxScrRatio)
 		
 		//저퀄리티 사진사용 체크
-		usesLowQualityImage = Double(scrSizeForCalcuate!.height) <= 500 ? true : false;
+		usesLowQualityImage = Double(scrSizeForCalcuate!.height) <= 500 ? true : false
 		
-		print("Checking user interface ipad is", UIDevice.current.userInterfaceIdiom == .pad);
-		changeModalSize();
+		if (UIDevice.current.userInterfaceIdiom == .pad) {
+			DeviceManager.isiPad = true
+		} //end if
 		
-		if (UIDevice.current.userInterfaceIdiom == .phone) {
-			if (scrSize!.height <= 480) {
-				isiPhone4S = true
-			}
-		}
+		changeModalSize()
+		
+		if (!DeviceManager.isiPad && scrSize!.height <= 480) {
+			isiPhone4S = true
+		} //end if
 		
 		//오전/오후 체크
-		let formatString:NSString = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as NSString;
-		is24HourMode = !formatString.contains("a"); // true - 24시모드 / false - 12시모드
+		let formatString:String = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as String
+		is24HourMode = !formatString.contains("a") // true - 24시모드 / false - 12시모드
 		
-    }
+    } //end func
 	
 	static func changeDeviceSizeWith( _ size:CGSize ) {
 		scrSize = CGRect(x: 0, y: 0, width: size.width, height: size.height);
 		
-		print("Initing device. state landscape is ", UIDevice.current.orientation.isLandscape == true);
+		print("[DeviceManager] Initing device. state landscape is ", UIDevice.current.orientation.isLandscape == true)
 		if (UIDevice.current.orientation.isLandscape == true) {
-			scrSizeForCalcuate = CGRect( x: 0, y: 0, width: scrSize!.height, height: scrSize!.width );
-		}
-		changeModalSize();
+			scrSizeForCalcuate = CGRect( x: 0, y: 0, width: scrSize!.height, height: scrSize!.width )
+		} //end if
+		changeModalSize()
 		
 		
-		print("Screen size changed to width", size.width, "height", size.height);
-	}
+		print("[DeviceManager] Screen size changed to width", size.width, "height", size.height);
+	} //end func
 	
 	static func changeModalSize() {
 		
-		if (UIDevice.current.userInterfaceIdiom == .pad) {
+		if (DeviceManager.isiPad) {
 			//패드의 경우, 크기를 미리 지정해줌
-			defaultModalSizeRect = CGRect(x: ((scrSize!.width) - 320) / 2, y: ((scrSize!.height) - 480) / 2 , width: 320, height: 480);
-			resultModalSizeRect = CGRect(x: ((scrSize!.width) - 334) / 2, y: ((scrSize!.height) - 460) / 2 , width: 334, height: 460);
+			defaultModalSizeRect = CGRect(x: ((scrSize!.width) - 320) / 2, y: ((scrSize!.height) - 480) / 2 , width: 320, height: 480)
+			resultModalSizeRect = CGRect(x: ((scrSize!.width) - 334) / 2, y: ((scrSize!.height) - 460) / 2 , width: 334, height: 460)
 			
-			modalRatioC = CGFloat(defaultModalSizeRect.width / (workSize.width - 100));
-			maxModalRatioC = min(1, modalRatioC);
+			modalRatioC = CGFloat(defaultModalSizeRect.width / (workSize.width - 100))
+			maxModalRatioC = min(1, modalRatioC)
 			
-			resultModalRatioC = CGFloat(resultModalSizeRect.width / (workSize.width - 100));
-			resultMaxModalRatioC = min(1, resultModalRatioC);
-		} else {
-			//기타 (폰)의 경우
-			defaultModalSizeRect = CGRect(x: 50 * DeviceManager.scrRatioC , y: (scrSizeForCalcuate!.height - (480 * DeviceManager.scrRatioC)) / 2 , width: scrSizeForCalcuate!.width - (100 * DeviceManager.scrRatioC), height: (480 * DeviceManager.scrRatioC));
-			resultModalSizeRect = CGRect(x: 50 * DeviceManager.scrRatioC , y: (scrSizeForCalcuate!.height - (460 * DeviceManager.scrRatioC)) / 2 , width: scrSizeForCalcuate!.width - (100 * DeviceManager.scrRatioC), height: (460 * DeviceManager.scrRatioC));
+			resultModalRatioC = CGFloat(resultModalSizeRect.width / (workSize.width - 100))
+			resultMaxModalRatioC = min(1, resultModalRatioC)
+		} else { //기타 (폰)의 경우
+			defaultModalSizeRect = CGRect(x: 50 * DeviceManager.scrRatioC , y: (scrSizeForCalcuate!.height - (480 * DeviceManager.scrRatioC)) / 2 , width: scrSizeForCalcuate!.width - (100 * DeviceManager.scrRatioC), height: (480 * DeviceManager.scrRatioC))
+			resultModalSizeRect = CGRect(x: 50 * DeviceManager.scrRatioC , y: (scrSizeForCalcuate!.height - (460 * DeviceManager.scrRatioC)) / 2 , width: scrSizeForCalcuate!.width - (100 * DeviceManager.scrRatioC), height: (460 * DeviceManager.scrRatioC))
 			
-			modalRatioC = DeviceManager.scrRatioC;
-			maxModalRatioC = min(1, modalRatioC);
+			modalRatioC = DeviceManager.scrRatioC
+			maxModalRatioC = min(1, modalRatioC)
 			
-			resultModalRatioC = DeviceManager.scrRatioC;
-			resultMaxModalRatioC = min(1, resultModalRatioC);
-		}
+			resultModalRatioC = DeviceManager.scrRatioC
+			resultMaxModalRatioC = min(1, resultModalRatioC)
+		} //end if
 		
-		
-		
-		print("Modal size changed to width ", defaultModalSizeRect.width, "height", defaultModalSizeRect.height);
-	}
+		print("[DeviceManager] Modal size changed to width ", defaultModalSizeRect.width, "height", defaultModalSizeRect.height)
+	} //end func
 	
-}
+} //end class
