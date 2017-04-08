@@ -49,6 +49,7 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	
 	public enum bundleEffectsGeneralGame:String {
 		case Countdown = "effect-game-general-countdown.wav"
+		case CountdownStart = "effect-game-general-countdown-start.wav"
 		case Gameover = "effect-game-general-gameover.wav"
 	} //end bundleeffects (general)
 	
@@ -216,7 +217,6 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	////////////// alarm sounds
 	static var list:Array<SoundData> = [
 		SoundData(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff"),
-		SoundData(soundName: "Play Play Play (UP test sound)", fileName: "sounds-alarms-test-playplayplay.aiff"),
 		SoundData(soundName: "占쏙옙占쏙옙", fileName: "sounds-alarms-test-sokyepsokyep.aiff"),
 		SoundData(soundName: "냥냥-냐냐-냐냐냐냥", fileName: "sounds-alarms-test-nyancat.aiff")
 	]

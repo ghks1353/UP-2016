@@ -167,7 +167,6 @@ class GameTitleViewJumpUP:UIViewController {
 			SoundManager.playBGMSound(SoundManager.bundleSounds.GameReadyBGM.rawValue, repeatCount: -1)
 			gameStartButtonImage.isHidden = false //Start hidden false
 		} else { //Start auto 3-2-1 counter in Game Mode
-			SoundManager.playEffectSound( SoundManager.bundleEffectsGeneralGame.Countdown.rawValue )
 			aStartTimer = UPUtils.setInterval(1, block: autoGameStartTimer)
 		} //end if [Alarm mode or game mode]
 		
@@ -197,11 +196,14 @@ class GameTitleViewJumpUP:UIViewController {
 		gameAutostartCountdownText.text = String(aStartLeft)
 		if (aStartLeft <= 0) {
 			// 타이머 정지 및 시작
+			SoundManager.playEffectSound( SoundManager.bundleEffectsGeneralGame.CountdownStart.rawValue )
 			if (aStartTimer != nil) {
 				aStartTimer!.invalidate()
 				aStartTimer = nil
 			}
 			gameStartFuncTapHandler(nil)
+		} else { // 3, 2, 1 사운드 재생
+			SoundManager.playEffectSound( SoundManager.bundleEffectsGeneralGame.Countdown.rawValue )
 		} //end if
 	} //end func
 	

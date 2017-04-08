@@ -207,15 +207,6 @@ class ViewController: UIViewController {
 		upExtPackButton.image = UIImage( named: "comp-buyup-icon.png" )
 		upLayerGuideShowButton.image = UIImage( named: "comp-showguide-icon.png" )
 		
-		//디지털시계 이미지 기본 설정
-		/*DigitalCol.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "col.png" )
-		DigitalNum0.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "0.png" )
-		DigitalNum1.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "0.png" )
-		DigitalNum2.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "0.png" )
-		DigitalNum3.image = UIImage( named: ThemeManager.getAssetPresets(themeGroup: .DigitalClock) + "0.png" )
-		DigitalCol.frame.size = CGSize( width: 43.5, height: 60.9 ); //디바이스별 크기 설정은 밑에서 하므로 여긴 원본 크기를 입력함.
-		*/
-		
 		if (DeviceManager.is24HourMode == true) {
 			digitalAMPMIndicator.isHidden = true //24시간에선 오전오후 표시필요가 없음
 		}
@@ -1071,13 +1062,17 @@ class ViewController: UIViewController {
 	
 	func updatePurchaseStates() {
 		//Purchase 상태에 따라 메인 화면의 element 숨김/표시여부 결정.
+		// ... 하려 했는데, 의견에 따라 일단 구매버튼은 그냥 숨기기로
+		
+		upExtPackButton.isHidden = true
+		/*
 		if (PurchaseManager.purchasedItems[PurchaseManager.ProductsID.ExpansionPack.rawValue] == true) {
 			//구매하였으니 버튼 비표시
 			upExtPackButton.isHidden = true
 		} else {
 			//구매 버튼 표시
 			upExtPackButton.isHidden = false
-		} //end if
+		} */ //end if
 	} //end func
 	
 } //end class

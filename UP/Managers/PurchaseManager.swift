@@ -73,7 +73,7 @@ class PurchaseManager {
 			switch result {
 				case .success(let receipt):
 					let purchaseResult = SwiftyStoreKit.verifySubscription(
-						productId: PurchaseManager.ProductsID.ExpansionPack.rawValue,
+						type: SubscriptionType.autoRenewable, productId: PurchaseManager.ProductsID.ExpansionPack.rawValue,
 						inReceipt: receipt, validUntil: Date()
 					) //Verify done
 					switch purchaseResult {

@@ -126,7 +126,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		preloadCompleteCout = 83
 		
 		// 포기까지의 시간
-		gameRetireTime = 200
+		gameRetireTime = 120
 		
 		//////////////////
 		let bgPositionRect:CGRect = CGRect( x: self.view!.frame.width / 2, y: self.view!.frame.height / 2, width: self.view!.frame.width, height: 226.95 * DeviceManager.scrRatioC )
@@ -1005,7 +1005,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						
 							if (gameCharacterUnlimitedLife == 0) {
 								print("Character collision")
-								gameCharacterUnlimitedLife = 120 //무적시간 부여
+								gameCharacterUnlimitedLife = 90 //무적시간 부여
 								gameScreenShakeEventDelay = 60 //화면 흔들림 효과
 								
 								//진동
@@ -1018,9 +1018,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 								switch(gameStartupType) {
 									case .AlarmMode: //알람으로 켜진 경우, 최대 설정된 시간까지 커지도록 시간 추가
 										if (gameScore <= gameLevelAverageTime) {
-											gameScore = min( gameScore + 5, gameTimerMaxTime)
+											gameScore = min( gameScore + 3, gameTimerMaxTime)
 										} else {
-											gameScore = min( gameScore + 7, gameTimerMaxTime)
+											gameScore = min( gameScore + 4, gameTimerMaxTime)
 										} //end if [Alarm time is average time or not]
 										break
 									case .GameMode: //게임 모드로 켜짐
@@ -1558,9 +1558,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			// ~ empty
 		} //end if [UserTime to zero or not]
 		
-		//포기 버튼을 띄워야하면 띄움. (시간도 계산함) 점프횟수가 60번을 넘어야함
+		//포기 버튼을 띄워야하면 띄움. (시간도 계산함) 점프횟수가 30번을 넘어야함
 		if (gameRetireTimeCount >= gameRetireTime && buttonRetireSprite.alpha == 0) {
-			if (gameUserJumpCount > 60) { /// 점프 카운트 60번 이상일 때부터 띄움.
+			if (gameUserJumpCount > 30) { /// 점프 카운트 30번 이상일 때부터 띄움.
 				print("Showing retire button")
 				buttonRetireSprite.alpha = 1
 				let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,

@@ -351,10 +351,17 @@ class CharacterInfoView:UIViewController {
 			tWindowView.alpha = 0
 			tWindowView.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height,
 			                         width: DeviceManager.scrSize!.width, height: tWindowView.frame.height)
+			
+			cCharacterWrapper.frame = CGRect(x: DeviceManager.scrSize!.width / 2 - cCharacterWrapper.frame.width / 2, y: DeviceManager.scrSize!.height / 2 - cCharacterWrapper.frame.height / 2, width: cCharacter.frame.maxX, height: cCharacter.frame.maxY)
+			
 			UIView.animate(withDuration: 0.56, delay: 0, usingSpringWithDamping: 0.72, initialSpringVelocity: 1.5, options: .curveEaseIn, animations: {
 				self.tWindowView.frame = CGRect(x: 0, y: DeviceManager.scrSize!.height - self.tWindowBackgroundBottomView.frame.maxY + 24,
 				                                width: DeviceManager.scrSize!.width, height: self.tWindowView.frame.height)
 				self.tWindowView.alpha = 1
+				
+				//left right margin is 12 (screen)
+				//y좌표 계산 필요
+				self.cCharacterWrapper.frame = CGRect(x: 12, y: DeviceManager.scrSize!.height / 2 - self.cCharacterWrapper.frame.height / 2, width: self.cCharacter.frame.maxX, height: self.cCharacter.frame.maxY)
 			}) { _ in //start completeion block
 			} //end animation block
 			

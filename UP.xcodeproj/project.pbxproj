@@ -152,7 +152,6 @@
 		03E1D1351CF32DB600B552FC /* CharacterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E1D1341CF32DB600B552FC /* CharacterManager.swift */; };
 		770973041DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */; };
 		770973051DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */; };
-		770B5A5B1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 770B5A5A1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff */; };
 		7714CAB71E4B99F800E447E9 /* modal-buy-heroes-real.png in Resources */ = {isa = PBXBuildFile; fileRef = 7714CAB61E4B99F800E447E9 /* modal-buy-heroes-real.png */; };
 		7714CAB91E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7714CAB81E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png */; };
 		7717A6EE1E41BB8D00076E16 /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */; };
@@ -429,6 +428,7 @@
 		776FF7BE1D55B15600E88B1A /* game-jumpup-assets-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7BD1D55B15600E88B1A /* game-jumpup-assets-background.png */; };
 		776FF7C21D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7BF1D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png */; };
 		776FF7C31D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7C01D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png */; };
+		777097971E990BB50074519E /* effect-game-general-countdown-start.wav in Resources */ = {isa = PBXBuildFile; fileRef = 777097961E990BB50074519E /* effect-game-general-countdown-start.wav */; };
 		77782E651C92B0B00016EE1B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E591C92B0B00016EE1B /* CGFloat+Extensions.swift */; };
 		77782E661C92B0B00016EE1B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5A1C92B0B00016EE1B /* CGPoint+Extensions.swift */; };
 		77782E671C92B0B00016EE1B /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77782E5B1C92B0B00016EE1B /* CGVector+Extensions.swift */; };
@@ -668,7 +668,6 @@
 		3446BCAF72D11C596079B5EB /* Pods_UP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		770973021DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-guide-alarm-0.png"; path = "ImageAssets/GameAssets/JumpUP/guides/game-jumpup-assets-guide-alarm-0.png"; sourceTree = "<group>"; };
 		770973031DDDD4D0008DCD64 /* game-jumpup-assets-guide-alarm-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-guide-alarm-1.png"; path = "ImageAssets/GameAssets/JumpUP/guides/game-jumpup-assets-guide-alarm-1.png"; sourceTree = "<group>"; };
-		770B5A5A1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-playplayplay.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-playplayplay.aiff"; sourceTree = "<group>"; };
 		7714CAB61E4B99F800E447E9 /* modal-buy-heroes-real.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-heroes-real.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-heroes-real.png"; sourceTree = "<group>"; };
 		7714CAB81E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-heroes-full-logo.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-heroes-full-logo.png"; sourceTree = "<group>"; };
 		7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteConfigManager.swift; path = Managers/RemoteConfigManager.swift; sourceTree = "<group>"; };
@@ -948,6 +947,7 @@
 		776FF7BD1D55B15600E88B1A /* game-jumpup-assets-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-background.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-background.png"; sourceTree = "<group>"; };
 		776FF7BF1D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-big.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-big.png"; sourceTree = "<group>"; };
 		776FF7C01D55B15D00E88B1A /* game-jumpup-assets-shadow-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-small.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-small.png"; sourceTree = "<group>"; };
+		777097961E990BB50074519E /* effect-game-general-countdown-start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "effect-game-general-countdown-start.wav"; path = "SoundAssets/EffectSounds/General/effect-game-general-countdown-start.wav"; sourceTree = "<group>"; };
 		77782E591C92B0B00016EE1B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGFloat+Extensions.swift"; path = "SKTUtils/CGFloat+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		77782E5A1C92B0B00016EE1B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGPoint+Extensions.swift"; path = "SKTUtils/CGPoint+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		77782E5B1C92B0B00016EE1B /* CGVector+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGVector+Extensions.swift"; path = "SKTUtils/CGVector+Extensions.swift"; sourceTree = SOURCE_ROOT; };
@@ -2119,6 +2119,7 @@
 		778FCD831E5EB6AB000B7FD0 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				777097961E990BB50074519E /* effect-game-general-countdown-start.wav */,
 				778FCD971E5EB6CC000B7FD0 /* effect-game-general-countdown.wav */,
 				778FCD981E5EB6CC000B7FD0 /* effect-game-general-gameover.wav */,
 			);
@@ -2235,7 +2236,6 @@
 		77C3CFC61C6325BE009A183A /* Alarms */ = {
 			isa = PBXGroup;
 			children = (
-				770B5A5A1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff */,
 				77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */,
 				7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */,
 				7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */,
@@ -2789,7 +2789,6 @@
 				7714CAB91E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png in Resources */,
 				03DEB7C21D25D7A40086BEAD /* game-general-guide-right.png in Resources */,
 				772BB1EE1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png in Resources */,
-				770B5A5B1E48474A00A4941E /* sounds-alarms-test-playplayplay.aiff in Resources */,
 				772BB1E71DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-2.png in Resources */,
 				775EAF9F1D51E2EF00BE8C4A /* game-jumpup-assets-cloud-3.png in Resources */,
 				03425B911CD0635700243B28 /* comp-icons-settings-newgames.png in Resources */,
@@ -2927,6 +2926,7 @@
 				775ADBED1C4FC4C700B52552 /* Main.storyboard in Resources */,
 				772BB1DC1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-3.png in Resources */,
 				775EAFA51D51E2EF00BE8C4A /* game-jumpup-assets-score.png in Resources */,
+				777097971E990BB50074519E /* effect-game-general-countdown-start.wav in Resources */,
 				775EB0591D51E64F00BE8C4A /* game-jumpup-assets-guide-3.png in Resources */,
 				77454C131E5447F0003B9678 /* theme-default-time-center.png in Resources */,
 				771977671E48DFE40018EE00 /* effect-game-gozaup-ef2.mp3 in Resources */,
