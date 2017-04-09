@@ -420,11 +420,12 @@ class ViewController: UIViewController {
 	
 	func openCharacterInformationView(_ gst: UITapGestureRecognizer) {
 		//Character information 열기
+		/*
 		characterInformationFullView.modalTransitionStyle = .crossDissolve
 		characterInformationFullView.modalPresentationStyle = .overFullScreen
 		showHideBlurview(true)
 		
-		self.present(characterInformationFullView, animated: true, completion: nil)
+		self.present(characterInformationFullView, animated: true, completion: nil)*/
 	} //end func
 	
 	func openGamePlayView(_ gst: UITapGestureRecognizer!) {
@@ -527,9 +528,9 @@ class ViewController: UIViewController {
         if (DigitalCol.isHidden) {
             //1초주기 실행
             let secondmov:Double = Double(components.minute!) / 60 / 12
-            AnalogHours.transform = CGAffineTransform(rotationAngle: CGFloat(((Double(components.hour!) / 12) + secondmov) * 360) * CGFloat(M_PI) / 180 )
-            AnalogMinutes.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.minute!) / 60) * 360) * CGFloat(M_PI) / 180 )
-			AnalogSeconds.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.second!) / 60) * 360) * CGFloat(M_PI) / 180 )
+            AnalogHours.transform = CGAffineTransform(rotationAngle: CGFloat(((Double(components.hour!) / 12) + secondmov) * 360) * CGFloat(Double.pi) / 180 )
+            AnalogMinutes.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.minute!) / 60) * 360) * CGFloat(Double.pi) / 180 )
+			AnalogSeconds.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.second!) / 60) * 360) * CGFloat(Double.pi) / 180 )
         } //end if
         DigitalCol.isHidden = !DigitalCol.isHidden
 		
@@ -931,9 +932,9 @@ class ViewController: UIViewController {
 		let calendar = Calendar.current
 		let components = (calendar as NSCalendar).components([ .hour, .minute, .second], from: date)
 		let secondmov:Double = Double(components.minute!) / 60 / 12
-		AnalogHours.transform = CGAffineTransform(rotationAngle: CGFloat(((Double(components.hour!) / 12) + secondmov) * 360) * CGFloat(M_PI) / 180 )
-		AnalogMinutes.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.minute!) / 60) * 360) * CGFloat(M_PI) / 180 )
-		AnalogSeconds.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.second!) / 60) * 360) * CGFloat(M_PI) / 180 )
+		AnalogHours.transform = CGAffineTransform(rotationAngle: CGFloat(((Double(components.hour!) / 12) + secondmov) * 360) * CGFloat(Double.pi) / 180 )
+		AnalogMinutes.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.minute!) / 60) * 360) * CGFloat(Double.pi) / 180 )
+		AnalogSeconds.transform = CGAffineTransform(rotationAngle: CGFloat((Double(components.second!) / 60) * 360) * CGFloat(Double.pi) / 180 )
 		
 		//시간대의 변경은 아니지만, 배경의 배율에 따라서 달라지는 부분이 있으므로 변경
 		if (UIDevice.current.userInterfaceIdiom == .pad) {

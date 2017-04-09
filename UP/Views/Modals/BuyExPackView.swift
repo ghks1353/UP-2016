@@ -299,7 +299,7 @@ class BuyExPackView:UIModalView, UIScrollViewDelegate {
 		// 사실 여기서 거의다 히오스때문에 쓸데없는 코드가 늘어남 ㅋㅋ
 		
 		UIView.animateKeyframes(withDuration: 10 - heroesOfTheStormsSpeed, delay: 0, options: UIViewKeyframeAnimationOptions(rawValue: UIViewAnimationOptions.curveLinear.rawValue), animations: {
-			self.greenHeroesOfTheStormImage.transform = self.greenHeroesOfTheStormImage.transform.rotated( by: CGFloat(M_PI) )
+			self.greenHeroesOfTheStormImage.transform = self.greenHeroesOfTheStormImage.transform.rotated( by: CGFloat(Double.pi) )
 			
 			//히오스 코드
 			self.realHOSImage.transform = self.greenHeroesOfTheStormImage.transform

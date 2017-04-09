@@ -119,7 +119,18 @@ class CreditsPopView:UIModalPopView {
 		
 		creditContentsLicense.lineBreakMode = .byCharWrapping
 		creditContentsLicense.text =
-			"Copyright (c) 2016-2017 <Project UP> by Seokhwan An and Seungha hwang."
+			"Open source license\n\n" +
+			"gifu by Reda Lemeden\n" +
+			"SwiftyStoreKit by Andrea Bizzotto\n" +
+			"SwiftyJSON by Ruoyu Fu\n" +
+			"SQLite.swift by Stephen Celis\n" +
+			"CryptoSwift by Marcin Krzyżanowski\n" +
+			"Charts by Daniel Cohen Gindi & Philipp Jahoda\n" +
+			
+			"\n\nSound license\n\n" +
+			"Enterjump by coby12388\nConfirmation Downward by original_sound\nc64_plunk by theta4" +
+			"\nJumpUP BGM sound by NCS, https://goo.gl/jT8JZw" +
+			"\n\n\nCopyright (c) 2016-2017 <Project UP> by Seokhwan An and Seungha hwang."
 		creditContentsLicense.sizeToFit()
 		creditsScrollView.addSubview(creditContentsLicense)
 		

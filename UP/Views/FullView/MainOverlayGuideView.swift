@@ -88,6 +88,11 @@ class MainOverlayGuideView:UIOverlayGuideView {
 		guideCharacterLabel.font = UIFont.systemFont(ofSize: 18)
 		guideCharacterLabel.text = LanguagesManager.$("userCharacterInformation")
 		
+		/// 임시
+		guideCharacterImage.isHidden = true
+		guideCharacterLabel.isHidden = true
+		///////////////////
+		
 		//////add views
 		self.view.addSubview(guideMainClockImageView)
 		self.view.addSubview(guideMainBuyUPImage)
