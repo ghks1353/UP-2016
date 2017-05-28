@@ -11,10 +11,10 @@ import UIKit
 
 class CustomTableCell:UITableDottedCell {
     
-    internal var cellID:String = "";
+    internal var cellID:String = ""
 	
 	//CellID를 가진 범용 커스텀 테이블셀
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesBegan(touches, with: event);
+		super.touchesBegan(touches, with: event)
     }
 }

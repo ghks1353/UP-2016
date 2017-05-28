@@ -11,21 +11,24 @@ import UIKit
 
 class AlarmListCell:UITableViewCell {
 	
-	internal var alarmID:Int = 0;
+	internal var alarmID:Int = 0
 	
-	internal var backgroundImage:UIImageView?;
-	internal var timeText:UILabel?; internal var alarmName:UILabel?;
-	internal var timeAMPM:UILabel?; internal var timeRepeat:UILabel?;
+	internal var backgroundImage:UIImageView?
 	
-	internal var timeHour:Int = 0;
-	internal var timeMinute:Int = 0;
+	internal var timeText:UILabel?
+	internal var alarmName:UILabel?
+	internal var timeAMPM:UILabel?
+	internal var timeRepeat:UILabel?
 	
-	internal var alarmToggled:Bool = false;
+	internal var timeHour:Int = 0
+	internal var timeMinute:Int = 0
+	
+	internal var alarmToggled:Bool = false
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		//AddAlarmView.selfView!.cellFunc(self.cellID);
+		//AddAlarmView.selfView!.cellFunc(self.cellID)
 		
-		super.touchesBegan(touches, with: event);
+		super.touchesBegan(touches, with: event)
 	}
 	
 }

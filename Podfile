@@ -2,12 +2,15 @@ platform :ios, '8.1'
 use_frameworks!
 
 target "UP" do
-	pod 'CryptoSwift', :git => "https://github.com/krzyzanowskim/CryptoSwift", :branch => "master"
-	pod 'SwiftyJSON', :git => "https://github.com/appsailor/SwiftyJSON.git", :branch => "swift3"
+	pod 'CryptoSwift'
+	pod 'SwiftyJSON'
 	pod 'Gifu'
 	pod 'Charts'
     pod 'SQLite.swift'
     pod 'SwiftyStoreKit'
+	
+	pod 'pop'
+	
     pod 'Firebase/Core'
 	pod 'Firebase/Messaging'
 	pod 'Firebase/Crash'

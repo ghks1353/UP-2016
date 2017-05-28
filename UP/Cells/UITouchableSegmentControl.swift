@@ -11,11 +11,11 @@ import UIKit
 
 class UITouchableSegmentControl:UISegmentedControl {
 	
-	internal var touchFunc: (UITouchableSegmentControl)->() = {_ in };
+	internal var touchFunc: (UITouchableSegmentControl)->() = {_ in }
 	
 	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesEnded(touches, with: event);
-		touchFunc( self );
+		super.touchesEnded(touches, with: event)
+		touchFunc( self )
 	}
 	
 }

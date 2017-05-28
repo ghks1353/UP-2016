@@ -40,7 +40,7 @@ class AnalyticsManager {
 	
 	/// Tracking usage by google analytics
 	static func trackScreen( _ screenName:String, registerToArray:Bool = true ) {
-		FIRAnalytics.logEvent(withName: T_ITEM_SCREEN, parameters: [
+		Analytics.logEvent(T_ITEM_SCREEN, parameters: [
 			"target": screenName as NSObject
 			]);
 		print("Tracking", screenName);
@@ -72,7 +72,7 @@ class AnalyticsManager {
 		
 		let gamePlayTime:Int = endTime - startTime;
 		
-		FIRAnalytics.logEvent(withName: T_GAME_RESULTS, parameters: [
+		Analytics.logEvent(T_GAME_RESULTS, parameters: [
 			"id": String(gameID) as NSObject,
 			"isAlarm": String(isAlarm ? "true" : "false") as NSObject,
 			"startTime": dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(startTime))) as NSObject,

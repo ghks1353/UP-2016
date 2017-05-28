@@ -216,6 +216,8 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	
 	////////////// alarm sounds
 	static var list:Array<SoundData> = [
+		SoundData(soundName: "alarmSounds8BitMelody", fileName: "sounds-alarms-8bitmelody.aiff"),
+		
 		SoundData(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff"),
 		SoundData(soundName: "占쏙옙占쏙옙", fileName: "sounds-alarms-test-sokyepsokyep.aiff"),
 		SoundData(soundName: "냥냥-냐냐-냐냐냐냥", fileName: "sounds-alarms-test-nyancat.aiff")

@@ -28,7 +28,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	var gameStageYHeight:CGFloat = 0
 	var gameStageYFoot:CGFloat = 0 //gravity 0 position
 	var gameScrollSpeed:Double = 1 //왼쪽으로 흘러가는 게임 스크롤 스피드.
-	var additionalGameScrollSpeed:Double = 1.2 //추가 게임 스크롤 스피드
+	var additionalGameScrollSpeed:Double = 1.6 //추가 게임 스크롤 스피드
 	
 	var gameGravity:Double = 1 //추가 게임 중력.
 	var characterJumpPower:Float = 11 //캐릭터 점프력.
@@ -574,7 +574,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 					scoreUPDelayCurrent -= 1
 				} //end if [Score UP Delay is 0]
 				//레벨을 일정 주기로 높임
-				scoreUPLevel += 0.0014 //0.0009
+				scoreUPLevel += 0.0024 //0.0009
 			} else {
 				gameCharacterRetryADScoreTerm -= 1
 			} //end if [Character is unbeatable or not]
@@ -584,10 +584,10 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//스크롤 속도 높임
 		if (hellMode == true) {
 			additionalGameScrollSpeed = 3.5 //헬모드 속도 고정
-		} else if ( additionalGameScrollSpeed < 2.5) { //조금 빠르게 올림
+		} else if ( additionalGameScrollSpeed < 2.5) { //조금 빠르게 올림러
 			additionalGameScrollSpeed = min(3.25, 1.24 + (scoreUPLevel / 4))
 		} else { //천천히 올림
-			additionalGameScrollSpeed = min(3.25, additionalGameScrollSpeed + 0.0002 )
+			additionalGameScrollSpeed = min(3.25, additionalGameScrollSpeed + 0.0005 )
 		} //end if [hellmode, scrollspeed]
 		//약간씩 중력 늘림 (스크롤 속도 비례)
 		gameGravity = max(1, additionalGameScrollSpeed / 2)
@@ -598,11 +598,11 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		for i:Int in 0 ..< gameScoreNm {
 			gameNumberSpriteNodesArray[i].texture =
 				gameScoreStr.characters.count < (i + 1) ? gameNumberTexturesArray[0] :
-					gameNumberTexturesArray[ Int(gameScoreStr[ gameScoreStr.characters.count - (i + 1) ])! ];
+					gameNumberTexturesArray[ Int(gameScoreStr[ gameScoreStr.characters.count - (i + 1) ])! ]
 			if (i > 0) { //첫번째 자리수는 무조건 알파가 1.
-				gameNumberSpriteNodesArray[i].alpha = gameScoreStr.characters.count < (i + 1) ? (max(0.5, gameNumberSpriteNodesArray[i].alpha - 0.04)) : (min(1.0, gameNumberSpriteNodesArray[i].alpha + 0.04));
-			}
-		}
+				gameNumberSpriteNodesArray[i].alpha = gameScoreStr.characters.count < (i + 1) ? (max(0.5, gameNumberSpriteNodesArray[i].alpha - 0.04)) : (min(1.0, gameNumberSpriteNodesArray[i].alpha + 0.04))
+			} // end if
+		} // end for [GameScore]
 		
 		//Add decoration elements
 		if (gameCloudDecorationAddDelay <= 0) { //add queue
@@ -740,7 +740,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 						self.addNodes( gameRdmElementNum )
 					} //end check [GameLevel]
 					
-					gameEnemyGenerateDelay = max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 10)))
+					gameEnemyGenerateDelay = max(40, gameEnemyGenerateDelayMAX - Int(round(scoreUPLevel * 6)))
 					//스코어 레벨에 따라 관리
 					//해보니까 빠른속도에 50이하로 내려가긴 힘듬
 					

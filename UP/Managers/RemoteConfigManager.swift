@@ -11,7 +11,7 @@ import Firebase
 
 class RemoteConfigManager {
 	
-	static var rConfig:FIRRemoteConfig? = nil
+	static var rConfig:RemoteConfig? = nil
 	static var rDeveloperMode:Bool = false
 	static var rExpDuration:TimeInterval = 3600 * 2;
 	
@@ -25,12 +25,12 @@ class RemoteConfigManager {
 	]
 	
 	static func initManager() {
-		rConfig = FIRRemoteConfig.remoteConfig()
+		rConfig = RemoteConfig.remoteConfig()
 		#if DEBUG
 			rDeveloperMode = true
 			rExpDuration = 0
 		#endif
-		rConfig!.configSettings = FIRRemoteConfigSettings(developerModeEnabled: rDeveloperMode)!
+		rConfig!.configSettings = RemoteConfigSettings(developerModeEnabled: rDeveloperMode)!
 		rConfig!.setDefaults(rDefaultValues)
 		
 		rConfig!.fetch(withExpirationDuration: rExpDuration) { (status, error) -> Void in

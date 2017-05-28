@@ -242,6 +242,7 @@
 		7739EA841E4E2F8100F62B59 /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA811E4E2F8100F62B59 /* ko.json */; };
 		7739EA871E4E2FCC00F62B59 /* themes.json in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA861E4E2FCC00F62B59 /* themes.json */; };
 		7739EA8A1E4E31EB00F62B59 /* ThemeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7739EA891E4E31EB00F62B59 /* ThemeData.swift */; };
+		7744C75B1EDA790A002A34DE /* sounds-alarms-8bitmelody.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7744C75A1EDA790A002A34DE /* sounds-alarms-8bitmelody.aiff */; };
 		774549F11E504B1F003B9678 /* themes-select-info-locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549EA1E504B1F003B9678 /* themes-select-info-locked.png */; };
 		774549F21E504B1F003B9678 /* themes-select-item-locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549EB1E504B1F003B9678 /* themes-select-item-locked.png */; };
 		774549F31E504B1F003B9678 /* themes-select-item.png in Resources */ = {isa = PBXBuildFile; fileRef = 774549EC1E504B1F003B9678 /* themes-select-item.png */; };
@@ -758,6 +759,7 @@
 		7739EA811E4E2F8100F62B59 /* ko.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ko.json; path = AppPresets/Languages/ko.json; sourceTree = "<group>"; };
 		7739EA861E4E2FCC00F62B59 /* themes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themes.json; path = AppPresets/Themes/themes.json; sourceTree = "<group>"; };
 		7739EA891E4E31EB00F62B59 /* ThemeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeData.swift; path = Managers/StructureClass/ThemeData.swift; sourceTree = "<group>"; };
+		7744C75A1EDA790A002A34DE /* sounds-alarms-8bitmelody.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-8bitmelody.aiff"; path = "SoundAssets/AlarmSounds/sounds-alarms-8bitmelody.aiff"; sourceTree = "<group>"; };
 		774549EA1E504B1F003B9678 /* themes-select-info-locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-info-locked.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-info-locked.png"; sourceTree = "<group>"; };
 		774549EB1E504B1F003B9678 /* themes-select-item-locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-item-locked.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-item-locked.png"; sourceTree = "<group>"; };
 		774549EC1E504B1F003B9678 /* themes-select-item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-item.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-item.png"; sourceTree = "<group>"; };
@@ -2236,6 +2238,7 @@
 		77C3CFC61C6325BE009A183A /* Alarms */ = {
 			isa = PBXGroup;
 			children = (
+				7744C75A1EDA790A002A34DE /* sounds-alarms-8bitmelody.aiff */,
 				77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */,
 				7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */,
 				7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */,
@@ -2499,13 +2502,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 775ADBF61C4FC4C700B52552 /* Build configuration list for PBXNativeTarget "UP" */;
 			buildPhases = (
+				77A0583A1E3CE3BF00E04968 /* Google Firebase Crashing Report Auto Renew */,
 				D55E816CC532B4D47C905E25 /* [CP] Check Pods Manifest.lock */,
 				775ADBE01C4FC4C700B52552 /* Sources */,
 				775ADBE11C4FC4C700B52552 /* Frameworks */,
 				775ADBE21C4FC4C700B52552 /* Resources */,
 				F30876A6F6C881530BD74578 /* [CP] Embed Pods Frameworks */,
 				7C58E00C7C0E1917BA592676 /* [CP] Copy Pods Resources */,
-				77A0583A1E3CE3BF00E04968 /* Google Firebase Crashing Report Auto Renew */,
 			);
 			buildRules = (
 			);
@@ -2969,6 +2972,7 @@
 				77454C871E544A7F003B9678 /* theme-default-guide-buy.png in Resources */,
 				03425B981CD0670800243B28 /* comp-cell-arrow.png in Resources */,
 				03425B781CCEB2E400243B28 /* modal-back.png in Resources */,
+				7744C75B1EDA790A002A34DE /* sounds-alarms-8bitmelody.aiff in Resources */,
 				775EB02B1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect7.png in Resources */,
 				775EB05F1D5255DC00BE8C4A /* game-jumpup-assets-life-off.png in Resources */,
 				03C14D121D2539D60078D10C /* game-general-window-retry.png in Resources */,
@@ -3031,7 +3035,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		F30876A6F6C881530BD74578 /* [CP] Embed Pods Frameworks */ = {

@@ -102,12 +102,12 @@ class PurchaseManager {
 	//// 구매 항목 복원
 	static func restorePurchases( callback:@escaping (( _ result:Bool ) -> Void) ) {
 		SwiftyStoreKit.restorePurchases(atomically: true) { results in
-			if results.restoreFailedProducts.count > 0 {
-				print("Restore Failed: \(results.restoreFailedProducts)")
+			if results.restoreFailedPurchases.count > 0 {
+				print("Restore Failed: \(results.restoreFailedPurchases)")
 				callback( false )
 				return
-			} else if results.restoredProducts.count > 0 {
-				print("Restore Success: \(results.restoredProducts)")
+			} else if results.restoredPurchases.count > 0 {
+				print("Restore Success: \(results.restoredPurchases)")
 			} else {
 				print("Nothing to Restore")
 			}

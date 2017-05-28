@@ -2,40 +2,42 @@ PODS:
   - Charts (3.0.2):
     - Charts/Core (= 3.0.2)
   - Charts/Core (3.0.2)
-  - CryptoSwift (0.6.8)
-  - Firebase/Core (3.15.0):
-    - FirebaseAnalytics (= 3.7.0)
-    - FirebaseCore (= 3.5.2)
-  - Firebase/Crash (3.15.0):
+  - CryptoSwift (0.6.9)
+  - Firebase/Core (4.0.0):
+    - FirebaseAnalytics (= 4.0.0)
+    - FirebaseCore (= 4.0.0)
+  - Firebase/Crash (4.0.0):
     - Firebase/Core
-    - FirebaseCrash (= 1.1.6)
-  - Firebase/Messaging (3.15.0):
+    - FirebaseCrash (= 2.0.0)
+  - Firebase/Messaging (4.0.0):
     - Firebase/Core
-    - FirebaseMessaging (= 1.2.2)
-  - Firebase/RemoteConfig (3.15.0):
+    - FirebaseMessaging (= 2.0.0)
+  - Firebase/RemoteConfig (4.0.0):
     - Firebase/Core
-    - FirebaseRemoteConfig (= 1.3.4)
-  - FirebaseAnalytics (3.7.0):
-    - FirebaseCore (~> 3.5)
-    - FirebaseInstanceID (~> 1.0)
+    - FirebaseRemoteConfig (= 2.0.0)
+  - FirebaseAnalytics (4.0.0):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseCore (3.5.2):
+  - FirebaseCore (4.0.0):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseCrash (1.1.6):
-    - FirebaseAnalytics (~> 3.7)
-    - FirebaseInstanceID (~> 1.0)
+  - FirebaseCrash (2.0.0):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - Protobuf (~> 3.1)
-  - FirebaseInstanceID (1.0.9)
-  - FirebaseMessaging (1.2.2):
-    - FirebaseAnalytics (~> 3.7)
-    - FirebaseInstanceID (~> 1.0)
+  - FirebaseInstanceID (2.0.0):
+    - FirebaseCore (~> 4.0)
+  - FirebaseMessaging (2.0.0):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - Protobuf (~> 3.1)
-  - FirebaseRemoteConfig (1.3.4):
-    - FirebaseAnalytics (~> 3.7)
-    - FirebaseInstanceID (~> 1.0)
+  - FirebaseRemoteConfig (2.0.0):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - Protobuf (~> 3.1)
   - Gifu (1.2.1)
@@ -45,60 +47,47 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
-  - Protobuf (3.2.1)
+  - pop (1.0.9)
+  - Protobuf (3.3.0)
   - SQLite.swift (0.11.2):
     - SQLite.swift/standard (= 0.11.2)
   - SQLite.swift/standard (0.11.2)
-  - SwiftyJSON (3.0.0)
-  - SwiftyStoreKit (0.8.4)
+  - SwiftyJSON (3.1.4)
+  - SwiftyStoreKit (0.10.1)
 
 DEPENDENCIES:
   - Charts
-  - CryptoSwift (from `https://github.com/krzyzanowskim/CryptoSwift`, branch `master`)
+  - CryptoSwift
   - Firebase/Core
   - Firebase/Crash
   - Firebase/Messaging
   - Firebase/RemoteConfig
   - Gifu
   - GoogleIDFASupport
+  - pop
   - SQLite.swift
-  - SwiftyJSON (from `https://github.com/appsailor/SwiftyJSON.git`, branch `swift3`)
+  - SwiftyJSON
   - SwiftyStoreKit
-
-EXTERNAL SOURCES:
-  CryptoSwift:
-    :branch: master
-    :git: https://github.com/krzyzanowskim/CryptoSwift
-  SwiftyJSON:
-    :branch: swift3
-    :git: https://github.com/appsailor/SwiftyJSON.git
-
-CHECKOUT OPTIONS:
-  CryptoSwift:
-    :commit: b1a4e7890ff979579a40138d74f1528de6f44d64
-    :git: https://github.com/krzyzanowskim/CryptoSwift
-  SwiftyJSON:
-    :commit: de73429b38b8994f614fb27c5ec094bb8a4833f2
-    :git: https://github.com/appsailor/SwiftyJSON.git
 
 SPEC CHECKSUMS:
   Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
-  CryptoSwift: 769c3796bb40f94f7b0fb4f829eaebb67fde9897
-  Firebase: 2b1cdfba1cda8589f32904a697cc753322bff9d8
-  FirebaseAnalytics: 0d1b7d81d5021155be37702a94ba1ec16d45365d
-  FirebaseCore: a024587e43778508700af8c6b1209f7c4516ba02
-  FirebaseCrash: db4c05d9c75baa050744d31b36357c8f1efba481
-  FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
-  FirebaseMessaging: df8267f378580a24174ce7861233aa11d5c90109
-  FirebaseRemoteConfig: af3003f4e8daa2bd1d5cf90d3cccc1fe224f8ed9
+  CryptoSwift: a22f6ba238e9ce4d26ee7bf45b9ed82e7122d4a0
+  Firebase: 284eea779b73fdff309791817da7c68bff8dd572
+  FirebaseAnalytics: 6f08e746f7d66f5452931bc2e822b5df9c66b64a
+  FirebaseCore: 85ad466044c2f013cdb167f85d426d15b128114a
+  FirebaseCrash: 600ec2cbd8e10c3064a42de2c6ee7687bd02a076
+  FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
+  FirebaseMessaging: 227406c05b0dc9290702d2e9f18ab5528f0c2cf2
+  FirebaseRemoteConfig: b1bde8c572a1ca13558b5b179f4563cb877aa34b
   Gifu: 0eab1ca24a4adbd949338bcb71a8556748cb2d28
   GoogleIDFASupport: aaf8c10bd429abb1c15349d5252244f5eda8ead1
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  Protobuf: 2ccbaf193f6c65adc67745453ca0c13234c32796
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
   SQLite.swift: 670c3e9e0a806bbfd56a3de5d530768dc0e6fe7c
-  SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
-  SwiftyStoreKit: b235756bd6e541cafbed6e75d28b29b8a1c1caef
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  SwiftyStoreKit: 1efe75032fa16140176863c080268cf0319b520d
 
-PODFILE CHECKSUM: 88c95e5b63def66be42c27404bc598842e91c648
+PODFILE CHECKSUM: e7f7157e35a982997353b3f8ef162cde98fb9432
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1

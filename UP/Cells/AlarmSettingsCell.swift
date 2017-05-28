@@ -11,14 +11,14 @@ import UIKit
 
 class AlarmSettingsCell:UITableDottedCell {
 	
-	internal var cellID:String = "";
-	internal var cellElement:AnyObject?;
-	internal var cellSubElement:AnyObject?;
+	internal var cellID:String = ""
+	internal var cellElement:AnyObject?
+	internal var cellSubElement:AnyObject?
 	
-	internal var cellImageViewElement:UIImageView?;
+	internal var cellImageViewElement:UIImageView?
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesBegan(touches, with: event);
+		super.touchesBegan(touches, with: event)
 	}
 	
 }

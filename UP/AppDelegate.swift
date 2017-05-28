@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//Unityads init
 		UnityAdsManager.initManager()
 		//Firebase init
-		FIRApp.configure()
+		FirebaseApp.configure()
 		//Firebase remoteconfig init
 		RemoteConfigManager.initManager()
 		
@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		//add observer to fir
 		NotificationCenter.default.addObserver(self,
 		                                       selector: #selector(self.tokenRefreshNotification),
-		                                       name: .firInstanceIDTokenRefresh,
+		                                       name: NSNotification.Name.InstanceIDTokenRefresh,
 		                                       object: nil)
 		
 		if #available(iOS 10.0, *) {
@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		print("[UP] App will background")
 		DeviceManager.appIsBackground = true
 		AlarmManager.mergeAlarm()
-		FIRMessaging.messaging().disconnect()
+		Messaging.messaging().disconnect()
 		
 		SoundManager.setAudioPlayback( .AlarmMode )
 	}
@@ -237,22 +237,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		#if DEBUG
 			print("[UP] FIRInstance APS using debug mode.")
 			//usb 연결해서 테스트하는거면 sandbox 사용
-			FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.sandbox)
+			Messaging.messaging().setAPNSToken(deviceToken as Data, type: MessagingAPNSTokenType.sandbox)
 		#else
 			print("[UP] FIRInstance APS using release mode.")
 			//앱스토어에 올리거나 애드혹인 경우 prod 사용
-			FIRInstanceID.instanceID().setAPNSToken(deviceToken as Data, type: FIRInstanceIDAPNSTokenType.prod)
+			Messaging.messaging().setAPNSToken(deviceToken as Data, type: MessagingAPNSTokenType.prod)
 		#endif
 	} //end func
 	/////////// FCM Receive
 	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
 		print("[UP] Received pushmsg")
 		
-		FIRMessaging.messaging().appDidReceiveMessage( userInfo )
+		Messaging.messaging().appDidReceiveMessage( userInfo )
 		handlePushMessage( userInfo )
 	} //end func
 	func tokenRefreshNotification(_ notification: Notification) {
-		if let refreshedToken = FIRInstanceID.instanceID().token() {
+		if let refreshedToken = InstanceID.instanceID().token() {
 			print("[UP] InstanceID token: \(refreshedToken)")
 		}
 		
@@ -261,22 +261,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	}
 	func connectToFcm() {
 		// Won't connect since there is no token
-		guard FIRInstanceID.instanceID().token() != nil else {
+		guard InstanceID.instanceID().token() != nil else {
 			return
 		}
 		
-		// Disconnect previous FCM connection if it exists.
-		FIRMessaging.messaging().disconnect()
+		// Connect to FCM Channel
+		Messaging.messaging().shouldEstablishDirectChannel = true
 		
-		FIRMessaging.messaging().connect { (error) in
-			if error != nil {
-				print("[UP] Unable to connect with FCM. \(String(describing: error))")
-			} else {
-				print("[UP] Connected to FCM.")
-				FIRMessaging.messaging().subscribe(toTopic: FirebaseTopicManager.Topics.GeneralUser.rawValue)
-			}
-		}
-	}
+		if (Messaging.messaging().isDirectChannelEstablished) {
+			print("[UP] Connected to FCM.")
+			Messaging.messaging().subscribe(toTopic: FirebaseTopicManager.Topics.GeneralUser.rawValue)
+		} // end if
+		
+	} // end func
 	//////////////////
 	func handlePushMessage(_ usrInfo:[AnyHashable : Any]? ) {
 		//Handling push/local notify

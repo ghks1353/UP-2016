@@ -105,7 +105,7 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
         tableView.backgroundColor = UPUtils.colorWithHexString("#FAFAFA")
 		
 		//Document상에서는 iOS 8부터임
-		listConfirmAction = UIAlertController(title: LanguagesManager.$("alarmDeleteTitle"), message: LanguagesManager.$("alarmDeleteSure"), preferredStyle: .actionSheet)
+		listConfirmAction = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		//add menus
 		let cancelAct:UIAlertAction = UIAlertAction(title: LanguagesManager.$("generalCancel"), style: .cancel) { action -> Void in
 			//Cancel just dismiss it
