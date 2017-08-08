@@ -84,6 +84,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		} //fin
 		*/
 		
+		
+		//verify product if available
+		PurchaseManager.autoVerifyPurchases()
+		
 		let nsURL:URL = Bundle.main.url( forResource: "up_background_task_alarm" , withExtension: "mp3")!
 		do {
 			self.alarmBackgroundTaskPlayer = try AVAudioPlayer( contentsOf: nsURL, fileTypeHint: nil )
@@ -203,9 +207,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		if (AlarmRingView.selfView != nil) {
 			AlarmRingView.selfView!.lastActivatedTimeAfter = 0
 		}
-		
-		//verify product if available
-		PurchaseManager.autoVerifyPurchases()
 		
 		self.alarmBackgroundTaskPlayer!.stop()
     } //end func

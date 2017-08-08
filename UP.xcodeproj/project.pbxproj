@@ -162,7 +162,6 @@
 		7717A6FA1E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F91E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png */; };
 		7717A6FC1E43510000076E16 /* comp-loading-preloader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6FB1E43510000076E16 /* comp-loading-preloader.gif */; };
 		7717A6FE1E4382C200076E16 /* comp-showguide-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6FD1E4382C200076E16 /* comp-showguide-icon.png */; };
-		7717A7051E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */; };
 		7717A7071E439D7900076E16 /* comp-guideclose-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A7061E439D7900076E16 /* comp-guideclose-icon.png */; };
 		771977521E48DAEA0018EE00 /* game-general-start.png in Resources */ = {isa = PBXBuildFile; fileRef = 771977511E48DAEA0018EE00 /* game-general-start.png */; };
 		771977581E48DFBD0018EE00 /* game-gozaup-assets-cheeta.png in Resources */ = {isa = PBXBuildFile; fileRef = 771977541E48DFBD0018EE00 /* game-gozaup-assets-cheeta.png */; };
@@ -235,7 +234,6 @@
 		772BB1EE1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1EB1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png */; };
 		772BB1EF1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1EC1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png */; };
 		772BB1F01DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 772BB1ED1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png */; };
-		7732D2D11DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */; };
 		7739EA7D1E4DF07600F62B59 /* themes-select-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA7C1E4DF07600F62B59 /* themes-select-background.png */; };
 		7739EA821E4E2F8100F62B59 /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA7F1E4E2F8100F62B59 /* en.json */; };
 		7739EA831E4E2F8100F62B59 /* ja.json in Resources */ = {isa = PBXBuildFile; fileRef = 7739EA801E4E2F8100F62B59 /* ja.json */; };
@@ -425,6 +423,9 @@
 		775EB05B1D524C7800BE8C4A /* game-jumpup-assets-warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EB05A1D524C7800BE8C4A /* game-jumpup-assets-warning.png */; };
 		775EB05D1D52544900BE8C4A /* game-jumpup-assets-life-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EB05C1D52544900BE8C4A /* game-jumpup-assets-life-on.png */; };
 		775EB05F1D5255DC00BE8C4A /* game-jumpup-assets-life-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 775EB05E1D5255DC00BE8C4A /* game-jumpup-assets-life-off.png */; };
+		776070531F2CCA1000ACE8EC /* sounds-alarms-beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 776070521F2CCA1000ACE8EC /* sounds-alarms-beep.aiff */; };
+		776070561F2DFB1700ACE8EC /* effect-game-general-time-down-last.wav in Resources */ = {isa = PBXBuildFile; fileRef = 776070541F2DFB1700ACE8EC /* effect-game-general-time-down-last.wav */; };
+		776070571F2DFB1700ACE8EC /* effect-game-general-time-down.wav in Resources */ = {isa = PBXBuildFile; fileRef = 776070551F2DFB1700ACE8EC /* effect-game-general-time-down.wav */; };
 		776FF7BC1D545C0800E88B1A /* game-jumpup-assets-playpreview.gif in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7BB1D545C0700E88B1A /* game-jumpup-assets-playpreview.gif */; };
 		776FF7BE1D55B15600E88B1A /* game-jumpup-assets-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7BD1D55B15600E88B1A /* game-jumpup-assets-background.png */; };
 		776FF7C21D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png in Resources */ = {isa = PBXBuildFile; fileRef = 776FF7BF1D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png */; };
@@ -679,7 +680,6 @@
 		7717A6F91E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-alarm-ad-off.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-alarm-ad-off.png"; sourceTree = "<group>"; };
 		7717A6FB1E43510000076E16 /* comp-loading-preloader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "comp-loading-preloader.gif"; path = "ImageAssets/Components/comp-loading-preloader.gif"; sourceTree = "<group>"; };
 		7717A6FD1E4382C200076E16 /* comp-showguide-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-showguide-icon.png"; path = "ImageAssets/Components/comp-showguide-icon.png"; sourceTree = "<group>"; };
-		7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-nyancat.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-nyancat.aiff"; sourceTree = "<group>"; };
 		7717A7061E439D7900076E16 /* comp-guideclose-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-guideclose-icon.png"; path = "ImageAssets/Components/comp-guideclose-icon.png"; sourceTree = "<group>"; };
 		771977511E48DAEA0018EE00 /* game-general-start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-general-start.png"; path = "ImageAssets/GameAssets/General/game-general-start.png"; sourceTree = "<group>"; };
 		771977541E48DFBD0018EE00 /* game-gozaup-assets-cheeta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-gozaup-assets-cheeta.png"; path = "ImageAssets/GameAssets/GozaUP/game-gozaup-assets-cheeta.png"; sourceTree = "<group>"; };
@@ -752,7 +752,6 @@
 		772BB1EB1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-0.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-0.png"; sourceTree = "<group>"; };
 		772BB1EC1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-1.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-1.png"; sourceTree = "<group>"; };
 		772BB1ED1DE8D2BF0054B3EF /* game-jumpup-assets-shadow-tiny-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-tiny-2.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-tiny-2.png"; sourceTree = "<group>"; };
-		7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-sokyepsokyep.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-sokyepsokyep.aiff"; sourceTree = "<group>"; };
 		7739EA7C1E4DF07600F62B59 /* themes-select-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "themes-select-background.png"; path = "ImageAssets/ModalWindows/Themes/ThemeSelect/themes-select-background.png"; sourceTree = "<group>"; };
 		7739EA7F1E4E2F8100F62B59 /* en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = en.json; path = AppPresets/Languages/en.json; sourceTree = "<group>"; };
 		7739EA801E4E2F8100F62B59 /* ja.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ja.json; path = AppPresets/Languages/ja.json; sourceTree = "<group>"; };
@@ -945,6 +944,9 @@
 		775EB05A1D524C7800BE8C4A /* game-jumpup-assets-warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-warning.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-warning.png"; sourceTree = "<group>"; };
 		775EB05C1D52544900BE8C4A /* game-jumpup-assets-life-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-life-on.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-life-on.png"; sourceTree = "<group>"; };
 		775EB05E1D5255DC00BE8C4A /* game-jumpup-assets-life-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-life-off.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-life-off.png"; sourceTree = "<group>"; };
+		776070521F2CCA1000ACE8EC /* sounds-alarms-beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-beep.aiff"; path = "SoundAssets/AlarmSounds/sounds-alarms-beep.aiff"; sourceTree = "<group>"; };
+		776070541F2DFB1700ACE8EC /* effect-game-general-time-down-last.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "effect-game-general-time-down-last.wav"; path = "SoundAssets/EffectSounds/General/effect-game-general-time-down-last.wav"; sourceTree = "<group>"; };
+		776070551F2DFB1700ACE8EC /* effect-game-general-time-down.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "effect-game-general-time-down.wav"; path = "SoundAssets/EffectSounds/General/effect-game-general-time-down.wav"; sourceTree = "<group>"; };
 		776FF7BB1D545C0700E88B1A /* game-jumpup-assets-playpreview.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "game-jumpup-assets-playpreview.gif"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-playpreview.gif"; sourceTree = "<group>"; };
 		776FF7BD1D55B15600E88B1A /* game-jumpup-assets-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-background.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-background.png"; sourceTree = "<group>"; };
 		776FF7BF1D55B15D00E88B1A /* game-jumpup-assets-shadow-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-shadow-big.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-shadow-big.png"; sourceTree = "<group>"; };
@@ -2121,6 +2123,8 @@
 		778FCD831E5EB6AB000B7FD0 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				776070541F2DFB1700ACE8EC /* effect-game-general-time-down-last.wav */,
+				776070551F2DFB1700ACE8EC /* effect-game-general-time-down.wav */,
 				777097961E990BB50074519E /* effect-game-general-countdown-start.wav */,
 				778FCD971E5EB6CC000B7FD0 /* effect-game-general-countdown.wav */,
 				778FCD981E5EB6CC000B7FD0 /* effect-game-general-gameover.wav */,
@@ -2238,10 +2242,9 @@
 		77C3CFC61C6325BE009A183A /* Alarms */ = {
 			isa = PBXGroup;
 			children = (
+				776070521F2CCA1000ACE8EC /* sounds-alarms-beep.aiff */,
 				7744C75A1EDA790A002A34DE /* sounds-alarms-8bitmelody.aiff */,
 				77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */,
-				7732D2CF1DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff */,
-				7717A7041E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff */,
 			);
 			name = Alarms;
 			sourceTree = "<group>";
@@ -2502,8 +2505,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 775ADBF61C4FC4C700B52552 /* Build configuration list for PBXNativeTarget "UP" */;
 			buildPhases = (
-				77A0583A1E3CE3BF00E04968 /* Google Firebase Crashing Report Auto Renew */,
 				D55E816CC532B4D47C905E25 /* [CP] Check Pods Manifest.lock */,
+				77A0583A1E3CE3BF00E04968 /* Google Firebase Crashing Report Auto Renew */,
 				775ADBE01C4FC4C700B52552 /* Sources */,
 				775ADBE11C4FC4C700B52552 /* Frameworks */,
 				775ADBE21C4FC4C700B52552 /* Resources */,
@@ -2640,6 +2643,7 @@
 				774549F41E504B1F003B9678 /* themes-select-side-down-left.png in Resources */,
 				032318C11CFA1D010052732F /* achievements-icon-blank.png in Resources */,
 				775EB02C1D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect8.png in Resources */,
+				776070531F2CCA1000ACE8EC /* sounds-alarms-beep.aiff in Resources */,
 				0323190D1CFB5C7B0052732F /* characterinfo-exp-deco-3.png in Resources */,
 				77454C881E544A7F003B9678 /* theme-default-guide-center.png in Resources */,
 				772BB1DB1DE8BDAC0054B3EF /* game-jumpup-ai-j-astro-move-2.png in Resources */,
@@ -2704,7 +2708,6 @@
 				775EAF991D51E2EF00BE8C4A /* game-jumpup-assets-alram-reset.png in Resources */,
 				77454BC41E544761003B9678 /* theme-default-list-back-sunset-ipad-off.png in Resources */,
 				0323191E1CFB5C7B0052732F /* characterinfo-exp-deco-20.png in Resources */,
-				7732D2D11DEA767700E47542 /* sounds-alarms-test-sokyepsokyep.aiff in Resources */,
 				77454C3E1E54485A003B9678 /* theme-default-digital-black-0.png in Resources */,
 				771CD1581E478DB600574AD8 /* modal-guide-alarm-images-all-1-general.png in Resources */,
 				0323191F1CFB5C7B0052732F /* characterinfo-exp-deco-21.png in Resources */,
@@ -2718,6 +2721,7 @@
 				775EB0561D51E64F00BE8C4A /* game-jumpup-assets-guide-0.png in Resources */,
 				7717A6F21E41CF8900076E16 /* bgm-game-jumpup-field.mp3 in Resources */,
 				7717A6F31E41CF8900076E16 /* bgm-game-waiting.mp3 in Resources */,
+				776070561F2DFB1700ACE8EC /* effect-game-general-time-down-last.wav in Resources */,
 				778FCD821E5B14B5000B7FD0 /* characterinfo-exp.gif in Resources */,
 				7717A6FA1E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png in Resources */,
 				77454C0C1E5447DE003B9678 /* theme-default-object-standing.png in Resources */,
@@ -2771,7 +2775,6 @@
 				775EAF981D51E2EF00BE8C4A /* game-jumpup-assets-alram-off.png in Resources */,
 				771CD1591E478DB600574AD8 /* modal-guide-alarm-images-all-2-general.png in Resources */,
 				77454BD41E544779003B9678 /* theme-default-list-back-sunset-ldpi-off.png in Resources */,
-				7717A7051E438E8E00076E16 /* sounds-alarms-test-nyancat.aiff in Resources */,
 				0391ABCD1D25B4A00051F3A6 /* game-general-window-btn-close.png in Resources */,
 				77454BE21E54478F003B9678 /* theme-default-list-back-night-off.png in Resources */,
 				77454BCE1E544779003B9678 /* theme-default-list-back-daytime-ldpi-off.png in Resources */,
@@ -2788,6 +2791,7 @@
 				772BB1D21DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-4.png in Resources */,
 				775EB0281D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect4.png in Resources */,
 				77454BF31E5447AF003B9678 /* theme-default-ground-daytime-pad43.png in Resources */,
+				776070571F2DFB1700ACE8EC /* effect-game-general-time-down.wav in Resources */,
 				774549F11E504B1F003B9678 /* themes-select-info-locked.png in Resources */,
 				7714CAB91E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png in Resources */,
 				03DEB7C21D25D7A40086BEAD /* game-general-guide-right.png in Resources */,
@@ -3006,7 +3010,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Replace this path with the path to the key you just downloaded\nJSON_FILE=${SRCROOT}/Firebase/ServiceAccount.json\n\n# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:821076026620:ios:ced33bf14d2fd64f\n\ndefaults write com.google.SymbolUpload version -integer 1\n\nJSON=$(cat \"${JSON_FILE}\")\n/usr/bin/plutil -replace \"app_${GOOGLE_APP_ID//:/_}\" -json \"${JSON}\" \"$HOME/Library/Preferences/com.google.SymbolUpload.plist\"\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym\n";
+			shellScript = "# Replace this path with the path to the key you just downloaded\nJSON_FILE=${SRCROOT}/Firebase/ServiceAccount.json\n\n# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:821076026620:ios:ced33bf14d2fd64f\n\ndefaults write com.google.SymbolUpload version -integer 1\n\nJSON=$(cat \"${JSON_FILE}\")\n/usr/bin/plutil -replace \"app_${GOOGLE_APP_ID//:/_}\" -json \"${JSON}\" \"$HOME/Library/Preferences/com.google.SymbolUpload.plist\"\n#\"${PODS_ROOT}\"/FirebaseCrash/upload-sym\n";
 		};
 		7C58E00C7C0E1917BA592676 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

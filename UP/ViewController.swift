@@ -112,6 +112,9 @@ class ViewController: UIViewController {
 	//// 앱 실행 시 한번만, 웹브라우저 띄우기 (공지사항 같은)
 	var isNoticeCalled:Bool = false
 	
+	/// 알람을 끝나고 나온 경우 안내 멘트 표시
+	var alarmFinishedTransition:Bool = false
+	
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -344,6 +347,8 @@ class ViewController: UIViewController {
 			GlobalSubView.startingGuideView.modalPresentationStyle = .overFullScreen
 			self.present(GlobalSubView.startingGuideView, animated: true, completion: nil)
 			//modal call의 경우 스타트가이드를 보여준 상태에서는 스타트가이드 종료시 보여주도록 함
+			
+			return
 		} else {
 			//스타트가이드를 이미 본 상태이면
 			callShowNoticeModal()
@@ -974,6 +979,8 @@ class ViewController: UIViewController {
 	////////////////////////////
 	//notify on scr
 	func showMessageOnView( _ message:String, backgroundColorHex:String, textColorHex:String ) {
+		print("Trying to show message", message)
+		
 		if (upAlarmMessageView.isHidden == false) {
 			//몇초 뒤 나타나게 함.
 			_ = UPUtils.setTimeout(2.5, block: {_ in
@@ -981,6 +988,7 @@ class ViewController: UIViewController {
 				})
 			return
 		}
+		print("Showing message", message)
 		
 		self.view.bringSubview(toFront: upAlarmMessageView)
 		upAlarmMessageView.isHidden = false
@@ -1031,8 +1039,11 @@ class ViewController: UIViewController {
 	///// 공지사항 띄움
 	func callShowNoticeModal() {
 		if (isNoticeCalled) {
+			// 알람 끝나고 온 경우
+			showAlarmFinishedTansitionHandler()
 			return
-		}
+		} // end if
+		
 		isNoticeCalled = true
 		showWebViewModal( url: "https://up.avngraphic.kr/inapp/testers/?l=" + LanguagesManager.currentLocaleCode )
 	}
@@ -1075,6 +1086,17 @@ class ViewController: UIViewController {
 			upExtPackButton.isHidden = false
 		} */ //end if
 	} //end func
+	
+	/// 알람이 끝난 경우 이쪽으로 옴
+	func showAlarmFinishedTansitionHandler() {
+		if (!alarmFinishedTransition) {
+			return
+		} // end if
+		
+		ViewController.selfView!.showMessageOnView(LanguagesManager.$("alarmFinishedMessage"), backgroundColorHex: "219421", textColorHex: "FFFFFF")
+		
+		alarmFinishedTransition = false
+	} // end func
 	
 } //end class
 

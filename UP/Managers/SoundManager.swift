@@ -51,6 +51,9 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 		case Countdown = "effect-game-general-countdown.wav"
 		case CountdownStart = "effect-game-general-countdown-start.wav"
 		case Gameover = "effect-game-general-gameover.wav"
+		
+		case gamePlayTimerDown = "effect-game-general-time-down.wav"
+		case gamePlayTimerDownLast = "effect-game-general-time-down-last.wav"
 	} //end bundleeffects (general)
 	
 	public enum PlaybackPlayMode {
@@ -216,11 +219,10 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	
 	////////////// alarm sounds
 	static var list:Array<SoundData> = [
+		SoundData(soundName: "alarmSoundsBeep", fileName: "sounds-alarms-beep.aiff"),
 		SoundData(soundName: "alarmSounds8BitMelody", fileName: "sounds-alarms-8bitmelody.aiff"),
 		
-		SoundData(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff"),
-		SoundData(soundName: "占쏙옙占쏙옙", fileName: "sounds-alarms-test-sokyepsokyep.aiff"),
-		SoundData(soundName: "냥냥-냐냐-냐냐냐냥", fileName: "sounds-alarms-test-nyancat.aiff")
+		SoundData(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff")
 	]
 	
 	//사운드 이름에 대한 실제 사운드 오브젝트 반환

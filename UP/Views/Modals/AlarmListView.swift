@@ -632,7 +632,7 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
 		if (upAlarmMessageView.isHidden == false) {
 			//몇초 뒤 나타나게 함.
 			_ = UPUtils.setTimeout(2.5, block: {_ in
-				self.showMessageOnView( message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex );
+				self.showMessageOnView( message, backgroundColorHex: backgroundColorHex, textColorHex: textColorHex )
 			});
 			return
 		} //end if [messageView is hidden]

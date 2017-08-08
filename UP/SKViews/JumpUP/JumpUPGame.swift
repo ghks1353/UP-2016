@@ -18,7 +18,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	var repeatBackgroundNodes:Array<SKSpriteNode> = []
 	var repeatBackgroundContainer:SKNode = SKNode()
 	
-	var gameUserJumpCount:Int = 0; //점프 횟수
+	var gameUserJumpCount:Int = 0 //점프 횟수
 	
 	///////////
 	//Game variables
@@ -418,10 +418,10 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//Update per frame
 		if (isGameFinished == true) {
 			// 게임 끝. update 정지
-			return;
+			return
 		}
 		if (isGamePaused == true) {
-			return; //게임 일시정지 된 경우 틱 정지
+			return //게임 일시정지 된 경우 틱 정지
 		}
 		
 		//제스처 처리
@@ -1758,6 +1758,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		AlarmRingView.selfView!.dismiss(animated: false, completion: nil)
 		GlobalSubView.alarmRingViewcontroller.dismiss(animated: true, completion: nil)
 		
+		// 아래 작동이 안됨. todo
+		//ViewController.selfView!.showMessageOnView(LanguagesManager.$("alarmFinishedMessage"), backgroundColorHex: "219421", textColorHex: "FFFFFF")
+		ViewController.selfView!.alarmFinishedTransition = true
 	} //end func
 	
 } //end of class

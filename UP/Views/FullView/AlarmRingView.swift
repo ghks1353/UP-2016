@@ -181,7 +181,7 @@ class AlarmRingView:UIViewController {
 	
 	//Check last touch
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		print("In alarm, Touched!");
+		print("In alarm, Touched!")
 		
 		if (lastActivatedTimeAfter > 120) {
 			//한번 졸았다고 체크함

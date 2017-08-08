@@ -369,6 +369,12 @@ class GameStructureScene:SKScene {
 			} else {
 				gameScoreTitleImage!.alpha = 1
 				gameScore -= 1
+				if (gameScore < 10) {
+					// 10초 이내일 경우 카운트다운 효과음 (last) 재생
+					SoundManager.playEffectSound(SoundManager.bundleEffectsGeneralGame.gamePlayTimerDownLast.rawValue)
+				} else { // 이상일 경우 일반 카운트다운 효과음 재생
+					SoundManager.playEffectSound(SoundManager.bundleEffectsGeneralGame.gamePlayTimerDown.rawValue)
+				} // end if
 			} //end if [alarmSoundPlaying]
 			gameRetireTimeCount = min(gameRetireTimeCount + 1, gameRetireTime) //포기 버튼을 띄워야 할 때 필요
 		} //end if [Game finished or not]
@@ -449,10 +455,10 @@ class GameStructureScene:SKScene {
 				) /* insert end */
 			); // run end
 			
-			print("DB Statement successful");
+			print("DB Statement successful")
 			//covertToStringArray
 		} catch {
-			print("DB Statement error in JumpUP");
+			print("DB Statement error in JumpUP")
 		}
 	}
 	
