@@ -320,10 +320,9 @@ class GameStructureScene:SKScene {
 	
 	////////// Timer 추가 혹은 재시작
 	func addCountdownTimerForAlarm() {
-		if (gameSecondTickTimer != nil) {
-			gameSecondTickTimer!.invalidate()
-			gameSecondTickTimer = nil
-		}
+		gameSecondTickTimer?.invalidate()
+		gameSecondTickTimer = nil
+		
 		gameSecondTickTimer = UPUtils.setInterval(1, block: updateWithSeconds) //1초간 실행되는 tick
 	} //end func
 	
@@ -342,25 +341,11 @@ class GameStructureScene:SKScene {
 			
 			//게임 끝. 알람끄기 버튼 표시. 리타이어 버튼이 이미 나와있는 경우, 다시 없앰
 			if (buttonRetireSprite.alpha == 1) {
-				let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
-				                               startPosition: CGPoint( x: buttonRetireSprite.position.x, y: buttonRetireSprite.position.y ),
-				                               endPosition: CGPoint( x: buttonRetireSprite.position.x, y: -buttonRetireSprite.frame.height/2)
-				)
-				moveEffect.timingFunction = SKTTimingFunctionCircularEaseIn
-				buttonRetireSprite.run(
-					SKAction.group( [
-						SKAction.actionWithEffect(moveEffect), SKAction.fadeOut(withDuration: 0.5)])
-				)
+				hideRetire()
 			} //end if [retire is showing]
 			
 			//Show off button
-			buttonAlarmOffSprite!.alpha = 1
-			let moveEffect = SKTMoveEffect(node: buttonAlarmOffSprite!, duration: 0.5 ,
-			                               startPosition: CGPoint( x: buttonAlarmOffSprite!.position.x, y: buttonAlarmOffSprite!.position.y ),
-			                               endPosition: CGPoint( x: buttonAlarmOffSprite!.position.x, y: buttonYAxis)
-			)
-			moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut
-			buttonAlarmOffSprite!.run(SKAction.actionWithEffect(moveEffect))
+			showOff()
 		} else { //게임이 아직 진행중일 경우 1초씩 빼거나 경우에 따라 처리
 			if (AlarmManager.alarmSoundPlaying == true) {
 				//게임 중인데 알람이 울릴 때(졸고 있을 떄) 시간이 올라가도록 함
@@ -411,8 +396,8 @@ class GameStructureScene:SKScene {
 	/////////////////////////////////////////
 	//Save alarm game status into database
 	func logAlarmGame() {
-		let currentDateTimeStamp:Int64 = Int64(Date().timeIntervalSince1970);
-		statsGameFinishedTimeStamp = Int(currentDateTimeStamp);
+		let currentDateTimeStamp:Int64 = Int64(Date().timeIntervalSince1970)
+		statsGameFinishedTimeStamp = Int(currentDateTimeStamp)
 		
 		do {
 			//DB -> 알람 기록 저장 (게임 시작 전까지 걸린 시간)
@@ -462,16 +447,56 @@ class GameStructureScene:SKScene {
 		}
 	}
 	
-	//// touch evt
+	// 버튼 감춤/ 표시 애니메이션 함수
+	func hideRetire() {
+		let moveEffect = SKTMoveEffect(node: buttonRetireSprite, duration: 0.5 ,
+		                               startPosition: CGPoint( x: buttonRetireSprite.position.x, y: buttonRetireSprite.position.y ),
+		                               endPosition: CGPoint( x: buttonRetireSprite.position.x, y: -buttonRetireSprite.frame.height/2)
+		)
+		moveEffect.timingFunction = SKTTimingFunctionCircularEaseIn
+		buttonRetireSprite.run(
+			SKAction.group( [
+				SKAction.actionWithEffect(moveEffect), SKAction.fadeOut(withDuration: 0.5)])
+		)
+	} // end func
+	func showOff() {
+		buttonAlarmOffSprite!.alpha = 1
+		let moveEffect = SKTMoveEffect(node: buttonAlarmOffSprite!, duration: 0.5 ,
+		                               startPosition: CGPoint( x: buttonAlarmOffSprite!.position.x, y: buttonAlarmOffSprite!.position.y ),
+		                               endPosition: CGPoint( x: buttonAlarmOffSprite!.position.x, y: buttonYAxis)
+		)
+		moveEffect.timingFunction = SKTTimingFunctionCircularEaseOut
+		buttonAlarmOffSprite!.run(SKAction.actionWithEffect(moveEffect))
+	} // end func
+	func hideOff() {
+		let moveEffect = SKTMoveEffect(node: buttonAlarmOffSprite!, duration: 0.5 ,
+		                               startPosition: CGPoint( x: buttonAlarmOffSprite!.position.x, y: buttonAlarmOffSprite!.position.y ),
+		                               endPosition: CGPoint( x: buttonAlarmOffSprite!.position.x, y: -buttonAlarmOffSprite!.frame.height / 2)
+		)
+		moveEffect.timingFunction = SKTTimingFunctionCircularEaseIn
+		buttonAlarmOffSprite!.run(
+			SKAction.group( [
+				SKAction.actionWithEffect(moveEffect), SKAction.fadeOut(withDuration: 0.5)])
+		)
+	} // end func
 	
+	//// touch evt
 	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
 		for touch in touches {
-			let location:CGPoint = (touch as UITouch).location(in: self);
+			let location:CGPoint = (touch as UITouch).location(in: self)
 			//이동 거리 찍어주기
-			swipeGestureMoved += touchesLatestPoint.y - location.y;
-			touchesLatestPoint.x = location.x; touchesLatestPoint.y = location.y;
+			swipeGestureMoved += touchesLatestPoint.y - location.y
+			touchesLatestPoint.x = location.x
+			touchesLatestPoint.y = location.y;
 		}
-	}
+	} // end func
+	
+	/// 알람 상태에서 깨었을 때 발생하는 이벤트
+	/// needs override.
+	func awakeHandler() {
+		// todo
+	} // end func
+	
 	
 	
 }

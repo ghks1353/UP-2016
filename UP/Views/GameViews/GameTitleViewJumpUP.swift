@@ -29,6 +29,9 @@ class GameTitleViewJumpUP:UIViewController {
 	//Auto-start in GameMode
 	var gameAutostartCountdownText:UILabel = UILabel()
 	
+	/// 알람 모드일 시 게임 시작하지 않고 바로 종료 버튼
+	var offImmButton:UIButton = UIButton()
+	
 	//SKView (Game view) and game scene
 	var gameView:SKView = SKView()
 	var jumpUPGameScene:JumpUPGame?
@@ -41,7 +44,6 @@ class GameTitleViewJumpUP:UIViewController {
 	
 	var aStartTimer:Timer? //자동 게임시작 카운트다운 타이머
 	var aPreloadCheckTimer:Timer? //Preload check timer
-	
 	var aStartLeft:Int = 3
 	
 	var preloadCompleted:Bool = false
@@ -55,13 +57,20 @@ class GameTitleViewJumpUP:UIViewController {
 		loadingIndicatorView!.animate(withGIFNamed: "comp-loading-preloader.gif")
 		self.view.addSubview(loadingIndicatorView!)
 		
+		// create button
+		offImmButton.setTitle(LanguagesManager.$("alarmForceOffNowTitle"), for: .normal)
+		offImmButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+		
+		offImmButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.8), for: .normal)
+		offImmButton.addTarget(self, action: #selector( alarmForceOffHandler ), for: .touchUpInside)
+		
 		super.viewDidLoad()
-	}
+	} // end func
 	
 	override func viewDidAppear(_ animated: Bool) {
 		if (jumpUPGameScene != nil) {
-			return;
-		}
+			return
+		} // end if
 		
 		loadingIndicatorView!.frame =  CGRect(x: self.view.frame.width / 2, y: self.view.frame.height / 2, width: 24, height: 24)
 		loadingIndicatorView!.center = self.view!.center
@@ -124,14 +133,24 @@ class GameTitleViewJumpUP:UIViewController {
 		if (gameStartupType == .AlarmMode) {
 			gameAutostartCountdownText.isHidden = true
 			gameStartButtonImage.isHidden = true //set to false when preload finish
+			
+			self.view.addSubview(offImmButton)
 		} else {
 			gameStartButtonImage.isHidden = true
 		} //end if [is AlarmMode]
 		
+		offImmButton.frame = CGRect(x: 0, y: gameStartButtonImage.frame.maxY + 12, width: self.view.frame.width, height: 48)
+		
 		///////
-		self.gameTitleLabel.alpha = 0; self.gameTitleRedLabel.alpha = 0; self.gameTitleSkyblueLabel.alpha = 0;
-		self.gameThumbnailsBackgroundImage.alpha = 0; self.gameThumbnailsImage.alpha = 0;
-		self.gameStartButtonImage.alpha = 0; self.gameAutostartCountdownText.alpha = 0;
+		self.gameTitleLabel.alpha = 0
+		self.gameTitleRedLabel.alpha = 0
+		self.gameTitleSkyblueLabel.alpha = 0
+		self.gameThumbnailsBackgroundImage.alpha = 0
+		self.gameThumbnailsImage.alpha = 0
+		self.gameStartButtonImage.alpha = 0
+		self.gameAutostartCountdownText.alpha = 0
+		
+		offImmButton.alpha = 0
 		
 		//Auto-init (for loading resources)
 		jumpUPGameScene = JumpUPGame( size: CGSize( width: self.view.frame.width, height: self.view.frame.height ) )
@@ -178,9 +197,11 @@ class GameTitleViewJumpUP:UIViewController {
 			self.gameTitleLabel.alpha = 1; self.gameTitleRedLabel.alpha = 1; self.gameTitleSkyblueLabel.alpha = 1;
 			self.gameThumbnailsBackgroundImage.alpha = 1; self.gameThumbnailsImage.alpha = 1;
 			self.gameAutostartCountdownText.alpha = 1; self.gameStartButtonImage.alpha = 1;
+			
+			self.offImmButton.alpha = 1
 		}, completion: {_ in
 		
-		});
+		})
 		
 		if (aPreloadCheckTimer != nil) {
 			aPreloadCheckTimer!.invalidate()
@@ -239,6 +260,33 @@ class GameTitleViewJumpUP:UIViewController {
 		
 	} //end start func
 	
+	// AlarmRingView -> GameScene
+	// 게임을 다시 시작해야 하는 경우 (강제_
+	func forceRestartGame() {
+		jumpUPGameScene?.awakeHandler()
+	} // end func
+	
+	/// 알림 바로해제 (광고시청) 버튼 핸들러
+	func alarmForceOffHandler() {
+		
+		let unlockForceConfirmAlert:UIAlertController =
+			UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("alarmForceOffNowDescription"), preferredStyle: UIAlertControllerStyle.alert)
+		unlockForceConfirmAlert.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
+			//Unlock now
+			self.unlockAlarmForce()
+		}))
+		unlockForceConfirmAlert.addAction(UIAlertAction(title: LanguagesManager.$("generalCancel"), style: .cancel, handler: { (action: UIAlertAction!) in
+			// ignore
+		}))
+		
+		self.present(unlockForceConfirmAlert, animated: true, completion: nil)
+	} // end func
+	func unlockAlarmForce() {
+		// (2) 이 뷰를 닫고 (dismiss), (1)AlarmRingView에서 광고 시청 바로해제로 시작할 수 있도록 인자를 넘김
+		
+		// todo
+	} // end func
+	
 	override func viewWillDisappear(_ animated: Bool) {
 		//UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent;
 		if (gameStartupType == .AlarmMode) {
@@ -251,7 +299,6 @@ class GameTitleViewJumpUP:UIViewController {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	} //end func
-	
 	
 	//Lock
 	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {

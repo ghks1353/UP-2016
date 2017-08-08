@@ -307,8 +307,6 @@ class ViewController: UIViewController {
 		
 		upAlarmMessageText.text = ""
 		upAlarmMessageText.textAlignment = .center
-		upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: 48)
-		upAlarmMessageText.frame = CGRect(x: 0, y: 12, width: DeviceManager.scrSize!.width, height: 24)
 		upAlarmMessageText.font = UIFont.systemFont(ofSize: 16)
 		upAlarmMessageView.addSubview(upAlarmMessageText)
 		
@@ -921,11 +919,6 @@ class ViewController: UIViewController {
 		//Blur view 조절
 		scrBlurView.frame = DeviceManager.scrSize!
 		
-		//안내 텍스트 조절
-		upAlarmMessageText.textAlignment = .center
-		upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: 48)
-		upAlarmMessageText.frame = CGRect(x: 0, y: 12, width: DeviceManager.scrSize!.width, height: 24)
-		
 		//애니메이션되는 항목의 경우 프레임 위치를 리셋하기 때문에 마찬가지로 이동항목도 리셋
 		for i:Int in 0 ..< mainAnimatedObjs.count {
 			mainAnimatedObjs[i].movCurrentFactor = 0
@@ -989,6 +982,12 @@ class ViewController: UIViewController {
 			return
 		}
 		print("Showing message", message)
+		
+		//안내 텍스트 조절
+		upAlarmMessageText.textAlignment = .center
+		upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: DeviceManager.scrSize!.width, height: 48)
+		upAlarmMessageText.frame = CGRect(x: 0, y: 12, width: DeviceManager.scrSize!.width, height: 24)
+		
 		
 		self.view.bringSubview(toFront: upAlarmMessageView)
 		upAlarmMessageView.isHidden = false
@@ -1093,8 +1092,7 @@ class ViewController: UIViewController {
 			return
 		} // end if
 		
-		ViewController.selfView!.showMessageOnView(LanguagesManager.$("alarmFinishedMessage"), backgroundColorHex: "219421", textColorHex: "FFFFFF")
-		
+		self.showMessageOnView(LanguagesManager.$("alarmFinishedMessage"), backgroundColorHex: "219421", textColorHex: "FFFFFF")
 		alarmFinishedTransition = false
 	} // end func
 	

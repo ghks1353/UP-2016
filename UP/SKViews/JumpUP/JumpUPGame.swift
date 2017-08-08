@@ -826,7 +826,7 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		//Scroll nodes + Motion queue (w/o character)
 		for i:Int in 0 ..< gameNodesArray.count {
 			if (i >= gameNodesArray.count) {
-				break;
+				break
 			}
 			
 			//위치관련
@@ -866,20 +866,24 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 				case 7: //화면 오른쪽에서 없어짐
 					
 					if (gameNodesArray[i]!.position.x > self.view!.frame.width + gameNodesArray[i]!.size.width / 2) {
-						gameNodesArray[i]!.removeFromParent(); gameNodesArray[i] = nil;
-						gameNodesArray.remove(at: i);
-						continue;
+						gameNodesArray[i]!.removeFromParent()
+						gameNodesArray[i] = nil
+						
+						gameNodesArray.remove(at: i)
+						continue
 					} //end of remove
 					
-					break;
+					break
 				default: //화면 왼쪽에서 없어짐
 					if (gameNodesArray[i]!.position.x < -gameNodesArray[i]!.size.width / 2) { //remove
 						//print("Disposing type " + String(gameNodesArray[i]!.elementType));
-						gameNodesArray[i]!.removeFromParent(); gameNodesArray[i] = nil;
-						gameNodesArray.remove(at: i);
-						continue;
+						gameNodesArray[i]!.removeFromParent()
+						gameNodesArray[i] = nil
+						
+						gameNodesArray.remove(at: i)
+						continue
 					} //end of remove
-				break;
+				break
 			}
 			
 			
@@ -887,17 +891,17 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 			switch(gameNodesArray[i]!.elementType) {
 				case JumpUpElements.TYPE_DYNAMIC_ENEMY, JumpUpElements.TYPE_EFFECT:
 					if (gameNodesArray[i]!.motions_frame_delay_left <= 0) {
-						gameNodesArray[i]!.motions_current_frame += 1;
+						gameNodesArray[i]!.motions_current_frame += 1
 						switch( gameNodesArray[i]!.motions_current ) {
 							case 0: //walking motion
-								gameNodesArray[i]!.texture = gameNodesArray[i]!.motions_walking[gameNodesArray[i]!.motions_current_frame];
+								gameNodesArray[i]!.texture = gameNodesArray[i]!.motions_walking[gameNodesArray[i]!.motions_current_frame]
 								switch(gameNodesArray[i]!.elementFlag) {
 									case 7: //반대로 달림. 엄청 빠름.
-										gameNodesArray[i]!.motions_frame_delay_left = 1; //per 1f
-										break;
+										gameNodesArray[i]!.motions_frame_delay_left = 1 //per 1f
+										break
 									default: //일반 노드
 										gameNodesArray[i]!.motions_frame_delay_left = max(1, 5 - (Int(round(additionalGameScrollSpeed)) - 1)); //per 5f
-										break;
+										break
 								}
 								if (gameNodesArray[i]!.motions_current_frame >= gameNodesArray[i]!.motions_walking.count - 1) {
 									gameNodesArray[i]!.motions_current_frame = -1; //frame reset to 0 (-1 > next frame < 0)
@@ -947,14 +951,14 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 					switch(gameNodesArray[i]!.elementFlag) {
 						case 2, 3, 6 ,8: break; //물리 무시
 						default:
-							var additionalYFixAxis:CGFloat = 0;
+							var additionalYFixAxis:CGFloat = 0
 							switch(gameNodesArray[i]!.elementStyleType) {
 								case JumpUpElements.STYLE_AI:
-									additionalYFixAxis = -13;
-									break;
+									additionalYFixAxis = -13
+									break
 								default:
-									additionalYFixAxis = 0;
-									break;
+									additionalYFixAxis = 0
+									break
 							} //end switch [elementStyleType]
 							
 							gameNodesArray[i]!.position.y += (gameNodesArray[i]!.ySpeed / 2) * DeviceManager.scrRatioC;
@@ -1665,6 +1669,26 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	
 	//////////////////////////////////
 	
+	// 중간에 잠들 때 알람이 울린 경우, 게임이 끝났을 때 강제 시작할 수 있도록
+	override func awakeHandler() {
+		
+		if (isGameFinished == true && gameScore <= 0) {
+			// Reset game
+			gameScore = 30
+			isGameFinished = false
+			
+			hideOff()
+			
+			// Reset timer
+			gameSecondTickTimer?.invalidate()
+			gameSecondTickTimer = nil
+			
+			gameSecondTickTimer = UPUtils.setInterval(1, block: updateWithSeconds)
+		} // end if
+		
+		
+	} // end func
+	
 	// 게임모드에서의 강제 게임 종료 루틴.
 	func forceExitGame( _ showResultWindow:Bool = false ) {
 		print("Game exiting")
@@ -1759,7 +1783,6 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		GlobalSubView.alarmRingViewcontroller.dismiss(animated: true, completion: nil)
 		
 		// 아래 작동이 안됨. todo
-		//ViewController.selfView!.showMessageOnView(LanguagesManager.$("alarmFinishedMessage"), backgroundColorHex: "219421", textColorHex: "FFFFFF")
 		ViewController.selfView!.alarmFinishedTransition = true
 	} //end func
 	

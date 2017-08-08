@@ -6,9 +6,9 @@
 //  Copyright © 2016년 Project UP. All rights reserved.
 //
 
-import Foundation;
-import UIKit;
-import CoreMotion;
+import Foundation
+import UIKit
+import CoreMotion
 
 class AlarmRingView:UIViewController {
 	
@@ -188,12 +188,18 @@ class AlarmRingView:UIViewController {
 			userAsleepCount += 1
 		}
 		if (isLied == false && liePhoneDownCount <= 14) {
+			
+			if (AlarmManager.alarmSoundPlaying) {
+				// 게임에서 필요한 경우 알람에서 깨어남을 알려주도록 호출
+				AlarmRingView.jumpUPStartupViewController?.forceRestartGame()
+			} // end if
+			
 			AlarmManager.stopSoundAlarm() //터치시에만 꺼지게..
 			SoundManager.pauseResumeBGMSound( true )
-		}
+		} // end if
 		
 		lastActivatedTimeAfter = 0
-	}
+	} // end func
 	
 	//Check if asleep or not + acc check
 	func asleepTimeCheckFunc() {
@@ -219,8 +225,8 @@ class AlarmRingView:UIViewController {
 		if (accelSensorWorks) {
 			if (cMotionManager!.accelerometerData!.acceleration.z >= 0.5
 				|| abs(cMotionManager!.accelerometerData!.acceleration.x) >= 0.85) {
-				print ("LIE");
-				isLied = true;
+				print ("LIE")
+				isLied = true
 				
 				//ring alarm when lie user
 				SoundManager.pauseResumeBGMSound( false )
@@ -234,7 +240,7 @@ class AlarmRingView:UIViewController {
 			} else {
 				//Gyro check works only Phone/Pod
 				if (abs(cMotionManager!.gyroData!.rotationRate.x) + abs(cMotionManager!.gyroData!.rotationRate.y) + abs(cMotionManager!.gyroData!.rotationRate.z) < 0.05) {
-					print("Not moving");
+					print("Not moving")
 					liePhoneDownCount += 1
 				} else {
 					liePhoneDownCount = 0
