@@ -15,6 +15,10 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	static var sharedInstance:SoundManager = SoundManager()
 	static var userSoundsURL:[URL] = []
 	
+	public enum bundleSystemSounds:String {
+		case systemAdBeep = "effect-system-ad-beep.wav"
+	}
+	
 	public enum bundleSounds:String {
 		case GameReadyBGM = "bgm-game-waiting.mp3"
 		case GameJumpUPBGM = "bgm-game-jumpup-field.mp3"

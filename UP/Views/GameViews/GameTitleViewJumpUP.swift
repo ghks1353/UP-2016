@@ -269,6 +269,8 @@ class GameTitleViewJumpUP:UIViewController {
 	/// 알림 바로해제 (광고시청) 버튼 핸들러
 	func alarmForceOffHandler() {
 		
+		AlarmRingView.selfView?.touchHandler()
+		
 		let unlockForceConfirmAlert:UIAlertController =
 			UIAlertController(title: LanguagesManager.$("generalAlert"), message: LanguagesManager.$("alarmForceOffNowDescription"), preferredStyle: UIAlertControllerStyle.alert)
 		unlockForceConfirmAlert.addAction(UIAlertAction(title: LanguagesManager.$("generalOK"), style: .default, handler: { (action: UIAlertAction!) in
@@ -283,15 +285,17 @@ class GameTitleViewJumpUP:UIViewController {
 	} // end func
 	func unlockAlarmForce() {
 		// (2) 이 뷰를 닫고 (dismiss), (1)AlarmRingView에서 광고 시청 바로해제로 시작할 수 있도록 인자를 넘김
+		AlarmRingView.selfView?.enableAdUnlock()
 		
-		// todo
+		self.modalTransitionStyle = .crossDissolve
+		self.dismiss(animated: true, completion: nil)
 	} // end func
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		//UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent;
 		if (gameStartupType == .AlarmMode) {
-			AlarmRingView.selfView!.disposeView()
-		}
+			AlarmRingView.selfView?.disposeView()
+		} // end if
 		super.viewWillDisappear(animated)
 	} //end func
 		

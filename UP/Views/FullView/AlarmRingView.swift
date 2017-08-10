@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreMotion
+import pop
 
 class AlarmRingView:UIViewController {
 	
@@ -39,27 +40,73 @@ class AlarmRingView:UIViewController {
 	var accelSensorWorks:Bool = false
 	var isLied:Bool = false
 	
+	/// 광고보기 전용에서 따로 체크하는 값
+	var isLiedSysCheck:Bool = false
+	
 	//광고를 보고있거나 기타 등의 이유로 일부 기능을 작동하지 않게 해야할 경우
 	//예 : 광고 보는중 타이머 지나서 울림, 혹은 누워서 제한
 	var ignoresActiveSound:Bool = false
+	// 위와 같으나 광고로 알람 해제 기능에만 적용되며 센서는 사용.
+	var ignoresActiveSoundWithADOff:Bool = false
+	
+	/// 광고로 알람 해제 기능 enabled status
+	private var adModeEnabled:Bool = false
+	
+	var adModeTitleLabel:UILabel = UILabel()
+	var adModeDescriptionLabel:UILabel = UILabel()
+	
+	var adModeAutoStartVal:Int = 0
 	
 	override func viewDidLoad() {
 		// view init func
 		self.view.backgroundColor = UIColor.black
 		AlarmRingView.selfView = self
-	}
+		
+		adModeTitleLabel.text = LanguagesManager.$("alarmForceOffNowLabel")
+		adModeTitleLabel.numberOfLines = 0
+		
+		adModeTitleLabel.font = UIFont.systemFont(ofSize: 15)
+		adModeTitleLabel.textColor = UIColor.white
+		adModeTitleLabel.textAlignment = .center
+		
+		// Description
+		adModeDescriptionLabel.text = "-"
+		adModeDescriptionLabel.numberOfLines = 0
+		
+		adModeDescriptionLabel.font = UIFont.systemFont(ofSize: 13)
+		adModeDescriptionLabel.textColor = UIColor.white
+		adModeDescriptionLabel.textAlignment = .center
+		
+		self.view.addSubview(adModeTitleLabel)
+		self.view.addSubview(adModeDescriptionLabel)
+		
+		// Default
+		adModeTitleLabel.isHidden = true
+		adModeDescriptionLabel.isHidden = true
+		
+	} // end func
+	
+	override func viewWillAppear(_ animated: Bool) {
+		// Fit frames
+		fitFrames()
+	} // end func
 	
 	override func viewDidAppear(_ animated: Bool) {
+		if (adModeEnabled) {
+			print("AD Mode enabled. enabling elements")
+			
+			adModePhase()
+			return
+		} // end if
+		
 		userAsleepCount = 0
-		if (asleepTimer != nil) {
-			asleepTimer!.invalidate()
-			asleepTimer = nil
-		}
-		if (cMotionManager != nil) {
-			cMotionManager!.stopAccelerometerUpdates()
-			cMotionManager!.stopGyroUpdates()
-			cMotionManager = nil
-		}
+		
+		asleepTimer?.invalidate()
+		asleepTimer = nil
+		
+		cMotionManager?.stopAccelerometerUpdates()
+		cMotionManager?.stopGyroUpdates()
+		cMotionManager = nil
 		
 		//알림이 울린지 얼마나 지났나 시간을 체크한 후
 		//1시간이 지났으면 로드 과정을 잠시 멈추고 즉시 해제할 건지 물어봄.
@@ -104,10 +151,8 @@ class AlarmRingView:UIViewController {
 			//가속도 센서를 이용한 잠듦 경고 등
 			accelSensorWorks = DataManager.nsDefaults.bool(forKey: DataManager.EXPERIMENTS_USE_NOLIEDOWN_KEY)
 			if (accelSensorWorks) {
-				cMotionManager = CMMotionManager()
-				cMotionManager!.startAccelerometerUpdates()
-				cMotionManager!.startGyroUpdates()
-			}
+				addSensor()
+			} // end if
 			
 			print("selected ->", gameSelectedNumber)
 			switch( gameSelectedNumber ) {
@@ -133,20 +178,15 @@ class AlarmRingView:UIViewController {
 	
 	func disposeView() {
 		//view disappear event handler
-		if (asleepTimer != nil) {
-			asleepTimer!.invalidate()
-			asleepTimer = nil
-		}
-		if (cMotionManager != nil) {
-			cMotionManager!.stopAccelerometerUpdates()
-			cMotionManager!.stopGyroUpdates()
-			cMotionManager = nil
-		}
+		asleepTimer?.invalidate()
+		asleepTimer = nil
+		
+		cMotionManager?.stopAccelerometerUpdates()
+		cMotionManager?.stopGyroUpdates()
+		cMotionManager = nil
 		
 		//Refresh tables if avail
-		if (AlarmListView.selfView != nil) {
-			AlarmListView.selfView!.createTableList()
-		}
+		AlarmListView.selfView?.createTableList()
 	} //end func
 	
 	override func didReceiveMemoryWarning() {
@@ -167,7 +207,9 @@ class AlarmRingView:UIViewController {
 			UIDevice.current.setValue(portraitOriention, forKey: "orientation")
 		} else {
 			UIDevice.current.setValue(landscapeOriention, forKey: "orientation")
-		}
+		} // end if
+		
+		fitFrames()
 		
 		//PS: this is unsecure use of APIs
 		// http://stackoverflow.com/questions/26357162/how-to-force-view-controller-orientation-in-ios-8
@@ -183,6 +225,10 @@ class AlarmRingView:UIViewController {
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		print("In alarm, Touched!")
 		
+		touchHandler()
+	} // end func
+	
+	func touchHandler() {
 		if (lastActivatedTimeAfter > 120) {
 			//한번 졸았다고 체크함
 			userAsleepCount += 1
@@ -205,35 +251,54 @@ class AlarmRingView:UIViewController {
 	func asleepTimeCheckFunc() {
 		if (ignoresActiveSound == true) {
 			return
-		}
-		
+		} // end if
 		if (currentAlarmElement == nil) {
 			//remove it
-			if (asleepTimer != nil) {
-				asleepTimer!.invalidate()
-				asleepTimer = nil
-			}
+			asleepTimer?.invalidate()
+			asleepTimer = nil
 			return
-		}
-		/////////////////////////////////////
+		} // End if
+		
+		/// non-touch check
 		lastActivatedTimeAfter += 1
-		if (lastActivatedTimeAfter > 120 || liePhoneDownCount > 14) {
+		if ((lastActivatedTimeAfter > 120 || liePhoneDownCount > 14) && !ignoresActiveSoundWithADOff) {
 			SoundManager.pauseResumeBGMSound( false )
 			AlarmManager.ringSoundAlarm(currentAlarmElement, useVibrate: true)
 		} //end if
-		/////////////////////// Accel check
-		if (accelSensorWorks) {
+		
+		// Accel check
+		if (cMotionManager?.accelerometerData != nil) {
+			//print ("x",cMotionManager!.accelerometerData!.acceleration.x,"y",cMotionManager!.accelerometerData!.acceleration.y,"z",cMotionManager!.accelerometerData!.acceleration.z)
+			
 			if (cMotionManager!.accelerometerData!.acceleration.z >= 0.5
+				|| abs(cMotionManager!.accelerometerData!.acceleration.y) <= 0.2
 				|| abs(cMotionManager!.accelerometerData!.acceleration.x) >= 0.85) {
-				print ("LIE")
+				//print ("LIE")
+				isLiedSysCheck = true
+			} else {
+				isLiedSysCheck = false
+			} //end if [Liyng or not]
+		} else {
+			isLiedSysCheck = false
+		} // end if
+		
+		// 광고로 알람 해제일 때
+		if (isLiedSysCheck && adModeEnabled) {
+			adModeAutoStartFunc( false ) // 누웠을 경우
+		} else if (!isLiedSysCheck && adModeEnabled) {
+			adModeAutoStartFunc( true ) // 안 누운 경우
+		} // end if
+		
+		if (accelSensorWorks) {
+			if (isLiedSysCheck) {
 				isLied = true
 				
-				//ring alarm when lie user
+				// ring alarm when lie user
 				SoundManager.pauseResumeBGMSound( false )
-				AlarmManager.ringSoundAlarm(currentAlarmElement, useVibrate: true);
+				AlarmManager.ringSoundAlarm(currentAlarmElement, useVibrate: true)
 			} else {
-				isLied = false;
-			} //end if [Liyng or not]
+				isLied = false
+			} // end if [Liyng or not]
 			if (UIDevice.current.userInterfaceIdiom == .pad) {
 				//Gyro ignore on Pad series
 				liePhoneDownCount = 0
@@ -248,6 +313,71 @@ class AlarmRingView:UIViewController {
 			} //end if [UIDevice iPad]
 		} //end if [accelSensorWorks]
 	} //end func
+	
+	/// Ad unlock mode는 다른 뷰로 넘어가지 않고 여기서 광고 처리를 하도록
+	func enableAdUnlock() {
+		currentAlarmElement = AlarmManager.getRingingAlarm()
+		SoundManager.stopBGMSound()
+		adModeEnabled = true
+		
+		// 나머지는 appear 이후 처리
+		adModeTitleLabel.isHidden = false
+		adModeDescriptionLabel.isHidden = false
+		
+		fitFrames()
+	} // end func
+	
+	func adModePhase() {
+		
+		// 센서 활성화. 광고 체크 겸용
+		asleepTimer = UPUtils.setInterval(0.5, block: asleepTimeCheckFunc)
+		addSensor()
+		
+		
+	} // end func
+	
+	/// Fit elements
+	func fitFrames() {
+		
+		adModeTitleLabel.sizeToFit()
+		adModeDescriptionLabel.sizeToFit()
+		
+		adModeTitleLabel.frame = CGRect(x: 0, y: self.view.frame.height / 2 - adModeTitleLabel.frame.height / 2, width: self.view.frame.width, height: adModeTitleLabel.frame.height)
+		adModeDescriptionLabel.frame = CGRect(x: 0, y: self.view.frame.height - adModeDescriptionLabel.frame.height - 24, width: self.view.frame.width, height: adModeDescriptionLabel.frame.height)
+		
+	} // end func
+	
+	func adModeAutoStartFunc( _ stats:Bool ) {
+		
+		// 누운 경우
+		if (!stats) {
+			SoundManager.playEffectSound(SoundManager.bundleSystemSounds.systemAdBeep.rawValue)
+			adModeAutoStartVal = 0
+			
+			adModeDescriptionLabel.text = LanguagesManager.$("alarmForceOffNowFixLabel")
+			fitFrames()
+			return
+		} // end if
+		adModeAutoStartVal += 1
+		lastActivatedTimeAfter = 0 // 논터치 타이머도 리셋.
+		
+		adModeDescriptionLabel.text = LanguagesManager.$("alarmForceOffNowAdLabel")
+		fitFrames()
+		
+		
+	} // end func
+	
+	func addSensor() {
+		cMotionManager = CMMotionManager()
+		cMotionManager!.startAccelerometerUpdates()
+		cMotionManager!.startGyroUpdates()
+	} // end func
+	
+	func removeAllSensor() {
+		// removes also timer
+		
+		
+	} // end func
 	
 	/// force unlock alarm
 	func unlockAlarmForce() {
