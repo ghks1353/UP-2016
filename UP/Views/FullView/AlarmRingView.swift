@@ -11,7 +11,7 @@ import UIKit
 import CoreMotion
 import pop
 
-class AlarmRingView:UIViewController {
+class AlarmRingView:UPUIViewController {
 	
 	//알람이 울렸을 때, 진입되는 뷰컨트롤러.
 	/*
@@ -56,6 +56,10 @@ class AlarmRingView:UIViewController {
 	var adModeDescriptionLabel:UILabel = UILabel()
 	
 	var adModeAutoStartVal:Int = 0
+	var adRunning:Bool = false
+	var adWarningCount:Int = 0
+	
+	var adFinished:Bool = false
 	
 	override func viewDidLoad() {
 		// view init func
@@ -70,7 +74,7 @@ class AlarmRingView:UIViewController {
 		adModeTitleLabel.textAlignment = .center
 		
 		// Description
-		adModeDescriptionLabel.text = "-"
+		adModeDescriptionLabel.text = ""
 		adModeDescriptionLabel.numberOfLines = 0
 		
 		adModeDescriptionLabel.font = UIFont.systemFont(ofSize: 13)
@@ -92,7 +96,7 @@ class AlarmRingView:UIViewController {
 	} // end func
 	
 	override func viewDidAppear(_ animated: Bool) {
-		if (adModeEnabled) {
+		if (adModeEnabled && !adFinished) {
 			print("AD Mode enabled. enabling elements")
 			
 			adModePhase()
@@ -100,13 +104,7 @@ class AlarmRingView:UIViewController {
 		} // end if
 		
 		userAsleepCount = 0
-		
-		asleepTimer?.invalidate()
-		asleepTimer = nil
-		
-		cMotionManager?.stopAccelerometerUpdates()
-		cMotionManager?.stopGyroUpdates()
-		cMotionManager = nil
+		removeAllSensor()
 		
 		//알림이 울린지 얼마나 지났나 시간을 체크한 후
 		//1시간이 지났으면 로드 과정을 잠시 멈추고 즉시 해제할 건지 물어봄.
@@ -139,6 +137,7 @@ class AlarmRingView:UIViewController {
 	func alarmViewLoadProcced() {
 		currentAlarmElement = AlarmManager.getRingingAlarm()
 		ignoresActiveSound = false
+		adModeEnabled = false
 		
 		if (currentAlarmElement != nil) {
 			//게임을 분류하여 각각 맞는 view를 present
@@ -170,7 +169,7 @@ class AlarmRingView:UIViewController {
 			} //end switch
 			
 			//게임 중간에 조는 것 + 가속도센서 체크 관련한 핸들링
-			asleepTimer = UPUtils.setInterval(0.5, block: asleepTimeCheckFunc)
+			addTimer()
 		} //end element chk
 		
 	} //end func
@@ -178,12 +177,7 @@ class AlarmRingView:UIViewController {
 	
 	func disposeView() {
 		//view disappear event handler
-		asleepTimer?.invalidate()
-		asleepTimer = nil
-		
-		cMotionManager?.stopAccelerometerUpdates()
-		cMotionManager?.stopGyroUpdates()
-		cMotionManager = nil
+		removeAllSensor()
 		
 		//Refresh tables if avail
 		AlarmListView.selfView?.createTableList()
@@ -254,8 +248,7 @@ class AlarmRingView:UIViewController {
 		} // end if
 		if (currentAlarmElement == nil) {
 			//remove it
-			asleepTimer?.invalidate()
-			asleepTimer = nil
+			removeAllSensor()
 			return
 		} // End if
 		
@@ -319,6 +312,11 @@ class AlarmRingView:UIViewController {
 		currentAlarmElement = AlarmManager.getRingingAlarm()
 		SoundManager.stopBGMSound()
 		adModeEnabled = true
+		adRunning = false
+		adFinished = false
+		
+		adWarningCount = 0
+		adModeAutoStartVal = 0
 		
 		// 나머지는 appear 이후 처리
 		adModeTitleLabel.isHidden = false
@@ -328,11 +326,9 @@ class AlarmRingView:UIViewController {
 	} // end func
 	
 	func adModePhase() {
-		
 		// 센서 활성화. 광고 체크 겸용
-		asleepTimer = UPUtils.setInterval(0.5, block: asleepTimeCheckFunc)
+		addTimer()
 		addSensor()
-		
 		
 	} // end func
 	
@@ -354,6 +350,12 @@ class AlarmRingView:UIViewController {
 			SoundManager.playEffectSound(SoundManager.bundleSystemSounds.systemAdBeep.rawValue)
 			adModeAutoStartVal = 0
 			
+			if (adRunning) {
+				// 광고 실행중인 경우는 warning 카운트 추가
+				adWarningCount += 1
+				return
+			} // end if
+			
 			adModeDescriptionLabel.text = LanguagesManager.$("alarmForceOffNowFixLabel")
 			fitFrames()
 			return
@@ -364,25 +366,108 @@ class AlarmRingView:UIViewController {
 		adModeDescriptionLabel.text = LanguagesManager.$("alarmForceOffNowAdLabel")
 		fitFrames()
 		
+		if (adModeAutoStartVal >= 5 * 2 && !adRunning) { // 초 * 2
+			// 광고 실행
+			adRunning = true
+			adModeAutoStartVal = 0
+			lastActivatedTimeAfter = 0
+			
+			UnityAdsManager.showUnityAD(self, placementID: UnityAdsManager.PlacementAds.gameContinueAD.rawValue, callbackFunction: adsFinishedHandler, showFailCallbackFunction: internetConnectionConfirmHandler)
+		} // end if
 		
 	} // end func
 	
+	/// 광고 시청 종료
+	func adsFinishedHandler() {
+		if (adWarningCount >= 3) {
+			// 광고 시청 중 경고 카운트가 늘어난 경우
+			
+			adModeAutoStartVal = 0
+			adWarningCount = 0
+			lastActivatedTimeAfter = 0
+			
+			adRunning = false
+			adFinished = false
+			
+			adModeTitleLabel.text = LanguagesManager.$("alarmForceOffNowRetryNeeded")
+			adModeDescriptionLabel.text = ""
+			fitFrames()
+			
+			return
+		} // end if
+		
+		adFinished = true
+		
+		removeAllSensor()
+		unlockAlarmForce()
+		
+		
+	} // end func
+	/// 광고 시청 불가능한 경우
+	func internetConnectionConfirmHandler() {
+		adRunning = false
+		removeAllSensor()
+		
+		self.alert(cTitle: LanguagesManager.$("generalError"), subject: LanguagesManager.$("generalCheckInternetConnection"), confirmTitle: LanguagesManager.$("generalRetry"), cancelTitle: LanguagesManager.$("generalCancel"), confirmCallback: retryAdsHandler, cancelCallback: returnTitleHandler)
+		
+	} // end func
+	
+	func retryAdsHandler() {
+		lastActivatedTimeAfter = 0
+		adModeAutoStartVal = 0
+		
+		adModeEnabled = true
+		adRunning = false
+		adFinished = false
+		
+		adWarningCount = 0
+		adModeAutoStartVal = 0
+		
+		addTimer()
+		addSensor()
+		
+	} // end func
+	func returnTitleHandler() {
+		
+		removeAllSensor()
+		alarmViewLoadProcced()
+		
+	} // end func
+	
+	/// 모션 인식용 센서
 	func addSensor() {
 		cMotionManager = CMMotionManager()
 		cMotionManager!.startAccelerometerUpdates()
 		cMotionManager!.startGyroUpdates()
 	} // end func
+	func addTimer() {
+		if (asleepTimer != nil) {
+			asleepTimer!.invalidate()
+			asleepTimer = nil
+		} // end if
+		
+		asleepTimer = UPUtils.setInterval(0.5, block: asleepTimeCheckFunc)
+	} // end func
 	
 	func removeAllSensor() {
 		// removes also timer
+		if (asleepTimer != nil) {
+			asleepTimer!.invalidate()
+			asleepTimer = nil
+		} // end if
 		
-		
+		cMotionManager?.stopAccelerometerUpdates()
+		cMotionManager?.stopGyroUpdates()
+		cMotionManager = nil
 	} // end func
 	
 	/// force unlock alarm
 	func unlockAlarmForce() {
 		//Stops bgm if needed
 		SoundManager.stopBGMSound()
+		
+		// Remove sensor listeners
+		removeAllSensor()
 		
 		//Force-clear alarm
 		AlarmManager.gameClearToggle( Date(), cleared: true )
@@ -392,6 +477,8 @@ class AlarmRingView:UIViewController {
 		
 		dismiss(animated: false, completion: nil)
 		GlobalSubView.alarmRingViewcontroller.dismiss(animated: true, completion: nil)
+		
+		ViewController.selfView!.alarmFinishedSetup(withGame: false)
 	} //end func
 	
 	

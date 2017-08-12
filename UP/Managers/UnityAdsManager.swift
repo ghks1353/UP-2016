@@ -16,6 +16,8 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 	public enum PlacementAds:String {
 		case alarmFinishAD = "alarmFinishVideo"
 		case gameContinueAD = "gameContinueAD"
+		case alarmADsOff = "alarmADsOff"
+		case donateManuallyAD = "donateManuallyAD"
 	}
 	
 	static var instance:UnityAdsManager?
@@ -46,26 +48,26 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 	
 	///////////////// instance functions
 	func initInstance() {
-		print("UnityADs init...");
-		UnityAds.initialize("1085659", delegate: self, testMode: UnityAdsManager.unityAdsTestMode);
+		print("UnityADs init...")
+		UnityAds.initialize("1085659", delegate: self, testMode: UnityAdsManager.unityAdsTestMode)
 	}
 	
 	@objc func unityAdsReady(_ placementId: String) {
-		print("UnityAds is READY");
+		print("UnityAds is READY")
 		
 	}
 	@objc func unityAdsDidStart(_ placementId: String) {
-		print("UnityAds started");
+		print("UnityAds started")
 		
 	}
 	@objc func unityAdsDidError(_ error: UnityAdsError, withMessage message: String) {
-		print("UnityAds error with message: " + message);
+		print("UnityAds error with message: " + message)
 		
 		
 		
 	}
 	@objc func unityAdsDidFinish(_ placementId: String, with state: UnityAdsFinishState) {
-		print("UnityAds finished advertising: " + placementId);
+		print("UnityAds finished advertising: " + placementId)
 		/*
 		switch(placementId) {
 			case UnityAdsManager.PLACEMENT_GAMECONTINUE:
@@ -79,12 +81,11 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 			default: break;
 		}
 		*/
+		
 		//Run callback
-		if (UnityAdsManager.callbackFunc != nil) {
-			UnityAdsManager.callbackFunc!();
-			UnityAdsManager.callbackFunc = nil;
-		}
-	}
+		UnityAdsManager.callbackFunc?()
+		UnityAdsManager.callbackFunc = nil
+	} // end func
 	
 	
 	

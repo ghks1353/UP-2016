@@ -32,6 +32,7 @@ class LanguageSetupView:UIModalPopView, UITableViewDataSource, UITableViewDelega
 				, createCell("English", menuID: LanguagesManager.LanguageCode.English)
 				, createCell("日本語", menuID: LanguagesManager.LanguageCode.Japanese)
 				, createCell("한국어", menuID: LanguagesManager.LanguageCode.Korean)
+				, createCell("中文", menuID: LanguagesManager.LanguageCode.ChineseSimp)
 			] ]
 		
 		tableView.delegate = self
@@ -100,7 +101,7 @@ class LanguageSetupView:UIModalPopView, UITableViewDataSource, UITableViewDelega
 		return 38
 	}
 	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 52
+		return UITableViewAutomaticDimension
 	}
 	
 	func createCell( _ name:String, menuID:String ) -> CustomTableCell {
@@ -114,7 +115,8 @@ class LanguageSetupView:UIModalPopView, UITableViewDataSource, UITableViewDelega
 				break
 			case LanguagesManager.LanguageCode.Korean,
 			     LanguagesManager.LanguageCode.Japanese,
-			     LanguagesManager.LanguageCode.English: tIconFileStr = "comp-icons-settings-language-" + menuID
+			     LanguagesManager.LanguageCode.English,
+			     LanguagesManager.LanguageCode.ChineseSimp: tIconFileStr = "comp-icons-settings-language-" + menuID
 				break
 			default:
 				tIconFileStr = "comp-icons-settings-experiments"

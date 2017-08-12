@@ -32,7 +32,7 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-class ViewController: UIViewController {
+class ViewController:UPUIViewController {
 	
 	static var selfView:ViewController?
 	
@@ -52,9 +52,12 @@ class ViewController: UIViewController {
 	var overlayGuideView:MainOverlayGuideView = MainOverlayGuideView()
 	
 	//Digital 시계
-	var DigitalNum0:UIImageView = UIImageView(); var DigitalNum1:UIImageView = UIImageView();
-	var DigitalNum2:UIImageView = UIImageView(); var DigitalNum3:UIImageView = UIImageView();
+	var DigitalNum0:UIImageView = UIImageView()
+	var DigitalNum1:UIImageView = UIImageView()
+	var DigitalNum2:UIImageView = UIImageView()
+	var DigitalNum3:UIImageView = UIImageView()
 	var DigitalCol:UIImageView = UIImageView()
+	
 	//Digital clock wrapper for align to center
 	var digitalClockUIView:UIView = UIView()
 	
@@ -72,13 +75,17 @@ class ViewController: UIViewController {
 	var AnalogCenter:UIImageView = UIImageView();
 	
 	//아날로그 시계 좌우 버튼
-	var SettingsImg:UIImageView = UIImageView(); var AlarmListImg:UIImageView = UIImageView();
+	var SettingsImg:UIImageView = UIImageView()
+	var AlarmListImg:UIImageView = UIImageView()
 	
 	//땅 부분
-	var GroundObj:UIImageView = UIImageView(); var AstroCharacter:UIImageView = UIImageView();
-	var GroundStatSign:UIImageView = UIImageView(); //통계 사인
+	var GroundObj:UIImageView = UIImageView()
+	var AstroCharacter:UIImageView = UIImageView()
+	var GroundStatSign:UIImageView = UIImageView() //통계 사인
+	
 	//고정 박스와 떠있는 박스 (게임쪽)
-	var GroundStandingBox:UIImageView = UIImageView(); var GroundFloatingBox:UIImageView = UIImageView();
+	var GroundStandingBox:UIImageView = UIImageView()
+	var GroundFloatingBox:UIImageView = UIImageView()
 	
 	///////////// Touch areas
 	var touchAreaPlayGame:UIView = UIView() //게임하기 touch area
@@ -103,8 +110,12 @@ class ViewController: UIViewController {
 	var upAlarmMessageText:UILabel = UILabel()
 	
 	//UP 확장팩 구매 유도 버튼 및 도움말 표시 버튼
+	// => 확장팩은 베타 버전 안내로 변경 (이미지만)
 	var upExtPackButton:UIImageView = UIImageView()
 	var upLayerGuideShowButton:UIImageView = UIImageView()
+	
+	/// UP 베타 버전 뱃지 버튼
+	//var upBetaButton:UIButton = UIButton()
 	
 	//screen blur view
 	var scrBlurView:UIVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
@@ -114,6 +125,7 @@ class ViewController: UIViewController {
 	
 	/// 알람을 끝나고 나온 경우 안내 멘트 표시
 	var alarmFinishedTransition:Bool = false
+	var alarmFinishedWithGame:Bool = false
 	
     //viewdidload - inital 함수. 뷰 로드시 자동실행
     override func viewDidLoad() {
@@ -136,7 +148,8 @@ class ViewController: UIViewController {
 					if (error == nil) {
 						UIApplication.shared.registerForRemoteNotifications()
 					} else {
-						//alarm auth regist fallback 넣어야함 (알림설정 해주세요)
+						// alarm auth regist fallback (알림설정 해주세요)
+						DeviceManager.alert(title: LanguagesManager.$("generalWarning"), subject: LanguagesManager.$("notificationSetupWarning"), promptTitle: LanguagesManager.$("generalOK"), callback: nil)
 					} //end if
 				}
 			)
@@ -145,12 +158,15 @@ class ViewController: UIViewController {
 			let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
 			UIApplication.shared.registerUserNotificationSettings(notificationSettings)
 			UIApplication.shared.registerForRemoteNotifications()
-		}
+		} // end if
 		
 		
-		//Background image add.
-		self.view.addSubview(backgroundImageView); self.view.addSubview(backgroundImageFadeView);
-		self.view.sendSubview(toBack: backgroundImageFadeView); self.view.sendSubview(toBack: backgroundImageView);
+		// Background image add.
+		self.view.addSubview(backgroundImageView)
+		self.view.addSubview(backgroundImageFadeView)
+		
+		self.view.sendSubview(toBack: backgroundImageFadeView)
+		self.view.sendSubview(toBack: backgroundImageView)
 		
 		//리소스 뷰에 추가
 		digitalClockUIView.addSubview(DigitalNum0)
@@ -207,12 +223,16 @@ class ViewController: UIViewController {
 		
 		/////////
 		//일부 리소스 이미지 미리 지정
-		upExtPackButton.image = UIImage( named: "comp-buyup-icon.png" )
+		upExtPackButton.image = UIImage( named: "comp-beta-icon.png" )
+		
+		upExtPackButton.clipsToBounds = true
+		upExtPackButton.layer.cornerRadius = 8
+		
 		upLayerGuideShowButton.image = UIImage( named: "comp-showguide-icon.png" )
 		
 		if (DeviceManager.is24HourMode == true) {
 			digitalAMPMIndicator.isHidden = true //24시간에선 오전오후 표시필요가 없음
-		}
+		} // end if
 		
 		//기본 스킨 선택.
 		updateTheme()
@@ -440,11 +460,20 @@ class ViewController: UIViewController {
 	} //end func
 	
 	func showUPBuyView( _ gst:UITapGestureRecognizer? ) {
-		modalBuyExPackView.modalPresentationStyle = .overFullScreen
+		self.alert(cTitle: LanguagesManager.$("generalAlert"), subject: LanguagesManager.$("betaNotice"), confirmTitle: LanguagesManager.$("generalOpinion"), cancelTitle: LanguagesManager.$("generalClose"), confirmCallback: sendOpinonHandler, cancelCallback: nil)
+		
+		// 구매 모달 가림
+		
+		/*modalBuyExPackView.modalPresentationStyle = .overFullScreen
 		showHideBlurview(true)
 		
-		self.present(modalBuyExPackView, animated: false, completion: nil)
+		self.present(modalBuyExPackView, animated: false, completion: nil)*/
 	} //end func
+	
+	/// Beta - 의견 보내기 관련
+	func sendOpinonHandler() {
+		UIApplication.shared.openURL(URL(string: "https://goo.gl/eaVsz9")!)
+	} // end func
 	
 	////////////////////////////////////
   
@@ -1037,9 +1066,10 @@ class ViewController: UIViewController {
 	
 	///// 공지사항 띄움
 	func callShowNoticeModal() {
+		// 알람 끝나고 온 경우
+		showAlarmFinishedTansitionHandler()
+		
 		if (isNoticeCalled) {
-			// 알람 끝나고 온 경우
-			showAlarmFinishedTansitionHandler()
 			return
 		} // end if
 		
@@ -1075,7 +1105,8 @@ class ViewController: UIViewController {
 		//Purchase 상태에 따라 메인 화면의 element 숨김/표시여부 결정.
 		// ... 하려 했는데, 의견에 따라 일단 구매버튼은 그냥 숨기기로
 		
-		upExtPackButton.isHidden = true
+		// 베타버전 의견 받는 버튼으로 변경
+		//upExtPackButton.isHidden = true
 		/*
 		if (PurchaseManager.purchasedItems[PurchaseManager.ProductsID.ExpansionPack.rawValue] == true) {
 			//구매하였으니 버튼 비표시
@@ -1085,6 +1116,13 @@ class ViewController: UIViewController {
 			upExtPackButton.isHidden = false
 		} */ //end if
 	} //end func
+	
+	/// 알람 끝남 flag 설정
+	func alarmFinishedSetup( withGame:Bool = false ) {
+		alarmFinishedTransition = true
+		alarmFinishedWithGame = withGame
+		
+	} // end func
 	
 	/// 알람이 끝난 경우 이쪽으로 옴
 	func showAlarmFinishedTansitionHandler() {

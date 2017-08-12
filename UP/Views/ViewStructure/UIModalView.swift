@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class UIModalView:UIViewController {
+class UIModalView:UPUIViewController {
 	
 	//Inner-modal view
 	var modalView:UIViewController = UIViewController()

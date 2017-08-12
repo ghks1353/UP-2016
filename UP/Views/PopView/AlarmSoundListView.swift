@@ -90,9 +90,29 @@ class AlarmSoundListView:UIModalPopView, UITableViewDataSource, UITableViewDeleg
 	override func viewWillDisappear(_ animated: Bool) {
 		self.stopSound()
 		
-		//scale 0~1 to 0~100
+		// scale 0~1 to 0~100
 		AddAlarmView.selfView!.alarmCurrentSoundLevel = Int(soundSliderPointer!.value * 100)
 	} //end func
+	
+	override func popToRootAction() {
+		
+		// 음량 체크 후 적당하지 않으면 (크거나 작으면) 경고
+		if ( soundSliderPointer!.value <= 0.35 ) {
+			self.alert(title: LanguagesManager.$("generalWarning"), subject: LanguagesManager.$("alarmVolumeLowWarning"), promptTitle: LanguagesManager.$("generalOK"), callback: spRootHandler)
+			
+			return
+		} else if ( soundSliderPointer!.value >= 0.75 ) {
+			self.alert(title: LanguagesManager.$("generalWarning"), subject: LanguagesManager.$("alarmVolumeHighWarning"), promptTitle: LanguagesManager.$("generalOK"), callback: spRootHandler)
+			
+			return
+		} // end if
+		
+		spRootHandler()
+	} // end func
+	
+	func spRootHandler() {
+		super.popToRootAction()
+	} // end func
 	
 	/////////////////////////////
 	///// for table func

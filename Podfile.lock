@@ -59,7 +59,7 @@ PODS:
     - SQLite.swift/standard (= 0.11.2)
   - SQLite.swift/standard (0.11.2)
   - SwiftyJSON (3.1.4)
-  - SwiftyStoreKit (0.10.4)
+  - SwiftyStoreKit (0.10.5)
 
 DEPENDENCIES:
   - Charts
@@ -93,7 +93,7 @@ SPEC CHECKSUMS:
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
   SQLite.swift: 670c3e9e0a806bbfd56a3de5d530768dc0e6fe7c
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
-  SwiftyStoreKit: f38427d347c8ad0a0d250ae2b64f9f2fcde0569c
+  SwiftyStoreKit: 6b4132ad703d3ebc075100c10eacfe429b943719
 
 PODFILE CHECKSUM: e7f7157e35a982997353b3f8ef162cde98fb9432
 

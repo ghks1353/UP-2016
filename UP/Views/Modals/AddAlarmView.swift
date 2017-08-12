@@ -521,7 +521,7 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 		editingAlarmID = -1
 		confirmed = false
 		
-		alarmCurrentSoundLevel = 80 //default size
+		alarmCurrentSoundLevel = 70 //default size
 		
 		self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false) //scroll to top
 	} ///// end func

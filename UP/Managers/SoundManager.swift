@@ -17,6 +17,8 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	
 	public enum bundleSystemSounds:String {
 		case systemAdBeep = "effect-system-ad-beep.wav"
+		
+		case seungHaKundae = "effect-etc-seungha-kundae.mp3"
 	}
 	
 	public enum bundleSounds:String {
@@ -224,9 +226,9 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	////////////// alarm sounds
 	static var list:Array<SoundData> = [
 		SoundData(soundName: "alarmSoundsBeep", fileName: "sounds-alarms-beep.aiff"),
-		SoundData(soundName: "alarmSounds8BitMelody", fileName: "sounds-alarms-8bitmelody.aiff"),
+		SoundData(soundName: "alarmSounds8BitMelody", fileName: "sounds-alarms-8bitmelody.aiff")
 		
-		SoundData(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff")
+		/*,SoundData(soundName: "Marble Soda", fileName: "sounds-alarms-test-marvelsoda.aiff")*/
 	]
 	
 	//사운드 이름에 대한 실제 사운드 오브젝트 반환

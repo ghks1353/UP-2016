@@ -468,12 +468,16 @@
 		778FCD9A1E5EB6CC000B7FD0 /* effect-game-general-gameover.wav in Resources */ = {isa = PBXBuildFile; fileRef = 778FCD981E5EB6CC000B7FD0 /* effect-game-general-gameover.wav */; };
 		779154561E4A05300049C4A9 /* modal-buy-astro.png in Resources */ = {isa = PBXBuildFile; fileRef = 779154541E4A05300049C4A9 /* modal-buy-astro.png */; };
 		779154571E4A05300049C4A9 /* modal-buy-heroesofthestorm.png in Resources */ = {isa = PBXBuildFile; fileRef = 779154551E4A05300049C4A9 /* modal-buy-heroesofthestorm.png */; };
+		779499A41F3EFEEF0026A283 /* UPUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779499A31F3EFEEF0026A283 /* UPUIViewController.swift */; };
+		779499A61F3F14AE0026A283 /* comp-icons-settings-language-zh.png in Resources */ = {isa = PBXBuildFile; fileRef = 779499A51F3F14AE0026A283 /* comp-icons-settings-language-zh.png */; };
+		779499A81F3F14CC0026A283 /* zh.json in Resources */ = {isa = PBXBuildFile; fileRef = 779499A71F3F14CC0026A283 /* zh.json */; };
+		779499AA1F3F378D0026A283 /* comp-beta-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 779499A91F3F378D0026A283 /* comp-beta-icon.png */; };
+		779499AC1F3F63500026A283 /* effect-etc-seungha-kundae.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 779499AB1F3F63500026A283 /* effect-etc-seungha-kundae.mp3 */; };
 		779A1F361DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png in Resources */ = {isa = PBXBuildFile; fileRef = 779A1F351DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png */; };
 		779E2CBD1C955BEA00B70BBA /* up_background_task_alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */; };
 		77A058391E3CC2F800E04968 /* FirebaseTopicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A058381E3CC2F800E04968 /* FirebaseTopicManager.swift */; };
 		77A0583C1E3D07A200E04968 /* ALDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0583B1E3D07A200E04968 /* ALDManager.swift */; };
 		77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */; };
-		77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */; };
 		77BFB47E1E54F4E200470CEE /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BFB47D1E54F4E200470CEE /* ResourceManager.swift */; };
 		77BFB4811E54F5BB00470CEE /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BFB47F1E54F5BB00470CEE /* GameData.swift */; };
 		77BFB4821E54F5BB00470CEE /* SoundData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BFB4801E54F5BB00470CEE /* SoundData.swift */; };
@@ -990,12 +994,16 @@
 		778FCD981E5EB6CC000B7FD0 /* effect-game-general-gameover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "effect-game-general-gameover.wav"; path = "SoundAssets/EffectSounds/General/effect-game-general-gameover.wav"; sourceTree = "<group>"; };
 		779154541E4A05300049C4A9 /* modal-buy-astro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-astro.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-astro.png"; sourceTree = "<group>"; };
 		779154551E4A05300049C4A9 /* modal-buy-heroesofthestorm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-heroesofthestorm.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-heroesofthestorm.png"; sourceTree = "<group>"; };
+		779499A31F3EFEEF0026A283 /* UPUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UPUIViewController.swift; path = Views/ViewStructure/UPUIViewController.swift; sourceTree = "<group>"; };
+		779499A51F3F14AE0026A283 /* comp-icons-settings-language-zh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-language-zh.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-language-zh.png"; sourceTree = "<group>"; };
+		779499A71F3F14CC0026A283 /* zh.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = zh.json; path = AppPresets/Languages/zh.json; sourceTree = "<group>"; };
+		779499A91F3F378D0026A283 /* comp-beta-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-beta-icon.png"; path = "ImageAssets/Components/comp-beta-icon.png"; sourceTree = "<group>"; };
+		779499AB1F3F63500026A283 /* effect-etc-seungha-kundae.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "effect-etc-seungha-kundae.mp3"; path = "SoundAssets/EffectSounds/General/effect-etc-seungha-kundae.mp3"; sourceTree = "<group>"; };
 		779A1F351DBE7AC8008D3FC3 /* comp-icons-settings-wakeuponly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-wakeuponly.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-wakeuponly.png"; sourceTree = "<group>"; };
 		779E2CBC1C955BEA00B70BBA /* up_background_task_alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = up_background_task_alarm.mp3; path = SoundAssets/SystemSounds/up_background_task_alarm.mp3; sourceTree = "<group>"; };
 		77A058381E3CC2F800E04968 /* FirebaseTopicManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseTopicManager.swift; path = Managers/FirebaseTopicManager.swift; sourceTree = "<group>"; };
 		77A0583B1E3D07A200E04968 /* ALDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ALDManager.swift; path = Managers/ALDManager.swift; sourceTree = "<group>"; };
 		77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "sounds-alarms-test-marvelsoda.aiff"; path = "SoundAssets/AlarmSounds/test/sounds-alarms-test-marvelsoda.aiff"; sourceTree = "<group>"; };
 		77BFB47D1E54F4E200470CEE /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResourceManager.swift; path = Managers/ResourceManager.swift; sourceTree = "<group>"; };
 		77BFB47F1E54F5BB00470CEE /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameData.swift; path = Managers/StructureClass/GameData.swift; sourceTree = "<group>"; };
 		77BFB4801E54F5BB00470CEE /* SoundData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundData.swift; path = Managers/StructureClass/SoundData.swift; sourceTree = "<group>"; };
@@ -1210,6 +1218,7 @@
 		03425B841CD0634F00243B28 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				779499A91F3F378D0026A283 /* comp-beta-icon.png */,
 				03425B851CD0635700243B28 /* comp-icons-blank.png */,
 				03E1D1201CEC707E00B552FC /* Alarm */,
 				03DDD82F1CEB9CFE007C026D /* DataCategory */,
@@ -1565,6 +1574,7 @@
 				77BFB4D81E56144E00470CEE /* GeneralMenuUI.swift */,
 				77BFB4BC1E56125D00470CEE /* UIModalPopView.swift */,
 				77BFB4BD1E56125D00470CEE /* UIModalView.swift */,
+				779499A31F3EFEEF0026A283 /* UPUIViewController.swift */,
 			);
 			name = ViewStructure;
 			sourceTree = "<group>";
@@ -1616,6 +1626,7 @@
 				7739EA7F1E4E2F8100F62B59 /* en.json */,
 				7739EA801E4E2F8100F62B59 /* ja.json */,
 				7739EA811E4E2F8100F62B59 /* ko.json */,
+				779499A71F3F14CC0026A283 /* zh.json */,
 			);
 			name = Languages;
 			sourceTree = "<group>";
@@ -1980,6 +1991,7 @@
 		77561DA41D5066C8002EB26B /* Languages */ = {
 			isa = PBXGroup;
 			children = (
+				779499A51F3F14AE0026A283 /* comp-icons-settings-language-zh.png */,
 				77561DAB1D5066D0002EB26B /* comp-icons-settings-language-en.png */,
 				77561DAC1D5066D0002EB26B /* comp-icons-settings-language-ja.png */,
 				77561DAD1D5066D0002EB26B /* comp-icons-settings-language-ko.png */,
@@ -2125,6 +2137,7 @@
 		778FCD831E5EB6AB000B7FD0 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				779499AB1F3F63500026A283 /* effect-etc-seungha-kundae.mp3 */,
 				776070541F2DFB1700ACE8EC /* effect-game-general-time-down-last.wav */,
 				776070551F2DFB1700ACE8EC /* effect-game-general-time-down.wav */,
 				777097961E990BB50074519E /* effect-game-general-countdown-start.wav */,
@@ -2247,7 +2260,6 @@
 			children = (
 				776070521F2CCA1000ACE8EC /* sounds-alarms-beep.aiff */,
 				7744C75A1EDA790A002A34DE /* sounds-alarms-8bitmelody.aiff */,
-				77AC50BF1CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff */,
 			);
 			name = Alarms;
 			sourceTree = "<group>";
@@ -2633,7 +2645,6 @@
 				772BB1E81DE8BDCE0054B3EF /* game-jumpup-ai-astro-move-3.png in Resources */,
 				77454BC51E544761003B9678 /* theme-default-list-back-sunset-ipad-on.png in Resources */,
 				032536B51D1978E3004C6293 /* result-btn-close.png in Resources */,
-				77AC50C01CAC3F280044F5C8 /* sounds-alarms-test-marvelsoda.aiff in Resources */,
 				7719775A1E48DFBD0018EE00 /* game-gozaup-assets-enemy.jpg in Resources */,
 				03425BAF1CD391E500243B28 /* GoogleService-Info.plist in Resources */,
 				775EAFA11D51E2EF00BE8C4A /* game-jumpup-assets-cloud-5.png in Resources */,
@@ -2676,6 +2687,7 @@
 				032319311CFCAC170052732F /* result-btn-ranking.png in Resources */,
 				772BB1AF1DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-4.png in Resources */,
 				778FCD991E5EB6CC000B7FD0 /* effect-game-general-countdown.wav in Resources */,
+				779499AC1F3F63500026A283 /* effect-etc-seungha-kundae.mp3 in Resources */,
 				778FCD7A1E59C536000B7FD0 /* characterinfo-themes-ground.png in Resources */,
 				771CD15A1E478DB600574AD8 /* modal-guide-alarm-images-all-3-general.png in Resources */,
 				77454C7A1E544A5A003B9678 /* theme-default-guide-list-off.png in Resources */,
@@ -2793,6 +2805,7 @@
 				7719776A1E48DFE40018EE00 /* effect-game-gozaup-ef5.mp3 in Resources */,
 				77454BC11E544761003B9678 /* theme-default-list-back-morning-ipad-on.png in Resources */,
 				772BB1D21DE8BD540054B3EF /* game-jumpup-ai-j-astro-jump-4.png in Resources */,
+				779499A61F3F14AE0026A283 /* comp-icons-settings-language-zh.png in Resources */,
 				775EB0281D51E5DB00BE8C4A /* game-jumpup-assets-ai-j-astro-effect4.png in Resources */,
 				77454BF31E5447AF003B9678 /* theme-default-ground-daytime-pad43.png in Resources */,
 				776070571F2DFB1700ACE8EC /* effect-game-general-time-down.wav in Resources */,
@@ -2814,6 +2827,7 @@
 				77454BD01E544779003B9678 /* theme-default-list-back-morning-ldpi-off.png in Resources */,
 				77454C2F1E54483A003B9678 /* theme-default-digital-9.png in Resources */,
 				774549F71E504B1F003B9678 /* themes-select-side-up.png in Resources */,
+				779499A81F3F14CC0026A283 /* zh.json in Resources */,
 				77454C8A1E544A7F003B9678 /* theme-default-guide-ground.png in Resources */,
 				032319131CFB5C7B0052732F /* characterinfo-exp-deco-9.png in Resources */,
 				77454C641E544A3B003B9678 /* theme-default-back-morning-4s.png in Resources */,
@@ -2940,6 +2954,7 @@
 				777097971E990BB50074519E /* effect-game-general-countdown-start.wav in Resources */,
 				775EB0591D51E64F00BE8C4A /* game-jumpup-assets-guide-3.png in Resources */,
 				77454C131E5447F0003B9678 /* theme-default-time-center.png in Resources */,
+				779499AA1F3F378D0026A283 /* comp-beta-icon.png in Resources */,
 				771977671E48DFE40018EE00 /* effect-game-gozaup-ef2.mp3 in Resources */,
 				77454C7B1E544A5A003B9678 /* theme-default-guide-list-on.png in Resources */,
 				77454C311E54483A003B9678 /* theme-default-digital-col.png in Resources */,
@@ -3093,6 +3108,7 @@
 				03DDD7FF1CEB990D007C026D /* SettingsElement.swift in Sources */,
 				77BFB4821E54F5BB00470CEE /* SoundData.swift in Sources */,
 				77782E681C92B0B00016EE1B /* Int+Extensions.swift in Sources */,
+				779499A41F3EFEEF0026A283 /* UPUIViewController.swift in Sources */,
 				77BFB49A1E56122F00470CEE /* AlarmRepeatSettingsView.swift in Sources */,
 				77BFB48A1E5610FC00470CEE /* StatisticsData.swift in Sources */,
 				77BFB48D1E5611A200470CEE /* StrArrayFormatter.swift in Sources */,

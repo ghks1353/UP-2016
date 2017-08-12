@@ -43,7 +43,8 @@ class CreditsPopView:UIModalPopView {
 		creditLogo.image = UIImage( named: "modal-credits-logo.png" )
 		creditLogo.frame = CGRect(x: creditsScrollView.frame.width / 2 - (151.1 / 2), y: 32, width: 151.1, height: 23.1)
 		creditsScrollView.addSubview(creditLogo)
-		//버전정보
+		
+		// 버전정보
 		creditVersionInfo.frame = CGRect(x: 0, y: creditLogo.frame.maxY + 8, width: creditsScrollView.frame.width, height: 18)
 		creditVersionInfo.font = UIFont.systemFont(ofSize: 15)
 		creditVersionInfo.textColor = UIColor.gray
@@ -51,22 +52,26 @@ class CreditsPopView:UIModalPopView {
 		creditVersionInfo.text = "Version " + ((Bundle.main.infoDictionary?["CFBundleVersion"])! as! String)
 		creditsScrollView.addSubview(creditVersionInfo)
 		
-		//만든 인물들
+		// 만든 인물들
 		for i:Int in 0 ..< 2 {
-			var position:String = ""; var nickname:String = ""; var positionLabeled:String = "";
+			var position:String = ""
+			var nickname:String = ""
+			var positionLabeled:String = ""
+			
 			switch(i) {
 				case 0:
 					position = "programmer"
 					nickname = "ExFl"
 					positionLabeled = "Programming"
-					break;
+					break
 				case 1:
 					position = "graphic"
 					nickname = "Penple"
 					positionLabeled = "Graphic"
-					break;
+					break
 				default: break
 			} //end switch
+			
 			let tmpUIImageView:UIImageView = UIImageView( image: UIImage( named: "modal-credits-people-" +  position + ".png" ) )
 			tmpUIImageView.frame = CGRect(
 				x: (creditsScrollView.frame.width / 2 + CGFloat((i-1) * 72)) + (i == 0 ? -4 : 4)
@@ -75,15 +80,27 @@ class CreditsPopView:UIModalPopView {
 			let tmpPositions:UILabel = UILabel()
 			
 			tmpNickLabel.frame = CGRect(x: tmpUIImageView.frame.minX, y: tmpUIImageView.frame.maxY + 4, width: 72, height: 18)
-			tmpNickLabel.textColor = UIColor.black; tmpNickLabel.textAlignment = .center;
-			tmpNickLabel.font = UIFont.boldSystemFont(ofSize: 15); tmpNickLabel.text = nickname;
+			tmpNickLabel.textColor = UIColor.black
+			tmpNickLabel.textAlignment = .center
+			tmpNickLabel.font = UIFont.boldSystemFont(ofSize: 15)
+			tmpNickLabel.text = nickname
+			
 			tmpPositions.frame = CGRect(x: tmpUIImageView.frame.minX - 3, y: tmpNickLabel.frame.maxY - 1, width: 76, height: 16)
-			tmpPositions.textColor = UIColor.gray; tmpPositions.textAlignment = .center;
-			tmpPositions.font = UIFont.systemFont(ofSize: 12); tmpPositions.text = positionLabeled;
+			tmpPositions.textColor = UIColor.gray
+			tmpPositions.textAlignment = .center
+			tmpPositions.font = UIFont.systemFont(ofSize: 12)
+			tmpPositions.text = positionLabeled
 			
 			creditsScrollView.addSubview(tmpUIImageView)
 			creditsScrollView.addSubview(tmpNickLabel)
 			creditsScrollView.addSubview(tmpPositions)
+			
+			// add touch gesture
+			let tGest:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector( creatorSelectionHandler ))
+			tmpUIImageView.tag = i
+			tmpUIImageView.isUserInteractionEnabled = true
+			tmpUIImageView.addGestureRecognizer(tGest)
+			
 			madeByImages += [tmpUIImageView]
 			madeByNicknames += [tmpNickLabel]
 			madeByPositions += [tmpPositions]
@@ -91,10 +108,11 @@ class CreditsPopView:UIModalPopView {
 		
 		
 		//ㄱㅅ
-		creditTitleSpecialThanks.frame = CGRect(x: 0, y: madeByPositions[madeByPositions.count - 1].frame.maxY + 48, width: creditsScrollView.frame.width, height: 24);
-		creditTitleSpecialThanks.textColor = UIColor.black; creditTitleSpecialThanks.textAlignment = .center;
-		creditTitleSpecialThanks.font = UIFont.systemFont(ofSize: 20);
-		creditTitleSpecialThanks.text = "Special Thanks"; creditsScrollView.addSubview(creditTitleSpecialThanks);
+		creditTitleSpecialThanks.frame = CGRect(x: 0, y: madeByPositions[madeByPositions.count - 1].frame.maxY + 48, width: creditsScrollView.frame.width, height: 24)
+		creditTitleSpecialThanks.textColor = UIColor.black
+		creditTitleSpecialThanks.textAlignment = .center
+		creditTitleSpecialThanks.font = UIFont.systemFont(ofSize: 20)
+		creditTitleSpecialThanks.text = "Special Thanks"
 		
 		creditContentsSpecialThanks.frame = CGRect(x: 12, y: creditTitleSpecialThanks.frame.maxY + 18, width: creditsScrollView.frame.width - 24, height: 0);
 		creditContentsSpecialThanks.numberOfLines = 0; creditContentsSpecialThanks.lineBreakMode = .byWordWrapping;
@@ -102,13 +120,16 @@ class CreditsPopView:UIModalPopView {
 		creditContentsSpecialThanks.font = UIFont.systemFont(ofSize: 10)
 		creditContentsSpecialThanks.text = "Thanks to CellularHacker, NotonAlcyone, Sang Wook Park, Seung Yeon Seo, Dae Yang Choi and Joong Wan Koo for helping us with our project."
 		creditContentsSpecialThanks.sizeToFit()
+		
+		creditsScrollView.addSubview(creditTitleSpecialThanks)
 		creditsScrollView.addSubview(creditContentsSpecialThanks)
 		
 		//라이센스
-		creditTitleLicense.frame = CGRect(x: 0, y: creditContentsSpecialThanks.frame.maxY + 48, width: creditsScrollView.frame.width, height: 24);
-		creditTitleLicense.textColor = UIColor.black; creditTitleLicense.textAlignment = .center;
-		creditTitleLicense.font = UIFont.systemFont(ofSize: 20);
-		creditTitleLicense.text = "License"; creditsScrollView.addSubview(creditTitleLicense);
+		creditTitleLicense.frame = CGRect(x: 0, y: creditContentsSpecialThanks.frame.maxY + 48, width: creditsScrollView.frame.width, height: 24)
+		creditTitleLicense.textColor = UIColor.black
+		creditTitleLicense.textAlignment = .center
+		creditTitleLicense.font = UIFont.systemFont(ofSize: 20)
+		creditTitleLicense.text = "License"
 		
 		creditContentsLicense.frame = CGRect(x: 12, y: creditTitleLicense.frame.maxY + 18, width: creditsScrollView.frame.width - 24, height: 0)
 		creditContentsLicense.numberOfLines = 0
@@ -120,18 +141,18 @@ class CreditsPopView:UIModalPopView {
 		creditContentsLicense.lineBreakMode = .byCharWrapping
 		creditContentsLicense.text =
 			"Open source license\n\n" +
-			"gifu by Reda Lemeden\n" +
-			"SwiftyStoreKit by Andrea Bizzotto\n" +
-			"SwiftyJSON by Ruoyu Fu\n" +
-			"SQLite.swift by Stephen Celis\n" +
-			"CryptoSwift by Marcin Krzyżanowski\n" +
-			"Charts by Daniel Cohen Gindi & Philipp Jahoda\n" +
+			"gifu by Reda Lemeden, MIT License\n" +
+			"SwiftyStoreKit by Andrea Bizzotto, MIT License\n" +
+			"SwiftyJSON by Ruoyu Fu, MIT License\n" +
+			"SQLite.swift by Stephen Celis, MIT License\n" +
+			"CryptoSwift by Marcin Krzyżanowski, zlib License\n" +
+			"Charts by Daniel Cohen Gindi & Philipp Jahoda, Apache License\n" +
+			"pop by Facebook, BSD License\n" +
 			
-			"\n\nSound license\n\n" +
-			"Enterjump by coby12388\nConfirmation Downward by original_sound\nc64_plunk by theta4" +
-			"\nJumpUP BGM sound by NCS, https://goo.gl/jT8JZw" +
-			"\n\n\nCopyright (c) 2016-2017 <Project UP> by Seokhwan An and Seungha hwang."
+			"\n\n\nCopyright (c) 2016-2017 <Project UP> by SeokHwan An and Seungha Hwang."
 		creditContentsLicense.sizeToFit()
+		
+		creditsScrollView.addSubview(creditTitleLicense)
 		creditsScrollView.addSubview(creditContentsLicense)
 		
 		//컨텐츠 크기 설정
@@ -147,6 +168,24 @@ class CreditsPopView:UIModalPopView {
 	
 	//////////////////////////////
 	
+	func creatorSelectionHandler ( _ sender:UIGestureRecognizer ) {
+		if (sender.view == nil) {
+			return
+		} // end if
+		
+		//print( "tag touched",sender.view!.tag   )
+		switch( sender.view!.tag ) {
+			case 0: // ExFl 터치
+				
+				break
+			case 1: // 황승하 터치
+				SoundManager.playEffectSound(SoundManager.bundleSystemSounds.seungHaKundae.rawValue)
+				break
+			default: break
+		} // end switch
+		
+	} // end func
+	
 	func gozaGogo( _ gst:UIGestureRecognizer ) {
 		if (LanguagesManager.currentLocaleCode != LanguagesManager.LanguageCode.Korean) {
 			return //다른 로케일이면 막음
@@ -160,7 +199,7 @@ class CreditsPopView:UIModalPopView {
 			SettingsView.selfView!.dismiss(animated: true, completion: { _ in
 				ViewController.selfView!.runGame() //게임 시작 호출
 			})
-		}
+		} // end if
 	} ////////// end func
 	
 }

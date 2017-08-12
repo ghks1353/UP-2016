@@ -80,8 +80,9 @@ class MainOverlayGuideView:UIOverlayGuideView {
 		guideMainBuyLabel.textAlignment = .left
 		guideMainBuyLabel.textColor = UIColor.white
 		guideMainBuyLabel.font = UIFont.systemFont(ofSize: 18)
-		guideMainBuyLabel.text = LanguagesManager.$("settingsBuyPremium")
-		
+		//guideMainBuyLabel.text = LanguagesManager.$("settingsBuyPremium")
+		guideMainBuyLabel.text = LanguagesManager.$("betaNoticeTitle")
+
 		//캐릭터 설명 라벨
 		guideCharacterLabel.textAlignment = .right
 		guideCharacterLabel.textColor = UIColor.white

@@ -1782,8 +1782,8 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 		AlarmRingView.selfView!.dismiss(animated: false, completion: nil)
 		GlobalSubView.alarmRingViewcontroller.dismiss(animated: true, completion: nil)
 		
-		// 아래 작동이 안됨. todo
-		ViewController.selfView!.alarmFinishedTransition = true
+		// 메인화면 알람 종료 표시
+		ViewController.selfView!.alarmFinishedSetup(withGame: true)
 	} //end func
 	
 } //end of class

@@ -14,9 +14,10 @@ class LanguagesManager {
 		static let Korean:String = "ko"
 		static let English:String = "en"
 		static let Japanese:String = "ja"
+		static let ChineseSimp:String = "zh"
 	}
 	
-    static let supportedLanguages:Array<String> = [LanguageCode.Korean, LanguageCode.English, LanguageCode.Japanese]
+    static let supportedLanguages:Array<String> = [LanguageCode.Korean, LanguageCode.English, LanguageCode.Japanese, LanguageCode.ChineseSimp]
     static var languageJsonFile:NSDictionary?
 	
 	static var langInited:Bool = false

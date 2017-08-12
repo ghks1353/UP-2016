@@ -117,4 +117,23 @@ class DeviceManager {
 		print("[DeviceManager] Modal size changed to width ", defaultModalSizeRect.width, "height", defaultModalSizeRect.height)
 	} //end func
 	
+	/// Open alert above of all
+	static func alert( title:String, subject:String = "", promptTitle:String = "", callback:(() -> Void)? = nil ) {
+		let pTitleFixed:String = promptTitle == "" ? LanguagesManager.$("generalOK") : promptTitle
+		
+		let tWindow:UIWindow = UIWindow(frame: UIScreen.main.bounds)
+		let tViewController:UIViewController = UIViewController()
+		
+		tViewController.view.backgroundColor = .clear
+		tWindow.rootViewController = tViewController
+		tWindow.windowLevel = UIWindowLevelAlert + 1
+		tWindow.makeKeyAndVisible()
+		
+		let alertWindow:UIAlertController = UIAlertController(title: title, message: subject, preferredStyle: UIAlertControllerStyle.alert)
+			alertWindow.addAction(UIAlertAction(title: pTitleFixed, style: .default, handler: { (action: UIAlertAction!) in
+		}))
+		
+		tViewController.present(alertWindow, animated: true, completion: callback)
+	} //end func
+	
 } //end class

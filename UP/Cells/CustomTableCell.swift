@@ -12,6 +12,7 @@ import UIKit
 class CustomTableCell:UITableDottedCell {
     
     internal var cellID:String = ""
+	var titleLabelPointer:UILabel?
 	
 	//CellID를 가진 범용 커스텀 테이블셀
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

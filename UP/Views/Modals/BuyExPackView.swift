@@ -198,9 +198,12 @@ class BuyExPackView:UIModalView, UIScrollViewDelegate {
 	func expProductLoadStart() {
 		//상품정보 불러오는 중 표기
 		buyButtonUIButton.backgroundColor = UPUtils.colorWithHexString("#333333")
-		buyButtonUIButton.setTitle( LanguagesManager.$("generalLoading"), for: .normal)
+		//buyButtonUIButton.setTitle( LanguagesManager.$("generalLoading"), for: .normal)
 		
 		productAvaliable = false
+		self.buyButtonUIButton.setTitle( LanguagesManager.$("settingsBuyPremium"), for: .normal)
+		
+		/*
 		if (PurchaseManager.purchasedItems[PurchaseManager.ProductsID.ExpansionPack.rawValue] == true) {
 			//구매 완료된 상태이면, 그냥 관리문구 띄움
 			buyButtonUIButton.backgroundColor = UPUtils.colorWithHexString("#0FAA81")
@@ -211,7 +214,7 @@ class BuyExPackView:UIModalView, UIScrollViewDelegate {
 		} else {
 			//RemoteConfig상으론 이용이 가능하니, 상품 정보를 스토어에서 불러와 실제 구매 가능한지 확인
 			loadExpansionPackInfo()
-		} //end if
+		} //end if*/
 	} //end func
 	
 	func loadExpansionPackInfo() {

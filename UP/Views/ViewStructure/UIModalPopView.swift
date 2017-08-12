@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-class UIModalPopView:UIViewController {
+class UIModalPopView:UPUIViewController {
 	
 	func viewDidLoad( title:String ) {
 		super.viewDidLoad()
 		
-		//ModalView
+		// ModalView
 		self.view.backgroundColor = UIColor.white
 		self.title = title
 		

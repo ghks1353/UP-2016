@@ -43,8 +43,8 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 		SettingsView.selfView = self
 		
         //add table to modal
-        tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height);
-        modalView.view.addSubview(tableView);
+        tableView.frame = CGRect(x: 0, y: 0, width: modalView.view.frame.width, height: modalView.view.frame.height)
+        modalView.view.addSubview(tableView)
         
         //add table cells (options)
         tablesArray = [
@@ -53,15 +53,15 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 				, createSettingsToggle( LanguagesManager.$("settingsiCloud"), defaultState: false, settingsID: "syncToiCloud")
 				, createSettingsOnlyLabel( LanguagesManager.$("settingsChangeLanguage"), menuID: "languageChange")
             ],
-            [ /* SECTION 2*/
+           /* [ /* SECTION 2*/
 				createSettingsOnlyLabel( LanguagesManager.$("settingsBuyPremium") , menuID: "buyUP")
 				, createSettingsOnlyLabel( LanguagesManager.$("settingsRestoreBought") , menuID: "restorePurchases")
 				, createSettingsOnlyLabel( LanguagesManager.$("settingsCoupon") , menuID: "useCoupon")
-			],
+			],*/
             [ /* SECTION 3*/
                 createSettingsOnlyLabel( LanguagesManager.$("settingsStartingGuide") , menuID: "startGuide")
                 , createSettingsOnlyLabel( LanguagesManager.$("settingsRatingApp") , menuID: "ratingApplication")
-                , createSettingsOnlyLabel( LanguagesManager.$("settingsShowNewgame") , menuID: "indieGames")
+                //, createSettingsOnlyLabel( LanguagesManager.$("settingsShowNewgame") , menuID: "indieGames")
 				, createSettingsOnlyLabel( LanguagesManager.$("settingsDonate") , menuID: "donateUP")
                 , createSettingsOnlyLabel( LanguagesManager.$("settingsGotoUPProject") , menuID: "gotoUPProject")
 				, createSettingsOnlyLabel( LanguagesManager.$("settingsCredits") , menuID: "credits")
@@ -149,6 +149,10 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 				self.present(GlobalSubView.startingGuideView, animated: true, completion: nil)
 				break
 			case "donateUP":
+				/// 후원
+				cell.titleLabelPointer?.text = LanguagesManager.$("settingsDonateThanks")
+				
+				UnityAdsManager.showUnityAD(self, placementID: UnityAdsManager.PlacementAds.donateManuallyAD.rawValue, callbackFunction: donateAdsFinishedHandler, showFailCallbackFunction: internetConnectionErrorHandler)
 				
 				break
 			case "gotoUPProject":
@@ -184,9 +188,8 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 	} //end func
 	
 	/////////////////
-	
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5 //최대 섹션보다 적게하면 그 섹션이 안보임.
+        return tablesArray.count //최대 섹션보다 적게하면 그 섹션이 안보임.
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
@@ -207,26 +210,32 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 			//case 3: //DEV, TEST
 			//	return "주의: 실험실에 있는 내용은 소리없이 추가되거나 삭제될 수 있습니다.";
 			default:
-				return "";
-		}
+				return ""
+		} //end switch
 	}
 	
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (tablesArray[section] ).count;
+        return (tablesArray[section] ).count
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return UITableViewAutomaticDimension;
+		return UITableViewAutomaticDimension
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] )[(indexPath as NSIndexPath).row] as! UITableViewCell;
-        return cell;
+        let cell:UITableViewCell = (tablesArray[(indexPath as NSIndexPath).section] )[(indexPath as NSIndexPath).row] as! UITableViewCell
+        return cell
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 38;
+        return 38
     }
     
     ////////////////
+	func donateAdsFinishedHandler() {
+		DeviceManager.alert(title: LanguagesManager.$("settingsDonateThanks"), subject: LanguagesManager.$("donateThanksMessage"), promptTitle: LanguagesManager.$("generalOK"), callback: nil)
+	} // end if
+	func internetConnectionErrorHandler() {
+		self.alert(title: LanguagesManager.$("generalError"), subject: LanguagesManager.$("generalCheckInternetConnection"), promptTitle: LanguagesManager.$("generalOK"), callback: nil)
+	} // end if
 	
 	override func viewCloseAction() {
 		//Save changes
@@ -379,9 +388,10 @@ class SettingsView:UIModalView, UITableViewDataSource, UITableViewDelegate {
 		
         tCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         tLabel.font = UIFont.systemFont(ofSize: 16)
-        
+		
+		tCell.titleLabelPointer = tLabel
+		
         settingsArray += [settingsObj]
-        
         return tCell
     } //end func
 	////////////////
