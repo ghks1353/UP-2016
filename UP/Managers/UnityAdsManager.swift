@@ -39,7 +39,7 @@ class UnityAdsManager:NSObject, UnityAdsDelegate {
 			UnityAds.show(viewController, placementId: placementID)
 			callbackFunc = callbackFunction
 		} else {
-			//UnityAd Show failed
+			// UnityAd Show failed
 			showFailCallbackFunction()
 			
 			print("UnityAds " + placementID + " not ready")

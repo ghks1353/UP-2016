@@ -66,7 +66,6 @@ class AlarmRingView:UPUIViewController {
 		self.view.backgroundColor = UIColor.black
 		AlarmRingView.selfView = self
 		
-		adModeTitleLabel.text = LanguagesManager.$("alarmForceOffNowLabel")
 		adModeTitleLabel.numberOfLines = 0
 		
 		adModeTitleLabel.font = UIFont.systemFont(ofSize: 15)
@@ -74,7 +73,6 @@ class AlarmRingView:UPUIViewController {
 		adModeTitleLabel.textAlignment = .center
 		
 		// Description
-		adModeDescriptionLabel.text = ""
 		adModeDescriptionLabel.numberOfLines = 0
 		
 		adModeDescriptionLabel.font = UIFont.systemFont(ofSize: 13)
@@ -317,6 +315,11 @@ class AlarmRingView:UPUIViewController {
 		
 		adWarningCount = 0
 		adModeAutoStartVal = 0
+		
+		adModeTitleLabel.text = LanguagesManager.$("alarmForceOffNowLabel")
+		adModeDescriptionLabel.text = ""
+		
+		UnityAdsManager.instance?.initInstance()
 		
 		// 나머지는 appear 이후 처리
 		adModeTitleLabel.isHidden = false
