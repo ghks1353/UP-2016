@@ -352,7 +352,7 @@ class ViewController:UPUIViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		
-	}
+	} // end func
 	
 	override func viewDidAppear(_ animated: Bool) {
 		//Check alarms

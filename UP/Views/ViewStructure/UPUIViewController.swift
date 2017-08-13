@@ -39,4 +39,8 @@ class UPUIViewController:UIViewController {
 		self.present(alertController, animated: true, completion: nil)
 	} // end func
 	
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
+	}
+	
 }
