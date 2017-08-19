@@ -54,6 +54,14 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
 		navFuncButton.setImage( UIImage(named: "modal-add"), for: UIControlState())
 		navFuncButton.frame = CGRect(x: 0, y: 0, width: 45, height: 45) //Image frame size
 		navFuncButton.addTarget(self, action: #selector(self.alarmAddAction), for: .touchUpInside)
+		
+		if #available(iOS 9.0, *) {
+			let wAnchor = navFuncButton.widthAnchor.constraint(equalToConstant: 45)
+			let hAnchor = navFuncButton.heightAnchor.constraint(equalToConstant: 45)
+			wAnchor.isActive = true
+			hAnchor.isActive = true
+		} // end if
+
 		modalView.navigationItem.rightBarButtonItems = [ navRightPadding, UIBarButtonItem(customView: navFuncButton) ]
 		/////////////////////////////////////////// Nav items fin
 		

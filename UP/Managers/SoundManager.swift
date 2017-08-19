@@ -26,6 +26,8 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 		case GameJumpUPBGM = "bgm-game-jumpup-field.mp3"
 		
 		case GozaJumpUPBGM = "bgm-game-gozaup-field.mp3"
+		
+		case gameFinishedBGM = "bgm-game-finished.mp3"
 	} //bundlesounds
 	
 	public enum bundleEffectsGozaUP:String {
@@ -135,14 +137,13 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 	
 	
 	/// Effect
-	static func playEffectSound(_ soundName:String, destroyAfterCompleted:Bool = false ) {
+	static func playEffectSound(_ soundName:String, ignoresWhenPlaying:Bool = true, destroyAfterCompleted:Bool = false ) {
 		//이펙트는 임시객체가 생성됨.
 		var effectSoundPlayer:AVAudioPlayer?
 		
 		if (cachedEffectSounds[ soundName ] == nil) {
 			//Create new object
 			effectSoundPlayer = try! AVAudioPlayer( contentsOf: Bundle.main.url(forResource: soundName, withExtension: nil)! )
-			
 			effectSoundPlayer!.prepareToPlay()
 			
 			cachedEffectSounds[ soundName ] = effectSoundPlayer
@@ -155,7 +156,19 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 			effectSoundPlayer!.delegate = sharedInstance
 		} //end if
 		
-		effectSoundPlayer!.play()
+		if (ignoresWhenPlaying) {
+			effectSoundPlayer!.play()
+		} else {
+			effectSoundPlayer!.delegate = sharedInstance // Force destroy
+			
+			// Create new and play
+			effectSoundPlayer = try! AVAudioPlayer( contentsOf: Bundle.main.url(forResource: soundName, withExtension: nil)! )
+			effectSoundPlayer!.prepareToPlay()
+			effectSoundPlayer!.play()
+			
+			cachedEffectSounds[ soundName ] = effectSoundPlayer
+		} // end if
+		
 	} //end func
 	
 	////////// Audio playback settings
@@ -165,7 +178,7 @@ class SoundManager:NSObject, AVAudioPlayerDelegate {
 		for (k, v) in SoundManager.cachedEffectSounds {
 			if (v == player) {
 				SoundManager.cachedEffectSounds.remove(at: SoundManager.cachedEffectSounds.index(forKey: k)!)
-				break
+				//break
 			} //end if
 		} //end for
 	} //end func

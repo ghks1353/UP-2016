@@ -336,7 +336,10 @@ class GameStructureScene:SKScene {
 		if (gameScore <= 0) { //////////// Timer 0 이하일 경우 게임 끝냄
 			isGameFinished = true
 			
-			gameSecondTickTimer!.invalidate()
+			// 게임을 끝냈을 경우의 공용 BGM
+			SoundManager.playBGMSound(SoundManager.bundleSounds.gameFinishedBGM.rawValue)
+			
+			gameSecondTickTimer?.invalidate()
 			gameSecondTickTimer = nil
 			
 			//게임 끝. 알람끄기 버튼 표시. 리타이어 버튼이 이미 나와있는 경우, 다시 없앰
@@ -487,7 +490,7 @@ class GameStructureScene:SKScene {
 			//이동 거리 찍어주기
 			swipeGestureMoved += touchesLatestPoint.y - location.y
 			touchesLatestPoint.x = location.x
-			touchesLatestPoint.y = location.y;
+			touchesLatestPoint.y = location.y
 		}
 	} // end func
 	

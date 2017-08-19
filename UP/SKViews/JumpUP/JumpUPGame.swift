@@ -1673,6 +1673,9 @@ class JumpUPGame:GameStructureScene, UIScrollViewDelegate {
 	override func awakeHandler() {
 		
 		if (isGameFinished == true && gameScore <= 0) {
+			// Change BGM
+			SoundManager.playBGMSound(SoundManager.bundleSounds.GameJumpUPBGM.rawValue)
+			
 			// Reset game
 			gameScore = 30
 			isGameFinished = false

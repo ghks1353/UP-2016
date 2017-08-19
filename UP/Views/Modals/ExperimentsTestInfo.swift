@@ -112,7 +112,7 @@ class ExperimentsTestInfo:UIViewController {
 		informationStr += "Games data len: " + String(gamesDataLen) + "\n"
 		
 		informationStr += "\nAdvertisement\n"
-		informationStr += "ADID: " + ASIdentifierManager.shared().advertisingIdentifier.uuidString + "\n"
+		informationStr += "ADID: " + (ASIdentifierManager.shared()?.advertisingIdentifier?.uuidString ?? "null") + "\n"
 		informationStr += "UnityAds version: " + String(UnityAds.getVersion()) + "\n"
 		informationStr += "UnityAds inited: " + String(UnityAds.isInitialized()) + "\n"
 		informationStr += "UnityAds testmode: " + String(UnityAds.getDebugMode()) + "\n"

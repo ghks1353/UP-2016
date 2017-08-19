@@ -156,7 +156,6 @@
 		7714CAB91E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7714CAB81E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png */; };
 		7717A6EE1E41BB8D00076E16 /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */; };
 		7717A6F21E41CF8900076E16 /* bgm-game-jumpup-field.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F01E41CF8900076E16 /* bgm-game-jumpup-field.mp3 */; };
-		7717A6F31E41CF8900076E16 /* bgm-game-waiting.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F11E41CF8900076E16 /* bgm-game-waiting.mp3 */; };
 		7717A6F51E42679200076E16 /* comp-buyup-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F41E42679200076E16 /* comp-buyup-icon.png */; };
 		7717A6F71E4267D000076E16 /* comp-icons-settings-donate.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F61E4267D000076E16 /* comp-icons-settings-donate.png */; };
 		7717A6FA1E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 7717A6F91E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png */; };
@@ -478,6 +477,8 @@
 		77A058391E3CC2F800E04968 /* FirebaseTopicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A058381E3CC2F800E04968 /* FirebaseTopicManager.swift */; };
 		77A0583C1E3D07A200E04968 /* ALDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0583B1E3D07A200E04968 /* ALDManager.swift */; };
 		77AC4F8D1CABD7280044F5C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */; };
+		77BBDDD01F407177003B3F9E /* bgm-game-waiting.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77BBDDCF1F407177003B3F9E /* bgm-game-waiting.mp3 */; };
+		77BBDDD21F407221003B3F9E /* bgm-game-finished.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77BBDDD11F407221003B3F9E /* bgm-game-finished.mp3 */; };
 		77BFB47E1E54F4E200470CEE /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BFB47D1E54F4E200470CEE /* ResourceManager.swift */; };
 		77BFB4811E54F5BB00470CEE /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BFB47F1E54F5BB00470CEE /* GameData.swift */; };
 		77BFB4821E54F5BB00470CEE /* SoundData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BFB4801E54F5BB00470CEE /* SoundData.swift */; };
@@ -679,7 +680,6 @@
 		7714CAB81E4BA1CD00E447E9 /* modal-buy-heroes-full-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "modal-buy-heroes-full-logo.png"; path = "ImageAssets/ModalWindows/BuyPack/modal-buy-heroes-full-logo.png"; sourceTree = "<group>"; };
 		7717A6ED1E41BB8D00076E16 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemoteConfigManager.swift; path = Managers/RemoteConfigManager.swift; sourceTree = "<group>"; };
 		7717A6F01E41CF8900076E16 /* bgm-game-jumpup-field.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-jumpup-field.mp3"; path = "SoundAssets/BGMSounds/bgm-game-jumpup-field.mp3"; sourceTree = "<group>"; };
-		7717A6F11E41CF8900076E16 /* bgm-game-waiting.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-waiting.mp3"; path = "SoundAssets/BGMSounds/bgm-game-waiting.mp3"; sourceTree = "<group>"; };
 		7717A6F41E42679200076E16 /* comp-buyup-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-buyup-icon.png"; path = "ImageAssets/Components/comp-buyup-icon.png"; sourceTree = "<group>"; };
 		7717A6F61E4267D000076E16 /* comp-icons-settings-donate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comp-icons-settings-donate.png"; path = "ImageAssets/Components/Icons/comp-icons-settings-donate.png"; sourceTree = "<group>"; };
 		7717A6F91E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "game-jumpup-assets-alarm-ad-off.png"; path = "ImageAssets/GameAssets/JumpUP/game-jumpup-assets-alarm-ad-off.png"; sourceTree = "<group>"; };
@@ -1004,6 +1004,8 @@
 		77A058381E3CC2F800E04968 /* FirebaseTopicManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseTopicManager.swift; path = Managers/FirebaseTopicManager.swift; sourceTree = "<group>"; };
 		77A0583B1E3D07A200E04968 /* ALDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ALDManager.swift; path = Managers/ALDManager.swift; sourceTree = "<group>"; };
 		77AC4F8C1CABD7280044F5C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		77BBDDCF1F407177003B3F9E /* bgm-game-waiting.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-waiting.mp3"; path = "SoundAssets/BGMSounds/bgm-game-waiting.mp3"; sourceTree = "<group>"; };
+		77BBDDD11F407221003B3F9E /* bgm-game-finished.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bgm-game-finished.mp3"; path = "SoundAssets/BGMSounds/bgm-game-finished.mp3"; sourceTree = "<group>"; };
 		77BFB47D1E54F4E200470CEE /* ResourceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResourceManager.swift; path = Managers/ResourceManager.swift; sourceTree = "<group>"; };
 		77BFB47F1E54F5BB00470CEE /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameData.swift; path = Managers/StructureClass/GameData.swift; sourceTree = "<group>"; };
 		77BFB4801E54F5BB00470CEE /* SoundData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundData.swift; path = Managers/StructureClass/SoundData.swift; sourceTree = "<group>"; };
@@ -1412,8 +1414,9 @@
 		7717A6EF1E41CE4E00076E16 /* BGM */ = {
 			isa = PBXGroup;
 			children = (
+				77BBDDD11F407221003B3F9E /* bgm-game-finished.mp3 */,
+				77BBDDCF1F407177003B3F9E /* bgm-game-waiting.mp3 */,
 				7717A6F01E41CF8900076E16 /* bgm-game-jumpup-field.mp3 */,
-				7717A6F11E41CF8900076E16 /* bgm-game-waiting.mp3 */,
 				7719776D1E48DFFD0018EE00 /* bgm-game-gozaup-field.mp3 */,
 			);
 			name = BGM;
@@ -2736,7 +2739,6 @@
 				771977581E48DFBD0018EE00 /* game-gozaup-assets-cheeta.png in Resources */,
 				775EB0561D51E64F00BE8C4A /* game-jumpup-assets-guide-0.png in Resources */,
 				7717A6F21E41CF8900076E16 /* bgm-game-jumpup-field.mp3 in Resources */,
-				7717A6F31E41CF8900076E16 /* bgm-game-waiting.mp3 in Resources */,
 				776070561F2DFB1700ACE8EC /* effect-game-general-time-down-last.wav in Resources */,
 				778FCD821E5B14B5000B7FD0 /* characterinfo-exp.gif in Resources */,
 				7717A6FA1E434E7200076E16 /* game-jumpup-assets-alarm-ad-off.png in Resources */,
@@ -2861,6 +2863,7 @@
 				77454BE11E54478F003B9678 /* theme-default-list-back-morning-on.png in Resources */,
 				772BB1B01DE8BC5D0054B3EF /* game-jumpup-ai-astro-left-move-5.png in Resources */,
 				03E1D12A1CF0BC7000B552FC /* characterinfo-level.png in Resources */,
+				77BBDDD21F407221003B3F9E /* bgm-game-finished.mp3 in Resources */,
 				0323191C1CFB5C7B0052732F /* characterinfo-exp-deco-18.png in Resources */,
 				772BB1B71DE8BC710054B3EF /* game-jumpup-ai-astro-left-jump-2.png in Resources */,
 				778FCD961E5EB6BE000B7FD0 /* effect-game-jumpup-warning.wav in Resources */,
@@ -2989,6 +2992,7 @@
 				03E1D12F1CF1BCF000B552FC /* characterinfo-exp-deco.png in Resources */,
 				03425BA11CD099C800243B28 /* comp-alarm-notfound.png in Resources */,
 				77454C441E54485A003B9678 /* theme-default-digital-black-6.png in Resources */,
+				77BBDDD01F407177003B3F9E /* bgm-game-waiting.mp3 in Resources */,
 				771CD14E1E478D4800574AD8 /* modal-guide-images-all-1-general.png in Resources */,
 				77454C461E54485A003B9678 /* theme-default-digital-black-8.png in Resources */,
 				03425B8E1CD0635700243B28 /* comp-icons-settings-developers.png in Resources */,
@@ -3052,13 +3056,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UP-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F30876A6F6C881530BD74578 /* [CP] Embed Pods Frameworks */ = {
@@ -3067,9 +3074,28 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-UP/Pods-UP-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/Gifu/Gifu.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gifu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

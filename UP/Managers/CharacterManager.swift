@@ -7,7 +7,7 @@
 //
 
 import Foundation;
-import CryptoSwift;
+//import CryptoSwift;
 
 class CharacterManager {
 	
@@ -36,8 +36,8 @@ class CharacterManager {
 		} //레벨업 루틴 끝
 		
 		//체크섬을 대입.
-		currentCharInfo.characterLevelChecksum = makeLvChecksum(currentCharInfo.characterLevel);
-		currentCharInfo.characterExpChecksum = makeExpChecksum(currentCharInfo.characterExp);
+		//currentCharInfo.characterLevelChecksum = makeLvChecksum(currentCharInfo.characterLevel);
+		//currentCharInfo.characterExpChecksum = makeExpChecksum(currentCharInfo.characterExp);
 		
 		print("current exp:", currentCharInfo.characterExp, ", max:", maxEXPLevelIn, ", percent:", getExpProgress());
 		
@@ -49,8 +49,8 @@ class CharacterManager {
 		currentCharInfo.characterLevel = infoObject.characterLevel;
 		currentCharInfo.characterExp = infoObject.characterExp;
 		
-		currentCharInfo.characterLevelChecksum = makeLvChecksum(infoObject.characterLevel);
-		currentCharInfo.characterExpChecksum = makeExpChecksum(infoObject.characterExp);
+		//currentCharInfo.characterLevelChecksum = makeLvChecksum(infoObject.characterLevel);
+		//ßcurrentCharInfo.characterExpChecksum = makeExpChecksum(infoObject.characterExp);
 		save();
 	}
 	
@@ -63,27 +63,27 @@ class CharacterManager {
 		} else {
 			//아래 과정에서 다 알아서 해줌
 		}
-		let lvChecksum:String = makeLvChecksum(currentCharInfo.characterLevel);
-		let expChecksum:String = makeExpChecksum(currentCharInfo.characterExp);
-		if (currentCharInfo.characterLevelChecksum != lvChecksum) {
+		//let lvChecksum:String = makeLvChecksum(currentCharInfo.characterLevel);
+		//let expChecksum:String = makeExpChecksum(currentCharInfo.characterExp);
+		/*if (currentCharInfo.characterLevelChecksum != lvChecksum) {
 			currentCharInfo.characterLevel = 1; //레벨 1로 초기화
-			currentCharInfo.characterLevelChecksum = makeLvChecksum(1);
+			//currentCharInfo.characterLevelChecksum = makeLvChecksum(1);
 		}
 		if (currentCharInfo.characterExpChecksum != expChecksum) {
 			currentCharInfo.characterExp = 0; //경험치 0으로 초기화
-			currentCharInfo.characterExpChecksum = makeExpChecksum(0);
+			//currentCharInfo.characterExpChecksum = makeExpChecksum(0);
 		}
-		
-		save(); //저장
+		*/
+		save() //저장
 	}
-	
+	/*
 	static func makeLvChecksum(_ level:Int) -> String {
 		return UPUtils.SHA256( String(level) + "lvsalt" + String(level * 2) );
 	}
 	static func makeExpChecksum(_ exp:Int) -> String {
 		return UPUtils.SHA256( String(exp) + "exsalt" + String(exp * 4) );
 	}
-	
+	*/
 	static func save() {
 		//DataManager를 통해 저장
 		DataManager.nsDefaults.set(NSKeyedArchiver.archivedData(withRootObject: currentCharInfo), forKey: DataManager.characterInfoKeys.info);

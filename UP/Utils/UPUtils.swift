@@ -8,7 +8,7 @@
 
 import Foundation;
 import UIKit;
-import CryptoSwift;
+//import CryptoSwift;
 
 class UPUtils {
 	
@@ -54,7 +54,7 @@ class UPUtils {
 	static func setInterval(_ interval:TimeInterval, block:@escaping ()->Void) -> Timer {
 		return Timer.scheduledTimer(timeInterval: interval, target: BlockOperation(block: block), selector: #selector(Operation.main), userInfo: nil, repeats: true)
 	}
-	
+	/*
 	//Encode sha256.
 	static func SHA256(_ str:String) -> String {
 		let plainData:Data = str.data(using: String.Encoding.utf8)!
@@ -62,5 +62,5 @@ class UPUtils {
 		
 		return encryptedData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
 	}
-	
+	*/
 }

@@ -2,7 +2,6 @@ platform :ios, '8.1'
 use_frameworks!
 
 target "UP" do
-	pod 'CryptoSwift'
 	pod 'SwiftyJSON'
 	pod 'Gifu'
 	pod 'Charts'
