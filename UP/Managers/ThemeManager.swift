@@ -133,7 +133,7 @@ class ThemeManager {
 		} //end if
 		
 		///// fetch and parse JSON data
-		let jData:JSON = JSON.parse(jStr)
+		let jData:JSON = JSON.init(parseJSON: jStr)
 		
 		//// Parse it
 		for i:Int in 0 ..< jData.arrayValue.count {

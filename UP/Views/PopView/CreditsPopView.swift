@@ -145,7 +145,7 @@ class CreditsPopView:UIModalPopView {
 			"SwiftyStoreKit by Andrea Bizzotto, MIT License\n" +
 			"SwiftyJSON by Ruoyu Fu, MIT License\n" +
 			"SQLite.swift by Stephen Celis, MIT License\n" +
-			"CryptoSwift by Marcin Krzyżanowski, zlib License\n" +
+			/* "CryptoSwift by Marcin Krzyżanowski, zlib License\n" + */
 			"Charts by Daniel Cohen Gindi & Philipp Jahoda, Apache License\n" +
 			"pop by Facebook, BSD License\n" +
 			
@@ -158,7 +158,6 @@ class CreditsPopView:UIModalPopView {
 		//컨텐츠 크기 설정
 		creditsScrollView.contentSize = CGSize(width: DeviceManager.defaultModalSizeRect.width, height: max(DeviceManager.defaultModalSizeRect.height - (self.navigationController?.navigationBar.frame.size.height)!, creditContentsLicense.frame.maxY + 20))
 		self.view.addSubview(creditsScrollView)
-		
 		
 		////// Easter egg! :)
 		let tGesture = UITapGestureRecognizer(target:self, action: #selector(self.gozaGogo(_:)))

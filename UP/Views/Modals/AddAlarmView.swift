@@ -292,6 +292,8 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 	} //end func (define sections num)
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch(section) {
+			case 0:
+				return nil
 			default:
 				return ""
 		} //end switch
@@ -327,14 +329,14 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		switch(section){
 			case 0:
-				return 0.00001
+				return 0.0001
 			default:
 				break
 		} //end switch [section]
 		return 8
 	} //end func
 	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 4
+		return UITableViewAutomaticDimension
 	} //end func [footer section height]
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -399,7 +401,8 @@ class AddAlarmView:UIModalView, UITableViewDataSource, UITableViewDelegate, UITe
 		tCell.cellID = "alarmGame"
 		
 		tCell.accessoryType = .disclosureIndicator
-		tCell.addSubview(tGameSubjectLabel); tCell.addSubview(tGameGenreLabel)
+		tCell.addSubview(tGameSubjectLabel)
+		tCell.addSubview(tGameGenreLabel)
 		
 		tableCells += [tCell]
 		return tCell

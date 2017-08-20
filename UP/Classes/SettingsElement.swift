@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SettingsElement:AnyObject {
+class SettingsElement {
     
 	var settingsID:String = ""
 	var settingsElement:AnyObject?

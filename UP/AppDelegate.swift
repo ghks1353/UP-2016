@@ -106,10 +106,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		print("[UP] App will background")
 		DeviceManager.appIsBackground = true
 		AlarmManager.mergeAlarm()
-		Messaging.messaging().disconnect()
+		Messaging.messaging().shouldEstablishDirectChannel = false
 		
 		SoundManager.setAudioPlayback( .AlarmMode )
-	}
+	} // end func
 	
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.

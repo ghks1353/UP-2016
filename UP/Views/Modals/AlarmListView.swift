@@ -662,16 +662,16 @@ class AlarmListView:UIModalView, UITableViewDataSource, UITableViewDelegate, UIA
 		
 		//Message animation
 		UIView.animate(withDuration: 0.32, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-			self.upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height);
+			self.upAlarmMessageView.frame = CGRect(x: 0, y: 0, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height)
 			}, completion: {_ in
 		}) //end animate block
 		
 		//animation fin.
 		UIView.animate(withDuration: 0.32, delay: 1, options: UIViewAnimationOptions.curveEaseIn, animations: {
-			self.upAlarmMessageView.frame = CGRect(x: 0, y: -self.upAlarmMessageView.frame.height, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height);
+			self.upAlarmMessageView.frame = CGRect(x: 0, y: -self.upAlarmMessageView.frame.height, width: self.upAlarmMessageView.frame.width, height: self.upAlarmMessageView.frame.height)
 			}, completion: {_ in
-				self.upAlarmMessageView.isHidden = true;
-				UIApplication.shared.setStatusBarHidden(false, with: .fade);
+				self.upAlarmMessageView.isHidden = true
+				UIApplication.shared.setStatusBarHidden(false, with: .fade)
 		}) //end animate block
 	} //end func
 	

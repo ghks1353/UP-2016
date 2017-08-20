@@ -36,7 +36,7 @@ class AchievementManager {
 			// example.txt not found!
 		}
 		
-		let jData:JSON = JSON.parse(jStr)
+		let jData:JSON = JSON.init(parseJSON: jStr)
 		
 		//도전과제 파싱
 		for i:Int in 0 ..< jData.arrayValue.count {
